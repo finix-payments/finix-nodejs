@@ -1,0 +1,109 @@
+version: 0.2
+
+env:
+  variables:
+    VERSION_FILE: ".version"
+    # FINIX_ARTIFACTORY_CONTEXTURL: is defined in the AWS CodeBuild console
+    # FINIX_BRANCH: is defined in the AWS CodeBuild console
+    # FINIX_DOMAIN: is defined in the AWS CodeBuild console
+    # FINIX_GRADLE_DAEMON: is defined in the AWS CodeBuild console
+  parameter-store:
+    ARTIFACTORY_USERNAME: "/Artifactory/username"
+    ARTIFACTORY_PASSWORD: "/Artifactory/password"
+    GH_PAT_USERNAME: "/Github/PAT/CICD/username"
+    GH_PAT_VAL: "/Github/PAT/CICD/value"
+
+phases:
+  install:
+    commands:
+      ##################################################
+      # CodePipeline does NOT pull the .git dir from Github when it auto downloads the repo!  So, we
+      # have to pull the repo manually; as we need the .git dir to later get the commit message.
+      #
+      # When CodePipeline initially pulls the repo it puts all the files of the branch into the 'src'
+      # dir, *not* into a dir with the name of the repo!!!  When CodePipeline invokes Codebuild it sets
+      # the initial current working dir as the 'src' dir.  To pull the repo manually:
+      # 1) delete all the files that was auto downloaded by CodePipeline,
+      # 2) cd to the parent dir of the 'src' dir,
+      # 3) manually clone the repo INTO the 'src' dir,
+      #   *CRITICAL* as CodePipeline looks for all the artifacts of the build in the 'src' dir!!!
+      # 4) switch to the correct branch
+      #
+      - rm -rf ..?* .[!.]* *
+      - cd ..
+      - git clone --depth 1 --no-single-branch "https://$GH_PAT_USERNAME:$GH_PAT_VAL@github.com/finix-payments/$FINIX_DOMAIN.git" src
+      - cd src
+      - git checkout $FINIX_BRANCH
+      ##################################################
+      # PostgreSQL is installed in our customized Docker image created to be used for CodeBuild.
+      # Since CodeBuild uses it's own ENTRYPOINT when invoking the Docker image, we have to explicity
+      # start PostgreSQL here.
+      #
+      - service postgresql start
+      ##################################################
+      # We need to create the `gradle.properties` file before we start the build.
+      # It has the credentials to access our Artifactory repository.
+      #
+      - mkdir ~/.gradle
+      - echo "org.gradle.daemon=$FINIX_GRADLE_DAEMON" >> ~/.gradle/gradle.properties
+      - echo "artifactory_user=$ARTIFACTORY_USERNAME" >> ~/.gradle/gradle.properties
+      - echo "artifactory_password=$ARTIFACTORY_PASSWORD" >> ~/.gradle/gradle.properties
+      - echo "artifactory_contextUrl=$FINIX_ARTIFACTORY_CONTEXTURL" >> ~/.gradle/gradle.properties
+  pre_build:
+    commands:
+      - echo "CODEBUILD_RESOLVED_SOURCE_VERSION is '$CODEBUILD_RESOLVED_SOURCE_VERSION'"
+      - echo "CODEBUILD_SOURCE_REPO_URL is '$CODEBUILD_SOURCE_REPO_URL'"
+      - echo "CODEBUILD_SOURCE_VERSION is '$CODEBUILD_SOURCE_VERSION'"
+      - echo "CODEBUILD_SRC_DIR is '$CODEBUILD_SRC_DIR'"
+      - echo "FINIX_BRANCH is '$FINIX_BRANCH'"
+      - echo "FINIX_DOMAIN is '$FINIX_DOMAIN'"
+      ##################################################
+      # Create the DB 'build' to be used during the compliation step.
+      # Set the password for the 'postgres' user (it defaults to not being set), as we need it during compilation step.
+      #
+      - createdb -U postgres -O postgres build
+      - sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'postgres';"
+  build:
+    commands:
+      ##################################################
+      # Run the Gradle command to execute the Flyway script against the PostgreSQL DB; needed as JOOQ requires it.
+      # Run the Gradle command to build the application binary.
+      # Move the *.jar files to the dir where we initiated the build, to simplify the artifacts:
+      # section at the end of this file.  This is due to the CodeDeploy scripts expecting the JAR
+      # file to be at the top level of the Zip file.
+      #
+      - cd db
+      - ./gradlew -Dflyway.url=jdbc:postgresql://localhost:5432/build -Dflyway.user=postgres  -Dflyway.password=postgres -Dflyway.configFiles=flyway.conf flywayMigrate
+      - cd ../project-composite
+      - ./gradlew --stacktrace --info $FINIX_GRADLE_TASK --parallel
+      - cd ..
+      - ls -ltR $FINIX_JAR_DIR/build
+      - mv $FINIX_JAR_DIR/build/libs/*-boot.jar . || mv $FINIX_JAR_DIR/build/distributions/*.zip .
+  post_build:
+    commands:
+      ##################################################
+      # We need additional files for CodeDeploy:
+      # 1) cd into the deployscripts folder
+      # 2) mv the correct appspec.yml file to same dir where we did ran the build
+      #
+      - cd deployscripts
+      - mv appspec.yml ../
+      ##################################################
+      # Log the repo, tag, branch, commit IDs & commit msg
+      # to a file in same dir where we did ran the build
+      #
+      - cd $CODEBUILD_SRC_DIR
+      - basename -s .git `git config --get remote.origin.url` >> $VERSION_FILE
+      - git describe --tags --always >> $VERSION_FILE
+      - git rev-parse --abbrev-ref HEAD >> $VERSION_FILE
+      - git rev-parse --short --verify HEAD >> $VERSION_FILE
+      - git log --format=%B -n 1  | tr '\n' ' ' >> $VERSION_FILE
+artifacts:
+  files:
+    - ./*.jar
+    - appspec.yml
+    - deployscripts/**/*
+    - .version
+    # for lambda zips
+    - ./*.zip
+  discard-paths: no

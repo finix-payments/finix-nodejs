@@ -1,0 +1,8 @@
+Jira Ticket [XX-YYYY]
+
+- [ ] I did rebase on latest code of main branch
+- [ ] I organized my commits to keep functional changes as single commit separately from other changes
+- [ ] I made "Pull Request Checklist" comment in JIRA ticket
+- [ ] I wrote Java tests or made qualification test: finix-payments/test-api-automation#xxx
+- [ ] I wrote unit tests or added proof of test execution to JIRA ticket or PR
+- [ ] I received the required approval from a DB Engineer for any sql changes

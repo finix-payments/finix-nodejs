@@ -1,0 +1,32 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/ubuntu/sites/finix-service/current
+hooks:
+  #
+  # ApplicationStop uses scripts/files from previous deploy,
+  # as it's executed before DownloadBundle.  So, we use
+  # BeforeInstall to stop our application
+  # instead to ensure those scripts are always run.
+  #
+  BeforeInstall:
+    - location: deployscripts/deregister_from_elb.sh
+      timeout: 180
+    - location: deployscripts/wait_till_env_is_setup.sh
+      timeout: 240
+    - location: deployscripts/stop_services.sh
+      timeout: 650
+    - location: deployscripts/clean_up_target_dir.sh
+      timeout: 30
+  AfterInstall:
+    - location: deployscripts/setup_target_dir.sh
+      timeout: 30
+  ApplicationStart:
+    - location: deployscripts/start_services.sh
+      timeout: 60
+  ValidateService:
+    - location: deployscripts/check_service_is_up.sh
+      timeout: 300
+    - location: deployscripts/register_with_elb.sh
+      timeout: 180

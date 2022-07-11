@@ -1,0 +1,41 @@
+### Gradle ###
+.gradle
+*/build
+/build
+/build/
+
+/out
+/out/
+/target/
+
+### Eclipse project files
+.project
+.classpath
+.settings/
+
+### OSX
+bin/
+.DS_Store
+
+### IntelliJ template
+*.idea
+*.iml
+
+### Emacs backup files
+*~
+*.log*
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+### Java template
+*.class
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+/.idea/vcs.xml
+/.idea/modules.xml
+/.idea/misc.xml

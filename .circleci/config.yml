@@ -1,0 +1,85 @@
+version: 2.1
+
+jobs:
+  sonarqube:
+    docker:
+      - image: cimg/openjdk:11.0
+    resource_class: medium
+
+    environment:
+      JAVA_TOOL_OPTIONS: -Xmx800m
+      GRADLE_OPTS: -Xmx800m
+      GRADLE_ACTION: sonarqube
+      MAIN_GIT_BRANCH: main
+
+    steps:
+      - checkout
+      - run:
+          name: Sonarqube analysis
+          command: |
+            sudo mkdir -p /var/log/finix
+            sudo chmod ugo+rwx /var/log/finix
+            echo "Gradle action: "$GRADLE_ACTION
+            echo "Branch: "$CIRCLE_BRANCH
+            echo "circleci tag: "${CIRCLE_TAG}
+            PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | sed -E "s|.*/pull/||")
+            echo "PR: "$PR_NUMBER
+            if [ -z "${CIRCLE_TAG}" ]
+            then
+              if [ -z "${PR_NUMBER}" ]
+              then
+                echo "Pushing SonarQube results to branch: "$CIRCLE_BRANCH
+                ./gradlew -Dorg.gradle.jvmargs='-XX:MaxMetaspaceSize=1g' \
+                  -Dsonar.branch.name=$CIRCLE_BRANCH \
+                  -Dsonar.dependencyCheck.summarize=true \
+                  -Dsonar.login=$SONARQUBE_SERVER_LOGIN \
+                  -Dsonar.host.url=$SONARQUBE_SERVER_URL \
+                  dependencyCheckAnalyze $GRADLE_ACTION  \
+                  --info --stacktrace  2>&1 | tee ~/project/.circleci/outfile.txt
+              else
+                echo "Pushing SonarQube results to PR: "$PR_NUMBER
+                ./gradlew -Dorg.gradle.jvmargs='-XX:MaxMetaspaceSize=1g' \
+                  -Dsonar.pullrequest.branch=$CIRCLE_BRANCH \
+                  -Dsonar.pullrequest.key=$PR_NUMBER \
+                  -Dsonar.pullrequest.base=$MAIN_GIT_BRANCH \
+                  -Dsonar.qualitygate.wait=true \
+                  -Dsonar.dependencyCheck.summarize=true \
+                  -Dsonar.login=$SONARQUBE_SERVER_LOGIN \
+                  -Dsonar.host.url=$SONARQUBE_SERVER_URL \
+                  dependencyCheckAnalyze $GRADLE_ACTION  \
+                  --info --stacktrace  2>&1 | tee ~/project/.circleci/outfile.txt
+              fi
+            else
+              echo "Gradle is skipped, no reason to run analysis on code that will be deployed"
+            fi
+          working_directory: ~/project/project-composite
+
+  assemble:
+    docker:
+      - image: cimg/openjdk:11.0
+    resource_class: medium
+
+    steps:
+      - checkout
+      - run:
+          name: Assemble
+          command: ./gradlew assembleAll
+          working_directory: ~/project/project-composite
+      - run:
+          name: Show jar files
+          command: find . -name "*boot.jar"
+          working_directory: ~/project/project-composite
+
+workflows:
+  version: 2
+
+  assemble:
+    jobs:
+      - assemble
+
+  sonarqube:
+    jobs:
+      - sonarqube:
+          context:
+            - sonarqube
+
