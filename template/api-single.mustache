@@ -152,6 +152,7 @@ export class {{classname}} {
 
 {{#operation}}
     /**
+     * Helper function. 
      * {{&notes}}
      {{#summary}}
      * @summary {{&summary}}
@@ -173,10 +174,10 @@ export class {{classname}} {
     */
     {{/vendorExtensions.x-group-parameters}}
     {{^vendorExtensions.x-group-parameters}}
-    public async {{#vendorExtensions.x-java-method-name}}{{{.}}}Helper{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Helper{{/vendorExtensions.x-java-method-name}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; {{#returnType}}body: {{{.}}}; {{/returnType}}{{^returnType}}body?: any; {{/returnType}} }> {
+    private async {{#vendorExtensions.x-java-method-name}}{{{.}}}Helper{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Helper{{/vendorExtensions.x-java-method-name}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; {{#returnType}}body: {{{.}}}; {{/returnType}}{{^returnType}}body?: any; {{/returnType}} }> {
     {{/vendorExtensions.x-group-parameters}}    
     {{#vendorExtensions.x-group-parameters}}
-    public async {{#vendorExtensions.x-java-method-name}}{{{.}}}Helper{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Helper{{/vendorExtensions.x-java-method-name}} ({{#allParams}}{{#required}}{{paramName}}: {{{dataType}}}, {{/required}}{{/allParams}}{{nickname}}QueryParams?:{{#lambda.titlecase}}{{nickname}}QueryParams{{/lambda.titlecase}}, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; {{#returnType}}body: {{{.}}}; {{/returnType}}{{^returnType}}body?: any; {{/returnType}} }> {
+    private async {{#vendorExtensions.x-java-method-name}}{{{.}}}Helper{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Helper{{/vendorExtensions.x-java-method-name}} ({{#allParams}}{{#required}}{{paramName}}: {{{dataType}}}, {{/required}}{{/allParams}}{{nickname}}QueryParams?:{{#lambda.titlecase}}{{nickname}}QueryParams{{/lambda.titlecase}}, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; {{#returnType}}body: {{{.}}}; {{/returnType}}{{^returnType}}body?: any; {{/returnType}} }> {
     {{/vendorExtensions.x-group-parameters}}  
         const localVarPath = this.basePath + '{{{path}}}'{{#pathParams}}
             .replace('{' + '{{baseName}}' + '}', encodeURIComponent(String({{paramName}}))){{/pathParams}};
