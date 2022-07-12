@@ -12,7 +12,7 @@
 
 
 import localVarRequest from 'request';
-import http from 'http';
+import * as http from 'http';
 
 /* tslint:disable:no-unused-locals */
 import { CreateSettlementRequest } from '../model/createSettlementRequest';
@@ -133,6 +133,7 @@ export class SettlementsApi {
         let localVarFormParams: any = {};
 
 
+
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -189,16 +190,12 @@ export class SettlementsApi {
      * @param createSettlementRequest 
      */
 
-    public async create(createSettlementRequest?: CreateSettlementRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Settlement| {response: http.IncomingMessage; body: Settlement; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async create(createSettlementRequest?: CreateSettlementRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Settlement| {response: http.IncomingMessage; body: Settlement; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.createHelper(createSettlementRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -235,6 +232,7 @@ export class SettlementsApi {
         if (settlementId === null || settlementId === undefined) {
             throw new Error('Required parameter settlementId was null or undefined when calling getSettlement.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -292,16 +290,12 @@ export class SettlementsApi {
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      */
 
-    public async get(settlementId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Settlement| {response: http.IncomingMessage; body: Settlement; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async get(settlementId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Settlement| {response: http.IncomingMessage; body: Settlement; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.getHelper(settlementId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -350,6 +344,7 @@ export class SettlementsApi {
             if (listSettlementFundingTransfersQueryParams.beforeCursor !== undefined) {
                 localVarQueryParameters['before_cursor'] = ObjectSerializer.serialize(listSettlementFundingTransfersQueryParams.beforeCursor, "string");
             }
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -408,16 +403,12 @@ export class SettlementsApi {
     * @param settlementId ID of &#x60;Settlement&#x60; object.
     * 
     */
-    public async listFundingTransfers (settlementId: string, listSettlementFundingTransfersQueryParams?:ListSettlementFundingTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<TransfersList| {response: http.IncomingMessage; body: TransfersList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async listFundingTransfers (settlementId: string, listSettlementFundingTransfersQueryParams?:ListSettlementFundingTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |TransfersList| {response: http.IncomingMessage; body: TransfersList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.listFundingTransfersHelper(settlementId, listSettlementFundingTransfersQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -466,6 +457,7 @@ export class SettlementsApi {
             if (listSettlementTransfersQueryParams.beforeCursor !== undefined) {
                 localVarQueryParameters['before_cursor'] = ObjectSerializer.serialize(listSettlementTransfersQueryParams.beforeCursor, "string");
             }
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -524,16 +516,12 @@ export class SettlementsApi {
     * @param settlementId ID of &#x60;Settlement&#x60; object.
     * 
     */
-    public async listTransfersBySettlementId (settlementId: string, listSettlementTransfersQueryParams?:ListSettlementTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<TransfersList| {response: http.IncomingMessage; body: TransfersList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async listTransfersBySettlementId (settlementId: string, listSettlementTransfersQueryParams?:ListSettlementTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |TransfersList| {response: http.IncomingMessage; body: TransfersList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.listTransfersBySettlementIdHelper(settlementId, listSettlementTransfersQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -589,6 +577,7 @@ export class SettlementsApi {
             if (listSettlementsQueryParams.beforeCursor !== undefined) {
                 localVarQueryParameters['before_cursor'] = ObjectSerializer.serialize(listSettlementsQueryParams.beforeCursor, "string");
             }
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -645,16 +634,12 @@ export class SettlementsApi {
      * @summary List Settlements
 
     */
-    public async list (listSettlementsQueryParams?:ListSettlementsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<SettlementsList| {response: http.IncomingMessage; body: SettlementsList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async list (listSettlementsQueryParams?:ListSettlementsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |SettlementsList| {response: http.IncomingMessage; body: SettlementsList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.listHelper(listSettlementsQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -692,6 +677,7 @@ export class SettlementsApi {
         if (settlementId === null || settlementId === undefined) {
             throw new Error('Required parameter settlementId was null or undefined when calling removeSettlementTransfers.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -750,16 +736,12 @@ export class SettlementsApi {
      * @param removeSettlementTransfer 
      */
 
-    public async removeTransfersFromSettlement(settlementId: string, removeSettlementTransfer?: RemoveSettlementTransfer, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<any| {response: http.IncomingMessage; body?: any;}| {response: http.IncomingMessage; body?: any;}> {
+    public async removeTransfersFromSettlement(settlementId: string, removeSettlementTransfer?: RemoveSettlementTransfer, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |any| {response: http.IncomingMessage; body?: any;}| {response: http.IncomingMessage; body?: any;}> {
         const responseObject = await this.removeTransfersFromSettlementHelper(settlementId, removeSettlementTransfer,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -797,6 +779,7 @@ export class SettlementsApi {
         if (settlementId === null || settlementId === undefined) {
             throw new Error('Required parameter settlementId was null or undefined when calling updateSettlement.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -856,16 +839,12 @@ export class SettlementsApi {
      * @param updateSettlementRequest 
      */
 
-    public async update(settlementId: string, updateSettlementRequest?: UpdateSettlementRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Settlement| {response: http.IncomingMessage; body: Settlement; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async update(settlementId: string, updateSettlementRequest?: UpdateSettlementRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Settlement| {response: http.IncomingMessage; body: Settlement; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.updateHelper(settlementId, updateSettlementRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -877,4 +856,12 @@ export class SettlementsApi {
         return responseObject.body;
     }
 
+
+    private async embeddedHelper(responseObject: any){
+        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        dataList.page = responseObject.body.page;
+        dataList.links = responseObject.body.links;
+        return dataList;
+    }
 }

@@ -12,7 +12,7 @@
 
 
 import localVarRequest from 'request';
-import http from 'http';
+import * as http from 'http';
 
 /* tslint:disable:no-unused-locals */
 import { CreateExternalLinkRequest } from '../model/createExternalLinkRequest';
@@ -137,6 +137,7 @@ export class FilesApi {
         }
 
 
+
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -194,16 +195,12 @@ export class FilesApi {
      * @param createExternalLinkRequest 
      */
 
-    public async createExternalLink(fileId: string, createExternalLinkRequest?: CreateExternalLinkRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<ExternalLink| {response: http.IncomingMessage; body: ExternalLink; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async createExternalLink(fileId: string, createExternalLinkRequest?: CreateExternalLinkRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |ExternalLink| {response: http.IncomingMessage; body: ExternalLink; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.createExternalLinkHelper(fileId, createExternalLinkRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -234,6 +231,7 @@ export class FilesApi {
             localVarHeaderParams.Accept = produces.join(',');
         }
         let localVarFormParams: any = {};
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -292,16 +290,12 @@ export class FilesApi {
      * @param createFileRequest 
      */
 
-    public async create(createFileRequest?: CreateFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<any| {response: http.IncomingMessage; body: any; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async create(createFileRequest?: CreateFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |any| {response: http.IncomingMessage; body: any; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.createHelper(createFileRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -338,6 +332,7 @@ export class FilesApi {
         if (fileId === null || fileId === undefined) {
             throw new Error('Required parameter fileId was null or undefined when calling downloadFile.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -395,16 +390,12 @@ export class FilesApi {
      * @param fileId The ID of the &#x60;File&#x60; that was created to upload the file.
      */
 
-    public async downloadFile(fileId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Buffer| {response: http.IncomingMessage; body: Buffer; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async downloadFile(fileId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Buffer| {response: http.IncomingMessage; body: Buffer; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.downloadFileHelper(fileId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -448,6 +439,7 @@ export class FilesApi {
         if (externalLinkId === null || externalLinkId === undefined) {
             throw new Error('Required parameter externalLinkId was null or undefined when calling getExternalLink.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -506,16 +498,12 @@ export class FilesApi {
      * @param externalLinkId The ID of the &#x60;external_link&#x60; that you want to retireve.
      */
 
-    public async getExternalLink(fileId: string, externalLinkId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<ExternalLink| {response: http.IncomingMessage; body: ExternalLink; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async getExternalLink(fileId: string, externalLinkId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |ExternalLink| {response: http.IncomingMessage; body: ExternalLink; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.getExternalLinkHelper(fileId, externalLinkId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -552,6 +540,7 @@ export class FilesApi {
         if (fileId === null || fileId === undefined) {
             throw new Error('Required parameter fileId was null or undefined when calling getFile.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -609,16 +598,12 @@ export class FilesApi {
      * @param fileId Your &#x60;File&#x60; ID.
      */
 
-    public async get(fileId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<any| {response: http.IncomingMessage; body: any; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async get(fileId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |any| {response: http.IncomingMessage; body: any; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.getHelper(fileId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -685,6 +670,7 @@ export class FilesApi {
             if (listExternalLinksQueryParams.beforeCursor !== undefined) {
                 localVarQueryParameters['before_cursor'] = ObjectSerializer.serialize(listExternalLinksQueryParams.beforeCursor, "string");
             }
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -743,16 +729,12 @@ export class FilesApi {
     * @param fileId Your &#x60;File&#x60; ID.
     * 
     */
-    public async listExternalLinks (fileId: string, listExternalLinksQueryParams?:ListExternalLinksQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<ExternalLinksList| {response: http.IncomingMessage; body: ExternalLinksList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async listExternalLinks (fileId: string, listExternalLinksQueryParams?:ListExternalLinksQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |ExternalLinksList| {response: http.IncomingMessage; body: ExternalLinksList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.listExternalLinksHelper(fileId, listExternalLinksQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -811,6 +793,7 @@ export class FilesApi {
             if (listFilesQueryParams.beforeCursor !== undefined) {
                 localVarQueryParameters['before_cursor'] = ObjectSerializer.serialize(listFilesQueryParams.beforeCursor, "string");
             }
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -867,16 +850,12 @@ export class FilesApi {
      * @summary List All Files
 
     */
-    public async list (listFilesQueryParams?:ListFilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<FilesList| {response: http.IncomingMessage; body: FilesList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async list (listFilesQueryParams?:ListFilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |FilesList| {response: http.IncomingMessage; body: FilesList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.listHelper(listFilesQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -914,6 +893,7 @@ export class FilesApi {
         if (fileId === null || fileId === undefined) {
             throw new Error('Required parameter fileId was null or undefined when calling uploadFile.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -973,16 +953,12 @@ export class FilesApi {
      * @param uploadFileRequest 
      */
 
-    public async uploadFile(fileId: string, uploadFileRequest?: UploadFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<any| {response: http.IncomingMessage; body: any; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async uploadFile(fileId: string, uploadFileRequest?: UploadFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |any| {response: http.IncomingMessage; body: any; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.uploadFileHelper(fileId, uploadFileRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -994,4 +970,12 @@ export class FilesApi {
         return responseObject.body;
     }
 
+
+    private async embeddedHelper(responseObject: any){
+        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        dataList.page = responseObject.body.page;
+        dataList.links = responseObject.body.links;
+        return dataList;
+    }
 }

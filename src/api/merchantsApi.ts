@@ -12,7 +12,7 @@
 
 
 import localVarRequest from 'request';
-import http from 'http';
+import * as http from 'http';
 
 /* tslint:disable:no-unused-locals */
 import { CreateMerchantUnderwritingRequest } from '../model/createMerchantUnderwritingRequest';
@@ -137,6 +137,7 @@ export class MerchantsApi {
         }
 
 
+
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -194,16 +195,12 @@ export class MerchantsApi {
      * @param createMerchantUnderwritingRequest 
      */
 
-    public async create(identityId: string, createMerchantUnderwritingRequest?: CreateMerchantUnderwritingRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Merchant| {response: http.IncomingMessage; body: Merchant; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async create(identityId: string, createMerchantUnderwritingRequest?: CreateMerchantUnderwritingRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Merchant| {response: http.IncomingMessage; body: Merchant; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.createHelper(identityId, createMerchantUnderwritingRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -241,6 +238,7 @@ export class MerchantsApi {
         if (merchantId === null || merchantId === undefined) {
             throw new Error('Required parameter merchantId was null or undefined when calling createMerchantVerification.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -300,16 +298,12 @@ export class MerchantsApi {
      * @param createVerificationRequest 
      */
 
-    public async createMerchantVerification(merchantId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Verification| {response: http.IncomingMessage; body: Verification; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async createMerchantVerification(merchantId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Verification| {response: http.IncomingMessage; body: Verification; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.createMerchantVerificationHelper(merchantId, createVerificationRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -346,6 +340,7 @@ export class MerchantsApi {
         if (merchantId === null || merchantId === undefined) {
             throw new Error('Required parameter merchantId was null or undefined when calling getMerchant.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -403,16 +398,12 @@ export class MerchantsApi {
      * @param merchantId ID of &#x60;Merchant&#x60;.
      */
 
-    public async get(merchantId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Merchant| {response: http.IncomingMessage; body: Merchant; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async get(merchantId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Merchant| {response: http.IncomingMessage; body: Merchant; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.getHelper(merchantId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -465,6 +456,7 @@ export class MerchantsApi {
             if (listMerchantsQueryParams.beforeCursor !== undefined) {
                 localVarQueryParameters['before_cursor'] = ObjectSerializer.serialize(listMerchantsQueryParams.beforeCursor, "string");
             }
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -521,16 +513,12 @@ export class MerchantsApi {
      * @summary List Merchants
 
     */
-    public async list (listMerchantsQueryParams?:ListMerchantsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<MerchantsList| {response: http.IncomingMessage; body: MerchantsList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async list (listMerchantsQueryParams?:ListMerchantsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |MerchantsList| {response: http.IncomingMessage; body: MerchantsList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.listHelper(listMerchantsQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -568,6 +556,7 @@ export class MerchantsApi {
         if (merchantId === null || merchantId === undefined) {
             throw new Error('Required parameter merchantId was null or undefined when calling updateMerchant.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -627,16 +616,12 @@ export class MerchantsApi {
      * @param updateMerchantRequest 
      */
 
-    public async update(merchantId: string, updateMerchantRequest?: UpdateMerchantRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Merchant| {response: http.IncomingMessage; body: Merchant; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async update(merchantId: string, updateMerchantRequest?: UpdateMerchantRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Merchant| {response: http.IncomingMessage; body: Merchant; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.updateHelper(merchantId, updateMerchantRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -648,4 +633,12 @@ export class MerchantsApi {
         return responseObject.body;
     }
 
+
+    private async embeddedHelper(responseObject: any){
+        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        dataList.page = responseObject.body.page;
+        dataList.links = responseObject.body.links;
+        return dataList;
+    }
 }

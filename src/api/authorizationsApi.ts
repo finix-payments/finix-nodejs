@@ -12,7 +12,7 @@
 
 
 import localVarRequest from 'request';
-import http from 'http';
+import * as http from 'http';
 
 /* tslint:disable:no-unused-locals */
 import { Authorization } from '../model/authorization';
@@ -129,6 +129,7 @@ export class AuthorizationsApi {
         let localVarFormParams: any = {};
 
 
+
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -185,16 +186,12 @@ export class AuthorizationsApi {
      * @param createAuthorizationRequest 
      */
 
-    public async create(createAuthorizationRequest?: CreateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Authorization| {response: http.IncomingMessage; body: Authorization; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async create(createAuthorizationRequest?: CreateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Authorization| {response: http.IncomingMessage; body: Authorization; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.createHelper(createAuthorizationRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -231,6 +228,7 @@ export class AuthorizationsApi {
         if (authorizationId === null || authorizationId === undefined) {
             throw new Error('Required parameter authorizationId was null or undefined when calling getAuthorization.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -288,16 +286,12 @@ export class AuthorizationsApi {
      * @param authorizationId ID of authorization to fetch
      */
 
-    public async get(authorizationId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Authorization| {response: http.IncomingMessage; body: Authorization; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async get(authorizationId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Authorization| {response: http.IncomingMessage; body: Authorization; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.getHelper(authorizationId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -416,6 +410,7 @@ export class AuthorizationsApi {
             if (listAuthorizationsQueryParams.afterCursor !== undefined) {
                 localVarQueryParameters['after_cursor'] = ObjectSerializer.serialize(listAuthorizationsQueryParams.afterCursor, "string");
             }
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -472,16 +467,12 @@ export class AuthorizationsApi {
      * @summary List Authorizations
 
     */
-    public async list (listAuthorizationsQueryParams?:ListAuthorizationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<AuthorizationsList| {response: http.IncomingMessage; body: AuthorizationsList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async list (listAuthorizationsQueryParams?:ListAuthorizationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |AuthorizationsList| {response: http.IncomingMessage; body: AuthorizationsList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.listHelper(listAuthorizationsQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -519,6 +510,7 @@ export class AuthorizationsApi {
         if (authorizationId === null || authorizationId === undefined) {
             throw new Error('Required parameter authorizationId was null or undefined when calling updateAuthorization.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -578,16 +570,12 @@ export class AuthorizationsApi {
      * @param updateAuthorizationRequest 
      */
 
-    public async update(authorizationId: string, updateAuthorizationRequest?: UpdateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Authorization| {response: http.IncomingMessage; body: Authorization; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async update(authorizationId: string, updateAuthorizationRequest?: UpdateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Authorization| {response: http.IncomingMessage; body: Authorization; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.updateHelper(authorizationId, updateAuthorizationRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -599,4 +587,12 @@ export class AuthorizationsApi {
         return responseObject.body;
     }
 
+
+    private async embeddedHelper(responseObject: any){
+        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        dataList.page = responseObject.body.page;
+        dataList.links = responseObject.body.links;
+        return dataList;
+    }
 }

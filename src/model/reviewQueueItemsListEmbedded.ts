@@ -11,10 +11,10 @@
  */
 
 import { RequestFile } from './models';
-import { ReviewQueueItemsListEmbeddedReviewQueueItemsInner } from './reviewQueueItemsListEmbeddedReviewQueueItemsInner';
+import { ReviewQueueItem } from './reviewQueueItem';
 
 export class ReviewQueueItemsListEmbedded {
-    'reviewQueueItems'?: Set<ReviewQueueItemsListEmbeddedReviewQueueItemsInner>;
+    'reviewQueueItems'?: Set<ReviewQueueItem>;
 
     static discriminator: string | undefined = undefined;
 
@@ -22,7 +22,7 @@ export class ReviewQueueItemsListEmbedded {
         {
             "name": "reviewQueueItems",
             "baseName": "review_queue_items",
-            "type": "Set<ReviewQueueItemsListEmbeddedReviewQueueItemsInner>"
+            "type": "Set<ReviewQueueItem>"
         }    ];
 
     static getAttributeTypeMap() {

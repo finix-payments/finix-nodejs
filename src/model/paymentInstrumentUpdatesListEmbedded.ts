@@ -11,10 +11,10 @@
  */
 
 import { RequestFile } from './models';
-import { InstrumentUpdate1 } from './instrumentUpdate1';
+import { InstrumentUpdate } from './instrumentUpdate';
 
 export class PaymentInstrumentUpdatesListEmbedded {
-    'updates': Set<InstrumentUpdate1>;
+    'updates': Set<InstrumentUpdate>;
 
     static discriminator: string | undefined = undefined;
 
@@ -22,7 +22,7 @@ export class PaymentInstrumentUpdatesListEmbedded {
         {
             "name": "updates",
             "baseName": "updates",
-            "type": "Set<InstrumentUpdate1>"
+            "type": "Set<InstrumentUpdate>"
         }    ];
 
     static getAttributeTypeMap() {

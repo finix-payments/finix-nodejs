@@ -12,7 +12,7 @@
 
 
 import localVarRequest from 'request';
-import http from 'http';
+import * as http from 'http';
 
 /* tslint:disable:no-unused-locals */
 import { CreateInstrumentUpdateRequest } from '../model/createInstrumentUpdateRequest';
@@ -126,6 +126,7 @@ export class InstrumentUpdatesApi {
         let localVarFormParams: any = {};
 
 
+
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -182,16 +183,12 @@ export class InstrumentUpdatesApi {
      * @param createInstrumentUpdateRequest 
      */
 
-    public async create(createInstrumentUpdateRequest?: CreateInstrumentUpdateRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<InstrumentUpdate| {response: http.IncomingMessage; body: InstrumentUpdate; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async create(createInstrumentUpdateRequest?: CreateInstrumentUpdateRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |InstrumentUpdate| {response: http.IncomingMessage; body: InstrumentUpdate; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.createHelper(createInstrumentUpdateRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -234,6 +231,7 @@ export class InstrumentUpdatesApi {
             if (downloadInstrumentUpdateQueryParams.format !== undefined) {
                 localVarQueryParameters['format'] = ObjectSerializer.serialize(downloadInstrumentUpdateQueryParams.format, "string");
             }
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -292,16 +290,12 @@ export class InstrumentUpdatesApi {
     * @param instrumentUpdatesId The ID of the &#x60;instrument_updates&#x60; resource. This ID was returned when initially creating the &#x60;instrument_updates&#x60; object.
     * 
     */
-    public async download (instrumentUpdatesId: string, downloadInstrumentUpdateQueryParams?:DownloadInstrumentUpdateQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<Buffer| {response: http.IncomingMessage; body: Buffer; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async download (instrumentUpdatesId: string, downloadInstrumentUpdateQueryParams?:DownloadInstrumentUpdateQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |Buffer| {response: http.IncomingMessage; body: Buffer; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.downloadHelper(instrumentUpdatesId, downloadInstrumentUpdateQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -338,6 +332,7 @@ export class InstrumentUpdatesApi {
         if (instrumentUpdatesId === null || instrumentUpdatesId === undefined) {
             throw new Error('Required parameter instrumentUpdatesId was null or undefined when calling getInstrumentUpdate.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -395,16 +390,12 @@ export class InstrumentUpdatesApi {
      * @param instrumentUpdatesId The Id of the instrument update.
      */
 
-    public async get(instrumentUpdatesId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<InstrumentUpdate| {response: http.IncomingMessage; body: InstrumentUpdate; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async get(instrumentUpdatesId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |InstrumentUpdate| {response: http.IncomingMessage; body: InstrumentUpdate; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.getHelper(instrumentUpdatesId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -416,4 +407,12 @@ export class InstrumentUpdatesApi {
         return responseObject.body;
     }
 
+
+    private async embeddedHelper(responseObject: any){
+        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        dataList.page = responseObject.body.page;
+        dataList.links = responseObject.body.links;
+        return dataList;
+    }
 }

@@ -11,10 +11,10 @@
  */
 
 import { RequestFile } from './models';
-import { ReserveProfilesListEmbeddedReserveProfilesInner } from './reserveProfilesListEmbeddedReserveProfilesInner';
+import { ReserveProfile } from './reserveProfile';
 
 export class ReserveProfilesListEmbedded {
-    'reserveProfiles'?: Set<ReserveProfilesListEmbeddedReserveProfilesInner>;
+    'reserveProfiles'?: Set<ReserveProfile>;
 
     static discriminator: string | undefined = undefined;
 
@@ -22,7 +22,7 @@ export class ReserveProfilesListEmbedded {
         {
             "name": "reserveProfiles",
             "baseName": "reserve_profiles",
-            "type": "Set<ReserveProfilesListEmbeddedReserveProfilesInner>"
+            "type": "Set<ReserveProfile>"
         }    ];
 
     static getAttributeTypeMap() {

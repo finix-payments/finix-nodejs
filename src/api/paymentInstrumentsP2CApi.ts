@@ -12,7 +12,7 @@
 
 
 import localVarRequest from 'request';
-import http from 'http';
+import * as http from 'http';
 
 /* tslint:disable:no-unused-locals */
 import { CreateVerificationRequest } from '../model/createVerificationRequest';
@@ -132,6 +132,7 @@ export class PaymentInstrumentsP2CApi {
         }
 
 
+
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -189,16 +190,12 @@ export class PaymentInstrumentsP2CApi {
      * @param createVerificationRequest 
      */
 
-    public async createPaymentInstrumentVerification(paymentInstrumentId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Verification| {response: http.IncomingMessage; body: Verification; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async createPaymentInstrumentVerification(paymentInstrumentId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Verification| {response: http.IncomingMessage; body: Verification; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.createPaymentInstrumentVerificationHelper(paymentInstrumentId, createVerificationRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -210,4 +207,12 @@ export class PaymentInstrumentsP2CApi {
         return responseObject.body;
     }
 
+
+    private async embeddedHelper(responseObject: any){
+        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        dataList.page = responseObject.body.page;
+        dataList.links = responseObject.body.links;
+        return dataList;
+    }
 }

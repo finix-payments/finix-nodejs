@@ -12,7 +12,7 @@
 
 
 import localVarRequest from 'request';
-import http from 'http';
+import * as http from 'http';
 
 /* tslint:disable:no-unused-locals */
 import { Application } from '../model/application';
@@ -127,6 +127,7 @@ export class ApplicationsApi {
         let localVarFormParams: any = {};
 
 
+
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -183,16 +184,12 @@ export class ApplicationsApi {
      * @param createApplicationRequest 
      */
 
-    public async create(createApplicationRequest?: CreateApplicationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Application| {response: http.IncomingMessage; body: Application; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async create(createApplicationRequest?: CreateApplicationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Application| {response: http.IncomingMessage; body: Application; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.createHelper(createApplicationRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -229,6 +226,7 @@ export class ApplicationsApi {
         if (applicationId === null || applicationId === undefined) {
             throw new Error('Required parameter applicationId was null or undefined when calling getApplication.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -286,16 +284,12 @@ export class ApplicationsApi {
      * @param applicationId ID of application to use
      */
 
-    public async get(applicationId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Application| {response: http.IncomingMessage; body: Application; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async get(applicationId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Application| {response: http.IncomingMessage; body: Application; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.getHelper(applicationId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -339,6 +333,7 @@ export class ApplicationsApi {
             if (listApplicationsQueryParams.limit !== undefined) {
                 localVarQueryParameters['limit'] = ObjectSerializer.serialize(listApplicationsQueryParams.limit, "number");
             }
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -395,16 +390,12 @@ export class ApplicationsApi {
      * @summary List Applications
 
     */
-    public async list (listApplicationsQueryParams?:ListApplicationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<ApplicationsList| {response: http.IncomingMessage; body: ApplicationsList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async list (listApplicationsQueryParams?:ListApplicationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |ApplicationsList| {response: http.IncomingMessage; body: ApplicationsList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.listHelper(listApplicationsQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -441,6 +432,7 @@ export class ApplicationsApi {
         if (applicationId === null || applicationId === undefined) {
             throw new Error('Required parameter applicationId was null or undefined when calling updateApplication.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -498,16 +490,12 @@ export class ApplicationsApi {
      * @param applicationId ID of application to use
      */
 
-    public async update(applicationId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Application| {response: http.IncomingMessage; body: Application; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async update(applicationId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Application| {response: http.IncomingMessage; body: Application; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.updateHelper(applicationId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -519,4 +507,12 @@ export class ApplicationsApi {
         return responseObject.body;
     }
 
+
+    private async embeddedHelper(responseObject: any){
+        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        dataList.page = responseObject.body.page;
+        dataList.links = responseObject.body.links;
+        return dataList;
+    }
 }

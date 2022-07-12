@@ -11,10 +11,10 @@
  */
 
 import { RequestFile } from './models';
-import { RiskProfileRulesListEmbeddedRiskProfileRulesInner } from './riskProfileRulesListEmbeddedRiskProfileRulesInner';
+import { RiskProfileRule } from './riskProfileRule';
 
 export class RiskProfileRulesListEmbedded {
-    'riskProfileRules'?: Set<RiskProfileRulesListEmbeddedRiskProfileRulesInner>;
+    'riskProfileRules'?: Set<RiskProfileRule>;
 
     static discriminator: string | undefined = undefined;
 
@@ -22,7 +22,7 @@ export class RiskProfileRulesListEmbedded {
         {
             "name": "riskProfileRules",
             "baseName": "risk_profile_rules",
-            "type": "Set<RiskProfileRulesListEmbeddedRiskProfileRulesInner>"
+            "type": "Set<RiskProfileRule>"
         }    ];
 
     static getAttributeTypeMap() {

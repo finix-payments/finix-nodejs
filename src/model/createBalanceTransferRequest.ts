@@ -28,7 +28,7 @@ export class CreateBalanceTransferRequest {
     /**
     * Choose the value that best applies to the account where funds will get credited.
     */
-    'destination'?: CreateBalanceTransferRequest.DestinationEnum;
+    'destination': CreateBalanceTransferRequest.DestinationEnum;
     'currency': Currency;
     /**
     * The total amount that will be debited in cents (e.g. 100 cents to debit $1.00).

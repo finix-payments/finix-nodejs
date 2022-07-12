@@ -12,7 +12,7 @@
 
 
 import localVarRequest from 'request';
-import http from 'http';
+import * as http from 'http';
 
 /* tslint:disable:no-unused-locals */
 import { CreateDevice } from '../model/createDevice';
@@ -132,6 +132,7 @@ export class DevicesApi {
         }
 
 
+
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -189,16 +190,12 @@ export class DevicesApi {
      * @param createDevice 
      */
 
-    public async create(merchantId: string, createDevice?: CreateDevice, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Device| {response: http.IncomingMessage; body: Device; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async create(merchantId: string, createDevice?: CreateDevice, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Device| {response: http.IncomingMessage; body: Device; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.createHelper(merchantId, createDevice,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -235,6 +232,7 @@ export class DevicesApi {
         if (deviceId === null || deviceId === undefined) {
             throw new Error('Required parameter deviceId was null or undefined when calling getDevice.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -292,16 +290,12 @@ export class DevicesApi {
      * @param deviceId ID of the &#x60;Device&#x60;.
      */
 
-    public async get(deviceId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Device| {response: http.IncomingMessage; body: Device; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async get(deviceId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Device| {response: http.IncomingMessage; body: Device; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.getHelper(deviceId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -339,6 +333,7 @@ export class DevicesApi {
         if (deviceId === null || deviceId === undefined) {
             throw new Error('Required parameter deviceId was null or undefined when calling updateDevice.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -398,16 +393,12 @@ export class DevicesApi {
      * @param body 
      */
 
-    public async update(deviceId: string, body?: object, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Device| {response: http.IncomingMessage; body: Device; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async update(deviceId: string, body?: object, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Device| {response: http.IncomingMessage; body: Device; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.updateHelper(deviceId, body,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -419,4 +410,12 @@ export class DevicesApi {
         return responseObject.body;
     }
 
+
+    private async embeddedHelper(responseObject: any){
+        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        dataList.page = responseObject.body.page;
+        dataList.links = responseObject.body.links;
+        return dataList;
+    }
 }

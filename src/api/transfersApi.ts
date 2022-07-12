@@ -12,7 +12,7 @@
 
 
 import localVarRequest from 'request';
-import http from 'http';
+import * as http from 'http';
 
 /* tslint:disable:no-unused-locals */
 import { CreateReversalRequest } from '../model/createReversalRequest';
@@ -132,6 +132,7 @@ export class TransfersApi {
         let localVarFormParams: any = {};
 
 
+
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -188,16 +189,12 @@ export class TransfersApi {
      * @param createTransferRequest 
      */
 
-    public async create(createTransferRequest?: CreateTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Transfer| {response: http.IncomingMessage; body: Transfer; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async create(createTransferRequest?: CreateTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Transfer| {response: http.IncomingMessage; body: Transfer; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.createHelper(createTransferRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -235,6 +232,7 @@ export class TransfersApi {
         if (transferId === null || transferId === undefined) {
             throw new Error('Required parameter transferId was null or undefined when calling createTransferReversal.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -294,16 +292,12 @@ export class TransfersApi {
      * @param createReversalRequest 
      */
 
-    public async createTransferReversal(transferId: string, createReversalRequest?: CreateReversalRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Transfer| {response: http.IncomingMessage; body: Transfer; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async createTransferReversal(transferId: string, createReversalRequest?: CreateReversalRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Transfer| {response: http.IncomingMessage; body: Transfer; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.createTransferReversalHelper(transferId, createReversalRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -340,6 +334,7 @@ export class TransfersApi {
         if (transferId === null || transferId === undefined) {
             throw new Error('Required parameter transferId was null or undefined when calling getTransfer.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -397,16 +392,12 @@ export class TransfersApi {
      * @param transferId ID of &#x60;transfer&#x60; object.
      */
 
-    public async get(transferId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Transfer| {response: http.IncomingMessage; body: Transfer; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async get(transferId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Transfer| {response: http.IncomingMessage; body: Transfer; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.getHelper(transferId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -455,6 +446,7 @@ export class TransfersApi {
             if (listTransferReversalsQueryParams.beforeCursor !== undefined) {
                 localVarQueryParameters['before_cursor'] = ObjectSerializer.serialize(listTransferReversalsQueryParams.beforeCursor, "string");
             }
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -513,16 +505,12 @@ export class TransfersApi {
     * @param transferId ID of &#x60;transfer&#x60; object
     * 
     */
-    public async listTransfersReversals (transferId: string, listTransferReversalsQueryParams?:ListTransferReversalsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<TransfersList| {response: http.IncomingMessage; body: TransfersList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async listTransfersReversals (transferId: string, listTransferReversalsQueryParams?:ListTransferReversalsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |TransfersList| {response: http.IncomingMessage; body: TransfersList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.listTransfersReversalsHelper(transferId, listTransferReversalsQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -650,6 +638,7 @@ export class TransfersApi {
             if (listTransfersQueryParams.beforeCursor !== undefined) {
                 localVarQueryParameters['before_cursor'] = ObjectSerializer.serialize(listTransfersQueryParams.beforeCursor, "string");
             }
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -706,16 +695,12 @@ export class TransfersApi {
      * @summary List Transfers
 
     */
-    public async list (listTransfersQueryParams?:ListTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<TransfersList| {response: http.IncomingMessage; body: TransfersList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async list (listTransfersQueryParams?:ListTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |TransfersList| {response: http.IncomingMessage; body: TransfersList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.listHelper(listTransfersQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -753,6 +738,7 @@ export class TransfersApi {
         if (transferId === null || transferId === undefined) {
             throw new Error('Required parameter transferId was null or undefined when calling updateTransfer.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -812,16 +798,12 @@ export class TransfersApi {
      * @param updateTransferRequest 
      */
 
-    public async update(transferId: string, updateTransferRequest?: UpdateTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Transfer| {response: http.IncomingMessage; body: Transfer; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async update(transferId: string, updateTransferRequest?: UpdateTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Transfer| {response: http.IncomingMessage; body: Transfer; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.updateHelper(transferId, updateTransferRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -833,4 +815,12 @@ export class TransfersApi {
         return responseObject.body;
     }
 
+
+    private async embeddedHelper(responseObject: any){
+        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        dataList.page = responseObject.body.page;
+        dataList.links = responseObject.body.links;
+        return dataList;
+    }
 }

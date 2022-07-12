@@ -12,7 +12,7 @@
 
 
 import localVarRequest from 'request';
-import http from 'http';
+import * as http from 'http';
 
 /* tslint:disable:no-unused-locals */
 import { CreateFeeRequest } from '../model/createFeeRequest';
@@ -127,6 +127,7 @@ export class FeesApi {
         let localVarFormParams: any = {};
 
 
+
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -183,16 +184,12 @@ export class FeesApi {
      * @param createFeeRequest 
      */
 
-    public async create(createFeeRequest?: CreateFeeRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Fee| {response: http.IncomingMessage; body: Fee; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async create(createFeeRequest?: CreateFeeRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Fee| {response: http.IncomingMessage; body: Fee; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.createHelper(createFeeRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -229,6 +226,7 @@ export class FeesApi {
         if (feeId === null || feeId === undefined) {
             throw new Error('Required parameter feeId was null or undefined when calling getFee.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -286,16 +284,12 @@ export class FeesApi {
      * @param feeId ID of fee to use
      */
 
-    public async get(feeId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Fee| {response: http.IncomingMessage; body: Fee; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async get(feeId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Fee| {response: http.IncomingMessage; body: Fee; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.getHelper(feeId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -336,6 +330,7 @@ export class FeesApi {
             if (listFeesQueryParams.beforeCursor !== undefined) {
                 localVarQueryParameters['before_cursor'] = ObjectSerializer.serialize(listFeesQueryParams.beforeCursor, "string");
             }
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -392,16 +387,12 @@ export class FeesApi {
      * @summary List Fees
 
     */
-    public async list (listFeesQueryParams?:ListFeesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<FeesList| {response: http.IncomingMessage; body: FeesList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async list (listFeesQueryParams?:ListFeesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |FeesList| {response: http.IncomingMessage; body: FeesList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.listHelper(listFeesQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -439,6 +430,7 @@ export class FeesApi {
         if (feeId === null || feeId === undefined) {
             throw new Error('Required parameter feeId was null or undefined when calling updateFee.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -498,16 +490,12 @@ export class FeesApi {
      * @param updateFeeRequest 
      */
 
-    public async update(feeId: string, updateFeeRequest?: UpdateFeeRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Fee| {response: http.IncomingMessage; body: Fee; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async update(feeId: string, updateFeeRequest?: UpdateFeeRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Fee| {response: http.IncomingMessage; body: Fee; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.updateHelper(feeId, updateFeeRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -519,4 +507,12 @@ export class FeesApi {
         return responseObject.body;
     }
 
+
+    private async embeddedHelper(responseObject: any){
+        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        dataList.page = responseObject.body.page;
+        dataList.links = responseObject.body.links;
+        return dataList;
+    }
 }

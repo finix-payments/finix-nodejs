@@ -11,10 +11,10 @@
  */
 
 import { RequestFile } from './models';
-import { SettlementEngineSettlementsListEmbeddedSettlementsInner } from './settlementEngineSettlementsListEmbeddedSettlementsInner';
+import { SettlementEngineSettlement } from './settlementEngineSettlement';
 
 export class SettlementEngineSettlementsListEmbedded {
-    'settlements'?: Set<SettlementEngineSettlementsListEmbeddedSettlementsInner>;
+    'settlements'?: Set<SettlementEngineSettlement>;
 
     static discriminator: string | undefined = undefined;
 
@@ -22,7 +22,7 @@ export class SettlementEngineSettlementsListEmbedded {
         {
             "name": "settlements",
             "baseName": "settlements",
-            "type": "Set<SettlementEngineSettlementsListEmbeddedSettlementsInner>"
+            "type": "Set<SettlementEngineSettlement>"
         }    ];
 
     static getAttributeTypeMap() {

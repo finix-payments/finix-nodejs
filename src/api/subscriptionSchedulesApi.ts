@@ -12,7 +12,7 @@
 
 
 import localVarRequest from 'request';
-import http from 'http';
+import * as http from 'http';
 
 /* tslint:disable:no-unused-locals */
 import { CreateSubscriptionScheduleRequest } from '../model/createSubscriptionScheduleRequest';
@@ -134,12 +134,13 @@ export class SubscriptionSchedulesApi {
             throw new Error('Required parameter subscriptionScheduleId was null or undefined when calling getSubscriptionSchedule.');
         }
 
-            if (getSubscriptionScheduleQueryParams.nickname !== undefined) {
-                localVarQueryParameters['nickname'] = ObjectSerializer.serialize(getSubscriptionScheduleQueryParams.nickname, "string");
-            }
-            if (getSubscriptionScheduleQueryParams.type !== undefined) {
-                localVarQueryParameters['type'] = ObjectSerializer.serialize(getSubscriptionScheduleQueryParams.type, "string");
-            }
+
+        if (nickname !== undefined) {
+            localVarQueryParameters['nickname'] = ObjectSerializer.serialize(nickname, "string");
+        }
+        if (type !== undefined) {
+            localVarQueryParameters['type'] = ObjectSerializer.serialize(type, "string");
+        }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
@@ -198,16 +199,12 @@ export class SubscriptionSchedulesApi {
      * @param type Filter by the object\&#39;s &#x60;subscription_type&#x60;.
      */
 
-    public async get(subscriptionScheduleId: string, nickname?: string, type?: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<SubscriptionSchedule| {response: http.IncomingMessage; body: SubscriptionSchedule; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async get(subscriptionScheduleId: string, nickname?: string, type?: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |SubscriptionSchedule| {response: http.IncomingMessage; body: SubscriptionSchedule; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.getHelper(subscriptionScheduleId, nickname, type,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -245,6 +242,7 @@ export class SubscriptionSchedulesApi {
             if (listSubscriptionSchedulesQueryParams.type !== undefined) {
                 localVarQueryParameters['type'] = ObjectSerializer.serialize(listSubscriptionSchedulesQueryParams.type, "string");
             }
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -301,16 +299,12 @@ export class SubscriptionSchedulesApi {
      * @summary List Subscription Schedules
 
     */
-    public async list (listSubscriptionSchedulesQueryParams?:ListSubscriptionSchedulesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<SubscriptionSchedulesList| {response: http.IncomingMessage; body: SubscriptionSchedulesList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async list (listSubscriptionSchedulesQueryParams?:ListSubscriptionSchedulesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |SubscriptionSchedulesList| {response: http.IncomingMessage; body: SubscriptionSchedulesList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.listHelper(listSubscriptionSchedulesQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -341,6 +335,7 @@ export class SubscriptionSchedulesApi {
             localVarHeaderParams.Accept = produces.join(',');
         }
         let localVarFormParams: any = {};
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -399,16 +394,12 @@ export class SubscriptionSchedulesApi {
      * @param createSubscriptionScheduleRequest 
      */
 
-    public async create(createSubscriptionScheduleRequest?: CreateSubscriptionScheduleRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<SubscriptionSchedule| {response: http.IncomingMessage; body: SubscriptionSchedule; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async create(createSubscriptionScheduleRequest?: CreateSubscriptionScheduleRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |SubscriptionSchedule| {response: http.IncomingMessage; body: SubscriptionSchedule; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.createHelper(createSubscriptionScheduleRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -446,6 +437,7 @@ export class SubscriptionSchedulesApi {
         if (subscriptionScheduleId === null || subscriptionScheduleId === undefined) {
             throw new Error('Required parameter subscriptionScheduleId was null or undefined when calling updateSubscriptionSchedules.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -505,16 +497,12 @@ export class SubscriptionSchedulesApi {
      * @param updateSubscriptionScheduleRequest 
      */
 
-    public async update(subscriptionScheduleId: string, updateSubscriptionScheduleRequest?: UpdateSubscriptionScheduleRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<SubscriptionSchedule| {response: http.IncomingMessage; body: SubscriptionSchedule; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async update(subscriptionScheduleId: string, updateSubscriptionScheduleRequest?: UpdateSubscriptionScheduleRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |SubscriptionSchedule| {response: http.IncomingMessage; body: SubscriptionSchedule; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.updateHelper(subscriptionScheduleId, updateSubscriptionScheduleRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -526,4 +514,12 @@ export class SubscriptionSchedulesApi {
         return responseObject.body;
     }
 
+
+    private async embeddedHelper(responseObject: any){
+        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        dataList.page = responseObject.body.page;
+        dataList.links = responseObject.body.links;
+        return dataList;
+    }
 }

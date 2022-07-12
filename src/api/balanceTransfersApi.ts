@@ -12,7 +12,7 @@
 
 
 import localVarRequest from 'request';
-import http from 'http';
+import * as http from 'http';
 
 /* tslint:disable:no-unused-locals */
 import { BalanceTransfer } from '../model/balanceTransfer';
@@ -127,6 +127,7 @@ export class BalanceTransfersApi {
         let localVarFormParams: any = {};
 
 
+
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -183,16 +184,12 @@ export class BalanceTransfersApi {
      * @param createBalanceTransferRequest 
      */
 
-    public async createBalanceTransfer(createBalanceTransferRequest?: CreateBalanceTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<BalanceTransfer| {response: http.IncomingMessage; body: BalanceTransfer; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async createBalanceTransfer(createBalanceTransferRequest?: CreateBalanceTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |BalanceTransfer| {response: http.IncomingMessage; body: BalanceTransfer; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.createBalanceTransferHelper(createBalanceTransferRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -229,6 +226,7 @@ export class BalanceTransfersApi {
         if (balanceTransfersId === null || balanceTransfersId === undefined) {
             throw new Error('Required parameter balanceTransfersId was null or undefined when calling getBalanceTransfers.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -286,16 +284,12 @@ export class BalanceTransfersApi {
      * @param balanceTransfersId ID of the &#x60;balance_transfer&#x60; resource.
      */
 
-    public async getBalanceTransfers(balanceTransfersId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<BalanceTransfer| {response: http.IncomingMessage; body: BalanceTransfer; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async getBalanceTransfers(balanceTransfersId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |BalanceTransfer| {response: http.IncomingMessage; body: BalanceTransfer; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.getBalanceTransfersHelper(balanceTransfersId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -372,6 +366,7 @@ export class BalanceTransfersApi {
             if (listBalanceTransfersQueryParams.source !== undefined) {
                 localVarQueryParameters['source'] = ObjectSerializer.serialize(listBalanceTransfersQueryParams.source, "string");
             }
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -428,16 +423,12 @@ export class BalanceTransfersApi {
      * @summary List Balance Transfers
 
     */
-    public async listBalanceTransfers (listBalanceTransfersQueryParams?:ListBalanceTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<BalanceTransferList| {response: http.IncomingMessage; body: BalanceTransferList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async listBalanceTransfers (listBalanceTransfersQueryParams?:ListBalanceTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |BalanceTransferList| {response: http.IncomingMessage; body: BalanceTransferList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.listBalanceTransfersHelper(listBalanceTransfersQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -449,4 +440,12 @@ export class BalanceTransfersApi {
         return responseObject.body;
     }
 
+
+    private async embeddedHelper(responseObject: any){
+        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        dataList.page = responseObject.body.page;
+        dataList.links = responseObject.body.links;
+        return dataList;
+    }
 }

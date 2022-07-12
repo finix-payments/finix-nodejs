@@ -12,7 +12,7 @@
 
 
 import localVarRequest from 'request';
-import http from 'http';
+import * as http from 'http';
 
 /* tslint:disable:no-unused-locals */
 import { ApplePaySession } from '../model/applePaySession';
@@ -133,6 +133,7 @@ export class PaymentInstrumentsApi {
         let localVarFormParams: any = {};
 
 
+
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -189,16 +190,12 @@ export class PaymentInstrumentsApi {
      * @param applePaySessionRequest 
      */
 
-    public async createApplePaySession(applePaySessionRequest?: ApplePaySessionRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<ApplePaySession| {response: http.IncomingMessage; body: ApplePaySession; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async createApplePaySession(applePaySessionRequest?: ApplePaySessionRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |ApplePaySession| {response: http.IncomingMessage; body: ApplePaySession; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.createApplePaySessionHelper(applePaySessionRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -229,6 +226,7 @@ export class PaymentInstrumentsApi {
             localVarHeaderParams.Accept = produces.join(',');
         }
         let localVarFormParams: any = {};
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -287,16 +285,12 @@ export class PaymentInstrumentsApi {
      * @param createPaymentInstrumentRequest 
      */
 
-    public async create(createPaymentInstrumentRequest?: CreatePaymentInstrumentRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<PaymentInstrument| {response: http.IncomingMessage; body: PaymentInstrument; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async create(createPaymentInstrumentRequest?: CreatePaymentInstrumentRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |PaymentInstrument| {response: http.IncomingMessage; body: PaymentInstrument; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.createHelper(createPaymentInstrumentRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -334,6 +328,7 @@ export class PaymentInstrumentsApi {
         if (paymentInstrumentId === null || paymentInstrumentId === undefined) {
             throw new Error('Required parameter paymentInstrumentId was null or undefined when calling createPaymentInstrumentVerification.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -393,16 +388,12 @@ export class PaymentInstrumentsApi {
      * @param createVerificationRequest 
      */
 
-    public async createPaymentInstrumentVerification(paymentInstrumentId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Verification| {response: http.IncomingMessage; body: Verification; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async createPaymentInstrumentVerification(paymentInstrumentId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Verification| {response: http.IncomingMessage; body: Verification; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.createPaymentInstrumentVerificationHelper(paymentInstrumentId, createVerificationRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -439,6 +430,7 @@ export class PaymentInstrumentsApi {
         if (paymentInstrumentId === null || paymentInstrumentId === undefined) {
             throw new Error('Required parameter paymentInstrumentId was null or undefined when calling getPaymentInstrument.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -496,16 +488,12 @@ export class PaymentInstrumentsApi {
      * @param paymentInstrumentId ID of object
      */
 
-    public async get(paymentInstrumentId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<PaymentInstrument| {response: http.IncomingMessage; body: PaymentInstrument; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async get(paymentInstrumentId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |PaymentInstrument| {response: http.IncomingMessage; body: PaymentInstrument; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.getHelper(paymentInstrumentId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -582,6 +570,7 @@ export class PaymentInstrumentsApi {
             if (listPaymentInstrumentsQueryParams.beforeCursor !== undefined) {
                 localVarQueryParameters['before_cursor'] = ObjectSerializer.serialize(listPaymentInstrumentsQueryParams.beforeCursor, "string");
             }
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -638,16 +627,12 @@ export class PaymentInstrumentsApi {
      * @summary List Payment Instruments
 
     */
-    public async list (listPaymentInstrumentsQueryParams?:ListPaymentInstrumentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<PaymentInstrumentsList| {response: http.IncomingMessage; body: PaymentInstrumentsList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async list (listPaymentInstrumentsQueryParams?:ListPaymentInstrumentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |PaymentInstrumentsList| {response: http.IncomingMessage; body: PaymentInstrumentsList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.listHelper(listPaymentInstrumentsQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -685,6 +670,7 @@ export class PaymentInstrumentsApi {
         if (paymentInstrumentId === null || paymentInstrumentId === undefined) {
             throw new Error('Required parameter paymentInstrumentId was null or undefined when calling updatePaymentInstrument.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -744,16 +730,12 @@ export class PaymentInstrumentsApi {
      * @param updatePaymentInstrumentRequest 
      */
 
-    public async update(paymentInstrumentId: string, updatePaymentInstrumentRequest?: UpdatePaymentInstrumentRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<PaymentInstrument| {response: http.IncomingMessage; body: PaymentInstrument; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async update(paymentInstrumentId: string, updatePaymentInstrumentRequest?: UpdatePaymentInstrumentRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |PaymentInstrument| {response: http.IncomingMessage; body: PaymentInstrument; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.updateHelper(paymentInstrumentId, updatePaymentInstrumentRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -765,4 +747,12 @@ export class PaymentInstrumentsApi {
         return responseObject.body;
     }
 
+
+    private async embeddedHelper(responseObject: any){
+        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        dataList.page = responseObject.body.page;
+        dataList.links = responseObject.body.links;
+        return dataList;
+    }
 }

@@ -12,7 +12,7 @@
 
 
 import localVarRequest from 'request';
-import http from 'http';
+import * as http from 'http';
 
 /* tslint:disable:no-unused-locals */
 import { CreateWebhookRequest } from '../model/createWebhookRequest';
@@ -129,6 +129,7 @@ export class WebhooksApi {
         let localVarFormParams: any = {};
 
 
+
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -185,16 +186,12 @@ export class WebhooksApi {
      * @param createWebhookRequest 
      */
 
-    public async create(createWebhookRequest?: CreateWebhookRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Webhook| {response: http.IncomingMessage; body: Webhook; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async create(createWebhookRequest?: CreateWebhookRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Webhook| {response: http.IncomingMessage; body: Webhook; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.createHelper(createWebhookRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -231,6 +228,7 @@ export class WebhooksApi {
         if (webhookId === null || webhookId === undefined) {
             throw new Error('Required parameter webhookId was null or undefined when calling getWebhook.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -288,16 +286,12 @@ export class WebhooksApi {
      * @param webhookId ID of &#x60;Webhook&#x60; object.
      */
 
-    public async get(webhookId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Webhook| {response: http.IncomingMessage; body: Webhook; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async get(webhookId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Webhook| {response: http.IncomingMessage; body: Webhook; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.getHelper(webhookId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -338,6 +332,7 @@ export class WebhooksApi {
             if (listWebhooksQueryParams.beforeCursor !== undefined) {
                 localVarQueryParameters['before_cursor'] = ObjectSerializer.serialize(listWebhooksQueryParams.beforeCursor, "string");
             }
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -394,16 +389,12 @@ export class WebhooksApi {
      * @summary List Webhooks
 
     */
-    public async list (listWebhooksQueryParams?:ListWebhooksQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<WebhooksList| {response: http.IncomingMessage; body: WebhooksList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async list (listWebhooksQueryParams?:ListWebhooksQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |WebhooksList| {response: http.IncomingMessage; body: WebhooksList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.listHelper(listWebhooksQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -441,6 +432,7 @@ export class WebhooksApi {
         if (webhookId === null || webhookId === undefined) {
             throw new Error('Required parameter webhookId was null or undefined when calling updateWebhook.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -500,16 +492,12 @@ export class WebhooksApi {
      * @param updateWebhookRequest 
      */
 
-    public async update(webhookId: string, updateWebhookRequest?: UpdateWebhookRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Webhook| {response: http.IncomingMessage; body: Webhook; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async update(webhookId: string, updateWebhookRequest?: UpdateWebhookRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Webhook| {response: http.IncomingMessage; body: Webhook; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.updateHelper(webhookId, updateWebhookRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -521,4 +509,12 @@ export class WebhooksApi {
         return responseObject.body;
     }
 
+
+    private async embeddedHelper(responseObject: any){
+        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        dataList.page = responseObject.body.page;
+        dataList.links = responseObject.body.links;
+        return dataList;
+    }
 }

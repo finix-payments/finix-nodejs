@@ -12,7 +12,7 @@
 
 
 import localVarRequest from 'request';
-import http from 'http';
+import * as http from 'http';
 
 /* tslint:disable:no-unused-locals */
 import { AdjustmentTransfersList } from '../model/adjustmentTransfersList';
@@ -138,6 +138,7 @@ export class DisputesApi {
         }
 
 
+
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -195,16 +196,12 @@ export class DisputesApi {
      * @param createDisputeEvidenceRequest 
      */
 
-    public async createDisputeEvidence(disputeId: string, createDisputeEvidenceRequest?: CreateDisputeEvidenceRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<DisputeEvidence| {response: http.IncomingMessage; body: DisputeEvidence; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async createDisputeEvidence(disputeId: string, createDisputeEvidenceRequest?: CreateDisputeEvidenceRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |DisputeEvidence| {response: http.IncomingMessage; body: DisputeEvidence; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.createDisputeEvidenceHelper(disputeId, createDisputeEvidenceRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -241,6 +238,7 @@ export class DisputesApi {
         if (disputeId === null || disputeId === undefined) {
             throw new Error('Required parameter disputeId was null or undefined when calling getDispute.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -298,16 +296,12 @@ export class DisputesApi {
      * @param disputeId ID of &#x60;Dispute&#x60; to fetch.
      */
 
-    public async get(disputeId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Dispute| {response: http.IncomingMessage; body: Dispute; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async get(disputeId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Dispute| {response: http.IncomingMessage; body: Dispute; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.getHelper(disputeId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -351,6 +345,7 @@ export class DisputesApi {
         if (evidenceId === null || evidenceId === undefined) {
             throw new Error('Required parameter evidenceId was null or undefined when calling getDisputeEvidence.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -409,16 +404,12 @@ export class DisputesApi {
      * @param evidenceId ID of &#x60;evidence&#x60; to fetch.
      */
 
-    public async getDisputeEvidence(disputeId: string, evidenceId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<DisputeEvidence| {response: http.IncomingMessage; body: DisputeEvidence; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async getDisputeEvidence(disputeId: string, evidenceId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |DisputeEvidence| {response: http.IncomingMessage; body: DisputeEvidence; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.getDisputeEvidenceHelper(disputeId, evidenceId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -467,6 +458,7 @@ export class DisputesApi {
             if (listDisputeEvidenceQueryParams.beforeCursor !== undefined) {
                 localVarQueryParameters['before_cursor'] = ObjectSerializer.serialize(listDisputeEvidenceQueryParams.beforeCursor, "string");
             }
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -525,16 +517,12 @@ export class DisputesApi {
     * @param disputeId ID of &#x60;Dispute&#x60; to mange evidence for.
     * 
     */
-    public async listDisputeEvidenceByDisputeId (disputeId: string, listDisputeEvidenceQueryParams?:ListDisputeEvidenceQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<DisputeEvidenceList| {response: http.IncomingMessage; body: DisputeEvidenceList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async listDisputeEvidenceByDisputeId (disputeId: string, listDisputeEvidenceQueryParams?:ListDisputeEvidenceQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |DisputeEvidenceList| {response: http.IncomingMessage; body: DisputeEvidenceList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.listDisputeEvidenceByDisputeIdHelper(disputeId, listDisputeEvidenceQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -587,6 +575,7 @@ export class DisputesApi {
             if (listDisputesQueryParams.updatedAtLte !== undefined) {
                 localVarQueryParameters['updated_at.lte'] = ObjectSerializer.serialize(listDisputesQueryParams.updatedAtLte, "string");
             }
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -643,16 +632,12 @@ export class DisputesApi {
      * @summary List Disputes
 
     */
-    public async list (listDisputesQueryParams?:ListDisputesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<DisputesList| {response: http.IncomingMessage; body: DisputesList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async list (listDisputesQueryParams?:ListDisputesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |DisputesList| {response: http.IncomingMessage; body: DisputesList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.listHelper(listDisputesQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -698,6 +683,7 @@ export class DisputesApi {
             if (listDisputesAdjustmentsQueryParams.offset !== undefined) {
                 localVarQueryParameters['offset'] = ObjectSerializer.serialize(listDisputesAdjustmentsQueryParams.offset, "number");
             }
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -756,16 +742,12 @@ export class DisputesApi {
     * @param disputeId ID of the &#x60;Dispute&#x60; resource.
     * 
     */
-    public async listDisputesAdjustments (disputeId: string, listDisputesAdjustmentsQueryParams?:ListDisputesAdjustmentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<AdjustmentTransfersList| {response: http.IncomingMessage; body: AdjustmentTransfersList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async listDisputesAdjustments (disputeId: string, listDisputesAdjustmentsQueryParams?:ListDisputesAdjustmentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |AdjustmentTransfersList| {response: http.IncomingMessage; body: AdjustmentTransfersList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.listDisputesAdjustmentsHelper(disputeId, listDisputesAdjustmentsQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -777,4 +759,12 @@ export class DisputesApi {
         return responseObject.body;
     }
 
+
+    private async embeddedHelper(responseObject: any){
+        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        dataList.page = responseObject.body.page;
+        dataList.links = responseObject.body.links;
+        return dataList;
+    }
 }

@@ -285,12 +285,12 @@ export class PaymentInstrument {
 export namespace PaymentInstrument {
     export enum TypeEnum {
         Virtual = <any> 'VIRTUAL',
-        PaymentCard = <any> 'PAYMENT_CARD',
-        Token = <any> 'TOKEN',
         SwipedPaymentCard = <any> 'SWIPED_PAYMENT_CARD',
-        BankAccount = <any> 'BANK_ACCOUNT',
+        Token = <any> 'TOKEN',
+        PaymentCardPresent = <any> 'PAYMENT_CARD_PRESENT',
         VantivOmniToken = <any> 'VANTIV_OMNI_TOKEN',
-        PaymentCardPresent = <any> 'PAYMENT_CARD_PRESENT'
+        BankAccount = <any> 'BANK_ACCOUNT',
+        PaymentCard = <any> 'PAYMENT_CARD'
     }
     export enum AccountTypeEnum {
         Checking = <any> 'CHECKING',
@@ -300,12 +300,12 @@ export namespace PaymentInstrument {
     }
     export enum InstrumentTypeEnum {
         Virtual = <any> 'VIRTUAL',
-        PaymentCard = <any> 'PAYMENT_CARD',
-        Token = <any> 'TOKEN',
         SwipedPaymentCard = <any> 'SWIPED_PAYMENT_CARD',
-        BankAccount = <any> 'BANK_ACCOUNT',
+        Token = <any> 'TOKEN',
+        PaymentCardPresent = <any> 'PAYMENT_CARD_PRESENT',
         VantivOmniToken = <any> 'VANTIV_OMNI_TOKEN',
-        PaymentCardPresent = <any> 'PAYMENT_CARD_PRESENT'
+        BankAccount = <any> 'BANK_ACCOUNT',
+        PaymentCard = <any> 'PAYMENT_CARD'
     }
     export enum PayloadTypeEnum {
         Source = <any> 'SOURCE',

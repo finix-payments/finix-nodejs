@@ -1,7 +1,7 @@
 {{>licenseInfo}}
 
 import localVarRequest from 'request';
-import http from 'http';
+import * as http from 'http';
 
 /* tslint:disable:no-unused-locals */
 {{#imports}}
@@ -206,11 +206,21 @@ export class {{classname}} {
 {{#vendorExtensions.x-group-parameters}}
         if ({{nickname}}QueryParams != undefined){ 
 {{/vendorExtensions.x-group-parameters}} 
+{{#vendorExtensions.x-group-parameters}}
 {{#queryParams}}
             if ({{nickname}}QueryParams.{{paramName}} !== undefined) {
                 localVarQueryParameters['{{baseName}}'] = ObjectSerializer.serialize({{nickname}}QueryParams.{{paramName}}, "{{{dataType}}}");
             }
 {{/queryParams}}
+{{/vendorExtensions.x-group-parameters}} 
+
+{{^vendorExtensions.x-group-parameters}}
+{{#queryParams}}
+        if ({{paramName}} !== undefined) {
+            localVarQueryParameters['{{baseName}}'] = ObjectSerializer.serialize({{paramName}}, "{{{dataType}}}");
+        }
+{{/queryParams}}
+{{/vendorExtensions.x-group-parameters}} 
 {{#vendorExtensions.x-group-parameters}}
         }
 {{/vendorExtensions.x-group-parameters}} 
@@ -332,12 +342,12 @@ export class {{classname}} {
     */
     {{/vendorExtensions.x-group-parameters}}
     {{^vendorExtensions.x-group-parameters}}
-    public async {{#vendorExtensions.x-java-method-name}}{{{.}}}{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}{{/vendorExtensions.x-java-method-name}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<{{#returnType}}{{{.}}}{{/returnType}}{{^returnType}}any{{/returnType}}| {response: http.IncomingMessage; {{#returnType}}body: {{{.}}}; {{/returnType}}{{^returnType}}body?: any;{{/returnType}}}| {response: http.IncomingMessage; {{#returnType}}body: SuperSet<any>;{{/returnType}}{{^returnType}}body?: any;{{/returnType}}}> {
+    public async {{#vendorExtensions.x-java-method-name}}{{{.}}}{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}{{/vendorExtensions.x-java-method-name}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |{{#returnType}}{{{.}}}{{/returnType}}{{^returnType}}any{{/returnType}}| {response: http.IncomingMessage; {{#returnType}}body: {{{.}}}; {{/returnType}}{{^returnType}}body?: any;{{/returnType}}}| {response: http.IncomingMessage; {{#returnType}}body: SuperSet<any>;{{/returnType}}{{^returnType}}body?: any;{{/returnType}}}> {
     {{/vendorExtensions.x-group-parameters}}    
     {{#vendorExtensions.x-group-parameters}}
-    public async {{#vendorExtensions.x-java-method-name}}{{{.}}}{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}{{/vendorExtensions.x-java-method-name}} ({{#allParams}}{{#required}}{{paramName}}: {{{dataType}}}, {{/required}}{{/allParams}}{{nickname}}QueryParams?:{{#lambda.titlecase}}{{nickname}}QueryParams{{/lambda.titlecase}}, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<{{#returnType}}{{{.}}}{{/returnType}}{{^returnType}}any{{/returnType}}| {response: http.IncomingMessage; {{#returnType}}body: {{{.}}}; {{/returnType}}{{^returnType}}body?: any;{{/returnType}}}| {response: http.IncomingMessage; {{#returnType}}body: SuperSet<any>;{{/returnType}}{{^returnType}}body?: any;{{/returnType}}}> {
+    public async {{#vendorExtensions.x-java-method-name}}{{{.}}}{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}{{/vendorExtensions.x-java-method-name}} ({{#allParams}}{{#required}}{{paramName}}: {{{dataType}}}, {{/required}}{{/allParams}}{{nickname}}QueryParams?:{{#lambda.titlecase}}{{nickname}}QueryParams{{/lambda.titlecase}}, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |{{#returnType}}{{{.}}}{{/returnType}}{{^returnType}}any{{/returnType}}| {response: http.IncomingMessage; {{#returnType}}body: {{{.}}}; {{/returnType}}{{^returnType}}body?: any;{{/returnType}}}| {response: http.IncomingMessage; {{#returnType}}body: SuperSet<any>;{{/returnType}}{{^returnType}}body?: any;{{/returnType}}}> {
     {{/vendorExtensions.x-group-parameters}} 
         {{^vendorExtensions.x-group-parameters}}
         const responseObject = await this.{{#vendorExtensions.x-java-method-name}}{{{.}}}Helper{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Helper{{/vendorExtensions.x-java-method-name}}({{#allParams}}{{paramName}}, {{/allParams}} options);
@@ -347,11 +357,7 @@ export class {{classname}} {
         {{/vendorExtensions.x-group-parameters}}
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -364,5 +370,13 @@ export class {{classname}} {
     }
 
 {{/operation}}
+
+    private async embeddedHelper(responseObject: any){
+        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        dataList.page = responseObject.body.page;
+        dataList.links = responseObject.body.links;
+        return dataList;
+    }
 }
 {{/operations}}

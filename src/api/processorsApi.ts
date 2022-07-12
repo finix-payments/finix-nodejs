@@ -12,7 +12,7 @@
 
 
 import localVarRequest from 'request';
-import http from 'http';
+import * as http from 'http';
 
 /* tslint:disable:no-unused-locals */
 import { CreateProcessorRequest } from '../model/createProcessorRequest';
@@ -135,6 +135,7 @@ export class ProcessorsApi {
         }
 
 
+
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -192,16 +193,12 @@ export class ProcessorsApi {
      * @param createProcessorRequest 
      */
 
-    public async createApplicationProcessor(applicationId: string, createProcessorRequest?: CreateProcessorRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Processor| {response: http.IncomingMessage; body: Processor; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async createApplicationProcessor(applicationId: string, createProcessorRequest?: CreateProcessorRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Processor| {response: http.IncomingMessage; body: Processor; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.createApplicationProcessorHelper(applicationId, createProcessorRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -245,6 +242,7 @@ export class ProcessorsApi {
         if (type === null || type === undefined) {
             throw new Error('Required parameter type was null or undefined when calling getApplicationProcessor.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -303,16 +301,12 @@ export class ProcessorsApi {
      * @param type Type of &#x60;Processor&#x60;.
      */
 
-    public async getApplicationProcessor(applicationId: string, type: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Processor| {response: http.IncomingMessage; body: Processor; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async getApplicationProcessor(applicationId: string, type: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Processor| {response: http.IncomingMessage; body: Processor; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.getApplicationProcessorHelper(applicationId, type,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -352,6 +346,7 @@ export class ProcessorsApi {
         }
 
         if (listApplicationProcessorsQueryParams != undefined){ 
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -410,16 +405,12 @@ export class ProcessorsApi {
     * @param applicationId ID of application to use
     * 
     */
-    public async listByApplicationId (applicationId: string, listApplicationProcessorsQueryParams?:ListApplicationProcessorsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<ProcessorsList| {response: http.IncomingMessage; body: ProcessorsList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async listByApplicationId (applicationId: string, listApplicationProcessorsQueryParams?:ListApplicationProcessorsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |ProcessorsList| {response: http.IncomingMessage; body: ProcessorsList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.listByApplicationIdHelper(applicationId, listApplicationProcessorsQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -431,4 +422,12 @@ export class ProcessorsApi {
         return responseObject.body;
     }
 
+
+    private async embeddedHelper(responseObject: any){
+        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        dataList.page = responseObject.body.page;
+        dataList.links = responseObject.body.links;
+        return dataList;
+    }
 }

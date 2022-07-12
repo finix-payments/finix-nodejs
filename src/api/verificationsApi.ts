@@ -12,7 +12,7 @@
 
 
 import localVarRequest from 'request';
-import http from 'http';
+import * as http from 'http';
 
 /* tslint:disable:no-unused-locals */
 import { CreateVerificationRequest } from '../model/createVerificationRequest';
@@ -129,6 +129,7 @@ export class VerificationsApi {
         let localVarFormParams: any = {};
 
 
+
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -185,16 +186,12 @@ export class VerificationsApi {
      * @param createVerificationRequest 
      */
 
-    public async create(createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Verification| {response: http.IncomingMessage; body: Verification; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async create(createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Verification| {response: http.IncomingMessage; body: Verification; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.createHelper(createVerificationRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -231,6 +228,7 @@ export class VerificationsApi {
         if (verificationId === null || verificationId === undefined) {
             throw new Error('Required parameter verificationId was null or undefined when calling getVerification.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -288,16 +286,12 @@ export class VerificationsApi {
      * @param verificationId ID of &#x60;Verification&#x60; object.
      */
 
-    public async get(verificationId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Verification| {response: http.IncomingMessage; body: Verification; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async get(verificationId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Verification| {response: http.IncomingMessage; body: Verification; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.getHelper(verificationId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -346,6 +340,7 @@ export class VerificationsApi {
             if (listMerchantVerificationsQueryParams.beforeCursor !== undefined) {
                 localVarQueryParameters['before_cursor'] = ObjectSerializer.serialize(listMerchantVerificationsQueryParams.beforeCursor, "string");
             }
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -404,16 +399,12 @@ export class VerificationsApi {
     * @param merchantId ID of &#x60;Merchant&#x60; object.
     * 
     */
-    public async listByMerchantId (merchantId: string, listMerchantVerificationsQueryParams?:ListMerchantVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<VerificationsList| {response: http.IncomingMessage; body: VerificationsList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async listByMerchantId (merchantId: string, listMerchantVerificationsQueryParams?:ListMerchantVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |VerificationsList| {response: http.IncomingMessage; body: VerificationsList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.listByMerchantIdHelper(merchantId, listMerchantVerificationsQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -448,6 +439,7 @@ export class VerificationsApi {
             if (listVerificationsQueryParams.id !== undefined) {
                 localVarQueryParameters['id'] = ObjectSerializer.serialize(listVerificationsQueryParams.id, "string");
             }
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -504,16 +496,12 @@ export class VerificationsApi {
      * @summary List Verifications
 
     */
-    public async list (listVerificationsQueryParams?:ListVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<VerificationsList| {response: http.IncomingMessage; body: VerificationsList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async list (listVerificationsQueryParams?:ListVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |VerificationsList| {response: http.IncomingMessage; body: VerificationsList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.listHelper(listVerificationsQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -525,4 +513,12 @@ export class VerificationsApi {
         return responseObject.body;
     }
 
+
+    private async embeddedHelper(responseObject: any){
+        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        dataList.page = responseObject.body.page;
+        dataList.links = responseObject.body.links;
+        return dataList;
+    }
 }

@@ -12,7 +12,7 @@
 
 
 import localVarRequest from 'request';
-import http from 'http';
+import * as http from 'http';
 
 /* tslint:disable:no-unused-locals */
 import { CreateSubscriptionAmountRequest } from '../model/createSubscriptionAmountRequest';
@@ -133,6 +133,7 @@ export class SubscriptionAmountsApi {
         }
 
 
+
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -190,16 +191,12 @@ export class SubscriptionAmountsApi {
      * @param createSubscriptionAmountRequest 
      */
 
-    public async lcreate(subscriptionScheduleId: string, createSubscriptionAmountRequest?: CreateSubscriptionAmountRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<SubscriptionAmount| {response: http.IncomingMessage; body: SubscriptionAmount; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async lcreate(subscriptionScheduleId: string, createSubscriptionAmountRequest?: CreateSubscriptionAmountRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |SubscriptionAmount| {response: http.IncomingMessage; body: SubscriptionAmount; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.lcreateHelper(subscriptionScheduleId, createSubscriptionAmountRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -243,6 +240,7 @@ export class SubscriptionAmountsApi {
         if (subscriptionScheduleId === null || subscriptionScheduleId === undefined) {
             throw new Error('Required parameter subscriptionScheduleId was null or undefined when calling deleteSubscriptionAmount.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -300,16 +298,12 @@ export class SubscriptionAmountsApi {
      * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
      */
 
-    public async deleteSubscriptionAmount(subscriptionAmountId: string, subscriptionScheduleId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<any| {response: http.IncomingMessage; body?: any;}| {response: http.IncomingMessage; body?: any;}> {
+    public async deleteSubscriptionAmount(subscriptionAmountId: string, subscriptionScheduleId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |any| {response: http.IncomingMessage; body?: any;}| {response: http.IncomingMessage; body?: any;}> {
         const responseObject = await this.deleteSubscriptionAmountHelper(subscriptionAmountId, subscriptionScheduleId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -353,6 +347,7 @@ export class SubscriptionAmountsApi {
         if (subscriptionScheduleId === null || subscriptionScheduleId === undefined) {
             throw new Error('Required parameter subscriptionScheduleId was null or undefined when calling getSubscriptionAmount.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -411,16 +406,12 @@ export class SubscriptionAmountsApi {
      * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
      */
 
-    public async get(subscriptionAmountId: string, subscriptionScheduleId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<SubscriptionAmount| {response: http.IncomingMessage; body: SubscriptionAmount; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async get(subscriptionAmountId: string, subscriptionScheduleId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |SubscriptionAmount| {response: http.IncomingMessage; body: SubscriptionAmount; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.getHelper(subscriptionAmountId, subscriptionScheduleId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -469,6 +460,7 @@ export class SubscriptionAmountsApi {
             if (listSubscriptionAmountQueryParams.beforeCursor !== undefined) {
                 localVarQueryParameters['before_cursor'] = ObjectSerializer.serialize(listSubscriptionAmountQueryParams.beforeCursor, "string");
             }
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -527,16 +519,12 @@ export class SubscriptionAmountsApi {
     * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
     * 
     */
-    public async listBySubscriptionSchedule (subscriptionScheduleId: string, listSubscriptionAmountQueryParams?:ListSubscriptionAmountQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<SubscriptionAmountList| {response: http.IncomingMessage; body: SubscriptionAmountList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async listBySubscriptionSchedule (subscriptionScheduleId: string, listSubscriptionAmountQueryParams?:ListSubscriptionAmountQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |SubscriptionAmountList| {response: http.IncomingMessage; body: SubscriptionAmountList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.listBySubscriptionScheduleHelper(subscriptionScheduleId, listSubscriptionAmountQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -581,6 +569,7 @@ export class SubscriptionAmountsApi {
         if (subscriptionScheduleId === null || subscriptionScheduleId === undefined) {
             throw new Error('Required parameter subscriptionScheduleId was null or undefined when calling patchSubscriptionAmount.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -641,16 +630,12 @@ export class SubscriptionAmountsApi {
      * @param createSubscriptionAmountRequest 
      */
 
-    public async patchSubscriptionAmount(subscriptionAmountId: string, subscriptionScheduleId: string, createSubscriptionAmountRequest?: CreateSubscriptionAmountRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<SubscriptionAmount| {response: http.IncomingMessage; body: SubscriptionAmount; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async patchSubscriptionAmount(subscriptionAmountId: string, subscriptionScheduleId: string, createSubscriptionAmountRequest?: CreateSubscriptionAmountRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |SubscriptionAmount| {response: http.IncomingMessage; body: SubscriptionAmount; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.patchSubscriptionAmountHelper(subscriptionAmountId, subscriptionScheduleId, createSubscriptionAmountRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -662,4 +647,12 @@ export class SubscriptionAmountsApi {
         return responseObject.body;
     }
 
+
+    private async embeddedHelper(responseObject: any){
+        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        dataList.page = responseObject.body.page;
+        dataList.links = responseObject.body.links;
+        return dataList;
+    }
 }

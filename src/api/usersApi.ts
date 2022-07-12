@@ -12,7 +12,7 @@
 
 
 import localVarRequest from 'request';
-import http from 'http';
+import * as http from 'http';
 
 /* tslint:disable:no-unused-locals */
 import { CreateUserRequest } from '../model/createUserRequest';
@@ -135,6 +135,7 @@ export class UsersApi {
         }
 
 
+
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -192,16 +193,12 @@ export class UsersApi {
      * @param createUserRequest 
      */
 
-    public async createApplicationUser(applicationId: string, createUserRequest?: CreateUserRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<User| {response: http.IncomingMessage; body: User; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async createApplicationUser(applicationId: string, createUserRequest?: CreateUserRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |User| {response: http.IncomingMessage; body: User; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.createApplicationUserHelper(applicationId, createUserRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -238,6 +235,7 @@ export class UsersApi {
         if (userId === null || userId === undefined) {
             throw new Error('Required parameter userId was null or undefined when calling getUser.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -295,16 +293,12 @@ export class UsersApi {
      * @param userId ID of &#x60;User&#x60; object.
      */
 
-    public async get(userId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<User| {response: http.IncomingMessage; body: User; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async get(userId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |User| {response: http.IncomingMessage; body: User; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.getHelper(userId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -339,6 +333,7 @@ export class UsersApi {
             if (listUsersQueryParams.id !== undefined) {
                 localVarQueryParameters['id'] = ObjectSerializer.serialize(listUsersQueryParams.id, "string");
             }
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -395,16 +390,12 @@ export class UsersApi {
      * @summary List Users
 
     */
-    public async list (listUsersQueryParams?:ListUsersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<UsersList| {response: http.IncomingMessage; body: UsersList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async list (listUsersQueryParams?:ListUsersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |UsersList| {response: http.IncomingMessage; body: UsersList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.listHelper(listUsersQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -442,6 +433,7 @@ export class UsersApi {
         if (userId === null || userId === undefined) {
             throw new Error('Required parameter userId was null or undefined when calling updateUser.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -501,16 +493,12 @@ export class UsersApi {
      * @param updateUserRequest 
      */
 
-    public async update(userId: string, updateUserRequest?: UpdateUserRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<User| {response: http.IncomingMessage; body: User; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async update(userId: string, updateUserRequest?: UpdateUserRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |User| {response: http.IncomingMessage; body: User; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.updateHelper(userId, updateUserRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -522,4 +510,12 @@ export class UsersApi {
         return responseObject.body;
     }
 
+
+    private async embeddedHelper(responseObject: any){
+        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        dataList.page = responseObject.body.page;
+        dataList.links = responseObject.body.links;
+        return dataList;
+    }
 }

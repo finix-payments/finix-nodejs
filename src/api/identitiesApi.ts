@@ -12,7 +12,7 @@
 
 
 import localVarRequest from 'request';
-import http from 'http';
+import * as http from 'http';
 
 /* tslint:disable:no-unused-locals */
 import { CreateIdentityRequest } from '../model/createIdentityRequest';
@@ -138,6 +138,7 @@ export class IdentitiesApi {
         }
 
 
+
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -195,16 +196,12 @@ export class IdentitiesApi {
      * @param createIdentityRequest 
      */
 
-    public async createAssociatedIdentity(identityId: string, createIdentityRequest?: CreateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Identity| {response: http.IncomingMessage; body: Identity; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async createAssociatedIdentity(identityId: string, createIdentityRequest?: CreateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Identity| {response: http.IncomingMessage; body: Identity; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.createAssociatedIdentityHelper(identityId, createIdentityRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -218,7 +215,7 @@ export class IdentitiesApi {
 
     /**
      * Helper function. 
-     * Create an `Identity` for your merchant or buyer.  Creating `Identities` for merchants requires they provide [KYC details](/docs/guides/getting-stared/).  Related Guides: [Getting Started](/docs/guides/getting-started/), [Onboarding](/docs/guides/onboarding/)
+     * Create an `Identity` for your merchant or buyer.  Creating `Identities` for merchants requires they provide [KYC details](/docs/guides/getting-started/).  Related Guides: [Getting Started](/docs/guides/getting-started/), [Onboarding](/docs/guides/onboarding/)
      * @summary Create an Identity
      * @param createIdentityRequest 
      */
@@ -235,6 +232,7 @@ export class IdentitiesApi {
             localVarHeaderParams.Accept = produces.join(',');
         }
         let localVarFormParams: any = {};
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -288,21 +286,17 @@ export class IdentitiesApi {
     }
 
     /**
-     * Create an `Identity` for your merchant or buyer.  Creating `Identities` for merchants requires they provide [KYC details](/docs/guides/getting-stared/).  Related Guides: [Getting Started](/docs/guides/getting-started/), [Onboarding](/docs/guides/onboarding/)
+     * Create an `Identity` for your merchant or buyer.  Creating `Identities` for merchants requires they provide [KYC details](/docs/guides/getting-started/).  Related Guides: [Getting Started](/docs/guides/getting-started/), [Onboarding](/docs/guides/onboarding/)
      * @summary Create an Identity
      * @param createIdentityRequest 
      */
 
-    public async create(createIdentityRequest?: CreateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Identity| {response: http.IncomingMessage; body: Identity; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async create(createIdentityRequest?: CreateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Identity| {response: http.IncomingMessage; body: Identity; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.createHelper(createIdentityRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -340,6 +334,7 @@ export class IdentitiesApi {
         if (identityId === null || identityId === undefined) {
             throw new Error('Required parameter identityId was null or undefined when calling createIdentityVerification.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -399,16 +394,12 @@ export class IdentitiesApi {
      * @param createVerificationRequest 
      */
 
-    public async createIdentityVerification(identityId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Verification| {response: http.IncomingMessage; body: Verification; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async createIdentityVerification(identityId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Verification| {response: http.IncomingMessage; body: Verification; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.createIdentityVerificationHelper(identityId, createVerificationRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -445,6 +436,7 @@ export class IdentitiesApi {
         if (identityId === null || identityId === undefined) {
             throw new Error('Required parameter identityId was null or undefined when calling getIdentity.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -502,16 +494,12 @@ export class IdentitiesApi {
      * @param identityId ID of the &#x60;identity&#x60; to fetch
      */
 
-    public async get(identityId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Identity| {response: http.IncomingMessage; body: Identity; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async get(identityId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Identity| {response: http.IncomingMessage; body: Identity; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.getHelper(identityId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -585,6 +573,7 @@ export class IdentitiesApi {
             if (listIdentitiesQueryParams.beforeCursor !== undefined) {
                 localVarQueryParameters['before_cursor'] = ObjectSerializer.serialize(listIdentitiesQueryParams.beforeCursor, "string");
             }
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -641,16 +630,12 @@ export class IdentitiesApi {
      * @summary List Identities
 
     */
-    public async list (listIdentitiesQueryParams?:ListIdentitiesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<IdentitiesList| {response: http.IncomingMessage; body: IdentitiesList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async list (listIdentitiesQueryParams?:ListIdentitiesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |IdentitiesList| {response: http.IncomingMessage; body: IdentitiesList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.listHelper(listIdentitiesQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -699,6 +684,7 @@ export class IdentitiesApi {
             if (listIdentityAssociatedIdentitiesQueryParams.beforeCursor !== undefined) {
                 localVarQueryParameters['before_cursor'] = ObjectSerializer.serialize(listIdentityAssociatedIdentitiesQueryParams.beforeCursor, "string");
             }
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -757,16 +743,12 @@ export class IdentitiesApi {
     * @param identityId ID of &#x60;Identity&#x60; to associate object with.
     * 
     */
-    public async listAssocaiatedIdentities (identityId: string, listIdentityAssociatedIdentitiesQueryParams?:ListIdentityAssociatedIdentitiesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<IdentitiesList| {response: http.IncomingMessage; body: IdentitiesList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async listAssocaiatedIdentities (identityId: string, listIdentityAssociatedIdentitiesQueryParams?:ListIdentityAssociatedIdentitiesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |IdentitiesList| {response: http.IncomingMessage; body: IdentitiesList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.listAssocaiatedIdentitiesHelper(identityId, listIdentityAssociatedIdentitiesQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -804,6 +786,7 @@ export class IdentitiesApi {
         if (identityId === null || identityId === undefined) {
             throw new Error('Required parameter identityId was null or undefined when calling updateIdentity.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -863,16 +846,12 @@ export class IdentitiesApi {
      * @param updateIdentityRequest 
      */
 
-    public async update(identityId: string, updateIdentityRequest?: UpdateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<Identity| {response: http.IncomingMessage; body: Identity; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async update(identityId: string, updateIdentityRequest?: UpdateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |Identity| {response: http.IncomingMessage; body: Identity; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.updateHelper(identityId, updateIdentityRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -884,4 +863,12 @@ export class IdentitiesApi {
         return responseObject.body;
     }
 
+
+    private async embeddedHelper(responseObject: any){
+        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        dataList.page = responseObject.body.page;
+        dataList.links = responseObject.body.links;
+        return dataList;
+    }
 }

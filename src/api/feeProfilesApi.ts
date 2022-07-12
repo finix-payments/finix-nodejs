@@ -12,7 +12,7 @@
 
 
 import localVarRequest from 'request';
-import http from 'http';
+import * as http from 'http';
 
 /* tslint:disable:no-unused-locals */
 import { CreateFeeProfileRequest } from '../model/createFeeProfileRequest';
@@ -127,6 +127,7 @@ export class FeeProfilesApi {
         let localVarFormParams: any = {};
 
 
+
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -183,16 +184,12 @@ export class FeeProfilesApi {
      * @param createFeeProfileRequest 
      */
 
-    public async create(createFeeProfileRequest?: CreateFeeProfileRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<FeeProfile| {response: http.IncomingMessage; body: FeeProfile; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async create(createFeeProfileRequest?: CreateFeeProfileRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |FeeProfile| {response: http.IncomingMessage; body: FeeProfile; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.createHelper(createFeeProfileRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -229,6 +226,7 @@ export class FeeProfilesApi {
         if (feeProfileId === null || feeProfileId === undefined) {
             throw new Error('Required parameter feeProfileId was null or undefined when calling getFeeProfile.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -286,16 +284,12 @@ export class FeeProfilesApi {
      * @param feeProfileId The ID of the fee profile.
      */
 
-    public async get(feeProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<FeeProfile| {response: http.IncomingMessage; body: FeeProfile; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async get(feeProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |FeeProfile| {response: http.IncomingMessage; body: FeeProfile; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.getHelper(feeProfileId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -336,6 +330,7 @@ export class FeeProfilesApi {
             if (listFeeProfilesQueryParams.limit !== undefined) {
                 localVarQueryParameters['limit'] = ObjectSerializer.serialize(listFeeProfilesQueryParams.limit, "number");
             }
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -392,16 +387,12 @@ export class FeeProfilesApi {
      * @summary List Fee Profiles
 
     */
-    public async list (listFeeProfilesQueryParams?:ListFeeProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<FeeProfilesList| {response: http.IncomingMessage; body: FeeProfilesList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async list (listFeeProfilesQueryParams?:ListFeeProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |FeeProfilesList| {response: http.IncomingMessage; body: FeeProfilesList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.listHelper(listFeeProfilesQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -413,4 +404,12 @@ export class FeeProfilesApi {
         return responseObject.body;
     }
 
+
+    private async embeddedHelper(responseObject: any){
+        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        dataList.page = responseObject.body.page;
+        dataList.links = responseObject.body.links;
+        return dataList;
+    }
 }

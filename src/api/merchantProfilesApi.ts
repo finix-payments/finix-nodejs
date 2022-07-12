@@ -12,7 +12,7 @@
 
 
 import localVarRequest from 'request';
-import http from 'http';
+import * as http from 'http';
 
 /* tslint:disable:no-unused-locals */
 import { Error401Unauthorized } from '../model/error401Unauthorized';
@@ -131,6 +131,7 @@ export class MerchantProfilesApi {
         }
 
 
+
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -186,16 +187,12 @@ export class MerchantProfilesApi {
      * @param merchantProfileId ID of merchant profile
      */
 
-    public async get(merchantProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<MerchantProfile| {response: http.IncomingMessage; body: MerchantProfile; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async get(merchantProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |MerchantProfile| {response: http.IncomingMessage; body: MerchantProfile; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.getHelper(merchantProfileId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -239,6 +236,7 @@ export class MerchantProfilesApi {
             if (listMerchantProfilesQueryParams.limit !== undefined) {
                 localVarQueryParameters['limit'] = ObjectSerializer.serialize(listMerchantProfilesQueryParams.limit, "number");
             }
+
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -295,16 +293,12 @@ export class MerchantProfilesApi {
      * @summary List Merchant Profiles
 
     */
-    public async list (listMerchantProfilesQueryParams?:ListMerchantProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) :
-        Promise<MerchantProfilesList| {response: http.IncomingMessage; body: MerchantProfilesList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async list (listMerchantProfilesQueryParams?:ListMerchantProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
+        Promise< SuperSet<any> |MerchantProfilesList| {response: http.IncomingMessage; body: MerchantProfilesList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.listHelper(listMerchantProfilesQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -342,6 +336,7 @@ export class MerchantProfilesApi {
         if (merchantProfileId === null || merchantProfileId === undefined) {
             throw new Error('Required parameter merchantProfileId was null or undefined when calling updateMerchantProfile.');
         }
+
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
@@ -401,16 +396,12 @@ export class MerchantProfilesApi {
      * @param body 
      */
 
-    public async update(merchantProfileId: string, body?: object, options: {headers: {[name: string]: string}} = {headers: {}}, httpData?: Boolean = false) : 
-        Promise<MerchantProfile| {response: http.IncomingMessage; body: MerchantProfile; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+    public async update(merchantProfileId: string, body?: object, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+        Promise< SuperSet<any> |MerchantProfile| {response: http.IncomingMessage; body: MerchantProfile; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
         const responseObject = await this.updateHelper(merchantProfileId, body,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
-            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-            let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-            dataList.page = responseObject.body.page;
-            dataList.links = responseObject.body.links;
-
+            let dataList = await this.embeddedHelper(responseObject);
             if (httpData) {
                 return Promise.resolve({response: responseObject.response, body: dataList});
             }
@@ -422,4 +413,12 @@ export class MerchantProfilesApi {
         return responseObject.body;
     }
 
+
+    private async embeddedHelper(responseObject: any){
+        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        dataList.page = responseObject.body.page;
+        dataList.links = responseObject.body.links;
+        return dataList;
+    }
 }
