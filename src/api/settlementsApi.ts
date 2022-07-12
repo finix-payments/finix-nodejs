@@ -113,12 +113,13 @@ export class SettlementsApi {
     }
 
     /**
+     * Helper function. 
      * Create a batch `Settlement`. A `Settlement` is a collection of **SUCCEEDED** `Transfers` that are ready to get paid out to a `Merchant`.
      * @summary Create a Batch Settlement
      * @param createSettlementRequest 
      */
 
-    public async createHelper(createSettlementRequest?: CreateSettlementRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Settlement;  }> {
+    private async createHelper(createSettlementRequest?: CreateSettlementRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Settlement;  }> {
         const localVarPath = this.basePath + '/settlements';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -210,12 +211,13 @@ export class SettlementsApi {
     }
 
     /**
+     * Helper function. 
      * Retreive the details of a `Settlement`.
      * @summary Get a Settlement
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      */
 
-    public async getHelper(settlementId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Settlement;  }> {
+    private async getHelper(settlementId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Settlement;  }> {
         const localVarPath = this.basePath + '/settlements/{settlement_id}'
             .replace('{' + 'settlement_id' + '}', encodeURIComponent(String(settlementId)));
         let localVarQueryParameters: any = {};
@@ -312,13 +314,14 @@ export class SettlementsApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve the `Transfers` in a `Settlement` that have `type` **CREDIT**.
      * @summary List Settlement Funding Transfers
 
     * @param settlementId ID of &#x60;Settlement&#x60; object.
     * 
     */
-    public async listFundingTransfersHelper (settlementId: string, listSettlementFundingTransfersQueryParams?:ListSettlementFundingTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: TransfersList;  }> {
+    private async listFundingTransfersHelper (settlementId: string, listSettlementFundingTransfersQueryParams?:ListSettlementFundingTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: TransfersList;  }> {
         const localVarPath = this.basePath + '/settlements/{settlement_id}/funding_transfers'
             .replace('{' + 'settlement_id' + '}', encodeURIComponent(String(settlementId)));
         let localVarQueryParameters: any = {};
@@ -427,13 +430,14 @@ export class SettlementsApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve the `Transfers` in a `Settlement` that have `type` **DEBIT** or **REFUND**.
      * @summary List Settlement Transfers
 
     * @param settlementId ID of &#x60;Settlement&#x60; object.
     * 
     */
-    public async listTransfersBySettlementIdHelper (settlementId: string, listSettlementTransfersQueryParams?:ListSettlementTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: TransfersList;  }> {
+    private async listTransfersBySettlementIdHelper (settlementId: string, listSettlementTransfersQueryParams?:ListSettlementTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: TransfersList;  }> {
         const localVarPath = this.basePath + '/settlements/{settlement_id}/transfers'
             .replace('{' + 'settlement_id' + '}', encodeURIComponent(String(settlementId)));
         let localVarQueryParameters: any = {};
@@ -542,11 +546,12 @@ export class SettlementsApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve a list of `Settlements`.
      * @summary List Settlements
 
     */
-    public async listHelper (listSettlementsQueryParams?:ListSettlementsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SettlementsList;  }> {
+    private async listHelper (listSettlementsQueryParams?:ListSettlementsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SettlementsList;  }> {
         const localVarPath = this.basePath + '/settlements';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -662,13 +667,14 @@ export class SettlementsApi {
     }
 
     /**
+     * Helper function. 
      * Remove a `Transfer` from a `Settlement`.  As long as the `Settlement` hasn\'t been funded, you can remove the `Transfer` or an array of `Transfers`, along with its corresponding `fee` from a batch `Settlement`.   > Per the JSON API for deleting a resource, our API doesn\'t have a response body when removing a `Transfer` from a `Settlement`.
      * @summary Delete Settlement Transfers
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      * @param removeSettlementTransfer 
      */
 
-    public async removeTransfersFromSettlementHelper(settlementId: string, removeSettlementTransfer?: RemoveSettlementTransfer, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body?: any;  }> {
+    private async removeTransfersFromSettlementHelper(settlementId: string, removeSettlementTransfer?: RemoveSettlementTransfer, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body?: any;  }> {
         const localVarPath = this.basePath + '/settlements/{settlement_id}/transfers'
             .replace('{' + 'settlement_id' + '}', encodeURIComponent(String(settlementId)));
         let localVarQueryParameters: any = {};
@@ -766,13 +772,14 @@ export class SettlementsApi {
     }
 
     /**
+     * Helper function. 
      * Update a `Settlement`.
      * @summary Update a Settlement
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      * @param updateSettlementRequest 
      */
 
-    public async updateHelper(settlementId: string, updateSettlementRequest?: UpdateSettlementRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Settlement;  }> {
+    private async updateHelper(settlementId: string, updateSettlementRequest?: UpdateSettlementRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Settlement;  }> {
         const localVarPath = this.basePath + '/settlements/{settlement_id}'
             .replace('{' + 'settlement_id' + '}', encodeURIComponent(String(settlementId)));
         let localVarQueryParameters: any = {};

@@ -106,12 +106,13 @@ export class InstrumentUpdatesApi {
     }
 
     /**
+     * Helper function. 
      * To update the card details of your customers, create an `instrument_updates` resource. Include the `Payment Instrument` IDs you want to update in a CSV. For more info, the following guide on using our [Account Updater](/docs/guides/payments/account-updater/).
      * @summary Create Instrument Updates
      * @param createInstrumentUpdateRequest 
      */
 
-    public async createHelper(createInstrumentUpdateRequest?: CreateInstrumentUpdateRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: InstrumentUpdate;  }> {
+    private async createHelper(createInstrumentUpdateRequest?: CreateInstrumentUpdateRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: InstrumentUpdate;  }> {
         const localVarPath = this.basePath + '/instrument_updates';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -203,13 +204,14 @@ export class InstrumentUpdatesApi {
     }
 
     /**
+     * Helper function. 
      * Fetch a previously created `instrument_updates` resource as a CSV.   To fetch the `instrument_updates` resource in JSON, add `?format=json` to the request endpoint.
      * @summary Download Instrument Updates
 
     * @param instrumentUpdatesId The ID of the &#x60;instrument_updates&#x60; resource. This ID was returned when initially creating the &#x60;instrument_updates&#x60; object.
     * 
     */
-    public async downloadHelper (instrumentUpdatesId: string, downloadInstrumentUpdateQueryParams?:DownloadInstrumentUpdateQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Buffer;  }> {
+    private async downloadHelper (instrumentUpdatesId: string, downloadInstrumentUpdateQueryParams?:DownloadInstrumentUpdateQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Buffer;  }> {
         const localVarPath = this.basePath + '/instrument_updates/{instrument_updates_id}/download'
             .replace('{' + 'instrument_updates_id' + '}', encodeURIComponent(String(instrumentUpdatesId)));
         let localVarQueryParameters: any = {};
@@ -312,12 +314,13 @@ export class InstrumentUpdatesApi {
     }
 
     /**
+     * Helper function. 
      * Fetch a specific `instrument_update` from an `instrument_updates` resource. For more information, see the guide on using our [Account Updater](/guides/payments/account-updater).
      * @summary Fetch an Instrument Update
      * @param instrumentUpdatesId The Id of the instrument update.
      */
 
-    public async getHelper(instrumentUpdatesId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: InstrumentUpdate;  }> {
+    private async getHelper(instrumentUpdatesId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: InstrumentUpdate;  }> {
         const localVarPath = this.basePath + '/instrument_updates/{instrument_updates_id}'
             .replace('{' + 'instrument_updates_id' + '}', encodeURIComponent(String(instrumentUpdatesId)));
         let localVarQueryParameters: any = {};

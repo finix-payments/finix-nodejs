@@ -111,13 +111,14 @@ export class IdentitiesApi {
     }
 
     /**
+     * Helper function. 
      * Create an associated `Identity` for [every owner with 25% or more ownership](/guides/onboarding/#step-3-add-associated-identities) over the merchant.
      * @summary Create an Associated Identity
      * @param identityId ID of &#x60;Identity&#x60; to associate object with.
      * @param createIdentityRequest 
      */
 
-    public async createAssociatedIdentityHelper(identityId: string, createIdentityRequest?: CreateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Identity;  }> {
+    private async createAssociatedIdentityHelper(identityId: string, createIdentityRequest?: CreateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Identity;  }> {
         const localVarPath = this.basePath + '/identities/{identity_id}/associated_identities'
             .replace('{' + 'identity_id' + '}', encodeURIComponent(String(identityId)));
         let localVarQueryParameters: any = {};
@@ -216,12 +217,13 @@ export class IdentitiesApi {
     }
 
     /**
+     * Helper function. 
      * Create an `Identity` for your merchant or buyer.  Creating `Identities` for merchants requires they provide [KYC details](/docs/guides/getting-stared/).  Related Guides: [Getting Started](/docs/guides/getting-started/), [Onboarding](/docs/guides/onboarding/)
      * @summary Create an Identity
      * @param createIdentityRequest 
      */
 
-    public async createHelper(createIdentityRequest?: CreateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Identity;  }> {
+    private async createHelper(createIdentityRequest?: CreateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Identity;  }> {
         const localVarPath = this.basePath + '/identities';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -313,13 +315,14 @@ export class IdentitiesApi {
     }
 
     /**
+     * Helper function. 
      * Verify an `Identity`.
      * @summary Verify an Identity
      * @param identityId ID of identity to fetch
      * @param createVerificationRequest 
      */
 
-    public async createIdentityVerificationHelper(identityId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Verification;  }> {
+    private async createIdentityVerificationHelper(identityId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Verification;  }> {
         const localVarPath = this.basePath + '/identities/{identity_id}/verifications'
             .replace('{' + 'identity_id' + '}', encodeURIComponent(String(identityId)));
         let localVarQueryParameters: any = {};
@@ -418,12 +421,13 @@ export class IdentitiesApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve the details of a previously created `Identity`.
      * @summary Fetch an Identity
      * @param identityId ID of the &#x60;identity&#x60; to fetch
      */
 
-    public async getHelper(identityId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Identity;  }> {
+    private async getHelper(identityId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Identity;  }> {
         const localVarPath = this.basePath + '/identities/{identity_id}'
             .replace('{' + 'identity_id' + '}', encodeURIComponent(String(identityId)));
         let localVarQueryParameters: any = {};
@@ -520,11 +524,12 @@ export class IdentitiesApi {
     }
 
     /**
+     * Helper function. 
      * Retrieves a list of `Identities`.
      * @summary List Identities
 
     */
-    public async listHelper (listIdentitiesQueryParams?:ListIdentitiesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: IdentitiesList;  }> {
+    private async listHelper (listIdentitiesQueryParams?:ListIdentitiesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: IdentitiesList;  }> {
         const localVarPath = this.basePath + '/identities';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -658,13 +663,14 @@ export class IdentitiesApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve a list of `Associated Identities` for an `Identity`.
      * @summary List Associated Identities
 
     * @param identityId ID of &#x60;Identity&#x60; to associate object with.
     * 
     */
-    public async listAssocaiatedIdentitiesHelper (identityId: string, listIdentityAssociatedIdentitiesQueryParams?:ListIdentityAssociatedIdentitiesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: IdentitiesList;  }> {
+    private async listAssocaiatedIdentitiesHelper (identityId: string, listIdentityAssociatedIdentitiesQueryParams?:ListIdentityAssociatedIdentitiesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: IdentitiesList;  }> {
         const localVarPath = this.basePath + '/identities/{identity_id}/associated_identities'
             .replace('{' + 'identity_id' + '}', encodeURIComponent(String(identityId)));
         let localVarQueryParameters: any = {};
@@ -773,13 +779,14 @@ export class IdentitiesApi {
     }
 
     /**
+     * Helper function. 
      * Update an existing `Identity`.  If you are updating the `Identity` of a `Merchant` that’s already been onboarded, you need to [verify the merchant again](#operation/createMerchantVerification).
      * @summary Update an Identity
      * @param identityId ID of the &#x60;identity&#x60; to fetch
      * @param updateIdentityRequest 
      */
 
-    public async updateHelper(identityId: string, updateIdentityRequest?: UpdateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Identity;  }> {
+    private async updateHelper(identityId: string, updateIdentityRequest?: UpdateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Identity;  }> {
         const localVarPath = this.basePath + '/identities/{identity_id}'
             .replace('{' + 'identity_id' + '}', encodeURIComponent(String(identityId)));
         let localVarQueryParameters: any = {};

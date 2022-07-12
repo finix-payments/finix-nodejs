@@ -107,6 +107,7 @@ export class SubscriptionSchedulesApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve the details of a `subscription_schedule`
      * @summary Get a Subscription Schedule
      * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
@@ -114,7 +115,7 @@ export class SubscriptionSchedulesApi {
      * @param type Filter by the object\&#39;s &#x60;subscription_type&#x60;.
      */
 
-    public async getHelper(subscriptionScheduleId: string, nickname?: string, type?: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SubscriptionSchedule;  }> {
+    private async getHelper(subscriptionScheduleId: string, nickname?: string, type?: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SubscriptionSchedule;  }> {
         const localVarPath = this.basePath + '/subscription/subscription_schedules/{subscription_schedule_id}'
             .replace('{' + 'subscription_schedule_id' + '}', encodeURIComponent(String(subscriptionScheduleId)));
         let localVarQueryParameters: any = {};
@@ -219,11 +220,12 @@ export class SubscriptionSchedulesApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve a list of `Subscription Schedules`.
      * @summary List Subscription Schedules
 
     */
-    public async listHelper (listSubscriptionSchedulesQueryParams?:ListSubscriptionSchedulesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SubscriptionSchedulesList;  }> {
+    private async listHelper (listSubscriptionSchedulesQueryParams?:ListSubscriptionSchedulesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SubscriptionSchedulesList;  }> {
         const localVarPath = this.basePath + '/subscription/subscription_schedules';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -321,12 +323,13 @@ export class SubscriptionSchedulesApi {
     }
 
     /**
+     * Helper function. 
      * Create a `subscription_schedule`.
      * @summary Create a Subscription Schedule
      * @param createSubscriptionScheduleRequest 
      */
 
-    public async createHelper(createSubscriptionScheduleRequest?: CreateSubscriptionScheduleRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SubscriptionSchedule;  }> {
+    private async createHelper(createSubscriptionScheduleRequest?: CreateSubscriptionScheduleRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SubscriptionSchedule;  }> {
         const localVarPath = this.basePath + '/subscription/subscription_schedules';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -418,13 +421,14 @@ export class SubscriptionSchedulesApi {
     }
 
     /**
+     * Helper function. 
      * Update the details of a `subscription_schedule`.
      * @summary Update a Subscription Schedule
      * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
      * @param updateSubscriptionScheduleRequest 
      */
 
-    public async updateHelper(subscriptionScheduleId: string, updateSubscriptionScheduleRequest?: UpdateSubscriptionScheduleRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SubscriptionSchedule;  }> {
+    private async updateHelper(subscriptionScheduleId: string, updateSubscriptionScheduleRequest?: UpdateSubscriptionScheduleRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SubscriptionSchedule;  }> {
         const localVarPath = this.basePath + '/subscription/subscription_schedules/{subscription_schedule_id}'
             .replace('{' + 'subscription_schedule_id' + '}', encodeURIComponent(String(subscriptionScheduleId)));
         let localVarQueryParameters: any = {};

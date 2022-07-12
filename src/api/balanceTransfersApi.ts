@@ -107,12 +107,13 @@ export class BalanceTransfersApi {
     }
 
     /**
+     * Helper function. 
      * Create a `balance_transfer`.
      * @summary Create a Balance Transfer
      * @param createBalanceTransferRequest 
      */
 
-    public async createBalanceTransferHelper(createBalanceTransferRequest?: CreateBalanceTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: BalanceTransfer;  }> {
+    private async createBalanceTransferHelper(createBalanceTransferRequest?: CreateBalanceTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: BalanceTransfer;  }> {
         const localVarPath = this.basePath + '/balance_transfers';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -204,12 +205,13 @@ export class BalanceTransfersApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve the details of a `balance_transfer`.
      * @summary Get a Balance Transfer
      * @param balanceTransfersId ID of the &#x60;balance_transfer&#x60; resource.
      */
 
-    public async getBalanceTransfersHelper(balanceTransfersId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: BalanceTransfer;  }> {
+    private async getBalanceTransfersHelper(balanceTransfersId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: BalanceTransfer;  }> {
         const localVarPath = this.basePath + '/balance_transfers/{balance_transfers_id}'
             .replace('{' + 'balance_transfers_id' + '}', encodeURIComponent(String(balanceTransfersId)));
         let localVarQueryParameters: any = {};
@@ -306,11 +308,12 @@ export class BalanceTransfersApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve a list of `balance_transfers`.
      * @summary List Balance Transfers
 
     */
-    public async listBalanceTransfersHelper (listBalanceTransfersQueryParams?:ListBalanceTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: BalanceTransferList;  }> {
+    private async listBalanceTransfersHelper (listBalanceTransfersQueryParams?:ListBalanceTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: BalanceTransferList;  }> {
         const localVarPath = this.basePath + '/balance_transfers';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);

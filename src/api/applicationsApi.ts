@@ -107,12 +107,13 @@ export class ApplicationsApi {
     }
 
     /**
+     * Helper function. 
      * If created successfully, returns a 201 status and adds a location header to the response which refers to the new created `Application`. 
      * @summary Create an Application
      * @param createApplicationRequest 
      */
 
-    public async createHelper(createApplicationRequest?: CreateApplicationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Application;  }> {
+    private async createHelper(createApplicationRequest?: CreateApplicationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Application;  }> {
         const localVarPath = this.basePath + '/applications';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -204,12 +205,13 @@ export class ApplicationsApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve the details of an `Application`.
      * @summary Fetch an Application
      * @param applicationId ID of application to use
      */
 
-    public async getHelper(applicationId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Application;  }> {
+    private async getHelper(applicationId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Application;  }> {
         const localVarPath = this.basePath + '/applications/{application_id}'
             .replace('{' + 'application_id' + '}', encodeURIComponent(String(applicationId)));
         let localVarQueryParameters: any = {};
@@ -306,11 +308,12 @@ export class ApplicationsApi {
     }
 
     /**
+     * Helper function. 
      * Return a collection of `Applications`. If there are no `Applications`, an empty collection will be returned.
      * @summary List Applications
 
     */
-    public async listHelper (listApplicationsQueryParams?:ListApplicationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ApplicationsList;  }> {
+    private async listHelper (listApplicationsQueryParams?:ListApplicationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ApplicationsList;  }> {
         const localVarPath = this.basePath + '/applications';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -414,12 +417,13 @@ export class ApplicationsApi {
     }
 
     /**
+     * Helper function. 
      * Update an existing `Application`.
      * @summary Update an Application
      * @param applicationId ID of application to use
      */
 
-    public async updateHelper(applicationId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Application;  }> {
+    private async updateHelper(applicationId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Application;  }> {
         const localVarPath = this.basePath + '/applications/{application_id}'
             .replace('{' + 'application_id' + '}', encodeURIComponent(String(applicationId)));
         let localVarQueryParameters: any = {};

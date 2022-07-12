@@ -109,12 +109,13 @@ export class AuthorizationsApi {
     }
 
     /**
+     * Helper function. 
      * Create an `Authorization` to process a transaction.  `Authorizations` can have two possible `states`:  - **SUCCEEDED**  - **FAILED**  If the `Authorization` has **SUCCEEDED** , it must be captured before `expires_at` passes or the funds will be released.  Learn how to prevent duplicate authorizations by passing an [Idempotency ID](#section/Idempotency-Requests) in the payload.
      * @summary Create an Authorization
      * @param createAuthorizationRequest 
      */
 
-    public async createHelper(createAuthorizationRequest?: CreateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Authorization;  }> {
+    private async createHelper(createAuthorizationRequest?: CreateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Authorization;  }> {
         const localVarPath = this.basePath + '/authorizations';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -206,12 +207,13 @@ export class AuthorizationsApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve the details of a previously created `Authorization`.
      * @summary Get an Authorization
      * @param authorizationId ID of authorization to fetch
      */
 
-    public async getHelper(authorizationId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Authorization;  }> {
+    private async getHelper(authorizationId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Authorization;  }> {
         const localVarPath = this.basePath + '/authorizations/{authorization_id}'
             .replace('{' + 'authorization_id' + '}', encodeURIComponent(String(authorizationId)));
         let localVarQueryParameters: any = {};
@@ -308,11 +310,12 @@ export class AuthorizationsApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve a list of `Authorizations`. 
      * @summary List Authorizations
 
     */
-    public async listHelper (listAuthorizationsQueryParams?:ListAuthorizationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: AuthorizationsList;  }> {
+    private async listHelper (listAuthorizationsQueryParams?:ListAuthorizationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: AuthorizationsList;  }> {
         const localVarPath = this.basePath + '/authorizations';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -491,13 +494,14 @@ export class AuthorizationsApi {
     }
 
     /**
+     * Helper function. 
      * If successfully captured, the `transfer` field of the `Authorization` will contain the ID of the `Transfer` resource that\'ll move funds.   By default, `Transfers` are in a **PENDING** state. The **PENDING** state means the system hasn\'t submitted the request to capture funds. Capture requests get submitted via a batch request.   Once the `Authorization` is updated with a `capture_amount` (i.e. *Captured*), the state of the `Transfer` will update to **SUCCEEDED**.  > Voided `Authorizations` can\'t be captured.
      * @summary Update an Authorization
      * @param authorizationId ID of authorization to fetch
      * @param updateAuthorizationRequest 
      */
 
-    public async updateHelper(authorizationId: string, updateAuthorizationRequest?: UpdateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Authorization;  }> {
+    private async updateHelper(authorizationId: string, updateAuthorizationRequest?: UpdateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Authorization;  }> {
         const localVarPath = this.basePath + '/authorizations/{authorization_id}'
             .replace('{' + 'authorization_id' + '}', encodeURIComponent(String(authorizationId)));
         let localVarQueryParameters: any = {};

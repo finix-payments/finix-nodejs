@@ -109,12 +109,13 @@ export class VerificationsApi {
     }
 
     /**
+     * Helper function. 
      * Create a `verification` to verify an `Identity` or `Payment Instrument`.  Verifications can also be created directly on the resources you want to verify: - `POST /merchants/{id}/verifications` - `POST /payment_instruments/{id}/verifications`
      * @summary Perform a Verification
      * @param createVerificationRequest 
      */
 
-    public async createHelper(createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Verification;  }> {
+    private async createHelper(createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Verification;  }> {
         const localVarPath = this.basePath + '/verifications';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -206,12 +207,13 @@ export class VerificationsApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve the details of a `Verification`.
      * @summary Get a Verification
      * @param verificationId ID of &#x60;Verification&#x60; object.
      */
 
-    public async getHelper(verificationId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Verification;  }> {
+    private async getHelper(verificationId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Verification;  }> {
         const localVarPath = this.basePath + '/verifications/{verification_id}'
             .replace('{' + 'verification_id' + '}', encodeURIComponent(String(verificationId)));
         let localVarQueryParameters: any = {};
@@ -308,13 +310,14 @@ export class VerificationsApi {
     }
 
     /**
+     * Helper function. 
      * Get a list of all the `Verifications` in the `Merchant` object.
      * @summary List Merchant Verifications
 
     * @param merchantId ID of &#x60;Merchant&#x60; object.
     * 
     */
-    public async listByMerchantIdHelper (merchantId: string, listMerchantVerificationsQueryParams?:ListMerchantVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: VerificationsList;  }> {
+    private async listByMerchantIdHelper (merchantId: string, listMerchantVerificationsQueryParams?:ListMerchantVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: VerificationsList;  }> {
         const localVarPath = this.basePath + '/merchants/{merchant_id}/verifications'
             .replace('{' + 'merchant_id' + '}', encodeURIComponent(String(merchantId)));
         let localVarQueryParameters: any = {};
@@ -423,11 +426,12 @@ export class VerificationsApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve a list of `Verifications`.
      * @summary List Verifications
 
     */
-    public async listHelper (listVerificationsQueryParams?:ListVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: VerificationsList;  }> {
+    private async listHelper (listVerificationsQueryParams?:ListVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: VerificationsList;  }> {
         const localVarPath = this.basePath + '/verifications';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);

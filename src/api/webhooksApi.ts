@@ -109,12 +109,13 @@ export class WebhooksApi {
     }
 
     /**
+     * Helper function. 
      * Create a `Webhook` to specify an endpoint where Finix can send events.
      * @summary Create a Webhook
      * @param createWebhookRequest 
      */
 
-    public async createHelper(createWebhookRequest?: CreateWebhookRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Webhook;  }> {
+    private async createHelper(createWebhookRequest?: CreateWebhookRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Webhook;  }> {
         const localVarPath = this.basePath + '/webhooks';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -206,12 +207,13 @@ export class WebhooksApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve the details of a `Webhook`.
      * @summary Get a Webhook
      * @param webhookId ID of &#x60;Webhook&#x60; object.
      */
 
-    public async getHelper(webhookId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Webhook;  }> {
+    private async getHelper(webhookId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Webhook;  }> {
         const localVarPath = this.basePath + '/webhooks/{webhook_id}'
             .replace('{' + 'webhook_id' + '}', encodeURIComponent(String(webhookId)));
         let localVarQueryParameters: any = {};
@@ -308,11 +310,12 @@ export class WebhooksApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve a list of `Webhooks`.
      * @summary List Webhooks
 
     */
-    public async listHelper (listWebhooksQueryParams?:ListWebhooksQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: WebhooksList;  }> {
+    private async listHelper (listWebhooksQueryParams?:ListWebhooksQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: WebhooksList;  }> {
         const localVarPath = this.basePath + '/webhooks';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -413,13 +416,14 @@ export class WebhooksApi {
     }
 
     /**
+     * Helper function. 
      * Update an existing `Webhook`.
      * @summary Update a Webhook
      * @param webhookId ID of &#x60;Webhook&#x60; object.
      * @param updateWebhookRequest 
      */
 
-    public async updateHelper(webhookId: string, updateWebhookRequest?: UpdateWebhookRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Webhook;  }> {
+    private async updateHelper(webhookId: string, updateWebhookRequest?: UpdateWebhookRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Webhook;  }> {
         const localVarPath = this.basePath + '/webhooks/{webhook_id}'
             .replace('{' + 'webhook_id' + '}', encodeURIComponent(String(webhookId)));
         let localVarQueryParameters: any = {};

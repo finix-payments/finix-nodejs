@@ -106,13 +106,14 @@ export class SubscriptionAmountsApi {
     }
 
     /**
+     * Helper function. 
      * Create a `subscription_amount`.  The `Subscription Amount` is the amount to be charged to a `Merchant`. The `Subscription Amount` must be associated to a `Subscription Schedule`.
      * @summary Create a Subscription Amount
      * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
      * @param createSubscriptionAmountRequest 
      */
 
-    public async lcreateHelper(subscriptionScheduleId: string, createSubscriptionAmountRequest?: CreateSubscriptionAmountRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SubscriptionAmount;  }> {
+    private async lcreateHelper(subscriptionScheduleId: string, createSubscriptionAmountRequest?: CreateSubscriptionAmountRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SubscriptionAmount;  }> {
         const localVarPath = this.basePath + '/subscription/subscription_schedules/{subscription_schedule_id}/subscription_amounts'
             .replace('{' + 'subscription_schedule_id' + '}', encodeURIComponent(String(subscriptionScheduleId)));
         let localVarQueryParameters: any = {};
@@ -211,13 +212,14 @@ export class SubscriptionAmountsApi {
     }
 
     /**
+     * Helper function. 
      * Delete a previously created `Subscription Amount`.
      * @summary Delete a Subscription Amount
      * @param subscriptionAmountId The ID of the &#x60;Subscription Amount&#x60;.
      * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
      */
 
-    public async deleteSubscriptionAmountHelper(subscriptionAmountId: string, subscriptionScheduleId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body?: any;  }> {
+    private async deleteSubscriptionAmountHelper(subscriptionAmountId: string, subscriptionScheduleId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body?: any;  }> {
         const localVarPath = this.basePath + '/subscription/subscription_schedules/{subscription_schedule_id}/subscription_amounts/{subscription_amount_id}'
             .replace('{' + 'subscription_amount_id' + '}', encodeURIComponent(String(subscriptionAmountId)))
             .replace('{' + 'subscription_schedule_id' + '}', encodeURIComponent(String(subscriptionScheduleId)));
@@ -320,13 +322,14 @@ export class SubscriptionAmountsApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve the details of a `subscription_amount`.
      * @summary Get a Subscription Amount
      * @param subscriptionAmountId The ID of the &#x60;Subscription Amount&#x60;.
      * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
      */
 
-    public async getHelper(subscriptionAmountId: string, subscriptionScheduleId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SubscriptionAmount;  }> {
+    private async getHelper(subscriptionAmountId: string, subscriptionScheduleId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SubscriptionAmount;  }> {
         const localVarPath = this.basePath + '/subscription/subscription_schedules/{subscription_schedule_id}/subscription_amounts/{subscription_amount_id}'
             .replace('{' + 'subscription_amount_id' + '}', encodeURIComponent(String(subscriptionAmountId)))
             .replace('{' + 'subscription_schedule_id' + '}', encodeURIComponent(String(subscriptionScheduleId)));
@@ -430,13 +433,14 @@ export class SubscriptionAmountsApi {
     }
 
     /**
+     * Helper function. 
      * Retrive a list of `Subscription Amounts`.
      * @summary List Subscription Amounts
 
     * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
     * 
     */
-    public async listBySubscriptionScheduleHelper (subscriptionScheduleId: string, listSubscriptionAmountQueryParams?:ListSubscriptionAmountQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SubscriptionAmountList;  }> {
+    private async listBySubscriptionScheduleHelper (subscriptionScheduleId: string, listSubscriptionAmountQueryParams?:ListSubscriptionAmountQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SubscriptionAmountList;  }> {
         const localVarPath = this.basePath + '/subscription/subscription_schedules/{subscription_schedule_id}/subscription_amounts'
             .replace('{' + 'subscription_schedule_id' + '}', encodeURIComponent(String(subscriptionScheduleId)));
         let localVarQueryParameters: any = {};
@@ -545,6 +549,7 @@ export class SubscriptionAmountsApi {
     }
 
     /**
+     * Helper function. 
      * Update the details of a `subscription_amount`.
      * @summary Update a Subscription Amount
      * @param subscriptionAmountId The ID of the &#x60;Subscription Amount&#x60;.
@@ -552,7 +557,7 @@ export class SubscriptionAmountsApi {
      * @param createSubscriptionAmountRequest 
      */
 
-    public async patchSubscriptionAmountHelper(subscriptionAmountId: string, subscriptionScheduleId: string, createSubscriptionAmountRequest?: CreateSubscriptionAmountRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SubscriptionAmount;  }> {
+    private async patchSubscriptionAmountHelper(subscriptionAmountId: string, subscriptionScheduleId: string, createSubscriptionAmountRequest?: CreateSubscriptionAmountRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SubscriptionAmount;  }> {
         const localVarPath = this.basePath + '/subscription/subscription_schedules/{subscription_schedule_id}/subscription_amounts/{subscription_amount_id}'
             .replace('{' + 'subscription_amount_id' + '}', encodeURIComponent(String(subscriptionAmountId)))
             .replace('{' + 'subscription_schedule_id' + '}', encodeURIComponent(String(subscriptionScheduleId)));

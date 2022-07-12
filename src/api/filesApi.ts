@@ -110,13 +110,14 @@ export class FilesApi {
     }
 
     /**
+     * Helper function. 
      * Create an `external_link` resource to share with users so they can upload files directly from their browser. For more info, see [Uploading files to Finix](/docs/guides/onboarding/uploading-files-to-finix/).   Once created, you can request the user to upload a file to the `external_link` resource: [Upload files to External Link](#operation/uploadExternalLink)
      * @summary Create an External Link
      * @param fileId Your &#x60;File&#x60; ID.
      * @param createExternalLinkRequest 
      */
 
-    public async createExternalLinkHelper(fileId: string, createExternalLinkRequest?: CreateExternalLinkRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ExternalLink;  }> {
+    private async createExternalLinkHelper(fileId: string, createExternalLinkRequest?: CreateExternalLinkRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ExternalLink;  }> {
         const localVarPath = this.basePath + '/files/{file_id}/external_links'
             .replace('{' + 'file_id' + '}', encodeURIComponent(String(fileId)));
         let localVarQueryParameters: any = {};
@@ -215,12 +216,13 @@ export class FilesApi {
     }
 
     /**
+     * Helper function. 
      * Before uploading a file, you need to create a `File` resource.   Once created, you can [upload](/#operation/uploadFile) your file to the new `File` resource.
      * @summary Create a File
      * @param createFileRequest 
      */
 
-    public async createHelper(createFileRequest?: CreateFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: any;  }> {
+    private async createHelper(createFileRequest?: CreateFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: any;  }> {
         const localVarPath = this.basePath + '/files';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -312,12 +314,13 @@ export class FilesApi {
     }
 
     /**
+     * Helper function. 
      * Download a file uploaded to a `File` resource. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix).
      * @summary Download a file
      * @param fileId The ID of the &#x60;File&#x60; that was created to upload the file.
      */
 
-    public async downloadFileHelper(fileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Buffer;  }> {
+    private async downloadFileHelper(fileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Buffer;  }> {
         const localVarPath = this.basePath + '/files/{file_id}/download'
             .replace('{' + 'file_id' + '}', encodeURIComponent(String(fileId)));
         let localVarQueryParameters: any = {};
@@ -414,13 +417,14 @@ export class FilesApi {
     }
 
     /**
+     * Helper function. 
      * Fetch a previously created `external_link` resource. For more info see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#create-an-external-link).
      * @summary Fetch an External LInk
      * @param fileId The ID of the &#x60;File&#x60; that has the links you want to retrieve.
      * @param externalLinkId The ID of the &#x60;external_link&#x60; that you want to retireve.
      */
 
-    public async getExternalLinkHelper(fileId: string, externalLinkId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ExternalLink;  }> {
+    private async getExternalLinkHelper(fileId: string, externalLinkId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ExternalLink;  }> {
         const localVarPath = this.basePath + '/files/{file_id}/external_links/{external_link_id}'
             .replace('{' + 'file_id' + '}', encodeURIComponent(String(fileId)))
             .replace('{' + 'external_link_id' + '}', encodeURIComponent(String(externalLinkId)));
@@ -524,12 +528,13 @@ export class FilesApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve the details of a `File` resource. For more info see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#create-an-external-link).
      * @summary Fetch a File
      * @param fileId Your &#x60;File&#x60; ID.
      */
 
-    public async getHelper(fileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: any;  }> {
+    private async getHelper(fileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: any;  }> {
         const localVarPath = this.basePath + '/files/{file_id}'
             .replace('{' + 'file_id' + '}', encodeURIComponent(String(fileId)));
         let localVarQueryParameters: any = {};
@@ -626,13 +631,14 @@ export class FilesApi {
     }
 
     /**
+     * Helper function. 
      * List the previously `external_links` for a `File`. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#create-an-external-link).
      * @summary List All External Links
 
     * @param fileId Your &#x60;File&#x60; ID.
     * 
     */
-    public async listExternalLinksHelper (fileId: string, listExternalLinksQueryParams?:ListExternalLinksQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ExternalLinksList;  }> {
+    private async listExternalLinksHelper (fileId: string, listExternalLinksQueryParams?:ListExternalLinksQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ExternalLinksList;  }> {
         const localVarPath = this.basePath + '/files/{file_id}/external_links'
             .replace('{' + 'file_id' + '}', encodeURIComponent(String(fileId)));
         let localVarQueryParameters: any = {};
@@ -759,11 +765,12 @@ export class FilesApi {
     }
 
     /**
+     * Helper function. 
      * List all the `File` resources you\'ve created. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#step-1-create-a-file).
      * @summary List All Files
 
     */
-    public async listHelper (listFilesQueryParams?:ListFilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: FilesList;  }> {
+    private async listHelper (listFilesQueryParams?:ListFilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: FilesList;  }> {
         const localVarPath = this.basePath + '/files';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -882,13 +889,14 @@ export class FilesApi {
     }
 
     /**
+     * Helper function. 
      * Upload files directly with a `multipart/form-data` request. For more info see, [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#step-2-upload-the-file).
      * @summary Upload files Directly
      * @param fileId The ID of the &#x60;File&#x60; that was created to upload the file.
      * @param uploadFileRequest 
      */
 
-    public async uploadFileHelper(fileId: string, uploadFileRequest?: UploadFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: any;  }> {
+    private async uploadFileHelper(fileId: string, uploadFileRequest?: UploadFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: any;  }> {
         const localVarPath = this.basePath + '/files/{file_id}/upload'
             .replace('{' + 'file_id' + '}', encodeURIComponent(String(fileId)));
         let localVarQueryParameters: any = {};

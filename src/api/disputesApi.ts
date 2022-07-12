@@ -111,13 +111,14 @@ export class DisputesApi {
     }
 
     /**
+     * Helper function. 
      * Upload dispute evidence for a `Dispute`.  There are four values available for `state` that details the status of the evidence upload:  * **PENDING**: The evidence file has not yet been submitted to the `Processor`. No user action is required. * **SUCCEEDED**: The evidence file has been successfully sent to the `Processor`. No further user action is required. * **CANCELED**: The evidence file upload was not completed due to user action. * **FAILED**: An issue occurred. User action is required. Any of the following issues could have occurred:     * There was an error in the system and the user should retry uploading their evidence file.     * There is an issue with the file and the user should retry uploading a different file.     * There is an issue and the user should contact Support. 
      * @summary Create Dispute Evidence
      * @param disputeId ID of &#x60;Dispute&#x60; to mange evidence for.
      * @param createDisputeEvidenceRequest 
      */
 
-    public async createDisputeEvidenceHelper(disputeId: string, createDisputeEvidenceRequest?: CreateDisputeEvidenceRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: DisputeEvidence;  }> {
+    private async createDisputeEvidenceHelper(disputeId: string, createDisputeEvidenceRequest?: CreateDisputeEvidenceRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: DisputeEvidence;  }> {
         const localVarPath = this.basePath + '/disputes/{dispute_id}/evidence'
             .replace('{' + 'dispute_id' + '}', encodeURIComponent(String(disputeId)));
         let localVarQueryParameters: any = {};
@@ -216,12 +217,13 @@ export class DisputesApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve the details of a previously created `Dispute`.
      * @summary Get Dispute
      * @param disputeId ID of &#x60;Dispute&#x60; to fetch.
      */
 
-    public async getHelper(disputeId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Dispute;  }> {
+    private async getHelper(disputeId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Dispute;  }> {
         const localVarPath = this.basePath + '/disputes/{dispute_id}'
             .replace('{' + 'dispute_id' + '}', encodeURIComponent(String(disputeId)));
         let localVarQueryParameters: any = {};
@@ -318,13 +320,14 @@ export class DisputesApi {
     }
 
     /**
+     * Helper function. 
      * Fetch evidence uploaded for a `Dispute`.   If you don\'t have the Finix Dashboard available, you can fetch the evidence to review the `status` of the upload to confirm the evidence got sent to the processor.
      * @summary Fetch Dispute Evidence
      * @param disputeId ID of &#x60;Dispute&#x60; to fetch evidence for.
      * @param evidenceId ID of &#x60;evidence&#x60; to fetch.
      */
 
-    public async getDisputeEvidenceHelper(disputeId: string, evidenceId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: DisputeEvidence;  }> {
+    private async getDisputeEvidenceHelper(disputeId: string, evidenceId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: DisputeEvidence;  }> {
         const localVarPath = this.basePath + '/disputes/{dispute_id}/evidence/{evidence_id}'
             .replace('{' + 'dispute_id' + '}', encodeURIComponent(String(disputeId)))
             .replace('{' + 'evidence_id' + '}', encodeURIComponent(String(evidenceId)));
@@ -428,13 +431,14 @@ export class DisputesApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve a list of dispute evidence for a `Dispute`.
      * @summary List Dispute Evidence
 
     * @param disputeId ID of &#x60;Dispute&#x60; to mange evidence for.
     * 
     */
-    public async listDisputeEvidenceByDisputeIdHelper (disputeId: string, listDisputeEvidenceQueryParams?:ListDisputeEvidenceQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: DisputeEvidenceList;  }> {
+    private async listDisputeEvidenceByDisputeIdHelper (disputeId: string, listDisputeEvidenceQueryParams?:ListDisputeEvidenceQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: DisputeEvidenceList;  }> {
         const localVarPath = this.basePath + '/disputes/{dispute_id}/evidence'
             .replace('{' + 'dispute_id' + '}', encodeURIComponent(String(disputeId)));
         let localVarQueryParameters: any = {};
@@ -543,11 +547,12 @@ export class DisputesApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve a list of `Disputes`.
      * @summary List Disputes
 
     */
-    public async listHelper (listDisputesQueryParams?:ListDisputesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: DisputesList;  }> {
+    private async listHelper (listDisputesQueryParams?:ListDisputesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: DisputesList;  }> {
         const localVarPath = this.basePath + '/disputes';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -660,13 +665,14 @@ export class DisputesApi {
     }
 
     /**
+     * Helper function. 
      * List the adjustment `Transfers` for a `Dispute`. Depending on the stage of the `Dispute`, different adjustment `Transfer` subtypes can be applied.  There are four available subtypes for adjustment `Transfers` in `Disputes`: <ul><li><strong>PLATFORM\\_CREDIT</strong><li><strong>MERCHANT\\_DEBIT</strong><li><strong>MERCHANT\\_CREDIT</strong><li><strong>PLATFORM\\_DEBIT</strong></ul>
      * @summary Fetch Dispute Adjustment Transfers
 
     * @param disputeId ID of the &#x60;Dispute&#x60; resource.
     * 
     */
-    public async listDisputesAdjustmentsHelper (disputeId: string, listDisputesAdjustmentsQueryParams?:ListDisputesAdjustmentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: AdjustmentTransfersList;  }> {
+    private async listDisputesAdjustmentsHelper (disputeId: string, listDisputesAdjustmentsQueryParams?:ListDisputesAdjustmentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: AdjustmentTransfersList;  }> {
         const localVarPath = this.basePath + '/disputes/{dispute_id}/adjustment_transfers'
             .replace('{' + 'dispute_id' + '}', encodeURIComponent(String(disputeId)));
         let localVarQueryParameters: any = {};

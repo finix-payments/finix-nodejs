@@ -105,13 +105,14 @@ export class PaymentInstrumentsP2CApi {
     }
 
     /**
+     * Helper function. 
      * Verify a `Payment Instrument` to determine if it\'s elligable for Push To Card transactions.   > Only verify `Payment Instruments` for [Push To Card](/guides/push-to-card) customers.
      * @summary Verify a Payment Instrument
      * @param paymentInstrumentId ID of object
      * @param createVerificationRequest 
      */
 
-    public async createPaymentInstrumentVerificationHelper(paymentInstrumentId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Verification;  }> {
+    private async createPaymentInstrumentVerificationHelper(paymentInstrumentId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Verification;  }> {
         const localVarPath = this.basePath + '/payment_instruments/{payment_instrument_id}/verifications'
             .replace('{' + 'payment_instrument_id' + '}', encodeURIComponent(String(paymentInstrumentId)));
         let localVarQueryParameters: any = {};

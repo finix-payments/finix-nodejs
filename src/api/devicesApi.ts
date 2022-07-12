@@ -105,13 +105,14 @@ export class DevicesApi {
     }
 
     /**
+     * Helper function. 
      * Create a `Device` under a `Merchant`.
      * @summary Create a Device
      * @param merchantId ID of the &#x60;Merchant&#x60; object.
      * @param createDevice 
      */
 
-    public async createHelper(merchantId: string, createDevice?: CreateDevice, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Device;  }> {
+    private async createHelper(merchantId: string, createDevice?: CreateDevice, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Device;  }> {
         const localVarPath = this.basePath + '/merchants/{merchant_id}/devices'
             .replace('{' + 'merchant_id' + '}', encodeURIComponent(String(merchantId)));
         let localVarQueryParameters: any = {};
@@ -210,12 +211,13 @@ export class DevicesApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve the details of an existing `Device`.  To check the connectivity of the device, include `?include_connection\\=true \\` at the end of the request endpoint.
      * @summary Get Device
      * @param deviceId ID of the &#x60;Device&#x60;.
      */
 
-    public async getHelper(deviceId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Device;  }> {
+    private async getHelper(deviceId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Device;  }> {
         const localVarPath = this.basePath + '/devices/{device_id}'
             .replace('{' + 'device_id' + '}', encodeURIComponent(String(deviceId)));
         let localVarQueryParameters: any = {};
@@ -312,13 +314,14 @@ export class DevicesApi {
     }
 
     /**
+     * Helper function. 
      * Update a `Device` to activate or deactivate it.
      * @summary Update a Device
      * @param deviceId ID of the &#x60;Device&#x60;.
      * @param body 
      */
 
-    public async updateHelper(deviceId: string, body?: object, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Device;  }> {
+    private async updateHelper(deviceId: string, body?: object, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Device;  }> {
         const localVarPath = this.basePath + '/devices/{device_id}'
             .replace('{' + 'device_id' + '}', encodeURIComponent(String(deviceId)));
         let localVarQueryParameters: any = {};

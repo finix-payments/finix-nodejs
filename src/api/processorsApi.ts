@@ -108,13 +108,14 @@ export class ProcessorsApi {
     }
 
     /**
+     * Helper function. 
      * Enable a `Processor` for an `Application`. If created successfully, a 201 status is returned with a location header added to the response which refers to the newly enabled processor. 
      * @summary Create Application Processor
      * @param applicationId ID of application to use
      * @param createProcessorRequest 
      */
 
-    public async createApplicationProcessorHelper(applicationId: string, createProcessorRequest?: CreateProcessorRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Processor;  }> {
+    private async createApplicationProcessorHelper(applicationId: string, createProcessorRequest?: CreateProcessorRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Processor;  }> {
         const localVarPath = this.basePath + '/applications/{application_id}/processors'
             .replace('{' + 'application_id' + '}', encodeURIComponent(String(applicationId)));
         let localVarQueryParameters: any = {};
@@ -213,13 +214,14 @@ export class ProcessorsApi {
     }
 
     /**
+     * Helper function. 
      * Get the `Processor` by `Application` and `type`.
      * @summary Get Application Processor
      * @param applicationId ID of application to use
      * @param type Type of &#x60;Processor&#x60;.
      */
 
-    public async getApplicationProcessorHelper(applicationId: string, type: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Processor;  }> {
+    private async getApplicationProcessorHelper(applicationId: string, type: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Processor;  }> {
         const localVarPath = this.basePath + '/applications/{application_id}/processors/{type}'
             .replace('{' + 'application_id' + '}', encodeURIComponent(String(applicationId)))
             .replace('{' + 'type' + '}', encodeURIComponent(String(type)));
@@ -323,13 +325,14 @@ export class ProcessorsApi {
     }
 
     /**
+     * Helper function. 
      * Get all enabled `Processors` for an `Application`.
      * @summary List Application Processors
 
     * @param applicationId ID of application to use
     * 
     */
-    public async listByApplicationIdHelper (applicationId: string, listApplicationProcessorsQueryParams?:ListApplicationProcessorsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ProcessorsList;  }> {
+    private async listByApplicationIdHelper (applicationId: string, listApplicationProcessorsQueryParams?:ListApplicationProcessorsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ProcessorsList;  }> {
         const localVarPath = this.basePath + '/applications/{application_id}/processors'
             .replace('{' + 'application_id' + '}', encodeURIComponent(String(applicationId)));
         let localVarQueryParameters: any = {};

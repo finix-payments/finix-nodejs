@@ -113,12 +113,13 @@ export class PaymentInstrumentsApi {
     }
 
     /**
+     * Helper function. 
      * Create an `apple_pay_session` to process Apple Pay transactions on the web.  To create an Apple Pay Session, pass the unique `validation_url` (provided by Apple) while creating an `apple_pay_sessions` resource. Finix returns a `merchantSession` object that you can use to create a payment. For more information, see [Apple Pay](/docs/guides/payments/alternative-payment-methods/apple-pay/).
      * @summary Create an Apple Pay Session
      * @param applePaySessionRequest 
      */
 
-    public async createApplePaySessionHelper(applePaySessionRequest?: ApplePaySessionRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ApplePaySession;  }> {
+    private async createApplePaySessionHelper(applePaySessionRequest?: ApplePaySessionRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ApplePaySession;  }> {
         const localVarPath = this.basePath + '/apple_pay_sessions';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -210,12 +211,13 @@ export class PaymentInstrumentsApi {
     }
 
     /**
+     * Helper function. 
      * Create a `Payment Instrument` resource using a card or bank account.  To accept payment details, review our guide on how to [tokenize cards using hosted fields](/guides/payments/tokenization-with-hosted-fields).  > The creation of `Payment Instruments` using cards directly via Finix\'s API should only be done for testing purposes. You must use the Hosted Tokenization fields or javascript client to remain out of PCI scope.
      * @summary Create a Payment Instrument
      * @param createPaymentInstrumentRequest 
      */
 
-    public async createHelper(createPaymentInstrumentRequest?: CreatePaymentInstrumentRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: PaymentInstrument;  }> {
+    private async createHelper(createPaymentInstrumentRequest?: CreatePaymentInstrumentRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: PaymentInstrument;  }> {
         const localVarPath = this.basePath + '/payment_instruments';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -307,13 +309,14 @@ export class PaymentInstrumentsApi {
     }
 
     /**
+     * Helper function. 
      * Verify a `Payment Instrument` to determine if it\'s elligable for Push To Card transactions.   > Only verify `Payment Instruments` for [Push To Card](/guides/push-to-card) customers.
      * @summary Verify a Payment Instrument
      * @param paymentInstrumentId ID of object
      * @param createVerificationRequest 
      */
 
-    public async createPaymentInstrumentVerificationHelper(paymentInstrumentId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Verification;  }> {
+    private async createPaymentInstrumentVerificationHelper(paymentInstrumentId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Verification;  }> {
         const localVarPath = this.basePath + '/payment_instruments/{payment_instrument_id}/verifications'
             .replace('{' + 'payment_instrument_id' + '}', encodeURIComponent(String(paymentInstrumentId)));
         let localVarQueryParameters: any = {};
@@ -412,12 +415,13 @@ export class PaymentInstrumentsApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve the details of a `Payment Instrument`.
      * @summary Get a Payment Instrument
      * @param paymentInstrumentId ID of object
      */
 
-    public async getHelper(paymentInstrumentId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: PaymentInstrument;  }> {
+    private async getHelper(paymentInstrumentId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: PaymentInstrument;  }> {
         const localVarPath = this.basePath + '/payment_instruments/{payment_instrument_id}'
             .replace('{' + 'payment_instrument_id' + '}', encodeURIComponent(String(paymentInstrumentId)));
         let localVarQueryParameters: any = {};
@@ -514,11 +518,12 @@ export class PaymentInstrumentsApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve a list of `Payment Instruments`.
      * @summary List Payment Instruments
 
     */
-    public async listHelper (listPaymentInstrumentsQueryParams?:ListPaymentInstrumentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: PaymentInstrumentsList;  }> {
+    private async listHelper (listPaymentInstrumentsQueryParams?:ListPaymentInstrumentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: PaymentInstrumentsList;  }> {
         const localVarPath = this.basePath + '/payment_instruments';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -655,13 +660,14 @@ export class PaymentInstrumentsApi {
     }
 
     /**
+     * Helper function. 
      * Update a `Payment Instrument`.
      * @summary Update a Payment Instrument
      * @param paymentInstrumentId ID of object
      * @param updatePaymentInstrumentRequest 
      */
 
-    public async updateHelper(paymentInstrumentId: string, updatePaymentInstrumentRequest?: UpdatePaymentInstrumentRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: PaymentInstrument;  }> {
+    private async updateHelper(paymentInstrumentId: string, updatePaymentInstrumentRequest?: UpdatePaymentInstrumentRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: PaymentInstrument;  }> {
         const localVarPath = this.basePath + '/payment_instruments/{payment_instrument_id}'
             .replace('{' + 'payment_instrument_id' + '}', encodeURIComponent(String(paymentInstrumentId)));
         let localVarQueryParameters: any = {};

@@ -105,12 +105,13 @@ export class MerchantProfilesApi {
     }
 
     /**
+     * Helper function. 
      * Get the merchant profile object
      * @summary Show Merchant Profile
      * @param merchantProfileId ID of merchant profile
      */
 
-    public async getHelper(merchantProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: MerchantProfile;  }> {
+    private async getHelper(merchantProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: MerchantProfile;  }> {
         const localVarPath = this.basePath + '/merchant_profiles/{merchant_profile_id}'
             .replace('{' + 'merchant_profile_id' + '}', encodeURIComponent(String(merchantProfileId)));
         let localVarQueryParameters: any = {};
@@ -207,11 +208,12 @@ export class MerchantProfilesApi {
     }
 
     /**
+     * Helper function. 
      * Get list of all the merchant_profiles objects
      * @summary List Merchant Profiles
 
     */
-    public async listHelper (listMerchantProfilesQueryParams?:ListMerchantProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: MerchantProfilesList;  }> {
+    private async listHelper (listMerchantProfilesQueryParams?:ListMerchantProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: MerchantProfilesList;  }> {
         const localVarPath = this.basePath + '/merchant_profiles';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -315,13 +317,14 @@ export class MerchantProfilesApi {
     }
 
     /**
+     * Helper function. 
      * Update a merchant profile
      * @summary Update a Merchant Profile
      * @param merchantProfileId ID of merchant profile
      * @param body 
      */
 
-    public async updateHelper(merchantProfileId: string, body?: object, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: MerchantProfile;  }> {
+    private async updateHelper(merchantProfileId: string, body?: object, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: MerchantProfile;  }> {
         const localVarPath = this.basePath + '/merchant_profiles/{merchant_profile_id}'
             .replace('{' + 'merchant_profile_id' + '}', encodeURIComponent(String(merchantProfileId)));
         let localVarQueryParameters: any = {};

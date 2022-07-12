@@ -108,13 +108,14 @@ export class SubscriptionEnrollmentsApi {
     }
 
     /**
+     * Helper function. 
      * Create a `subscription_enrollment`.  A `subscription_enrollment` details which `Merchant` gets charged, to what schedule, and when the subscription will start. The `subscription_enrollment` must be associated with a `Subscription Schedule`.
      * @summary Create a Subscription Enrollment
      * @param subscriptionScheduleId The ID of the &#x60;subscription_schedule&#x60;.
      * @param createSubscriptionEnrollmentRequest 
      */
 
-    public async createHelper(subscriptionScheduleId: string, createSubscriptionEnrollmentRequest?: CreateSubscriptionEnrollmentRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SubscriptionEnrollment;  }> {
+    private async createHelper(subscriptionScheduleId: string, createSubscriptionEnrollmentRequest?: CreateSubscriptionEnrollmentRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SubscriptionEnrollment;  }> {
         const localVarPath = this.basePath + '/subscription/subscription_schedules/{subscription_schedule_id}/subscription_enrollments'
             .replace('{' + 'subscription_schedule_id' + '}', encodeURIComponent(String(subscriptionScheduleId)));
         let localVarQueryParameters: any = {};
@@ -213,12 +214,13 @@ export class SubscriptionEnrollmentsApi {
     }
 
     /**
+     * Helper function. 
      * Remove a `subscription_enrollment`.
      * @summary Delete a Subscription Enrollment
      * @param subscriptionEnrollmentId The ID of the &#x60;subscription_enrollment&#x60;.
      */
 
-    public async removeHelper(subscriptionEnrollmentId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body?: any;  }> {
+    private async removeHelper(subscriptionEnrollmentId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body?: any;  }> {
         const localVarPath = this.basePath + '/subscription/subscription_enrollments/{subscription_enrollment_id}'
             .replace('{' + 'subscription_enrollment_id' + '}', encodeURIComponent(String(subscriptionEnrollmentId)));
         let localVarQueryParameters: any = {};
@@ -314,13 +316,14 @@ export class SubscriptionEnrollmentsApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve the details of a `subscription_enrollment`.
      * @summary Get a Subscription Enrollment
      * @param subscriptionEnrollmentId The ID of the &#x60;subscription_enrollment&#x60;.
      * @param merchant Filter by the objects &#x60;merchant&#x60; ID.
      */
 
-    public async getHelper(subscriptionEnrollmentId: string, merchant?: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SubscriptionEnrollment;  }> {
+    private async getHelper(subscriptionEnrollmentId: string, merchant?: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SubscriptionEnrollment;  }> {
         const localVarPath = this.basePath + '/subscription/subscription_enrollments/{subscription_enrollment_id}'
             .replace('{' + 'subscription_enrollment_id' + '}', encodeURIComponent(String(subscriptionEnrollmentId)));
         let localVarQueryParameters: any = {};
@@ -421,11 +424,12 @@ export class SubscriptionEnrollmentsApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve a list of `Subscription Enrollments`.
      * @summary List Subscription Enrollments
 
     */
-    public async listHelper (listSubscriptionEnrollmentsQueryParams?:ListSubscriptionEnrollmentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SubscriptionEnrollmentList;  }> {
+    private async listHelper (listSubscriptionEnrollmentsQueryParams?:ListSubscriptionEnrollmentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SubscriptionEnrollmentList;  }> {
         const localVarPath = this.basePath + '/subscription/subscription_enrollments';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -517,13 +521,14 @@ export class SubscriptionEnrollmentsApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve a list of `Subscription Enrollments` for a specific `subscription_schedule`.
      * @summary List Subscription Enrollments on a Schedule
 
     * @param subscriptionScheduleId The ID of the &#x60;subscription_schedule&#x60;.
     * 
     */
-    public async listBySubscriptionScheduleIdHelper (subscriptionScheduleId: string, listSubscriptionEnrollmentsInScheduleQueryParams?:ListSubscriptionEnrollmentsInScheduleQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SubscriptionEnrollmentList;  }> {
+    private async listBySubscriptionScheduleIdHelper (subscriptionScheduleId: string, listSubscriptionEnrollmentsInScheduleQueryParams?:ListSubscriptionEnrollmentsInScheduleQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SubscriptionEnrollmentList;  }> {
         const localVarPath = this.basePath + '/subscription/subscription_schedules/{subscription_schedule_id}/subscription_enrollments'
             .replace('{' + 'subscription_schedule_id' + '}', encodeURIComponent(String(subscriptionScheduleId)));
         let localVarQueryParameters: any = {};
@@ -623,13 +628,14 @@ export class SubscriptionEnrollmentsApi {
     }
 
     /**
+     * Helper function. 
      * Update the details of a `subscription_enrollment`.
      * @summary Update a Subscription Enrollment
      * @param subscriptionEnrollmentId The ID of the &#x60;subscription_enrollment&#x60;.
      * @param updateSubscriptionEnrollmentRequest 
      */
 
-    public async updateHelper(subscriptionEnrollmentId: string, updateSubscriptionEnrollmentRequest?: UpdateSubscriptionEnrollmentRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SubscriptionEnrollment;  }> {
+    private async updateHelper(subscriptionEnrollmentId: string, updateSubscriptionEnrollmentRequest?: UpdateSubscriptionEnrollmentRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SubscriptionEnrollment;  }> {
         const localVarPath = this.basePath + '/subscription/subscription_enrollments/{subscription_enrollment_id}'
             .replace('{' + 'subscription_enrollment_id' + '}', encodeURIComponent(String(subscriptionEnrollmentId)));
         let localVarQueryParameters: any = {};

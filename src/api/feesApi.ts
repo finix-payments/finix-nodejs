@@ -107,12 +107,13 @@ export class FeesApi {
     }
 
     /**
+     * Helper function. 
      * Create a custom (i.e. one time) `fee`.
      * @summary Create a One-Time Fee
      * @param createFeeRequest 
      */
 
-    public async createHelper(createFeeRequest?: CreateFeeRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Fee;  }> {
+    private async createHelper(createFeeRequest?: CreateFeeRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Fee;  }> {
         const localVarPath = this.basePath + '/fees';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -204,12 +205,13 @@ export class FeesApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve the details of a `Fee`.
      * @summary Get Fee
      * @param feeId ID of fee to use
      */
 
-    public async getHelper(feeId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Fee;  }> {
+    private async getHelper(feeId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Fee;  }> {
         const localVarPath = this.basePath + '/fees/{fee_id}'
             .replace('{' + 'fee_id' + '}', encodeURIComponent(String(feeId)));
         let localVarQueryParameters: any = {};
@@ -306,11 +308,12 @@ export class FeesApi {
     }
 
     /**
+     * Helper function. 
      * Return a collection of `fees`.
      * @summary List Fees
 
     */
-    public async listHelper (listFeesQueryParams?:ListFeesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: FeesList;  }> {
+    private async listHelper (listFeesQueryParams?:ListFeesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: FeesList;  }> {
         const localVarPath = this.basePath + '/fees';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -411,13 +414,14 @@ export class FeesApi {
     }
 
     /**
+     * Helper function. 
      * Update the details of a `Fee`.
      * @summary Update Fee
      * @param feeId ID of fee to use
      * @param updateFeeRequest 
      */
 
-    public async updateHelper(feeId: string, updateFeeRequest?: UpdateFeeRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Fee;  }> {
+    private async updateHelper(feeId: string, updateFeeRequest?: UpdateFeeRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Fee;  }> {
         const localVarPath = this.basePath + '/fees/{fee_id}'
             .replace('{' + 'fee_id' + '}', encodeURIComponent(String(feeId)));
         let localVarQueryParameters: any = {};

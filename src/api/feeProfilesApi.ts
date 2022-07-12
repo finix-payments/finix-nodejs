@@ -107,12 +107,13 @@ export class FeeProfilesApi {
     }
 
     /**
+     * Helper function. 
      * Create fee profiles
      * @summary Create a Fee Profile
      * @param createFeeProfileRequest 
      */
 
-    public async createHelper(createFeeProfileRequest?: CreateFeeProfileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: FeeProfile;  }> {
+    private async createHelper(createFeeProfileRequest?: CreateFeeProfileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: FeeProfile;  }> {
         const localVarPath = this.basePath + '/fee_profiles';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -204,12 +205,13 @@ export class FeeProfilesApi {
     }
 
     /**
+     * Helper function. 
      * Get fee profile
      * @summary Fetch a Fee Profile
      * @param feeProfileId The ID of the fee profile.
      */
 
-    public async getHelper(feeProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: FeeProfile;  }> {
+    private async getHelper(feeProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: FeeProfile;  }> {
         const localVarPath = this.basePath + '/fee_profiles/{fee_profile_id}'
             .replace('{' + 'fee_profile_id' + '}', encodeURIComponent(String(feeProfileId)));
         let localVarQueryParameters: any = {};
@@ -306,11 +308,12 @@ export class FeeProfilesApi {
     }
 
     /**
+     * Helper function. 
      * Get all fee profiles
      * @summary List Fee Profiles
 
     */
-    public async listHelper (listFeeProfilesQueryParams?:ListFeeProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: FeeProfilesList;  }> {
+    private async listHelper (listFeeProfilesQueryParams?:ListFeeProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: FeeProfilesList;  }> {
         const localVarPath = this.basePath + '/fee_profiles';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);

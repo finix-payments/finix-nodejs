@@ -110,13 +110,14 @@ export class MerchantsApi {
     }
 
     /**
+     * Helper function. 
      * Create a `Merchant` to start the underwriting process for your merchant. `Merchants` must be created under an [`Identity`](#tag/Identities).  > A bank account must be associated with the previously created `Identity` before a `Merchant` can be succefully onboarded and verified.  `Merchant` resources can have three possible `onboarding_states`:  1. **PROVISIONING**: The request is pending (the state may change after two minutes).     * `processing_enabled`: **False**     * `settlement_enabled`: **False**  1. **APPROVED**: The `Merchant` has been approved and can begin processing payments.     * `processing_enabled`: **True**    * `settlement_enabled`: **True**  1. **REJECTED**: The `Merchant` was rejected by the processor because of invalid information or it failed a regulatory and/or compliance check (e.g. KYC, OFAC, or MATCH). Make any changes that are needed, and [try verifying the `Merchant` again](#operation/createMerchantVerification).     * `processing_enabled`: **False**     * `settlement_enabled`: **False**   > Provisioning a `Merchant` account is an asynchronous request. We recommend creating a [`Webhook`](#tag/Webhooks) to listen for the state change.
      * @summary Create a Merchant
      * @param identityId ID of &#x60;Identity&#x60; to fetch.
      * @param createMerchantUnderwritingRequest 
      */
 
-    public async createHelper(identityId: string, createMerchantUnderwritingRequest?: CreateMerchantUnderwritingRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Merchant;  }> {
+    private async createHelper(identityId: string, createMerchantUnderwritingRequest?: CreateMerchantUnderwritingRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Merchant;  }> {
         const localVarPath = this.basePath + '/identities/{identity_id}/merchants'
             .replace('{' + 'identity_id' + '}', encodeURIComponent(String(identityId)));
         let localVarQueryParameters: any = {};
@@ -215,13 +216,14 @@ export class MerchantsApi {
     }
 
     /**
+     * Helper function. 
      * Verify a merchant either to reattempt provisioning, or when the merchant\'s `Identity` was updated.
      * @summary Verify a Merchant
      * @param merchantId ID of &#x60;Merchant&#x60; object.
      * @param createVerificationRequest 
      */
 
-    public async createMerchantVerificationHelper(merchantId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Verification;  }> {
+    private async createMerchantVerificationHelper(merchantId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Verification;  }> {
         const localVarPath = this.basePath + '/merchants/{merchant_id}/verifications'
             .replace('{' + 'merchant_id' + '}', encodeURIComponent(String(merchantId)));
         let localVarQueryParameters: any = {};
@@ -320,12 +322,13 @@ export class MerchantsApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve the details of a `Merchant`.
      * @summary Get a Merchant
      * @param merchantId ID of &#x60;Merchant&#x60;.
      */
 
-    public async getHelper(merchantId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Merchant;  }> {
+    private async getHelper(merchantId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Merchant;  }> {
         const localVarPath = this.basePath + '/merchants/{merchant_id}'
             .replace('{' + 'merchant_id' + '}', encodeURIComponent(String(merchantId)));
         let localVarQueryParameters: any = {};
@@ -422,11 +425,12 @@ export class MerchantsApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve a list of `Merchants`. 
      * @summary List Merchants
 
     */
-    public async listHelper (listMerchantsQueryParams?:ListMerchantsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: MerchantsList;  }> {
+    private async listHelper (listMerchantsQueryParams?:ListMerchantsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: MerchantsList;  }> {
         const localVarPath = this.basePath + '/merchants';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -539,13 +543,14 @@ export class MerchantsApi {
     }
 
     /**
+     * Helper function. 
      * Update a `Merchant` to change the `Identity` information saved with the underlying processor, or enable Level 2/3 processing.
      * @summary Update a Merchant
      * @param merchantId ID of &#x60;Merchant&#x60;.
      * @param updateMerchantRequest 
      */
 
-    public async updateHelper(merchantId: string, updateMerchantRequest?: UpdateMerchantRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Merchant;  }> {
+    private async updateHelper(merchantId: string, updateMerchantRequest?: UpdateMerchantRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Merchant;  }> {
         const localVarPath = this.basePath + '/merchants/{merchant_id}'
             .replace('{' + 'merchant_id' + '}', encodeURIComponent(String(merchantId)));
         let localVarQueryParameters: any = {};

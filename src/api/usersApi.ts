@@ -108,13 +108,14 @@ export class UsersApi {
     }
 
     /**
+     * Helper function. 
      * This is the equivalent of provisioning API keys (i.e. credentials) for an `Application`.  > Each Application can have multiple `Users` which allows each merchant to have multiple API keys that can be independently enabled and disabled. Merchants only have read access to the API.
      * @summary Create an Application User
      * @param applicationId ID of application to use
      * @param createUserRequest 
      */
 
-    public async createApplicationUserHelper(applicationId: string, createUserRequest?: CreateUserRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: User;  }> {
+    private async createApplicationUserHelper(applicationId: string, createUserRequest?: CreateUserRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: User;  }> {
         const localVarPath = this.basePath + '/applications/{application_id}/users'
             .replace('{' + 'application_id' + '}', encodeURIComponent(String(applicationId)));
         let localVarQueryParameters: any = {};
@@ -213,12 +214,13 @@ export class UsersApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve a specific user with the ID of the `User`.
      * @summary Find a User by ID
      * @param userId ID of &#x60;User&#x60; object.
      */
 
-    public async getHelper(userId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: User;  }> {
+    private async getHelper(userId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: User;  }> {
         const localVarPath = this.basePath + '/users/{user_id}'
             .replace('{' + 'user_id' + '}', encodeURIComponent(String(userId)));
         let localVarQueryParameters: any = {};
@@ -315,11 +317,12 @@ export class UsersApi {
     }
 
     /**
+     * Helper function. 
      * Get a `User`.
      * @summary List Users
 
     */
-    public async listHelper (listUsersQueryParams?:ListUsersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: UsersList;  }> {
+    private async listHelper (listUsersQueryParams?:ListUsersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: UsersList;  }> {
         const localVarPath = this.basePath + '/users';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -414,13 +417,14 @@ export class UsersApi {
     }
 
     /**
+     * Helper function. 
      * You can update the `User` with new tags or to disable the `User`.
      * @summary Update User
      * @param userId ID of &#x60;User&#x60; object.
      * @param updateUserRequest 
      */
 
-    public async updateHelper(userId: string, updateUserRequest?: UpdateUserRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: User;  }> {
+    private async updateHelper(userId: string, updateUserRequest?: UpdateUserRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: User;  }> {
         const localVarPath = this.basePath + '/users/{user_id}'
             .replace('{' + 'user_id' + '}', encodeURIComponent(String(userId)));
         let localVarQueryParameters: any = {};

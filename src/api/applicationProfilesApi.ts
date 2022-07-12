@@ -106,12 +106,13 @@ export class ApplicationProfilesApi {
     }
 
     /**
+     * Helper function. 
      * Find an existing `application_profile` by ID.
      * @summary Get Application Profile
      * @param applicationProfileId ID of application profile to use
      */
 
-    public async getHelper(applicationProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ApplicationProfile;  }> {
+    private async getHelper(applicationProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ApplicationProfile;  }> {
         const localVarPath = this.basePath + '/application_profiles/{application_profile_id}'
             .replace('{' + 'application_profile_id' + '}', encodeURIComponent(String(applicationProfileId)));
         let localVarQueryParameters: any = {};
@@ -208,11 +209,12 @@ export class ApplicationProfilesApi {
     }
 
     /**
+     * Helper function. 
      * Return a collection of `application_profiles`.
      * @summary List Application Profiles
 
     */
-    public async listHelper (listApplicationProfilesQueryParams?:ListApplicationProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ApplicationProfilesList;  }> {
+    private async listHelper (listApplicationProfilesQueryParams?:ListApplicationProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ApplicationProfilesList;  }> {
         const localVarPath = this.basePath + '/application_profiles';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -313,13 +315,14 @@ export class ApplicationProfilesApi {
     }
 
     /**
+     * Helper function. 
      * Update an existing `application_profile`.
      * @summary Update Application Profile
      * @param applicationProfileId ID of application profile to use
      * @param updateApplicationProfileRequest 
      */
 
-    public async updateHelper(applicationProfileId: string, updateApplicationProfileRequest?: UpdateApplicationProfileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ApplicationProfile;  }> {
+    private async updateHelper(applicationProfileId: string, updateApplicationProfileRequest?: UpdateApplicationProfileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ApplicationProfile;  }> {
         const localVarPath = this.basePath + '/application_profiles/{application_profile_id}'
             .replace('{' + 'application_profile_id' + '}', encodeURIComponent(String(applicationProfileId)));
         let localVarQueryParameters: any = {};

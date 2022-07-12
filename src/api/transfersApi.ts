@@ -112,12 +112,13 @@ export class TransfersApi {
     }
 
     /**
+     * Helper function. 
      * Create a `Transfer`.   > By default, Finix implements a 3 (business) day delay when debiting bank accounts (i.e. eChecks).
      * @summary Create a Transfer
      * @param createTransferRequest 
      */
 
-    public async createHelper(createTransferRequest?: CreateTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Transfer;  }> {
+    private async createHelper(createTransferRequest?: CreateTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Transfer;  }> {
         const localVarPath = this.basePath + '/transfers';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -209,13 +210,14 @@ export class TransfersApi {
     }
 
     /**
+     * Helper function. 
      * Reverse a transfer with a `type` of **DEBIT**. This reversal creates a new `Transfer` resource with a `type` of **REVERSAL**.   The refund can get delivered in most cases without the physical card. The card only needs to be swiped (to receive the refund) when:  - The payment type is **DEBIT**, and the transaction is no longer in the batch. - The payment type is **CREDIT**, and the transaction is no longer in the batch and is older than 45 days.
      * @summary Refund or Reverse a Transfer
      * @param transferId ID of &#x60;transfer&#x60; object
      * @param createReversalRequest 
      */
 
-    public async createTransferReversalHelper(transferId: string, createReversalRequest?: CreateReversalRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Transfer;  }> {
+    private async createTransferReversalHelper(transferId: string, createReversalRequest?: CreateReversalRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Transfer;  }> {
         const localVarPath = this.basePath + '/transfers/{transfer_id}/reversals'
             .replace('{' + 'transfer_id' + '}', encodeURIComponent(String(transferId)));
         let localVarQueryParameters: any = {};
@@ -314,12 +316,13 @@ export class TransfersApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve a `transfer`.
      * @summary Get a Transfer
      * @param transferId ID of &#x60;transfer&#x60; object.
      */
 
-    public async getHelper(transferId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Transfer;  }> {
+    private async getHelper(transferId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Transfer;  }> {
         const localVarPath = this.basePath + '/transfers/{transfer_id}'
             .replace('{' + 'transfer_id' + '}', encodeURIComponent(String(transferId)));
         let localVarQueryParameters: any = {};
@@ -416,13 +419,14 @@ export class TransfersApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve a list of reversals for a `Transfer`.
      * @summary List Reversals on a Transfer
 
     * @param transferId ID of &#x60;transfer&#x60; object
     * 
     */
-    public async listTransfersReversalsHelper (transferId: string, listTransferReversalsQueryParams?:ListTransferReversalsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: TransfersList;  }> {
+    private async listTransfersReversalsHelper (transferId: string, listTransferReversalsQueryParams?:ListTransferReversalsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: TransfersList;  }> {
         const localVarPath = this.basePath + '/transfers/{transfer_id}/reversals'
             .replace('{' + 'transfer_id' + '}', encodeURIComponent(String(transferId)));
         let localVarQueryParameters: any = {};
@@ -531,11 +535,12 @@ export class TransfersApi {
     }
 
     /**
+     * Helper function. 
      * Retrieve a list of `Transfers`.
      * @summary List Transfers
 
     */
-    public async listHelper (listTransfersQueryParams?:ListTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: TransfersList;  }> {
+    private async listHelper (listTransfersQueryParams?:ListTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: TransfersList;  }> {
         const localVarPath = this.basePath + '/transfers';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -723,13 +728,14 @@ export class TransfersApi {
     }
 
     /**
+     * Helper function. 
      * Update a `Transfer`.
      * @summary Update a Transfer
      * @param transferId ID of &#x60;transfer&#x60; object.
      * @param updateTransferRequest 
      */
 
-    public async updateHelper(transferId: string, updateTransferRequest?: UpdateTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Transfer;  }> {
+    private async updateHelper(transferId: string, updateTransferRequest?: UpdateTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Transfer;  }> {
         const localVarPath = this.basePath + '/transfers/{transfer_id}'
             .replace('{' + 'transfer_id' + '}', encodeURIComponent(String(transferId)));
         let localVarQueryParameters: any = {};
