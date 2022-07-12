@@ -30,3 +30,4 @@ class UpdateSettlementRequest {
     }
 }
 exports.UpdateSettlementRequest = UpdateSettlementRequest;
+//# sourceMappingURL=updateSettlementRequest.js.map

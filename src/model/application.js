@@ -178,3 +178,4 @@ exports.Application = Application;
         FeeReadyToSettleUponEnum[FeeReadyToSettleUponEnum["SuccessfulCapture"] = 'SUCCESSFUL_CAPTURE'] = "SuccessfulCapture";
     })(FeeReadyToSettleUponEnum = Application.FeeReadyToSettleUponEnum || (Application.FeeReadyToSettleUponEnum = {}));
 })(Application = exports.Application || (exports.Application = {}));
+//# sourceMappingURL=application.js.map

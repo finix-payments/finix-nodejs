@@ -364,3 +364,4 @@ class ApplicationProfilesApi {
     }
 }
 exports.ApplicationProfilesApi = ApplicationProfilesApi;
+//# sourceMappingURL=applicationProfilesApi.js.map

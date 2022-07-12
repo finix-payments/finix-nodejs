@@ -27,3 +27,4 @@ class SubscriptionSchedulesListEmbedded {
     }
 }
 exports.SubscriptionSchedulesListEmbedded = SubscriptionSchedulesListEmbedded;
+//# sourceMappingURL=subscriptionSchedulesListEmbedded.js.map

@@ -172,3 +172,4 @@ exports.CreatePaymentInstrumentRequest = CreatePaymentInstrumentRequest;
         AccountTypeEnum[AccountTypeEnum["CorpSavings"] = 'CORP_SAVINGS'] = "CorpSavings";
     })(AccountTypeEnum = CreatePaymentInstrumentRequest.AccountTypeEnum || (CreatePaymentInstrumentRequest.AccountTypeEnum = {}));
 })(CreatePaymentInstrumentRequest = exports.CreatePaymentInstrumentRequest || (exports.CreatePaymentInstrumentRequest = {}));
+//# sourceMappingURL=createPaymentInstrumentRequest.js.map

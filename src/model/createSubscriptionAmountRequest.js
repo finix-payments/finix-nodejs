@@ -57,3 +57,4 @@ class CreateSubscriptionAmountRequest {
     }
 }
 exports.CreateSubscriptionAmountRequest = CreateSubscriptionAmountRequest;
+//# sourceMappingURL=createSubscriptionAmountRequest.js.map

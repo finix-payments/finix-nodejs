@@ -33,3 +33,4 @@ class IdentitiesListEmbedded {
     }
 }
 exports.IdentitiesListEmbedded = IdentitiesListEmbedded;
+//# sourceMappingURL=identitiesListEmbedded.js.map

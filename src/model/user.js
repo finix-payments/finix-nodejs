@@ -108,3 +108,4 @@ exports.User = User;
         RoleEnum[RoleEnum["Merchant"] = 'ROLE_MERCHANT'] = "Merchant";
     })(RoleEnum = User.RoleEnum || (User.RoleEnum = {}));
 })(User = exports.User || (exports.User = {}));
+//# sourceMappingURL=user.js.map

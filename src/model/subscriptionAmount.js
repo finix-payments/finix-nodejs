@@ -114,3 +114,4 @@ exports.SubscriptionAmount = SubscriptionAmount;
         AmountTypeEnum[AmountTypeEnum["Fee"] = 'FEE'] = "Fee";
     })(AmountTypeEnum = SubscriptionAmount.AmountTypeEnum || (SubscriptionAmount.AmountTypeEnum = {}));
 })(SubscriptionAmount = exports.SubscriptionAmount || (exports.SubscriptionAmount = {}));
+//# sourceMappingURL=subscriptionAmount.js.map

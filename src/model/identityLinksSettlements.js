@@ -30,3 +30,4 @@ class IdentityLinksSettlements {
     }
 }
 exports.IdentityLinksSettlements = IdentityLinksSettlements;
+//# sourceMappingURL=identityLinksSettlements.js.map

@@ -144,3 +144,4 @@ class ConfigurationDetails {
     }
 }
 exports.ConfigurationDetails = ConfigurationDetails;
+//# sourceMappingURL=configurationDetails.js.map

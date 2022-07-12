@@ -42,3 +42,4 @@ class BalanceTransferList {
     }
 }
 exports.BalanceTransferList = BalanceTransferList;
+//# sourceMappingURL=balanceTransferList.js.map

@@ -30,3 +30,4 @@ class TransferLinksDisputedTransfer {
     }
 }
 exports.TransferLinksDisputedTransfer = TransferLinksDisputedTransfer;
+//# sourceMappingURL=transferLinksDisputedTransfer.js.map

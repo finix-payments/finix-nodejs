@@ -30,3 +30,4 @@ class IdentityLinksTransfers {
     }
 }
 exports.IdentityLinksTransfers = IdentityLinksTransfers;
+//# sourceMappingURL=identityLinksTransfers.js.map

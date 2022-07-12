@@ -271,3 +271,4 @@ exports.Authorization = Authorization;
         StateEnum[StateEnum["Unknown"] = 'UNKNOWN'] = "Unknown";
     })(StateEnum = Authorization.StateEnum || (Authorization.StateEnum = {}));
 })(Authorization = exports.Authorization || (exports.Authorization = {}));
+//# sourceMappingURL=authorization.js.map

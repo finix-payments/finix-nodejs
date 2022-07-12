@@ -57,3 +57,4 @@ class ListMerchantProfilesQueryParams {
     }
 }
 exports.ListMerchantProfilesQueryParams = ListMerchantProfilesQueryParams;
+//# sourceMappingURL=listMerchantProfilesQueryParams.js.map

@@ -30,3 +30,4 @@ class ListSubscriptionEnrollmentsInScheduleQueryParams {
     }
 }
 exports.ListSubscriptionEnrollmentsInScheduleQueryParams = ListSubscriptionEnrollmentsInScheduleQueryParams;
+//# sourceMappingURL=listSubscriptionEnrollmentsInScheduleQueryParams.js.map

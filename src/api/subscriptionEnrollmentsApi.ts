@@ -194,7 +194,7 @@ export class SubscriptionEnrollmentsApi {
      */
 
     public async create(subscriptionScheduleId: string, createSubscriptionEnrollmentRequest?: CreateSubscriptionEnrollmentRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |SubscriptionEnrollment| {response: http.IncomingMessage; body: SubscriptionEnrollment; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.createHelper(subscriptionScheduleId, createSubscriptionEnrollmentRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -293,7 +293,7 @@ export class SubscriptionEnrollmentsApi {
      */
 
     public async remove(subscriptionEnrollmentId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |any| {response: http.IncomingMessage; body?: any;}| {response: http.IncomingMessage; body?: any;}> {
+        Promise<any> {
         const responseObject = await this.removeHelper(subscriptionEnrollmentId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -398,7 +398,7 @@ export class SubscriptionEnrollmentsApi {
      */
 
     public async get(subscriptionEnrollmentId: string, merchant?: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |SubscriptionEnrollment| {response: http.IncomingMessage; body: SubscriptionEnrollment; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.getHelper(subscriptionEnrollmentId, merchant,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -492,7 +492,7 @@ export class SubscriptionEnrollmentsApi {
 
     */
     public async list (listSubscriptionEnrollmentsQueryParams?:ListSubscriptionEnrollmentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |SubscriptionEnrollmentList| {response: http.IncomingMessage; body: SubscriptionEnrollmentList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listHelper(listSubscriptionEnrollmentsQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -596,7 +596,7 @@ export class SubscriptionEnrollmentsApi {
     * 
     */
     public async listBySubscriptionScheduleId (subscriptionScheduleId: string, listSubscriptionEnrollmentsInScheduleQueryParams?:ListSubscriptionEnrollmentsInScheduleQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |SubscriptionEnrollmentList| {response: http.IncomingMessage; body: SubscriptionEnrollmentList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listBySubscriptionScheduleIdHelper(subscriptionScheduleId, listSubscriptionEnrollmentsInScheduleQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -699,7 +699,7 @@ export class SubscriptionEnrollmentsApi {
      */
 
     public async update(subscriptionEnrollmentId: string, updateSubscriptionEnrollmentRequest?: UpdateSubscriptionEnrollmentRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |SubscriptionEnrollment| {response: http.IncomingMessage; body: SubscriptionEnrollment; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.updateHelper(subscriptionEnrollmentId, updateSubscriptionEnrollmentRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {

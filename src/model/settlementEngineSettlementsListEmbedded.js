@@ -27,3 +27,4 @@ class SettlementEngineSettlementsListEmbedded {
     }
 }
 exports.SettlementEngineSettlementsListEmbedded = SettlementEngineSettlementsListEmbedded;
+//# sourceMappingURL=settlementEngineSettlementsListEmbedded.js.map

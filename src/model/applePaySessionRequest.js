@@ -57,3 +57,4 @@ class ApplePaySessionRequest {
     }
 }
 exports.ApplePaySessionRequest = ApplePaySessionRequest;
+//# sourceMappingURL=applePaySessionRequest.js.map

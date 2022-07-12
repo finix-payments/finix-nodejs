@@ -197,7 +197,7 @@ export class DisputesApi {
      */
 
     public async createDisputeEvidence(disputeId: string, createDisputeEvidenceRequest?: CreateDisputeEvidenceRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |DisputeEvidence| {response: http.IncomingMessage; body: DisputeEvidence; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.createDisputeEvidenceHelper(disputeId, createDisputeEvidenceRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -297,7 +297,7 @@ export class DisputesApi {
      */
 
     public async get(disputeId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Dispute| {response: http.IncomingMessage; body: Dispute; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.getHelper(disputeId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -405,7 +405,7 @@ export class DisputesApi {
      */
 
     public async getDisputeEvidence(disputeId: string, evidenceId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |DisputeEvidence| {response: http.IncomingMessage; body: DisputeEvidence; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.getDisputeEvidenceHelper(disputeId, evidenceId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -518,7 +518,7 @@ export class DisputesApi {
     * 
     */
     public async listDisputeEvidenceByDisputeId (disputeId: string, listDisputeEvidenceQueryParams?:ListDisputeEvidenceQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |DisputeEvidenceList| {response: http.IncomingMessage; body: DisputeEvidenceList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listDisputeEvidenceByDisputeIdHelper(disputeId, listDisputeEvidenceQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -633,7 +633,7 @@ export class DisputesApi {
 
     */
     public async list (listDisputesQueryParams?:ListDisputesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |DisputesList| {response: http.IncomingMessage; body: DisputesList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listHelper(listDisputesQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -743,7 +743,7 @@ export class DisputesApi {
     * 
     */
     public async listDisputesAdjustments (disputeId: string, listDisputesAdjustmentsQueryParams?:ListDisputesAdjustmentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |AdjustmentTransfersList| {response: http.IncomingMessage; body: AdjustmentTransfersList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listDisputesAdjustmentsHelper(disputeId, listDisputesAdjustmentsQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {

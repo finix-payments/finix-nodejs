@@ -39,3 +39,4 @@ class UpdateWebhookRequest {
     }
 }
 exports.UpdateWebhookRequest = UpdateWebhookRequest;
+//# sourceMappingURL=updateWebhookRequest.js.map

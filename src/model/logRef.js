@@ -27,3 +27,4 @@ class LogRef {
     }
 }
 exports.LogRef = LogRef;
+//# sourceMappingURL=logRef.js.map

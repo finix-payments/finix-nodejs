@@ -30,3 +30,4 @@ class AuthorizationLinksTransfer {
     }
 }
 exports.AuthorizationLinksTransfer = AuthorizationLinksTransfer;
+//# sourceMappingURL=authorizationLinksTransfer.js.map

@@ -39,3 +39,4 @@ class InputDetails {
     }
 }
 exports.InputDetails = InputDetails;
+//# sourceMappingURL=inputDetails.js.map

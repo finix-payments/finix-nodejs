@@ -27,3 +27,4 @@ class AuthorizationsListEmbedded {
     }
 }
 exports.AuthorizationsListEmbedded = AuthorizationsListEmbedded;
+//# sourceMappingURL=authorizationsListEmbedded.js.map

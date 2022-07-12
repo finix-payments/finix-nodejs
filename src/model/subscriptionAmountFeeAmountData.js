@@ -48,3 +48,4 @@ class SubscriptionAmountFeeAmountData {
     }
 }
 exports.SubscriptionAmountFeeAmountData = SubscriptionAmountFeeAmountData;
+//# sourceMappingURL=subscriptionAmountFeeAmountData.js.map

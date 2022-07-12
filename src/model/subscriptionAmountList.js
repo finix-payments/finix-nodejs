@@ -33,3 +33,4 @@ class SubscriptionAmountList {
     }
 }
 exports.SubscriptionAmountList = SubscriptionAmountList;
+//# sourceMappingURL=subscriptionAmountList.js.map

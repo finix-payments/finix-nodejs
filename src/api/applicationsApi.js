@@ -449,3 +449,4 @@ class ApplicationsApi {
     }
 }
 exports.ApplicationsApi = ApplicationsApi;
+//# sourceMappingURL=applicationsApi.js.map

@@ -30,3 +30,4 @@ class VerificationLinksApplication {
     }
 }
 exports.VerificationLinksApplication = VerificationLinksApplication;
+//# sourceMappingURL=verificationLinksApplication.js.map

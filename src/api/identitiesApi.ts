@@ -197,7 +197,7 @@ export class IdentitiesApi {
      */
 
     public async createAssociatedIdentity(identityId: string, createIdentityRequest?: CreateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Identity| {response: http.IncomingMessage; body: Identity; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.createAssociatedIdentityHelper(identityId, createIdentityRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -292,7 +292,7 @@ export class IdentitiesApi {
      */
 
     public async create(createIdentityRequest?: CreateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Identity| {response: http.IncomingMessage; body: Identity; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.createHelper(createIdentityRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -395,7 +395,7 @@ export class IdentitiesApi {
      */
 
     public async createIdentityVerification(identityId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Verification| {response: http.IncomingMessage; body: Verification; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.createIdentityVerificationHelper(identityId, createVerificationRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -495,7 +495,7 @@ export class IdentitiesApi {
      */
 
     public async get(identityId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Identity| {response: http.IncomingMessage; body: Identity; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.getHelper(identityId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -631,7 +631,7 @@ export class IdentitiesApi {
 
     */
     public async list (listIdentitiesQueryParams?:ListIdentitiesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |IdentitiesList| {response: http.IncomingMessage; body: IdentitiesList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listHelper(listIdentitiesQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -744,7 +744,7 @@ export class IdentitiesApi {
     * 
     */
     public async listAssocaiatedIdentities (identityId: string, listIdentityAssociatedIdentitiesQueryParams?:ListIdentityAssociatedIdentitiesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |IdentitiesList| {response: http.IncomingMessage; body: IdentitiesList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listAssocaiatedIdentitiesHelper(identityId, listIdentityAssociatedIdentitiesQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -847,7 +847,7 @@ export class IdentitiesApi {
      */
 
     public async update(identityId: string, updateIdentityRequest?: UpdateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Identity| {response: http.IncomingMessage; body: Identity; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.updateHelper(identityId, updateIdentityRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {

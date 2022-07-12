@@ -30,3 +30,4 @@ class IdentityLinksAuthorizations {
     }
 }
 exports.IdentityLinksAuthorizations = IdentityLinksAuthorizations;
+//# sourceMappingURL=identityLinksAuthorizations.js.map

@@ -84,3 +84,4 @@ class ListDisputesQueryParams {
     }
 }
 exports.ListDisputesQueryParams = ListDisputesQueryParams;
+//# sourceMappingURL=listDisputesQueryParams.js.map

@@ -90,3 +90,4 @@ class ApplicationProfile {
     }
 }
 exports.ApplicationProfile = ApplicationProfile;
+//# sourceMappingURL=applicationProfile.js.map

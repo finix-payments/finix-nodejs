@@ -527,3 +527,4 @@ class AuthorizationsApi {
     }
 }
 exports.AuthorizationsApi = AuthorizationsApi;
+//# sourceMappingURL=authorizationsApi.js.map

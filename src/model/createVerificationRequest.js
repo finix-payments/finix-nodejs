@@ -66,3 +66,4 @@ class CreateVerificationRequest {
     }
 }
 exports.CreateVerificationRequest = CreateVerificationRequest;
+//# sourceMappingURL=createVerificationRequest.js.map

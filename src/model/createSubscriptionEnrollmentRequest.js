@@ -60,3 +60,4 @@ class CreateSubscriptionEnrollmentRequest {
     }
 }
 exports.CreateSubscriptionEnrollmentRequest = CreateSubscriptionEnrollmentRequest;
+//# sourceMappingURL=createSubscriptionEnrollmentRequest.js.map

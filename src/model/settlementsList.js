@@ -42,3 +42,4 @@ class SettlementsList {
     }
 }
 exports.SettlementsList = SettlementsList;
+//# sourceMappingURL=settlementsList.js.map

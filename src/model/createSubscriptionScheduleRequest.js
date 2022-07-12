@@ -84,3 +84,4 @@ exports.CreateSubscriptionScheduleRequest = CreateSubscriptionScheduleRequest;
         SubscriptionTypeEnum[SubscriptionTypeEnum["PeriodicYearly"] = 'PERIODIC_YEARLY'] = "PeriodicYearly";
     })(SubscriptionTypeEnum = CreateSubscriptionScheduleRequest.SubscriptionTypeEnum || (CreateSubscriptionScheduleRequest.SubscriptionTypeEnum = {}));
 })(CreateSubscriptionScheduleRequest = exports.CreateSubscriptionScheduleRequest || (exports.CreateSubscriptionScheduleRequest = {}));
+//# sourceMappingURL=createSubscriptionScheduleRequest.js.map

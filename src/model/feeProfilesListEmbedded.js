@@ -27,3 +27,4 @@ class FeeProfilesListEmbedded {
     }
 }
 exports.FeeProfilesListEmbedded = FeeProfilesListEmbedded;
+//# sourceMappingURL=feeProfilesListEmbedded.js.map

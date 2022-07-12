@@ -48,3 +48,4 @@ class ListFeeProfilesQueryParams {
     }
 }
 exports.ListFeeProfilesQueryParams = ListFeeProfilesQueryParams;
+//# sourceMappingURL=listFeeProfilesQueryParams.js.map

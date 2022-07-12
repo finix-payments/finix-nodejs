@@ -185,7 +185,7 @@ export class FeesApi {
      */
 
     public async create(createFeeRequest?: CreateFeeRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Fee| {response: http.IncomingMessage; body: Fee; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.createHelper(createFeeRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -285,7 +285,7 @@ export class FeesApi {
      */
 
     public async get(feeId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Fee| {response: http.IncomingMessage; body: Fee; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.getHelper(feeId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -388,7 +388,7 @@ export class FeesApi {
 
     */
     public async list (listFeesQueryParams?:ListFeesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |FeesList| {response: http.IncomingMessage; body: FeesList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listHelper(listFeesQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -491,7 +491,7 @@ export class FeesApi {
      */
 
     public async update(feeId: string, updateFeeRequest?: UpdateFeeRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Fee| {response: http.IncomingMessage; body: Fee; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.updateHelper(feeId, updateFeeRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {

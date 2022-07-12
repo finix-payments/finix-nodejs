@@ -235,3 +235,4 @@ exports.CreateTransferRequest = CreateTransferRequest;
         OperationKeyEnum[OperationKeyEnum["MerchantDebitAdjustment"] = 'MERCHANT_DEBIT_ADJUSTMENT'] = "MerchantDebitAdjustment";
     })(OperationKeyEnum = CreateTransferRequest.OperationKeyEnum || (CreateTransferRequest.OperationKeyEnum = {}));
 })(CreateTransferRequest = exports.CreateTransferRequest || (exports.CreateTransferRequest = {}));
+//# sourceMappingURL=createTransferRequest.js.map

@@ -60,3 +60,4 @@ class ReviewQueueItemLinks {
     }
 }
 exports.ReviewQueueItemLinks = ReviewQueueItemLinks;
+//# sourceMappingURL=reviewQueueItemLinks.js.map

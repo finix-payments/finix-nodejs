@@ -48,3 +48,4 @@ class PageOffset {
     }
 }
 exports.PageOffset = PageOffset;
+//# sourceMappingURL=pageOffset.js.map

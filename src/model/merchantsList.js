@@ -39,3 +39,4 @@ class MerchantsList {
     }
 }
 exports.MerchantsList = MerchantsList;
+//# sourceMappingURL=merchantsList.js.map

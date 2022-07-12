@@ -39,3 +39,4 @@ class ReviewQueueItemsList {
     }
 }
 exports.ReviewQueueItemsList = ReviewQueueItemsList;
+//# sourceMappingURL=reviewQueueItemsList.js.map

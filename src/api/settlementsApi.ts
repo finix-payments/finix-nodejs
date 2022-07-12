@@ -191,7 +191,7 @@ export class SettlementsApi {
      */
 
     public async create(createSettlementRequest?: CreateSettlementRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Settlement| {response: http.IncomingMessage; body: Settlement; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.createHelper(createSettlementRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -291,7 +291,7 @@ export class SettlementsApi {
      */
 
     public async get(settlementId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Settlement| {response: http.IncomingMessage; body: Settlement; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.getHelper(settlementId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -404,7 +404,7 @@ export class SettlementsApi {
     * 
     */
     public async listFundingTransfers (settlementId: string, listSettlementFundingTransfersQueryParams?:ListSettlementFundingTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |TransfersList| {response: http.IncomingMessage; body: TransfersList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listFundingTransfersHelper(settlementId, listSettlementFundingTransfersQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -517,7 +517,7 @@ export class SettlementsApi {
     * 
     */
     public async listTransfersBySettlementId (settlementId: string, listSettlementTransfersQueryParams?:ListSettlementTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |TransfersList| {response: http.IncomingMessage; body: TransfersList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listTransfersBySettlementIdHelper(settlementId, listSettlementTransfersQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -635,7 +635,7 @@ export class SettlementsApi {
 
     */
     public async list (listSettlementsQueryParams?:ListSettlementsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |SettlementsList| {response: http.IncomingMessage; body: SettlementsList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listHelper(listSettlementsQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -737,7 +737,7 @@ export class SettlementsApi {
      */
 
     public async removeTransfersFromSettlement(settlementId: string, removeSettlementTransfer?: RemoveSettlementTransfer, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |any| {response: http.IncomingMessage; body?: any;}| {response: http.IncomingMessage; body?: any;}> {
+        Promise<any> {
         const responseObject = await this.removeTransfersFromSettlementHelper(settlementId, removeSettlementTransfer,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -840,7 +840,7 @@ export class SettlementsApi {
      */
 
     public async update(settlementId: string, updateSettlementRequest?: UpdateSettlementRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Settlement| {response: http.IncomingMessage; body: Settlement; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.updateHelper(settlementId, updateSettlementRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {

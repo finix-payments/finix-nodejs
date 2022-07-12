@@ -54,3 +54,4 @@ class FeeProfileLinks {
     }
 }
 exports.FeeProfileLinks = FeeProfileLinks;
+//# sourceMappingURL=feeProfileLinks.js.map

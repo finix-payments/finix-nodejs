@@ -30,3 +30,4 @@ class TransferLinksPaymentInstruments {
     }
 }
 exports.TransferLinksPaymentInstruments = TransferLinksPaymentInstruments;
+//# sourceMappingURL=transferLinksPaymentInstruments.js.map

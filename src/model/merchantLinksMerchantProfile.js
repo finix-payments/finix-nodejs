@@ -30,3 +30,4 @@ class MerchantLinksMerchantProfile {
     }
 }
 exports.MerchantLinksMerchantProfile = MerchantLinksMerchantProfile;
+//# sourceMappingURL=merchantLinksMerchantProfile.js.map

@@ -36,3 +36,4 @@ class MerchantProcessorDetails {
     }
 }
 exports.MerchantProcessorDetails = MerchantProcessorDetails;
+//# sourceMappingURL=merchantProcessorDetails.js.map

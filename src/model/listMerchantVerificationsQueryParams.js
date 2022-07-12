@@ -48,3 +48,4 @@ class ListMerchantVerificationsQueryParams {
     }
 }
 exports.ListMerchantVerificationsQueryParams = ListMerchantVerificationsQueryParams;
+//# sourceMappingURL=listMerchantVerificationsQueryParams.js.map

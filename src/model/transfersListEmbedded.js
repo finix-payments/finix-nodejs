@@ -30,3 +30,4 @@ class TransfersListEmbedded {
     }
 }
 exports.TransfersListEmbedded = TransfersListEmbedded;
+//# sourceMappingURL=transfersListEmbedded.js.map

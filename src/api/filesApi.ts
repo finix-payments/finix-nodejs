@@ -196,7 +196,7 @@ export class FilesApi {
      */
 
     public async createExternalLink(fileId: string, createExternalLinkRequest?: CreateExternalLinkRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |ExternalLink| {response: http.IncomingMessage; body: ExternalLink; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.createExternalLinkHelper(fileId, createExternalLinkRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -291,7 +291,7 @@ export class FilesApi {
      */
 
     public async create(createFileRequest?: CreateFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |any| {response: http.IncomingMessage; body: any; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.createHelper(createFileRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -391,7 +391,7 @@ export class FilesApi {
      */
 
     public async downloadFile(fileId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Buffer| {response: http.IncomingMessage; body: Buffer; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.downloadFileHelper(fileId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -499,7 +499,7 @@ export class FilesApi {
      */
 
     public async getExternalLink(fileId: string, externalLinkId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |ExternalLink| {response: http.IncomingMessage; body: ExternalLink; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.getExternalLinkHelper(fileId, externalLinkId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -599,7 +599,7 @@ export class FilesApi {
      */
 
     public async get(fileId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |any| {response: http.IncomingMessage; body: any; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.getHelper(fileId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -730,7 +730,7 @@ export class FilesApi {
     * 
     */
     public async listExternalLinks (fileId: string, listExternalLinksQueryParams?:ListExternalLinksQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |ExternalLinksList| {response: http.IncomingMessage; body: ExternalLinksList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listExternalLinksHelper(fileId, listExternalLinksQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -851,7 +851,7 @@ export class FilesApi {
 
     */
     public async list (listFilesQueryParams?:ListFilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |FilesList| {response: http.IncomingMessage; body: FilesList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listHelper(listFilesQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -954,7 +954,7 @@ export class FilesApi {
      */
 
     public async uploadFile(fileId: string, uploadFileRequest?: UploadFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |any| {response: http.IncomingMessage; body: any; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.uploadFileHelper(fileId, uploadFileRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {

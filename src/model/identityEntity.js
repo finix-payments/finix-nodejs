@@ -262,3 +262,4 @@ exports.IdentityEntity = IdentityEntity;
         OwnershipTypeEnum[OwnershipTypeEnum["Private"] = 'PRIVATE'] = "Private";
     })(OwnershipTypeEnum = IdentityEntity.OwnershipTypeEnum || (IdentityEntity.OwnershipTypeEnum = {}));
 })(IdentityEntity = exports.IdentityEntity || (exports.IdentityEntity = {}));
+//# sourceMappingURL=identityEntity.js.map

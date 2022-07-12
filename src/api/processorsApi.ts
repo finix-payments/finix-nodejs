@@ -194,7 +194,7 @@ export class ProcessorsApi {
      */
 
     public async createApplicationProcessor(applicationId: string, createProcessorRequest?: CreateProcessorRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Processor| {response: http.IncomingMessage; body: Processor; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.createApplicationProcessorHelper(applicationId, createProcessorRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -302,7 +302,7 @@ export class ProcessorsApi {
      */
 
     public async getApplicationProcessor(applicationId: string, type: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Processor| {response: http.IncomingMessage; body: Processor; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.getApplicationProcessorHelper(applicationId, type,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -406,7 +406,7 @@ export class ProcessorsApi {
     * 
     */
     public async listByApplicationId (applicationId: string, listApplicationProcessorsQueryParams?:ListApplicationProcessorsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |ProcessorsList| {response: http.IncomingMessage; body: ProcessorsList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listByApplicationIdHelper(applicationId, listApplicationProcessorsQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {

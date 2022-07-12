@@ -48,3 +48,4 @@ class ListDisputeEvidenceQueryParams {
     }
 }
 exports.ListDisputeEvidenceQueryParams = ListDisputeEvidenceQueryParams;
+//# sourceMappingURL=listDisputeEvidenceQueryParams.js.map

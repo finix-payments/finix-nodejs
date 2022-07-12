@@ -39,3 +39,4 @@ class VerificationsList {
     }
 }
 exports.VerificationsList = VerificationsList;
+//# sourceMappingURL=verificationsList.js.map

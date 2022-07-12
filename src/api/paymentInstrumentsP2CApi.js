@@ -180,3 +180,4 @@ class PaymentInstrumentsP2CApi {
     }
 }
 exports.PaymentInstrumentsP2CApi = PaymentInstrumentsP2CApi;
+//# sourceMappingURL=paymentInstrumentsP2CApi.js.map

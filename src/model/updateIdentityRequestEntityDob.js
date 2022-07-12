@@ -42,3 +42,4 @@ class UpdateIdentityRequestEntityDob {
     }
 }
 exports.UpdateIdentityRequestEntityDob = UpdateIdentityRequestEntityDob;
+//# sourceMappingURL=updateIdentityRequestEntityDob.js.map

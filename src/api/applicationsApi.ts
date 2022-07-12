@@ -185,7 +185,7 @@ export class ApplicationsApi {
      */
 
     public async create(createApplicationRequest?: CreateApplicationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Application| {response: http.IncomingMessage; body: Application; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.createHelper(createApplicationRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -285,7 +285,7 @@ export class ApplicationsApi {
      */
 
     public async get(applicationId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Application| {response: http.IncomingMessage; body: Application; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.getHelper(applicationId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -391,7 +391,7 @@ export class ApplicationsApi {
 
     */
     public async list (listApplicationsQueryParams?:ListApplicationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |ApplicationsList| {response: http.IncomingMessage; body: ApplicationsList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listHelper(listApplicationsQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -491,7 +491,7 @@ export class ApplicationsApi {
      */
 
     public async update(applicationId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Application| {response: http.IncomingMessage; body: Application; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.updateHelper(applicationId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {

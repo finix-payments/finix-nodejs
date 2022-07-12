@@ -48,3 +48,4 @@ class ListSettlementTransfersQueryParams {
     }
 }
 exports.ListSettlementTransfersQueryParams = ListSettlementTransfersQueryParams;
+//# sourceMappingURL=listSettlementTransfersQueryParams.js.map

@@ -30,3 +30,4 @@ class MerchantsListEmbedded {
     }
 }
 exports.MerchantsListEmbedded = MerchantsListEmbedded;
+//# sourceMappingURL=merchantsListEmbedded.js.map

@@ -30,3 +30,4 @@ class TransferLinksFeeProfile {
     }
 }
 exports.TransferLinksFeeProfile = TransferLinksFeeProfile;
+//# sourceMappingURL=transferLinksFeeProfile.js.map

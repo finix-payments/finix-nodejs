@@ -30,3 +30,4 @@ class IdentityLinksApplication {
     }
 }
 exports.IdentityLinksApplication = IdentityLinksApplication;
+//# sourceMappingURL=identityLinksApplication.js.map

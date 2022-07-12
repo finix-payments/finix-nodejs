@@ -343,11 +343,11 @@ export class {{classname}} {
     {{/vendorExtensions.x-group-parameters}}
     {{^vendorExtensions.x-group-parameters}}
     public async {{#vendorExtensions.x-java-method-name}}{{{.}}}{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}{{/vendorExtensions.x-java-method-name}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |{{#returnType}}{{{.}}}{{/returnType}}{{^returnType}}any{{/returnType}}| {response: http.IncomingMessage; {{#returnType}}body: {{{.}}}; {{/returnType}}{{^returnType}}body?: any;{{/returnType}}}| {response: http.IncomingMessage; {{#returnType}}body: SuperSet<any>;{{/returnType}}{{^returnType}}body?: any;{{/returnType}}}> {
+        Promise<any> {
     {{/vendorExtensions.x-group-parameters}}    
     {{#vendorExtensions.x-group-parameters}}
     public async {{#vendorExtensions.x-java-method-name}}{{{.}}}{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}{{/vendorExtensions.x-java-method-name}} ({{#allParams}}{{#required}}{{paramName}}: {{{dataType}}}, {{/required}}{{/allParams}}{{nickname}}QueryParams?:{{#lambda.titlecase}}{{nickname}}QueryParams{{/lambda.titlecase}}, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |{{#returnType}}{{{.}}}{{/returnType}}{{^returnType}}any{{/returnType}}| {response: http.IncomingMessage; {{#returnType}}body: {{{.}}}; {{/returnType}}{{^returnType}}body?: any;{{/returnType}}}| {response: http.IncomingMessage; {{#returnType}}body: SuperSet<any>;{{/returnType}}{{^returnType}}body?: any;{{/returnType}}}> {
+        Promise<any> {
     {{/vendorExtensions.x-group-parameters}} 
         {{^vendorExtensions.x-group-parameters}}
         const responseObject = await this.{{#vendorExtensions.x-java-method-name}}{{{.}}}Helper{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Helper{{/vendorExtensions.x-java-method-name}}({{#allParams}}{{paramName}}, {{/allParams}} options);

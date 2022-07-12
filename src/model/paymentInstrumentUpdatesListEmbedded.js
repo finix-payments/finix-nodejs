@@ -27,3 +27,4 @@ class PaymentInstrumentUpdatesListEmbedded {
     }
 }
 exports.PaymentInstrumentUpdatesListEmbedded = PaymentInstrumentUpdatesListEmbedded;
+//# sourceMappingURL=paymentInstrumentUpdatesListEmbedded.js.map

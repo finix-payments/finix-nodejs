@@ -138,3 +138,4 @@ class ModelFile {
     }
 }
 exports.ModelFile = ModelFile;
+//# sourceMappingURL=modelFile.js.map

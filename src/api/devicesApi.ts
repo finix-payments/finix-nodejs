@@ -191,7 +191,7 @@ export class DevicesApi {
      */
 
     public async create(merchantId: string, createDevice?: CreateDevice, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Device| {response: http.IncomingMessage; body: Device; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.createHelper(merchantId, createDevice,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -291,7 +291,7 @@ export class DevicesApi {
      */
 
     public async get(deviceId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Device| {response: http.IncomingMessage; body: Device; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.getHelper(deviceId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -394,7 +394,7 @@ export class DevicesApi {
      */
 
     public async update(deviceId: string, body?: object, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Device| {response: http.IncomingMessage; body: Device; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.updateHelper(deviceId, body,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {

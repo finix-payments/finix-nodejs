@@ -27,3 +27,4 @@ class DisputeEvidenceListEmbedded {
     }
 }
 exports.DisputeEvidenceListEmbedded = DisputeEvidenceListEmbedded;
+//# sourceMappingURL=disputeEvidenceListEmbedded.js.map

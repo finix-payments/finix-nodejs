@@ -192,7 +192,7 @@ export class SubscriptionAmountsApi {
      */
 
     public async lcreate(subscriptionScheduleId: string, createSubscriptionAmountRequest?: CreateSubscriptionAmountRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |SubscriptionAmount| {response: http.IncomingMessage; body: SubscriptionAmount; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.lcreateHelper(subscriptionScheduleId, createSubscriptionAmountRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -299,7 +299,7 @@ export class SubscriptionAmountsApi {
      */
 
     public async deleteSubscriptionAmount(subscriptionAmountId: string, subscriptionScheduleId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |any| {response: http.IncomingMessage; body?: any;}| {response: http.IncomingMessage; body?: any;}> {
+        Promise<any> {
         const responseObject = await this.deleteSubscriptionAmountHelper(subscriptionAmountId, subscriptionScheduleId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -407,7 +407,7 @@ export class SubscriptionAmountsApi {
      */
 
     public async get(subscriptionAmountId: string, subscriptionScheduleId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |SubscriptionAmount| {response: http.IncomingMessage; body: SubscriptionAmount; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.getHelper(subscriptionAmountId, subscriptionScheduleId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -520,7 +520,7 @@ export class SubscriptionAmountsApi {
     * 
     */
     public async listBySubscriptionSchedule (subscriptionScheduleId: string, listSubscriptionAmountQueryParams?:ListSubscriptionAmountQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |SubscriptionAmountList| {response: http.IncomingMessage; body: SubscriptionAmountList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listBySubscriptionScheduleHelper(subscriptionScheduleId, listSubscriptionAmountQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -631,7 +631,7 @@ export class SubscriptionAmountsApi {
      */
 
     public async patchSubscriptionAmount(subscriptionAmountId: string, subscriptionScheduleId: string, createSubscriptionAmountRequest?: CreateSubscriptionAmountRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |SubscriptionAmount| {response: http.IncomingMessage; body: SubscriptionAmount; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.patchSubscriptionAmountHelper(subscriptionAmountId, subscriptionScheduleId, createSubscriptionAmountRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {

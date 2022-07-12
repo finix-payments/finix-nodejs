@@ -30,3 +30,4 @@ class ApplicationProfileLinksApplication {
     }
 }
 exports.ApplicationProfileLinksApplication = ApplicationProfileLinksApplication;
+//# sourceMappingURL=applicationProfileLinksApplication.js.map

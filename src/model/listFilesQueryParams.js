@@ -102,3 +102,4 @@ class ListFilesQueryParams {
     }
 }
 exports.ListFilesQueryParams = ListFilesQueryParams;
+//# sourceMappingURL=listFilesQueryParams.js.map

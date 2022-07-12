@@ -42,3 +42,4 @@ class ApplicationsList {
     }
 }
 exports.ApplicationsList = ApplicationsList;
+//# sourceMappingURL=applicationsList.js.map

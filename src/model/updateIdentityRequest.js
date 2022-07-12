@@ -42,3 +42,4 @@ class UpdateIdentityRequest {
     }
 }
 exports.UpdateIdentityRequest = UpdateIdentityRequest;
+//# sourceMappingURL=updateIdentityRequest.js.map

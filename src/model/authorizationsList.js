@@ -39,3 +39,4 @@ class AuthorizationsList {
     }
 }
 exports.AuthorizationsList = AuthorizationsList;
+//# sourceMappingURL=authorizationsList.js.map

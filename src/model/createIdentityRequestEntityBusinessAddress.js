@@ -78,3 +78,4 @@ class CreateIdentityRequestEntityBusinessAddress {
     }
 }
 exports.CreateIdentityRequestEntityBusinessAddress = CreateIdentityRequestEntityBusinessAddress;
+//# sourceMappingURL=createIdentityRequestEntityBusinessAddress.js.map

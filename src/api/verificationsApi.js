@@ -455,3 +455,4 @@ class VerificationsApi {
     }
 }
 exports.VerificationsApi = VerificationsApi;
+//# sourceMappingURL=verificationsApi.js.map

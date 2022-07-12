@@ -30,3 +30,4 @@ class DisputesListEmbedded {
     }
 }
 exports.DisputesListEmbedded = DisputesListEmbedded;
+//# sourceMappingURL=disputesListEmbedded.js.map

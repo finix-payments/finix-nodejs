@@ -194,7 +194,7 @@ export class UsersApi {
      */
 
     public async createApplicationUser(applicationId: string, createUserRequest?: CreateUserRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |User| {response: http.IncomingMessage; body: User; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.createApplicationUserHelper(applicationId, createUserRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -294,7 +294,7 @@ export class UsersApi {
      */
 
     public async get(userId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |User| {response: http.IncomingMessage; body: User; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.getHelper(userId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -391,7 +391,7 @@ export class UsersApi {
 
     */
     public async list (listUsersQueryParams?:ListUsersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |UsersList| {response: http.IncomingMessage; body: UsersList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listHelper(listUsersQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -494,7 +494,7 @@ export class UsersApi {
      */
 
     public async update(userId: string, updateUserRequest?: UpdateUserRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |User| {response: http.IncomingMessage; body: User; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.updateHelper(userId, updateUserRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {

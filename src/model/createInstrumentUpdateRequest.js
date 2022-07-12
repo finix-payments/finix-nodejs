@@ -39,3 +39,4 @@ class CreateInstrumentUpdateRequest {
     }
 }
 exports.CreateInstrumentUpdateRequest = CreateInstrumentUpdateRequest;
+//# sourceMappingURL=createInstrumentUpdateRequest.js.map

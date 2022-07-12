@@ -35,11 +35,12 @@ async function quickstart() {
         // let transferList = await client.Transfers.list({"limit": 2}, 
         // {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
         // console.log(transferList.page.nextCursor);
-        let oneTransfer = await client.Transfers.get("TRmB5hgMVPYxiacYkGoCRjHq", { headers: { ["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01" } });
-        console.log(oneTransfer);
+        const oneTransfer = await client.Transfers.get("TRmB5hgMVPYxiacYkGoCRjHq", { headers: { ["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01" } });
+        console.log(oneTransfer.state);
     }
     catch (error) {
         console.log(error);
     }
 }
 quickstart();
+//# sourceMappingURL=test.js.map

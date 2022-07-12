@@ -187,7 +187,7 @@ export class AuthorizationsApi {
      */
 
     public async create(createAuthorizationRequest?: CreateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Authorization| {response: http.IncomingMessage; body: Authorization; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.createHelper(createAuthorizationRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -287,7 +287,7 @@ export class AuthorizationsApi {
      */
 
     public async get(authorizationId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Authorization| {response: http.IncomingMessage; body: Authorization; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.getHelper(authorizationId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -468,7 +468,7 @@ export class AuthorizationsApi {
 
     */
     public async list (listAuthorizationsQueryParams?:ListAuthorizationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |AuthorizationsList| {response: http.IncomingMessage; body: AuthorizationsList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listHelper(listAuthorizationsQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -571,7 +571,7 @@ export class AuthorizationsApi {
      */
 
     public async update(authorizationId: string, updateAuthorizationRequest?: UpdateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Authorization| {response: http.IncomingMessage; body: Authorization; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.updateHelper(authorizationId, updateAuthorizationRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {

@@ -45,3 +45,4 @@ class CreateProcessorRequest {
     }
 }
 exports.CreateProcessorRequest = CreateProcessorRequest;
+//# sourceMappingURL=createProcessorRequest.js.map

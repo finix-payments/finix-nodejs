@@ -93,3 +93,4 @@ class ListSettlementsQueryParams {
     }
 }
 exports.ListSettlementsQueryParams = ListSettlementsQueryParams;
+//# sourceMappingURL=listSettlementsQueryParams.js.map

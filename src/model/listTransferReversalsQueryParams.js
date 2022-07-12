@@ -48,3 +48,4 @@ class ListTransferReversalsQueryParams {
     }
 }
 exports.ListTransferReversalsQueryParams = ListTransferReversalsQueryParams;
+//# sourceMappingURL=listTransferReversalsQueryParams.js.map

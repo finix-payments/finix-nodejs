@@ -188,7 +188,7 @@ export class MerchantProfilesApi {
      */
 
     public async get(merchantProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |MerchantProfile| {response: http.IncomingMessage; body: MerchantProfile; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.getHelper(merchantProfileId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -294,7 +294,7 @@ export class MerchantProfilesApi {
 
     */
     public async list (listMerchantProfilesQueryParams?:ListMerchantProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |MerchantProfilesList| {response: http.IncomingMessage; body: MerchantProfilesList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listHelper(listMerchantProfilesQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -397,7 +397,7 @@ export class MerchantProfilesApi {
      */
 
     public async update(merchantProfileId: string, body?: object, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |MerchantProfile| {response: http.IncomingMessage; body: MerchantProfile; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.updateHelper(merchantProfileId, body,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {

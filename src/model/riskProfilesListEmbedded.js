@@ -27,3 +27,4 @@ class RiskProfilesListEmbedded {
     }
 }
 exports.RiskProfilesListEmbedded = RiskProfilesListEmbedded;
+//# sourceMappingURL=riskProfilesListEmbedded.js.map

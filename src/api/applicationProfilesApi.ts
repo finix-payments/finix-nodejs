@@ -189,7 +189,7 @@ export class ApplicationProfilesApi {
      */
 
     public async get(applicationProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |ApplicationProfile| {response: http.IncomingMessage; body: ApplicationProfile; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.getHelper(applicationProfileId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -292,7 +292,7 @@ export class ApplicationProfilesApi {
 
     */
     public async list (listApplicationProfilesQueryParams?:ListApplicationProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |ApplicationProfilesList| {response: http.IncomingMessage; body: ApplicationProfilesList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listHelper(listApplicationProfilesQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -395,7 +395,7 @@ export class ApplicationProfilesApi {
      */
 
     public async update(applicationProfileId: string, updateApplicationProfileRequest?: UpdateApplicationProfileRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |ApplicationProfile| {response: http.IncomingMessage; body: ApplicationProfile; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.updateHelper(applicationProfileId, updateApplicationProfileRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {

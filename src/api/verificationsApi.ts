@@ -187,7 +187,7 @@ export class VerificationsApi {
      */
 
     public async create(createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Verification| {response: http.IncomingMessage; body: Verification; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.createHelper(createVerificationRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -287,7 +287,7 @@ export class VerificationsApi {
      */
 
     public async get(verificationId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Verification| {response: http.IncomingMessage; body: Verification; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.getHelper(verificationId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -400,7 +400,7 @@ export class VerificationsApi {
     * 
     */
     public async listByMerchantId (merchantId: string, listMerchantVerificationsQueryParams?:ListMerchantVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |VerificationsList| {response: http.IncomingMessage; body: VerificationsList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listByMerchantIdHelper(merchantId, listMerchantVerificationsQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -497,7 +497,7 @@ export class VerificationsApi {
 
     */
     public async list (listVerificationsQueryParams?:ListVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |VerificationsList| {response: http.IncomingMessage; body: VerificationsList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listHelper(listVerificationsQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {

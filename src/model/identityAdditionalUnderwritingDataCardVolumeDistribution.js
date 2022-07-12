@@ -51,3 +51,4 @@ class IdentityAdditionalUnderwritingDataCardVolumeDistribution {
     }
 }
 exports.IdentityAdditionalUnderwritingDataCardVolumeDistribution = IdentityAdditionalUnderwritingDataCardVolumeDistribution;
+//# sourceMappingURL=identityAdditionalUnderwritingDataCardVolumeDistribution.js.map

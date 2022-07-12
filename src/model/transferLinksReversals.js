@@ -30,3 +30,4 @@ class TransferLinksReversals {
     }
 }
 exports.TransferLinksReversals = TransferLinksReversals;
+//# sourceMappingURL=transferLinksReversals.js.map

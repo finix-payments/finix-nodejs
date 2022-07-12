@@ -30,3 +30,4 @@ class DownloadInstrumentUpdateQueryParams {
     }
 }
 exports.DownloadInstrumentUpdateQueryParams = DownloadInstrumentUpdateQueryParams;
+//# sourceMappingURL=downloadInstrumentUpdateQueryParams.js.map

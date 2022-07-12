@@ -185,7 +185,7 @@ export class FeeProfilesApi {
      */
 
     public async create(createFeeProfileRequest?: CreateFeeProfileRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |FeeProfile| {response: http.IncomingMessage; body: FeeProfile; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.createHelper(createFeeProfileRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -285,7 +285,7 @@ export class FeeProfilesApi {
      */
 
     public async get(feeProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |FeeProfile| {response: http.IncomingMessage; body: FeeProfile; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.getHelper(feeProfileId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -388,7 +388,7 @@ export class FeeProfilesApi {
 
     */
     public async list (listFeeProfilesQueryParams?:ListFeeProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |FeeProfilesList| {response: http.IncomingMessage; body: FeeProfilesList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listHelper(listFeeProfilesQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {

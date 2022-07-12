@@ -27,3 +27,4 @@ class ReviewQueueItemsListEmbedded {
     }
 }
 exports.ReviewQueueItemsListEmbedded = ReviewQueueItemsListEmbedded;
+//# sourceMappingURL=reviewQueueItemsListEmbedded.js.map

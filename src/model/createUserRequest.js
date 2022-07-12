@@ -42,3 +42,4 @@ class CreateUserRequest {
     }
 }
 exports.CreateUserRequest = CreateUserRequest;
+//# sourceMappingURL=createUserRequest.js.map

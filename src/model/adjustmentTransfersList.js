@@ -39,3 +39,4 @@ class AdjustmentTransfersList {
     }
 }
 exports.AdjustmentTransfersList = AdjustmentTransfersList;
+//# sourceMappingURL=adjustmentTransfersList.js.map

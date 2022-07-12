@@ -161,3 +161,4 @@ exports.ReviewQueueItem = ReviewQueueItem;
         ReviewTypeEnum[ReviewTypeEnum["TransferLimitExceeded"] = 'TRANSFER_LIMIT_EXCEEDED'] = "TransferLimitExceeded";
     })(ReviewTypeEnum = ReviewQueueItem.ReviewTypeEnum || (ReviewQueueItem.ReviewTypeEnum = {}));
 })(ReviewQueueItem = exports.ReviewQueueItem || (exports.ReviewQueueItem = {}));
+//# sourceMappingURL=reviewQueueItem.js.map

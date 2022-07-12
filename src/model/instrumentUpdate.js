@@ -72,3 +72,4 @@ class InstrumentUpdate {
     }
 }
 exports.InstrumentUpdate = InstrumentUpdate;
+//# sourceMappingURL=instrumentUpdate.js.map

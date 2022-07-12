@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 api.ts
 api/apis.ts
 api/applicationProfilesApi.ts
@@ -179,8 +178,6 @@ model/identityLinksTransfers.ts
 model/identityLinksVerifications.ts
 model/inputDetails.ts
 model/instrumentUpdate.ts
-model/instrumentUpdate1.ts
-model/instrumentUpdate1Links.ts
 model/listApplicationProfilesQueryParams.ts
 model/listApplicationsQueryParams.ts
 model/listAuthorizationsQueryParams.ts
@@ -254,21 +251,15 @@ model/removeSettlementTransfer.ts
 model/reserveProfile.ts
 model/reserveProfilesList.ts
 model/reserveProfilesListEmbedded.ts
-model/reserveProfilesListEmbeddedReserveProfilesInner.ts
-model/reserveProfilesListEmbeddedReserveProfilesInnerLinks.ts
 model/reviewQueueItem.ts
 model/reviewQueueItemLinks.ts
 model/reviewQueueItemsList.ts
 model/reviewQueueItemsListEmbedded.ts
-model/reviewQueueItemsListEmbeddedReviewQueueItemsInner.ts
-model/reviewQueueItemsListEmbeddedReviewQueueItemsInnerLinks.ts
 model/riskProfile.ts
 model/riskProfileLinks.ts
 model/riskProfileRule.ts
 model/riskProfileRulesList.ts
 model/riskProfileRulesListEmbedded.ts
-model/riskProfileRulesListEmbeddedRiskProfileRulesInner.ts
-model/riskProfileRulesListEmbeddedRiskProfileRulesInnerLinks.ts
 model/riskProfilesList.ts
 model/riskProfilesListEmbedded.ts
 model/root.ts
@@ -278,7 +269,6 @@ model/settlementEngineSettlement.ts
 model/settlementEngineSettlementLinks.ts
 model/settlementEngineSettlementsList.ts
 model/settlementEngineSettlementsListEmbedded.ts
-model/settlementEngineSettlementsListEmbeddedSettlementsInner.ts
 model/settlementLinks.ts
 model/settlementsList.ts
 model/settlementsListEmbedded.ts

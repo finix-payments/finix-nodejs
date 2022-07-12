@@ -63,3 +63,4 @@ class UpdateAuthorizationRequest {
     }
 }
 exports.UpdateAuthorizationRequest = UpdateAuthorizationRequest;
+//# sourceMappingURL=updateAuthorizationRequest.js.map

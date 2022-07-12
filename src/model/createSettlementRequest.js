@@ -54,3 +54,4 @@ class CreateSettlementRequest {
     }
 }
 exports.CreateSettlementRequest = CreateSettlementRequest;
+//# sourceMappingURL=createSettlementRequest.js.map

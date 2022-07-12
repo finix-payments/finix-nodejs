@@ -39,3 +39,4 @@ class RiskProfilesList {
     }
 }
 exports.RiskProfilesList = RiskProfilesList;
+//# sourceMappingURL=riskProfilesList.js.map

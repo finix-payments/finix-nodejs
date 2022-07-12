@@ -30,3 +30,4 @@ class ListVerificationsQueryParams {
     }
 }
 exports.ListVerificationsQueryParams = ListVerificationsQueryParams;
+//# sourceMappingURL=listVerificationsQueryParams.js.map

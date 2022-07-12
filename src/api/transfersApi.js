@@ -732,3 +732,4 @@ class TransfersApi {
     }
 }
 exports.TransfersApi = TransfersApi;
+//# sourceMappingURL=transfersApi.js.map

@@ -45,3 +45,4 @@ class CreateIdentityRequest {
     }
 }
 exports.CreateIdentityRequest = CreateIdentityRequest;
+//# sourceMappingURL=createIdentityRequest.js.map

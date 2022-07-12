@@ -185,7 +185,7 @@ export class BalanceTransfersApi {
      */
 
     public async createBalanceTransfer(createBalanceTransferRequest?: CreateBalanceTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |BalanceTransfer| {response: http.IncomingMessage; body: BalanceTransfer; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.createBalanceTransferHelper(createBalanceTransferRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -285,7 +285,7 @@ export class BalanceTransfersApi {
      */
 
     public async getBalanceTransfers(balanceTransfersId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |BalanceTransfer| {response: http.IncomingMessage; body: BalanceTransfer; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.getBalanceTransfersHelper(balanceTransfersId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -424,7 +424,7 @@ export class BalanceTransfersApi {
 
     */
     public async listBalanceTransfers (listBalanceTransfersQueryParams?:ListBalanceTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |BalanceTransferList| {response: http.IncomingMessage; body: BalanceTransferList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listBalanceTransfersHelper(listBalanceTransfersQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {

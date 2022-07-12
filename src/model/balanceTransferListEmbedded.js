@@ -30,3 +30,4 @@ class BalanceTransferListEmbedded {
     }
 }
 exports.BalanceTransferListEmbedded = BalanceTransferListEmbedded;
+//# sourceMappingURL=balanceTransferListEmbedded.js.map

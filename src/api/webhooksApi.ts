@@ -187,7 +187,7 @@ export class WebhooksApi {
      */
 
     public async create(createWebhookRequest?: CreateWebhookRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Webhook| {response: http.IncomingMessage; body: Webhook; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.createHelper(createWebhookRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -287,7 +287,7 @@ export class WebhooksApi {
      */
 
     public async get(webhookId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Webhook| {response: http.IncomingMessage; body: Webhook; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.getHelper(webhookId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -390,7 +390,7 @@ export class WebhooksApi {
 
     */
     public async list (listWebhooksQueryParams?:ListWebhooksQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |WebhooksList| {response: http.IncomingMessage; body: WebhooksList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listHelper(listWebhooksQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -493,7 +493,7 @@ export class WebhooksApi {
      */
 
     public async update(webhookId: string, updateWebhookRequest?: UpdateWebhookRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Webhook| {response: http.IncomingMessage; body: Webhook; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.updateHelper(webhookId, updateWebhookRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {

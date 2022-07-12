@@ -309,3 +309,4 @@ class ListTransfersQueryParams {
     }
 }
 exports.ListTransfersQueryParams = ListTransfersQueryParams;
+//# sourceMappingURL=listTransfersQueryParams.js.map

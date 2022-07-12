@@ -191,7 +191,7 @@ export class PaymentInstrumentsApi {
      */
 
     public async createApplePaySession(applePaySessionRequest?: ApplePaySessionRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |ApplePaySession| {response: http.IncomingMessage; body: ApplePaySession; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.createApplePaySessionHelper(applePaySessionRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -286,7 +286,7 @@ export class PaymentInstrumentsApi {
      */
 
     public async create(createPaymentInstrumentRequest?: CreatePaymentInstrumentRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |PaymentInstrument| {response: http.IncomingMessage; body: PaymentInstrument; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.createHelper(createPaymentInstrumentRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -389,7 +389,7 @@ export class PaymentInstrumentsApi {
      */
 
     public async createPaymentInstrumentVerification(paymentInstrumentId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Verification| {response: http.IncomingMessage; body: Verification; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.createPaymentInstrumentVerificationHelper(paymentInstrumentId, createVerificationRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -489,7 +489,7 @@ export class PaymentInstrumentsApi {
      */
 
     public async get(paymentInstrumentId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |PaymentInstrument| {response: http.IncomingMessage; body: PaymentInstrument; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.getHelper(paymentInstrumentId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -628,7 +628,7 @@ export class PaymentInstrumentsApi {
 
     */
     public async list (listPaymentInstrumentsQueryParams?:ListPaymentInstrumentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |PaymentInstrumentsList| {response: http.IncomingMessage; body: PaymentInstrumentsList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listHelper(listPaymentInstrumentsQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -731,7 +731,7 @@ export class PaymentInstrumentsApi {
      */
 
     public async update(paymentInstrumentId: string, updatePaymentInstrumentRequest?: UpdatePaymentInstrumentRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |PaymentInstrument| {response: http.IncomingMessage; body: PaymentInstrument; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.updateHelper(paymentInstrumentId, updatePaymentInstrumentRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {

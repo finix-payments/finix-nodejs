@@ -30,3 +30,4 @@ class CreateDisputeEvidenceRequest {
     }
 }
 exports.CreateDisputeEvidenceRequest = CreateDisputeEvidenceRequest;
+//# sourceMappingURL=createDisputeEvidenceRequest.js.map

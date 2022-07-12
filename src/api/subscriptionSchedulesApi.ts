@@ -200,7 +200,7 @@ export class SubscriptionSchedulesApi {
      */
 
     public async get(subscriptionScheduleId: string, nickname?: string, type?: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |SubscriptionSchedule| {response: http.IncomingMessage; body: SubscriptionSchedule; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.getHelper(subscriptionScheduleId, nickname, type,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -300,7 +300,7 @@ export class SubscriptionSchedulesApi {
 
     */
     public async list (listSubscriptionSchedulesQueryParams?:ListSubscriptionSchedulesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |SubscriptionSchedulesList| {response: http.IncomingMessage; body: SubscriptionSchedulesList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listHelper(listSubscriptionSchedulesQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -395,7 +395,7 @@ export class SubscriptionSchedulesApi {
      */
 
     public async create(createSubscriptionScheduleRequest?: CreateSubscriptionScheduleRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |SubscriptionSchedule| {response: http.IncomingMessage; body: SubscriptionSchedule; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.createHelper(createSubscriptionScheduleRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -498,7 +498,7 @@ export class SubscriptionSchedulesApi {
      */
 
     public async update(subscriptionScheduleId: string, updateSubscriptionScheduleRequest?: UpdateSubscriptionScheduleRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |SubscriptionSchedule| {response: http.IncomingMessage; body: SubscriptionSchedule; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.updateHelper(subscriptionScheduleId, updateSubscriptionScheduleRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {

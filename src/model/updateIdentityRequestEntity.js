@@ -232,3 +232,4 @@ exports.UpdateIdentityRequestEntity = UpdateIdentityRequestEntity;
         BusinessTypeEnum[BusinessTypeEnum["GovernmentAgency"] = 'GOVERNMENT_AGENCY'] = "GovernmentAgency";
     })(BusinessTypeEnum = UpdateIdentityRequestEntity.BusinessTypeEnum || (UpdateIdentityRequestEntity.BusinessTypeEnum = {}));
 })(UpdateIdentityRequestEntity = exports.UpdateIdentityRequestEntity || (exports.UpdateIdentityRequestEntity = {}));
+//# sourceMappingURL=updateIdentityRequestEntity.js.map

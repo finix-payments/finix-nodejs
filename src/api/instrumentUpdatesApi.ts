@@ -184,7 +184,7 @@ export class InstrumentUpdatesApi {
      */
 
     public async create(createInstrumentUpdateRequest?: CreateInstrumentUpdateRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |InstrumentUpdate| {response: http.IncomingMessage; body: InstrumentUpdate; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.createHelper(createInstrumentUpdateRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -291,7 +291,7 @@ export class InstrumentUpdatesApi {
     * 
     */
     public async download (instrumentUpdatesId: string, downloadInstrumentUpdateQueryParams?:DownloadInstrumentUpdateQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |Buffer| {response: http.IncomingMessage; body: Buffer; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.downloadHelper(instrumentUpdatesId, downloadInstrumentUpdateQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -391,7 +391,7 @@ export class InstrumentUpdatesApi {
      */
 
     public async get(instrumentUpdatesId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |InstrumentUpdate| {response: http.IncomingMessage; body: InstrumentUpdate; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.getHelper(instrumentUpdatesId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {

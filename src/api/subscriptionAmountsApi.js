@@ -574,3 +574,4 @@ class SubscriptionAmountsApi {
     }
 }
 exports.SubscriptionAmountsApi = SubscriptionAmountsApi;
+//# sourceMappingURL=subscriptionAmountsApi.js.map

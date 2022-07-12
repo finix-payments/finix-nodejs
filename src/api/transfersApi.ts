@@ -190,7 +190,7 @@ export class TransfersApi {
      */
 
     public async create(createTransferRequest?: CreateTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Transfer| {response: http.IncomingMessage; body: Transfer; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.createHelper(createTransferRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -293,7 +293,7 @@ export class TransfersApi {
      */
 
     public async createTransferReversal(transferId: string, createReversalRequest?: CreateReversalRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Transfer| {response: http.IncomingMessage; body: Transfer; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.createTransferReversalHelper(transferId, createReversalRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -393,7 +393,7 @@ export class TransfersApi {
      */
 
     public async get(transferId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Transfer| {response: http.IncomingMessage; body: Transfer; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.getHelper(transferId,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -506,7 +506,7 @@ export class TransfersApi {
     * 
     */
     public async listTransfersReversals (transferId: string, listTransferReversalsQueryParams?:ListTransferReversalsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |TransfersList| {response: http.IncomingMessage; body: TransfersList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listTransfersReversalsHelper(transferId, listTransferReversalsQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -696,7 +696,7 @@ export class TransfersApi {
 
     */
     public async list (listTransfersQueryParams?:ListTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise< SuperSet<any> |TransfersList| {response: http.IncomingMessage; body: TransfersList; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.listHelper(listTransfersQueryParams, options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
@@ -799,7 +799,7 @@ export class TransfersApi {
      */
 
     public async update(transferId: string, updateTransferRequest?: UpdateTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise< SuperSet<any> |Transfer| {response: http.IncomingMessage; body: Transfer; }| {response: http.IncomingMessage; body: SuperSet<any>;}> {
+        Promise<any> {
         const responseObject = await this.updateHelper(transferId, updateTransferRequest,  options);
 
         if (responseObject.body.hasOwnProperty('embedded')) {
