@@ -13,7 +13,7 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
-
+import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
 import { Application } from '../model/application';
 import { ApplicationsList } from '../model/applicationsList';
@@ -127,7 +127,6 @@ export class ApplicationsApi {
         let localVarFormParams: any = {};
 
 
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -139,9 +138,14 @@ export class ApplicationsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(createApplicationRequest, "CreateApplicationRequest")
         };
-
+        if (createApplicationRequest.hasOwnProperty('file')){
+            createApplicationRequest = await this.fileHelper(createApplicationRequest);
+            localVarRequestOptions.formData = createApplicationRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(createApplicationRequest, "CreateApplicationRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -184,23 +188,23 @@ export class ApplicationsApi {
      * @param createApplicationRequest 
      */
 
-    public async create(createApplicationRequest?: CreateApplicationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async create(createApplicationRequest?: CreateApplicationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Application> {
         const responseObject = await this.createHelper(createApplicationRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * If created successfully, returns a 201 status and adds a location header to the response which refers to the new created `Application`. 
+     * @summary Create an Application
+     * @param createApplicationRequest 
+     */
+
+    public async createHttp(createApplicationRequest?: CreateApplicationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Application; }> {
+        const responseObject = await this.createHelper(createApplicationRequest,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Retrieve the details of an `Application`.
@@ -227,8 +231,6 @@ export class ApplicationsApi {
             throw new Error('Required parameter applicationId was null or undefined when calling getApplication.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -241,7 +243,6 @@ export class ApplicationsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -284,23 +285,23 @@ export class ApplicationsApi {
      * @param applicationId ID of application to use
      */
 
-    public async get(applicationId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async get(applicationId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Application> {
         const responseObject = await this.getHelper(applicationId,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Retrieve the details of an `Application`.
+     * @summary Fetch an Application
+     * @param applicationId ID of application to use
+     */
+
+    public async getHttp(applicationId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Application; }> {
+        const responseObject = await this.getHelper(applicationId,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Return a collection of `Applications`. If there are no `Applications`, an empty collection will be returned.
@@ -335,7 +336,6 @@ export class ApplicationsApi {
             }
 
         }
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -348,7 +348,6 @@ export class ApplicationsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -390,23 +389,26 @@ export class ApplicationsApi {
      * @summary List Applications
 
     */
-    public async list (listApplicationsQueryParams?:ListApplicationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise<any> {
+    public async list (listApplicationsQueryParams?:ListApplicationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<SuperSet<any>> {
         const responseObject = await this.listHelper(listApplicationsQueryParams, options);
 
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
-        return responseObject.body;
+        let dataList = await this.embeddedHelper(responseObject);
+        return dataList;
     }
 
+    /**
+     * Return a collection of `Applications`. If there are no `Applications`, an empty collection will be returned.
+     * @summary List Applications
+
+    */
+    public async listHttp (listApplicationsQueryParams?:ListApplicationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        const responseObject = await this.listHelper(listApplicationsQueryParams, options);
+
+        let dataList = await this.embeddedHelper(responseObject);
+        return Promise.resolve({response: responseObject.response, body: dataList});
+    }
     /**
      * Helper function. 
      * Update an existing `Application`.
@@ -433,8 +435,6 @@ export class ApplicationsApi {
             throw new Error('Required parameter applicationId was null or undefined when calling updateApplication.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -447,7 +447,6 @@ export class ApplicationsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -490,21 +489,22 @@ export class ApplicationsApi {
      * @param applicationId ID of application to use
      */
 
-    public async update(applicationId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async update(applicationId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Application> {
         const responseObject = await this.updateHelper(applicationId,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+
+    /**
+     * Update an existing `Application`.
+     * @summary Update an Application
+     * @param applicationId ID of application to use
+     */
+
+    public async updateHttp(applicationId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Application; }> {
+        const responseObject = await this.updateHelper(applicationId,  options);
+        return responseObject;
     }
 
 
@@ -514,5 +514,10 @@ export class ApplicationsApi {
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
+    }
+
+    private async fileHelper(request: any){
+        request.file = fs.createReadStream(<string>request.file)
+        return request;
     }
 }

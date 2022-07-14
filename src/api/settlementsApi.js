@@ -150,19 +150,26 @@ class SettlementsApi {
      * @summary Create a Batch Settlement
      * @param createSettlementRequest
      */
-    async create(createSettlementRequest, options = { headers: {} }, httpData = false) {
+    async create(createSettlementRequest, options = { headers: {} }) {
         const responseObject = await this.createHelper(createSettlementRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Create a batch `Settlement`. A `Settlement` is a collection of **SUCCEEDED** `Transfers` that are ready to get paid out to a `Merchant`.
+     * @summary Create a Batch Settlement
+     * @param createSettlementRequest
+     */
+    async createHttp(createSettlementRequest, options = { headers: {} }) {
+        const responseObject = await this.createHelper(createSettlementRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -239,19 +246,26 @@ class SettlementsApi {
      * @summary Get a Settlement
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      */
-    async get(settlementId, options = { headers: {} }, httpData = false) {
+    async get(settlementId, options = { headers: {} }) {
         const responseObject = await this.getHelper(settlementId, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retreive the details of a `Settlement`.
+     * @summary Get a Settlement
+     * @param settlementId ID of &#x60;Settlement&#x60; object.
+     */
+    async getHttp(settlementId, options = { headers: {} }) {
+        const responseObject = await this.getHelper(settlementId, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -343,19 +357,28 @@ class SettlementsApi {
     * @param settlementId ID of &#x60;Settlement&#x60; object.
     *
     */
-    async listFundingTransfers(settlementId, listSettlementFundingTransfersQueryParams, options = { headers: {} }, httpData = false) {
+    async listFundingTransfers(settlementId, listSettlementFundingTransfersQueryParams, options = { headers: {} }) {
         const responseObject = await this.listFundingTransfersHelper(settlementId, listSettlementFundingTransfersQueryParams, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieve the `Transfers` in a `Settlement` that have `type` **CREDIT**.
+     * @summary List Settlement Funding Transfers
+
+    * @param settlementId ID of &#x60;Settlement&#x60; object.
+    *
+    */
+    async listFundingTransfersHttp(settlementId, listSettlementFundingTransfersQueryParams, options = { headers: {} }) {
+        const responseObject = await this.listFundingTransfersHelper(settlementId, listSettlementFundingTransfersQueryParams, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -447,19 +470,28 @@ class SettlementsApi {
     * @param settlementId ID of &#x60;Settlement&#x60; object.
     *
     */
-    async listTransfersBySettlementId(settlementId, listSettlementTransfersQueryParams, options = { headers: {} }, httpData = false) {
+    async listTransfersBySettlementId(settlementId, listSettlementTransfersQueryParams, options = { headers: {} }) {
         const responseObject = await this.listTransfersBySettlementIdHelper(settlementId, listSettlementTransfersQueryParams, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieve the `Transfers` in a `Settlement` that have `type` **DEBIT** or **REFUND**.
+     * @summary List Settlement Transfers
+
+    * @param settlementId ID of &#x60;Settlement&#x60; object.
+    *
+    */
+    async listTransfersBySettlementIdHttp(settlementId, listSettlementTransfersQueryParams, options = { headers: {} }) {
+        const responseObject = await this.listTransfersBySettlementIdHelper(settlementId, listSettlementTransfersQueryParams, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -557,19 +589,26 @@ class SettlementsApi {
      * @summary List Settlements
 
     */
-    async list(listSettlementsQueryParams, options = { headers: {} }, httpData = false) {
+    async list(listSettlementsQueryParams, options = { headers: {} }) {
         const responseObject = await this.listHelper(listSettlementsQueryParams, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieve a list of `Settlements`.
+     * @summary List Settlements
+
+    */
+    async listHttp(listSettlementsQueryParams, options = { headers: {} }) {
+        const responseObject = await this.listHelper(listSettlementsQueryParams, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -648,19 +687,27 @@ class SettlementsApi {
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      * @param removeSettlementTransfer
      */
-    async removeTransfersFromSettlement(settlementId, removeSettlementTransfer, options = { headers: {} }, httpData = false) {
+    async removeTransfersFromSettlement(settlementId, removeSettlementTransfer, options = { headers: {} }) {
         const responseObject = await this.removeTransfersFromSettlementHelper(settlementId, removeSettlementTransfer, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Remove a `Transfer` from a `Settlement`.  As long as the `Settlement` hasn\'t been funded, you can remove the `Transfer` or an array of `Transfers`, along with its corresponding `fee` from a batch `Settlement`.   > Per the JSON API for deleting a resource, our API doesn\'t have a response body when removing a `Transfer` from a `Settlement`.
+     * @summary Delete Settlement Transfers
+     * @param settlementId ID of &#x60;Settlement&#x60; object.
+     * @param removeSettlementTransfer
+     */
+    async removeTransfersFromSettlementHttp(settlementId, removeSettlementTransfer, options = { headers: {} }) {
+        const responseObject = await this.removeTransfersFromSettlementHelper(settlementId, removeSettlementTransfer, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -740,19 +787,27 @@ class SettlementsApi {
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      * @param updateSettlementRequest
      */
-    async update(settlementId, updateSettlementRequest, options = { headers: {} }, httpData = false) {
+    async update(settlementId, updateSettlementRequest, options = { headers: {} }) {
         const responseObject = await this.updateHelper(settlementId, updateSettlementRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Update a `Settlement`.
+     * @summary Update a Settlement
+     * @param settlementId ID of &#x60;Settlement&#x60; object.
+     * @param updateSettlementRequest
+     */
+    async updateHttp(settlementId, updateSettlementRequest, options = { headers: {} }) {
+        const responseObject = await this.updateHelper(settlementId, updateSettlementRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     async embeddedHelper(responseObject) {
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
@@ -763,4 +818,3 @@ class SettlementsApi {
     }
 }
 exports.SettlementsApi = SettlementsApi;
-//# sourceMappingURL=settlementsApi.js.map

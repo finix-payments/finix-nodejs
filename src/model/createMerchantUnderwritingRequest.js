@@ -64,4 +64,3 @@ exports.CreateMerchantUnderwritingRequest = CreateMerchantUnderwritingRequest;
         GatewayEnum[GatewayEnum["MobileV1"] = 'TRIPOS_MOBILE_V1'] = "MobileV1";
     })(GatewayEnum = CreateMerchantUnderwritingRequest.GatewayEnum || (CreateMerchantUnderwritingRequest.GatewayEnum = {}));
 })(CreateMerchantUnderwritingRequest = exports.CreateMerchantUnderwritingRequest || (exports.CreateMerchantUnderwritingRequest = {}));
-//# sourceMappingURL=createMerchantUnderwritingRequest.js.map

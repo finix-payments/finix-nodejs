@@ -126,4 +126,3 @@ exports.SubscriptionSchedule = SubscriptionSchedule;
         SubscriptionTypeEnum[SubscriptionTypeEnum["FixedTimeInterval"] = 'FIXED_TIME_INTERVAL'] = "FixedTimeInterval";
     })(SubscriptionTypeEnum = SubscriptionSchedule.SubscriptionTypeEnum || (SubscriptionSchedule.SubscriptionTypeEnum = {}));
 })(SubscriptionSchedule = exports.SubscriptionSchedule || (exports.SubscriptionSchedule = {}));
-//# sourceMappingURL=subscriptionSchedule.js.map

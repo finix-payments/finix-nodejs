@@ -87,4 +87,3 @@ class DeviceConfigDetails {
     }
 }
 exports.DeviceConfigDetails = DeviceConfigDetails;
-//# sourceMappingURL=deviceConfigDetails.js.map

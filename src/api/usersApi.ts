@@ -13,7 +13,7 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
-
+import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
 import { CreateUserRequest } from '../model/createUserRequest';
 import { Error401Unauthorized } from '../model/error401Unauthorized';
@@ -134,8 +134,6 @@ export class UsersApi {
             throw new Error('Required parameter applicationId was null or undefined when calling createApplicationUser.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -147,9 +145,14 @@ export class UsersApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(createUserRequest, "CreateUserRequest")
         };
-
+        if (createUserRequest.hasOwnProperty('file')){
+            createUserRequest = await this.fileHelper(createUserRequest);
+            localVarRequestOptions.formData = createUserRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(createUserRequest, "CreateUserRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -193,23 +196,24 @@ export class UsersApi {
      * @param createUserRequest 
      */
 
-    public async createApplicationUser(applicationId: string, createUserRequest?: CreateUserRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async createApplicationUser(applicationId: string, createUserRequest?: CreateUserRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<User> {
         const responseObject = await this.createApplicationUserHelper(applicationId, createUserRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * This is the equivalent of provisioning API keys (i.e. credentials) for an `Application`.  > Each Application can have multiple `Users` which allows each merchant to have multiple API keys that can be independently enabled and disabled. Merchants only have read access to the API.
+     * @summary Create an Application User
+     * @param applicationId ID of application to use
+     * @param createUserRequest 
+     */
+
+    public async createApplicationUserHttp(applicationId: string, createUserRequest?: CreateUserRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: User; }> {
+        const responseObject = await this.createApplicationUserHelper(applicationId, createUserRequest,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Retrieve a specific user with the ID of the `User`.
@@ -236,8 +240,6 @@ export class UsersApi {
             throw new Error('Required parameter userId was null or undefined when calling getUser.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -250,7 +252,6 @@ export class UsersApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -293,23 +294,23 @@ export class UsersApi {
      * @param userId ID of &#x60;User&#x60; object.
      */
 
-    public async get(userId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async get(userId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<User> {
         const responseObject = await this.getHelper(userId,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Retrieve a specific user with the ID of the `User`.
+     * @summary Find a User by ID
+     * @param userId ID of &#x60;User&#x60; object.
+     */
+
+    public async getHttp(userId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: User; }> {
+        const responseObject = await this.getHelper(userId,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Get a `User`.
@@ -335,7 +336,6 @@ export class UsersApi {
             }
 
         }
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -348,7 +348,6 @@ export class UsersApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -390,23 +389,26 @@ export class UsersApi {
      * @summary List Users
 
     */
-    public async list (listUsersQueryParams?:ListUsersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise<any> {
+    public async list (listUsersQueryParams?:ListUsersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<SuperSet<any>> {
         const responseObject = await this.listHelper(listUsersQueryParams, options);
 
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
-        return responseObject.body;
+        let dataList = await this.embeddedHelper(responseObject);
+        return dataList;
     }
 
+    /**
+     * Get a `User`.
+     * @summary List Users
+
+    */
+    public async listHttp (listUsersQueryParams?:ListUsersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        const responseObject = await this.listHelper(listUsersQueryParams, options);
+
+        let dataList = await this.embeddedHelper(responseObject);
+        return Promise.resolve({response: responseObject.response, body: dataList});
+    }
     /**
      * Helper function. 
      * You can update the `User` with new tags or to disable the `User`.
@@ -434,8 +436,6 @@ export class UsersApi {
             throw new Error('Required parameter userId was null or undefined when calling updateUser.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -447,9 +447,14 @@ export class UsersApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(updateUserRequest, "UpdateUserRequest")
         };
-
+        if (updateUserRequest.hasOwnProperty('file')){
+            updateUserRequest = await this.fileHelper(updateUserRequest);
+            localVarRequestOptions.formData = updateUserRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(updateUserRequest, "UpdateUserRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -493,21 +498,23 @@ export class UsersApi {
      * @param updateUserRequest 
      */
 
-    public async update(userId: string, updateUserRequest?: UpdateUserRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async update(userId: string, updateUserRequest?: UpdateUserRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<User> {
         const responseObject = await this.updateHelper(userId, updateUserRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+
+    /**
+     * You can update the `User` with new tags or to disable the `User`.
+     * @summary Update User
+     * @param userId ID of &#x60;User&#x60; object.
+     * @param updateUserRequest 
+     */
+
+    public async updateHttp(userId: string, updateUserRequest?: UpdateUserRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: User; }> {
+        const responseObject = await this.updateHelper(userId, updateUserRequest,  options);
+        return responseObject;
     }
 
 
@@ -517,5 +524,10 @@ export class UsersApi {
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
+    }
+
+    private async fileHelper(request: any){
+        request.file = fs.createReadStream(<string>request.file)
+        return request;
     }
 }

@@ -72,4 +72,3 @@ class MerchantProfileLinks {
     }
 }
 exports.MerchantProfileLinks = MerchantProfileLinks;
-//# sourceMappingURL=merchantProfileLinks.js.map

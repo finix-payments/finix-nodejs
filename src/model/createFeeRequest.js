@@ -118,4 +118,3 @@ exports.CreateFeeRequest = CreateFeeRequest;
         LinkedTypeEnum[LinkedTypeEnum["Transfer"] = 'TRANSFER'] = "Transfer";
     })(LinkedTypeEnum = CreateFeeRequest.LinkedTypeEnum || (CreateFeeRequest.LinkedTypeEnum = {}));
 })(CreateFeeRequest = exports.CreateFeeRequest || (exports.CreateFeeRequest = {}));
-//# sourceMappingURL=createFeeRequest.js.map

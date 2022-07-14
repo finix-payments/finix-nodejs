@@ -60,4 +60,3 @@ class CreateAuthorizationRequest3dSecureAuthentication {
     }
 }
 exports.CreateAuthorizationRequest3dSecureAuthentication = CreateAuthorizationRequest3dSecureAuthentication;
-//# sourceMappingURL=createAuthorizationRequest3dSecureAuthentication.js.map

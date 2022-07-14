@@ -27,4 +27,3 @@ class AdjustmentTransfersListEmbedded {
     }
 }
 exports.AdjustmentTransfersListEmbedded = AdjustmentTransfersListEmbedded;
-//# sourceMappingURL=adjustmentTransfersListEmbedded.js.map

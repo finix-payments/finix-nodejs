@@ -13,7 +13,7 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
-
+import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
 import { CreateVerificationRequest } from '../model/createVerificationRequest';
 import { Error401Unauthorized } from '../model/error401Unauthorized';
@@ -131,8 +131,6 @@ export class PaymentInstrumentsP2CApi {
             throw new Error('Required parameter paymentInstrumentId was null or undefined when calling createPaymentInstrumentVerification.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -144,9 +142,14 @@ export class PaymentInstrumentsP2CApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(createVerificationRequest, "CreateVerificationRequest")
         };
-
+        if (createVerificationRequest.hasOwnProperty('file')){
+            createVerificationRequest = await this.fileHelper(createVerificationRequest);
+            localVarRequestOptions.formData = createVerificationRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(createVerificationRequest, "CreateVerificationRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -190,21 +193,23 @@ export class PaymentInstrumentsP2CApi {
      * @param createVerificationRequest 
      */
 
-    public async createPaymentInstrumentVerification(paymentInstrumentId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async createPaymentInstrumentVerification(paymentInstrumentId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Verification> {
         const responseObject = await this.createPaymentInstrumentVerificationHelper(paymentInstrumentId, createVerificationRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+
+    /**
+     * Verify a `Payment Instrument` to determine if it\'s elligable for Push To Card transactions.   > Only verify `Payment Instruments` for [Push To Card](/guides/push-to-card) customers.
+     * @summary Verify a Payment Instrument
+     * @param paymentInstrumentId ID of object
+     * @param createVerificationRequest 
+     */
+
+    public async createPaymentInstrumentVerificationHttp(paymentInstrumentId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Verification; }> {
+        const responseObject = await this.createPaymentInstrumentVerificationHelper(paymentInstrumentId, createVerificationRequest,  options);
+        return responseObject;
     }
 
 
@@ -214,5 +219,10 @@ export class PaymentInstrumentsP2CApi {
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
+    }
+
+    private async fileHelper(request: any){
+        request.file = fs.createReadStream(<string>request.file)
+        return request;
     }
 }

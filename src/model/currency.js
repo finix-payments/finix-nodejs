@@ -197,4 +197,3 @@ var Currency;
     Currency[Currency["Zmw"] = 'ZMW'] = "Zmw";
     Currency[Currency["Zwl"] = 'ZWL'] = "Zwl";
 })(Currency = exports.Currency || (exports.Currency = {}));
-//# sourceMappingURL=currency.js.map

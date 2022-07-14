@@ -30,4 +30,3 @@ class MerchantLinksVerification {
     }
 }
 exports.MerchantLinksVerification = MerchantLinksVerification;
-//# sourceMappingURL=merchantLinksVerification.js.map

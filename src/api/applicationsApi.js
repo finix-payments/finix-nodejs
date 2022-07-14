@@ -150,19 +150,26 @@ class ApplicationsApi {
      * @summary Create an Application
      * @param createApplicationRequest
      */
-    async create(createApplicationRequest, options = { headers: {} }, httpData = false) {
+    async create(createApplicationRequest, options = { headers: {} }) {
         const responseObject = await this.createHelper(createApplicationRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * If created successfully, returns a 201 status and adds a location header to the response which refers to the new created `Application`.
+     * @summary Create an Application
+     * @param createApplicationRequest
+     */
+    async createHttp(createApplicationRequest, options = { headers: {} }) {
+        const responseObject = await this.createHelper(createApplicationRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -239,19 +246,26 @@ class ApplicationsApi {
      * @summary Fetch an Application
      * @param applicationId ID of application to use
      */
-    async get(applicationId, options = { headers: {} }, httpData = false) {
+    async get(applicationId, options = { headers: {} }) {
         const responseObject = await this.getHelper(applicationId, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieve the details of an `Application`.
+     * @summary Fetch an Application
+     * @param applicationId ID of application to use
+     */
+    async getHttp(applicationId, options = { headers: {} }) {
+        const responseObject = await this.getHelper(applicationId, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -337,19 +351,26 @@ class ApplicationsApi {
      * @summary List Applications
 
     */
-    async list(listApplicationsQueryParams, options = { headers: {} }, httpData = false) {
+    async list(listApplicationsQueryParams, options = { headers: {} }) {
         const responseObject = await this.listHelper(listApplicationsQueryParams, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Return a collection of `Applications`. If there are no `Applications`, an empty collection will be returned.
+     * @summary List Applications
+
+    */
+    async listHttp(listApplicationsQueryParams, options = { headers: {} }) {
+        const responseObject = await this.listHelper(listApplicationsQueryParams, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -426,19 +447,26 @@ class ApplicationsApi {
      * @summary Update an Application
      * @param applicationId ID of application to use
      */
-    async update(applicationId, options = { headers: {} }, httpData = false) {
+    async update(applicationId, options = { headers: {} }) {
         const responseObject = await this.updateHelper(applicationId, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Update an existing `Application`.
+     * @summary Update an Application
+     * @param applicationId ID of application to use
+     */
+    async updateHttp(applicationId, options = { headers: {} }) {
+        const responseObject = await this.updateHelper(applicationId, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     async embeddedHelper(responseObject) {
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
@@ -449,4 +477,3 @@ class ApplicationsApi {
     }
 }
 exports.ApplicationsApi = ApplicationsApi;
-//# sourceMappingURL=applicationsApi.js.map

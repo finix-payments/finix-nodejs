@@ -13,7 +13,7 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
-
+import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
 import { CreateFeeRequest } from '../model/createFeeRequest';
 import { Error401Unauthorized } from '../model/error401Unauthorized';
@@ -127,7 +127,6 @@ export class FeesApi {
         let localVarFormParams: any = {};
 
 
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -139,9 +138,14 @@ export class FeesApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(createFeeRequest, "CreateFeeRequest")
         };
-
+        if (createFeeRequest.hasOwnProperty('file')){
+            createFeeRequest = await this.fileHelper(createFeeRequest);
+            localVarRequestOptions.formData = createFeeRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(createFeeRequest, "CreateFeeRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -184,23 +188,23 @@ export class FeesApi {
      * @param createFeeRequest 
      */
 
-    public async create(createFeeRequest?: CreateFeeRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async create(createFeeRequest?: CreateFeeRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Fee> {
         const responseObject = await this.createHelper(createFeeRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Create a custom (i.e. one time) `fee`.
+     * @summary Create a One-Time Fee
+     * @param createFeeRequest 
+     */
+
+    public async createHttp(createFeeRequest?: CreateFeeRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Fee; }> {
+        const responseObject = await this.createHelper(createFeeRequest,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Retrieve the details of a `Fee`.
@@ -227,8 +231,6 @@ export class FeesApi {
             throw new Error('Required parameter feeId was null or undefined when calling getFee.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -241,7 +243,6 @@ export class FeesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -284,23 +285,23 @@ export class FeesApi {
      * @param feeId ID of fee to use
      */
 
-    public async get(feeId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async get(feeId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Fee> {
         const responseObject = await this.getHelper(feeId,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Retrieve the details of a `Fee`.
+     * @summary Get Fee
+     * @param feeId ID of fee to use
+     */
+
+    public async getHttp(feeId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Fee; }> {
+        const responseObject = await this.getHelper(feeId,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Return a collection of `fees`.
@@ -332,7 +333,6 @@ export class FeesApi {
             }
 
         }
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -345,7 +345,6 @@ export class FeesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -387,23 +386,26 @@ export class FeesApi {
      * @summary List Fees
 
     */
-    public async list (listFeesQueryParams?:ListFeesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise<any> {
+    public async list (listFeesQueryParams?:ListFeesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<SuperSet<any>> {
         const responseObject = await this.listHelper(listFeesQueryParams, options);
 
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
-        return responseObject.body;
+        let dataList = await this.embeddedHelper(responseObject);
+        return dataList;
     }
 
+    /**
+     * Return a collection of `fees`.
+     * @summary List Fees
+
+    */
+    public async listHttp (listFeesQueryParams?:ListFeesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        const responseObject = await this.listHelper(listFeesQueryParams, options);
+
+        let dataList = await this.embeddedHelper(responseObject);
+        return Promise.resolve({response: responseObject.response, body: dataList});
+    }
     /**
      * Helper function. 
      * Update the details of a `Fee`.
@@ -431,8 +433,6 @@ export class FeesApi {
             throw new Error('Required parameter feeId was null or undefined when calling updateFee.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -444,9 +444,14 @@ export class FeesApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(updateFeeRequest, "UpdateFeeRequest")
         };
-
+        if (updateFeeRequest.hasOwnProperty('file')){
+            updateFeeRequest = await this.fileHelper(updateFeeRequest);
+            localVarRequestOptions.formData = updateFeeRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(updateFeeRequest, "UpdateFeeRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -490,21 +495,23 @@ export class FeesApi {
      * @param updateFeeRequest 
      */
 
-    public async update(feeId: string, updateFeeRequest?: UpdateFeeRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async update(feeId: string, updateFeeRequest?: UpdateFeeRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Fee> {
         const responseObject = await this.updateHelper(feeId, updateFeeRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+
+    /**
+     * Update the details of a `Fee`.
+     * @summary Update Fee
+     * @param feeId ID of fee to use
+     * @param updateFeeRequest 
+     */
+
+    public async updateHttp(feeId: string, updateFeeRequest?: UpdateFeeRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Fee; }> {
+        const responseObject = await this.updateHelper(feeId, updateFeeRequest,  options);
+        return responseObject;
     }
 
 
@@ -514,5 +521,10 @@ export class FeesApi {
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
+    }
+
+    private async fileHelper(request: any){
+        request.file = fs.createReadStream(<string>request.file)
+        return request;
     }
 }

@@ -30,4 +30,3 @@ class SubscriptionEnrollmentLinksSchedule {
     }
 }
 exports.SubscriptionEnrollmentLinksSchedule = SubscriptionEnrollmentLinksSchedule;
-//# sourceMappingURL=subscriptionEnrollmentLinksSchedule.js.map

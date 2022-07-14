@@ -69,4 +69,3 @@ class IdentityAdditionalUnderwritingDataVolumeDistributionByBusinessType {
     }
 }
 exports.IdentityAdditionalUnderwritingDataVolumeDistributionByBusinessType = IdentityAdditionalUnderwritingDataVolumeDistributionByBusinessType;
-//# sourceMappingURL=identityAdditionalUnderwritingDataVolumeDistributionByBusinessType.js.map

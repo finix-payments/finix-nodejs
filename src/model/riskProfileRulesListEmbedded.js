@@ -27,4 +27,3 @@ class RiskProfileRulesListEmbedded {
     }
 }
 exports.RiskProfileRulesListEmbedded = RiskProfileRulesListEmbedded;
-//# sourceMappingURL=riskProfileRulesListEmbedded.js.map

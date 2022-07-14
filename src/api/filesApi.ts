@@ -13,7 +13,7 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
-
+import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
 import { CreateExternalLinkRequest } from '../model/createExternalLinkRequest';
 import { CreateFileRequest } from '../model/createFileRequest';
@@ -136,8 +136,6 @@ export class FilesApi {
             throw new Error('Required parameter fileId was null or undefined when calling createExternalLink.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -149,9 +147,14 @@ export class FilesApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(createExternalLinkRequest, "CreateExternalLinkRequest")
         };
-
+        if (createExternalLinkRequest.hasOwnProperty('file')){
+            createExternalLinkRequest = await this.fileHelper(createExternalLinkRequest);
+            localVarRequestOptions.formData = createExternalLinkRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(createExternalLinkRequest, "CreateExternalLinkRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -195,23 +198,24 @@ export class FilesApi {
      * @param createExternalLinkRequest 
      */
 
-    public async createExternalLink(fileId: string, createExternalLinkRequest?: CreateExternalLinkRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async createExternalLink(fileId: string, createExternalLinkRequest?: CreateExternalLinkRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<ExternalLink> {
         const responseObject = await this.createExternalLinkHelper(fileId, createExternalLinkRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Create an `external_link` resource to share with users so they can upload files directly from their browser. For more info, see [Uploading files to Finix](/docs/guides/onboarding/uploading-files-to-finix/).   Once created, you can request the user to upload a file to the `external_link` resource: [Upload files to External Link](#operation/uploadExternalLink)
+     * @summary Create an External Link
+     * @param fileId Your &#x60;File&#x60; ID.
+     * @param createExternalLinkRequest 
+     */
+
+    public async createExternalLinkHttp(fileId: string, createExternalLinkRequest?: CreateExternalLinkRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: ExternalLink; }> {
+        const responseObject = await this.createExternalLinkHelper(fileId, createExternalLinkRequest,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Before uploading a file, you need to create a `File` resource.   Once created, you can [upload](/#operation/uploadFile) your file to the new `File` resource.
@@ -233,7 +237,6 @@ export class FilesApi {
         let localVarFormParams: any = {};
 
 
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -245,9 +248,14 @@ export class FilesApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(createFileRequest, "CreateFileRequest")
         };
-
+        if (createFileRequest.hasOwnProperty('file')){
+            createFileRequest = await this.fileHelper(createFileRequest);
+            localVarRequestOptions.formData = createFileRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(createFileRequest, "CreateFileRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -290,23 +298,23 @@ export class FilesApi {
      * @param createFileRequest 
      */
 
-    public async create(createFileRequest?: CreateFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+    public async create(createFileRequest?: CreateFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<any> {
         const responseObject = await this.createHelper(createFileRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Before uploading a file, you need to create a `File` resource.   Once created, you can [upload](/#operation/uploadFile) your file to the new `File` resource.
+     * @summary Create a File
+     * @param createFileRequest 
+     */
+
+    public async createHttp(createFileRequest?: CreateFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: any; }> {
+        const responseObject = await this.createHelper(createFileRequest,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Download a file uploaded to a `File` resource. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix).
@@ -333,8 +341,6 @@ export class FilesApi {
             throw new Error('Required parameter fileId was null or undefined when calling downloadFile.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -347,7 +353,6 @@ export class FilesApi {
             useQuerystring: this._useQuerystring,
             encoding: null,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -390,23 +395,23 @@ export class FilesApi {
      * @param fileId The ID of the &#x60;File&#x60; that was created to upload the file.
      */
 
-    public async downloadFile(fileId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async downloadFile(fileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Buffer> {
         const responseObject = await this.downloadFileHelper(fileId,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Download a file uploaded to a `File` resource. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix).
+     * @summary Download a file
+     * @param fileId The ID of the &#x60;File&#x60; that was created to upload the file.
+     */
+
+    public async downloadFileHttp(fileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Buffer; }> {
+        const responseObject = await this.downloadFileHelper(fileId,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Fetch a previously created `external_link` resource. For more info see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#create-an-external-link).
@@ -434,13 +439,10 @@ export class FilesApi {
         if (fileId === null || fileId === undefined) {
             throw new Error('Required parameter fileId was null or undefined when calling getExternalLink.');
         }
-
         // verify required parameter 'externalLinkId' is not null or undefined
         if (externalLinkId === null || externalLinkId === undefined) {
             throw new Error('Required parameter externalLinkId was null or undefined when calling getExternalLink.');
         }
-
-
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
@@ -454,7 +456,6 @@ export class FilesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -498,23 +499,24 @@ export class FilesApi {
      * @param externalLinkId The ID of the &#x60;external_link&#x60; that you want to retireve.
      */
 
-    public async getExternalLink(fileId: string, externalLinkId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async getExternalLink(fileId: string, externalLinkId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<ExternalLink> {
         const responseObject = await this.getExternalLinkHelper(fileId, externalLinkId,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Fetch a previously created `external_link` resource. For more info see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#create-an-external-link).
+     * @summary Fetch an External LInk
+     * @param fileId The ID of the &#x60;File&#x60; that has the links you want to retrieve.
+     * @param externalLinkId The ID of the &#x60;external_link&#x60; that you want to retireve.
+     */
+
+    public async getExternalLinkHttp(fileId: string, externalLinkId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: ExternalLink; }> {
+        const responseObject = await this.getExternalLinkHelper(fileId, externalLinkId,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Retrieve the details of a `File` resource. For more info see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#create-an-external-link).
@@ -541,8 +543,6 @@ export class FilesApi {
             throw new Error('Required parameter fileId was null or undefined when calling getFile.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -555,7 +555,6 @@ export class FilesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -598,23 +597,23 @@ export class FilesApi {
      * @param fileId Your &#x60;File&#x60; ID.
      */
 
-    public async get(fileId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+    public async get(fileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<any> {
         const responseObject = await this.getHelper(fileId,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Retrieve the details of a `File` resource. For more info see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#create-an-external-link).
+     * @summary Fetch a File
+     * @param fileId Your &#x60;File&#x60; ID.
+     */
+
+    public async getHttp(fileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: any; }> {
+        const responseObject = await this.getHelper(fileId,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * List the previously `external_links` for a `File`. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#create-an-external-link).
@@ -641,7 +640,6 @@ export class FilesApi {
         if (fileId === null || fileId === undefined) {
             throw new Error('Required parameter fileId was null or undefined when calling listExternalLinks.');
         }
-
         if (listExternalLinksQueryParams != undefined){ 
             if (listExternalLinksQueryParams.sort !== undefined) {
                 localVarQueryParameters['sort'] = ObjectSerializer.serialize(listExternalLinksQueryParams.sort, "string");
@@ -672,7 +670,6 @@ export class FilesApi {
             }
 
         }
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -685,7 +682,6 @@ export class FilesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -729,23 +725,28 @@ export class FilesApi {
     * @param fileId Your &#x60;File&#x60; ID.
     * 
     */
-    public async listExternalLinks (fileId: string, listExternalLinksQueryParams?:ListExternalLinksQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise<any> {
+    public async listExternalLinks (fileId: string, listExternalLinksQueryParams?:ListExternalLinksQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<SuperSet<any>> {
         const responseObject = await this.listExternalLinksHelper(fileId, listExternalLinksQueryParams, options);
 
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
-        return responseObject.body;
+        let dataList = await this.embeddedHelper(responseObject);
+        return dataList;
     }
 
+    /**
+     * List the previously `external_links` for a `File`. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#create-an-external-link).
+     * @summary List All External Links
+
+    * @param fileId Your &#x60;File&#x60; ID.
+    * 
+    */
+    public async listExternalLinksHttp (fileId: string, listExternalLinksQueryParams?:ListExternalLinksQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        const responseObject = await this.listExternalLinksHelper(fileId, listExternalLinksQueryParams, options);
+
+        let dataList = await this.embeddedHelper(responseObject);
+        return Promise.resolve({response: responseObject.response, body: dataList});
+    }
     /**
      * Helper function. 
      * List all the `File` resources you\'ve created. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#step-1-create-a-file).
@@ -795,7 +796,6 @@ export class FilesApi {
             }
 
         }
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -808,7 +808,6 @@ export class FilesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -850,23 +849,26 @@ export class FilesApi {
      * @summary List All Files
 
     */
-    public async list (listFilesQueryParams?:ListFilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise<any> {
+    public async list (listFilesQueryParams?:ListFilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<SuperSet<any>> {
         const responseObject = await this.listHelper(listFilesQueryParams, options);
 
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
-        return responseObject.body;
+        let dataList = await this.embeddedHelper(responseObject);
+        return dataList;
     }
 
+    /**
+     * List all the `File` resources you\'ve created. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#step-1-create-a-file).
+     * @summary List All Files
+
+    */
+    public async listHttp (listFilesQueryParams?:ListFilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        const responseObject = await this.listHelper(listFilesQueryParams, options);
+
+        let dataList = await this.embeddedHelper(responseObject);
+        return Promise.resolve({response: responseObject.response, body: dataList});
+    }
     /**
      * Helper function. 
      * Upload files directly with a `multipart/form-data` request. For more info see, [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#step-2-upload-the-file).
@@ -894,8 +896,6 @@ export class FilesApi {
             throw new Error('Required parameter fileId was null or undefined when calling uploadFile.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -907,9 +907,14 @@ export class FilesApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(uploadFileRequest, "UploadFileRequest")
         };
-
+        if (uploadFileRequest.hasOwnProperty('file')){
+            uploadFileRequest = await this.fileHelper(uploadFileRequest);
+            localVarRequestOptions.formData = uploadFileRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(uploadFileRequest, "UploadFileRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -953,21 +958,23 @@ export class FilesApi {
      * @param uploadFileRequest 
      */
 
-    public async uploadFile(fileId: string, uploadFileRequest?: UploadFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+    public async uploadFile(fileId: string, uploadFileRequest?: UploadFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<any> {
         const responseObject = await this.uploadFileHelper(fileId, uploadFileRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+
+    /**
+     * Upload files directly with a `multipart/form-data` request. For more info see, [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#step-2-upload-the-file).
+     * @summary Upload files Directly
+     * @param fileId The ID of the &#x60;File&#x60; that was created to upload the file.
+     * @param uploadFileRequest 
+     */
+
+    public async uploadFileHttp(fileId: string, uploadFileRequest?: UploadFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: any; }> {
+        const responseObject = await this.uploadFileHelper(fileId, uploadFileRequest,  options);
+        return responseObject;
     }
 
 
@@ -977,5 +984,10 @@ export class FilesApi {
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
+    }
+
+    private async fileHelper(request: any){
+        request.file = fs.createReadStream(<string>request.file)
+        return request;
     }
 }

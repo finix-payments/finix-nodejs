@@ -10,12 +10,36 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DisputesApi = exports.DisputesApiApiKeys = void 0;
 const request_1 = __importDefault(require("request"));
+const fs = __importStar(require("fs"));
 const models_1 = require("../model/models");
 const models_2 = require("../model/models");
 const apis_1 = require("./apis");
@@ -113,8 +137,16 @@ class DisputesApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: models_1.ObjectSerializer.serialize(createDisputeEvidenceRequest, "CreateDisputeEvidenceRequest")
+            // body: ObjectSerializer.serialize(createDisputeEvidenceRequest, "CreateDisputeEvidenceRequest")
+            // formData: createDisputeEvidenceRequest
         };
+        if (createDisputeEvidenceRequest.hasOwnProperty('file')) {
+            createDisputeEvidenceRequest.file = fs.createReadStream(createDisputeEvidenceRequest.file);
+            localVarRequestOptions.formData = createDisputeEvidenceRequest;
+        }
+        else {
+            localVarRequestOptions.body = models_1.ObjectSerializer.serialize(createDisputeEvidenceRequest, "CreateDisputeEvidenceRequest");
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -157,19 +189,27 @@ class DisputesApi {
      * @param disputeId ID of &#x60;Dispute&#x60; to mange evidence for.
      * @param createDisputeEvidenceRequest
      */
-    async createDisputeEvidence(disputeId, createDisputeEvidenceRequest, options = { headers: {} }, httpData = false) {
+    async createDisputeEvidence(disputeId, createDisputeEvidenceRequest, options = { headers: {} }) {
         const responseObject = await this.createDisputeEvidenceHelper(disputeId, createDisputeEvidenceRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Upload dispute evidence for a `Dispute`.  There are four values available for `state` that details the status of the evidence upload:  * **PENDING**: The evidence file has not yet been submitted to the `Processor`. No user action is required. * **SUCCEEDED**: The evidence file has been successfully sent to the `Processor`. No further user action is required. * **CANCELED**: The evidence file upload was not completed due to user action. * **FAILED**: An issue occurred. User action is required. Any of the following issues could have occurred:     * There was an error in the system and the user should retry uploading their evidence file.     * There is an issue with the file and the user should retry uploading a different file.     * There is an issue and the user should contact Support.
+     * @summary Create Dispute Evidence
+     * @param disputeId ID of &#x60;Dispute&#x60; to mange evidence for.
+     * @param createDisputeEvidenceRequest
+     */
+    async createDisputeEvidenceHttp(disputeId, createDisputeEvidenceRequest, options = { headers: {} }) {
+        const responseObject = await this.createDisputeEvidenceHelper(disputeId, createDisputeEvidenceRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -246,19 +286,26 @@ class DisputesApi {
      * @summary Get Dispute
      * @param disputeId ID of &#x60;Dispute&#x60; to fetch.
      */
-    async get(disputeId, options = { headers: {} }, httpData = false) {
+    async get(disputeId, options = { headers: {} }) {
         const responseObject = await this.getHelper(disputeId, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieve the details of a previously created `Dispute`.
+     * @summary Get Dispute
+     * @param disputeId ID of &#x60;Dispute&#x60; to fetch.
+     */
+    async getHttp(disputeId, options = { headers: {} }) {
+        const responseObject = await this.getHelper(disputeId, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -342,19 +389,27 @@ class DisputesApi {
      * @param disputeId ID of &#x60;Dispute&#x60; to fetch evidence for.
      * @param evidenceId ID of &#x60;evidence&#x60; to fetch.
      */
-    async getDisputeEvidence(disputeId, evidenceId, options = { headers: {} }, httpData = false) {
+    async getDisputeEvidence(disputeId, evidenceId, options = { headers: {} }) {
         const responseObject = await this.getDisputeEvidenceHelper(disputeId, evidenceId, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Fetch evidence uploaded for a `Dispute`.   If you don\'t have the Finix Dashboard available, you can fetch the evidence to review the `status` of the upload to confirm the evidence got sent to the processor.
+     * @summary Fetch Dispute Evidence
+     * @param disputeId ID of &#x60;Dispute&#x60; to fetch evidence for.
+     * @param evidenceId ID of &#x60;evidence&#x60; to fetch.
+     */
+    async getDisputeEvidenceHttp(disputeId, evidenceId, options = { headers: {} }) {
+        const responseObject = await this.getDisputeEvidenceHelper(disputeId, evidenceId, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -446,19 +501,28 @@ class DisputesApi {
     * @param disputeId ID of &#x60;Dispute&#x60; to mange evidence for.
     *
     */
-    async listDisputeEvidenceByDisputeId(disputeId, listDisputeEvidenceQueryParams, options = { headers: {} }, httpData = false) {
+    async listDisputeEvidenceByDisputeId(disputeId, listDisputeEvidenceQueryParams, options = { headers: {} }) {
         const responseObject = await this.listDisputeEvidenceByDisputeIdHelper(disputeId, listDisputeEvidenceQueryParams, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieve a list of dispute evidence for a `Dispute`.
+     * @summary List Dispute Evidence
+
+    * @param disputeId ID of &#x60;Dispute&#x60; to mange evidence for.
+    *
+    */
+    async listDisputeEvidenceByDisputeIdHttp(disputeId, listDisputeEvidenceQueryParams, options = { headers: {} }) {
+        const responseObject = await this.listDisputeEvidenceByDisputeIdHelper(disputeId, listDisputeEvidenceQueryParams, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -553,19 +617,26 @@ class DisputesApi {
      * @summary List Disputes
 
     */
-    async list(listDisputesQueryParams, options = { headers: {} }, httpData = false) {
+    async list(listDisputesQueryParams, options = { headers: {} }) {
         const responseObject = await this.listHelper(listDisputesQueryParams, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieve a list of `Disputes`.
+     * @summary List Disputes
+
+    */
+    async listHttp(listDisputesQueryParams, options = { headers: {} }) {
+        const responseObject = await this.listHelper(listDisputesQueryParams, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -654,19 +725,28 @@ class DisputesApi {
     * @param disputeId ID of the &#x60;Dispute&#x60; resource.
     *
     */
-    async listDisputesAdjustments(disputeId, listDisputesAdjustmentsQueryParams, options = { headers: {} }, httpData = false) {
+    async listDisputesAdjustments(disputeId, listDisputesAdjustmentsQueryParams, options = { headers: {} }) {
         const responseObject = await this.listDisputesAdjustmentsHelper(disputeId, listDisputesAdjustmentsQueryParams, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * List the adjustment `Transfers` for a `Dispute`. Depending on the stage of the `Dispute`, different adjustment `Transfer` subtypes can be applied.  There are four available subtypes for adjustment `Transfers` in `Disputes`: <ul><li><strong>PLATFORM\\_CREDIT</strong><li><strong>MERCHANT\\_DEBIT</strong><li><strong>MERCHANT\\_CREDIT</strong><li><strong>PLATFORM\\_DEBIT</strong></ul>
+     * @summary Fetch Dispute Adjustment Transfers
+
+    * @param disputeId ID of the &#x60;Dispute&#x60; resource.
+    *
+    */
+    async listDisputesAdjustmentsHttp(disputeId, listDisputesAdjustmentsQueryParams, options = { headers: {} }) {
+        const responseObject = await this.listDisputesAdjustmentsHelper(disputeId, listDisputesAdjustmentsQueryParams, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     async embeddedHelper(responseObject) {
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
@@ -677,4 +757,3 @@ class DisputesApi {
     }
 }
 exports.DisputesApi = DisputesApi;
-//# sourceMappingURL=disputesApi.js.map

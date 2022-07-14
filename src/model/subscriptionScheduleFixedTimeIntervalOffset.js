@@ -42,4 +42,3 @@ class SubscriptionScheduleFixedTimeIntervalOffset {
     }
 }
 exports.SubscriptionScheduleFixedTimeIntervalOffset = SubscriptionScheduleFixedTimeIntervalOffset;
-//# sourceMappingURL=subscriptionScheduleFixedTimeIntervalOffset.js.map

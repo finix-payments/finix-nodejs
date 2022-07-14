@@ -33,4 +33,3 @@ class ConfigurationDetailsCashbackOptionsManualEntry {
     }
 }
 exports.ConfigurationDetailsCashbackOptionsManualEntry = ConfigurationDetailsCashbackOptionsManualEntry;
-//# sourceMappingURL=configurationDetailsCashbackOptionsManualEntry.js.map

@@ -30,4 +30,3 @@ class IdentityLinksSelf {
     }
 }
 exports.IdentityLinksSelf = IdentityLinksSelf;
-//# sourceMappingURL=identityLinksSelf.js.map

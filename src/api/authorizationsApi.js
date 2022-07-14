@@ -150,19 +150,26 @@ class AuthorizationsApi {
      * @summary Create an Authorization
      * @param createAuthorizationRequest
      */
-    async create(createAuthorizationRequest, options = { headers: {} }, httpData = false) {
+    async create(createAuthorizationRequest, options = { headers: {} }) {
         const responseObject = await this.createHelper(createAuthorizationRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Create an `Authorization` to process a transaction.  `Authorizations` can have two possible `states`:  - **SUCCEEDED**  - **FAILED**  If the `Authorization` has **SUCCEEDED** , it must be captured before `expires_at` passes or the funds will be released.  Learn how to prevent duplicate authorizations by passing an [Idempotency ID](#section/Idempotency-Requests) in the payload.
+     * @summary Create an Authorization
+     * @param createAuthorizationRequest
+     */
+    async createHttp(createAuthorizationRequest, options = { headers: {} }) {
+        const responseObject = await this.createHelper(createAuthorizationRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -239,19 +246,26 @@ class AuthorizationsApi {
      * @summary Get an Authorization
      * @param authorizationId ID of authorization to fetch
      */
-    async get(authorizationId, options = { headers: {} }, httpData = false) {
+    async get(authorizationId, options = { headers: {} }) {
         const responseObject = await this.getHelper(authorizationId, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieve the details of a previously created `Authorization`.
+     * @summary Get an Authorization
+     * @param authorizationId ID of authorization to fetch
+     */
+    async getHttp(authorizationId, options = { headers: {} }) {
+        const responseObject = await this.getHelper(authorizationId, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -412,19 +426,26 @@ class AuthorizationsApi {
      * @summary List Authorizations
 
     */
-    async list(listAuthorizationsQueryParams, options = { headers: {} }, httpData = false) {
+    async list(listAuthorizationsQueryParams, options = { headers: {} }) {
         const responseObject = await this.listHelper(listAuthorizationsQueryParams, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieve a list of `Authorizations`.
+     * @summary List Authorizations
+
+    */
+    async listHttp(listAuthorizationsQueryParams, options = { headers: {} }) {
+        const responseObject = await this.listHelper(listAuthorizationsQueryParams, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -504,19 +525,27 @@ class AuthorizationsApi {
      * @param authorizationId ID of authorization to fetch
      * @param updateAuthorizationRequest
      */
-    async update(authorizationId, updateAuthorizationRequest, options = { headers: {} }, httpData = false) {
+    async update(authorizationId, updateAuthorizationRequest, options = { headers: {} }) {
         const responseObject = await this.updateHelper(authorizationId, updateAuthorizationRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * If successfully captured, the `transfer` field of the `Authorization` will contain the ID of the `Transfer` resource that\'ll move funds.   By default, `Transfers` are in a **PENDING** state. The **PENDING** state means the system hasn\'t submitted the request to capture funds. Capture requests get submitted via a batch request.   Once the `Authorization` is updated with a `capture_amount` (i.e. *Captured*), the state of the `Transfer` will update to **SUCCEEDED**.  > Voided `Authorizations` can\'t be captured.
+     * @summary Update an Authorization
+     * @param authorizationId ID of authorization to fetch
+     * @param updateAuthorizationRequest
+     */
+    async updateHttp(authorizationId, updateAuthorizationRequest, options = { headers: {} }) {
+        const responseObject = await this.updateHelper(authorizationId, updateAuthorizationRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     async embeddedHelper(responseObject) {
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
@@ -527,4 +556,3 @@ class AuthorizationsApi {
     }
 }
 exports.AuthorizationsApi = AuthorizationsApi;
-//# sourceMappingURL=authorizationsApi.js.map

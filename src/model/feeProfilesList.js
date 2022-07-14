@@ -39,4 +39,3 @@ class FeeProfilesList {
     }
 }
 exports.FeeProfilesList = FeeProfilesList;
-//# sourceMappingURL=feeProfilesList.js.map

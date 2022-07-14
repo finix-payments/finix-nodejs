@@ -33,4 +33,3 @@ class ErrorGeneric {
     }
 }
 exports.ErrorGeneric = ErrorGeneric;
-//# sourceMappingURL=errorGeneric.js.map

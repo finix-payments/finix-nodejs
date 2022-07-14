@@ -89,4 +89,3 @@ exports.CreateDevice = CreateDevice;
         ModelEnum[ModelEnum["Android"] = 'ANDROID'] = "Android";
     })(ModelEnum = CreateDevice.ModelEnum || (CreateDevice.ModelEnum = {}));
 })(CreateDevice = exports.CreateDevice || (exports.CreateDevice = {}));
-//# sourceMappingURL=createDevice.js.map

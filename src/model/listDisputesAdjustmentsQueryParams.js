@@ -39,4 +39,3 @@ class ListDisputesAdjustmentsQueryParams {
     }
 }
 exports.ListDisputesAdjustmentsQueryParams = ListDisputesAdjustmentsQueryParams;
-//# sourceMappingURL=listDisputesAdjustmentsQueryParams.js.map

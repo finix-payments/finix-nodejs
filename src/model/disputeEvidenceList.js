@@ -39,4 +39,3 @@ class DisputeEvidenceList {
     }
 }
 exports.DisputeEvidenceList = DisputeEvidenceList;
-//# sourceMappingURL=disputeEvidenceList.js.map

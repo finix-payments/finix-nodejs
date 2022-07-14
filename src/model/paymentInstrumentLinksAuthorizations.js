@@ -30,4 +30,3 @@ class PaymentInstrumentLinksAuthorizations {
     }
 }
 exports.PaymentInstrumentLinksAuthorizations = PaymentInstrumentLinksAuthorizations;
-//# sourceMappingURL=paymentInstrumentLinksAuthorizations.js.map

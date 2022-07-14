@@ -48,4 +48,3 @@ class CreateSubscriptionAmountRequestFeeAmountData {
     }
 }
 exports.CreateSubscriptionAmountRequestFeeAmountData = CreateSubscriptionAmountRequestFeeAmountData;
-//# sourceMappingURL=createSubscriptionAmountRequestFeeAmountData.js.map

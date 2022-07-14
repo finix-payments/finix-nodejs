@@ -123,4 +123,3 @@ class RiskProfileRule {
     }
 }
 exports.RiskProfileRule = RiskProfileRule;
-//# sourceMappingURL=riskProfileRule.js.map

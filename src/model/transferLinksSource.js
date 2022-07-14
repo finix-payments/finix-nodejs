@@ -30,4 +30,3 @@ class TransferLinksSource {
     }
 }
 exports.TransferLinksSource = TransferLinksSource;
-//# sourceMappingURL=transferLinksSource.js.map

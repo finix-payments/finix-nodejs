@@ -156,4 +156,3 @@ class ListBalanceTransfersQueryParams {
     }
 }
 exports.ListBalanceTransfersQueryParams = ListBalanceTransfersQueryParams;
-//# sourceMappingURL=listBalanceTransfersQueryParams.js.map

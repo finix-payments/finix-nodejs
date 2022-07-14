@@ -39,4 +39,3 @@ class IdentitiesList {
     }
 }
 exports.IdentitiesList = IdentitiesList;
-//# sourceMappingURL=identitiesList.js.map

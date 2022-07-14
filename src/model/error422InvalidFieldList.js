@@ -36,4 +36,3 @@ class Error422InvalidFieldList {
     }
 }
 exports.Error422InvalidFieldList = Error422InvalidFieldList;
-//# sourceMappingURL=error422InvalidFieldList.js.map

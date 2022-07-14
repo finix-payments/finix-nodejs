@@ -39,4 +39,3 @@ class CreateWebhookRequest {
     }
 }
 exports.CreateWebhookRequest = CreateWebhookRequest;
-//# sourceMappingURL=createWebhookRequest.js.map

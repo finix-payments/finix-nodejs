@@ -39,4 +39,3 @@ class TransferReversalsList {
     }
 }
 exports.TransferReversalsList = TransferReversalsList;
-//# sourceMappingURL=transferReversalsList.js.map

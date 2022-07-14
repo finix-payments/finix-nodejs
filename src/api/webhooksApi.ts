@@ -13,7 +13,7 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
-
+import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
 import { CreateWebhookRequest } from '../model/createWebhookRequest';
 import { Error401Unauthorized } from '../model/error401Unauthorized';
@@ -129,7 +129,6 @@ export class WebhooksApi {
         let localVarFormParams: any = {};
 
 
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -141,9 +140,14 @@ export class WebhooksApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(createWebhookRequest, "CreateWebhookRequest")
         };
-
+        if (createWebhookRequest.hasOwnProperty('file')){
+            createWebhookRequest = await this.fileHelper(createWebhookRequest);
+            localVarRequestOptions.formData = createWebhookRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(createWebhookRequest, "CreateWebhookRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -186,23 +190,23 @@ export class WebhooksApi {
      * @param createWebhookRequest 
      */
 
-    public async create(createWebhookRequest?: CreateWebhookRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async create(createWebhookRequest?: CreateWebhookRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Webhook> {
         const responseObject = await this.createHelper(createWebhookRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Create a `Webhook` to specify an endpoint where Finix can send events.
+     * @summary Create a Webhook
+     * @param createWebhookRequest 
+     */
+
+    public async createHttp(createWebhookRequest?: CreateWebhookRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Webhook; }> {
+        const responseObject = await this.createHelper(createWebhookRequest,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Retrieve the details of a `Webhook`.
@@ -229,8 +233,6 @@ export class WebhooksApi {
             throw new Error('Required parameter webhookId was null or undefined when calling getWebhook.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -243,7 +245,6 @@ export class WebhooksApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -286,23 +287,23 @@ export class WebhooksApi {
      * @param webhookId ID of &#x60;Webhook&#x60; object.
      */
 
-    public async get(webhookId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async get(webhookId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Webhook> {
         const responseObject = await this.getHelper(webhookId,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Retrieve the details of a `Webhook`.
+     * @summary Get a Webhook
+     * @param webhookId ID of &#x60;Webhook&#x60; object.
+     */
+
+    public async getHttp(webhookId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Webhook; }> {
+        const responseObject = await this.getHelper(webhookId,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Retrieve a list of `Webhooks`.
@@ -334,7 +335,6 @@ export class WebhooksApi {
             }
 
         }
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -347,7 +347,6 @@ export class WebhooksApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -389,23 +388,26 @@ export class WebhooksApi {
      * @summary List Webhooks
 
     */
-    public async list (listWebhooksQueryParams?:ListWebhooksQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise<any> {
+    public async list (listWebhooksQueryParams?:ListWebhooksQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<SuperSet<any>> {
         const responseObject = await this.listHelper(listWebhooksQueryParams, options);
 
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
-        return responseObject.body;
+        let dataList = await this.embeddedHelper(responseObject);
+        return dataList;
     }
 
+    /**
+     * Retrieve a list of `Webhooks`.
+     * @summary List Webhooks
+
+    */
+    public async listHttp (listWebhooksQueryParams?:ListWebhooksQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        const responseObject = await this.listHelper(listWebhooksQueryParams, options);
+
+        let dataList = await this.embeddedHelper(responseObject);
+        return Promise.resolve({response: responseObject.response, body: dataList});
+    }
     /**
      * Helper function. 
      * Update an existing `Webhook`.
@@ -433,8 +435,6 @@ export class WebhooksApi {
             throw new Error('Required parameter webhookId was null or undefined when calling updateWebhook.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -446,9 +446,14 @@ export class WebhooksApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(updateWebhookRequest, "UpdateWebhookRequest")
         };
-
+        if (updateWebhookRequest.hasOwnProperty('file')){
+            updateWebhookRequest = await this.fileHelper(updateWebhookRequest);
+            localVarRequestOptions.formData = updateWebhookRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(updateWebhookRequest, "UpdateWebhookRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -492,21 +497,23 @@ export class WebhooksApi {
      * @param updateWebhookRequest 
      */
 
-    public async update(webhookId: string, updateWebhookRequest?: UpdateWebhookRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async update(webhookId: string, updateWebhookRequest?: UpdateWebhookRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Webhook> {
         const responseObject = await this.updateHelper(webhookId, updateWebhookRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+
+    /**
+     * Update an existing `Webhook`.
+     * @summary Update a Webhook
+     * @param webhookId ID of &#x60;Webhook&#x60; object.
+     * @param updateWebhookRequest 
+     */
+
+    public async updateHttp(webhookId: string, updateWebhookRequest?: UpdateWebhookRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Webhook; }> {
+        const responseObject = await this.updateHelper(webhookId, updateWebhookRequest,  options);
+        return responseObject;
     }
 
 
@@ -516,5 +523,10 @@ export class WebhooksApi {
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
+    }
+
+    private async fileHelper(request: any){
+        request.file = fs.createReadStream(<string>request.file)
+        return request;
     }
 }

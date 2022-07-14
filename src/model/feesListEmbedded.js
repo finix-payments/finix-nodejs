@@ -30,4 +30,3 @@ class FeesListEmbedded {
     }
 }
 exports.FeesListEmbedded = FeesListEmbedded;
-//# sourceMappingURL=feesListEmbedded.js.map

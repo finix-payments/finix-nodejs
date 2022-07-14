@@ -27,4 +27,3 @@ class ReserveProfilesListEmbedded {
     }
 }
 exports.ReserveProfilesListEmbedded = ReserveProfilesListEmbedded;
-//# sourceMappingURL=reserveProfilesListEmbedded.js.map

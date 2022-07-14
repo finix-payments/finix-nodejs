@@ -27,4 +27,3 @@ class MerchantProfilesListEmbedded {
     }
 }
 exports.MerchantProfilesListEmbedded = MerchantProfilesListEmbedded;
-//# sourceMappingURL=merchantProfilesListEmbedded.js.map

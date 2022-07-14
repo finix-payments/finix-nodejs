@@ -30,4 +30,3 @@ class VerificationsListEmbedded {
     }
 }
 exports.VerificationsListEmbedded = VerificationsListEmbedded;
-//# sourceMappingURL=verificationsListEmbedded.js.map

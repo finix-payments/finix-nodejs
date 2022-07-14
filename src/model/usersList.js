@@ -39,4 +39,3 @@ class UsersList {
     }
 }
 exports.UsersList = UsersList;
-//# sourceMappingURL=usersList.js.map

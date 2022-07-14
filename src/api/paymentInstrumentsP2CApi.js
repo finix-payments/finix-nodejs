@@ -157,19 +157,27 @@ class PaymentInstrumentsP2CApi {
      * @param paymentInstrumentId ID of object
      * @param createVerificationRequest
      */
-    async createPaymentInstrumentVerification(paymentInstrumentId, createVerificationRequest, options = { headers: {} }, httpData = false) {
+    async createPaymentInstrumentVerification(paymentInstrumentId, createVerificationRequest, options = { headers: {} }) {
         const responseObject = await this.createPaymentInstrumentVerificationHelper(paymentInstrumentId, createVerificationRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Verify a `Payment Instrument` to determine if it\'s elligable for Push To Card transactions.   > Only verify `Payment Instruments` for [Push To Card](/guides/push-to-card) customers.
+     * @summary Verify a Payment Instrument
+     * @param paymentInstrumentId ID of object
+     * @param createVerificationRequest
+     */
+    async createPaymentInstrumentVerificationHttp(paymentInstrumentId, createVerificationRequest, options = { headers: {} }) {
+        const responseObject = await this.createPaymentInstrumentVerificationHelper(paymentInstrumentId, createVerificationRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     async embeddedHelper(responseObject) {
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
@@ -180,4 +188,3 @@ class PaymentInstrumentsP2CApi {
     }
 }
 exports.PaymentInstrumentsP2CApi = PaymentInstrumentsP2CApi;
-//# sourceMappingURL=paymentInstrumentsP2CApi.js.map

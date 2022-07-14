@@ -129,4 +129,3 @@ class UpdateMerchantRequest {
     }
 }
 exports.UpdateMerchantRequest = UpdateMerchantRequest;
-//# sourceMappingURL=updateMerchantRequest.js.map

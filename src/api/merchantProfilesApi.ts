@@ -13,7 +13,7 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
-
+import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
 import { Error401Unauthorized } from '../model/error401Unauthorized';
 import { Error403ForbiddenList } from '../model/error403ForbiddenList';
@@ -130,8 +130,6 @@ export class MerchantProfilesApi {
             throw new Error('Required parameter merchantProfileId was null or undefined when calling getMerchantProfile.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -144,7 +142,6 @@ export class MerchantProfilesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -187,23 +184,23 @@ export class MerchantProfilesApi {
      * @param merchantProfileId ID of merchant profile
      */
 
-    public async get(merchantProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async get(merchantProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<MerchantProfile> {
         const responseObject = await this.getHelper(merchantProfileId,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Get the merchant profile object
+     * @summary Show Merchant Profile
+     * @param merchantProfileId ID of merchant profile
+     */
+
+    public async getHttp(merchantProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: MerchantProfile; }> {
+        const responseObject = await this.getHelper(merchantProfileId,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Get list of all the merchant_profiles objects
@@ -238,7 +235,6 @@ export class MerchantProfilesApi {
             }
 
         }
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -251,7 +247,6 @@ export class MerchantProfilesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -293,23 +288,26 @@ export class MerchantProfilesApi {
      * @summary List Merchant Profiles
 
     */
-    public async list (listMerchantProfilesQueryParams?:ListMerchantProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise<any> {
+    public async list (listMerchantProfilesQueryParams?:ListMerchantProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<SuperSet<any>> {
         const responseObject = await this.listHelper(listMerchantProfilesQueryParams, options);
 
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
-        return responseObject.body;
+        let dataList = await this.embeddedHelper(responseObject);
+        return dataList;
     }
 
+    /**
+     * Get list of all the merchant_profiles objects
+     * @summary List Merchant Profiles
+
+    */
+    public async listHttp (listMerchantProfilesQueryParams?:ListMerchantProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        const responseObject = await this.listHelper(listMerchantProfilesQueryParams, options);
+
+        let dataList = await this.embeddedHelper(responseObject);
+        return Promise.resolve({response: responseObject.response, body: dataList});
+    }
     /**
      * Helper function. 
      * Update a merchant profile
@@ -337,8 +335,6 @@ export class MerchantProfilesApi {
             throw new Error('Required parameter merchantProfileId was null or undefined when calling updateMerchantProfile.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -350,9 +346,14 @@ export class MerchantProfilesApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(body, "object")
         };
-
+        if (body.hasOwnProperty('file')){
+            body = await this.fileHelper(body);
+            localVarRequestOptions.formData = body;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(body, "object");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -396,21 +397,23 @@ export class MerchantProfilesApi {
      * @param body 
      */
 
-    public async update(merchantProfileId: string, body?: object, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async update(merchantProfileId: string, body?: object, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<MerchantProfile> {
         const responseObject = await this.updateHelper(merchantProfileId, body,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+
+    /**
+     * Update a merchant profile
+     * @summary Update a Merchant Profile
+     * @param merchantProfileId ID of merchant profile
+     * @param body 
+     */
+
+    public async updateHttp(merchantProfileId: string, body?: object, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: MerchantProfile; }> {
+        const responseObject = await this.updateHelper(merchantProfileId, body,  options);
+        return responseObject;
     }
 
 
@@ -420,5 +423,10 @@ export class MerchantProfilesApi {
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
+    }
+
+    private async fileHelper(request: any){
+        request.file = fs.createReadStream(<string>request.file)
+        return request;
     }
 }

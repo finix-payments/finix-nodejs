@@ -13,7 +13,7 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
-
+import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
 import { CreateSubscriptionEnrollmentRequest } from '../model/createSubscriptionEnrollmentRequest';
 import { Error401Unauthorized } from '../model/error401Unauthorized';
@@ -134,8 +134,6 @@ export class SubscriptionEnrollmentsApi {
             throw new Error('Required parameter subscriptionScheduleId was null or undefined when calling createSubscriptionEnrollments.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -147,9 +145,14 @@ export class SubscriptionEnrollmentsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(createSubscriptionEnrollmentRequest, "CreateSubscriptionEnrollmentRequest")
         };
-
+        if (createSubscriptionEnrollmentRequest.hasOwnProperty('file')){
+            createSubscriptionEnrollmentRequest = await this.fileHelper(createSubscriptionEnrollmentRequest);
+            localVarRequestOptions.formData = createSubscriptionEnrollmentRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(createSubscriptionEnrollmentRequest, "CreateSubscriptionEnrollmentRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -193,23 +196,24 @@ export class SubscriptionEnrollmentsApi {
      * @param createSubscriptionEnrollmentRequest 
      */
 
-    public async create(subscriptionScheduleId: string, createSubscriptionEnrollmentRequest?: CreateSubscriptionEnrollmentRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async create(subscriptionScheduleId: string, createSubscriptionEnrollmentRequest?: CreateSubscriptionEnrollmentRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<SubscriptionEnrollment> {
         const responseObject = await this.createHelper(subscriptionScheduleId, createSubscriptionEnrollmentRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Create a `subscription_enrollment`.  A `subscription_enrollment` details which `Merchant` gets charged, to what schedule, and when the subscription will start. The `subscription_enrollment` must be associated with a `Subscription Schedule`.
+     * @summary Create a Subscription Enrollment
+     * @param subscriptionScheduleId The ID of the &#x60;subscription_schedule&#x60;.
+     * @param createSubscriptionEnrollmentRequest 
+     */
+
+    public async createHttp(subscriptionScheduleId: string, createSubscriptionEnrollmentRequest?: CreateSubscriptionEnrollmentRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: SubscriptionEnrollment; }> {
+        const responseObject = await this.createHelper(subscriptionScheduleId, createSubscriptionEnrollmentRequest,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Remove a `subscription_enrollment`.
@@ -236,8 +240,6 @@ export class SubscriptionEnrollmentsApi {
             throw new Error('Required parameter subscriptionEnrollmentId was null or undefined when calling deleteSubscriptionEnrollment.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -250,7 +252,6 @@ export class SubscriptionEnrollmentsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -292,23 +293,23 @@ export class SubscriptionEnrollmentsApi {
      * @param subscriptionEnrollmentId The ID of the &#x60;subscription_enrollment&#x60;.
      */
 
-    public async remove(subscriptionEnrollmentId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+    public async remove(subscriptionEnrollmentId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<any> {
         const responseObject = await this.removeHelper(subscriptionEnrollmentId,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Remove a `subscription_enrollment`.
+     * @summary Delete a Subscription Enrollment
+     * @param subscriptionEnrollmentId The ID of the &#x60;subscription_enrollment&#x60;.
+     */
+
+    public async removeHttp(subscriptionEnrollmentId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body?: any; }> {
+        const responseObject = await this.removeHelper(subscriptionEnrollmentId,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Retrieve the details of a `subscription_enrollment`.
@@ -336,11 +337,9 @@ export class SubscriptionEnrollmentsApi {
             throw new Error('Required parameter subscriptionEnrollmentId was null or undefined when calling getSubscriptionEnrollment.');
         }
 
-
         if (merchant !== undefined) {
             localVarQueryParameters['merchant'] = ObjectSerializer.serialize(merchant, "string");
         }
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -353,7 +352,6 @@ export class SubscriptionEnrollmentsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -397,23 +395,24 @@ export class SubscriptionEnrollmentsApi {
      * @param merchant Filter by the objects &#x60;merchant&#x60; ID.
      */
 
-    public async get(subscriptionEnrollmentId: string, merchant?: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async get(subscriptionEnrollmentId: string, merchant?: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<SubscriptionEnrollment> {
         const responseObject = await this.getHelper(subscriptionEnrollmentId, merchant,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Retrieve the details of a `subscription_enrollment`.
+     * @summary Get a Subscription Enrollment
+     * @param subscriptionEnrollmentId The ID of the &#x60;subscription_enrollment&#x60;.
+     * @param merchant Filter by the objects &#x60;merchant&#x60; ID.
+     */
+
+    public async getHttp(subscriptionEnrollmentId: string, merchant?: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: SubscriptionEnrollment; }> {
+        const responseObject = await this.getHelper(subscriptionEnrollmentId, merchant,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Retrieve a list of `Subscription Enrollments`.
@@ -436,7 +435,6 @@ export class SubscriptionEnrollmentsApi {
         if (listSubscriptionEnrollmentsQueryParams != undefined){ 
 
         }
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -449,7 +447,6 @@ export class SubscriptionEnrollmentsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -491,23 +488,26 @@ export class SubscriptionEnrollmentsApi {
      * @summary List Subscription Enrollments
 
     */
-    public async list (listSubscriptionEnrollmentsQueryParams?:ListSubscriptionEnrollmentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise<any> {
+    public async list (listSubscriptionEnrollmentsQueryParams?:ListSubscriptionEnrollmentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<SuperSet<any>> {
         const responseObject = await this.listHelper(listSubscriptionEnrollmentsQueryParams, options);
 
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
-        return responseObject.body;
+        let dataList = await this.embeddedHelper(responseObject);
+        return dataList;
     }
 
+    /**
+     * Retrieve a list of `Subscription Enrollments`.
+     * @summary List Subscription Enrollments
+
+    */
+    public async listHttp (listSubscriptionEnrollmentsQueryParams?:ListSubscriptionEnrollmentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        const responseObject = await this.listHelper(listSubscriptionEnrollmentsQueryParams, options);
+
+        let dataList = await this.embeddedHelper(responseObject);
+        return Promise.resolve({response: responseObject.response, body: dataList});
+    }
     /**
      * Helper function. 
      * Retrieve a list of `Subscription Enrollments` for a specific `subscription_schedule`.
@@ -534,11 +534,9 @@ export class SubscriptionEnrollmentsApi {
         if (subscriptionScheduleId === null || subscriptionScheduleId === undefined) {
             throw new Error('Required parameter subscriptionScheduleId was null or undefined when calling listSubscriptionEnrollmentsInSchedule.');
         }
-
         if (listSubscriptionEnrollmentsInScheduleQueryParams != undefined){ 
 
         }
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -551,7 +549,6 @@ export class SubscriptionEnrollmentsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -595,23 +592,28 @@ export class SubscriptionEnrollmentsApi {
     * @param subscriptionScheduleId The ID of the &#x60;subscription_schedule&#x60;.
     * 
     */
-    public async listBySubscriptionScheduleId (subscriptionScheduleId: string, listSubscriptionEnrollmentsInScheduleQueryParams?:ListSubscriptionEnrollmentsInScheduleQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise<any> {
+    public async listBySubscriptionScheduleId (subscriptionScheduleId: string, listSubscriptionEnrollmentsInScheduleQueryParams?:ListSubscriptionEnrollmentsInScheduleQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<SuperSet<any>> {
         const responseObject = await this.listBySubscriptionScheduleIdHelper(subscriptionScheduleId, listSubscriptionEnrollmentsInScheduleQueryParams, options);
 
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
-        return responseObject.body;
+        let dataList = await this.embeddedHelper(responseObject);
+        return dataList;
     }
 
+    /**
+     * Retrieve a list of `Subscription Enrollments` for a specific `subscription_schedule`.
+     * @summary List Subscription Enrollments on a Schedule
+
+    * @param subscriptionScheduleId The ID of the &#x60;subscription_schedule&#x60;.
+    * 
+    */
+    public async listBySubscriptionScheduleIdHttp (subscriptionScheduleId: string, listSubscriptionEnrollmentsInScheduleQueryParams?:ListSubscriptionEnrollmentsInScheduleQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        const responseObject = await this.listBySubscriptionScheduleIdHelper(subscriptionScheduleId, listSubscriptionEnrollmentsInScheduleQueryParams, options);
+
+        let dataList = await this.embeddedHelper(responseObject);
+        return Promise.resolve({response: responseObject.response, body: dataList});
+    }
     /**
      * Helper function. 
      * Update the details of a `subscription_enrollment`.
@@ -639,8 +641,6 @@ export class SubscriptionEnrollmentsApi {
             throw new Error('Required parameter subscriptionEnrollmentId was null or undefined when calling updateSubscriptionEnrollment.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -652,9 +652,14 @@ export class SubscriptionEnrollmentsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(updateSubscriptionEnrollmentRequest, "UpdateSubscriptionEnrollmentRequest")
         };
-
+        if (updateSubscriptionEnrollmentRequest.hasOwnProperty('file')){
+            updateSubscriptionEnrollmentRequest = await this.fileHelper(updateSubscriptionEnrollmentRequest);
+            localVarRequestOptions.formData = updateSubscriptionEnrollmentRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(updateSubscriptionEnrollmentRequest, "UpdateSubscriptionEnrollmentRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -698,21 +703,23 @@ export class SubscriptionEnrollmentsApi {
      * @param updateSubscriptionEnrollmentRequest 
      */
 
-    public async update(subscriptionEnrollmentId: string, updateSubscriptionEnrollmentRequest?: UpdateSubscriptionEnrollmentRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async update(subscriptionEnrollmentId: string, updateSubscriptionEnrollmentRequest?: UpdateSubscriptionEnrollmentRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<SubscriptionEnrollment> {
         const responseObject = await this.updateHelper(subscriptionEnrollmentId, updateSubscriptionEnrollmentRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+
+    /**
+     * Update the details of a `subscription_enrollment`.
+     * @summary Update a Subscription Enrollment
+     * @param subscriptionEnrollmentId The ID of the &#x60;subscription_enrollment&#x60;.
+     * @param updateSubscriptionEnrollmentRequest 
+     */
+
+    public async updateHttp(subscriptionEnrollmentId: string, updateSubscriptionEnrollmentRequest?: UpdateSubscriptionEnrollmentRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: SubscriptionEnrollment; }> {
+        const responseObject = await this.updateHelper(subscriptionEnrollmentId, updateSubscriptionEnrollmentRequest,  options);
+        return responseObject;
     }
 
 
@@ -722,5 +729,10 @@ export class SubscriptionEnrollmentsApi {
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
+    }
+
+    private async fileHelper(request: any){
+        request.file = fs.createReadStream(<string>request.file)
+        return request;
     }
 }

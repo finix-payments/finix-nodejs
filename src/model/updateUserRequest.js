@@ -36,4 +36,3 @@ class UpdateUserRequest {
     }
 }
 exports.UpdateUserRequest = UpdateUserRequest;
-//# sourceMappingURL=updateUserRequest.js.map

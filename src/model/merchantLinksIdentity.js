@@ -30,4 +30,3 @@ class MerchantLinksIdentity {
     }
 }
 exports.MerchantLinksIdentity = MerchantLinksIdentity;
-//# sourceMappingURL=merchantLinksIdentity.js.map

@@ -30,4 +30,3 @@ class DeviceLinksMerchant {
     }
 }
 exports.DeviceLinksMerchant = DeviceLinksMerchant;
-//# sourceMappingURL=deviceLinksMerchant.js.map

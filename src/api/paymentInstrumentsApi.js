@@ -150,19 +150,26 @@ class PaymentInstrumentsApi {
      * @summary Create an Apple Pay Session
      * @param applePaySessionRequest
      */
-    async createApplePaySession(applePaySessionRequest, options = { headers: {} }, httpData = false) {
+    async createApplePaySession(applePaySessionRequest, options = { headers: {} }) {
         const responseObject = await this.createApplePaySessionHelper(applePaySessionRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Create an `apple_pay_session` to process Apple Pay transactions on the web.  To create an Apple Pay Session, pass the unique `validation_url` (provided by Apple) while creating an `apple_pay_sessions` resource. Finix returns a `merchantSession` object that you can use to create a payment. For more information, see [Apple Pay](/docs/guides/payments/alternative-payment-methods/apple-pay/).
+     * @summary Create an Apple Pay Session
+     * @param applePaySessionRequest
+     */
+    async createApplePaySessionHttp(applePaySessionRequest, options = { headers: {} }) {
+        const responseObject = await this.createApplePaySessionHelper(applePaySessionRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -235,19 +242,26 @@ class PaymentInstrumentsApi {
      * @summary Create a Payment Instrument
      * @param createPaymentInstrumentRequest
      */
-    async create(createPaymentInstrumentRequest, options = { headers: {} }, httpData = false) {
+    async create(createPaymentInstrumentRequest, options = { headers: {} }) {
         const responseObject = await this.createHelper(createPaymentInstrumentRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Create a `Payment Instrument` resource using a card or bank account.  To accept payment details, review our guide on how to [tokenize cards using hosted fields](/guides/payments/tokenization-with-hosted-fields).  > The creation of `Payment Instruments` using cards directly via Finix\'s API should only be done for testing purposes. You must use the Hosted Tokenization fields or javascript client to remain out of PCI scope.
+     * @summary Create a Payment Instrument
+     * @param createPaymentInstrumentRequest
+     */
+    async createHttp(createPaymentInstrumentRequest, options = { headers: {} }) {
+        const responseObject = await this.createHelper(createPaymentInstrumentRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -327,19 +341,27 @@ class PaymentInstrumentsApi {
      * @param paymentInstrumentId ID of object
      * @param createVerificationRequest
      */
-    async createPaymentInstrumentVerification(paymentInstrumentId, createVerificationRequest, options = { headers: {} }, httpData = false) {
+    async createPaymentInstrumentVerification(paymentInstrumentId, createVerificationRequest, options = { headers: {} }) {
         const responseObject = await this.createPaymentInstrumentVerificationHelper(paymentInstrumentId, createVerificationRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Verify a `Payment Instrument` to determine if it\'s elligable for Push To Card transactions.   > Only verify `Payment Instruments` for [Push To Card](/guides/push-to-card) customers.
+     * @summary Verify a Payment Instrument
+     * @param paymentInstrumentId ID of object
+     * @param createVerificationRequest
+     */
+    async createPaymentInstrumentVerificationHttp(paymentInstrumentId, createVerificationRequest, options = { headers: {} }) {
+        const responseObject = await this.createPaymentInstrumentVerificationHelper(paymentInstrumentId, createVerificationRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -416,19 +438,26 @@ class PaymentInstrumentsApi {
      * @summary Get a Payment Instrument
      * @param paymentInstrumentId ID of object
      */
-    async get(paymentInstrumentId, options = { headers: {} }, httpData = false) {
+    async get(paymentInstrumentId, options = { headers: {} }) {
         const responseObject = await this.getHelper(paymentInstrumentId, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieve the details of a `Payment Instrument`.
+     * @summary Get a Payment Instrument
+     * @param paymentInstrumentId ID of object
+     */
+    async getHttp(paymentInstrumentId, options = { headers: {} }) {
+        const responseObject = await this.getHelper(paymentInstrumentId, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -547,19 +576,26 @@ class PaymentInstrumentsApi {
      * @summary List Payment Instruments
 
     */
-    async list(listPaymentInstrumentsQueryParams, options = { headers: {} }, httpData = false) {
+    async list(listPaymentInstrumentsQueryParams, options = { headers: {} }) {
         const responseObject = await this.listHelper(listPaymentInstrumentsQueryParams, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieve a list of `Payment Instruments`.
+     * @summary List Payment Instruments
+
+    */
+    async listHttp(listPaymentInstrumentsQueryParams, options = { headers: {} }) {
+        const responseObject = await this.listHelper(listPaymentInstrumentsQueryParams, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -639,19 +675,27 @@ class PaymentInstrumentsApi {
      * @param paymentInstrumentId ID of object
      * @param updatePaymentInstrumentRequest
      */
-    async update(paymentInstrumentId, updatePaymentInstrumentRequest, options = { headers: {} }, httpData = false) {
+    async update(paymentInstrumentId, updatePaymentInstrumentRequest, options = { headers: {} }) {
         const responseObject = await this.updateHelper(paymentInstrumentId, updatePaymentInstrumentRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Update a `Payment Instrument`.
+     * @summary Update a Payment Instrument
+     * @param paymentInstrumentId ID of object
+     * @param updatePaymentInstrumentRequest
+     */
+    async updateHttp(paymentInstrumentId, updatePaymentInstrumentRequest, options = { headers: {} }) {
+        const responseObject = await this.updateHelper(paymentInstrumentId, updatePaymentInstrumentRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     async embeddedHelper(responseObject) {
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
@@ -662,4 +706,3 @@ class PaymentInstrumentsApi {
     }
 }
 exports.PaymentInstrumentsApi = PaymentInstrumentsApi;
-//# sourceMappingURL=paymentInstrumentsApi.js.map

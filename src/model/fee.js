@@ -209,4 +209,3 @@ exports.Fee = Fee;
         LinkedTypeEnum[LinkedTypeEnum["Transfer"] = 'TRANSFER'] = "Transfer";
     })(LinkedTypeEnum = Fee.LinkedTypeEnum || (Fee.LinkedTypeEnum = {}));
 })(Fee = exports.Fee || (exports.Fee = {}));
-//# sourceMappingURL=fee.js.map

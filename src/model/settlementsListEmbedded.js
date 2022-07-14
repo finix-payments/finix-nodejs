@@ -30,4 +30,3 @@ class SettlementsListEmbedded {
     }
 }
 exports.SettlementsListEmbedded = SettlementsListEmbedded;
-//# sourceMappingURL=settlementsListEmbedded.js.map

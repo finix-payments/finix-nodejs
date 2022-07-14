@@ -157,19 +157,27 @@ class FilesApi {
      * @param fileId Your &#x60;File&#x60; ID.
      * @param createExternalLinkRequest
      */
-    async createExternalLink(fileId, createExternalLinkRequest, options = { headers: {} }, httpData = false) {
+    async createExternalLink(fileId, createExternalLinkRequest, options = { headers: {} }) {
         const responseObject = await this.createExternalLinkHelper(fileId, createExternalLinkRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Create an `external_link` resource to share with users so they can upload files directly from their browser. For more info, see [Uploading files to Finix](/docs/guides/onboarding/uploading-files-to-finix/).   Once created, you can request the user to upload a file to the `external_link` resource: [Upload files to External Link](#operation/uploadExternalLink)
+     * @summary Create an External Link
+     * @param fileId Your &#x60;File&#x60; ID.
+     * @param createExternalLinkRequest
+     */
+    async createExternalLinkHttp(fileId, createExternalLinkRequest, options = { headers: {} }) {
+        const responseObject = await this.createExternalLinkHelper(fileId, createExternalLinkRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -242,19 +250,26 @@ class FilesApi {
      * @summary Create a File
      * @param createFileRequest
      */
-    async create(createFileRequest, options = { headers: {} }, httpData = false) {
+    async create(createFileRequest, options = { headers: {} }) {
         const responseObject = await this.createHelper(createFileRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Before uploading a file, you need to create a `File` resource.   Once created, you can [upload](/#operation/uploadFile) your file to the new `File` resource.
+     * @summary Create a File
+     * @param createFileRequest
+     */
+    async createHttp(createFileRequest, options = { headers: {} }) {
+        const responseObject = await this.createHelper(createFileRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -331,19 +346,26 @@ class FilesApi {
      * @summary Download a file
      * @param fileId The ID of the &#x60;File&#x60; that was created to upload the file.
      */
-    async downloadFile(fileId, options = { headers: {} }, httpData = false) {
+    async downloadFile(fileId, options = { headers: {} }) {
         const responseObject = await this.downloadFileHelper(fileId, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Download a file uploaded to a `File` resource. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix).
+     * @summary Download a file
+     * @param fileId The ID of the &#x60;File&#x60; that was created to upload the file.
+     */
+    async downloadFileHttp(fileId, options = { headers: {} }) {
+        const responseObject = await this.downloadFileHelper(fileId, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -427,19 +449,27 @@ class FilesApi {
      * @param fileId The ID of the &#x60;File&#x60; that has the links you want to retrieve.
      * @param externalLinkId The ID of the &#x60;external_link&#x60; that you want to retireve.
      */
-    async getExternalLink(fileId, externalLinkId, options = { headers: {} }, httpData = false) {
+    async getExternalLink(fileId, externalLinkId, options = { headers: {} }) {
         const responseObject = await this.getExternalLinkHelper(fileId, externalLinkId, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Fetch a previously created `external_link` resource. For more info see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#create-an-external-link).
+     * @summary Fetch an External LInk
+     * @param fileId The ID of the &#x60;File&#x60; that has the links you want to retrieve.
+     * @param externalLinkId The ID of the &#x60;external_link&#x60; that you want to retireve.
+     */
+    async getExternalLinkHttp(fileId, externalLinkId, options = { headers: {} }) {
+        const responseObject = await this.getExternalLinkHelper(fileId, externalLinkId, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -516,19 +546,26 @@ class FilesApi {
      * @summary Fetch a File
      * @param fileId Your &#x60;File&#x60; ID.
      */
-    async get(fileId, options = { headers: {} }, httpData = false) {
+    async get(fileId, options = { headers: {} }) {
         const responseObject = await this.getHelper(fileId, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieve the details of a `File` resource. For more info see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#create-an-external-link).
+     * @summary Fetch a File
+     * @param fileId Your &#x60;File&#x60; ID.
+     */
+    async getHttp(fileId, options = { headers: {} }) {
+        const responseObject = await this.getHelper(fileId, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -638,19 +675,28 @@ class FilesApi {
     * @param fileId Your &#x60;File&#x60; ID.
     *
     */
-    async listExternalLinks(fileId, listExternalLinksQueryParams, options = { headers: {} }, httpData = false) {
+    async listExternalLinks(fileId, listExternalLinksQueryParams, options = { headers: {} }) {
         const responseObject = await this.listExternalLinksHelper(fileId, listExternalLinksQueryParams, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * List the previously `external_links` for a `File`. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#create-an-external-link).
+     * @summary List All External Links
+
+    * @param fileId Your &#x60;File&#x60; ID.
+    *
+    */
+    async listExternalLinksHttp(fileId, listExternalLinksQueryParams, options = { headers: {} }) {
+        const responseObject = await this.listExternalLinksHelper(fileId, listExternalLinksQueryParams, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -751,19 +797,26 @@ class FilesApi {
      * @summary List All Files
 
     */
-    async list(listFilesQueryParams, options = { headers: {} }, httpData = false) {
+    async list(listFilesQueryParams, options = { headers: {} }) {
         const responseObject = await this.listHelper(listFilesQueryParams, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * List all the `File` resources you\'ve created. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#step-1-create-a-file).
+     * @summary List All Files
+
+    */
+    async listHttp(listFilesQueryParams, options = { headers: {} }) {
+        const responseObject = await this.listHelper(listFilesQueryParams, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -843,19 +896,27 @@ class FilesApi {
      * @param fileId The ID of the &#x60;File&#x60; that was created to upload the file.
      * @param uploadFileRequest
      */
-    async uploadFile(fileId, uploadFileRequest, options = { headers: {} }, httpData = false) {
+    async uploadFile(fileId, uploadFileRequest, options = { headers: {} }) {
         const responseObject = await this.uploadFileHelper(fileId, uploadFileRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Upload files directly with a `multipart/form-data` request. For more info see, [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#step-2-upload-the-file).
+     * @summary Upload files Directly
+     * @param fileId The ID of the &#x60;File&#x60; that was created to upload the file.
+     * @param uploadFileRequest
+     */
+    async uploadFileHttp(fileId, uploadFileRequest, options = { headers: {} }) {
+        const responseObject = await this.uploadFileHelper(fileId, uploadFileRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     async embeddedHelper(responseObject) {
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
@@ -866,4 +927,3 @@ class FilesApi {
     }
 }
 exports.FilesApi = FilesApi;
-//# sourceMappingURL=filesApi.js.map

@@ -161,4 +161,3 @@ exports.CreateIdentityRequestAdditionalUnderwritingData = CreateIdentityRequestA
         RefundPolicyEnum[RefundPolicyEnum["_30Days"] = '30_DAYS'] = "_30Days";
     })(RefundPolicyEnum = CreateIdentityRequestAdditionalUnderwritingData.RefundPolicyEnum || (CreateIdentityRequestAdditionalUnderwritingData.RefundPolicyEnum = {}));
 })(CreateIdentityRequestAdditionalUnderwritingData = exports.CreateIdentityRequestAdditionalUnderwritingData || (exports.CreateIdentityRequestAdditionalUnderwritingData = {}));
-//# sourceMappingURL=createIdentityRequestAdditionalUnderwritingData.js.map

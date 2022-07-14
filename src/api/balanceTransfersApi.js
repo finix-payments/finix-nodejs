@@ -150,19 +150,26 @@ class BalanceTransfersApi {
      * @summary Create a Balance Transfer
      * @param createBalanceTransferRequest
      */
-    async createBalanceTransfer(createBalanceTransferRequest, options = { headers: {} }, httpData = false) {
+    async createBalanceTransfer(createBalanceTransferRequest, options = { headers: {} }) {
         const responseObject = await this.createBalanceTransferHelper(createBalanceTransferRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Create a `balance_transfer`.
+     * @summary Create a Balance Transfer
+     * @param createBalanceTransferRequest
+     */
+    async createBalanceTransferHttp(createBalanceTransferRequest, options = { headers: {} }) {
+        const responseObject = await this.createBalanceTransferHelper(createBalanceTransferRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -239,19 +246,26 @@ class BalanceTransfersApi {
      * @summary Get a Balance Transfer
      * @param balanceTransfersId ID of the &#x60;balance_transfer&#x60; resource.
      */
-    async getBalanceTransfers(balanceTransfersId, options = { headers: {} }, httpData = false) {
+    async getBalanceTransfers(balanceTransfersId, options = { headers: {} }) {
         const responseObject = await this.getBalanceTransfersHelper(balanceTransfersId, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieve the details of a `balance_transfer`.
+     * @summary Get a Balance Transfer
+     * @param balanceTransfersId ID of the &#x60;balance_transfer&#x60; resource.
+     */
+    async getBalanceTransfersHttp(balanceTransfersId, options = { headers: {} }) {
+        const responseObject = await this.getBalanceTransfersHelper(balanceTransfersId, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -370,19 +384,26 @@ class BalanceTransfersApi {
      * @summary List Balance Transfers
 
     */
-    async listBalanceTransfers(listBalanceTransfersQueryParams, options = { headers: {} }, httpData = false) {
+    async listBalanceTransfers(listBalanceTransfersQueryParams, options = { headers: {} }) {
         const responseObject = await this.listBalanceTransfersHelper(listBalanceTransfersQueryParams, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieve a list of `balance_transfers`.
+     * @summary List Balance Transfers
+
+    */
+    async listBalanceTransfersHttp(listBalanceTransfersQueryParams, options = { headers: {} }) {
+        const responseObject = await this.listBalanceTransfersHelper(listBalanceTransfersQueryParams, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     async embeddedHelper(responseObject) {
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
@@ -393,4 +414,3 @@ class BalanceTransfersApi {
     }
 }
 exports.BalanceTransfersApi = BalanceTransfersApi;
-//# sourceMappingURL=balanceTransfersApi.js.map

@@ -157,19 +157,27 @@ class IdentitiesApi {
      * @param identityId ID of &#x60;Identity&#x60; to associate object with.
      * @param createIdentityRequest
      */
-    async createAssociatedIdentity(identityId, createIdentityRequest, options = { headers: {} }, httpData = false) {
+    async createAssociatedIdentity(identityId, createIdentityRequest, options = { headers: {} }) {
         const responseObject = await this.createAssociatedIdentityHelper(identityId, createIdentityRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Create an associated `Identity` for [every owner with 25% or more ownership](/guides/onboarding/#step-3-add-associated-identities) over the merchant.
+     * @summary Create an Associated Identity
+     * @param identityId ID of &#x60;Identity&#x60; to associate object with.
+     * @param createIdentityRequest
+     */
+    async createAssociatedIdentityHttp(identityId, createIdentityRequest, options = { headers: {} }) {
+        const responseObject = await this.createAssociatedIdentityHelper(identityId, createIdentityRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -242,19 +250,26 @@ class IdentitiesApi {
      * @summary Create an Identity
      * @param createIdentityRequest
      */
-    async create(createIdentityRequest, options = { headers: {} }, httpData = false) {
+    async create(createIdentityRequest, options = { headers: {} }) {
         const responseObject = await this.createHelper(createIdentityRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Create an `Identity` for your merchant or buyer.  Creating `Identities` for merchants requires they provide [KYC details](/docs/guides/getting-started/).  Related Guides: [Getting Started](/docs/guides/getting-started/), [Onboarding](/docs/guides/onboarding/)
+     * @summary Create an Identity
+     * @param createIdentityRequest
+     */
+    async createHttp(createIdentityRequest, options = { headers: {} }) {
+        const responseObject = await this.createHelper(createIdentityRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -334,19 +349,27 @@ class IdentitiesApi {
      * @param identityId ID of identity to fetch
      * @param createVerificationRequest
      */
-    async createIdentityVerification(identityId, createVerificationRequest, options = { headers: {} }, httpData = false) {
+    async createIdentityVerification(identityId, createVerificationRequest, options = { headers: {} }) {
         const responseObject = await this.createIdentityVerificationHelper(identityId, createVerificationRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Verify an `Identity`.
+     * @summary Verify an Identity
+     * @param identityId ID of identity to fetch
+     * @param createVerificationRequest
+     */
+    async createIdentityVerificationHttp(identityId, createVerificationRequest, options = { headers: {} }) {
+        const responseObject = await this.createIdentityVerificationHelper(identityId, createVerificationRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -423,19 +446,26 @@ class IdentitiesApi {
      * @summary Fetch an Identity
      * @param identityId ID of the &#x60;identity&#x60; to fetch
      */
-    async get(identityId, options = { headers: {} }, httpData = false) {
+    async get(identityId, options = { headers: {} }) {
         const responseObject = await this.getHelper(identityId, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieve the details of a previously created `Identity`.
+     * @summary Fetch an Identity
+     * @param identityId ID of the &#x60;identity&#x60; to fetch
+     */
+    async getHttp(identityId, options = { headers: {} }) {
+        const responseObject = await this.getHelper(identityId, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -551,19 +581,26 @@ class IdentitiesApi {
      * @summary List Identities
 
     */
-    async list(listIdentitiesQueryParams, options = { headers: {} }, httpData = false) {
+    async list(listIdentitiesQueryParams, options = { headers: {} }) {
         const responseObject = await this.listHelper(listIdentitiesQueryParams, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieves a list of `Identities`.
+     * @summary List Identities
+
+    */
+    async listHttp(listIdentitiesQueryParams, options = { headers: {} }) {
+        const responseObject = await this.listHelper(listIdentitiesQueryParams, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -655,19 +692,28 @@ class IdentitiesApi {
     * @param identityId ID of &#x60;Identity&#x60; to associate object with.
     *
     */
-    async listAssocaiatedIdentities(identityId, listIdentityAssociatedIdentitiesQueryParams, options = { headers: {} }, httpData = false) {
+    async listAssocaiatedIdentities(identityId, listIdentityAssociatedIdentitiesQueryParams, options = { headers: {} }) {
         const responseObject = await this.listAssocaiatedIdentitiesHelper(identityId, listIdentityAssociatedIdentitiesQueryParams, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieve a list of `Associated Identities` for an `Identity`.
+     * @summary List Associated Identities
+
+    * @param identityId ID of &#x60;Identity&#x60; to associate object with.
+    *
+    */
+    async listAssocaiatedIdentitiesHttp(identityId, listIdentityAssociatedIdentitiesQueryParams, options = { headers: {} }) {
+        const responseObject = await this.listAssocaiatedIdentitiesHelper(identityId, listIdentityAssociatedIdentitiesQueryParams, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -747,19 +793,27 @@ class IdentitiesApi {
      * @param identityId ID of the &#x60;identity&#x60; to fetch
      * @param updateIdentityRequest
      */
-    async update(identityId, updateIdentityRequest, options = { headers: {} }, httpData = false) {
+    async update(identityId, updateIdentityRequest, options = { headers: {} }) {
         const responseObject = await this.updateHelper(identityId, updateIdentityRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Update an existing `Identity`.  If you are updating the `Identity` of a `Merchant` that’s already been onboarded, you need to [verify the merchant again](#operation/createMerchantVerification).
+     * @summary Update an Identity
+     * @param identityId ID of the &#x60;identity&#x60; to fetch
+     * @param updateIdentityRequest
+     */
+    async updateHttp(identityId, updateIdentityRequest, options = { headers: {} }) {
+        const responseObject = await this.updateHelper(identityId, updateIdentityRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     async embeddedHelper(responseObject) {
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
@@ -770,4 +824,3 @@ class IdentitiesApi {
     }
 }
 exports.IdentitiesApi = IdentitiesApi;
-//# sourceMappingURL=identitiesApi.js.map

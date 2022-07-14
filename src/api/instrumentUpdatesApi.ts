@@ -13,7 +13,7 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
-
+import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
 import { CreateInstrumentUpdateRequest } from '../model/createInstrumentUpdateRequest';
 import { Error401Unauthorized } from '../model/error401Unauthorized';
@@ -126,7 +126,6 @@ export class InstrumentUpdatesApi {
         let localVarFormParams: any = {};
 
 
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -138,9 +137,14 @@ export class InstrumentUpdatesApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(createInstrumentUpdateRequest, "CreateInstrumentUpdateRequest")
         };
-
+        if (createInstrumentUpdateRequest.hasOwnProperty('file')){
+            createInstrumentUpdateRequest = await this.fileHelper(createInstrumentUpdateRequest);
+            localVarRequestOptions.formData = createInstrumentUpdateRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(createInstrumentUpdateRequest, "CreateInstrumentUpdateRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -183,23 +187,23 @@ export class InstrumentUpdatesApi {
      * @param createInstrumentUpdateRequest 
      */
 
-    public async create(createInstrumentUpdateRequest?: CreateInstrumentUpdateRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async create(createInstrumentUpdateRequest?: CreateInstrumentUpdateRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<InstrumentUpdate> {
         const responseObject = await this.createHelper(createInstrumentUpdateRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * To update the card details of your customers, create an `instrument_updates` resource. Include the `Payment Instrument` IDs you want to update in a CSV. For more info, the following guide on using our [Account Updater](/docs/guides/payments/account-updater/).
+     * @summary Create Instrument Updates
+     * @param createInstrumentUpdateRequest 
+     */
+
+    public async createHttp(createInstrumentUpdateRequest?: CreateInstrumentUpdateRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: InstrumentUpdate; }> {
+        const responseObject = await this.createHelper(createInstrumentUpdateRequest,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Fetch a previously created `instrument_updates` resource as a CSV.   To fetch the `instrument_updates` resource in JSON, add `?format=json` to the request endpoint.
@@ -226,14 +230,12 @@ export class InstrumentUpdatesApi {
         if (instrumentUpdatesId === null || instrumentUpdatesId === undefined) {
             throw new Error('Required parameter instrumentUpdatesId was null or undefined when calling downloadInstrumentUpdate.');
         }
-
         if (downloadInstrumentUpdateQueryParams != undefined){ 
             if (downloadInstrumentUpdateQueryParams.format !== undefined) {
                 localVarQueryParameters['format'] = ObjectSerializer.serialize(downloadInstrumentUpdateQueryParams.format, "string");
             }
 
         }
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -246,7 +248,6 @@ export class InstrumentUpdatesApi {
             useQuerystring: this._useQuerystring,
             encoding: null,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -290,23 +291,24 @@ export class InstrumentUpdatesApi {
     * @param instrumentUpdatesId The ID of the &#x60;instrument_updates&#x60; resource. This ID was returned when initially creating the &#x60;instrument_updates&#x60; object.
     * 
     */
-    public async download (instrumentUpdatesId: string, downloadInstrumentUpdateQueryParams?:DownloadInstrumentUpdateQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise<any> {
+    public async download (instrumentUpdatesId: string, downloadInstrumentUpdateQueryParams?:DownloadInstrumentUpdateQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<Buffer> {
         const responseObject = await this.downloadHelper(instrumentUpdatesId, downloadInstrumentUpdateQueryParams, options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Fetch a previously created `instrument_updates` resource as a CSV.   To fetch the `instrument_updates` resource in JSON, add `?format=json` to the request endpoint.
+     * @summary Download Instrument Updates
+
+    * @param instrumentUpdatesId The ID of the &#x60;instrument_updates&#x60; resource. This ID was returned when initially creating the &#x60;instrument_updates&#x60; object.
+    * 
+    */
+    public async downloadHttp (instrumentUpdatesId: string, downloadInstrumentUpdateQueryParams?:DownloadInstrumentUpdateQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<{response: http.IncomingMessage, body: Buffer; }> {
+        const responseObject = await this.downloadHelper(instrumentUpdatesId, downloadInstrumentUpdateQueryParams, options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Fetch a specific `instrument_update` from an `instrument_updates` resource. For more information, see the guide on using our [Account Updater](/guides/payments/account-updater).
@@ -333,8 +335,6 @@ export class InstrumentUpdatesApi {
             throw new Error('Required parameter instrumentUpdatesId was null or undefined when calling getInstrumentUpdate.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -347,7 +347,6 @@ export class InstrumentUpdatesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -390,21 +389,22 @@ export class InstrumentUpdatesApi {
      * @param instrumentUpdatesId The Id of the instrument update.
      */
 
-    public async get(instrumentUpdatesId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async get(instrumentUpdatesId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<InstrumentUpdate> {
         const responseObject = await this.getHelper(instrumentUpdatesId,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+
+    /**
+     * Fetch a specific `instrument_update` from an `instrument_updates` resource. For more information, see the guide on using our [Account Updater](/guides/payments/account-updater).
+     * @summary Fetch an Instrument Update
+     * @param instrumentUpdatesId The Id of the instrument update.
+     */
+
+    public async getHttp(instrumentUpdatesId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: InstrumentUpdate; }> {
+        const responseObject = await this.getHelper(instrumentUpdatesId,  options);
+        return responseObject;
     }
 
 
@@ -414,5 +414,10 @@ export class InstrumentUpdatesApi {
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
+    }
+
+    private async fileHelper(request: any){
+        request.file = fs.createReadStream(<string>request.file)
+        return request;
     }
 }

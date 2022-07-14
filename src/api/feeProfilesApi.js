@@ -150,19 +150,26 @@ class FeeProfilesApi {
      * @summary Create a Fee Profile
      * @param createFeeProfileRequest
      */
-    async create(createFeeProfileRequest, options = { headers: {} }, httpData = false) {
+    async create(createFeeProfileRequest, options = { headers: {} }) {
         const responseObject = await this.createHelper(createFeeProfileRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Create fee profiles
+     * @summary Create a Fee Profile
+     * @param createFeeProfileRequest
+     */
+    async createHttp(createFeeProfileRequest, options = { headers: {} }) {
+        const responseObject = await this.createHelper(createFeeProfileRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -239,19 +246,26 @@ class FeeProfilesApi {
      * @summary Fetch a Fee Profile
      * @param feeProfileId The ID of the fee profile.
      */
-    async get(feeProfileId, options = { headers: {} }, httpData = false) {
+    async get(feeProfileId, options = { headers: {} }) {
         const responseObject = await this.getHelper(feeProfileId, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Get fee profile
+     * @summary Fetch a Fee Profile
+     * @param feeProfileId The ID of the fee profile.
+     */
+    async getHttp(feeProfileId, options = { headers: {} }) {
+        const responseObject = await this.getHelper(feeProfileId, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -334,19 +348,26 @@ class FeeProfilesApi {
      * @summary List Fee Profiles
 
     */
-    async list(listFeeProfilesQueryParams, options = { headers: {} }, httpData = false) {
+    async list(listFeeProfilesQueryParams, options = { headers: {} }) {
         const responseObject = await this.listHelper(listFeeProfilesQueryParams, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Get all fee profiles
+     * @summary List Fee Profiles
+
+    */
+    async listHttp(listFeeProfilesQueryParams, options = { headers: {} }) {
+        const responseObject = await this.listHelper(listFeeProfilesQueryParams, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     async embeddedHelper(responseObject) {
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
@@ -357,4 +378,3 @@ class FeeProfilesApi {
     }
 }
 exports.FeeProfilesApi = FeeProfilesApi;
-//# sourceMappingURL=feeProfilesApi.js.map

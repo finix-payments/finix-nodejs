@@ -78,4 +78,3 @@ class IdentityEntityBusinessAddress {
     }
 }
 exports.IdentityEntityBusinessAddress = IdentityEntityBusinessAddress;
-//# sourceMappingURL=identityEntityBusinessAddress.js.map

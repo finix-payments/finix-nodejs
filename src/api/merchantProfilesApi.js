@@ -154,19 +154,26 @@ class MerchantProfilesApi {
      * @summary Show Merchant Profile
      * @param merchantProfileId ID of merchant profile
      */
-    async get(merchantProfileId, options = { headers: {} }, httpData = false) {
+    async get(merchantProfileId, options = { headers: {} }) {
         const responseObject = await this.getHelper(merchantProfileId, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Get the merchant profile object
+     * @summary Show Merchant Profile
+     * @param merchantProfileId ID of merchant profile
+     */
+    async getHttp(merchantProfileId, options = { headers: {} }) {
+        const responseObject = await this.getHelper(merchantProfileId, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -252,19 +259,26 @@ class MerchantProfilesApi {
      * @summary List Merchant Profiles
 
     */
-    async list(listMerchantProfilesQueryParams, options = { headers: {} }, httpData = false) {
+    async list(listMerchantProfilesQueryParams, options = { headers: {} }) {
         const responseObject = await this.listHelper(listMerchantProfilesQueryParams, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Get list of all the merchant_profiles objects
+     * @summary List Merchant Profiles
+
+    */
+    async listHttp(listMerchantProfilesQueryParams, options = { headers: {} }) {
+        const responseObject = await this.listHelper(listMerchantProfilesQueryParams, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -344,19 +358,27 @@ class MerchantProfilesApi {
      * @param merchantProfileId ID of merchant profile
      * @param body
      */
-    async update(merchantProfileId, body, options = { headers: {} }, httpData = false) {
+    async update(merchantProfileId, body, options = { headers: {} }) {
         const responseObject = await this.updateHelper(merchantProfileId, body, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Update a merchant profile
+     * @summary Update a Merchant Profile
+     * @param merchantProfileId ID of merchant profile
+     * @param body
+     */
+    async updateHttp(merchantProfileId, body, options = { headers: {} }) {
+        const responseObject = await this.updateHelper(merchantProfileId, body, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     async embeddedHelper(responseObject) {
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
@@ -367,4 +389,3 @@ class MerchantProfilesApi {
     }
 }
 exports.MerchantProfilesApi = MerchantProfilesApi;
-//# sourceMappingURL=merchantProfilesApi.js.map

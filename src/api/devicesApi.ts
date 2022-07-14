@@ -13,7 +13,7 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
-
+import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
 import { CreateDevice } from '../model/createDevice';
 import { Device } from '../model/device';
@@ -131,8 +131,6 @@ export class DevicesApi {
             throw new Error('Required parameter merchantId was null or undefined when calling createMerchantDevice.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -144,9 +142,14 @@ export class DevicesApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(createDevice, "CreateDevice")
         };
-
+        if (createDevice.hasOwnProperty('file')){
+            createDevice = await this.fileHelper(createDevice);
+            localVarRequestOptions.formData = createDevice;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(createDevice, "CreateDevice");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -190,23 +193,24 @@ export class DevicesApi {
      * @param createDevice 
      */
 
-    public async create(merchantId: string, createDevice?: CreateDevice, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async create(merchantId: string, createDevice?: CreateDevice, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Device> {
         const responseObject = await this.createHelper(merchantId, createDevice,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Create a `Device` under a `Merchant`.
+     * @summary Create a Device
+     * @param merchantId ID of the &#x60;Merchant&#x60; object.
+     * @param createDevice 
+     */
+
+    public async createHttp(merchantId: string, createDevice?: CreateDevice, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Device; }> {
+        const responseObject = await this.createHelper(merchantId, createDevice,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Retrieve the details of an existing `Device`.  To check the connectivity of the device, include `?include_connection\\=true \\` at the end of the request endpoint.
@@ -233,8 +237,6 @@ export class DevicesApi {
             throw new Error('Required parameter deviceId was null or undefined when calling getDevice.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -247,7 +249,6 @@ export class DevicesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -290,23 +291,23 @@ export class DevicesApi {
      * @param deviceId ID of the &#x60;Device&#x60;.
      */
 
-    public async get(deviceId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async get(deviceId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Device> {
         const responseObject = await this.getHelper(deviceId,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Retrieve the details of an existing `Device`.  To check the connectivity of the device, include `?include_connection\\=true \\` at the end of the request endpoint.
+     * @summary Get Device
+     * @param deviceId ID of the &#x60;Device&#x60;.
+     */
+
+    public async getHttp(deviceId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Device; }> {
+        const responseObject = await this.getHelper(deviceId,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Update a `Device` to activate or deactivate it.
@@ -334,8 +335,6 @@ export class DevicesApi {
             throw new Error('Required parameter deviceId was null or undefined when calling updateDevice.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -347,9 +346,14 @@ export class DevicesApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(body, "object")
         };
-
+        if (body.hasOwnProperty('file')){
+            body = await this.fileHelper(body);
+            localVarRequestOptions.formData = body;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(body, "object");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -393,21 +397,23 @@ export class DevicesApi {
      * @param body 
      */
 
-    public async update(deviceId: string, body?: object, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async update(deviceId: string, body?: object, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Device> {
         const responseObject = await this.updateHelper(deviceId, body,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+
+    /**
+     * Update a `Device` to activate or deactivate it.
+     * @summary Update a Device
+     * @param deviceId ID of the &#x60;Device&#x60;.
+     * @param body 
+     */
+
+    public async updateHttp(deviceId: string, body?: object, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Device; }> {
+        const responseObject = await this.updateHelper(deviceId, body,  options);
+        return responseObject;
     }
 
 
@@ -417,5 +423,10 @@ export class DevicesApi {
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
+    }
+
+    private async fileHelper(request: any){
+        request.file = fs.createReadStream(<string>request.file)
+        return request;
     }
 }

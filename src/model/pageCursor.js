@@ -42,4 +42,3 @@ class PageCursor {
     }
 }
 exports.PageCursor = PageCursor;
-//# sourceMappingURL=pageCursor.js.map

@@ -51,4 +51,3 @@ class CreateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution {
     }
 }
 exports.CreateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution = CreateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution;
-//# sourceMappingURL=createIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution.js.map

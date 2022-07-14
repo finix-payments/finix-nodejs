@@ -30,4 +30,3 @@ class UpdateTransferRequest {
     }
 }
 exports.UpdateTransferRequest = UpdateTransferRequest;
-//# sourceMappingURL=updateTransferRequest.js.map

@@ -39,4 +39,3 @@ class ProcessorsList {
     }
 }
 exports.ProcessorsList = ProcessorsList;
-//# sourceMappingURL=processorsList.js.map

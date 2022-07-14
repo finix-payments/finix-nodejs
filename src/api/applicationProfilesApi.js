@@ -154,19 +154,26 @@ class ApplicationProfilesApi {
      * @summary Get Application Profile
      * @param applicationProfileId ID of application profile to use
      */
-    async get(applicationProfileId, options = { headers: {} }, httpData = false) {
+    async get(applicationProfileId, options = { headers: {} }) {
         const responseObject = await this.getHelper(applicationProfileId, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Find an existing `application_profile` by ID.
+     * @summary Get Application Profile
+     * @param applicationProfileId ID of application profile to use
+     */
+    async getHttp(applicationProfileId, options = { headers: {} }) {
+        const responseObject = await this.getHelper(applicationProfileId, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -249,19 +256,26 @@ class ApplicationProfilesApi {
      * @summary List Application Profiles
 
     */
-    async list(listApplicationProfilesQueryParams, options = { headers: {} }, httpData = false) {
+    async list(listApplicationProfilesQueryParams, options = { headers: {} }) {
         const responseObject = await this.listHelper(listApplicationProfilesQueryParams, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Return a collection of `application_profiles`.
+     * @summary List Application Profiles
+
+    */
+    async listHttp(listApplicationProfilesQueryParams, options = { headers: {} }) {
+        const responseObject = await this.listHelper(listApplicationProfilesQueryParams, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -341,19 +355,27 @@ class ApplicationProfilesApi {
      * @param applicationProfileId ID of application profile to use
      * @param updateApplicationProfileRequest
      */
-    async update(applicationProfileId, updateApplicationProfileRequest, options = { headers: {} }, httpData = false) {
+    async update(applicationProfileId, updateApplicationProfileRequest, options = { headers: {} }) {
         const responseObject = await this.updateHelper(applicationProfileId, updateApplicationProfileRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Update an existing `application_profile`.
+     * @summary Update Application Profile
+     * @param applicationProfileId ID of application profile to use
+     * @param updateApplicationProfileRequest
+     */
+    async updateHttp(applicationProfileId, updateApplicationProfileRequest, options = { headers: {} }) {
+        const responseObject = await this.updateHelper(applicationProfileId, updateApplicationProfileRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     async embeddedHelper(responseObject) {
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
@@ -364,4 +386,3 @@ class ApplicationProfilesApi {
     }
 }
 exports.ApplicationProfilesApi = ApplicationProfilesApi;
-//# sourceMappingURL=applicationProfilesApi.js.map

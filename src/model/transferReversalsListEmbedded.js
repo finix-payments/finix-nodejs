@@ -27,4 +27,3 @@ class TransferReversalsListEmbedded {
     }
 }
 exports.TransferReversalsListEmbedded = TransferReversalsListEmbedded;
-//# sourceMappingURL=transferReversalsListEmbedded.js.map

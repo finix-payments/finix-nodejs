@@ -30,4 +30,3 @@ class UpdateFeeRequest {
     }
 }
 exports.UpdateFeeRequest = UpdateFeeRequest;
-//# sourceMappingURL=updateFeeRequest.js.map

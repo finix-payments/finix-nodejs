@@ -69,4 +69,3 @@ class CreateIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusines
     }
 }
 exports.CreateIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusinessType = CreateIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusinessType;
-//# sourceMappingURL=createIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusinessType.js.map

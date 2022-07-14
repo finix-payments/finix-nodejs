@@ -13,7 +13,7 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
-
+import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
 import { CreateReversalRequest } from '../model/createReversalRequest';
 import { CreateTransferRequest } from '../model/createTransferRequest';
@@ -132,7 +132,6 @@ export class TransfersApi {
         let localVarFormParams: any = {};
 
 
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -144,9 +143,14 @@ export class TransfersApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(createTransferRequest, "CreateTransferRequest")
         };
-
+        if (createTransferRequest.hasOwnProperty('file')){
+            createTransferRequest = await this.fileHelper(createTransferRequest);
+            localVarRequestOptions.formData = createTransferRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(createTransferRequest, "CreateTransferRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -189,23 +193,23 @@ export class TransfersApi {
      * @param createTransferRequest 
      */
 
-    public async create(createTransferRequest?: CreateTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async create(createTransferRequest?: CreateTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Transfer> {
         const responseObject = await this.createHelper(createTransferRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Create a `Transfer`.   > By default, Finix implements a 3 (business) day delay when debiting bank accounts (i.e. eChecks).
+     * @summary Create a Transfer
+     * @param createTransferRequest 
+     */
+
+    public async createHttp(createTransferRequest?: CreateTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Transfer; }> {
+        const responseObject = await this.createHelper(createTransferRequest,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Reverse a transfer with a `type` of **DEBIT**. This reversal creates a new `Transfer` resource with a `type` of **REVERSAL**.   The refund can get delivered in most cases without the physical card. The card only needs to be swiped (to receive the refund) when:  - The payment type is **DEBIT**, and the transaction is no longer in the batch. - The payment type is **CREDIT**, and the transaction is no longer in the batch and is older than 45 days.
@@ -233,8 +237,6 @@ export class TransfersApi {
             throw new Error('Required parameter transferId was null or undefined when calling createTransferReversal.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -246,9 +248,14 @@ export class TransfersApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(createReversalRequest, "CreateReversalRequest")
         };
-
+        if (createReversalRequest.hasOwnProperty('file')){
+            createReversalRequest = await this.fileHelper(createReversalRequest);
+            localVarRequestOptions.formData = createReversalRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(createReversalRequest, "CreateReversalRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -292,23 +299,24 @@ export class TransfersApi {
      * @param createReversalRequest 
      */
 
-    public async createTransferReversal(transferId: string, createReversalRequest?: CreateReversalRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async createTransferReversal(transferId: string, createReversalRequest?: CreateReversalRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Transfer> {
         const responseObject = await this.createTransferReversalHelper(transferId, createReversalRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Reverse a transfer with a `type` of **DEBIT**. This reversal creates a new `Transfer` resource with a `type` of **REVERSAL**.   The refund can get delivered in most cases without the physical card. The card only needs to be swiped (to receive the refund) when:  - The payment type is **DEBIT**, and the transaction is no longer in the batch. - The payment type is **CREDIT**, and the transaction is no longer in the batch and is older than 45 days.
+     * @summary Refund or Reverse a Transfer
+     * @param transferId ID of &#x60;transfer&#x60; object
+     * @param createReversalRequest 
+     */
+
+    public async createTransferReversalHttp(transferId: string, createReversalRequest?: CreateReversalRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Transfer; }> {
+        const responseObject = await this.createTransferReversalHelper(transferId, createReversalRequest,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Retrieve a `transfer`.
@@ -335,8 +343,6 @@ export class TransfersApi {
             throw new Error('Required parameter transferId was null or undefined when calling getTransfer.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -349,7 +355,6 @@ export class TransfersApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -392,23 +397,23 @@ export class TransfersApi {
      * @param transferId ID of &#x60;transfer&#x60; object.
      */
 
-    public async get(transferId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async get(transferId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Transfer> {
         const responseObject = await this.getHelper(transferId,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Retrieve a `transfer`.
+     * @summary Get a Transfer
+     * @param transferId ID of &#x60;transfer&#x60; object.
+     */
+
+    public async getHttp(transferId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Transfer; }> {
+        const responseObject = await this.getHelper(transferId,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Retrieve a list of reversals for a `Transfer`.
@@ -435,7 +440,6 @@ export class TransfersApi {
         if (transferId === null || transferId === undefined) {
             throw new Error('Required parameter transferId was null or undefined when calling listTransferReversals.');
         }
-
         if (listTransferReversalsQueryParams != undefined){ 
             if (listTransferReversalsQueryParams.limit !== undefined) {
                 localVarQueryParameters['limit'] = ObjectSerializer.serialize(listTransferReversalsQueryParams.limit, "number");
@@ -448,7 +452,6 @@ export class TransfersApi {
             }
 
         }
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -461,7 +464,6 @@ export class TransfersApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -505,23 +507,28 @@ export class TransfersApi {
     * @param transferId ID of &#x60;transfer&#x60; object
     * 
     */
-    public async listTransfersReversals (transferId: string, listTransferReversalsQueryParams?:ListTransferReversalsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise<any> {
+    public async listTransfersReversals (transferId: string, listTransferReversalsQueryParams?:ListTransferReversalsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<SuperSet<any>> {
         const responseObject = await this.listTransfersReversalsHelper(transferId, listTransferReversalsQueryParams, options);
 
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
-        return responseObject.body;
+        let dataList = await this.embeddedHelper(responseObject);
+        return dataList;
     }
 
+    /**
+     * Retrieve a list of reversals for a `Transfer`.
+     * @summary List Reversals on a Transfer
+
+    * @param transferId ID of &#x60;transfer&#x60; object
+    * 
+    */
+    public async listTransfersReversalsHttp (transferId: string, listTransferReversalsQueryParams?:ListTransferReversalsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        const responseObject = await this.listTransfersReversalsHelper(transferId, listTransferReversalsQueryParams, options);
+
+        let dataList = await this.embeddedHelper(responseObject);
+        return Promise.resolve({response: responseObject.response, body: dataList});
+    }
     /**
      * Helper function. 
      * Retrieve a list of `Transfers`.
@@ -640,7 +647,6 @@ export class TransfersApi {
             }
 
         }
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -653,7 +659,6 @@ export class TransfersApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -695,23 +700,26 @@ export class TransfersApi {
      * @summary List Transfers
 
     */
-    public async list (listTransfersQueryParams?:ListTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise<any> {
+    public async list (listTransfersQueryParams?:ListTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<SuperSet<any>> {
         const responseObject = await this.listHelper(listTransfersQueryParams, options);
 
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
-        return responseObject.body;
+        let dataList = await this.embeddedHelper(responseObject);
+        return dataList;
     }
 
+    /**
+     * Retrieve a list of `Transfers`.
+     * @summary List Transfers
+
+    */
+    public async listHttp (listTransfersQueryParams?:ListTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        const responseObject = await this.listHelper(listTransfersQueryParams, options);
+
+        let dataList = await this.embeddedHelper(responseObject);
+        return Promise.resolve({response: responseObject.response, body: dataList});
+    }
     /**
      * Helper function. 
      * Update a `Transfer`.
@@ -739,8 +747,6 @@ export class TransfersApi {
             throw new Error('Required parameter transferId was null or undefined when calling updateTransfer.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -752,9 +758,14 @@ export class TransfersApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(updateTransferRequest, "UpdateTransferRequest")
         };
-
+        if (updateTransferRequest.hasOwnProperty('file')){
+            updateTransferRequest = await this.fileHelper(updateTransferRequest);
+            localVarRequestOptions.formData = updateTransferRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(updateTransferRequest, "UpdateTransferRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -798,21 +809,23 @@ export class TransfersApi {
      * @param updateTransferRequest 
      */
 
-    public async update(transferId: string, updateTransferRequest?: UpdateTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async update(transferId: string, updateTransferRequest?: UpdateTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Transfer> {
         const responseObject = await this.updateHelper(transferId, updateTransferRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+
+    /**
+     * Update a `Transfer`.
+     * @summary Update a Transfer
+     * @param transferId ID of &#x60;transfer&#x60; object.
+     * @param updateTransferRequest 
+     */
+
+    public async updateHttp(transferId: string, updateTransferRequest?: UpdateTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Transfer; }> {
+        const responseObject = await this.updateHelper(transferId, updateTransferRequest,  options);
+        return responseObject;
     }
 
 
@@ -822,5 +835,10 @@ export class TransfersApi {
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
+    }
+
+    private async fileHelper(request: any){
+        request.file = fs.createReadStream(<string>request.file)
+        return request;
     }
 }

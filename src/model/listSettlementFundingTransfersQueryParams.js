@@ -48,4 +48,3 @@ class ListSettlementFundingTransfersQueryParams {
     }
 }
 exports.ListSettlementFundingTransfersQueryParams = ListSettlementFundingTransfersQueryParams;
-//# sourceMappingURL=listSettlementFundingTransfersQueryParams.js.map

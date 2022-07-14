@@ -30,4 +30,3 @@ class ProcessorsListEmbedded {
     }
 }
 exports.ProcessorsListEmbedded = ProcessorsListEmbedded;
-//# sourceMappingURL=processorsListEmbedded.js.map

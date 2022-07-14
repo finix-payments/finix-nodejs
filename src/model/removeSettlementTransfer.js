@@ -30,4 +30,3 @@ class RemoveSettlementTransfer {
     }
 }
 exports.RemoveSettlementTransfer = RemoveSettlementTransfer;
-//# sourceMappingURL=removeSettlementTransfer.js.map

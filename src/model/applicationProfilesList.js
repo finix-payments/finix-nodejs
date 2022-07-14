@@ -39,4 +39,3 @@ class ApplicationProfilesList {
     }
 }
 exports.ApplicationProfilesList = ApplicationProfilesList;
-//# sourceMappingURL=applicationProfilesList.js.map

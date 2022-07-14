@@ -30,4 +30,3 @@ class UpdateSubscriptionScheduleRequest {
     }
 }
 exports.UpdateSubscriptionScheduleRequest = UpdateSubscriptionScheduleRequest;
-//# sourceMappingURL=updateSubscriptionScheduleRequest.js.map

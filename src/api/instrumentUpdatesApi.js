@@ -150,19 +150,26 @@ class InstrumentUpdatesApi {
      * @summary Create Instrument Updates
      * @param createInstrumentUpdateRequest
      */
-    async create(createInstrumentUpdateRequest, options = { headers: {} }, httpData = false) {
+    async create(createInstrumentUpdateRequest, options = { headers: {} }) {
         const responseObject = await this.createHelper(createInstrumentUpdateRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * To update the card details of your customers, create an `instrument_updates` resource. Include the `Payment Instrument` IDs you want to update in a CSV. For more info, the following guide on using our [Account Updater](/docs/guides/payments/account-updater/).
+     * @summary Create Instrument Updates
+     * @param createInstrumentUpdateRequest
+     */
+    async createHttp(createInstrumentUpdateRequest, options = { headers: {} }) {
+        const responseObject = await this.createHelper(createInstrumentUpdateRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -248,19 +255,28 @@ class InstrumentUpdatesApi {
     * @param instrumentUpdatesId The ID of the &#x60;instrument_updates&#x60; resource. This ID was returned when initially creating the &#x60;instrument_updates&#x60; object.
     *
     */
-    async download(instrumentUpdatesId, downloadInstrumentUpdateQueryParams, options = { headers: {} }, httpData = false) {
+    async download(instrumentUpdatesId, downloadInstrumentUpdateQueryParams, options = { headers: {} }) {
         const responseObject = await this.downloadHelper(instrumentUpdatesId, downloadInstrumentUpdateQueryParams, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Fetch a previously created `instrument_updates` resource as a CSV.   To fetch the `instrument_updates` resource in JSON, add `?format=json` to the request endpoint.
+     * @summary Download Instrument Updates
+
+    * @param instrumentUpdatesId The ID of the &#x60;instrument_updates&#x60; resource. This ID was returned when initially creating the &#x60;instrument_updates&#x60; object.
+    *
+    */
+    async downloadHttp(instrumentUpdatesId, downloadInstrumentUpdateQueryParams, options = { headers: {} }) {
+        const responseObject = await this.downloadHelper(instrumentUpdatesId, downloadInstrumentUpdateQueryParams, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -337,19 +353,26 @@ class InstrumentUpdatesApi {
      * @summary Fetch an Instrument Update
      * @param instrumentUpdatesId The Id of the instrument update.
      */
-    async get(instrumentUpdatesId, options = { headers: {} }, httpData = false) {
+    async get(instrumentUpdatesId, options = { headers: {} }) {
         const responseObject = await this.getHelper(instrumentUpdatesId, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Fetch a specific `instrument_update` from an `instrument_updates` resource. For more information, see the guide on using our [Account Updater](/guides/payments/account-updater).
+     * @summary Fetch an Instrument Update
+     * @param instrumentUpdatesId The Id of the instrument update.
+     */
+    async getHttp(instrumentUpdatesId, options = { headers: {} }) {
+        const responseObject = await this.getHelper(instrumentUpdatesId, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     async embeddedHelper(responseObject) {
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
@@ -360,4 +383,3 @@ class InstrumentUpdatesApi {
     }
 }
 exports.InstrumentUpdatesApi = InstrumentUpdatesApi;
-//# sourceMappingURL=instrumentUpdatesApi.js.map

@@ -150,19 +150,26 @@ class VerificationsApi {
      * @summary Perform a Verification
      * @param createVerificationRequest
      */
-    async create(createVerificationRequest, options = { headers: {} }, httpData = false) {
+    async create(createVerificationRequest, options = { headers: {} }) {
         const responseObject = await this.createHelper(createVerificationRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Create a `verification` to verify an `Identity` or `Payment Instrument`.  Verifications can also be created directly on the resources you want to verify: - `POST /merchants/{id}/verifications` - `POST /payment_instruments/{id}/verifications`
+     * @summary Perform a Verification
+     * @param createVerificationRequest
+     */
+    async createHttp(createVerificationRequest, options = { headers: {} }) {
+        const responseObject = await this.createHelper(createVerificationRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -239,19 +246,26 @@ class VerificationsApi {
      * @summary Get a Verification
      * @param verificationId ID of &#x60;Verification&#x60; object.
      */
-    async get(verificationId, options = { headers: {} }, httpData = false) {
+    async get(verificationId, options = { headers: {} }) {
         const responseObject = await this.getHelper(verificationId, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieve the details of a `Verification`.
+     * @summary Get a Verification
+     * @param verificationId ID of &#x60;Verification&#x60; object.
+     */
+    async getHttp(verificationId, options = { headers: {} }) {
+        const responseObject = await this.getHelper(verificationId, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -343,19 +357,28 @@ class VerificationsApi {
     * @param merchantId ID of &#x60;Merchant&#x60; object.
     *
     */
-    async listByMerchantId(merchantId, listMerchantVerificationsQueryParams, options = { headers: {} }, httpData = false) {
+    async listByMerchantId(merchantId, listMerchantVerificationsQueryParams, options = { headers: {} }) {
         const responseObject = await this.listByMerchantIdHelper(merchantId, listMerchantVerificationsQueryParams, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Get a list of all the `Verifications` in the `Merchant` object.
+     * @summary List Merchant Verifications
+
+    * @param merchantId ID of &#x60;Merchant&#x60; object.
+    *
+    */
+    async listByMerchantIdHttp(merchantId, listMerchantVerificationsQueryParams, options = { headers: {} }) {
+        const responseObject = await this.listByMerchantIdHelper(merchantId, listMerchantVerificationsQueryParams, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -432,19 +455,26 @@ class VerificationsApi {
      * @summary List Verifications
 
     */
-    async list(listVerificationsQueryParams, options = { headers: {} }, httpData = false) {
+    async list(listVerificationsQueryParams, options = { headers: {} }) {
         const responseObject = await this.listHelper(listVerificationsQueryParams, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieve a list of `Verifications`.
+     * @summary List Verifications
+
+    */
+    async listHttp(listVerificationsQueryParams, options = { headers: {} }) {
+        const responseObject = await this.listHelper(listVerificationsQueryParams, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     async embeddedHelper(responseObject) {
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
@@ -455,4 +485,3 @@ class VerificationsApi {
     }
 }
 exports.VerificationsApi = VerificationsApi;
-//# sourceMappingURL=verificationsApi.js.map

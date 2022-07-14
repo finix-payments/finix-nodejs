@@ -42,4 +42,3 @@ class VerificationLinks {
     }
 }
 exports.VerificationLinks = VerificationLinks;
-//# sourceMappingURL=verificationLinks.js.map

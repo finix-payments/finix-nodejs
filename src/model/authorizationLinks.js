@@ -54,4 +54,3 @@ class AuthorizationLinks {
     }
 }
 exports.AuthorizationLinks = AuthorizationLinks;
-//# sourceMappingURL=authorizationLinks.js.map

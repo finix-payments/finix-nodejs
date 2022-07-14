@@ -30,4 +30,3 @@ class UploadFileRequest {
     }
 }
 exports.UploadFileRequest = UploadFileRequest;
-//# sourceMappingURL=uploadFileRequest.js.map

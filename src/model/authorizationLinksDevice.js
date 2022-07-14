@@ -30,4 +30,3 @@ class AuthorizationLinksDevice {
     }
 }
 exports.AuthorizationLinksDevice = AuthorizationLinksDevice;
-//# sourceMappingURL=authorizationLinksDevice.js.map

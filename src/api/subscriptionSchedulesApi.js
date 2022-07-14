@@ -164,19 +164,28 @@ class SubscriptionSchedulesApi {
      * @param nickname Filter by the object\&#39;s &#x60;nickname&#x60;.
      * @param type Filter by the object\&#39;s &#x60;subscription_type&#x60;.
      */
-    async get(subscriptionScheduleId, nickname, type, options = { headers: {} }, httpData = false) {
+    async get(subscriptionScheduleId, nickname, type, options = { headers: {} }) {
         const responseObject = await this.getHelper(subscriptionScheduleId, nickname, type, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieve the details of a `subscription_schedule`
+     * @summary Get a Subscription Schedule
+     * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
+     * @param nickname Filter by the object\&#39;s &#x60;nickname&#x60;.
+     * @param type Filter by the object\&#39;s &#x60;subscription_type&#x60;.
+     */
+    async getHttp(subscriptionScheduleId, nickname, type, options = { headers: {} }) {
+        const responseObject = await this.getHelper(subscriptionScheduleId, nickname, type, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -256,19 +265,26 @@ class SubscriptionSchedulesApi {
      * @summary List Subscription Schedules
 
     */
-    async list(listSubscriptionSchedulesQueryParams, options = { headers: {} }, httpData = false) {
+    async list(listSubscriptionSchedulesQueryParams, options = { headers: {} }) {
         const responseObject = await this.listHelper(listSubscriptionSchedulesQueryParams, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieve a list of `Subscription Schedules`.
+     * @summary List Subscription Schedules
+
+    */
+    async listHttp(listSubscriptionSchedulesQueryParams, options = { headers: {} }) {
+        const responseObject = await this.listHelper(listSubscriptionSchedulesQueryParams, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -341,19 +357,26 @@ class SubscriptionSchedulesApi {
      * @summary Create a Subscription Schedule
      * @param createSubscriptionScheduleRequest
      */
-    async create(createSubscriptionScheduleRequest, options = { headers: {} }, httpData = false) {
+    async create(createSubscriptionScheduleRequest, options = { headers: {} }) {
         const responseObject = await this.createHelper(createSubscriptionScheduleRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Create a `subscription_schedule`.
+     * @summary Create a Subscription Schedule
+     * @param createSubscriptionScheduleRequest
+     */
+    async createHttp(createSubscriptionScheduleRequest, options = { headers: {} }) {
+        const responseObject = await this.createHelper(createSubscriptionScheduleRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -433,19 +456,27 @@ class SubscriptionSchedulesApi {
      * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
      * @param updateSubscriptionScheduleRequest
      */
-    async update(subscriptionScheduleId, updateSubscriptionScheduleRequest, options = { headers: {} }, httpData = false) {
+    async update(subscriptionScheduleId, updateSubscriptionScheduleRequest, options = { headers: {} }) {
         const responseObject = await this.updateHelper(subscriptionScheduleId, updateSubscriptionScheduleRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Update the details of a `subscription_schedule`.
+     * @summary Update a Subscription Schedule
+     * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
+     * @param updateSubscriptionScheduleRequest
+     */
+    async updateHttp(subscriptionScheduleId, updateSubscriptionScheduleRequest, options = { headers: {} }) {
+        const responseObject = await this.updateHelper(subscriptionScheduleId, updateSubscriptionScheduleRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     async embeddedHelper(responseObject) {
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
@@ -456,4 +487,3 @@ class SubscriptionSchedulesApi {
     }
 }
 exports.SubscriptionSchedulesApi = SubscriptionSchedulesApi;
-//# sourceMappingURL=subscriptionSchedulesApi.js.map

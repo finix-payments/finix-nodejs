@@ -2,7 +2,7 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
-
+import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
 {{#imports}}
 import { {{classname}} } from '{{filename}}';
@@ -200,7 +200,6 @@ export class {{classname}} {
         if ({{paramName}} === null || {{paramName}} === undefined) {
             throw new Error('Required parameter {{paramName}} was null or undefined when calling {{nickname}}.');
         }
-
 {{/required}}
 {{/allParams}}
 {{#vendorExtensions.x-group-parameters}}
@@ -224,7 +223,6 @@ export class {{classname}} {
 {{#vendorExtensions.x-group-parameters}}
         }
 {{/vendorExtensions.x-group-parameters}} 
-
 {{#headerParams}}
         localVarHeaderParams['{{baseName}}'] = ObjectSerializer.serialize({{paramName}}, "{{{dataType}}}");
 {{/headerParams}}
@@ -258,11 +256,16 @@ export class {{classname}} {
 {{#isResponseFile}}
             encoding: null,
 {{/isResponseFile}}
-{{#bodyParam}}
-            body: ObjectSerializer.serialize({{paramName}}, "{{{dataType}}}")
-{{/bodyParam}}
         };
-
+        {{#bodyParam}}
+        if ({{paramName}}.hasOwnProperty('file')){
+            {{paramName}} = await this.fileHelper({{paramName}});
+            localVarRequestOptions.formData = {{paramName}};
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize({{paramName}}, "{{{dataType}}}");   
+        }
+        {{/bodyParam}}
         let authenticationPromise = Promise.resolve();
 {{#authMethods}}
     {{#isApiKey}}
@@ -341,13 +344,14 @@ export class {{classname}} {
     {{/allParams}}
     */
     {{/vendorExtensions.x-group-parameters}}
+    {{#vendorExtensions.x-returns-list}}
     {{^vendorExtensions.x-group-parameters}}
-    public async {{#vendorExtensions.x-java-method-name}}{{{.}}}{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}{{/vendorExtensions.x-java-method-name}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async {{#vendorExtensions.x-java-method-name}}{{{.}}}{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}{{/vendorExtensions.x-java-method-name}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<SuperSet<any>> {
     {{/vendorExtensions.x-group-parameters}}    
     {{#vendorExtensions.x-group-parameters}}
-    public async {{#vendorExtensions.x-java-method-name}}{{{.}}}{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}{{/vendorExtensions.x-java-method-name}} ({{#allParams}}{{#required}}{{paramName}}: {{{dataType}}}, {{/required}}{{/allParams}}{{nickname}}QueryParams?:{{#lambda.titlecase}}{{nickname}}QueryParams{{/lambda.titlecase}}, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise<any> {
+    public async {{#vendorExtensions.x-java-method-name}}{{{.}}}{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}{{/vendorExtensions.x-java-method-name}} ({{#allParams}}{{#required}}{{paramName}}: {{{dataType}}}, {{/required}}{{/allParams}}{{nickname}}QueryParams?:{{#lambda.titlecase}}{{nickname}}QueryParams{{/lambda.titlecase}}, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<SuperSet<any>> {
     {{/vendorExtensions.x-group-parameters}} 
         {{^vendorExtensions.x-group-parameters}}
         const responseObject = await this.{{#vendorExtensions.x-java-method-name}}{{{.}}}Helper{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Helper{{/vendorExtensions.x-java-method-name}}({{#allParams}}{{paramName}}, {{/allParams}} options);
@@ -356,20 +360,90 @@ export class {{classname}} {
         const responseObject = await this.{{#vendorExtensions.x-java-method-name}}{{{.}}}Helper{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Helper{{/vendorExtensions.x-java-method-name}}({{#allParams}}{{#required}}{{paramName}}, {{/required}}{{/allParams}}{{nickname}}QueryParams, options);
         {{/vendorExtensions.x-group-parameters}}
 
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
+        let dataList = await this.embeddedHelper(responseObject);
+        return dataList;
+    }
+    {{/vendorExtensions.x-returns-list}}
+    {{^vendorExtensions.x-returns-list}}
+    {{^vendorExtensions.x-group-parameters}}
+    public async {{#vendorExtensions.x-java-method-name}}{{{.}}}{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}{{/vendorExtensions.x-java-method-name}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{{#returnType}}{{.}}{{/returnType}}{{^returnType}}any{{/returnType}}> {
+    {{/vendorExtensions.x-group-parameters}}    
+    {{#vendorExtensions.x-group-parameters}}
+    public async {{#vendorExtensions.x-java-method-name}}{{{.}}}{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}{{/vendorExtensions.x-java-method-name}} ({{#allParams}}{{#required}}{{paramName}}: {{{dataType}}}, {{/required}}{{/allParams}}{{nickname}}QueryParams?:{{#lambda.titlecase}}{{nickname}}QueryParams{{/lambda.titlecase}}, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<{{#returnType}}{{.}}{{/returnType}}{{^returnType}}any{{/returnType}}> {
+    {{/vendorExtensions.x-group-parameters}} 
+        {{^vendorExtensions.x-group-parameters}}
+        const responseObject = await this.{{#vendorExtensions.x-java-method-name}}{{{.}}}Helper{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Helper{{/vendorExtensions.x-java-method-name}}({{#allParams}}{{paramName}}, {{/allParams}} options);
+        {{/vendorExtensions.x-group-parameters}}
+        {{#vendorExtensions.x-group-parameters}}
+        const responseObject = await this.{{#vendorExtensions.x-java-method-name}}{{{.}}}Helper{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Helper{{/vendorExtensions.x-java-method-name}}({{#allParams}}{{#required}}{{paramName}}, {{/required}}{{/allParams}}{{nickname}}QueryParams, options);
+        {{/vendorExtensions.x-group-parameters}}
         return responseObject.body;
     }
+    {{/vendorExtensions.x-returns-list}}
 
+    /**
+     * {{&notes}}
+     {{#summary}}
+     * @summary {{&summary}}
+     {{/summary}}
+     {{^vendorExtensions.x-group-parameters}}
+     {{#allParams}}
+     * @param {{paramName}} {{description}}
+     {{/allParams}}
+     */
+    {{/vendorExtensions.x-group-parameters}}  
+
+    {{#vendorExtensions.x-group-parameters}}
+    {{#allParams}}
+    {{#required}}
+    * @param {{paramName}} {{description}}
+    * 
+    {{/required}}
+    {{/allParams}}
+    */
+    {{/vendorExtensions.x-group-parameters}}
+    {{#vendorExtensions.x-returns-list}}
+    {{^vendorExtensions.x-group-parameters}}
+    public async {{#vendorExtensions.x-java-method-name}}{{{.}}}Http{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Http{{/vendorExtensions.x-java-method-name}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+    {{/vendorExtensions.x-group-parameters}}    
+    {{#vendorExtensions.x-group-parameters}}
+    public async {{#vendorExtensions.x-java-method-name}}{{{.}}}Http{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Http{{/vendorExtensions.x-java-method-name}} ({{#allParams}}{{#required}}{{paramName}}: {{{dataType}}}, {{/required}}{{/allParams}}{{nickname}}QueryParams?:{{#lambda.titlecase}}{{nickname}}QueryParams{{/lambda.titlecase}}, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+    {{/vendorExtensions.x-group-parameters}} 
+        {{^vendorExtensions.x-group-parameters}}
+        const responseObject = await this.{{#vendorExtensions.x-java-method-name}}{{{.}}}Helper{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Helper{{/vendorExtensions.x-java-method-name}}({{#allParams}}{{paramName}}, {{/allParams}} options);
+        {{/vendorExtensions.x-group-parameters}}
+        {{#vendorExtensions.x-group-parameters}}
+        const responseObject = await this.{{#vendorExtensions.x-java-method-name}}{{{.}}}Helper{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Helper{{/vendorExtensions.x-java-method-name}}({{#allParams}}{{#required}}{{paramName}}, {{/required}}{{/allParams}}{{nickname}}QueryParams, options);
+        {{/vendorExtensions.x-group-parameters}}
+
+        let dataList = await this.embeddedHelper(responseObject);
+        return Promise.resolve({response: responseObject.response, body: dataList});
+    }
+    {{/vendorExtensions.x-returns-list}}
+    {{^vendorExtensions.x-returns-list}}
+    {{^vendorExtensions.x-group-parameters}}
+    public async {{#vendorExtensions.x-java-method-name}}{{{.}}}Http{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Http{{/vendorExtensions.x-java-method-name}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, {{#returnType}}body: {{{.}}}; {{/returnType}}{{^returnType}}body?: any; {{/returnType}}}> {
+    {{/vendorExtensions.x-group-parameters}}    
+    {{#vendorExtensions.x-group-parameters}}
+    public async {{#vendorExtensions.x-java-method-name}}{{{.}}}Http{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Http{{/vendorExtensions.x-java-method-name}} ({{#allParams}}{{#required}}{{paramName}}: {{{dataType}}}, {{/required}}{{/allParams}}{{nickname}}QueryParams?:{{#lambda.titlecase}}{{nickname}}QueryParams{{/lambda.titlecase}}, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<{response: http.IncomingMessage, {{#returnType}}body: {{{.}}}; {{/returnType}}{{^returnType}}body?: any; {{/returnType}}}> {
+    {{/vendorExtensions.x-group-parameters}} 
+        {{^vendorExtensions.x-group-parameters}}
+        const responseObject = await this.{{#vendorExtensions.x-java-method-name}}{{{.}}}Helper{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Helper{{/vendorExtensions.x-java-method-name}}({{#allParams}}{{paramName}}, {{/allParams}} options);
+        {{/vendorExtensions.x-group-parameters}}
+        {{#vendorExtensions.x-group-parameters}}
+        const responseObject = await this.{{#vendorExtensions.x-java-method-name}}{{{.}}}Helper{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Helper{{/vendorExtensions.x-java-method-name}}({{#allParams}}{{#required}}{{paramName}}, {{/required}}{{/allParams}}{{nickname}}QueryParams, options);
+        {{/vendorExtensions.x-group-parameters}}
+        return responseObject;
+    }
+    {{/vendorExtensions.x-returns-list}}
 {{/operation}}
+
 
     private async embeddedHelper(responseObject: any){
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
@@ -377,6 +451,11 @@ export class {{classname}} {
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
+    }
+
+    private async fileHelper(request: any){
+        request.file = fs.createReadStream(<string>request.file)
+        return request;
     }
 }
 {{/operations}}

@@ -13,7 +13,7 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
-
+import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
 import { ApplicationProfile } from '../model/applicationProfile';
 import { ApplicationProfilesList } from '../model/applicationProfilesList';
@@ -131,8 +131,6 @@ export class ApplicationProfilesApi {
             throw new Error('Required parameter applicationProfileId was null or undefined when calling getApplicationProfile.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -145,7 +143,6 @@ export class ApplicationProfilesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -188,23 +185,23 @@ export class ApplicationProfilesApi {
      * @param applicationProfileId ID of application profile to use
      */
 
-    public async get(applicationProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async get(applicationProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<ApplicationProfile> {
         const responseObject = await this.getHelper(applicationProfileId,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Find an existing `application_profile` by ID.
+     * @summary Get Application Profile
+     * @param applicationProfileId ID of application profile to use
+     */
+
+    public async getHttp(applicationProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: ApplicationProfile; }> {
+        const responseObject = await this.getHelper(applicationProfileId,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Return a collection of `application_profiles`.
@@ -236,7 +233,6 @@ export class ApplicationProfilesApi {
             }
 
         }
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -249,7 +245,6 @@ export class ApplicationProfilesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -291,23 +286,26 @@ export class ApplicationProfilesApi {
      * @summary List Application Profiles
 
     */
-    public async list (listApplicationProfilesQueryParams?:ListApplicationProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise<any> {
+    public async list (listApplicationProfilesQueryParams?:ListApplicationProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<SuperSet<any>> {
         const responseObject = await this.listHelper(listApplicationProfilesQueryParams, options);
 
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
-        return responseObject.body;
+        let dataList = await this.embeddedHelper(responseObject);
+        return dataList;
     }
 
+    /**
+     * Return a collection of `application_profiles`.
+     * @summary List Application Profiles
+
+    */
+    public async listHttp (listApplicationProfilesQueryParams?:ListApplicationProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        const responseObject = await this.listHelper(listApplicationProfilesQueryParams, options);
+
+        let dataList = await this.embeddedHelper(responseObject);
+        return Promise.resolve({response: responseObject.response, body: dataList});
+    }
     /**
      * Helper function. 
      * Update an existing `application_profile`.
@@ -335,8 +333,6 @@ export class ApplicationProfilesApi {
             throw new Error('Required parameter applicationProfileId was null or undefined when calling updateApplicationProfile.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -348,9 +344,14 @@ export class ApplicationProfilesApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(updateApplicationProfileRequest, "UpdateApplicationProfileRequest")
         };
-
+        if (updateApplicationProfileRequest.hasOwnProperty('file')){
+            updateApplicationProfileRequest = await this.fileHelper(updateApplicationProfileRequest);
+            localVarRequestOptions.formData = updateApplicationProfileRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(updateApplicationProfileRequest, "UpdateApplicationProfileRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -394,21 +395,23 @@ export class ApplicationProfilesApi {
      * @param updateApplicationProfileRequest 
      */
 
-    public async update(applicationProfileId: string, updateApplicationProfileRequest?: UpdateApplicationProfileRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async update(applicationProfileId: string, updateApplicationProfileRequest?: UpdateApplicationProfileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<ApplicationProfile> {
         const responseObject = await this.updateHelper(applicationProfileId, updateApplicationProfileRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+
+    /**
+     * Update an existing `application_profile`.
+     * @summary Update Application Profile
+     * @param applicationProfileId ID of application profile to use
+     * @param updateApplicationProfileRequest 
+     */
+
+    public async updateHttp(applicationProfileId: string, updateApplicationProfileRequest?: UpdateApplicationProfileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: ApplicationProfile; }> {
+        const responseObject = await this.updateHelper(applicationProfileId, updateApplicationProfileRequest,  options);
+        return responseObject;
     }
 
 
@@ -418,5 +421,10 @@ export class ApplicationProfilesApi {
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
+    }
+
+    private async fileHelper(request: any){
+        request.file = fs.createReadStream(<string>request.file)
+        return request;
     }
 }

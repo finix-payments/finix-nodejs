@@ -150,4 +150,3 @@ class Device {
     }
 }
 exports.Device = Device;
-//# sourceMappingURL=device.js.map

@@ -30,4 +30,3 @@ class IdentityLinksPaymentInstruments {
     }
 }
 exports.IdentityLinksPaymentInstruments = IdentityLinksPaymentInstruments;
-//# sourceMappingURL=identityLinksPaymentInstruments.js.map

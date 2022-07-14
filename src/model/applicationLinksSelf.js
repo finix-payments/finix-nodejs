@@ -30,4 +30,3 @@ class ApplicationLinksSelf {
     }
 }
 exports.ApplicationLinksSelf = ApplicationLinksSelf;
-//# sourceMappingURL=applicationLinksSelf.js.map

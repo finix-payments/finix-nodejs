@@ -13,7 +13,7 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
-
+import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
 import { ApplePaySession } from '../model/applePaySession';
 import { ApplePaySessionRequest } from '../model/applePaySessionRequest';
@@ -133,7 +133,6 @@ export class PaymentInstrumentsApi {
         let localVarFormParams: any = {};
 
 
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -145,9 +144,14 @@ export class PaymentInstrumentsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(applePaySessionRequest, "ApplePaySessionRequest")
         };
-
+        if (applePaySessionRequest.hasOwnProperty('file')){
+            applePaySessionRequest = await this.fileHelper(applePaySessionRequest);
+            localVarRequestOptions.formData = applePaySessionRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(applePaySessionRequest, "ApplePaySessionRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -190,23 +194,23 @@ export class PaymentInstrumentsApi {
      * @param applePaySessionRequest 
      */
 
-    public async createApplePaySession(applePaySessionRequest?: ApplePaySessionRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async createApplePaySession(applePaySessionRequest?: ApplePaySessionRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<ApplePaySession> {
         const responseObject = await this.createApplePaySessionHelper(applePaySessionRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Create an `apple_pay_session` to process Apple Pay transactions on the web.  To create an Apple Pay Session, pass the unique `validation_url` (provided by Apple) while creating an `apple_pay_sessions` resource. Finix returns a `merchantSession` object that you can use to create a payment. For more information, see [Apple Pay](/docs/guides/payments/alternative-payment-methods/apple-pay/).
+     * @summary Create an Apple Pay Session
+     * @param applePaySessionRequest 
+     */
+
+    public async createApplePaySessionHttp(applePaySessionRequest?: ApplePaySessionRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: ApplePaySession; }> {
+        const responseObject = await this.createApplePaySessionHelper(applePaySessionRequest,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Create a `Payment Instrument` resource using a card or bank account.  To accept payment details, review our guide on how to [tokenize cards using hosted fields](/guides/payments/tokenization-with-hosted-fields).  > The creation of `Payment Instruments` using cards directly via Finix\'s API should only be done for testing purposes. You must use the Hosted Tokenization fields or javascript client to remain out of PCI scope.
@@ -228,7 +232,6 @@ export class PaymentInstrumentsApi {
         let localVarFormParams: any = {};
 
 
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -240,9 +243,14 @@ export class PaymentInstrumentsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(createPaymentInstrumentRequest, "CreatePaymentInstrumentRequest")
         };
-
+        if (createPaymentInstrumentRequest.hasOwnProperty('file')){
+            createPaymentInstrumentRequest = await this.fileHelper(createPaymentInstrumentRequest);
+            localVarRequestOptions.formData = createPaymentInstrumentRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(createPaymentInstrumentRequest, "CreatePaymentInstrumentRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -285,23 +293,23 @@ export class PaymentInstrumentsApi {
      * @param createPaymentInstrumentRequest 
      */
 
-    public async create(createPaymentInstrumentRequest?: CreatePaymentInstrumentRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async create(createPaymentInstrumentRequest?: CreatePaymentInstrumentRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<PaymentInstrument> {
         const responseObject = await this.createHelper(createPaymentInstrumentRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Create a `Payment Instrument` resource using a card or bank account.  To accept payment details, review our guide on how to [tokenize cards using hosted fields](/guides/payments/tokenization-with-hosted-fields).  > The creation of `Payment Instruments` using cards directly via Finix\'s API should only be done for testing purposes. You must use the Hosted Tokenization fields or javascript client to remain out of PCI scope.
+     * @summary Create a Payment Instrument
+     * @param createPaymentInstrumentRequest 
+     */
+
+    public async createHttp(createPaymentInstrumentRequest?: CreatePaymentInstrumentRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: PaymentInstrument; }> {
+        const responseObject = await this.createHelper(createPaymentInstrumentRequest,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Verify a `Payment Instrument` to determine if it\'s elligable for Push To Card transactions.   > Only verify `Payment Instruments` for [Push To Card](/guides/push-to-card) customers.
@@ -329,8 +337,6 @@ export class PaymentInstrumentsApi {
             throw new Error('Required parameter paymentInstrumentId was null or undefined when calling createPaymentInstrumentVerification.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -342,9 +348,14 @@ export class PaymentInstrumentsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(createVerificationRequest, "CreateVerificationRequest")
         };
-
+        if (createVerificationRequest.hasOwnProperty('file')){
+            createVerificationRequest = await this.fileHelper(createVerificationRequest);
+            localVarRequestOptions.formData = createVerificationRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(createVerificationRequest, "CreateVerificationRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -388,23 +399,24 @@ export class PaymentInstrumentsApi {
      * @param createVerificationRequest 
      */
 
-    public async createPaymentInstrumentVerification(paymentInstrumentId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async createPaymentInstrumentVerification(paymentInstrumentId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Verification> {
         const responseObject = await this.createPaymentInstrumentVerificationHelper(paymentInstrumentId, createVerificationRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Verify a `Payment Instrument` to determine if it\'s elligable for Push To Card transactions.   > Only verify `Payment Instruments` for [Push To Card](/guides/push-to-card) customers.
+     * @summary Verify a Payment Instrument
+     * @param paymentInstrumentId ID of object
+     * @param createVerificationRequest 
+     */
+
+    public async createPaymentInstrumentVerificationHttp(paymentInstrumentId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Verification; }> {
+        const responseObject = await this.createPaymentInstrumentVerificationHelper(paymentInstrumentId, createVerificationRequest,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Retrieve the details of a `Payment Instrument`.
@@ -431,8 +443,6 @@ export class PaymentInstrumentsApi {
             throw new Error('Required parameter paymentInstrumentId was null or undefined when calling getPaymentInstrument.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -445,7 +455,6 @@ export class PaymentInstrumentsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -488,23 +497,23 @@ export class PaymentInstrumentsApi {
      * @param paymentInstrumentId ID of object
      */
 
-    public async get(paymentInstrumentId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async get(paymentInstrumentId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<PaymentInstrument> {
         const responseObject = await this.getHelper(paymentInstrumentId,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Retrieve the details of a `Payment Instrument`.
+     * @summary Get a Payment Instrument
+     * @param paymentInstrumentId ID of object
+     */
+
+    public async getHttp(paymentInstrumentId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: PaymentInstrument; }> {
+        const responseObject = await this.getHelper(paymentInstrumentId,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Retrieve a list of `Payment Instruments`.
@@ -572,7 +581,6 @@ export class PaymentInstrumentsApi {
             }
 
         }
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -585,7 +593,6 @@ export class PaymentInstrumentsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -627,23 +634,26 @@ export class PaymentInstrumentsApi {
      * @summary List Payment Instruments
 
     */
-    public async list (listPaymentInstrumentsQueryParams?:ListPaymentInstrumentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise<any> {
+    public async list (listPaymentInstrumentsQueryParams?:ListPaymentInstrumentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<SuperSet<any>> {
         const responseObject = await this.listHelper(listPaymentInstrumentsQueryParams, options);
 
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
-        return responseObject.body;
+        let dataList = await this.embeddedHelper(responseObject);
+        return dataList;
     }
 
+    /**
+     * Retrieve a list of `Payment Instruments`.
+     * @summary List Payment Instruments
+
+    */
+    public async listHttp (listPaymentInstrumentsQueryParams?:ListPaymentInstrumentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        const responseObject = await this.listHelper(listPaymentInstrumentsQueryParams, options);
+
+        let dataList = await this.embeddedHelper(responseObject);
+        return Promise.resolve({response: responseObject.response, body: dataList});
+    }
     /**
      * Helper function. 
      * Update a `Payment Instrument`.
@@ -671,8 +681,6 @@ export class PaymentInstrumentsApi {
             throw new Error('Required parameter paymentInstrumentId was null or undefined when calling updatePaymentInstrument.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -684,9 +692,14 @@ export class PaymentInstrumentsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(updatePaymentInstrumentRequest, "UpdatePaymentInstrumentRequest")
         };
-
+        if (updatePaymentInstrumentRequest.hasOwnProperty('file')){
+            updatePaymentInstrumentRequest = await this.fileHelper(updatePaymentInstrumentRequest);
+            localVarRequestOptions.formData = updatePaymentInstrumentRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(updatePaymentInstrumentRequest, "UpdatePaymentInstrumentRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -730,21 +743,23 @@ export class PaymentInstrumentsApi {
      * @param updatePaymentInstrumentRequest 
      */
 
-    public async update(paymentInstrumentId: string, updatePaymentInstrumentRequest?: UpdatePaymentInstrumentRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async update(paymentInstrumentId: string, updatePaymentInstrumentRequest?: UpdatePaymentInstrumentRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<PaymentInstrument> {
         const responseObject = await this.updateHelper(paymentInstrumentId, updatePaymentInstrumentRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+
+    /**
+     * Update a `Payment Instrument`.
+     * @summary Update a Payment Instrument
+     * @param paymentInstrumentId ID of object
+     * @param updatePaymentInstrumentRequest 
+     */
+
+    public async updateHttp(paymentInstrumentId: string, updatePaymentInstrumentRequest?: UpdatePaymentInstrumentRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: PaymentInstrument; }> {
+        const responseObject = await this.updateHelper(paymentInstrumentId, updatePaymentInstrumentRequest,  options);
+        return responseObject;
     }
 
 
@@ -754,5 +769,10 @@ export class PaymentInstrumentsApi {
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
+    }
+
+    private async fileHelper(request: any){
+        request.file = fs.createReadStream(<string>request.file)
+        return request;
     }
 }

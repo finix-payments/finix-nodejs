@@ -34,4 +34,3 @@ var SubTypeTransfer;
     SubTypeTransfer[SubTypeTransfer["SplitPayoutAdjustment"] = 'SPLIT_PAYOUT_ADJUSTMENT'] = "SplitPayoutAdjustment";
     SubTypeTransfer[SubTypeTransfer["System"] = 'SYSTEM'] = "System";
 })(SubTypeTransfer = exports.SubTypeTransfer || (exports.SubTypeTransfer = {}));
-//# sourceMappingURL=subTypeTransfer.js.map

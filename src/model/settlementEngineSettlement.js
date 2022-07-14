@@ -268,4 +268,3 @@ exports.SettlementEngineSettlement = SettlementEngineSettlement;
         StatusEnum[StatusEnum["Staged"] = 'STAGED'] = "Staged";
     })(StatusEnum = SettlementEngineSettlement.StatusEnum || (SettlementEngineSettlement.StatusEnum = {}));
 })(SettlementEngineSettlement = exports.SettlementEngineSettlement || (exports.SettlementEngineSettlement = {}));
-//# sourceMappingURL=settlementEngineSettlement.js.map

@@ -523,4 +523,3 @@ exports.FeeProfile = FeeProfile;
         RoundingModeEnum[RoundingModeEnum["Aggregate"] = 'AGGREGATE'] = "Aggregate";
     })(RoundingModeEnum = FeeProfile.RoundingModeEnum || (FeeProfile.RoundingModeEnum = {}));
 })(FeeProfile = exports.FeeProfile || (exports.FeeProfile = {}));
-//# sourceMappingURL=feeProfile.js.map

@@ -39,4 +39,3 @@ class FilesList {
     }
 }
 exports.FilesList = FilesList;
-//# sourceMappingURL=filesList.js.map

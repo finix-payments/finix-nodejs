@@ -13,7 +13,7 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
-
+import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
 import { Authorization } from '../model/authorization';
 import { AuthorizationsList } from '../model/authorizationsList';
@@ -129,7 +129,6 @@ export class AuthorizationsApi {
         let localVarFormParams: any = {};
 
 
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -141,9 +140,14 @@ export class AuthorizationsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(createAuthorizationRequest, "CreateAuthorizationRequest")
         };
-
+        if (createAuthorizationRequest.hasOwnProperty('file')){
+            createAuthorizationRequest = await this.fileHelper(createAuthorizationRequest);
+            localVarRequestOptions.formData = createAuthorizationRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(createAuthorizationRequest, "CreateAuthorizationRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -186,23 +190,23 @@ export class AuthorizationsApi {
      * @param createAuthorizationRequest 
      */
 
-    public async create(createAuthorizationRequest?: CreateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async create(createAuthorizationRequest?: CreateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Authorization> {
         const responseObject = await this.createHelper(createAuthorizationRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Create an `Authorization` to process a transaction.  `Authorizations` can have two possible `states`:  - **SUCCEEDED**  - **FAILED**  If the `Authorization` has **SUCCEEDED** , it must be captured before `expires_at` passes or the funds will be released.  Learn how to prevent duplicate authorizations by passing an [Idempotency ID](#section/Idempotency-Requests) in the payload.
+     * @summary Create an Authorization
+     * @param createAuthorizationRequest 
+     */
+
+    public async createHttp(createAuthorizationRequest?: CreateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Authorization; }> {
+        const responseObject = await this.createHelper(createAuthorizationRequest,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Retrieve the details of a previously created `Authorization`.
@@ -229,8 +233,6 @@ export class AuthorizationsApi {
             throw new Error('Required parameter authorizationId was null or undefined when calling getAuthorization.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -243,7 +245,6 @@ export class AuthorizationsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -286,23 +287,23 @@ export class AuthorizationsApi {
      * @param authorizationId ID of authorization to fetch
      */
 
-    public async get(authorizationId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async get(authorizationId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Authorization> {
         const responseObject = await this.getHelper(authorizationId,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Retrieve the details of a previously created `Authorization`.
+     * @summary Get an Authorization
+     * @param authorizationId ID of authorization to fetch
+     */
+
+    public async getHttp(authorizationId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Authorization; }> {
+        const responseObject = await this.getHelper(authorizationId,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Retrieve a list of `Authorizations`. 
@@ -412,7 +413,6 @@ export class AuthorizationsApi {
             }
 
         }
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -425,7 +425,6 @@ export class AuthorizationsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -467,23 +466,26 @@ export class AuthorizationsApi {
      * @summary List Authorizations
 
     */
-    public async list (listAuthorizationsQueryParams?:ListAuthorizationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise<any> {
+    public async list (listAuthorizationsQueryParams?:ListAuthorizationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<SuperSet<any>> {
         const responseObject = await this.listHelper(listAuthorizationsQueryParams, options);
 
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
-        return responseObject.body;
+        let dataList = await this.embeddedHelper(responseObject);
+        return dataList;
     }
 
+    /**
+     * Retrieve a list of `Authorizations`. 
+     * @summary List Authorizations
+
+    */
+    public async listHttp (listAuthorizationsQueryParams?:ListAuthorizationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        const responseObject = await this.listHelper(listAuthorizationsQueryParams, options);
+
+        let dataList = await this.embeddedHelper(responseObject);
+        return Promise.resolve({response: responseObject.response, body: dataList});
+    }
     /**
      * Helper function. 
      * If successfully captured, the `transfer` field of the `Authorization` will contain the ID of the `Transfer` resource that\'ll move funds.   By default, `Transfers` are in a **PENDING** state. The **PENDING** state means the system hasn\'t submitted the request to capture funds. Capture requests get submitted via a batch request.   Once the `Authorization` is updated with a `capture_amount` (i.e. *Captured*), the state of the `Transfer` will update to **SUCCEEDED**.  > Voided `Authorizations` can\'t be captured.
@@ -511,8 +513,6 @@ export class AuthorizationsApi {
             throw new Error('Required parameter authorizationId was null or undefined when calling updateAuthorization.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -524,9 +524,14 @@ export class AuthorizationsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(updateAuthorizationRequest, "UpdateAuthorizationRequest")
         };
-
+        if (updateAuthorizationRequest.hasOwnProperty('file')){
+            updateAuthorizationRequest = await this.fileHelper(updateAuthorizationRequest);
+            localVarRequestOptions.formData = updateAuthorizationRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(updateAuthorizationRequest, "UpdateAuthorizationRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -570,21 +575,23 @@ export class AuthorizationsApi {
      * @param updateAuthorizationRequest 
      */
 
-    public async update(authorizationId: string, updateAuthorizationRequest?: UpdateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async update(authorizationId: string, updateAuthorizationRequest?: UpdateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Authorization> {
         const responseObject = await this.updateHelper(authorizationId, updateAuthorizationRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+
+    /**
+     * If successfully captured, the `transfer` field of the `Authorization` will contain the ID of the `Transfer` resource that\'ll move funds.   By default, `Transfers` are in a **PENDING** state. The **PENDING** state means the system hasn\'t submitted the request to capture funds. Capture requests get submitted via a batch request.   Once the `Authorization` is updated with a `capture_amount` (i.e. *Captured*), the state of the `Transfer` will update to **SUCCEEDED**.  > Voided `Authorizations` can\'t be captured.
+     * @summary Update an Authorization
+     * @param authorizationId ID of authorization to fetch
+     * @param updateAuthorizationRequest 
+     */
+
+    public async updateHttp(authorizationId: string, updateAuthorizationRequest?: UpdateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Authorization; }> {
+        const responseObject = await this.updateHelper(authorizationId, updateAuthorizationRequest,  options);
+        return responseObject;
     }
 
 
@@ -594,5 +601,10 @@ export class AuthorizationsApi {
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
+    }
+
+    private async fileHelper(request: any){
+        request.file = fs.createReadStream(<string>request.file)
+        return request;
     }
 }

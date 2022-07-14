@@ -39,4 +39,3 @@ class SettlementEngineSettlementsList {
     }
 }
 exports.SettlementEngineSettlementsList = SettlementEngineSettlementsList;
-//# sourceMappingURL=settlementEngineSettlementsList.js.map

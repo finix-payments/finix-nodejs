@@ -39,4 +39,3 @@ class SubscriptionEnrollmentList {
     }
 }
 exports.SubscriptionEnrollmentList = SubscriptionEnrollmentList;
-//# sourceMappingURL=subscriptionEnrollmentList.js.map

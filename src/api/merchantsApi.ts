@@ -13,7 +13,7 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
-
+import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
 import { CreateMerchantUnderwritingRequest } from '../model/createMerchantUnderwritingRequest';
 import { CreateVerificationRequest } from '../model/createVerificationRequest';
@@ -136,8 +136,6 @@ export class MerchantsApi {
             throw new Error('Required parameter identityId was null or undefined when calling createMerchant.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -149,9 +147,14 @@ export class MerchantsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(createMerchantUnderwritingRequest, "CreateMerchantUnderwritingRequest")
         };
-
+        if (createMerchantUnderwritingRequest.hasOwnProperty('file')){
+            createMerchantUnderwritingRequest = await this.fileHelper(createMerchantUnderwritingRequest);
+            localVarRequestOptions.formData = createMerchantUnderwritingRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(createMerchantUnderwritingRequest, "CreateMerchantUnderwritingRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -195,23 +198,24 @@ export class MerchantsApi {
      * @param createMerchantUnderwritingRequest 
      */
 
-    public async create(identityId: string, createMerchantUnderwritingRequest?: CreateMerchantUnderwritingRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async create(identityId: string, createMerchantUnderwritingRequest?: CreateMerchantUnderwritingRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Merchant> {
         const responseObject = await this.createHelper(identityId, createMerchantUnderwritingRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Create a `Merchant` to start the underwriting process for your merchant. `Merchants` must be created under an [`Identity`](#tag/Identities).  > A bank account must be associated with the previously created `Identity` before a `Merchant` can be succefully onboarded and verified.  `Merchant` resources can have three possible `onboarding_states`:  1. **PROVISIONING**: The request is pending (the state may change after two minutes).     * `processing_enabled`: **False**     * `settlement_enabled`: **False**  1. **APPROVED**: The `Merchant` has been approved and can begin processing payments.     * `processing_enabled`: **True**    * `settlement_enabled`: **True**  1. **REJECTED**: The `Merchant` was rejected by the processor because of invalid information or it failed a regulatory and/or compliance check (e.g. KYC, OFAC, or MATCH). Make any changes that are needed, and [try verifying the `Merchant` again](#operation/createMerchantVerification).     * `processing_enabled`: **False**     * `settlement_enabled`: **False**   > Provisioning a `Merchant` account is an asynchronous request. We recommend creating a [`Webhook`](#tag/Webhooks) to listen for the state change.
+     * @summary Create a Merchant
+     * @param identityId ID of &#x60;Identity&#x60; to fetch.
+     * @param createMerchantUnderwritingRequest 
+     */
+
+    public async createHttp(identityId: string, createMerchantUnderwritingRequest?: CreateMerchantUnderwritingRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Merchant; }> {
+        const responseObject = await this.createHelper(identityId, createMerchantUnderwritingRequest,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Verify a merchant either to reattempt provisioning, or when the merchant\'s `Identity` was updated.
@@ -239,8 +243,6 @@ export class MerchantsApi {
             throw new Error('Required parameter merchantId was null or undefined when calling createMerchantVerification.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -252,9 +254,14 @@ export class MerchantsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(createVerificationRequest, "CreateVerificationRequest")
         };
-
+        if (createVerificationRequest.hasOwnProperty('file')){
+            createVerificationRequest = await this.fileHelper(createVerificationRequest);
+            localVarRequestOptions.formData = createVerificationRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(createVerificationRequest, "CreateVerificationRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -298,23 +305,24 @@ export class MerchantsApi {
      * @param createVerificationRequest 
      */
 
-    public async createMerchantVerification(merchantId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async createMerchantVerification(merchantId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Verification> {
         const responseObject = await this.createMerchantVerificationHelper(merchantId, createVerificationRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Verify a merchant either to reattempt provisioning, or when the merchant\'s `Identity` was updated.
+     * @summary Verify a Merchant
+     * @param merchantId ID of &#x60;Merchant&#x60; object.
+     * @param createVerificationRequest 
+     */
+
+    public async createMerchantVerificationHttp(merchantId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Verification; }> {
+        const responseObject = await this.createMerchantVerificationHelper(merchantId, createVerificationRequest,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Retrieve the details of a `Merchant`.
@@ -341,8 +349,6 @@ export class MerchantsApi {
             throw new Error('Required parameter merchantId was null or undefined when calling getMerchant.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -355,7 +361,6 @@ export class MerchantsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -398,23 +403,23 @@ export class MerchantsApi {
      * @param merchantId ID of &#x60;Merchant&#x60;.
      */
 
-    public async get(merchantId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async get(merchantId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Merchant> {
         const responseObject = await this.getHelper(merchantId,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Retrieve the details of a `Merchant`.
+     * @summary Get a Merchant
+     * @param merchantId ID of &#x60;Merchant&#x60;.
+     */
+
+    public async getHttp(merchantId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Merchant; }> {
+        const responseObject = await this.getHelper(merchantId,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Retrieve a list of `Merchants`. 
@@ -458,7 +463,6 @@ export class MerchantsApi {
             }
 
         }
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -471,7 +475,6 @@ export class MerchantsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -513,23 +516,26 @@ export class MerchantsApi {
      * @summary List Merchants
 
     */
-    public async list (listMerchantsQueryParams?:ListMerchantsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise<any> {
+    public async list (listMerchantsQueryParams?:ListMerchantsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<SuperSet<any>> {
         const responseObject = await this.listHelper(listMerchantsQueryParams, options);
 
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
-        return responseObject.body;
+        let dataList = await this.embeddedHelper(responseObject);
+        return dataList;
     }
 
+    /**
+     * Retrieve a list of `Merchants`. 
+     * @summary List Merchants
+
+    */
+    public async listHttp (listMerchantsQueryParams?:ListMerchantsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        const responseObject = await this.listHelper(listMerchantsQueryParams, options);
+
+        let dataList = await this.embeddedHelper(responseObject);
+        return Promise.resolve({response: responseObject.response, body: dataList});
+    }
     /**
      * Helper function. 
      * Update a `Merchant` to change the `Identity` information saved with the underlying processor, or enable Level 2/3 processing.
@@ -557,8 +563,6 @@ export class MerchantsApi {
             throw new Error('Required parameter merchantId was null or undefined when calling updateMerchant.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -570,9 +574,14 @@ export class MerchantsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(updateMerchantRequest, "UpdateMerchantRequest")
         };
-
+        if (updateMerchantRequest.hasOwnProperty('file')){
+            updateMerchantRequest = await this.fileHelper(updateMerchantRequest);
+            localVarRequestOptions.formData = updateMerchantRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(updateMerchantRequest, "UpdateMerchantRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -616,21 +625,23 @@ export class MerchantsApi {
      * @param updateMerchantRequest 
      */
 
-    public async update(merchantId: string, updateMerchantRequest?: UpdateMerchantRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async update(merchantId: string, updateMerchantRequest?: UpdateMerchantRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Merchant> {
         const responseObject = await this.updateHelper(merchantId, updateMerchantRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+
+    /**
+     * Update a `Merchant` to change the `Identity` information saved with the underlying processor, or enable Level 2/3 processing.
+     * @summary Update a Merchant
+     * @param merchantId ID of &#x60;Merchant&#x60;.
+     * @param updateMerchantRequest 
+     */
+
+    public async updateHttp(merchantId: string, updateMerchantRequest?: UpdateMerchantRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Merchant; }> {
+        const responseObject = await this.updateHelper(merchantId, updateMerchantRequest,  options);
+        return responseObject;
     }
 
 
@@ -640,5 +651,10 @@ export class MerchantsApi {
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
+    }
+
+    private async fileHelper(request: any){
+        request.file = fs.createReadStream(<string>request.file)
+        return request;
     }
 }

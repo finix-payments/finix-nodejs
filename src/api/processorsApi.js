@@ -157,19 +157,27 @@ class ProcessorsApi {
      * @param applicationId ID of application to use
      * @param createProcessorRequest
      */
-    async createApplicationProcessor(applicationId, createProcessorRequest, options = { headers: {} }, httpData = false) {
+    async createApplicationProcessor(applicationId, createProcessorRequest, options = { headers: {} }) {
         const responseObject = await this.createApplicationProcessorHelper(applicationId, createProcessorRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Enable a `Processor` for an `Application`. If created successfully, a 201 status is returned with a location header added to the response which refers to the newly enabled processor.
+     * @summary Create Application Processor
+     * @param applicationId ID of application to use
+     * @param createProcessorRequest
+     */
+    async createApplicationProcessorHttp(applicationId, createProcessorRequest, options = { headers: {} }) {
+        const responseObject = await this.createApplicationProcessorHelper(applicationId, createProcessorRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -253,19 +261,27 @@ class ProcessorsApi {
      * @param applicationId ID of application to use
      * @param type Type of &#x60;Processor&#x60;.
      */
-    async getApplicationProcessor(applicationId, type, options = { headers: {} }, httpData = false) {
+    async getApplicationProcessor(applicationId, type, options = { headers: {} }) {
         const responseObject = await this.getApplicationProcessorHelper(applicationId, type, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Get the `Processor` by `Application` and `type`.
+     * @summary Get Application Processor
+     * @param applicationId ID of application to use
+     * @param type Type of &#x60;Processor&#x60;.
+     */
+    async getApplicationProcessorHttp(applicationId, type, options = { headers: {} }) {
+        const responseObject = await this.getApplicationProcessorHelper(applicationId, type, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -348,19 +364,28 @@ class ProcessorsApi {
     * @param applicationId ID of application to use
     *
     */
-    async listByApplicationId(applicationId, listApplicationProcessorsQueryParams, options = { headers: {} }, httpData = false) {
+    async listByApplicationId(applicationId, listApplicationProcessorsQueryParams, options = { headers: {} }) {
         const responseObject = await this.listByApplicationIdHelper(applicationId, listApplicationProcessorsQueryParams, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Get all enabled `Processors` for an `Application`.
+     * @summary List Application Processors
+
+    * @param applicationId ID of application to use
+    *
+    */
+    async listByApplicationIdHttp(applicationId, listApplicationProcessorsQueryParams, options = { headers: {} }) {
+        const responseObject = await this.listByApplicationIdHelper(applicationId, listApplicationProcessorsQueryParams, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     async embeddedHelper(responseObject) {
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
@@ -371,4 +396,3 @@ class ProcessorsApi {
     }
 }
 exports.ProcessorsApi = ProcessorsApi;
-//# sourceMappingURL=processorsApi.js.map

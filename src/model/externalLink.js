@@ -111,4 +111,3 @@ class ExternalLink {
     }
 }
 exports.ExternalLink = ExternalLink;
-//# sourceMappingURL=externalLink.js.map

@@ -42,4 +42,3 @@ class SubscriptionSchedulePeriodOffset {
     }
 }
 exports.SubscriptionSchedulePeriodOffset = SubscriptionSchedulePeriodOffset;
-//# sourceMappingURL=subscriptionSchedulePeriodOffset.js.map

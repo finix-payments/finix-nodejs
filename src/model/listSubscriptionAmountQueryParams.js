@@ -48,4 +48,3 @@ class ListSubscriptionAmountQueryParams {
     }
 }
 exports.ListSubscriptionAmountQueryParams = ListSubscriptionAmountQueryParams;
-//# sourceMappingURL=listSubscriptionAmountQueryParams.js.map

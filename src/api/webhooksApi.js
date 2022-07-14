@@ -150,19 +150,26 @@ class WebhooksApi {
      * @summary Create a Webhook
      * @param createWebhookRequest
      */
-    async create(createWebhookRequest, options = { headers: {} }, httpData = false) {
+    async create(createWebhookRequest, options = { headers: {} }) {
         const responseObject = await this.createHelper(createWebhookRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Create a `Webhook` to specify an endpoint where Finix can send events.
+     * @summary Create a Webhook
+     * @param createWebhookRequest
+     */
+    async createHttp(createWebhookRequest, options = { headers: {} }) {
+        const responseObject = await this.createHelper(createWebhookRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -239,19 +246,26 @@ class WebhooksApi {
      * @summary Get a Webhook
      * @param webhookId ID of &#x60;Webhook&#x60; object.
      */
-    async get(webhookId, options = { headers: {} }, httpData = false) {
+    async get(webhookId, options = { headers: {} }) {
         const responseObject = await this.getHelper(webhookId, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieve the details of a `Webhook`.
+     * @summary Get a Webhook
+     * @param webhookId ID of &#x60;Webhook&#x60; object.
+     */
+    async getHttp(webhookId, options = { headers: {} }) {
+        const responseObject = await this.getHelper(webhookId, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -334,19 +348,26 @@ class WebhooksApi {
      * @summary List Webhooks
 
     */
-    async list(listWebhooksQueryParams, options = { headers: {} }, httpData = false) {
+    async list(listWebhooksQueryParams, options = { headers: {} }) {
         const responseObject = await this.listHelper(listWebhooksQueryParams, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieve a list of `Webhooks`.
+     * @summary List Webhooks
+
+    */
+    async listHttp(listWebhooksQueryParams, options = { headers: {} }) {
+        const responseObject = await this.listHelper(listWebhooksQueryParams, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -426,19 +447,27 @@ class WebhooksApi {
      * @param webhookId ID of &#x60;Webhook&#x60; object.
      * @param updateWebhookRequest
      */
-    async update(webhookId, updateWebhookRequest, options = { headers: {} }, httpData = false) {
+    async update(webhookId, updateWebhookRequest, options = { headers: {} }) {
         const responseObject = await this.updateHelper(webhookId, updateWebhookRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Update an existing `Webhook`.
+     * @summary Update a Webhook
+     * @param webhookId ID of &#x60;Webhook&#x60; object.
+     * @param updateWebhookRequest
+     */
+    async updateHttp(webhookId, updateWebhookRequest, options = { headers: {} }) {
+        const responseObject = await this.updateHelper(webhookId, updateWebhookRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     async embeddedHelper(responseObject) {
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
@@ -449,4 +478,3 @@ class WebhooksApi {
     }
 }
 exports.WebhooksApi = WebhooksApi;
-//# sourceMappingURL=webhooksApi.js.map

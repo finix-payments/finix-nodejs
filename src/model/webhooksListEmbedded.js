@@ -27,4 +27,3 @@ class WebhooksListEmbedded {
     }
 }
 exports.WebhooksListEmbedded = WebhooksListEmbedded;
-//# sourceMappingURL=webhooksListEmbedded.js.map

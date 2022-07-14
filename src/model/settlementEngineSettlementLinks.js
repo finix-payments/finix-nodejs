@@ -27,4 +27,3 @@ class SettlementEngineSettlementLinks {
     }
 }
 exports.SettlementEngineSettlementLinks = SettlementEngineSettlementLinks;
-//# sourceMappingURL=settlementEngineSettlementLinks.js.map

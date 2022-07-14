@@ -33,4 +33,3 @@ class Error406NotAcceptable {
     }
 }
 exports.Error406NotAcceptable = Error406NotAcceptable;
-//# sourceMappingURL=error406NotAcceptable.js.map

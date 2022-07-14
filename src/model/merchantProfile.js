@@ -96,4 +96,3 @@ class MerchantProfile {
     }
 }
 exports.MerchantProfile = MerchantProfile;
-//# sourceMappingURL=merchantProfile.js.map

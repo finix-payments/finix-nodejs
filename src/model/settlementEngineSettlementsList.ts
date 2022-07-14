@@ -11,14 +11,13 @@
  */
 
 import { RequestFile } from './models';
-import { ListLinks } from './listLinks';
 import { PageCursor } from './pageCursor';
 import { SettlementEngineSettlementsListEmbedded } from './settlementEngineSettlementsListEmbedded';
 
 export class SettlementEngineSettlementsList {
     'page'?: PageCursor;
     'embedded'?: SettlementEngineSettlementsListEmbedded;
-    'links'?: ListLinks;
+    'links'?: any | null;
 
     static discriminator: string | undefined = undefined;
 
@@ -36,7 +35,7 @@ export class SettlementEngineSettlementsList {
         {
             "name": "links",
             "baseName": "_links",
-            "type": "ListLinks"
+            "type": "any"
         }    ];
 
     static getAttributeTypeMap() {

@@ -13,7 +13,7 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
-
+import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
 import { CreateVerificationRequest } from '../model/createVerificationRequest';
 import { Error401Unauthorized } from '../model/error401Unauthorized';
@@ -129,7 +129,6 @@ export class VerificationsApi {
         let localVarFormParams: any = {};
 
 
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -141,9 +140,14 @@ export class VerificationsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(createVerificationRequest, "CreateVerificationRequest")
         };
-
+        if (createVerificationRequest.hasOwnProperty('file')){
+            createVerificationRequest = await this.fileHelper(createVerificationRequest);
+            localVarRequestOptions.formData = createVerificationRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(createVerificationRequest, "CreateVerificationRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -186,23 +190,23 @@ export class VerificationsApi {
      * @param createVerificationRequest 
      */
 
-    public async create(createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async create(createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Verification> {
         const responseObject = await this.createHelper(createVerificationRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Create a `verification` to verify an `Identity` or `Payment Instrument`.  Verifications can also be created directly on the resources you want to verify: - `POST /merchants/{id}/verifications` - `POST /payment_instruments/{id}/verifications`
+     * @summary Perform a Verification
+     * @param createVerificationRequest 
+     */
+
+    public async createHttp(createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Verification; }> {
+        const responseObject = await this.createHelper(createVerificationRequest,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Retrieve the details of a `Verification`.
@@ -229,8 +233,6 @@ export class VerificationsApi {
             throw new Error('Required parameter verificationId was null or undefined when calling getVerification.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -243,7 +245,6 @@ export class VerificationsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -286,23 +287,23 @@ export class VerificationsApi {
      * @param verificationId ID of &#x60;Verification&#x60; object.
      */
 
-    public async get(verificationId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async get(verificationId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Verification> {
         const responseObject = await this.getHelper(verificationId,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Retrieve the details of a `Verification`.
+     * @summary Get a Verification
+     * @param verificationId ID of &#x60;Verification&#x60; object.
+     */
+
+    public async getHttp(verificationId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Verification; }> {
+        const responseObject = await this.getHelper(verificationId,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Get a list of all the `Verifications` in the `Merchant` object.
@@ -329,7 +330,6 @@ export class VerificationsApi {
         if (merchantId === null || merchantId === undefined) {
             throw new Error('Required parameter merchantId was null or undefined when calling listMerchantVerifications.');
         }
-
         if (listMerchantVerificationsQueryParams != undefined){ 
             if (listMerchantVerificationsQueryParams.limit !== undefined) {
                 localVarQueryParameters['limit'] = ObjectSerializer.serialize(listMerchantVerificationsQueryParams.limit, "number");
@@ -342,7 +342,6 @@ export class VerificationsApi {
             }
 
         }
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -355,7 +354,6 @@ export class VerificationsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -399,23 +397,28 @@ export class VerificationsApi {
     * @param merchantId ID of &#x60;Merchant&#x60; object.
     * 
     */
-    public async listByMerchantId (merchantId: string, listMerchantVerificationsQueryParams?:ListMerchantVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise<any> {
+    public async listByMerchantId (merchantId: string, listMerchantVerificationsQueryParams?:ListMerchantVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<SuperSet<any>> {
         const responseObject = await this.listByMerchantIdHelper(merchantId, listMerchantVerificationsQueryParams, options);
 
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
-        return responseObject.body;
+        let dataList = await this.embeddedHelper(responseObject);
+        return dataList;
     }
 
+    /**
+     * Get a list of all the `Verifications` in the `Merchant` object.
+     * @summary List Merchant Verifications
+
+    * @param merchantId ID of &#x60;Merchant&#x60; object.
+    * 
+    */
+    public async listByMerchantIdHttp (merchantId: string, listMerchantVerificationsQueryParams?:ListMerchantVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        const responseObject = await this.listByMerchantIdHelper(merchantId, listMerchantVerificationsQueryParams, options);
+
+        let dataList = await this.embeddedHelper(responseObject);
+        return Promise.resolve({response: responseObject.response, body: dataList});
+    }
     /**
      * Helper function. 
      * Retrieve a list of `Verifications`.
@@ -441,7 +444,6 @@ export class VerificationsApi {
             }
 
         }
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -454,7 +456,6 @@ export class VerificationsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -496,21 +497,25 @@ export class VerificationsApi {
      * @summary List Verifications
 
     */
-    public async list (listVerificationsQueryParams?:ListVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise<any> {
+    public async list (listVerificationsQueryParams?:ListVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<SuperSet<any>> {
         const responseObject = await this.listHelper(listVerificationsQueryParams, options);
 
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
-        return responseObject.body;
+        let dataList = await this.embeddedHelper(responseObject);
+        return dataList;
+    }
+
+    /**
+     * Retrieve a list of `Verifications`.
+     * @summary List Verifications
+
+    */
+    public async listHttp (listVerificationsQueryParams?:ListVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        const responseObject = await this.listHelper(listVerificationsQueryParams, options);
+
+        let dataList = await this.embeddedHelper(responseObject);
+        return Promise.resolve({response: responseObject.response, body: dataList});
     }
 
 
@@ -520,5 +525,10 @@ export class VerificationsApi {
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
+    }
+
+    private async fileHelper(request: any){
+        request.file = fs.createReadStream(<string>request.file)
+        return request;
     }
 }

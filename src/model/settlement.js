@@ -209,4 +209,3 @@ exports.Settlement = Settlement;
         StatusEnum[StatusEnum["Staged"] = 'STAGED'] = "Staged";
     })(StatusEnum = Settlement.StatusEnum || (Settlement.StatusEnum = {}));
 })(Settlement = exports.Settlement || (exports.Settlement = {}));
-//# sourceMappingURL=settlement.js.map

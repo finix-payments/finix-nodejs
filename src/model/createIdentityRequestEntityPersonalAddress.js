@@ -78,4 +78,3 @@ class CreateIdentityRequestEntityPersonalAddress {
     }
 }
 exports.CreateIdentityRequestEntityPersonalAddress = CreateIdentityRequestEntityPersonalAddress;
-//# sourceMappingURL=createIdentityRequestEntityPersonalAddress.js.map

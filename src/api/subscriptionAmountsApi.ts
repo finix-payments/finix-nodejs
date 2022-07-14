@@ -13,7 +13,7 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
-
+import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
 import { CreateSubscriptionAmountRequest } from '../model/createSubscriptionAmountRequest';
 import { Error401Unauthorized } from '../model/error401Unauthorized';
@@ -132,8 +132,6 @@ export class SubscriptionAmountsApi {
             throw new Error('Required parameter subscriptionScheduleId was null or undefined when calling createSubscriptionAmounts.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -145,9 +143,14 @@ export class SubscriptionAmountsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(createSubscriptionAmountRequest, "CreateSubscriptionAmountRequest")
         };
-
+        if (createSubscriptionAmountRequest.hasOwnProperty('file')){
+            createSubscriptionAmountRequest = await this.fileHelper(createSubscriptionAmountRequest);
+            localVarRequestOptions.formData = createSubscriptionAmountRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(createSubscriptionAmountRequest, "CreateSubscriptionAmountRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -191,23 +194,24 @@ export class SubscriptionAmountsApi {
      * @param createSubscriptionAmountRequest 
      */
 
-    public async lcreate(subscriptionScheduleId: string, createSubscriptionAmountRequest?: CreateSubscriptionAmountRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async lcreate(subscriptionScheduleId: string, createSubscriptionAmountRequest?: CreateSubscriptionAmountRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<SubscriptionAmount> {
         const responseObject = await this.lcreateHelper(subscriptionScheduleId, createSubscriptionAmountRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Create a `subscription_amount`.  The `Subscription Amount` is the amount to be charged to a `Merchant`. The `Subscription Amount` must be associated to a `Subscription Schedule`.
+     * @summary Create a Subscription Amount
+     * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
+     * @param createSubscriptionAmountRequest 
+     */
+
+    public async lcreateHttp(subscriptionScheduleId: string, createSubscriptionAmountRequest?: CreateSubscriptionAmountRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: SubscriptionAmount; }> {
+        const responseObject = await this.lcreateHelper(subscriptionScheduleId, createSubscriptionAmountRequest,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Delete a previously created `Subscription Amount`.
@@ -235,13 +239,10 @@ export class SubscriptionAmountsApi {
         if (subscriptionAmountId === null || subscriptionAmountId === undefined) {
             throw new Error('Required parameter subscriptionAmountId was null or undefined when calling deleteSubscriptionAmount.');
         }
-
         // verify required parameter 'subscriptionScheduleId' is not null or undefined
         if (subscriptionScheduleId === null || subscriptionScheduleId === undefined) {
             throw new Error('Required parameter subscriptionScheduleId was null or undefined when calling deleteSubscriptionAmount.');
         }
-
-
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
@@ -255,7 +256,6 @@ export class SubscriptionAmountsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -298,23 +298,24 @@ export class SubscriptionAmountsApi {
      * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
      */
 
-    public async deleteSubscriptionAmount(subscriptionAmountId: string, subscriptionScheduleId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
+    public async deleteSubscriptionAmount(subscriptionAmountId: string, subscriptionScheduleId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<any> {
         const responseObject = await this.deleteSubscriptionAmountHelper(subscriptionAmountId, subscriptionScheduleId,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Delete a previously created `Subscription Amount`.
+     * @summary Delete a Subscription Amount
+     * @param subscriptionAmountId The ID of the &#x60;Subscription Amount&#x60;.
+     * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
+     */
+
+    public async deleteSubscriptionAmountHttp(subscriptionAmountId: string, subscriptionScheduleId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body?: any; }> {
+        const responseObject = await this.deleteSubscriptionAmountHelper(subscriptionAmountId, subscriptionScheduleId,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Retrieve the details of a `subscription_amount`.
@@ -342,13 +343,10 @@ export class SubscriptionAmountsApi {
         if (subscriptionAmountId === null || subscriptionAmountId === undefined) {
             throw new Error('Required parameter subscriptionAmountId was null or undefined when calling getSubscriptionAmount.');
         }
-
         // verify required parameter 'subscriptionScheduleId' is not null or undefined
         if (subscriptionScheduleId === null || subscriptionScheduleId === undefined) {
             throw new Error('Required parameter subscriptionScheduleId was null or undefined when calling getSubscriptionAmount.');
         }
-
-
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
@@ -362,7 +360,6 @@ export class SubscriptionAmountsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -406,23 +403,24 @@ export class SubscriptionAmountsApi {
      * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
      */
 
-    public async get(subscriptionAmountId: string, subscriptionScheduleId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async get(subscriptionAmountId: string, subscriptionScheduleId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<SubscriptionAmount> {
         const responseObject = await this.getHelper(subscriptionAmountId, subscriptionScheduleId,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Retrieve the details of a `subscription_amount`.
+     * @summary Get a Subscription Amount
+     * @param subscriptionAmountId The ID of the &#x60;Subscription Amount&#x60;.
+     * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
+     */
+
+    public async getHttp(subscriptionAmountId: string, subscriptionScheduleId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: SubscriptionAmount; }> {
+        const responseObject = await this.getHelper(subscriptionAmountId, subscriptionScheduleId,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Retrive a list of `Subscription Amounts`.
@@ -449,7 +447,6 @@ export class SubscriptionAmountsApi {
         if (subscriptionScheduleId === null || subscriptionScheduleId === undefined) {
             throw new Error('Required parameter subscriptionScheduleId was null or undefined when calling listSubscriptionAmount.');
         }
-
         if (listSubscriptionAmountQueryParams != undefined){ 
             if (listSubscriptionAmountQueryParams.limit !== undefined) {
                 localVarQueryParameters['limit'] = ObjectSerializer.serialize(listSubscriptionAmountQueryParams.limit, "number");
@@ -462,7 +459,6 @@ export class SubscriptionAmountsApi {
             }
 
         }
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -475,7 +471,6 @@ export class SubscriptionAmountsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -519,23 +514,28 @@ export class SubscriptionAmountsApi {
     * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
     * 
     */
-    public async listBySubscriptionSchedule (subscriptionScheduleId: string, listSubscriptionAmountQueryParams?:ListSubscriptionAmountQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise<any> {
+    public async listBySubscriptionSchedule (subscriptionScheduleId: string, listSubscriptionAmountQueryParams?:ListSubscriptionAmountQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<SuperSet<any>> {
         const responseObject = await this.listBySubscriptionScheduleHelper(subscriptionScheduleId, listSubscriptionAmountQueryParams, options);
 
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
-        return responseObject.body;
+        let dataList = await this.embeddedHelper(responseObject);
+        return dataList;
     }
 
+    /**
+     * Retrive a list of `Subscription Amounts`.
+     * @summary List Subscription Amounts
+
+    * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
+    * 
+    */
+    public async listBySubscriptionScheduleHttp (subscriptionScheduleId: string, listSubscriptionAmountQueryParams?:ListSubscriptionAmountQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        const responseObject = await this.listBySubscriptionScheduleHelper(subscriptionScheduleId, listSubscriptionAmountQueryParams, options);
+
+        let dataList = await this.embeddedHelper(responseObject);
+        return Promise.resolve({response: responseObject.response, body: dataList});
+    }
     /**
      * Helper function. 
      * Update the details of a `subscription_amount`.
@@ -564,13 +564,10 @@ export class SubscriptionAmountsApi {
         if (subscriptionAmountId === null || subscriptionAmountId === undefined) {
             throw new Error('Required parameter subscriptionAmountId was null or undefined when calling patchSubscriptionAmount.');
         }
-
         // verify required parameter 'subscriptionScheduleId' is not null or undefined
         if (subscriptionScheduleId === null || subscriptionScheduleId === undefined) {
             throw new Error('Required parameter subscriptionScheduleId was null or undefined when calling patchSubscriptionAmount.');
         }
-
-
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
@@ -583,9 +580,14 @@ export class SubscriptionAmountsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(createSubscriptionAmountRequest, "CreateSubscriptionAmountRequest")
         };
-
+        if (createSubscriptionAmountRequest.hasOwnProperty('file')){
+            createSubscriptionAmountRequest = await this.fileHelper(createSubscriptionAmountRequest);
+            localVarRequestOptions.formData = createSubscriptionAmountRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(createSubscriptionAmountRequest, "CreateSubscriptionAmountRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -630,21 +632,24 @@ export class SubscriptionAmountsApi {
      * @param createSubscriptionAmountRequest 
      */
 
-    public async patchSubscriptionAmount(subscriptionAmountId: string, subscriptionScheduleId: string, createSubscriptionAmountRequest?: CreateSubscriptionAmountRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async patchSubscriptionAmount(subscriptionAmountId: string, subscriptionScheduleId: string, createSubscriptionAmountRequest?: CreateSubscriptionAmountRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<SubscriptionAmount> {
         const responseObject = await this.patchSubscriptionAmountHelper(subscriptionAmountId, subscriptionScheduleId, createSubscriptionAmountRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+
+    /**
+     * Update the details of a `subscription_amount`.
+     * @summary Update a Subscription Amount
+     * @param subscriptionAmountId The ID of the &#x60;Subscription Amount&#x60;.
+     * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
+     * @param createSubscriptionAmountRequest 
+     */
+
+    public async patchSubscriptionAmountHttp(subscriptionAmountId: string, subscriptionScheduleId: string, createSubscriptionAmountRequest?: CreateSubscriptionAmountRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: SubscriptionAmount; }> {
+        const responseObject = await this.patchSubscriptionAmountHelper(subscriptionAmountId, subscriptionScheduleId, createSubscriptionAmountRequest,  options);
+        return responseObject;
     }
 
 
@@ -654,5 +659,10 @@ export class SubscriptionAmountsApi {
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
+    }
+
+    private async fileHelper(request: any){
+        request.file = fs.createReadStream(<string>request.file)
+        return request;
     }
 }

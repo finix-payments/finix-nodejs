@@ -75,4 +75,3 @@ class UpdateIdentityRequestEntityBusinessAddress {
     }
 }
 exports.UpdateIdentityRequestEntityBusinessAddress = UpdateIdentityRequestEntityBusinessAddress;
-//# sourceMappingURL=updateIdentityRequestEntityBusinessAddress.js.map

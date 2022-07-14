@@ -284,13 +284,13 @@ export class PaymentInstrument {
 
 export namespace PaymentInstrument {
     export enum TypeEnum {
-        Virtual = <any> 'VIRTUAL',
-        SwipedPaymentCard = <any> 'SWIPED_PAYMENT_CARD',
-        Token = <any> 'TOKEN',
-        PaymentCardPresent = <any> 'PAYMENT_CARD_PRESENT',
+        PaymentCard = <any> 'PAYMENT_CARD',
         VantivOmniToken = <any> 'VANTIV_OMNI_TOKEN',
+        Token = <any> 'TOKEN',
         BankAccount = <any> 'BANK_ACCOUNT',
-        PaymentCard = <any> 'PAYMENT_CARD'
+        Virtual = <any> 'VIRTUAL',
+        PaymentCardPresent = <any> 'PAYMENT_CARD_PRESENT',
+        SwipedPaymentCard = <any> 'SWIPED_PAYMENT_CARD'
     }
     export enum AccountTypeEnum {
         Checking = <any> 'CHECKING',
@@ -299,13 +299,13 @@ export namespace PaymentInstrument {
         CorpSavings = <any> 'CORP_SAVINGS'
     }
     export enum InstrumentTypeEnum {
-        Virtual = <any> 'VIRTUAL',
-        SwipedPaymentCard = <any> 'SWIPED_PAYMENT_CARD',
-        Token = <any> 'TOKEN',
-        PaymentCardPresent = <any> 'PAYMENT_CARD_PRESENT',
+        PaymentCard = <any> 'PAYMENT_CARD',
         VantivOmniToken = <any> 'VANTIV_OMNI_TOKEN',
+        Token = <any> 'TOKEN',
         BankAccount = <any> 'BANK_ACCOUNT',
-        PaymentCard = <any> 'PAYMENT_CARD'
+        Virtual = <any> 'VIRTUAL',
+        PaymentCardPresent = <any> 'PAYMENT_CARD_PRESENT',
+        SwipedPaymentCard = <any> 'SWIPED_PAYMENT_CARD'
     }
     export enum PayloadTypeEnum {
         Source = <any> 'SOURCE',

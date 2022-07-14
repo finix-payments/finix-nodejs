@@ -157,19 +157,27 @@ class DevicesApi {
      * @param merchantId ID of the &#x60;Merchant&#x60; object.
      * @param createDevice
      */
-    async create(merchantId, createDevice, options = { headers: {} }, httpData = false) {
+    async create(merchantId, createDevice, options = { headers: {} }) {
         const responseObject = await this.createHelper(merchantId, createDevice, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Create a `Device` under a `Merchant`.
+     * @summary Create a Device
+     * @param merchantId ID of the &#x60;Merchant&#x60; object.
+     * @param createDevice
+     */
+    async createHttp(merchantId, createDevice, options = { headers: {} }) {
+        const responseObject = await this.createHelper(merchantId, createDevice, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -246,19 +254,26 @@ class DevicesApi {
      * @summary Get Device
      * @param deviceId ID of the &#x60;Device&#x60;.
      */
-    async get(deviceId, options = { headers: {} }, httpData = false) {
+    async get(deviceId, options = { headers: {} }) {
         const responseObject = await this.getHelper(deviceId, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieve the details of an existing `Device`.  To check the connectivity of the device, include `?include_connection\\=true \\` at the end of the request endpoint.
+     * @summary Get Device
+     * @param deviceId ID of the &#x60;Device&#x60;.
+     */
+    async getHttp(deviceId, options = { headers: {} }) {
+        const responseObject = await this.getHelper(deviceId, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -338,19 +353,27 @@ class DevicesApi {
      * @param deviceId ID of the &#x60;Device&#x60;.
      * @param body
      */
-    async update(deviceId, body, options = { headers: {} }, httpData = false) {
+    async update(deviceId, body, options = { headers: {} }) {
         const responseObject = await this.updateHelper(deviceId, body, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Update a `Device` to activate or deactivate it.
+     * @summary Update a Device
+     * @param deviceId ID of the &#x60;Device&#x60;.
+     * @param body
+     */
+    async updateHttp(deviceId, body, options = { headers: {} }) {
+        const responseObject = await this.updateHelper(deviceId, body, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     async embeddedHelper(responseObject) {
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
@@ -361,4 +384,3 @@ class DevicesApi {
     }
 }
 exports.DevicesApi = DevicesApi;
-//# sourceMappingURL=devicesApi.js.map

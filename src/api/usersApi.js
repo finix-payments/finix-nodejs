@@ -157,19 +157,27 @@ class UsersApi {
      * @param applicationId ID of application to use
      * @param createUserRequest
      */
-    async createApplicationUser(applicationId, createUserRequest, options = { headers: {} }, httpData = false) {
+    async createApplicationUser(applicationId, createUserRequest, options = { headers: {} }) {
         const responseObject = await this.createApplicationUserHelper(applicationId, createUserRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * This is the equivalent of provisioning API keys (i.e. credentials) for an `Application`.  > Each Application can have multiple `Users` which allows each merchant to have multiple API keys that can be independently enabled and disabled. Merchants only have read access to the API.
+     * @summary Create an Application User
+     * @param applicationId ID of application to use
+     * @param createUserRequest
+     */
+    async createApplicationUserHttp(applicationId, createUserRequest, options = { headers: {} }) {
+        const responseObject = await this.createApplicationUserHelper(applicationId, createUserRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -246,19 +254,26 @@ class UsersApi {
      * @summary Find a User by ID
      * @param userId ID of &#x60;User&#x60; object.
      */
-    async get(userId, options = { headers: {} }, httpData = false) {
+    async get(userId, options = { headers: {} }) {
         const responseObject = await this.getHelper(userId, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieve a specific user with the ID of the `User`.
+     * @summary Find a User by ID
+     * @param userId ID of &#x60;User&#x60; object.
+     */
+    async getHttp(userId, options = { headers: {} }) {
+        const responseObject = await this.getHelper(userId, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -335,19 +350,26 @@ class UsersApi {
      * @summary List Users
 
     */
-    async list(listUsersQueryParams, options = { headers: {} }, httpData = false) {
+    async list(listUsersQueryParams, options = { headers: {} }) {
         const responseObject = await this.listHelper(listUsersQueryParams, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Get a `User`.
+     * @summary List Users
+
+    */
+    async listHttp(listUsersQueryParams, options = { headers: {} }) {
+        const responseObject = await this.listHelper(listUsersQueryParams, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -427,19 +449,27 @@ class UsersApi {
      * @param userId ID of &#x60;User&#x60; object.
      * @param updateUserRequest
      */
-    async update(userId, updateUserRequest, options = { headers: {} }, httpData = false) {
+    async update(userId, updateUserRequest, options = { headers: {} }) {
         const responseObject = await this.updateHelper(userId, updateUserRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * You can update the `User` with new tags or to disable the `User`.
+     * @summary Update User
+     * @param userId ID of &#x60;User&#x60; object.
+     * @param updateUserRequest
+     */
+    async updateHttp(userId, updateUserRequest, options = { headers: {} }) {
+        const responseObject = await this.updateHelper(userId, updateUserRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     async embeddedHelper(responseObject) {
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
@@ -450,4 +480,3 @@ class UsersApi {
     }
 }
 exports.UsersApi = UsersApi;
-//# sourceMappingURL=usersApi.js.map

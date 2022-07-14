@@ -13,7 +13,7 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
-
+import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
 import { CreateIdentityRequest } from '../model/createIdentityRequest';
 import { CreateVerificationRequest } from '../model/createVerificationRequest';
@@ -137,8 +137,6 @@ export class IdentitiesApi {
             throw new Error('Required parameter identityId was null or undefined when calling createAssociatedIdentity.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -150,9 +148,14 @@ export class IdentitiesApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(createIdentityRequest, "CreateIdentityRequest")
         };
-
+        if (createIdentityRequest.hasOwnProperty('file')){
+            createIdentityRequest = await this.fileHelper(createIdentityRequest);
+            localVarRequestOptions.formData = createIdentityRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(createIdentityRequest, "CreateIdentityRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -196,23 +199,24 @@ export class IdentitiesApi {
      * @param createIdentityRequest 
      */
 
-    public async createAssociatedIdentity(identityId: string, createIdentityRequest?: CreateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async createAssociatedIdentity(identityId: string, createIdentityRequest?: CreateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Identity> {
         const responseObject = await this.createAssociatedIdentityHelper(identityId, createIdentityRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Create an associated `Identity` for [every owner with 25% or more ownership](/guides/onboarding/#step-3-add-associated-identities) over the merchant.
+     * @summary Create an Associated Identity
+     * @param identityId ID of &#x60;Identity&#x60; to associate object with.
+     * @param createIdentityRequest 
+     */
+
+    public async createAssociatedIdentityHttp(identityId: string, createIdentityRequest?: CreateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Identity; }> {
+        const responseObject = await this.createAssociatedIdentityHelper(identityId, createIdentityRequest,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Create an `Identity` for your merchant or buyer.  Creating `Identities` for merchants requires they provide [KYC details](/docs/guides/getting-started/).  Related Guides: [Getting Started](/docs/guides/getting-started/), [Onboarding](/docs/guides/onboarding/)
@@ -234,7 +238,6 @@ export class IdentitiesApi {
         let localVarFormParams: any = {};
 
 
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -246,9 +249,14 @@ export class IdentitiesApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(createIdentityRequest, "CreateIdentityRequest")
         };
-
+        if (createIdentityRequest.hasOwnProperty('file')){
+            createIdentityRequest = await this.fileHelper(createIdentityRequest);
+            localVarRequestOptions.formData = createIdentityRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(createIdentityRequest, "CreateIdentityRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -291,23 +299,23 @@ export class IdentitiesApi {
      * @param createIdentityRequest 
      */
 
-    public async create(createIdentityRequest?: CreateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async create(createIdentityRequest?: CreateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Identity> {
         const responseObject = await this.createHelper(createIdentityRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Create an `Identity` for your merchant or buyer.  Creating `Identities` for merchants requires they provide [KYC details](/docs/guides/getting-started/).  Related Guides: [Getting Started](/docs/guides/getting-started/), [Onboarding](/docs/guides/onboarding/)
+     * @summary Create an Identity
+     * @param createIdentityRequest 
+     */
+
+    public async createHttp(createIdentityRequest?: CreateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Identity; }> {
+        const responseObject = await this.createHelper(createIdentityRequest,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Verify an `Identity`.
@@ -335,8 +343,6 @@ export class IdentitiesApi {
             throw new Error('Required parameter identityId was null or undefined when calling createIdentityVerification.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -348,9 +354,14 @@ export class IdentitiesApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(createVerificationRequest, "CreateVerificationRequest")
         };
-
+        if (createVerificationRequest.hasOwnProperty('file')){
+            createVerificationRequest = await this.fileHelper(createVerificationRequest);
+            localVarRequestOptions.formData = createVerificationRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(createVerificationRequest, "CreateVerificationRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -394,23 +405,24 @@ export class IdentitiesApi {
      * @param createVerificationRequest 
      */
 
-    public async createIdentityVerification(identityId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async createIdentityVerification(identityId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Verification> {
         const responseObject = await this.createIdentityVerificationHelper(identityId, createVerificationRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Verify an `Identity`.
+     * @summary Verify an Identity
+     * @param identityId ID of identity to fetch
+     * @param createVerificationRequest 
+     */
+
+    public async createIdentityVerificationHttp(identityId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Verification; }> {
+        const responseObject = await this.createIdentityVerificationHelper(identityId, createVerificationRequest,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Retrieve the details of a previously created `Identity`.
@@ -437,8 +449,6 @@ export class IdentitiesApi {
             throw new Error('Required parameter identityId was null or undefined when calling getIdentity.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -451,7 +461,6 @@ export class IdentitiesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -494,23 +503,23 @@ export class IdentitiesApi {
      * @param identityId ID of the &#x60;identity&#x60; to fetch
      */
 
-    public async get(identityId: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async get(identityId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Identity> {
         const responseObject = await this.getHelper(identityId,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Retrieve the details of a previously created `Identity`.
+     * @summary Fetch an Identity
+     * @param identityId ID of the &#x60;identity&#x60; to fetch
+     */
+
+    public async getHttp(identityId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Identity; }> {
+        const responseObject = await this.getHelper(identityId,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Retrieves a list of `Identities`.
@@ -575,7 +584,6 @@ export class IdentitiesApi {
             }
 
         }
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -588,7 +596,6 @@ export class IdentitiesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -630,23 +637,26 @@ export class IdentitiesApi {
      * @summary List Identities
 
     */
-    public async list (listIdentitiesQueryParams?:ListIdentitiesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise<any> {
+    public async list (listIdentitiesQueryParams?:ListIdentitiesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<SuperSet<any>> {
         const responseObject = await this.listHelper(listIdentitiesQueryParams, options);
 
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
-        return responseObject.body;
+        let dataList = await this.embeddedHelper(responseObject);
+        return dataList;
     }
 
+    /**
+     * Retrieves a list of `Identities`.
+     * @summary List Identities
+
+    */
+    public async listHttp (listIdentitiesQueryParams?:ListIdentitiesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        const responseObject = await this.listHelper(listIdentitiesQueryParams, options);
+
+        let dataList = await this.embeddedHelper(responseObject);
+        return Promise.resolve({response: responseObject.response, body: dataList});
+    }
     /**
      * Helper function. 
      * Retrieve a list of `Associated Identities` for an `Identity`.
@@ -673,7 +683,6 @@ export class IdentitiesApi {
         if (identityId === null || identityId === undefined) {
             throw new Error('Required parameter identityId was null or undefined when calling listIdentityAssociatedIdentities.');
         }
-
         if (listIdentityAssociatedIdentitiesQueryParams != undefined){ 
             if (listIdentityAssociatedIdentitiesQueryParams.limit !== undefined) {
                 localVarQueryParameters['limit'] = ObjectSerializer.serialize(listIdentityAssociatedIdentitiesQueryParams.limit, "number");
@@ -686,7 +695,6 @@ export class IdentitiesApi {
             }
 
         }
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -699,7 +707,6 @@ export class IdentitiesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -743,23 +750,28 @@ export class IdentitiesApi {
     * @param identityId ID of &#x60;Identity&#x60; to associate object with.
     * 
     */
-    public async listAssocaiatedIdentities (identityId: string, listIdentityAssociatedIdentitiesQueryParams?:ListIdentityAssociatedIdentitiesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise<any> {
+    public async listAssocaiatedIdentities (identityId: string, listIdentityAssociatedIdentitiesQueryParams?:ListIdentityAssociatedIdentitiesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<SuperSet<any>> {
         const responseObject = await this.listAssocaiatedIdentitiesHelper(identityId, listIdentityAssociatedIdentitiesQueryParams, options);
 
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
-        return responseObject.body;
+        let dataList = await this.embeddedHelper(responseObject);
+        return dataList;
     }
 
+    /**
+     * Retrieve a list of `Associated Identities` for an `Identity`.
+     * @summary List Associated Identities
+
+    * @param identityId ID of &#x60;Identity&#x60; to associate object with.
+    * 
+    */
+    public async listAssocaiatedIdentitiesHttp (identityId: string, listIdentityAssociatedIdentitiesQueryParams?:ListIdentityAssociatedIdentitiesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        const responseObject = await this.listAssocaiatedIdentitiesHelper(identityId, listIdentityAssociatedIdentitiesQueryParams, options);
+
+        let dataList = await this.embeddedHelper(responseObject);
+        return Promise.resolve({response: responseObject.response, body: dataList});
+    }
     /**
      * Helper function. 
      * Update an existing `Identity`.  If you are updating the `Identity` of a `Merchant` that’s already been onboarded, you need to [verify the merchant again](#operation/createMerchantVerification).
@@ -787,8 +799,6 @@ export class IdentitiesApi {
             throw new Error('Required parameter identityId was null or undefined when calling updateIdentity.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -800,9 +810,14 @@ export class IdentitiesApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(updateIdentityRequest, "UpdateIdentityRequest")
         };
-
+        if (updateIdentityRequest.hasOwnProperty('file')){
+            updateIdentityRequest = await this.fileHelper(updateIdentityRequest);
+            localVarRequestOptions.formData = updateIdentityRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(updateIdentityRequest, "UpdateIdentityRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -846,21 +861,23 @@ export class IdentitiesApi {
      * @param updateIdentityRequest 
      */
 
-    public async update(identityId: string, updateIdentityRequest?: UpdateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async update(identityId: string, updateIdentityRequest?: UpdateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Identity> {
         const responseObject = await this.updateHelper(identityId, updateIdentityRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+
+    /**
+     * Update an existing `Identity`.  If you are updating the `Identity` of a `Merchant` that’s already been onboarded, you need to [verify the merchant again](#operation/createMerchantVerification).
+     * @summary Update an Identity
+     * @param identityId ID of the &#x60;identity&#x60; to fetch
+     * @param updateIdentityRequest 
+     */
+
+    public async updateHttp(identityId: string, updateIdentityRequest?: UpdateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Identity; }> {
+        const responseObject = await this.updateHelper(identityId, updateIdentityRequest,  options);
+        return responseObject;
     }
 
 
@@ -870,5 +887,10 @@ export class IdentitiesApi {
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
+    }
+
+    private async fileHelper(request: any){
+        request.file = fs.createReadStream(<string>request.file)
+        return request;
     }
 }

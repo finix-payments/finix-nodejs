@@ -48,4 +48,3 @@ class UpdateApplicationProfileRequest {
     }
 }
 exports.UpdateApplicationProfileRequest = UpdateApplicationProfileRequest;
-//# sourceMappingURL=updateApplicationProfileRequest.js.map

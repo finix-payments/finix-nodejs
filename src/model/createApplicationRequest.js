@@ -63,4 +63,3 @@ class CreateApplicationRequest {
     }
 }
 exports.CreateApplicationRequest = CreateApplicationRequest;
-//# sourceMappingURL=createApplicationRequest.js.map

@@ -36,4 +36,3 @@ class SubscriptionAmountLinks {
     }
 }
 exports.SubscriptionAmountLinks = SubscriptionAmountLinks;
-//# sourceMappingURL=subscriptionAmountLinks.js.map

@@ -157,19 +157,27 @@ class SubscriptionEnrollmentsApi {
      * @param subscriptionScheduleId The ID of the &#x60;subscription_schedule&#x60;.
      * @param createSubscriptionEnrollmentRequest
      */
-    async create(subscriptionScheduleId, createSubscriptionEnrollmentRequest, options = { headers: {} }, httpData = false) {
+    async create(subscriptionScheduleId, createSubscriptionEnrollmentRequest, options = { headers: {} }) {
         const responseObject = await this.createHelper(subscriptionScheduleId, createSubscriptionEnrollmentRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Create a `subscription_enrollment`.  A `subscription_enrollment` details which `Merchant` gets charged, to what schedule, and when the subscription will start. The `subscription_enrollment` must be associated with a `Subscription Schedule`.
+     * @summary Create a Subscription Enrollment
+     * @param subscriptionScheduleId The ID of the &#x60;subscription_schedule&#x60;.
+     * @param createSubscriptionEnrollmentRequest
+     */
+    async createHttp(subscriptionScheduleId, createSubscriptionEnrollmentRequest, options = { headers: {} }) {
+        const responseObject = await this.createHelper(subscriptionScheduleId, createSubscriptionEnrollmentRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -245,19 +253,26 @@ class SubscriptionEnrollmentsApi {
      * @summary Delete a Subscription Enrollment
      * @param subscriptionEnrollmentId The ID of the &#x60;subscription_enrollment&#x60;.
      */
-    async remove(subscriptionEnrollmentId, options = { headers: {} }, httpData = false) {
+    async remove(subscriptionEnrollmentId, options = { headers: {} }) {
         const responseObject = await this.removeHelper(subscriptionEnrollmentId, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Remove a `subscription_enrollment`.
+     * @summary Delete a Subscription Enrollment
+     * @param subscriptionEnrollmentId The ID of the &#x60;subscription_enrollment&#x60;.
+     */
+    async removeHttp(subscriptionEnrollmentId, options = { headers: {} }) {
+        const responseObject = await this.removeHelper(subscriptionEnrollmentId, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -339,19 +354,27 @@ class SubscriptionEnrollmentsApi {
      * @param subscriptionEnrollmentId The ID of the &#x60;subscription_enrollment&#x60;.
      * @param merchant Filter by the objects &#x60;merchant&#x60; ID.
      */
-    async get(subscriptionEnrollmentId, merchant, options = { headers: {} }, httpData = false) {
+    async get(subscriptionEnrollmentId, merchant, options = { headers: {} }) {
         const responseObject = await this.getHelper(subscriptionEnrollmentId, merchant, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieve the details of a `subscription_enrollment`.
+     * @summary Get a Subscription Enrollment
+     * @param subscriptionEnrollmentId The ID of the &#x60;subscription_enrollment&#x60;.
+     * @param merchant Filter by the objects &#x60;merchant&#x60; ID.
+     */
+    async getHttp(subscriptionEnrollmentId, merchant, options = { headers: {} }) {
+        const responseObject = await this.getHelper(subscriptionEnrollmentId, merchant, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -425,19 +448,26 @@ class SubscriptionEnrollmentsApi {
      * @summary List Subscription Enrollments
 
     */
-    async list(listSubscriptionEnrollmentsQueryParams, options = { headers: {} }, httpData = false) {
+    async list(listSubscriptionEnrollmentsQueryParams, options = { headers: {} }) {
         const responseObject = await this.listHelper(listSubscriptionEnrollmentsQueryParams, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieve a list of `Subscription Enrollments`.
+     * @summary List Subscription Enrollments
+
+    */
+    async listHttp(listSubscriptionEnrollmentsQueryParams, options = { headers: {} }) {
+        const responseObject = await this.listHelper(listSubscriptionEnrollmentsQueryParams, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -520,19 +550,28 @@ class SubscriptionEnrollmentsApi {
     * @param subscriptionScheduleId The ID of the &#x60;subscription_schedule&#x60;.
     *
     */
-    async listBySubscriptionScheduleId(subscriptionScheduleId, listSubscriptionEnrollmentsInScheduleQueryParams, options = { headers: {} }, httpData = false) {
+    async listBySubscriptionScheduleId(subscriptionScheduleId, listSubscriptionEnrollmentsInScheduleQueryParams, options = { headers: {} }) {
         const responseObject = await this.listBySubscriptionScheduleIdHelper(subscriptionScheduleId, listSubscriptionEnrollmentsInScheduleQueryParams, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Retrieve a list of `Subscription Enrollments` for a specific `subscription_schedule`.
+     * @summary List Subscription Enrollments on a Schedule
+
+    * @param subscriptionScheduleId The ID of the &#x60;subscription_schedule&#x60;.
+    *
+    */
+    async listBySubscriptionScheduleIdHttp(subscriptionScheduleId, listSubscriptionEnrollmentsInScheduleQueryParams, options = { headers: {} }) {
+        const responseObject = await this.listBySubscriptionScheduleIdHelper(subscriptionScheduleId, listSubscriptionEnrollmentsInScheduleQueryParams, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     /**
      * Helper function.
@@ -612,19 +651,27 @@ class SubscriptionEnrollmentsApi {
      * @param subscriptionEnrollmentId The ID of the &#x60;subscription_enrollment&#x60;.
      * @param updateSubscriptionEnrollmentRequest
      */
-    async update(subscriptionEnrollmentId, updateSubscriptionEnrollmentRequest, options = { headers: {} }, httpData = false) {
+    async update(subscriptionEnrollmentId, updateSubscriptionEnrollmentRequest, options = { headers: {} }) {
         const responseObject = await this.updateHelper(subscriptionEnrollmentId, updateSubscriptionEnrollmentRequest, options);
         if (responseObject.body.hasOwnProperty('embedded')) {
             let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({ response: responseObject.response, body: dataList });
-            }
             return dataList;
         }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
+    }
+    /**
+     * Update the details of a `subscription_enrollment`.
+     * @summary Update a Subscription Enrollment
+     * @param subscriptionEnrollmentId The ID of the &#x60;subscription_enrollment&#x60;.
+     * @param updateSubscriptionEnrollmentRequest
+     */
+    async updateHttp(subscriptionEnrollmentId, updateSubscriptionEnrollmentRequest, options = { headers: {} }) {
+        const responseObject = await this.updateHelper(subscriptionEnrollmentId, updateSubscriptionEnrollmentRequest, options);
+        if (responseObject.body.hasOwnProperty('embedded')) {
+            let dataList = await this.embeddedHelper(responseObject);
+            return Promise.resolve({ response: responseObject.response, body: dataList });
+        }
+        return responseObject;
     }
     async embeddedHelper(responseObject) {
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
@@ -635,4 +682,3 @@ class SubscriptionEnrollmentsApi {
     }
 }
 exports.SubscriptionEnrollmentsApi = SubscriptionEnrollmentsApi;
-//# sourceMappingURL=subscriptionEnrollmentsApi.js.map

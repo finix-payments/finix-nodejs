@@ -30,4 +30,3 @@ class SubscriptionEnrollmentListEmbedded {
     }
 }
 exports.SubscriptionEnrollmentListEmbedded = SubscriptionEnrollmentListEmbedded;
-//# sourceMappingURL=subscriptionEnrollmentListEmbedded.js.map

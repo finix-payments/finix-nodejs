@@ -42,4 +42,3 @@ class TransfersList {
     }
 }
 exports.TransfersList = TransfersList;
-//# sourceMappingURL=transfersList.js.map

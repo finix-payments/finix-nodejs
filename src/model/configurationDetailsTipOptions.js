@@ -39,4 +39,3 @@ class ConfigurationDetailsTipOptions {
     }
 }
 exports.ConfigurationDetailsTipOptions = ConfigurationDetailsTipOptions;
-//# sourceMappingURL=configurationDetailsTipOptions.js.map

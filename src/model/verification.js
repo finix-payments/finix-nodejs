@@ -161,4 +161,3 @@ exports.Verification = Verification;
         StateEnum[StateEnum["Failed"] = 'FAILED'] = "Failed";
     })(StateEnum = Verification.StateEnum || (Verification.StateEnum = {}));
 })(Verification = exports.Verification || (exports.Verification = {}));
-//# sourceMappingURL=verification.js.map

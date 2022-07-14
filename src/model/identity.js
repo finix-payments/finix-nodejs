@@ -87,4 +87,3 @@ class Identity {
     }
 }
 exports.Identity = Identity;
-//# sourceMappingURL=identity.js.map

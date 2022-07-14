@@ -13,7 +13,7 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
-
+import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
 import { CreateProcessorRequest } from '../model/createProcessorRequest';
 import { Error401Unauthorized } from '../model/error401Unauthorized';
@@ -134,8 +134,6 @@ export class ProcessorsApi {
             throw new Error('Required parameter applicationId was null or undefined when calling createApplicationProcessor.');
         }
 
-
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -147,9 +145,14 @@ export class ProcessorsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(createProcessorRequest, "CreateProcessorRequest")
         };
-
+        if (createProcessorRequest.hasOwnProperty('file')){
+            createProcessorRequest = await this.fileHelper(createProcessorRequest);
+            localVarRequestOptions.formData = createProcessorRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(createProcessorRequest, "CreateProcessorRequest");   
+        }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -193,23 +196,24 @@ export class ProcessorsApi {
      * @param createProcessorRequest 
      */
 
-    public async createApplicationProcessor(applicationId: string, createProcessorRequest?: CreateProcessorRequest, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async createApplicationProcessor(applicationId: string, createProcessorRequest?: CreateProcessorRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Processor> {
         const responseObject = await this.createApplicationProcessorHelper(applicationId, createProcessorRequest,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Enable a `Processor` for an `Application`. If created successfully, a 201 status is returned with a location header added to the response which refers to the newly enabled processor. 
+     * @summary Create Application Processor
+     * @param applicationId ID of application to use
+     * @param createProcessorRequest 
+     */
+
+    public async createApplicationProcessorHttp(applicationId: string, createProcessorRequest?: CreateProcessorRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Processor; }> {
+        const responseObject = await this.createApplicationProcessorHelper(applicationId, createProcessorRequest,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Get the `Processor` by `Application` and `type`.
@@ -237,13 +241,10 @@ export class ProcessorsApi {
         if (applicationId === null || applicationId === undefined) {
             throw new Error('Required parameter applicationId was null or undefined when calling getApplicationProcessor.');
         }
-
         // verify required parameter 'type' is not null or undefined
         if (type === null || type === undefined) {
             throw new Error('Required parameter type was null or undefined when calling getApplicationProcessor.');
         }
-
-
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
@@ -257,7 +258,6 @@ export class ProcessorsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -301,23 +301,24 @@ export class ProcessorsApi {
      * @param type Type of &#x60;Processor&#x60;.
      */
 
-    public async getApplicationProcessor(applicationId: string, type: string, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) : 
-        Promise<any> {
+    public async getApplicationProcessor(applicationId: string, type: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<Processor> {
         const responseObject = await this.getApplicationProcessorHelper(applicationId, type,  options);
-
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
         return responseObject.body;
     }
 
+    /**
+     * Get the `Processor` by `Application` and `type`.
+     * @summary Get Application Processor
+     * @param applicationId ID of application to use
+     * @param type Type of &#x60;Processor&#x60;.
+     */
+
+    public async getApplicationProcessorHttp(applicationId: string, type: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: Processor; }> {
+        const responseObject = await this.getApplicationProcessorHelper(applicationId, type,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Get all enabled `Processors` for an `Application`.
@@ -344,11 +345,9 @@ export class ProcessorsApi {
         if (applicationId === null || applicationId === undefined) {
             throw new Error('Required parameter applicationId was null or undefined when calling listApplicationProcessors.');
         }
-
         if (listApplicationProcessorsQueryParams != undefined){ 
 
         }
-
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -361,7 +360,6 @@ export class ProcessorsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
             authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
@@ -405,21 +403,27 @@ export class ProcessorsApi {
     * @param applicationId ID of application to use
     * 
     */
-    public async listByApplicationId (applicationId: string, listApplicationProcessorsQueryParams?:ListApplicationProcessorsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}, httpData: Boolean = false) :
-        Promise<any> {
+    public async listByApplicationId (applicationId: string, listApplicationProcessorsQueryParams?:ListApplicationProcessorsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<SuperSet<any>> {
         const responseObject = await this.listByApplicationIdHelper(applicationId, listApplicationProcessorsQueryParams, options);
 
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            if (httpData) {
-                return Promise.resolve({response: responseObject.response, body: dataList});
-            }
-            return dataList;
-        }
-        if (httpData) {
-            return responseObject;
-        }
-        return responseObject.body;
+        let dataList = await this.embeddedHelper(responseObject);
+        return dataList;
+    }
+
+    /**
+     * Get all enabled `Processors` for an `Application`.
+     * @summary List Application Processors
+
+    * @param applicationId ID of application to use
+    * 
+    */
+    public async listByApplicationIdHttp (applicationId: string, listApplicationProcessorsQueryParams?:ListApplicationProcessorsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
+        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        const responseObject = await this.listByApplicationIdHelper(applicationId, listApplicationProcessorsQueryParams, options);
+
+        let dataList = await this.embeddedHelper(responseObject);
+        return Promise.resolve({response: responseObject.response, body: dataList});
     }
 
 
@@ -429,5 +433,10 @@ export class ProcessorsApi {
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
+    }
+
+    private async fileHelper(request: any){
+        request.file = fs.createReadStream(<string>request.file)
+        return request;
     }
 }

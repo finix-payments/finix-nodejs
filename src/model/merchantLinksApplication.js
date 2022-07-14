@@ -30,4 +30,3 @@ class MerchantLinksApplication {
     }
 }
 exports.MerchantLinksApplication = MerchantLinksApplication;
-//# sourceMappingURL=merchantLinksApplication.js.map

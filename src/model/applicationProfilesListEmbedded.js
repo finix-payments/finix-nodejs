@@ -30,4 +30,3 @@ class ApplicationProfilesListEmbedded {
     }
 }
 exports.ApplicationProfilesListEmbedded = ApplicationProfilesListEmbedded;
-//# sourceMappingURL=applicationProfilesListEmbedded.js.map

@@ -30,4 +30,3 @@ class ApplicationsListEmbedded {
     }
 }
 exports.ApplicationsListEmbedded = ApplicationsListEmbedded;
-//# sourceMappingURL=applicationsListEmbedded.js.map
