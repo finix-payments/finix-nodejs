@@ -24,6 +24,7 @@ import { Error406NotAcceptable } from '../model/error406NotAcceptable';
 import { ExternalLink } from '../model/externalLink';
 import { ExternalLinksList } from '../model/externalLinksList';
 import { FilesList } from '../model/filesList';
+import { ModelFile } from '../model/modelFile';
 import { UploadFileRequest } from '../model/uploadFileRequest';
 import { ListExternalLinksQueryParams } from '../model/listExternalLinksQueryParams';
 import { ListFilesQueryParams } from '../model/listFilesQueryParams';
@@ -137,7 +138,7 @@ export class FilesApi {
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -148,8 +149,7 @@ export class FilesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (createExternalLinkRequest.hasOwnProperty('file')){
-            createExternalLinkRequest = await this.fileHelper(createExternalLinkRequest);
+        if (createExternalLinkRequest != undefined && createExternalLinkRequest != null && createExternalLinkRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = createExternalLinkRequest;
         }
         else{
@@ -223,7 +223,7 @@ export class FilesApi {
      * @param createFileRequest 
      */
 
-    private async createHelper(createFileRequest?: CreateFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: any;  }> {
+    private async createHelper(createFileRequest?: CreateFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ModelFile;  }> {
         const localVarPath = this.basePath + '/files';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -238,7 +238,7 @@ export class FilesApi {
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -249,8 +249,7 @@ export class FilesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (createFileRequest.hasOwnProperty('file')){
-            createFileRequest = await this.fileHelper(createFileRequest);
+        if (createFileRequest != undefined && createFileRequest != null && createFileRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = createFileRequest;
         }
         else{
@@ -275,13 +274,13 @@ export class FilesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: any;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: ModelFile;  }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = ObjectSerializer.deserialize(body, "any");
+                            body = ObjectSerializer.deserialize(body, "ModelFile");
                             resolve({ response: response, body: body });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
@@ -299,7 +298,7 @@ export class FilesApi {
      */
 
     public async create(createFileRequest?: CreateFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<any> {
+        Promise<ModelFile> {
         const responseObject = await this.createHelper(createFileRequest,  options);
         return responseObject.body;
     }
@@ -311,7 +310,7 @@ export class FilesApi {
      */
 
     public async createHttp(createFileRequest?: CreateFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: any; }> {
+        Promise<{response: http.IncomingMessage, body: ModelFile; }> {
         const responseObject = await this.createHelper(createFileRequest,  options);
         return responseObject;
     }
@@ -342,7 +341,7 @@ export class FilesApi {
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -445,7 +444,7 @@ export class FilesApi {
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -524,7 +523,7 @@ export class FilesApi {
      * @param fileId Your &#x60;File&#x60; ID.
      */
 
-    private async getHelper(fileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: any;  }> {
+    private async getHelper(fileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ModelFile;  }> {
         const localVarPath = this.basePath + '/files/{file_id}'
             .replace('{' + 'file_id' + '}', encodeURIComponent(String(fileId)));
         let localVarQueryParameters: any = {};
@@ -544,7 +543,7 @@ export class FilesApi {
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -574,13 +573,13 @@ export class FilesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: any;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: ModelFile;  }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = ObjectSerializer.deserialize(body, "any");
+                            body = ObjectSerializer.deserialize(body, "ModelFile");
                             resolve({ response: response, body: body });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
@@ -598,7 +597,7 @@ export class FilesApi {
      */
 
     public async get(fileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<any> {
+        Promise<ModelFile> {
         const responseObject = await this.getHelper(fileId,  options);
         return responseObject.body;
     }
@@ -610,7 +609,7 @@ export class FilesApi {
      */
 
     public async getHttp(fileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: any; }> {
+        Promise<{response: http.IncomingMessage, body: ModelFile; }> {
         const responseObject = await this.getHelper(fileId,  options);
         return responseObject;
     }
@@ -671,7 +670,7 @@ export class FilesApi {
 
         }
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -797,7 +796,7 @@ export class FilesApi {
 
         }
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -877,7 +876,7 @@ export class FilesApi {
      * @param uploadFileRequest 
      */
 
-    private async uploadFileHelper(fileId: string, uploadFileRequest?: UploadFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: any;  }> {
+    private async uploadFileHelper(fileId: string, uploadFileRequest?: UploadFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ModelFile;  }> {
         const localVarPath = this.basePath + '/files/{file_id}/upload'
             .replace('{' + 'file_id' + '}', encodeURIComponent(String(fileId)));
         let localVarQueryParameters: any = {};
@@ -897,7 +896,7 @@ export class FilesApi {
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -908,8 +907,7 @@ export class FilesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (uploadFileRequest.hasOwnProperty('file')){
-            uploadFileRequest = await this.fileHelper(uploadFileRequest);
+        if (uploadFileRequest != undefined && uploadFileRequest != null && uploadFileRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = uploadFileRequest;
         }
         else{
@@ -934,13 +932,13 @@ export class FilesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: any;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: ModelFile;  }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = ObjectSerializer.deserialize(body, "any");
+                            body = ObjectSerializer.deserialize(body, "ModelFile");
                             resolve({ response: response, body: body });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
@@ -959,7 +957,7 @@ export class FilesApi {
      */
 
     public async uploadFile(fileId: string, uploadFileRequest?: UploadFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<any> {
+        Promise<ModelFile> {
         const responseObject = await this.uploadFileHelper(fileId, uploadFileRequest,  options);
         return responseObject.body;
     }
@@ -972,22 +970,25 @@ export class FilesApi {
      */
 
     public async uploadFileHttp(fileId: string, uploadFileRequest?: UploadFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: any; }> {
+        Promise<{response: http.IncomingMessage, body: ModelFile; }> {
         const responseObject = await this.uploadFileHelper(fileId, uploadFileRequest,  options);
         return responseObject;
     }
 
 
     private async embeddedHelper(responseObject: any){
+        if(responseObject.embedded == null || responseObject.embedded == undefined){
+            const dataList = new SuperSet<any>();
+            dataList.page = responseObject.body.page;
+            dataList.links = responseObject.body.links;
+            return dataList;
+        }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        let tempList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        const dataList = new SuperSet<any>();
+        tempList.forEach(item => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
-    }
-
-    private async fileHelper(request: any){
-        request.file = fs.createReadStream(<string>request.file)
-        return request;
     }
 }

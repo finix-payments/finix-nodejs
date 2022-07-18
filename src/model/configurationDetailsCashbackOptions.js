@@ -13,23 +13,21 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConfigurationDetailsCashbackOptions = void 0;
 class ConfigurationDetailsCashbackOptions {
-    'manualEntry';
-    'selectionAmounts';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "manualEntry",
-            "baseName": "manual_entry",
-            "type": "ConfigurationDetailsCashbackOptionsManualEntry"
-        },
-        {
-            "name": "selectionAmounts",
-            "baseName": "selection_amounts",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return ConfigurationDetailsCashbackOptions.attributeTypeMap;
     }
 }
 exports.ConfigurationDetailsCashbackOptions = ConfigurationDetailsCashbackOptions;
+ConfigurationDetailsCashbackOptions.discriminator = undefined;
+ConfigurationDetailsCashbackOptions.attributeTypeMap = [
+    {
+        "name": "manualEntry",
+        "baseName": "manual_entry",
+        "type": "ConfigurationDetailsCashbackOptionsManualEntry"
+    },
+    {
+        "name": "selectionAmounts",
+        "baseName": "selection_amounts",
+        "type": "string"
+    }
+];

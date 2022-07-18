@@ -16,17 +16,16 @@ exports.ExternalLinksListEmbedded = void 0;
 * `external_links` resources.
 */
 class ExternalLinksListEmbedded {
-    'externalLinks';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "externalLinks",
-            "baseName": "external_links",
-            "type": "Array<ExternalLink>"
-        }
-    ];
     static getAttributeTypeMap() {
         return ExternalLinksListEmbedded.attributeTypeMap;
     }
 }
 exports.ExternalLinksListEmbedded = ExternalLinksListEmbedded;
+ExternalLinksListEmbedded.discriminator = undefined;
+ExternalLinksListEmbedded.attributeTypeMap = [
+    {
+        "name": "externalLinks",
+        "baseName": "external_links",
+        "type": "Array<ExternalLink>"
+    }
+];

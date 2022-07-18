@@ -10,6 +10,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -27,15 +36,15 @@ var FeesApiApiKeys;
 (function (FeesApiApiKeys) {
 })(FeesApiApiKeys = exports.FeesApiApiKeys || (exports.FeesApiApiKeys = {}));
 class FeesApi {
-    _basePath = defaultBasePath;
-    _defaultHeaders = {};
-    _useQuerystring = false;
-    authentications = {
-        'default': new models_1.VoidAuth(),
-        'BasicAuth': new models_2.HttpBasicAuth(),
-    };
-    interceptors = [];
     constructor(basePathOrUsername, password, basePath) {
+        this._basePath = defaultBasePath;
+        this._defaultHeaders = {};
+        this._useQuerystring = false;
+        this.authentications = {
+            'default': new models_1.VoidAuth(),
+            'BasicAuth': new models_2.HttpBasicAuth(),
+        };
+        this.interceptors = [];
         if (password) {
             this.username = basePathOrUsername;
             this.password = password;
@@ -85,62 +94,70 @@ class FeesApi {
      * @summary Create a One-Time Fee
      * @param createFeeRequest
      */
-    async createHelper(createFeeRequest, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/fees';
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'POST',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: models_1.ObjectSerializer.serialize(createFeeRequest, "CreateFeeRequest")
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    createHelper(createFeeRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/fees';
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'POST',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            if (createFeeRequest != undefined && createFeeRequest != null && createFeeRequest.hasOwnProperty('file')) {
+                localVarRequestOptions.formData = createFeeRequest;
+            }
+            else {
+                localVarRequestOptions.body = models_1.ObjectSerializer.serialize(createFeeRequest, "CreateFeeRequest");
+            }
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "Fee");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "Fee");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -150,26 +167,22 @@ class FeesApi {
      * @summary Create a One-Time Fee
      * @param createFeeRequest
      */
-    async create(createFeeRequest, options = { headers: {} }) {
-        const responseObject = await this.createHelper(createFeeRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    create(createFeeRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.createHelper(createFeeRequest, options);
+            return responseObject.body;
+        });
     }
     /**
      * Create a custom (i.e. one time) `fee`.
      * @summary Create a One-Time Fee
      * @param createFeeRequest
      */
-    async createHttp(createFeeRequest, options = { headers: {} }) {
-        const responseObject = await this.createHelper(createFeeRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    createHttp(createFeeRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.createHelper(createFeeRequest, options);
+            return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -177,66 +190,69 @@ class FeesApi {
      * @summary Get Fee
      * @param feeId ID of fee to use
      */
-    async getHelper(feeId, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/fees/{fee_id}'
-            .replace('{' + 'fee_id' + '}', encodeURIComponent(String(feeId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'feeId' is not null or undefined
-        if (feeId === null || feeId === undefined) {
-            throw new Error('Required parameter feeId was null or undefined when calling getFee.');
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    getHelper(feeId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/fees/{fee_id}'
+                .replace('{' + 'fee_id' + '}', encodeURIComponent(String(feeId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'feeId' is not null or undefined
+            if (feeId === null || feeId === undefined) {
+                throw new Error('Required parameter feeId was null or undefined when calling getFee.');
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'GET',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "Fee");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "Fee");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -246,26 +262,22 @@ class FeesApi {
      * @summary Get Fee
      * @param feeId ID of fee to use
      */
-    async get(feeId, options = { headers: {} }) {
-        const responseObject = await this.getHelper(feeId, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    get(feeId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.getHelper(feeId, options);
+            return responseObject.body;
+        });
     }
     /**
      * Retrieve the details of a `Fee`.
      * @summary Get Fee
      * @param feeId ID of fee to use
      */
-    async getHttp(feeId, options = { headers: {} }) {
-        const responseObject = await this.getHelper(feeId, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    getHttp(feeId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.getHelper(feeId, options);
+            return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -273,72 +285,75 @@ class FeesApi {
      * @summary List Fees
 
     */
-    async listHelper(listFeesQueryParams, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/fees';
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        if (listFeesQueryParams != undefined) {
-            if (listFeesQueryParams.limit !== undefined) {
-                localVarQueryParameters['limit'] = models_1.ObjectSerializer.serialize(listFeesQueryParams.limit, "number");
+    listHelper(listFeesQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/fees';
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            if (listFeesQueryParams.afterCursor !== undefined) {
-                localVarQueryParameters['after_cursor'] = models_1.ObjectSerializer.serialize(listFeesQueryParams.afterCursor, "string");
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
             }
-            if (listFeesQueryParams.beforeCursor !== undefined) {
-                localVarQueryParameters['before_cursor'] = models_1.ObjectSerializer.serialize(listFeesQueryParams.beforeCursor, "string");
-            }
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
+            let localVarFormParams = {};
+            if (listFeesQueryParams != undefined) {
+                if (listFeesQueryParams.limit !== undefined) {
+                    localVarQueryParameters['limit'] = models_1.ObjectSerializer.serialize(listFeesQueryParams.limit, "number");
                 }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
+                if (listFeesQueryParams.afterCursor !== undefined) {
+                    localVarQueryParameters['after_cursor'] = models_1.ObjectSerializer.serialize(listFeesQueryParams.afterCursor, "string");
+                }
+                if (listFeesQueryParams.beforeCursor !== undefined) {
+                    localVarQueryParameters['before_cursor'] = models_1.ObjectSerializer.serialize(listFeesQueryParams.beforeCursor, "string");
                 }
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'GET',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "FeesList");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "FeesList");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -348,26 +363,24 @@ class FeesApi {
      * @summary List Fees
 
     */
-    async list(listFeesQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listHelper(listFeesQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    list(listFeesQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listHelper(listFeesQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return dataList;
-        }
-        return responseObject.body;
+        });
     }
     /**
      * Return a collection of `fees`.
      * @summary List Fees
 
     */
-    async listHttp(listFeesQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listHelper(listFeesQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    listHttp(listFeesQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listHelper(listFeesQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -376,67 +389,75 @@ class FeesApi {
      * @param feeId ID of fee to use
      * @param updateFeeRequest
      */
-    async updateHelper(feeId, updateFeeRequest, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/fees/{fee_id}'
-            .replace('{' + 'fee_id' + '}', encodeURIComponent(String(feeId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'feeId' is not null or undefined
-        if (feeId === null || feeId === undefined) {
-            throw new Error('Required parameter feeId was null or undefined when calling updateFee.');
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'PUT',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: models_1.ObjectSerializer.serialize(updateFeeRequest, "UpdateFeeRequest")
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    updateHelper(feeId, updateFeeRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/fees/{fee_id}'
+                .replace('{' + 'fee_id' + '}', encodeURIComponent(String(feeId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'feeId' is not null or undefined
+            if (feeId === null || feeId === undefined) {
+                throw new Error('Required parameter feeId was null or undefined when calling updateFee.');
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'PUT',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            if (updateFeeRequest != undefined && updateFeeRequest != null && updateFeeRequest.hasOwnProperty('file')) {
+                localVarRequestOptions.formData = updateFeeRequest;
+            }
+            else {
+                localVarRequestOptions.body = models_1.ObjectSerializer.serialize(updateFeeRequest, "UpdateFeeRequest");
+            }
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "Fee");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "Fee");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -447,13 +468,11 @@ class FeesApi {
      * @param feeId ID of fee to use
      * @param updateFeeRequest
      */
-    async update(feeId, updateFeeRequest, options = { headers: {} }) {
-        const responseObject = await this.updateHelper(feeId, updateFeeRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    update(feeId, updateFeeRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.updateHelper(feeId, updateFeeRequest, options);
+            return responseObject.body;
+        });
     }
     /**
      * Update the details of a `Fee`.
@@ -461,20 +480,28 @@ class FeesApi {
      * @param feeId ID of fee to use
      * @param updateFeeRequest
      */
-    async updateHttp(feeId, updateFeeRequest, options = { headers: {} }) {
-        const responseObject = await this.updateHelper(feeId, updateFeeRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    updateHttp(feeId, updateFeeRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.updateHelper(feeId, updateFeeRequest, options);
+            return responseObject;
+        });
     }
-    async embeddedHelper(responseObject) {
-        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let dataList = responseObject.body.embedded[embeddedName];
-        dataList.page = responseObject.body.page;
-        dataList.links = responseObject.body.links;
-        return dataList;
+    embeddedHelper(responseObject) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (responseObject.embedded == null || responseObject.embedded == undefined) {
+                const dataList = new models_1.SuperSet();
+                dataList.page = responseObject.body.page;
+                dataList.links = responseObject.body.links;
+                return dataList;
+            }
+            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+            let tempList = responseObject.body.embedded[embeddedName];
+            const dataList = new models_1.SuperSet();
+            tempList.forEach(item => { dataList.add(item); });
+            dataList.page = responseObject.body.page;
+            dataList.links = responseObject.body.links;
+            return dataList;
+        });
     }
 }
 exports.FeesApi = FeesApi;

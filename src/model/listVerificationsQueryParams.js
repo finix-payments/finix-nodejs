@@ -13,20 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ListVerificationsQueryParams = void 0;
 class ListVerificationsQueryParams {
-    /**
-    * Filter by id
-    */
-    'id';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return ListVerificationsQueryParams.attributeTypeMap;
     }
 }
 exports.ListVerificationsQueryParams = ListVerificationsQueryParams;
+ListVerificationsQueryParams.discriminator = undefined;
+ListVerificationsQueryParams.attributeTypeMap = [
+    {
+        "name": "id",
+        "baseName": "id",
+        "type": "string"
+    }
+];

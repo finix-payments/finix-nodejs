@@ -10,6 +10,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -27,15 +36,15 @@ var InstrumentUpdatesApiApiKeys;
 (function (InstrumentUpdatesApiApiKeys) {
 })(InstrumentUpdatesApiApiKeys = exports.InstrumentUpdatesApiApiKeys || (exports.InstrumentUpdatesApiApiKeys = {}));
 class InstrumentUpdatesApi {
-    _basePath = defaultBasePath;
-    _defaultHeaders = {};
-    _useQuerystring = false;
-    authentications = {
-        'default': new models_1.VoidAuth(),
-        'BasicAuth': new models_2.HttpBasicAuth(),
-    };
-    interceptors = [];
     constructor(basePathOrUsername, password, basePath) {
+        this._basePath = defaultBasePath;
+        this._defaultHeaders = {};
+        this._useQuerystring = false;
+        this.authentications = {
+            'default': new models_1.VoidAuth(),
+            'BasicAuth': new models_2.HttpBasicAuth(),
+        };
+        this.interceptors = [];
         if (password) {
             this.username = basePathOrUsername;
             this.password = password;
@@ -85,62 +94,70 @@ class InstrumentUpdatesApi {
      * @summary Create Instrument Updates
      * @param createInstrumentUpdateRequest
      */
-    async createHelper(createInstrumentUpdateRequest, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/instrument_updates';
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'POST',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: models_1.ObjectSerializer.serialize(createInstrumentUpdateRequest, "CreateInstrumentUpdateRequest")
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    createHelper(createInstrumentUpdateRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/instrument_updates';
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'POST',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            if (createInstrumentUpdateRequest != undefined && createInstrumentUpdateRequest != null && createInstrumentUpdateRequest.hasOwnProperty('file')) {
+                localVarRequestOptions.formData = createInstrumentUpdateRequest;
+            }
+            else {
+                localVarRequestOptions.body = models_1.ObjectSerializer.serialize(createInstrumentUpdateRequest, "CreateInstrumentUpdateRequest");
+            }
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "InstrumentUpdate");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "InstrumentUpdate");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -150,26 +167,22 @@ class InstrumentUpdatesApi {
      * @summary Create Instrument Updates
      * @param createInstrumentUpdateRequest
      */
-    async create(createInstrumentUpdateRequest, options = { headers: {} }) {
-        const responseObject = await this.createHelper(createInstrumentUpdateRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    create(createInstrumentUpdateRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.createHelper(createInstrumentUpdateRequest, options);
+            return responseObject.body;
+        });
     }
     /**
      * To update the card details of your customers, create an `instrument_updates` resource. Include the `Payment Instrument` IDs you want to update in a CSV. For more info, the following guide on using our [Account Updater](/docs/guides/payments/account-updater/).
      * @summary Create Instrument Updates
      * @param createInstrumentUpdateRequest
      */
-    async createHttp(createInstrumentUpdateRequest, options = { headers: {} }) {
-        const responseObject = await this.createHelper(createInstrumentUpdateRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    createHttp(createInstrumentUpdateRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.createHelper(createInstrumentUpdateRequest, options);
+            return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -179,71 +192,74 @@ class InstrumentUpdatesApi {
     * @param instrumentUpdatesId The ID of the &#x60;instrument_updates&#x60; resource. This ID was returned when initially creating the &#x60;instrument_updates&#x60; object.
     *
     */
-    async downloadHelper(instrumentUpdatesId, downloadInstrumentUpdateQueryParams, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/instrument_updates/{instrument_updates_id}/download'
-            .replace('{' + 'instrument_updates_id' + '}', encodeURIComponent(String(instrumentUpdatesId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/json', 'application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'instrumentUpdatesId' is not null or undefined
-        if (instrumentUpdatesId === null || instrumentUpdatesId === undefined) {
-            throw new Error('Required parameter instrumentUpdatesId was null or undefined when calling downloadInstrumentUpdate.');
-        }
-        if (downloadInstrumentUpdateQueryParams != undefined) {
-            if (downloadInstrumentUpdateQueryParams.format !== undefined) {
-                localVarQueryParameters['format'] = models_1.ObjectSerializer.serialize(downloadInstrumentUpdateQueryParams.format, "string");
+    downloadHelper(instrumentUpdatesId, downloadInstrumentUpdateQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/instrument_updates/{instrument_updates_id}/download'
+                .replace('{' + 'instrument_updates_id' + '}', encodeURIComponent(String(instrumentUpdatesId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/json', 'application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            encoding: null,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'instrumentUpdatesId' is not null or undefined
+            if (instrumentUpdatesId === null || instrumentUpdatesId === undefined) {
+                throw new Error('Required parameter instrumentUpdatesId was null or undefined when calling downloadInstrumentUpdate.');
+            }
+            if (downloadInstrumentUpdateQueryParams != undefined) {
+                if (downloadInstrumentUpdateQueryParams.format !== undefined) {
+                    localVarQueryParameters['format'] = models_1.ObjectSerializer.serialize(downloadInstrumentUpdateQueryParams.format, "string");
                 }
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'GET',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                encoding: null,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "Buffer");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "Buffer");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -255,13 +271,11 @@ class InstrumentUpdatesApi {
     * @param instrumentUpdatesId The ID of the &#x60;instrument_updates&#x60; resource. This ID was returned when initially creating the &#x60;instrument_updates&#x60; object.
     *
     */
-    async download(instrumentUpdatesId, downloadInstrumentUpdateQueryParams, options = { headers: {} }) {
-        const responseObject = await this.downloadHelper(instrumentUpdatesId, downloadInstrumentUpdateQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    download(instrumentUpdatesId, downloadInstrumentUpdateQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.downloadHelper(instrumentUpdatesId, downloadInstrumentUpdateQueryParams, options);
+            return responseObject.body;
+        });
     }
     /**
      * Fetch a previously created `instrument_updates` resource as a CSV.   To fetch the `instrument_updates` resource in JSON, add `?format=json` to the request endpoint.
@@ -270,13 +284,11 @@ class InstrumentUpdatesApi {
     * @param instrumentUpdatesId The ID of the &#x60;instrument_updates&#x60; resource. This ID was returned when initially creating the &#x60;instrument_updates&#x60; object.
     *
     */
-    async downloadHttp(instrumentUpdatesId, downloadInstrumentUpdateQueryParams, options = { headers: {} }) {
-        const responseObject = await this.downloadHelper(instrumentUpdatesId, downloadInstrumentUpdateQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    downloadHttp(instrumentUpdatesId, downloadInstrumentUpdateQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.downloadHelper(instrumentUpdatesId, downloadInstrumentUpdateQueryParams, options);
+            return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -284,66 +296,69 @@ class InstrumentUpdatesApi {
      * @summary Fetch an Instrument Update
      * @param instrumentUpdatesId The Id of the instrument update.
      */
-    async getHelper(instrumentUpdatesId, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/instrument_updates/{instrument_updates_id}'
-            .replace('{' + 'instrument_updates_id' + '}', encodeURIComponent(String(instrumentUpdatesId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'instrumentUpdatesId' is not null or undefined
-        if (instrumentUpdatesId === null || instrumentUpdatesId === undefined) {
-            throw new Error('Required parameter instrumentUpdatesId was null or undefined when calling getInstrumentUpdate.');
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    getHelper(instrumentUpdatesId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/instrument_updates/{instrument_updates_id}'
+                .replace('{' + 'instrument_updates_id' + '}', encodeURIComponent(String(instrumentUpdatesId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'instrumentUpdatesId' is not null or undefined
+            if (instrumentUpdatesId === null || instrumentUpdatesId === undefined) {
+                throw new Error('Required parameter instrumentUpdatesId was null or undefined when calling getInstrumentUpdate.');
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'GET',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "InstrumentUpdate");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "InstrumentUpdate");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -353,33 +368,39 @@ class InstrumentUpdatesApi {
      * @summary Fetch an Instrument Update
      * @param instrumentUpdatesId The Id of the instrument update.
      */
-    async get(instrumentUpdatesId, options = { headers: {} }) {
-        const responseObject = await this.getHelper(instrumentUpdatesId, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    get(instrumentUpdatesId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.getHelper(instrumentUpdatesId, options);
+            return responseObject.body;
+        });
     }
     /**
      * Fetch a specific `instrument_update` from an `instrument_updates` resource. For more information, see the guide on using our [Account Updater](/guides/payments/account-updater).
      * @summary Fetch an Instrument Update
      * @param instrumentUpdatesId The Id of the instrument update.
      */
-    async getHttp(instrumentUpdatesId, options = { headers: {} }) {
-        const responseObject = await this.getHelper(instrumentUpdatesId, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    getHttp(instrumentUpdatesId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.getHelper(instrumentUpdatesId, options);
+            return responseObject;
+        });
     }
-    async embeddedHelper(responseObject) {
-        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let dataList = responseObject.body.embedded[embeddedName];
-        dataList.page = responseObject.body.page;
-        dataList.links = responseObject.body.links;
-        return dataList;
+    embeddedHelper(responseObject) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (responseObject.embedded == null || responseObject.embedded == undefined) {
+                const dataList = new models_1.SuperSet();
+                dataList.page = responseObject.body.page;
+                dataList.links = responseObject.body.links;
+                return dataList;
+            }
+            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+            let tempList = responseObject.body.embedded[embeddedName];
+            const dataList = new models_1.SuperSet();
+            tempList.forEach(item => { dataList.add(item); });
+            dataList.page = responseObject.body.page;
+            dataList.links = responseObject.body.links;
+            return dataList;
+        });
     }
 }
 exports.InstrumentUpdatesApi = InstrumentUpdatesApi;

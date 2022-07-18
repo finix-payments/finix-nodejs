@@ -16,17 +16,16 @@ exports.IdentityLinksSettlements = void 0;
 * Link to the `Settlement` the request was made under.
 */
 class IdentityLinksSettlements {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return IdentityLinksSettlements.attributeTypeMap;
     }
 }
 exports.IdentityLinksSettlements = IdentityLinksSettlements;
+IdentityLinksSettlements.discriminator = undefined;
+IdentityLinksSettlements.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

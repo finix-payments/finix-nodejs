@@ -10,6 +10,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -27,15 +36,15 @@ var ProcessorsApiApiKeys;
 (function (ProcessorsApiApiKeys) {
 })(ProcessorsApiApiKeys = exports.ProcessorsApiApiKeys || (exports.ProcessorsApiApiKeys = {}));
 class ProcessorsApi {
-    _basePath = defaultBasePath;
-    _defaultHeaders = {};
-    _useQuerystring = false;
-    authentications = {
-        'default': new models_1.VoidAuth(),
-        'BasicAuth': new models_2.HttpBasicAuth(),
-    };
-    interceptors = [];
     constructor(basePathOrUsername, password, basePath) {
+        this._basePath = defaultBasePath;
+        this._defaultHeaders = {};
+        this._useQuerystring = false;
+        this.authentications = {
+            'default': new models_1.VoidAuth(),
+            'BasicAuth': new models_2.HttpBasicAuth(),
+        };
+        this.interceptors = [];
         if (password) {
             this.username = basePathOrUsername;
             this.password = password;
@@ -86,67 +95,75 @@ class ProcessorsApi {
      * @param applicationId ID of application to use
      * @param createProcessorRequest
      */
-    async createApplicationProcessorHelper(applicationId, createProcessorRequest, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/applications/{application_id}/processors'
-            .replace('{' + 'application_id' + '}', encodeURIComponent(String(applicationId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'applicationId' is not null or undefined
-        if (applicationId === null || applicationId === undefined) {
-            throw new Error('Required parameter applicationId was null or undefined when calling createApplicationProcessor.');
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'POST',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: models_1.ObjectSerializer.serialize(createProcessorRequest, "CreateProcessorRequest")
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    createApplicationProcessorHelper(applicationId, createProcessorRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/applications/{application_id}/processors'
+                .replace('{' + 'application_id' + '}', encodeURIComponent(String(applicationId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'applicationId' is not null or undefined
+            if (applicationId === null || applicationId === undefined) {
+                throw new Error('Required parameter applicationId was null or undefined when calling createApplicationProcessor.');
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'POST',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            if (createProcessorRequest != undefined && createProcessorRequest != null && createProcessorRequest.hasOwnProperty('file')) {
+                localVarRequestOptions.formData = createProcessorRequest;
+            }
+            else {
+                localVarRequestOptions.body = models_1.ObjectSerializer.serialize(createProcessorRequest, "CreateProcessorRequest");
+            }
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "Processor");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "Processor");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -157,13 +174,11 @@ class ProcessorsApi {
      * @param applicationId ID of application to use
      * @param createProcessorRequest
      */
-    async createApplicationProcessor(applicationId, createProcessorRequest, options = { headers: {} }) {
-        const responseObject = await this.createApplicationProcessorHelper(applicationId, createProcessorRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    createApplicationProcessor(applicationId, createProcessorRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.createApplicationProcessorHelper(applicationId, createProcessorRequest, options);
+            return responseObject.body;
+        });
     }
     /**
      * Enable a `Processor` for an `Application`. If created successfully, a 201 status is returned with a location header added to the response which refers to the newly enabled processor.
@@ -171,13 +186,11 @@ class ProcessorsApi {
      * @param applicationId ID of application to use
      * @param createProcessorRequest
      */
-    async createApplicationProcessorHttp(applicationId, createProcessorRequest, options = { headers: {} }) {
-        const responseObject = await this.createApplicationProcessorHelper(applicationId, createProcessorRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    createApplicationProcessorHttp(applicationId, createProcessorRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.createApplicationProcessorHelper(applicationId, createProcessorRequest, options);
+            return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -186,71 +199,74 @@ class ProcessorsApi {
      * @param applicationId ID of application to use
      * @param type Type of &#x60;Processor&#x60;.
      */
-    async getApplicationProcessorHelper(applicationId, type, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/applications/{application_id}/processors/{type}'
-            .replace('{' + 'application_id' + '}', encodeURIComponent(String(applicationId)))
-            .replace('{' + 'type' + '}', encodeURIComponent(String(type)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'applicationId' is not null or undefined
-        if (applicationId === null || applicationId === undefined) {
-            throw new Error('Required parameter applicationId was null or undefined when calling getApplicationProcessor.');
-        }
-        // verify required parameter 'type' is not null or undefined
-        if (type === null || type === undefined) {
-            throw new Error('Required parameter type was null or undefined when calling getApplicationProcessor.');
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    getApplicationProcessorHelper(applicationId, type, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/applications/{application_id}/processors/{type}'
+                .replace('{' + 'application_id' + '}', encodeURIComponent(String(applicationId)))
+                .replace('{' + 'type' + '}', encodeURIComponent(String(type)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'applicationId' is not null or undefined
+            if (applicationId === null || applicationId === undefined) {
+                throw new Error('Required parameter applicationId was null or undefined when calling getApplicationProcessor.');
+            }
+            // verify required parameter 'type' is not null or undefined
+            if (type === null || type === undefined) {
+                throw new Error('Required parameter type was null or undefined when calling getApplicationProcessor.');
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'GET',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "Processor");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "Processor");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -261,13 +277,11 @@ class ProcessorsApi {
      * @param applicationId ID of application to use
      * @param type Type of &#x60;Processor&#x60;.
      */
-    async getApplicationProcessor(applicationId, type, options = { headers: {} }) {
-        const responseObject = await this.getApplicationProcessorHelper(applicationId, type, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    getApplicationProcessor(applicationId, type, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.getApplicationProcessorHelper(applicationId, type, options);
+            return responseObject.body;
+        });
     }
     /**
      * Get the `Processor` by `Application` and `type`.
@@ -275,13 +289,11 @@ class ProcessorsApi {
      * @param applicationId ID of application to use
      * @param type Type of &#x60;Processor&#x60;.
      */
-    async getApplicationProcessorHttp(applicationId, type, options = { headers: {} }) {
-        const responseObject = await this.getApplicationProcessorHelper(applicationId, type, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    getApplicationProcessorHttp(applicationId, type, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.getApplicationProcessorHelper(applicationId, type, options);
+            return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -291,68 +303,71 @@ class ProcessorsApi {
     * @param applicationId ID of application to use
     *
     */
-    async listByApplicationIdHelper(applicationId, listApplicationProcessorsQueryParams, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/applications/{application_id}/processors'
-            .replace('{' + 'application_id' + '}', encodeURIComponent(String(applicationId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'applicationId' is not null or undefined
-        if (applicationId === null || applicationId === undefined) {
-            throw new Error('Required parameter applicationId was null or undefined when calling listApplicationProcessors.');
-        }
-        if (listApplicationProcessorsQueryParams != undefined) {
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    listByApplicationIdHelper(applicationId, listApplicationProcessorsQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/applications/{application_id}/processors'
+                .replace('{' + 'application_id' + '}', encodeURIComponent(String(applicationId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'applicationId' is not null or undefined
+            if (applicationId === null || applicationId === undefined) {
+                throw new Error('Required parameter applicationId was null or undefined when calling listApplicationProcessors.');
+            }
+            if (listApplicationProcessorsQueryParams != undefined) {
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'GET',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "ProcessorsList");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "ProcessorsList");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -364,13 +379,12 @@ class ProcessorsApi {
     * @param applicationId ID of application to use
     *
     */
-    async listByApplicationId(applicationId, listApplicationProcessorsQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listByApplicationIdHelper(applicationId, listApplicationProcessorsQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    listByApplicationId(applicationId, listApplicationProcessorsQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listByApplicationIdHelper(applicationId, listApplicationProcessorsQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return dataList;
-        }
-        return responseObject.body;
+        });
     }
     /**
      * Get all enabled `Processors` for an `Application`.
@@ -379,20 +393,29 @@ class ProcessorsApi {
     * @param applicationId ID of application to use
     *
     */
-    async listByApplicationIdHttp(applicationId, listApplicationProcessorsQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listByApplicationIdHelper(applicationId, listApplicationProcessorsQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    listByApplicationIdHttp(applicationId, listApplicationProcessorsQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listByApplicationIdHelper(applicationId, listApplicationProcessorsQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+        });
     }
-    async embeddedHelper(responseObject) {
-        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let dataList = responseObject.body.embedded[embeddedName];
-        dataList.page = responseObject.body.page;
-        dataList.links = responseObject.body.links;
-        return dataList;
+    embeddedHelper(responseObject) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (responseObject.embedded == null || responseObject.embedded == undefined) {
+                const dataList = new models_1.SuperSet();
+                dataList.page = responseObject.body.page;
+                dataList.links = responseObject.body.links;
+                return dataList;
+            }
+            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+            let tempList = responseObject.body.embedded[embeddedName];
+            const dataList = new models_1.SuperSet();
+            tempList.forEach(item => { dataList.add(item); });
+            dataList.page = responseObject.body.page;
+            dataList.links = responseObject.body.links;
+            return dataList;
+        });
     }
 }
 exports.ProcessorsApi = ProcessorsApi;

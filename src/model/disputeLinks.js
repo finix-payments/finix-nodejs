@@ -16,41 +16,36 @@ exports.DisputeLinks = void 0;
 * For your convenience, every response includes several URLs which link to resources relevant to the request. You can use these `_links` to make your follow-up requests and quickly access relevant IDs.
 */
 class DisputeLinks {
-    'adjustmentTransfers';
-    'application';
-    'evidence';
-    'self';
-    'transfer';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "adjustmentTransfers",
-            "baseName": "adjustment_transfers",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "application",
-            "baseName": "application",
-            "type": "ApplicationProfileLinksApplication"
-        },
-        {
-            "name": "evidence",
-            "baseName": "evidence",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "self",
-            "baseName": "self",
-            "type": "ApplicationLinksSelf"
-        },
-        {
-            "name": "transfer",
-            "baseName": "transfer",
-            "type": "DisputeLinksTransfer"
-        }
-    ];
     static getAttributeTypeMap() {
         return DisputeLinks.attributeTypeMap;
     }
 }
 exports.DisputeLinks = DisputeLinks;
+DisputeLinks.discriminator = undefined;
+DisputeLinks.attributeTypeMap = [
+    {
+        "name": "adjustmentTransfers",
+        "baseName": "adjustment_transfers",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "application",
+        "baseName": "application",
+        "type": "ApplicationProfileLinksApplication"
+    },
+    {
+        "name": "evidence",
+        "baseName": "evidence",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "self",
+        "baseName": "self",
+        "type": "ApplicationLinksSelf"
+    },
+    {
+        "name": "transfer",
+        "baseName": "transfer",
+        "type": "DisputeLinksTransfer"
+    }
+];

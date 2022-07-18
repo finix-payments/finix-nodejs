@@ -10,6 +10,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -27,15 +36,15 @@ var SettlementsApiApiKeys;
 (function (SettlementsApiApiKeys) {
 })(SettlementsApiApiKeys = exports.SettlementsApiApiKeys || (exports.SettlementsApiApiKeys = {}));
 class SettlementsApi {
-    _basePath = defaultBasePath;
-    _defaultHeaders = {};
-    _useQuerystring = false;
-    authentications = {
-        'default': new models_1.VoidAuth(),
-        'BasicAuth': new models_2.HttpBasicAuth(),
-    };
-    interceptors = [];
     constructor(basePathOrUsername, password, basePath) {
+        this._basePath = defaultBasePath;
+        this._defaultHeaders = {};
+        this._useQuerystring = false;
+        this.authentications = {
+            'default': new models_1.VoidAuth(),
+            'BasicAuth': new models_2.HttpBasicAuth(),
+        };
+        this.interceptors = [];
         if (password) {
             this.username = basePathOrUsername;
             this.password = password;
@@ -85,62 +94,70 @@ class SettlementsApi {
      * @summary Create a Batch Settlement
      * @param createSettlementRequest
      */
-    async createHelper(createSettlementRequest, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/settlements';
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'POST',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: models_1.ObjectSerializer.serialize(createSettlementRequest, "CreateSettlementRequest")
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    createHelper(createSettlementRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/settlements';
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'POST',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            if (createSettlementRequest != undefined && createSettlementRequest != null && createSettlementRequest.hasOwnProperty('file')) {
+                localVarRequestOptions.formData = createSettlementRequest;
+            }
+            else {
+                localVarRequestOptions.body = models_1.ObjectSerializer.serialize(createSettlementRequest, "CreateSettlementRequest");
+            }
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "Settlement");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "Settlement");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -150,26 +167,22 @@ class SettlementsApi {
      * @summary Create a Batch Settlement
      * @param createSettlementRequest
      */
-    async create(createSettlementRequest, options = { headers: {} }) {
-        const responseObject = await this.createHelper(createSettlementRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    create(createSettlementRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.createHelper(createSettlementRequest, options);
+            return responseObject.body;
+        });
     }
     /**
      * Create a batch `Settlement`. A `Settlement` is a collection of **SUCCEEDED** `Transfers` that are ready to get paid out to a `Merchant`.
      * @summary Create a Batch Settlement
      * @param createSettlementRequest
      */
-    async createHttp(createSettlementRequest, options = { headers: {} }) {
-        const responseObject = await this.createHelper(createSettlementRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    createHttp(createSettlementRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.createHelper(createSettlementRequest, options);
+            return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -177,66 +190,69 @@ class SettlementsApi {
      * @summary Get a Settlement
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      */
-    async getHelper(settlementId, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/settlements/{settlement_id}'
-            .replace('{' + 'settlement_id' + '}', encodeURIComponent(String(settlementId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'settlementId' is not null or undefined
-        if (settlementId === null || settlementId === undefined) {
-            throw new Error('Required parameter settlementId was null or undefined when calling getSettlement.');
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    getHelper(settlementId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/settlements/{settlement_id}'
+                .replace('{' + 'settlement_id' + '}', encodeURIComponent(String(settlementId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'settlementId' is not null or undefined
+            if (settlementId === null || settlementId === undefined) {
+                throw new Error('Required parameter settlementId was null or undefined when calling getSettlement.');
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'GET',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "Settlement");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "Settlement");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -246,26 +262,22 @@ class SettlementsApi {
      * @summary Get a Settlement
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      */
-    async get(settlementId, options = { headers: {} }) {
-        const responseObject = await this.getHelper(settlementId, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    get(settlementId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.getHelper(settlementId, options);
+            return responseObject.body;
+        });
     }
     /**
      * Retreive the details of a `Settlement`.
      * @summary Get a Settlement
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      */
-    async getHttp(settlementId, options = { headers: {} }) {
-        const responseObject = await this.getHelper(settlementId, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    getHttp(settlementId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.getHelper(settlementId, options);
+            return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -275,77 +287,80 @@ class SettlementsApi {
     * @param settlementId ID of &#x60;Settlement&#x60; object.
     *
     */
-    async listFundingTransfersHelper(settlementId, listSettlementFundingTransfersQueryParams, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/settlements/{settlement_id}/funding_transfers'
-            .replace('{' + 'settlement_id' + '}', encodeURIComponent(String(settlementId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'settlementId' is not null or undefined
-        if (settlementId === null || settlementId === undefined) {
-            throw new Error('Required parameter settlementId was null or undefined when calling listSettlementFundingTransfers.');
-        }
-        if (listSettlementFundingTransfersQueryParams != undefined) {
-            if (listSettlementFundingTransfersQueryParams.limit !== undefined) {
-                localVarQueryParameters['limit'] = models_1.ObjectSerializer.serialize(listSettlementFundingTransfersQueryParams.limit, "number");
+    listFundingTransfersHelper(settlementId, listSettlementFundingTransfersQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/settlements/{settlement_id}/funding_transfers'
+                .replace('{' + 'settlement_id' + '}', encodeURIComponent(String(settlementId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            if (listSettlementFundingTransfersQueryParams.afterCursor !== undefined) {
-                localVarQueryParameters['after_cursor'] = models_1.ObjectSerializer.serialize(listSettlementFundingTransfersQueryParams.afterCursor, "string");
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
             }
-            if (listSettlementFundingTransfersQueryParams.beforeCursor !== undefined) {
-                localVarQueryParameters['before_cursor'] = models_1.ObjectSerializer.serialize(listSettlementFundingTransfersQueryParams.beforeCursor, "string");
+            let localVarFormParams = {};
+            // verify required parameter 'settlementId' is not null or undefined
+            if (settlementId === null || settlementId === undefined) {
+                throw new Error('Required parameter settlementId was null or undefined when calling listSettlementFundingTransfers.');
             }
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
+            if (listSettlementFundingTransfersQueryParams != undefined) {
+                if (listSettlementFundingTransfersQueryParams.limit !== undefined) {
+                    localVarQueryParameters['limit'] = models_1.ObjectSerializer.serialize(listSettlementFundingTransfersQueryParams.limit, "number");
                 }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
+                if (listSettlementFundingTransfersQueryParams.afterCursor !== undefined) {
+                    localVarQueryParameters['after_cursor'] = models_1.ObjectSerializer.serialize(listSettlementFundingTransfersQueryParams.afterCursor, "string");
+                }
+                if (listSettlementFundingTransfersQueryParams.beforeCursor !== undefined) {
+                    localVarQueryParameters['before_cursor'] = models_1.ObjectSerializer.serialize(listSettlementFundingTransfersQueryParams.beforeCursor, "string");
                 }
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'GET',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "TransfersList");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "TransfersList");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -357,13 +372,12 @@ class SettlementsApi {
     * @param settlementId ID of &#x60;Settlement&#x60; object.
     *
     */
-    async listFundingTransfers(settlementId, listSettlementFundingTransfersQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listFundingTransfersHelper(settlementId, listSettlementFundingTransfersQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    listFundingTransfers(settlementId, listSettlementFundingTransfersQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listFundingTransfersHelper(settlementId, listSettlementFundingTransfersQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return dataList;
-        }
-        return responseObject.body;
+        });
     }
     /**
      * Retrieve the `Transfers` in a `Settlement` that have `type` **CREDIT**.
@@ -372,13 +386,12 @@ class SettlementsApi {
     * @param settlementId ID of &#x60;Settlement&#x60; object.
     *
     */
-    async listFundingTransfersHttp(settlementId, listSettlementFundingTransfersQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listFundingTransfersHelper(settlementId, listSettlementFundingTransfersQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    listFundingTransfersHttp(settlementId, listSettlementFundingTransfersQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listFundingTransfersHelper(settlementId, listSettlementFundingTransfersQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -388,77 +401,80 @@ class SettlementsApi {
     * @param settlementId ID of &#x60;Settlement&#x60; object.
     *
     */
-    async listTransfersBySettlementIdHelper(settlementId, listSettlementTransfersQueryParams, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/settlements/{settlement_id}/transfers'
-            .replace('{' + 'settlement_id' + '}', encodeURIComponent(String(settlementId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'settlementId' is not null or undefined
-        if (settlementId === null || settlementId === undefined) {
-            throw new Error('Required parameter settlementId was null or undefined when calling listSettlementTransfers.');
-        }
-        if (listSettlementTransfersQueryParams != undefined) {
-            if (listSettlementTransfersQueryParams.limit !== undefined) {
-                localVarQueryParameters['limit'] = models_1.ObjectSerializer.serialize(listSettlementTransfersQueryParams.limit, "number");
+    listTransfersBySettlementIdHelper(settlementId, listSettlementTransfersQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/settlements/{settlement_id}/transfers'
+                .replace('{' + 'settlement_id' + '}', encodeURIComponent(String(settlementId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            if (listSettlementTransfersQueryParams.afterCursor !== undefined) {
-                localVarQueryParameters['after_cursor'] = models_1.ObjectSerializer.serialize(listSettlementTransfersQueryParams.afterCursor, "string");
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
             }
-            if (listSettlementTransfersQueryParams.beforeCursor !== undefined) {
-                localVarQueryParameters['before_cursor'] = models_1.ObjectSerializer.serialize(listSettlementTransfersQueryParams.beforeCursor, "string");
+            let localVarFormParams = {};
+            // verify required parameter 'settlementId' is not null or undefined
+            if (settlementId === null || settlementId === undefined) {
+                throw new Error('Required parameter settlementId was null or undefined when calling listSettlementTransfers.');
             }
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
+            if (listSettlementTransfersQueryParams != undefined) {
+                if (listSettlementTransfersQueryParams.limit !== undefined) {
+                    localVarQueryParameters['limit'] = models_1.ObjectSerializer.serialize(listSettlementTransfersQueryParams.limit, "number");
                 }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
+                if (listSettlementTransfersQueryParams.afterCursor !== undefined) {
+                    localVarQueryParameters['after_cursor'] = models_1.ObjectSerializer.serialize(listSettlementTransfersQueryParams.afterCursor, "string");
+                }
+                if (listSettlementTransfersQueryParams.beforeCursor !== undefined) {
+                    localVarQueryParameters['before_cursor'] = models_1.ObjectSerializer.serialize(listSettlementTransfersQueryParams.beforeCursor, "string");
                 }
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'GET',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "TransfersList");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "TransfersList");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -470,13 +486,12 @@ class SettlementsApi {
     * @param settlementId ID of &#x60;Settlement&#x60; object.
     *
     */
-    async listTransfersBySettlementId(settlementId, listSettlementTransfersQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listTransfersBySettlementIdHelper(settlementId, listSettlementTransfersQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    listTransfersBySettlementId(settlementId, listSettlementTransfersQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listTransfersBySettlementIdHelper(settlementId, listSettlementTransfersQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return dataList;
-        }
-        return responseObject.body;
+        });
     }
     /**
      * Retrieve the `Transfers` in a `Settlement` that have `type` **DEBIT** or **REFUND**.
@@ -485,13 +500,12 @@ class SettlementsApi {
     * @param settlementId ID of &#x60;Settlement&#x60; object.
     *
     */
-    async listTransfersBySettlementIdHttp(settlementId, listSettlementTransfersQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listTransfersBySettlementIdHelper(settlementId, listSettlementTransfersQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    listTransfersBySettlementIdHttp(settlementId, listSettlementTransfersQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listTransfersBySettlementIdHelper(settlementId, listSettlementTransfersQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -499,87 +513,90 @@ class SettlementsApi {
      * @summary List Settlements
 
     */
-    async listHelper(listSettlementsQueryParams, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/settlements';
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        if (listSettlementsQueryParams != undefined) {
-            if (listSettlementsQueryParams.createdAtGte !== undefined) {
-                localVarQueryParameters['created_at.gte'] = models_1.ObjectSerializer.serialize(listSettlementsQueryParams.createdAtGte, "string");
+    listHelper(listSettlementsQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/settlements';
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            if (listSettlementsQueryParams.createdAtLte !== undefined) {
-                localVarQueryParameters['created_at.lte'] = models_1.ObjectSerializer.serialize(listSettlementsQueryParams.createdAtLte, "string");
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
             }
-            if (listSettlementsQueryParams.updatedAtGte !== undefined) {
-                localVarQueryParameters['updated_at.gte'] = models_1.ObjectSerializer.serialize(listSettlementsQueryParams.updatedAtGte, "string");
-            }
-            if (listSettlementsQueryParams.updatedAtLte !== undefined) {
-                localVarQueryParameters['updated_at.lte'] = models_1.ObjectSerializer.serialize(listSettlementsQueryParams.updatedAtLte, "string");
-            }
-            if (listSettlementsQueryParams.id !== undefined) {
-                localVarQueryParameters['id'] = models_1.ObjectSerializer.serialize(listSettlementsQueryParams.id, "string");
-            }
-            if (listSettlementsQueryParams.limit !== undefined) {
-                localVarQueryParameters['limit'] = models_1.ObjectSerializer.serialize(listSettlementsQueryParams.limit, "number");
-            }
-            if (listSettlementsQueryParams.afterCursor !== undefined) {
-                localVarQueryParameters['after_cursor'] = models_1.ObjectSerializer.serialize(listSettlementsQueryParams.afterCursor, "string");
-            }
-            if (listSettlementsQueryParams.beforeCursor !== undefined) {
-                localVarQueryParameters['before_cursor'] = models_1.ObjectSerializer.serialize(listSettlementsQueryParams.beforeCursor, "string");
-            }
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
+            let localVarFormParams = {};
+            if (listSettlementsQueryParams != undefined) {
+                if (listSettlementsQueryParams.createdAtGte !== undefined) {
+                    localVarQueryParameters['created_at.gte'] = models_1.ObjectSerializer.serialize(listSettlementsQueryParams.createdAtGte, "string");
                 }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
+                if (listSettlementsQueryParams.createdAtLte !== undefined) {
+                    localVarQueryParameters['created_at.lte'] = models_1.ObjectSerializer.serialize(listSettlementsQueryParams.createdAtLte, "string");
+                }
+                if (listSettlementsQueryParams.updatedAtGte !== undefined) {
+                    localVarQueryParameters['updated_at.gte'] = models_1.ObjectSerializer.serialize(listSettlementsQueryParams.updatedAtGte, "string");
+                }
+                if (listSettlementsQueryParams.updatedAtLte !== undefined) {
+                    localVarQueryParameters['updated_at.lte'] = models_1.ObjectSerializer.serialize(listSettlementsQueryParams.updatedAtLte, "string");
+                }
+                if (listSettlementsQueryParams.id !== undefined) {
+                    localVarQueryParameters['id'] = models_1.ObjectSerializer.serialize(listSettlementsQueryParams.id, "string");
+                }
+                if (listSettlementsQueryParams.limit !== undefined) {
+                    localVarQueryParameters['limit'] = models_1.ObjectSerializer.serialize(listSettlementsQueryParams.limit, "number");
+                }
+                if (listSettlementsQueryParams.afterCursor !== undefined) {
+                    localVarQueryParameters['after_cursor'] = models_1.ObjectSerializer.serialize(listSettlementsQueryParams.afterCursor, "string");
+                }
+                if (listSettlementsQueryParams.beforeCursor !== undefined) {
+                    localVarQueryParameters['before_cursor'] = models_1.ObjectSerializer.serialize(listSettlementsQueryParams.beforeCursor, "string");
                 }
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'GET',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "SettlementsList");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "SettlementsList");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -589,26 +606,24 @@ class SettlementsApi {
      * @summary List Settlements
 
     */
-    async list(listSettlementsQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listHelper(listSettlementsQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    list(listSettlementsQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listHelper(listSettlementsQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return dataList;
-        }
-        return responseObject.body;
+        });
     }
     /**
      * Retrieve a list of `Settlements`.
      * @summary List Settlements
 
     */
-    async listHttp(listSettlementsQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listHelper(listSettlementsQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    listHttp(listSettlementsQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listHelper(listSettlementsQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -617,66 +632,74 @@ class SettlementsApi {
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      * @param removeSettlementTransfer
      */
-    async removeTransfersFromSettlementHelper(settlementId, removeSettlementTransfer, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/settlements/{settlement_id}/transfers'
-            .replace('{' + 'settlement_id' + '}', encodeURIComponent(String(settlementId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'settlementId' is not null or undefined
-        if (settlementId === null || settlementId === undefined) {
-            throw new Error('Required parameter settlementId was null or undefined when calling removeSettlementTransfers.');
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'DELETE',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: models_1.ObjectSerializer.serialize(removeSettlementTransfer, "RemoveSettlementTransfer")
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    removeTransfersFromSettlementHelper(settlementId, removeSettlementTransfer, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/settlements/{settlement_id}/transfers'
+                .replace('{' + 'settlement_id' + '}', encodeURIComponent(String(settlementId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'settlementId' is not null or undefined
+            if (settlementId === null || settlementId === undefined) {
+                throw new Error('Required parameter settlementId was null or undefined when calling removeSettlementTransfers.');
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'DELETE',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            if (removeSettlementTransfer != undefined && removeSettlementTransfer != null && removeSettlementTransfer.hasOwnProperty('file')) {
+                localVarRequestOptions.formData = removeSettlementTransfer;
+            }
+            else {
+                localVarRequestOptions.body = models_1.ObjectSerializer.serialize(removeSettlementTransfer, "RemoveSettlementTransfer");
+            }
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -687,13 +710,11 @@ class SettlementsApi {
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      * @param removeSettlementTransfer
      */
-    async removeTransfersFromSettlement(settlementId, removeSettlementTransfer, options = { headers: {} }) {
-        const responseObject = await this.removeTransfersFromSettlementHelper(settlementId, removeSettlementTransfer, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    removeTransfersFromSettlement(settlementId, removeSettlementTransfer, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.removeTransfersFromSettlementHelper(settlementId, removeSettlementTransfer, options);
+            return responseObject.body;
+        });
     }
     /**
      * Remove a `Transfer` from a `Settlement`.  As long as the `Settlement` hasn\'t been funded, you can remove the `Transfer` or an array of `Transfers`, along with its corresponding `fee` from a batch `Settlement`.   > Per the JSON API for deleting a resource, our API doesn\'t have a response body when removing a `Transfer` from a `Settlement`.
@@ -701,13 +722,11 @@ class SettlementsApi {
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      * @param removeSettlementTransfer
      */
-    async removeTransfersFromSettlementHttp(settlementId, removeSettlementTransfer, options = { headers: {} }) {
-        const responseObject = await this.removeTransfersFromSettlementHelper(settlementId, removeSettlementTransfer, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    removeTransfersFromSettlementHttp(settlementId, removeSettlementTransfer, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.removeTransfersFromSettlementHelper(settlementId, removeSettlementTransfer, options);
+            return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -716,67 +735,75 @@ class SettlementsApi {
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      * @param updateSettlementRequest
      */
-    async updateHelper(settlementId, updateSettlementRequest, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/settlements/{settlement_id}'
-            .replace('{' + 'settlement_id' + '}', encodeURIComponent(String(settlementId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'settlementId' is not null or undefined
-        if (settlementId === null || settlementId === undefined) {
-            throw new Error('Required parameter settlementId was null or undefined when calling updateSettlement.');
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'PUT',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: models_1.ObjectSerializer.serialize(updateSettlementRequest, "UpdateSettlementRequest")
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    updateHelper(settlementId, updateSettlementRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/settlements/{settlement_id}'
+                .replace('{' + 'settlement_id' + '}', encodeURIComponent(String(settlementId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'settlementId' is not null or undefined
+            if (settlementId === null || settlementId === undefined) {
+                throw new Error('Required parameter settlementId was null or undefined when calling updateSettlement.');
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'PUT',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            if (updateSettlementRequest != undefined && updateSettlementRequest != null && updateSettlementRequest.hasOwnProperty('file')) {
+                localVarRequestOptions.formData = updateSettlementRequest;
+            }
+            else {
+                localVarRequestOptions.body = models_1.ObjectSerializer.serialize(updateSettlementRequest, "UpdateSettlementRequest");
+            }
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "Settlement");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "Settlement");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -787,13 +814,11 @@ class SettlementsApi {
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      * @param updateSettlementRequest
      */
-    async update(settlementId, updateSettlementRequest, options = { headers: {} }) {
-        const responseObject = await this.updateHelper(settlementId, updateSettlementRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    update(settlementId, updateSettlementRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.updateHelper(settlementId, updateSettlementRequest, options);
+            return responseObject.body;
+        });
     }
     /**
      * Update a `Settlement`.
@@ -801,20 +826,28 @@ class SettlementsApi {
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      * @param updateSettlementRequest
      */
-    async updateHttp(settlementId, updateSettlementRequest, options = { headers: {} }) {
-        const responseObject = await this.updateHelper(settlementId, updateSettlementRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    updateHttp(settlementId, updateSettlementRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.updateHelper(settlementId, updateSettlementRequest, options);
+            return responseObject;
+        });
     }
-    async embeddedHelper(responseObject) {
-        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let dataList = responseObject.body.embedded[embeddedName];
-        dataList.page = responseObject.body.page;
-        dataList.links = responseObject.body.links;
-        return dataList;
+    embeddedHelper(responseObject) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (responseObject.embedded == null || responseObject.embedded == undefined) {
+                const dataList = new models_1.SuperSet();
+                dataList.page = responseObject.body.page;
+                dataList.links = responseObject.body.links;
+                return dataList;
+            }
+            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+            let tempList = responseObject.body.embedded[embeddedName];
+            const dataList = new models_1.SuperSet();
+            tempList.forEach(item => { dataList.add(item); });
+            dataList.page = responseObject.body.page;
+            dataList.links = responseObject.body.links;
+            return dataList;
+        });
     }
 }
 exports.SettlementsApi = SettlementsApi;

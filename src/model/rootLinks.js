@@ -16,83 +16,71 @@ exports.RootLinks = void 0;
 * For your convenience, every response includes several URLs which link to resources relevant to the request. You can use these `_links` to make your follow-up requests and quickly access relevant IDs.
 */
 class RootLinks {
-    'applications';
-    'authorizations';
-    'identities';
-    'merchants';
-    'paymentInstruments';
-    'processorCallbacks';
-    'processorClients';
-    'self';
-    'transfers';
-    'users';
-    'verifications';
-    'webhooks';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "applications",
-            "baseName": "applications",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "authorizations",
-            "baseName": "authorizations",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "identities",
-            "baseName": "identities",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "merchants",
-            "baseName": "merchants",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "paymentInstruments",
-            "baseName": "payment_instruments",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "processorCallbacks",
-            "baseName": "processor_callbacks",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "processorClients",
-            "baseName": "processor_clients",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "self",
-            "baseName": "self",
-            "type": "ApplicationLinksSelf"
-        },
-        {
-            "name": "transfers",
-            "baseName": "transfers",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "users",
-            "baseName": "users",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "verifications",
-            "baseName": "verifications",
-            "type": "PaymentInstrumentTokenLinksVerifications"
-        },
-        {
-            "name": "webhooks",
-            "baseName": "webhooks",
-            "type": "ApplicationLinksApplicationProfile"
-        }
-    ];
     static getAttributeTypeMap() {
         return RootLinks.attributeTypeMap;
     }
 }
 exports.RootLinks = RootLinks;
+RootLinks.discriminator = undefined;
+RootLinks.attributeTypeMap = [
+    {
+        "name": "applications",
+        "baseName": "applications",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "authorizations",
+        "baseName": "authorizations",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "identities",
+        "baseName": "identities",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "merchants",
+        "baseName": "merchants",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "paymentInstruments",
+        "baseName": "payment_instruments",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "processorCallbacks",
+        "baseName": "processor_callbacks",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "processorClients",
+        "baseName": "processor_clients",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "self",
+        "baseName": "self",
+        "type": "ApplicationLinksSelf"
+    },
+    {
+        "name": "transfers",
+        "baseName": "transfers",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "users",
+        "baseName": "users",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "verifications",
+        "baseName": "verifications",
+        "type": "PaymentInstrumentTokenLinksVerifications"
+    },
+    {
+        "name": "webhooks",
+        "baseName": "webhooks",
+        "type": "ApplicationLinksApplicationProfile"
+    }
+];

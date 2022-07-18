@@ -13,56 +13,36 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateVerificationRequest = void 0;
 class CreateVerificationRequest {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    /**
-    * ID of the `Identity` resource associated with the `Merchant`.
-    */
-    'identity';
-    /**
-    * The `Payment Instrument` that\'ll be used to settle the `Merchant\'s` funds.
-    */
-    'instrument';
-    /**
-    * The ID of the `Merchant`.
-    */
-    'merchant';
-    /**
-    * Name of the `Verification` processor.
-    */
-    'processor';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "identity",
-            "baseName": "identity",
-            "type": "string"
-        },
-        {
-            "name": "instrument",
-            "baseName": "instrument",
-            "type": "string"
-        },
-        {
-            "name": "merchant",
-            "baseName": "merchant",
-            "type": "string"
-        },
-        {
-            "name": "processor",
-            "baseName": "processor",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return CreateVerificationRequest.attributeTypeMap;
     }
 }
 exports.CreateVerificationRequest = CreateVerificationRequest;
+CreateVerificationRequest.discriminator = undefined;
+CreateVerificationRequest.attributeTypeMap = [
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "identity",
+        "baseName": "identity",
+        "type": "string"
+    },
+    {
+        "name": "instrument",
+        "baseName": "instrument",
+        "type": "string"
+    },
+    {
+        "name": "merchant",
+        "baseName": "merchant",
+        "type": "string"
+    },
+    {
+        "name": "processor",
+        "baseName": "processor",
+        "type": "string"
+    }
+];

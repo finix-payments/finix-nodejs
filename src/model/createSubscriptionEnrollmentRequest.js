@@ -16,47 +16,31 @@ exports.CreateSubscriptionEnrollmentRequest = void 0;
 *
 */
 class CreateSubscriptionEnrollmentRequest {
-    /**
-    * ID of the `Merchant` resource.
-    */
-    'merchant';
-    /**
-    * When the `subscription_enrollment` will begin in **DateTime** format. The start date must be a future date.
-    */
-    'startedAt';
-    /**
-    * Human readable name.
-    */
-    'nickname';
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "merchant",
-            "baseName": "merchant",
-            "type": "string"
-        },
-        {
-            "name": "startedAt",
-            "baseName": "started_at",
-            "type": "string"
-        },
-        {
-            "name": "nickname",
-            "baseName": "nickname",
-            "type": "string"
-        },
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        }
-    ];
     static getAttributeTypeMap() {
         return CreateSubscriptionEnrollmentRequest.attributeTypeMap;
     }
 }
 exports.CreateSubscriptionEnrollmentRequest = CreateSubscriptionEnrollmentRequest;
+CreateSubscriptionEnrollmentRequest.discriminator = undefined;
+CreateSubscriptionEnrollmentRequest.attributeTypeMap = [
+    {
+        "name": "merchant",
+        "baseName": "merchant",
+        "type": "string"
+    },
+    {
+        "name": "startedAt",
+        "baseName": "started_at",
+        "type": "string"
+    },
+    {
+        "name": "nickname",
+        "baseName": "nickname",
+        "type": "string"
+    },
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    }
+];

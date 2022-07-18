@@ -13,29 +13,26 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConfigurationDetailsTipOptions = void 0;
 class ConfigurationDetailsTipOptions {
-    'type';
-    'otherOptions';
-    'tipSelections';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "type",
-            "baseName": "type",
-            "type": "string"
-        },
-        {
-            "name": "otherOptions",
-            "baseName": "other_options",
-            "type": "string"
-        },
-        {
-            "name": "tipSelections",
-            "baseName": "tip_selections",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return ConfigurationDetailsTipOptions.attributeTypeMap;
     }
 }
 exports.ConfigurationDetailsTipOptions = ConfigurationDetailsTipOptions;
+ConfigurationDetailsTipOptions.discriminator = undefined;
+ConfigurationDetailsTipOptions.attributeTypeMap = [
+    {
+        "name": "type",
+        "baseName": "type",
+        "type": "string"
+    },
+    {
+        "name": "otherOptions",
+        "baseName": "other_options",
+        "type": "string"
+    },
+    {
+        "name": "tipSelections",
+        "baseName": "tip_selections",
+        "type": "string"
+    }
+];

@@ -13,17 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReserveProfilesListEmbedded = void 0;
 class ReserveProfilesListEmbedded {
-    'reserveProfiles';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "reserveProfiles",
-            "baseName": "reserve_profiles",
-            "type": "Set<ReserveProfile>"
-        }
-    ];
     static getAttributeTypeMap() {
         return ReserveProfilesListEmbedded.attributeTypeMap;
     }
 }
 exports.ReserveProfilesListEmbedded = ReserveProfilesListEmbedded;
+ReserveProfilesListEmbedded.discriminator = undefined;
+ReserveProfilesListEmbedded.attributeTypeMap = [
+    {
+        "name": "reserveProfiles",
+        "baseName": "reserve_profiles",
+        "type": "Set<ReserveProfile>"
+    }
+];

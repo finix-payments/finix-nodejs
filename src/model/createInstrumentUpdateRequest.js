@@ -13,29 +13,21 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateInstrumentUpdateRequest = void 0;
 class CreateInstrumentUpdateRequest {
-    /**
-    * The binary contents of the file.
-    */
-    'file';
-    /**
-    * A JSON string of your request. The JSON object needs to contain the following two fields: - `merchant`: ID of the `Merchant` object that you want to associate with the Account Updater batch for your own accounting purposes. You can only associate one `Merchant` to each - `idemopotency_id`: A randomly generated value that will be associated with this `instrument_update` resource.
-    */
-    'request';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "file",
-            "baseName": "file",
-            "type": "RequestFile"
-        },
-        {
-            "name": "request",
-            "baseName": "request",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return CreateInstrumentUpdateRequest.attributeTypeMap;
     }
 }
 exports.CreateInstrumentUpdateRequest = CreateInstrumentUpdateRequest;
+CreateInstrumentUpdateRequest.discriminator = undefined;
+CreateInstrumentUpdateRequest.attributeTypeMap = [
+    {
+        "name": "file",
+        "baseName": "file",
+        "type": "RequestFile"
+    },
+    {
+        "name": "request",
+        "baseName": "request",
+        "type": "string"
+    }
+];

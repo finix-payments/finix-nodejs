@@ -16,89 +16,76 @@ exports.TransferLinks = void 0;
 * For your convenience, every response includes several URLs which link to resources relevant to the request. You can use these `_links` to make your follow-up requests and quickly access relevant IDs.
 */
 class TransferLinks {
-    'application';
-    'destination';
-    'device';
-    'disputes';
-    'feeProfile';
-    'fees';
-    'merchantIdentity';
-    'paymentInstruments';
-    'disputedTransfer';
-    'reversals';
-    'self';
-    'parent';
-    'source';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "application",
-            "baseName": "application",
-            "type": "ApplicationProfileLinksApplication"
-        },
-        {
-            "name": "destination",
-            "baseName": "destination",
-            "type": "TransferLinksDestination"
-        },
-        {
-            "name": "device",
-            "baseName": "device",
-            "type": "AuthorizationLinksDevice"
-        },
-        {
-            "name": "disputes",
-            "baseName": "disputes",
-            "type": "TransferLinksDisputes"
-        },
-        {
-            "name": "feeProfile",
-            "baseName": "fee_profile",
-            "type": "TransferLinksFeeProfile"
-        },
-        {
-            "name": "fees",
-            "baseName": "fees",
-            "type": "TransferLinksFees"
-        },
-        {
-            "name": "merchantIdentity",
-            "baseName": "merchant_identity",
-            "type": "AuthorizationLinksMerchantIdentity"
-        },
-        {
-            "name": "paymentInstruments",
-            "baseName": "payment_instruments",
-            "type": "TransferLinksPaymentInstruments"
-        },
-        {
-            "name": "disputedTransfer",
-            "baseName": "disputed_transfer",
-            "type": "TransferLinksDisputedTransfer"
-        },
-        {
-            "name": "reversals",
-            "baseName": "reversals",
-            "type": "TransferLinksReversals"
-        },
-        {
-            "name": "self",
-            "baseName": "self",
-            "type": "ApplicationLinksSelf"
-        },
-        {
-            "name": "parent",
-            "baseName": "parent",
-            "type": "TransferLinksParent"
-        },
-        {
-            "name": "source",
-            "baseName": "source",
-            "type": "TransferLinksSource"
-        }
-    ];
     static getAttributeTypeMap() {
         return TransferLinks.attributeTypeMap;
     }
 }
 exports.TransferLinks = TransferLinks;
+TransferLinks.discriminator = undefined;
+TransferLinks.attributeTypeMap = [
+    {
+        "name": "application",
+        "baseName": "application",
+        "type": "ApplicationProfileLinksApplication"
+    },
+    {
+        "name": "destination",
+        "baseName": "destination",
+        "type": "TransferLinksDestination"
+    },
+    {
+        "name": "device",
+        "baseName": "device",
+        "type": "AuthorizationLinksDevice"
+    },
+    {
+        "name": "disputes",
+        "baseName": "disputes",
+        "type": "TransferLinksDisputes"
+    },
+    {
+        "name": "feeProfile",
+        "baseName": "fee_profile",
+        "type": "TransferLinksFeeProfile"
+    },
+    {
+        "name": "fees",
+        "baseName": "fees",
+        "type": "TransferLinksFees"
+    },
+    {
+        "name": "merchantIdentity",
+        "baseName": "merchant_identity",
+        "type": "AuthorizationLinksMerchantIdentity"
+    },
+    {
+        "name": "paymentInstruments",
+        "baseName": "payment_instruments",
+        "type": "TransferLinksPaymentInstruments"
+    },
+    {
+        "name": "disputedTransfer",
+        "baseName": "disputed_transfer",
+        "type": "TransferLinksDisputedTransfer"
+    },
+    {
+        "name": "reversals",
+        "baseName": "reversals",
+        "type": "TransferLinksReversals"
+    },
+    {
+        "name": "self",
+        "baseName": "self",
+        "type": "ApplicationLinksSelf"
+    },
+    {
+        "name": "parent",
+        "baseName": "parent",
+        "type": "TransferLinksParent"
+    },
+    {
+        "name": "source",
+        "baseName": "source",
+        "type": "TransferLinksSource"
+    }
+];

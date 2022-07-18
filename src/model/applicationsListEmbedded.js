@@ -13,20 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ApplicationsListEmbedded = void 0;
 class ApplicationsListEmbedded {
-    /**
-    * `Application` resource.
-    */
-    'applications';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "applications",
-            "baseName": "applications",
-            "type": "Set<Application>"
-        }
-    ];
     static getAttributeTypeMap() {
         return ApplicationsListEmbedded.attributeTypeMap;
     }
 }
 exports.ApplicationsListEmbedded = ApplicationsListEmbedded;
+ApplicationsListEmbedded.discriminator = undefined;
+ApplicationsListEmbedded.attributeTypeMap = [
+    {
+        "name": "applications",
+        "baseName": "applications",
+        "type": "Set<Application>"
+    }
+];

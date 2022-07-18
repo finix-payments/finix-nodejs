@@ -13,53 +13,36 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateAuthorizationRequest = void 0;
 class UpdateAuthorizationRequest {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    /**
-    * The amount of the `Authorization` you\'d like to collect as your fee in cents. Defaults to zero (must be less than or equal to the `amount`).
-    */
-    'fee';
-    /**
-    * The amount of the  `Authorization`  you would like to capture in cents. Must be less than or equal to the `amount` of the `Authorization`.
-    */
-    'captureAmount';
-    'additionalPurchaseData';
-    /**
-    * Set to True to void the Authorization
-    */
-    'voidMe';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "fee",
-            "baseName": "fee",
-            "type": "number"
-        },
-        {
-            "name": "captureAmount",
-            "baseName": "capture_amount",
-            "type": "number"
-        },
-        {
-            "name": "additionalPurchaseData",
-            "baseName": "additional_purchase_data",
-            "type": "AdditionalPurchaseData"
-        },
-        {
-            "name": "voidMe",
-            "baseName": "void_me",
-            "type": "boolean"
-        }
-    ];
     static getAttributeTypeMap() {
         return UpdateAuthorizationRequest.attributeTypeMap;
     }
 }
 exports.UpdateAuthorizationRequest = UpdateAuthorizationRequest;
+UpdateAuthorizationRequest.discriminator = undefined;
+UpdateAuthorizationRequest.attributeTypeMap = [
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "fee",
+        "baseName": "fee",
+        "type": "number"
+    },
+    {
+        "name": "captureAmount",
+        "baseName": "capture_amount",
+        "type": "number"
+    },
+    {
+        "name": "additionalPurchaseData",
+        "baseName": "additional_purchase_data",
+        "type": "AdditionalPurchaseData"
+    },
+    {
+        "name": "voidMe",
+        "baseName": "void_me",
+        "type": "boolean"
+    }
+];

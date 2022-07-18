@@ -16,17 +16,16 @@ exports.TransferLinksReversals = void 0;
 * Link to the `reversals` associated with the `Transfer`.
 */
 class TransferLinksReversals {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return TransferLinksReversals.attributeTypeMap;
     }
 }
 exports.TransferLinksReversals = TransferLinksReversals;
+TransferLinksReversals.discriminator = undefined;
+TransferLinksReversals.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

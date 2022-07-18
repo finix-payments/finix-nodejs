@@ -133,7 +133,7 @@ export class TransfersApi {
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -144,8 +144,7 @@ export class TransfersApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (createTransferRequest.hasOwnProperty('file')){
-            createTransferRequest = await this.fileHelper(createTransferRequest);
+        if (createTransferRequest != undefined && createTransferRequest != null && createTransferRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = createTransferRequest;
         }
         else{
@@ -238,7 +237,7 @@ export class TransfersApi {
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -249,8 +248,7 @@ export class TransfersApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (createReversalRequest.hasOwnProperty('file')){
-            createReversalRequest = await this.fileHelper(createReversalRequest);
+        if (createReversalRequest != undefined && createReversalRequest != null && createReversalRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = createReversalRequest;
         }
         else{
@@ -344,7 +342,7 @@ export class TransfersApi {
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -453,7 +451,7 @@ export class TransfersApi {
 
         }
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -648,7 +646,7 @@ export class TransfersApi {
 
         }
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -748,7 +746,7 @@ export class TransfersApi {
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -759,8 +757,7 @@ export class TransfersApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (updateTransferRequest.hasOwnProperty('file')){
-            updateTransferRequest = await this.fileHelper(updateTransferRequest);
+        if (updateTransferRequest != undefined && updateTransferRequest != null && updateTransferRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = updateTransferRequest;
         }
         else{
@@ -830,15 +827,18 @@ export class TransfersApi {
 
 
     private async embeddedHelper(responseObject: any){
+        if(responseObject.embedded == null || responseObject.embedded == undefined){
+            const dataList = new SuperSet<any>();
+            dataList.page = responseObject.body.page;
+            dataList.links = responseObject.body.links;
+            return dataList;
+        }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        let tempList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        const dataList = new SuperSet<any>();
+        tempList.forEach(item => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
-    }
-
-    private async fileHelper(request: any){
-        request.file = fs.createReadStream(<string>request.file)
-        return request;
     }
 }

@@ -16,17 +16,16 @@ exports.UpdateFeeRequest = void 0;
 *
 */
 class UpdateFeeRequest {
-    'tags';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "object"
-        }
-    ];
     static getAttributeTypeMap() {
         return UpdateFeeRequest.attributeTypeMap;
     }
 }
 exports.UpdateFeeRequest = UpdateFeeRequest;
+UpdateFeeRequest.discriminator = undefined;
+UpdateFeeRequest.attributeTypeMap = [
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "object"
+    }
+];

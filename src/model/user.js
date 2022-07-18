@@ -13,92 +13,59 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 class User {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    /**
-    * The ID of the `User` resource.
-    */
-    'id';
-    /**
-    * Timestamp of when the object was created.
-    */
-    'createdAt';
-    /**
-    * Timestamp of when the object was last updated.
-    */
-    'updatedAt';
-    /**
-    * Details if the `User` is enabled and active. Set to **false** to disable the `User`.
-    */
-    'enabled';
-    /**
-    * ID of the `Identity` that the `User` resource was created under.
-    */
-    'identity';
-    /**
-    * The `password` you\'ll use to authetnicate requests.
-    */
-    'password';
-    /**
-    * Details the level of access the [`User`](#tag/Users) has available.
-    */
-    'role';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "createdAt",
-            "baseName": "created_at",
-            "type": "Date"
-        },
-        {
-            "name": "updatedAt",
-            "baseName": "updated_at",
-            "type": "Date"
-        },
-        {
-            "name": "enabled",
-            "baseName": "enabled",
-            "type": "boolean"
-        },
-        {
-            "name": "identity",
-            "baseName": "identity",
-            "type": "string"
-        },
-        {
-            "name": "password",
-            "baseName": "password",
-            "type": "string"
-        },
-        {
-            "name": "role",
-            "baseName": "role",
-            "type": "User.RoleEnum"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "UserLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return User.attributeTypeMap;
     }
 }
 exports.User = User;
+User.discriminator = undefined;
+User.attributeTypeMap = [
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "id",
+        "baseName": "id",
+        "type": "string"
+    },
+    {
+        "name": "createdAt",
+        "baseName": "created_at",
+        "type": "Date"
+    },
+    {
+        "name": "updatedAt",
+        "baseName": "updated_at",
+        "type": "Date"
+    },
+    {
+        "name": "enabled",
+        "baseName": "enabled",
+        "type": "boolean"
+    },
+    {
+        "name": "identity",
+        "baseName": "identity",
+        "type": "string"
+    },
+    {
+        "name": "password",
+        "baseName": "password",
+        "type": "string"
+    },
+    {
+        "name": "role",
+        "baseName": "role",
+        "type": "User.RoleEnum"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "UserLinks"
+    }
+];
 (function (User) {
     let RoleEnum;
     (function (RoleEnum) {

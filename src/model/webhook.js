@@ -13,71 +13,46 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Webhook = void 0;
 class Webhook {
-    /**
-    * The ID of the `Webhook` resource.
-    */
-    'id';
-    /**
-    * Timestamp of when the object was created.
-    */
-    'createdAt';
-    /**
-    * Timestamp of when the object was last updated.
-    */
-    'updatedAt';
-    /**
-    * The ID of the `Application` resource the `Webhook` was created under.
-    */
-    'application';
-    /**
-    * Details if the `Webhook` is enabled:<ul><li><strong>true</strong>: Events are being sent to the `url`.<li><strong>false</strong>: Events are not being sent.
-    */
-    'enabled';
-    /**
-    * The HTTP or HTTPS URL where callbacks (i.e. events) will be sent via POST request (max 120 characters).
-    */
-    'url';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "createdAt",
-            "baseName": "created_at",
-            "type": "Date"
-        },
-        {
-            "name": "updatedAt",
-            "baseName": "updated_at",
-            "type": "Date"
-        },
-        {
-            "name": "application",
-            "baseName": "application",
-            "type": "string"
-        },
-        {
-            "name": "enabled",
-            "baseName": "enabled",
-            "type": "boolean"
-        },
-        {
-            "name": "url",
-            "baseName": "url",
-            "type": "string"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "ProcessorLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return Webhook.attributeTypeMap;
     }
 }
 exports.Webhook = Webhook;
+Webhook.discriminator = undefined;
+Webhook.attributeTypeMap = [
+    {
+        "name": "id",
+        "baseName": "id",
+        "type": "string"
+    },
+    {
+        "name": "createdAt",
+        "baseName": "created_at",
+        "type": "Date"
+    },
+    {
+        "name": "updatedAt",
+        "baseName": "updated_at",
+        "type": "Date"
+    },
+    {
+        "name": "application",
+        "baseName": "application",
+        "type": "string"
+    },
+    {
+        "name": "enabled",
+        "baseName": "enabled",
+        "type": "boolean"
+    },
+    {
+        "name": "url",
+        "baseName": "url",
+        "type": "string"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "ProcessorLinks"
+    }
+];

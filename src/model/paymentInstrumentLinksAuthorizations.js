@@ -16,17 +16,16 @@ exports.PaymentInstrumentLinksAuthorizations = void 0;
 * Link to the `Authorizations` created under the resource.
 */
 class PaymentInstrumentLinksAuthorizations {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return PaymentInstrumentLinksAuthorizations.attributeTypeMap;
     }
 }
 exports.PaymentInstrumentLinksAuthorizations = PaymentInstrumentLinksAuthorizations;
+PaymentInstrumentLinksAuthorizations.discriminator = undefined;
+PaymentInstrumentLinksAuthorizations.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

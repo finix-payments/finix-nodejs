@@ -13,20 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RemoveSettlementTransfer = void 0;
 class RemoveSettlementTransfer {
-    /**
-    * ID of `Transfer` resource.
-    */
-    'transfers';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "transfers",
-            "baseName": "transfers",
-            "type": "Array<string>"
-        }
-    ];
     static getAttributeTypeMap() {
         return RemoveSettlementTransfer.attributeTypeMap;
     }
 }
 exports.RemoveSettlementTransfer = RemoveSettlementTransfer;
+RemoveSettlementTransfer.discriminator = undefined;
+RemoveSettlementTransfer.attributeTypeMap = [
+    {
+        "name": "transfers",
+        "baseName": "transfers",
+        "type": "Array<string>"
+    }
+];

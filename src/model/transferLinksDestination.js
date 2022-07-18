@@ -16,17 +16,16 @@ exports.TransferLinksDestination = void 0;
 * Link to the `Payment Instrument` where funds are getting sent.
 */
 class TransferLinksDestination {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return TransferLinksDestination.attributeTypeMap;
     }
 }
 exports.TransferLinksDestination = TransferLinksDestination;
+TransferLinksDestination.discriminator = undefined;
+TransferLinksDestination.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

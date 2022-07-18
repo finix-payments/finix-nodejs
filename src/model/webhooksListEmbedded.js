@@ -13,17 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WebhooksListEmbedded = void 0;
 class WebhooksListEmbedded {
-    'webhooks';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "webhooks",
-            "baseName": "webhooks",
-            "type": "Set<Webhook>"
-        }
-    ];
     static getAttributeTypeMap() {
         return WebhooksListEmbedded.attributeTypeMap;
     }
 }
 exports.WebhooksListEmbedded = WebhooksListEmbedded;
+WebhooksListEmbedded.discriminator = undefined;
+WebhooksListEmbedded.attributeTypeMap = [
+    {
+        "name": "webhooks",
+        "baseName": "webhooks",
+        "type": "Set<Webhook>"
+    }
+];

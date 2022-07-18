@@ -13,74 +13,51 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RiskProfile = void 0;
 class RiskProfile {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    /**
-    * The ID of the resource.
-    */
-    'id';
-    /**
-    * Timestamp of when the object was created.
-    */
-    'createdAt';
-    /**
-    * Timestamp of when the object was last updated.
-    */
-    'updatedAt';
-    /**
-    * The ID of the resource.
-    */
-    'application';
-    'avsFailureAllowed';
-    'cscFailureAllowed';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "createdAt",
-            "baseName": "created_at",
-            "type": "Date"
-        },
-        {
-            "name": "updatedAt",
-            "baseName": "updated_at",
-            "type": "Date"
-        },
-        {
-            "name": "application",
-            "baseName": "application",
-            "type": "string"
-        },
-        {
-            "name": "avsFailureAllowed",
-            "baseName": "avs_failure_allowed",
-            "type": "boolean"
-        },
-        {
-            "name": "cscFailureAllowed",
-            "baseName": "csc_failure_allowed",
-            "type": "boolean"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "RiskProfileLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return RiskProfile.attributeTypeMap;
     }
 }
 exports.RiskProfile = RiskProfile;
+RiskProfile.discriminator = undefined;
+RiskProfile.attributeTypeMap = [
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "id",
+        "baseName": "id",
+        "type": "string"
+    },
+    {
+        "name": "createdAt",
+        "baseName": "created_at",
+        "type": "Date"
+    },
+    {
+        "name": "updatedAt",
+        "baseName": "updated_at",
+        "type": "Date"
+    },
+    {
+        "name": "application",
+        "baseName": "application",
+        "type": "string"
+    },
+    {
+        "name": "avsFailureAllowed",
+        "baseName": "avs_failure_allowed",
+        "type": "boolean"
+    },
+    {
+        "name": "cscFailureAllowed",
+        "baseName": "csc_failure_allowed",
+        "type": "boolean"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "RiskProfileLinks"
+    }
+];

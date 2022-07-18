@@ -13,20 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SettlementsListEmbedded = void 0;
 class SettlementsListEmbedded {
-    /**
-    * `Settlements` resource.
-    */
-    'settlements';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "settlements",
-            "baseName": "settlements",
-            "type": "Set<Settlement>"
-        }
-    ];
     static getAttributeTypeMap() {
         return SettlementsListEmbedded.attributeTypeMap;
     }
 }
 exports.SettlementsListEmbedded = SettlementsListEmbedded;
+SettlementsListEmbedded.discriminator = undefined;
+SettlementsListEmbedded.attributeTypeMap = [
+    {
+        "name": "settlements",
+        "baseName": "settlements",
+        "type": "Set<Settlement>"
+    }
+];

@@ -16,23 +16,21 @@ exports.MerchantProcessorDetails = void 0;
 * Additional details specific to the processor.
 */
 class MerchantProcessorDetails {
-    'mid';
-    'apiKey';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "mid",
-            "baseName": "mid",
-            "type": "string"
-        },
-        {
-            "name": "apiKey",
-            "baseName": "api_key",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return MerchantProcessorDetails.attributeTypeMap;
     }
 }
 exports.MerchantProcessorDetails = MerchantProcessorDetails;
+MerchantProcessorDetails.discriminator = undefined;
+MerchantProcessorDetails.attributeTypeMap = [
+    {
+        "name": "mid",
+        "baseName": "mid",
+        "type": "string"
+    },
+    {
+        "name": "apiKey",
+        "baseName": "api_key",
+        "type": "string"
+    }
+];

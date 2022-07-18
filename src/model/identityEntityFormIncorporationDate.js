@@ -16,38 +16,26 @@ exports.IdentityEntityFormIncorporationDate = void 0;
 * Date company was founded.
 */
 class IdentityEntityFormIncorporationDate {
-    /**
-    * Year business was incorporated (4-digit).
-    */
-    'year';
-    /**
-    * Day business was incorporated (between 1 and 31).
-    */
-    'day';
-    /**
-    * Month business was incorporated (between 1 and 12).
-    */
-    'month';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "year",
-            "baseName": "year",
-            "type": "number"
-        },
-        {
-            "name": "day",
-            "baseName": "day",
-            "type": "number"
-        },
-        {
-            "name": "month",
-            "baseName": "month",
-            "type": "number"
-        }
-    ];
     static getAttributeTypeMap() {
         return IdentityEntityFormIncorporationDate.attributeTypeMap;
     }
 }
 exports.IdentityEntityFormIncorporationDate = IdentityEntityFormIncorporationDate;
+IdentityEntityFormIncorporationDate.discriminator = undefined;
+IdentityEntityFormIncorporationDate.attributeTypeMap = [
+    {
+        "name": "year",
+        "baseName": "year",
+        "type": "number"
+    },
+    {
+        "name": "day",
+        "baseName": "day",
+        "type": "number"
+    },
+    {
+        "name": "month",
+        "baseName": "month",
+        "type": "number"
+    }
+];

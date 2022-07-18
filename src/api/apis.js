@@ -64,9 +64,6 @@ const verificationsApi_1 = require("./verificationsApi");
 __exportStar(require("./webhooksApi"), exports);
 const webhooksApi_1 = require("./webhooksApi");
 class HttpError extends Error {
-    response;
-    body;
-    statusCode;
     constructor(response, body, statusCode) {
         super('HTTP request failed');
         this.response = response;

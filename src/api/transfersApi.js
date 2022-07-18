@@ -10,6 +10,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -27,15 +36,15 @@ var TransfersApiApiKeys;
 (function (TransfersApiApiKeys) {
 })(TransfersApiApiKeys = exports.TransfersApiApiKeys || (exports.TransfersApiApiKeys = {}));
 class TransfersApi {
-    _basePath = defaultBasePath;
-    _defaultHeaders = {};
-    _useQuerystring = false;
-    authentications = {
-        'default': new models_1.VoidAuth(),
-        'BasicAuth': new models_2.HttpBasicAuth(),
-    };
-    interceptors = [];
     constructor(basePathOrUsername, password, basePath) {
+        this._basePath = defaultBasePath;
+        this._defaultHeaders = {};
+        this._useQuerystring = false;
+        this.authentications = {
+            'default': new models_1.VoidAuth(),
+            'BasicAuth': new models_2.HttpBasicAuth(),
+        };
+        this.interceptors = [];
         if (password) {
             this.username = basePathOrUsername;
             this.password = password;
@@ -85,62 +94,70 @@ class TransfersApi {
      * @summary Create a Transfer
      * @param createTransferRequest
      */
-    async createHelper(createTransferRequest, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/transfers';
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'POST',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: models_1.ObjectSerializer.serialize(createTransferRequest, "CreateTransferRequest")
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    createHelper(createTransferRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/transfers';
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'POST',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            if (createTransferRequest != undefined && createTransferRequest != null && createTransferRequest.hasOwnProperty('file')) {
+                localVarRequestOptions.formData = createTransferRequest;
+            }
+            else {
+                localVarRequestOptions.body = models_1.ObjectSerializer.serialize(createTransferRequest, "CreateTransferRequest");
+            }
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "Transfer");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "Transfer");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -150,26 +167,22 @@ class TransfersApi {
      * @summary Create a Transfer
      * @param createTransferRequest
      */
-    async create(createTransferRequest, options = { headers: {} }) {
-        const responseObject = await this.createHelper(createTransferRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    create(createTransferRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.createHelper(createTransferRequest, options);
+            return responseObject.body;
+        });
     }
     /**
      * Create a `Transfer`.   > By default, Finix implements a 3 (business) day delay when debiting bank accounts (i.e. eChecks).
      * @summary Create a Transfer
      * @param createTransferRequest
      */
-    async createHttp(createTransferRequest, options = { headers: {} }) {
-        const responseObject = await this.createHelper(createTransferRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    createHttp(createTransferRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.createHelper(createTransferRequest, options);
+            return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -178,67 +191,75 @@ class TransfersApi {
      * @param transferId ID of &#x60;transfer&#x60; object
      * @param createReversalRequest
      */
-    async createTransferReversalHelper(transferId, createReversalRequest, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/transfers/{transfer_id}/reversals'
-            .replace('{' + 'transfer_id' + '}', encodeURIComponent(String(transferId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'transferId' is not null or undefined
-        if (transferId === null || transferId === undefined) {
-            throw new Error('Required parameter transferId was null or undefined when calling createTransferReversal.');
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'POST',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: models_1.ObjectSerializer.serialize(createReversalRequest, "CreateReversalRequest")
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    createTransferReversalHelper(transferId, createReversalRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/transfers/{transfer_id}/reversals'
+                .replace('{' + 'transfer_id' + '}', encodeURIComponent(String(transferId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'transferId' is not null or undefined
+            if (transferId === null || transferId === undefined) {
+                throw new Error('Required parameter transferId was null or undefined when calling createTransferReversal.');
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'POST',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            if (createReversalRequest != undefined && createReversalRequest != null && createReversalRequest.hasOwnProperty('file')) {
+                localVarRequestOptions.formData = createReversalRequest;
+            }
+            else {
+                localVarRequestOptions.body = models_1.ObjectSerializer.serialize(createReversalRequest, "CreateReversalRequest");
+            }
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "Transfer");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "Transfer");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -249,13 +270,11 @@ class TransfersApi {
      * @param transferId ID of &#x60;transfer&#x60; object
      * @param createReversalRequest
      */
-    async createTransferReversal(transferId, createReversalRequest, options = { headers: {} }) {
-        const responseObject = await this.createTransferReversalHelper(transferId, createReversalRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    createTransferReversal(transferId, createReversalRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.createTransferReversalHelper(transferId, createReversalRequest, options);
+            return responseObject.body;
+        });
     }
     /**
      * Reverse a transfer with a `type` of **DEBIT**. This reversal creates a new `Transfer` resource with a `type` of **REVERSAL**.   The refund can get delivered in most cases without the physical card. The card only needs to be swiped (to receive the refund) when:  - The payment type is **DEBIT**, and the transaction is no longer in the batch. - The payment type is **CREDIT**, and the transaction is no longer in the batch and is older than 45 days.
@@ -263,13 +282,11 @@ class TransfersApi {
      * @param transferId ID of &#x60;transfer&#x60; object
      * @param createReversalRequest
      */
-    async createTransferReversalHttp(transferId, createReversalRequest, options = { headers: {} }) {
-        const responseObject = await this.createTransferReversalHelper(transferId, createReversalRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    createTransferReversalHttp(transferId, createReversalRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.createTransferReversalHelper(transferId, createReversalRequest, options);
+            return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -277,66 +294,69 @@ class TransfersApi {
      * @summary Get a Transfer
      * @param transferId ID of &#x60;transfer&#x60; object.
      */
-    async getHelper(transferId, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/transfers/{transfer_id}'
-            .replace('{' + 'transfer_id' + '}', encodeURIComponent(String(transferId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'transferId' is not null or undefined
-        if (transferId === null || transferId === undefined) {
-            throw new Error('Required parameter transferId was null or undefined when calling getTransfer.');
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    getHelper(transferId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/transfers/{transfer_id}'
+                .replace('{' + 'transfer_id' + '}', encodeURIComponent(String(transferId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'transferId' is not null or undefined
+            if (transferId === null || transferId === undefined) {
+                throw new Error('Required parameter transferId was null or undefined when calling getTransfer.');
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'GET',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "Transfer");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "Transfer");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -346,26 +366,22 @@ class TransfersApi {
      * @summary Get a Transfer
      * @param transferId ID of &#x60;transfer&#x60; object.
      */
-    async get(transferId, options = { headers: {} }) {
-        const responseObject = await this.getHelper(transferId, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    get(transferId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.getHelper(transferId, options);
+            return responseObject.body;
+        });
     }
     /**
      * Retrieve a `transfer`.
      * @summary Get a Transfer
      * @param transferId ID of &#x60;transfer&#x60; object.
      */
-    async getHttp(transferId, options = { headers: {} }) {
-        const responseObject = await this.getHelper(transferId, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    getHttp(transferId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.getHelper(transferId, options);
+            return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -375,77 +391,80 @@ class TransfersApi {
     * @param transferId ID of &#x60;transfer&#x60; object
     *
     */
-    async listTransfersReversalsHelper(transferId, listTransferReversalsQueryParams, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/transfers/{transfer_id}/reversals'
-            .replace('{' + 'transfer_id' + '}', encodeURIComponent(String(transferId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'transferId' is not null or undefined
-        if (transferId === null || transferId === undefined) {
-            throw new Error('Required parameter transferId was null or undefined when calling listTransferReversals.');
-        }
-        if (listTransferReversalsQueryParams != undefined) {
-            if (listTransferReversalsQueryParams.limit !== undefined) {
-                localVarQueryParameters['limit'] = models_1.ObjectSerializer.serialize(listTransferReversalsQueryParams.limit, "number");
+    listTransfersReversalsHelper(transferId, listTransferReversalsQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/transfers/{transfer_id}/reversals'
+                .replace('{' + 'transfer_id' + '}', encodeURIComponent(String(transferId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            if (listTransferReversalsQueryParams.afterCursor !== undefined) {
-                localVarQueryParameters['after_cursor'] = models_1.ObjectSerializer.serialize(listTransferReversalsQueryParams.afterCursor, "string");
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
             }
-            if (listTransferReversalsQueryParams.beforeCursor !== undefined) {
-                localVarQueryParameters['before_cursor'] = models_1.ObjectSerializer.serialize(listTransferReversalsQueryParams.beforeCursor, "string");
+            let localVarFormParams = {};
+            // verify required parameter 'transferId' is not null or undefined
+            if (transferId === null || transferId === undefined) {
+                throw new Error('Required parameter transferId was null or undefined when calling listTransferReversals.');
             }
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
+            if (listTransferReversalsQueryParams != undefined) {
+                if (listTransferReversalsQueryParams.limit !== undefined) {
+                    localVarQueryParameters['limit'] = models_1.ObjectSerializer.serialize(listTransferReversalsQueryParams.limit, "number");
                 }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
+                if (listTransferReversalsQueryParams.afterCursor !== undefined) {
+                    localVarQueryParameters['after_cursor'] = models_1.ObjectSerializer.serialize(listTransferReversalsQueryParams.afterCursor, "string");
+                }
+                if (listTransferReversalsQueryParams.beforeCursor !== undefined) {
+                    localVarQueryParameters['before_cursor'] = models_1.ObjectSerializer.serialize(listTransferReversalsQueryParams.beforeCursor, "string");
                 }
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'GET',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "TransfersList");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "TransfersList");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -457,13 +476,12 @@ class TransfersApi {
     * @param transferId ID of &#x60;transfer&#x60; object
     *
     */
-    async listTransfersReversals(transferId, listTransferReversalsQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listTransfersReversalsHelper(transferId, listTransferReversalsQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    listTransfersReversals(transferId, listTransferReversalsQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listTransfersReversalsHelper(transferId, listTransferReversalsQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return dataList;
-        }
-        return responseObject.body;
+        });
     }
     /**
      * Retrieve a list of reversals for a `Transfer`.
@@ -472,13 +490,12 @@ class TransfersApi {
     * @param transferId ID of &#x60;transfer&#x60; object
     *
     */
-    async listTransfersReversalsHttp(transferId, listTransferReversalsQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listTransfersReversalsHelper(transferId, listTransferReversalsQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    listTransfersReversalsHttp(transferId, listTransferReversalsQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listTransfersReversalsHelper(transferId, listTransferReversalsQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -486,159 +503,162 @@ class TransfersApi {
      * @summary List Transfers
 
     */
-    async listHelper(listTransfersQueryParams, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/transfers';
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        if (listTransfersQueryParams != undefined) {
-            if (listTransfersQueryParams.sort !== undefined) {
-                localVarQueryParameters['sort'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.sort, "string");
+    listHelper(listTransfersQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/transfers';
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            if (listTransfersQueryParams.afterCursor !== undefined) {
-                localVarQueryParameters['after_cursor'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.afterCursor, "string");
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
             }
-            if (listTransfersQueryParams.limit !== undefined) {
-                localVarQueryParameters['limit'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.limit, "number");
-            }
-            if (listTransfersQueryParams.amount !== undefined) {
-                localVarQueryParameters['amount'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.amount, "number");
-            }
-            if (listTransfersQueryParams.amountGte !== undefined) {
-                localVarQueryParameters['amount.gte'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.amountGte, "number");
-            }
-            if (listTransfersQueryParams.amountGt !== undefined) {
-                localVarQueryParameters['amount.gt'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.amountGt, "number");
-            }
-            if (listTransfersQueryParams.amountLte !== undefined) {
-                localVarQueryParameters['amount.lte'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.amountLte, "number");
-            }
-            if (listTransfersQueryParams.amountLt !== undefined) {
-                localVarQueryParameters['amount.lt'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.amountLt, "number");
-            }
-            if (listTransfersQueryParams.createdAtGte !== undefined) {
-                localVarQueryParameters['created_at.gte'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.createdAtGte, "string");
-            }
-            if (listTransfersQueryParams.createdAtLte !== undefined) {
-                localVarQueryParameters['created_at.lte'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.createdAtLte, "string");
-            }
-            if (listTransfersQueryParams.idempotencyId !== undefined) {
-                localVarQueryParameters['idempotency_id'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.idempotencyId, "string");
-            }
-            if (listTransfersQueryParams.id !== undefined) {
-                localVarQueryParameters['id'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.id, "string");
-            }
-            if (listTransfersQueryParams.state !== undefined) {
-                localVarQueryParameters['state'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.state, "'ALL' | 'SUCCEEDED' | 'FAILED' | 'PENDING' | 'CANCELED'");
-            }
-            if (listTransfersQueryParams.readyToSettleAtGte !== undefined) {
-                localVarQueryParameters['ready_to_settle_at.gte'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.readyToSettleAtGte, "string");
-            }
-            if (listTransfersQueryParams.readyToSettleAtLte !== undefined) {
-                localVarQueryParameters['ready_to_settle_at.lte'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.readyToSettleAtLte, "string");
-            }
-            if (listTransfersQueryParams.statementDescriptor !== undefined) {
-                localVarQueryParameters['statement_descriptor'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.statementDescriptor, "number");
-            }
-            if (listTransfersQueryParams.traceId !== undefined) {
-                localVarQueryParameters['trace_id'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.traceId, "string");
-            }
-            if (listTransfersQueryParams.updatedAtGte !== undefined) {
-                localVarQueryParameters['updated_at.gte'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.updatedAtGte, "string");
-            }
-            if (listTransfersQueryParams.updatedAtLte !== undefined) {
-                localVarQueryParameters['updated_at.lte'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.updatedAtLte, "string");
-            }
-            if (listTransfersQueryParams.instrumentBin !== undefined) {
-                localVarQueryParameters['instrument_bin'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.instrumentBin, "string");
-            }
-            if (listTransfersQueryParams.instrumentAccountLast4 !== undefined) {
-                localVarQueryParameters['instrument_account_last4'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.instrumentAccountLast4, "string");
-            }
-            if (listTransfersQueryParams.instrumentBrandType !== undefined) {
-                localVarQueryParameters['instrument_brand_type'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.instrumentBrandType, "string");
-            }
-            if (listTransfersQueryParams.merchantIdentityId !== undefined) {
-                localVarQueryParameters['merchant_identity_id'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.merchantIdentityId, "string");
-            }
-            if (listTransfersQueryParams.merchantIdentityName !== undefined) {
-                localVarQueryParameters['merchant_identity_name'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.merchantIdentityName, "string");
-            }
-            if (listTransfersQueryParams.instrumentName !== undefined) {
-                localVarQueryParameters['instrument_name'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.instrumentName, "string");
-            }
-            if (listTransfersQueryParams.instrumentType !== undefined) {
-                localVarQueryParameters['instrument_type'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.instrumentType, "string");
-            }
-            if (listTransfersQueryParams.merchantId !== undefined) {
-                localVarQueryParameters['merchant_id'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.merchantId, "string");
-            }
-            if (listTransfersQueryParams.merchantMid !== undefined) {
-                localVarQueryParameters['merchant_mid'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.merchantMid, "string");
-            }
-            if (listTransfersQueryParams.instrumentCardLast4 !== undefined) {
-                localVarQueryParameters['instrument_card_last4'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.instrumentCardLast4, "string");
-            }
-            if (listTransfersQueryParams.merchantProcessorId !== undefined) {
-                localVarQueryParameters['merchant_processor_id'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.merchantProcessorId, "string");
-            }
-            if (listTransfersQueryParams.type !== undefined) {
-                localVarQueryParameters['type'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.type, "'ALL' | 'DEBITS' | 'CREDITS' | 'REVERSAL' | 'SETTLEMENT'");
-            }
-            if (listTransfersQueryParams.beforeCursor !== undefined) {
-                localVarQueryParameters['before_cursor'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.beforeCursor, "string");
-            }
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
+            let localVarFormParams = {};
+            if (listTransfersQueryParams != undefined) {
+                if (listTransfersQueryParams.sort !== undefined) {
+                    localVarQueryParameters['sort'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.sort, "string");
                 }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
+                if (listTransfersQueryParams.afterCursor !== undefined) {
+                    localVarQueryParameters['after_cursor'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.afterCursor, "string");
+                }
+                if (listTransfersQueryParams.limit !== undefined) {
+                    localVarQueryParameters['limit'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.limit, "number");
+                }
+                if (listTransfersQueryParams.amount !== undefined) {
+                    localVarQueryParameters['amount'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.amount, "number");
+                }
+                if (listTransfersQueryParams.amountGte !== undefined) {
+                    localVarQueryParameters['amount.gte'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.amountGte, "number");
+                }
+                if (listTransfersQueryParams.amountGt !== undefined) {
+                    localVarQueryParameters['amount.gt'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.amountGt, "number");
+                }
+                if (listTransfersQueryParams.amountLte !== undefined) {
+                    localVarQueryParameters['amount.lte'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.amountLte, "number");
+                }
+                if (listTransfersQueryParams.amountLt !== undefined) {
+                    localVarQueryParameters['amount.lt'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.amountLt, "number");
+                }
+                if (listTransfersQueryParams.createdAtGte !== undefined) {
+                    localVarQueryParameters['created_at.gte'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.createdAtGte, "string");
+                }
+                if (listTransfersQueryParams.createdAtLte !== undefined) {
+                    localVarQueryParameters['created_at.lte'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.createdAtLte, "string");
+                }
+                if (listTransfersQueryParams.idempotencyId !== undefined) {
+                    localVarQueryParameters['idempotency_id'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.idempotencyId, "string");
+                }
+                if (listTransfersQueryParams.id !== undefined) {
+                    localVarQueryParameters['id'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.id, "string");
+                }
+                if (listTransfersQueryParams.state !== undefined) {
+                    localVarQueryParameters['state'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.state, "'ALL' | 'SUCCEEDED' | 'FAILED' | 'PENDING' | 'CANCELED'");
+                }
+                if (listTransfersQueryParams.readyToSettleAtGte !== undefined) {
+                    localVarQueryParameters['ready_to_settle_at.gte'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.readyToSettleAtGte, "string");
+                }
+                if (listTransfersQueryParams.readyToSettleAtLte !== undefined) {
+                    localVarQueryParameters['ready_to_settle_at.lte'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.readyToSettleAtLte, "string");
+                }
+                if (listTransfersQueryParams.statementDescriptor !== undefined) {
+                    localVarQueryParameters['statement_descriptor'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.statementDescriptor, "number");
+                }
+                if (listTransfersQueryParams.traceId !== undefined) {
+                    localVarQueryParameters['trace_id'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.traceId, "string");
+                }
+                if (listTransfersQueryParams.updatedAtGte !== undefined) {
+                    localVarQueryParameters['updated_at.gte'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.updatedAtGte, "string");
+                }
+                if (listTransfersQueryParams.updatedAtLte !== undefined) {
+                    localVarQueryParameters['updated_at.lte'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.updatedAtLte, "string");
+                }
+                if (listTransfersQueryParams.instrumentBin !== undefined) {
+                    localVarQueryParameters['instrument_bin'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.instrumentBin, "string");
+                }
+                if (listTransfersQueryParams.instrumentAccountLast4 !== undefined) {
+                    localVarQueryParameters['instrument_account_last4'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.instrumentAccountLast4, "string");
+                }
+                if (listTransfersQueryParams.instrumentBrandType !== undefined) {
+                    localVarQueryParameters['instrument_brand_type'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.instrumentBrandType, "string");
+                }
+                if (listTransfersQueryParams.merchantIdentityId !== undefined) {
+                    localVarQueryParameters['merchant_identity_id'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.merchantIdentityId, "string");
+                }
+                if (listTransfersQueryParams.merchantIdentityName !== undefined) {
+                    localVarQueryParameters['merchant_identity_name'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.merchantIdentityName, "string");
+                }
+                if (listTransfersQueryParams.instrumentName !== undefined) {
+                    localVarQueryParameters['instrument_name'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.instrumentName, "string");
+                }
+                if (listTransfersQueryParams.instrumentType !== undefined) {
+                    localVarQueryParameters['instrument_type'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.instrumentType, "string");
+                }
+                if (listTransfersQueryParams.merchantId !== undefined) {
+                    localVarQueryParameters['merchant_id'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.merchantId, "string");
+                }
+                if (listTransfersQueryParams.merchantMid !== undefined) {
+                    localVarQueryParameters['merchant_mid'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.merchantMid, "string");
+                }
+                if (listTransfersQueryParams.instrumentCardLast4 !== undefined) {
+                    localVarQueryParameters['instrument_card_last4'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.instrumentCardLast4, "string");
+                }
+                if (listTransfersQueryParams.merchantProcessorId !== undefined) {
+                    localVarQueryParameters['merchant_processor_id'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.merchantProcessorId, "string");
+                }
+                if (listTransfersQueryParams.type !== undefined) {
+                    localVarQueryParameters['type'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.type, "'ALL' | 'DEBITS' | 'CREDITS' | 'REVERSAL' | 'SETTLEMENT'");
+                }
+                if (listTransfersQueryParams.beforeCursor !== undefined) {
+                    localVarQueryParameters['before_cursor'] = models_1.ObjectSerializer.serialize(listTransfersQueryParams.beforeCursor, "string");
                 }
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'GET',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "TransfersList");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "TransfersList");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -648,26 +668,24 @@ class TransfersApi {
      * @summary List Transfers
 
     */
-    async list(listTransfersQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listHelper(listTransfersQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    list(listTransfersQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listHelper(listTransfersQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return dataList;
-        }
-        return responseObject.body;
+        });
     }
     /**
      * Retrieve a list of `Transfers`.
      * @summary List Transfers
 
     */
-    async listHttp(listTransfersQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listHelper(listTransfersQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    listHttp(listTransfersQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listHelper(listTransfersQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -676,67 +694,75 @@ class TransfersApi {
      * @param transferId ID of &#x60;transfer&#x60; object.
      * @param updateTransferRequest
      */
-    async updateHelper(transferId, updateTransferRequest, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/transfers/{transfer_id}'
-            .replace('{' + 'transfer_id' + '}', encodeURIComponent(String(transferId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'transferId' is not null or undefined
-        if (transferId === null || transferId === undefined) {
-            throw new Error('Required parameter transferId was null or undefined when calling updateTransfer.');
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'PUT',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: models_1.ObjectSerializer.serialize(updateTransferRequest, "UpdateTransferRequest")
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    updateHelper(transferId, updateTransferRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/transfers/{transfer_id}'
+                .replace('{' + 'transfer_id' + '}', encodeURIComponent(String(transferId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'transferId' is not null or undefined
+            if (transferId === null || transferId === undefined) {
+                throw new Error('Required parameter transferId was null or undefined when calling updateTransfer.');
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'PUT',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            if (updateTransferRequest != undefined && updateTransferRequest != null && updateTransferRequest.hasOwnProperty('file')) {
+                localVarRequestOptions.formData = updateTransferRequest;
+            }
+            else {
+                localVarRequestOptions.body = models_1.ObjectSerializer.serialize(updateTransferRequest, "UpdateTransferRequest");
+            }
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "Transfer");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "Transfer");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -747,13 +773,11 @@ class TransfersApi {
      * @param transferId ID of &#x60;transfer&#x60; object.
      * @param updateTransferRequest
      */
-    async update(transferId, updateTransferRequest, options = { headers: {} }) {
-        const responseObject = await this.updateHelper(transferId, updateTransferRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    update(transferId, updateTransferRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.updateHelper(transferId, updateTransferRequest, options);
+            return responseObject.body;
+        });
     }
     /**
      * Update a `Transfer`.
@@ -761,20 +785,28 @@ class TransfersApi {
      * @param transferId ID of &#x60;transfer&#x60; object.
      * @param updateTransferRequest
      */
-    async updateHttp(transferId, updateTransferRequest, options = { headers: {} }) {
-        const responseObject = await this.updateHelper(transferId, updateTransferRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    updateHttp(transferId, updateTransferRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.updateHelper(transferId, updateTransferRequest, options);
+            return responseObject;
+        });
     }
-    async embeddedHelper(responseObject) {
-        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let dataList = responseObject.body.embedded[embeddedName];
-        dataList.page = responseObject.body.page;
-        dataList.links = responseObject.body.links;
-        return dataList;
+    embeddedHelper(responseObject) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (responseObject.embedded == null || responseObject.embedded == undefined) {
+                const dataList = new models_1.SuperSet();
+                dataList.page = responseObject.body.page;
+                dataList.links = responseObject.body.links;
+                return dataList;
+            }
+            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+            let tempList = responseObject.body.embedded[embeddedName];
+            const dataList = new models_1.SuperSet();
+            tempList.forEach(item => { dataList.add(item); });
+            dataList.page = responseObject.body.page;
+            dataList.links = responseObject.body.links;
+            return dataList;
+        });
     }
 }
 exports.TransfersApi = TransfersApi;

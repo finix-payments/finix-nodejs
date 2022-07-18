@@ -13,23 +13,21 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Error406NotAcceptable = void 0;
 class Error406NotAcceptable {
-    'total';
-    'embedded';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "total",
-            "baseName": "total",
-            "type": "number"
-        },
-        {
-            "name": "embedded",
-            "baseName": "_embedded",
-            "type": "Error404NotFoundListEmbedded"
-        }
-    ];
     static getAttributeTypeMap() {
         return Error406NotAcceptable.attributeTypeMap;
     }
 }
 exports.Error406NotAcceptable = Error406NotAcceptable;
+Error406NotAcceptable.discriminator = undefined;
+Error406NotAcceptable.attributeTypeMap = [
+    {
+        "name": "total",
+        "baseName": "total",
+        "type": "number"
+    },
+    {
+        "name": "embedded",
+        "baseName": "_embedded",
+        "type": "Error404NotFoundListEmbedded"
+    }
+];

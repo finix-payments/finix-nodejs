@@ -13,23 +13,21 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Error404NotFoundList = void 0;
 class Error404NotFoundList {
-    'total';
-    'embedded';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "total",
-            "baseName": "total",
-            "type": "number"
-        },
-        {
-            "name": "embedded",
-            "baseName": "_embedded",
-            "type": "Error404NotFoundListEmbedded"
-        }
-    ];
     static getAttributeTypeMap() {
         return Error404NotFoundList.attributeTypeMap;
     }
 }
 exports.Error404NotFoundList = Error404NotFoundList;
+Error404NotFoundList.discriminator = undefined;
+Error404NotFoundList.attributeTypeMap = [
+    {
+        "name": "total",
+        "baseName": "total",
+        "type": "number"
+    },
+    {
+        "name": "embedded",
+        "baseName": "_embedded",
+        "type": "Error404NotFoundListEmbedded"
+    }
+];

@@ -16,17 +16,16 @@ exports.DeviceLinksMerchant = void 0;
 * Link to the `Merhcant` resource that was used in the request.
 */
 class DeviceLinksMerchant {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return DeviceLinksMerchant.attributeTypeMap;
     }
 }
 exports.DeviceLinksMerchant = DeviceLinksMerchant;
+DeviceLinksMerchant.discriminator = undefined;
+DeviceLinksMerchant.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

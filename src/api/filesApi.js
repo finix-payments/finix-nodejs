@@ -10,6 +10,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -27,15 +36,15 @@ var FilesApiApiKeys;
 (function (FilesApiApiKeys) {
 })(FilesApiApiKeys = exports.FilesApiApiKeys || (exports.FilesApiApiKeys = {}));
 class FilesApi {
-    _basePath = defaultBasePath;
-    _defaultHeaders = {};
-    _useQuerystring = false;
-    authentications = {
-        'default': new models_1.VoidAuth(),
-        'BasicAuth': new models_2.HttpBasicAuth(),
-    };
-    interceptors = [];
     constructor(basePathOrUsername, password, basePath) {
+        this._basePath = defaultBasePath;
+        this._defaultHeaders = {};
+        this._useQuerystring = false;
+        this.authentications = {
+            'default': new models_1.VoidAuth(),
+            'BasicAuth': new models_2.HttpBasicAuth(),
+        };
+        this.interceptors = [];
         if (password) {
             this.username = basePathOrUsername;
             this.password = password;
@@ -86,67 +95,75 @@ class FilesApi {
      * @param fileId Your &#x60;File&#x60; ID.
      * @param createExternalLinkRequest
      */
-    async createExternalLinkHelper(fileId, createExternalLinkRequest, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/files/{file_id}/external_links'
-            .replace('{' + 'file_id' + '}', encodeURIComponent(String(fileId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/vnd.api+json', 'application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'fileId' is not null or undefined
-        if (fileId === null || fileId === undefined) {
-            throw new Error('Required parameter fileId was null or undefined when calling createExternalLink.');
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'POST',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: models_1.ObjectSerializer.serialize(createExternalLinkRequest, "CreateExternalLinkRequest")
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    createExternalLinkHelper(fileId, createExternalLinkRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/files/{file_id}/external_links'
+                .replace('{' + 'file_id' + '}', encodeURIComponent(String(fileId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/vnd.api+json', 'application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'fileId' is not null or undefined
+            if (fileId === null || fileId === undefined) {
+                throw new Error('Required parameter fileId was null or undefined when calling createExternalLink.');
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'POST',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            if (createExternalLinkRequest != undefined && createExternalLinkRequest != null && createExternalLinkRequest.hasOwnProperty('file')) {
+                localVarRequestOptions.formData = createExternalLinkRequest;
+            }
+            else {
+                localVarRequestOptions.body = models_1.ObjectSerializer.serialize(createExternalLinkRequest, "CreateExternalLinkRequest");
+            }
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "ExternalLink");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "ExternalLink");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -157,13 +174,11 @@ class FilesApi {
      * @param fileId Your &#x60;File&#x60; ID.
      * @param createExternalLinkRequest
      */
-    async createExternalLink(fileId, createExternalLinkRequest, options = { headers: {} }) {
-        const responseObject = await this.createExternalLinkHelper(fileId, createExternalLinkRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    createExternalLink(fileId, createExternalLinkRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.createExternalLinkHelper(fileId, createExternalLinkRequest, options);
+            return responseObject.body;
+        });
     }
     /**
      * Create an `external_link` resource to share with users so they can upload files directly from their browser. For more info, see [Uploading files to Finix](/docs/guides/onboarding/uploading-files-to-finix/).   Once created, you can request the user to upload a file to the `external_link` resource: [Upload files to External Link](#operation/uploadExternalLink)
@@ -171,13 +186,11 @@ class FilesApi {
      * @param fileId Your &#x60;File&#x60; ID.
      * @param createExternalLinkRequest
      */
-    async createExternalLinkHttp(fileId, createExternalLinkRequest, options = { headers: {} }) {
-        const responseObject = await this.createExternalLinkHelper(fileId, createExternalLinkRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    createExternalLinkHttp(fileId, createExternalLinkRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.createExternalLinkHelper(fileId, createExternalLinkRequest, options);
+            return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -185,62 +198,70 @@ class FilesApi {
      * @summary Create a File
      * @param createFileRequest
      */
-    async createHelper(createFileRequest, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/files';
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/vnd.api+json', 'application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'POST',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: models_1.ObjectSerializer.serialize(createFileRequest, "CreateFileRequest")
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    createHelper(createFileRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/files';
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/vnd.api+json', 'application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'POST',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            if (createFileRequest != undefined && createFileRequest != null && createFileRequest.hasOwnProperty('file')) {
+                localVarRequestOptions.formData = createFileRequest;
+            }
+            else {
+                localVarRequestOptions.body = models_1.ObjectSerializer.serialize(createFileRequest, "CreateFileRequest");
+            }
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "any");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "ModelFile");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -250,26 +271,22 @@ class FilesApi {
      * @summary Create a File
      * @param createFileRequest
      */
-    async create(createFileRequest, options = { headers: {} }) {
-        const responseObject = await this.createHelper(createFileRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    create(createFileRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.createHelper(createFileRequest, options);
+            return responseObject.body;
+        });
     }
     /**
      * Before uploading a file, you need to create a `File` resource.   Once created, you can [upload](/#operation/uploadFile) your file to the new `File` resource.
      * @summary Create a File
      * @param createFileRequest
      */
-    async createHttp(createFileRequest, options = { headers: {} }) {
-        const responseObject = await this.createHelper(createFileRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    createHttp(createFileRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.createHelper(createFileRequest, options);
+            return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -277,66 +294,69 @@ class FilesApi {
      * @summary Download a file
      * @param fileId The ID of the &#x60;File&#x60; that was created to upload the file.
      */
-    async downloadFileHelper(fileId, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/files/{file_id}/download'
-            .replace('{' + 'file_id' + '}', encodeURIComponent(String(fileId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/octet-stream', 'application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'fileId' is not null or undefined
-        if (fileId === null || fileId === undefined) {
-            throw new Error('Required parameter fileId was null or undefined when calling downloadFile.');
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            encoding: null,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    downloadFileHelper(fileId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/files/{file_id}/download'
+                .replace('{' + 'file_id' + '}', encodeURIComponent(String(fileId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/octet-stream', 'application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'fileId' is not null or undefined
+            if (fileId === null || fileId === undefined) {
+                throw new Error('Required parameter fileId was null or undefined when calling downloadFile.');
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'GET',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                encoding: null,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "Buffer");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "Buffer");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -346,26 +366,22 @@ class FilesApi {
      * @summary Download a file
      * @param fileId The ID of the &#x60;File&#x60; that was created to upload the file.
      */
-    async downloadFile(fileId, options = { headers: {} }) {
-        const responseObject = await this.downloadFileHelper(fileId, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    downloadFile(fileId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.downloadFileHelper(fileId, options);
+            return responseObject.body;
+        });
     }
     /**
      * Download a file uploaded to a `File` resource. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix).
      * @summary Download a file
      * @param fileId The ID of the &#x60;File&#x60; that was created to upload the file.
      */
-    async downloadFileHttp(fileId, options = { headers: {} }) {
-        const responseObject = await this.downloadFileHelper(fileId, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    downloadFileHttp(fileId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.downloadFileHelper(fileId, options);
+            return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -374,71 +390,74 @@ class FilesApi {
      * @param fileId The ID of the &#x60;File&#x60; that has the links you want to retrieve.
      * @param externalLinkId The ID of the &#x60;external_link&#x60; that you want to retireve.
      */
-    async getExternalLinkHelper(fileId, externalLinkId, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/files/{file_id}/external_links/{external_link_id}'
-            .replace('{' + 'file_id' + '}', encodeURIComponent(String(fileId)))
-            .replace('{' + 'external_link_id' + '}', encodeURIComponent(String(externalLinkId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/vnd.api+json', 'application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'fileId' is not null or undefined
-        if (fileId === null || fileId === undefined) {
-            throw new Error('Required parameter fileId was null or undefined when calling getExternalLink.');
-        }
-        // verify required parameter 'externalLinkId' is not null or undefined
-        if (externalLinkId === null || externalLinkId === undefined) {
-            throw new Error('Required parameter externalLinkId was null or undefined when calling getExternalLink.');
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    getExternalLinkHelper(fileId, externalLinkId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/files/{file_id}/external_links/{external_link_id}'
+                .replace('{' + 'file_id' + '}', encodeURIComponent(String(fileId)))
+                .replace('{' + 'external_link_id' + '}', encodeURIComponent(String(externalLinkId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/vnd.api+json', 'application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'fileId' is not null or undefined
+            if (fileId === null || fileId === undefined) {
+                throw new Error('Required parameter fileId was null or undefined when calling getExternalLink.');
+            }
+            // verify required parameter 'externalLinkId' is not null or undefined
+            if (externalLinkId === null || externalLinkId === undefined) {
+                throw new Error('Required parameter externalLinkId was null or undefined when calling getExternalLink.');
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'GET',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "ExternalLink");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "ExternalLink");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -449,13 +468,11 @@ class FilesApi {
      * @param fileId The ID of the &#x60;File&#x60; that has the links you want to retrieve.
      * @param externalLinkId The ID of the &#x60;external_link&#x60; that you want to retireve.
      */
-    async getExternalLink(fileId, externalLinkId, options = { headers: {} }) {
-        const responseObject = await this.getExternalLinkHelper(fileId, externalLinkId, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    getExternalLink(fileId, externalLinkId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.getExternalLinkHelper(fileId, externalLinkId, options);
+            return responseObject.body;
+        });
     }
     /**
      * Fetch a previously created `external_link` resource. For more info see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#create-an-external-link).
@@ -463,13 +480,11 @@ class FilesApi {
      * @param fileId The ID of the &#x60;File&#x60; that has the links you want to retrieve.
      * @param externalLinkId The ID of the &#x60;external_link&#x60; that you want to retireve.
      */
-    async getExternalLinkHttp(fileId, externalLinkId, options = { headers: {} }) {
-        const responseObject = await this.getExternalLinkHelper(fileId, externalLinkId, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    getExternalLinkHttp(fileId, externalLinkId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.getExternalLinkHelper(fileId, externalLinkId, options);
+            return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -477,66 +492,69 @@ class FilesApi {
      * @summary Fetch a File
      * @param fileId Your &#x60;File&#x60; ID.
      */
-    async getHelper(fileId, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/files/{file_id}'
-            .replace('{' + 'file_id' + '}', encodeURIComponent(String(fileId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/vnd.api+json', 'application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'fileId' is not null or undefined
-        if (fileId === null || fileId === undefined) {
-            throw new Error('Required parameter fileId was null or undefined when calling getFile.');
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    getHelper(fileId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/files/{file_id}'
+                .replace('{' + 'file_id' + '}', encodeURIComponent(String(fileId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/vnd.api+json', 'application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'fileId' is not null or undefined
+            if (fileId === null || fileId === undefined) {
+                throw new Error('Required parameter fileId was null or undefined when calling getFile.');
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'GET',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "any");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "ModelFile");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -546,26 +564,22 @@ class FilesApi {
      * @summary Fetch a File
      * @param fileId Your &#x60;File&#x60; ID.
      */
-    async get(fileId, options = { headers: {} }) {
-        const responseObject = await this.getHelper(fileId, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    get(fileId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.getHelper(fileId, options);
+            return responseObject.body;
+        });
     }
     /**
      * Retrieve the details of a `File` resource. For more info see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#create-an-external-link).
      * @summary Fetch a File
      * @param fileId Your &#x60;File&#x60; ID.
      */
-    async getHttp(fileId, options = { headers: {} }) {
-        const responseObject = await this.getHelper(fileId, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    getHttp(fileId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.getHelper(fileId, options);
+            return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -575,95 +589,98 @@ class FilesApi {
     * @param fileId Your &#x60;File&#x60; ID.
     *
     */
-    async listExternalLinksHelper(fileId, listExternalLinksQueryParams, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/files/{file_id}/external_links'
-            .replace('{' + 'file_id' + '}', encodeURIComponent(String(fileId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/vnd.api+json', 'application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'fileId' is not null or undefined
-        if (fileId === null || fileId === undefined) {
-            throw new Error('Required parameter fileId was null or undefined when calling listExternalLinks.');
-        }
-        if (listExternalLinksQueryParams != undefined) {
-            if (listExternalLinksQueryParams.sort !== undefined) {
-                localVarQueryParameters['sort'] = models_1.ObjectSerializer.serialize(listExternalLinksQueryParams.sort, "string");
+    listExternalLinksHelper(fileId, listExternalLinksQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/files/{file_id}/external_links'
+                .replace('{' + 'file_id' + '}', encodeURIComponent(String(fileId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/vnd.api+json', 'application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            if (listExternalLinksQueryParams.afterCursor !== undefined) {
-                localVarQueryParameters['after_cursor'] = models_1.ObjectSerializer.serialize(listExternalLinksQueryParams.afterCursor, "string");
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
             }
-            if (listExternalLinksQueryParams.limit !== undefined) {
-                localVarQueryParameters['limit'] = models_1.ObjectSerializer.serialize(listExternalLinksQueryParams.limit, "number");
+            let localVarFormParams = {};
+            // verify required parameter 'fileId' is not null or undefined
+            if (fileId === null || fileId === undefined) {
+                throw new Error('Required parameter fileId was null or undefined when calling listExternalLinks.');
             }
-            if (listExternalLinksQueryParams.id !== undefined) {
-                localVarQueryParameters['id'] = models_1.ObjectSerializer.serialize(listExternalLinksQueryParams.id, "string");
-            }
-            if (listExternalLinksQueryParams.createdAtGte !== undefined) {
-                localVarQueryParameters['created_at.gte'] = models_1.ObjectSerializer.serialize(listExternalLinksQueryParams.createdAtGte, "string");
-            }
-            if (listExternalLinksQueryParams.createdAtLte !== undefined) {
-                localVarQueryParameters['created_at.lte'] = models_1.ObjectSerializer.serialize(listExternalLinksQueryParams.createdAtLte, "string");
-            }
-            if (listExternalLinksQueryParams.updatedAtGte !== undefined) {
-                localVarQueryParameters['updated_at.gte'] = models_1.ObjectSerializer.serialize(listExternalLinksQueryParams.updatedAtGte, "string");
-            }
-            if (listExternalLinksQueryParams.updatedAtLte !== undefined) {
-                localVarQueryParameters['updated_at.lte'] = models_1.ObjectSerializer.serialize(listExternalLinksQueryParams.updatedAtLte, "string");
-            }
-            if (listExternalLinksQueryParams.beforeCursor !== undefined) {
-                localVarQueryParameters['before_cursor'] = models_1.ObjectSerializer.serialize(listExternalLinksQueryParams.beforeCursor, "string");
-            }
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
+            if (listExternalLinksQueryParams != undefined) {
+                if (listExternalLinksQueryParams.sort !== undefined) {
+                    localVarQueryParameters['sort'] = models_1.ObjectSerializer.serialize(listExternalLinksQueryParams.sort, "string");
                 }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
+                if (listExternalLinksQueryParams.afterCursor !== undefined) {
+                    localVarQueryParameters['after_cursor'] = models_1.ObjectSerializer.serialize(listExternalLinksQueryParams.afterCursor, "string");
+                }
+                if (listExternalLinksQueryParams.limit !== undefined) {
+                    localVarQueryParameters['limit'] = models_1.ObjectSerializer.serialize(listExternalLinksQueryParams.limit, "number");
+                }
+                if (listExternalLinksQueryParams.id !== undefined) {
+                    localVarQueryParameters['id'] = models_1.ObjectSerializer.serialize(listExternalLinksQueryParams.id, "string");
+                }
+                if (listExternalLinksQueryParams.createdAtGte !== undefined) {
+                    localVarQueryParameters['created_at.gte'] = models_1.ObjectSerializer.serialize(listExternalLinksQueryParams.createdAtGte, "string");
+                }
+                if (listExternalLinksQueryParams.createdAtLte !== undefined) {
+                    localVarQueryParameters['created_at.lte'] = models_1.ObjectSerializer.serialize(listExternalLinksQueryParams.createdAtLte, "string");
+                }
+                if (listExternalLinksQueryParams.updatedAtGte !== undefined) {
+                    localVarQueryParameters['updated_at.gte'] = models_1.ObjectSerializer.serialize(listExternalLinksQueryParams.updatedAtGte, "string");
+                }
+                if (listExternalLinksQueryParams.updatedAtLte !== undefined) {
+                    localVarQueryParameters['updated_at.lte'] = models_1.ObjectSerializer.serialize(listExternalLinksQueryParams.updatedAtLte, "string");
+                }
+                if (listExternalLinksQueryParams.beforeCursor !== undefined) {
+                    localVarQueryParameters['before_cursor'] = models_1.ObjectSerializer.serialize(listExternalLinksQueryParams.beforeCursor, "string");
                 }
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'GET',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "ExternalLinksList");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "ExternalLinksList");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -675,13 +692,12 @@ class FilesApi {
     * @param fileId Your &#x60;File&#x60; ID.
     *
     */
-    async listExternalLinks(fileId, listExternalLinksQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listExternalLinksHelper(fileId, listExternalLinksQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    listExternalLinks(fileId, listExternalLinksQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listExternalLinksHelper(fileId, listExternalLinksQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return dataList;
-        }
-        return responseObject.body;
+        });
     }
     /**
      * List the previously `external_links` for a `File`. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#create-an-external-link).
@@ -690,13 +706,12 @@ class FilesApi {
     * @param fileId Your &#x60;File&#x60; ID.
     *
     */
-    async listExternalLinksHttp(fileId, listExternalLinksQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listExternalLinksHelper(fileId, listExternalLinksQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    listExternalLinksHttp(fileId, listExternalLinksQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listExternalLinksHelper(fileId, listExternalLinksQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -704,90 +719,93 @@ class FilesApi {
      * @summary List All Files
 
     */
-    async listHelper(listFilesQueryParams, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/files';
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/vnd.api+json', 'application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        if (listFilesQueryParams != undefined) {
-            if (listFilesQueryParams.sort !== undefined) {
-                localVarQueryParameters['sort'] = models_1.ObjectSerializer.serialize(listFilesQueryParams.sort, "string");
+    listHelper(listFilesQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/files';
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/vnd.api+json', 'application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            if (listFilesQueryParams.afterCursor !== undefined) {
-                localVarQueryParameters['after_cursor'] = models_1.ObjectSerializer.serialize(listFilesQueryParams.afterCursor, "string");
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
             }
-            if (listFilesQueryParams.limit !== undefined) {
-                localVarQueryParameters['limit'] = models_1.ObjectSerializer.serialize(listFilesQueryParams.limit, "number");
-            }
-            if (listFilesQueryParams.id !== undefined) {
-                localVarQueryParameters['id'] = models_1.ObjectSerializer.serialize(listFilesQueryParams.id, "string");
-            }
-            if (listFilesQueryParams.createdAtGte !== undefined) {
-                localVarQueryParameters['created_at.gte'] = models_1.ObjectSerializer.serialize(listFilesQueryParams.createdAtGte, "string");
-            }
-            if (listFilesQueryParams.createdAtLte !== undefined) {
-                localVarQueryParameters['created_at.lte'] = models_1.ObjectSerializer.serialize(listFilesQueryParams.createdAtLte, "string");
-            }
-            if (listFilesQueryParams.updatedAtGte !== undefined) {
-                localVarQueryParameters['updated_at.gte'] = models_1.ObjectSerializer.serialize(listFilesQueryParams.updatedAtGte, "string");
-            }
-            if (listFilesQueryParams.updatedAtLte !== undefined) {
-                localVarQueryParameters['updated_at.lte'] = models_1.ObjectSerializer.serialize(listFilesQueryParams.updatedAtLte, "string");
-            }
-            if (listFilesQueryParams.beforeCursor !== undefined) {
-                localVarQueryParameters['before_cursor'] = models_1.ObjectSerializer.serialize(listFilesQueryParams.beforeCursor, "string");
-            }
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
+            let localVarFormParams = {};
+            if (listFilesQueryParams != undefined) {
+                if (listFilesQueryParams.sort !== undefined) {
+                    localVarQueryParameters['sort'] = models_1.ObjectSerializer.serialize(listFilesQueryParams.sort, "string");
                 }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
+                if (listFilesQueryParams.afterCursor !== undefined) {
+                    localVarQueryParameters['after_cursor'] = models_1.ObjectSerializer.serialize(listFilesQueryParams.afterCursor, "string");
+                }
+                if (listFilesQueryParams.limit !== undefined) {
+                    localVarQueryParameters['limit'] = models_1.ObjectSerializer.serialize(listFilesQueryParams.limit, "number");
+                }
+                if (listFilesQueryParams.id !== undefined) {
+                    localVarQueryParameters['id'] = models_1.ObjectSerializer.serialize(listFilesQueryParams.id, "string");
+                }
+                if (listFilesQueryParams.createdAtGte !== undefined) {
+                    localVarQueryParameters['created_at.gte'] = models_1.ObjectSerializer.serialize(listFilesQueryParams.createdAtGte, "string");
+                }
+                if (listFilesQueryParams.createdAtLte !== undefined) {
+                    localVarQueryParameters['created_at.lte'] = models_1.ObjectSerializer.serialize(listFilesQueryParams.createdAtLte, "string");
+                }
+                if (listFilesQueryParams.updatedAtGte !== undefined) {
+                    localVarQueryParameters['updated_at.gte'] = models_1.ObjectSerializer.serialize(listFilesQueryParams.updatedAtGte, "string");
+                }
+                if (listFilesQueryParams.updatedAtLte !== undefined) {
+                    localVarQueryParameters['updated_at.lte'] = models_1.ObjectSerializer.serialize(listFilesQueryParams.updatedAtLte, "string");
+                }
+                if (listFilesQueryParams.beforeCursor !== undefined) {
+                    localVarQueryParameters['before_cursor'] = models_1.ObjectSerializer.serialize(listFilesQueryParams.beforeCursor, "string");
                 }
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'GET',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "FilesList");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "FilesList");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -797,26 +815,24 @@ class FilesApi {
      * @summary List All Files
 
     */
-    async list(listFilesQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listHelper(listFilesQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    list(listFilesQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listHelper(listFilesQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return dataList;
-        }
-        return responseObject.body;
+        });
     }
     /**
      * List all the `File` resources you\'ve created. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#step-1-create-a-file).
      * @summary List All Files
 
     */
-    async listHttp(listFilesQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listHelper(listFilesQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    listHttp(listFilesQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listHelper(listFilesQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -825,67 +841,75 @@ class FilesApi {
      * @param fileId The ID of the &#x60;File&#x60; that was created to upload the file.
      * @param uploadFileRequest
      */
-    async uploadFileHelper(fileId, uploadFileRequest, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/files/{file_id}/upload'
-            .replace('{' + 'file_id' + '}', encodeURIComponent(String(fileId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/vnd.api+json', 'application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'fileId' is not null or undefined
-        if (fileId === null || fileId === undefined) {
-            throw new Error('Required parameter fileId was null or undefined when calling uploadFile.');
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'POST',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: models_1.ObjectSerializer.serialize(uploadFileRequest, "UploadFileRequest")
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    uploadFileHelper(fileId, uploadFileRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/files/{file_id}/upload'
+                .replace('{' + 'file_id' + '}', encodeURIComponent(String(fileId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/vnd.api+json', 'application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'fileId' is not null or undefined
+            if (fileId === null || fileId === undefined) {
+                throw new Error('Required parameter fileId was null or undefined when calling uploadFile.');
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'POST',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            if (uploadFileRequest != undefined && uploadFileRequest != null && uploadFileRequest.hasOwnProperty('file')) {
+                localVarRequestOptions.formData = uploadFileRequest;
+            }
+            else {
+                localVarRequestOptions.body = models_1.ObjectSerializer.serialize(uploadFileRequest, "UploadFileRequest");
+            }
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "any");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "ModelFile");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -896,13 +920,11 @@ class FilesApi {
      * @param fileId The ID of the &#x60;File&#x60; that was created to upload the file.
      * @param uploadFileRequest
      */
-    async uploadFile(fileId, uploadFileRequest, options = { headers: {} }) {
-        const responseObject = await this.uploadFileHelper(fileId, uploadFileRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    uploadFile(fileId, uploadFileRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.uploadFileHelper(fileId, uploadFileRequest, options);
+            return responseObject.body;
+        });
     }
     /**
      * Upload files directly with a `multipart/form-data` request. For more info see, [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#step-2-upload-the-file).
@@ -910,20 +932,28 @@ class FilesApi {
      * @param fileId The ID of the &#x60;File&#x60; that was created to upload the file.
      * @param uploadFileRequest
      */
-    async uploadFileHttp(fileId, uploadFileRequest, options = { headers: {} }) {
-        const responseObject = await this.uploadFileHelper(fileId, uploadFileRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    uploadFileHttp(fileId, uploadFileRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.uploadFileHelper(fileId, uploadFileRequest, options);
+            return responseObject;
+        });
     }
-    async embeddedHelper(responseObject) {
-        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let dataList = responseObject.body.embedded[embeddedName];
-        dataList.page = responseObject.body.page;
-        dataList.links = responseObject.body.links;
-        return dataList;
+    embeddedHelper(responseObject) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (responseObject.embedded == null || responseObject.embedded == undefined) {
+                const dataList = new models_1.SuperSet();
+                dataList.page = responseObject.body.page;
+                dataList.links = responseObject.body.links;
+                return dataList;
+            }
+            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+            let tempList = responseObject.body.embedded[embeddedName];
+            const dataList = new models_1.SuperSet();
+            tempList.forEach(item => { dataList.add(item); });
+            dataList.page = responseObject.body.page;
+            dataList.links = responseObject.body.links;
+            return dataList;
+        });
     }
 }
 exports.FilesApi = FilesApi;

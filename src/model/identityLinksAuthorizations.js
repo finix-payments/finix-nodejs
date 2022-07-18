@@ -16,17 +16,16 @@ exports.IdentityLinksAuthorizations = void 0;
 * Link to the `Authorization` the request was made under.
 */
 class IdentityLinksAuthorizations {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return IdentityLinksAuthorizations.attributeTypeMap;
     }
 }
 exports.IdentityLinksAuthorizations = IdentityLinksAuthorizations;
+IdentityLinksAuthorizations.discriminator = undefined;
+IdentityLinksAuthorizations.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

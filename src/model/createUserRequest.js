@@ -16,29 +16,21 @@ exports.CreateUserRequest = void 0;
 *
 */
 class CreateUserRequest {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    /**
-    * Details if the `user` is enabled and active. Set to **false** to disable the `user`.
-    */
-    'enabled';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "enabled",
-            "baseName": "enabled",
-            "type": "boolean"
-        }
-    ];
     static getAttributeTypeMap() {
         return CreateUserRequest.attributeTypeMap;
     }
 }
 exports.CreateUserRequest = CreateUserRequest;
+CreateUserRequest.discriminator = undefined;
+CreateUserRequest.attributeTypeMap = [
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "enabled",
+        "baseName": "enabled",
+        "type": "boolean"
+    }
+];

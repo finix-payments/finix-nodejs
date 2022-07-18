@@ -16,23 +16,21 @@ exports.Error422InvalidFieldList = void 0;
 * Invalid field
 */
 class Error422InvalidFieldList {
-    'total';
-    'embedded';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "total",
-            "baseName": "total",
-            "type": "number"
-        },
-        {
-            "name": "embedded",
-            "baseName": "_embedded",
-            "type": "Error422InvalidFieldListEmbedded"
-        }
-    ];
     static getAttributeTypeMap() {
         return Error422InvalidFieldList.attributeTypeMap;
     }
 }
 exports.Error422InvalidFieldList = Error422InvalidFieldList;
+Error422InvalidFieldList.discriminator = undefined;
+Error422InvalidFieldList.attributeTypeMap = [
+    {
+        "name": "total",
+        "baseName": "total",
+        "type": "number"
+    },
+    {
+        "name": "embedded",
+        "baseName": "_embedded",
+        "type": "Error422InvalidFieldListEmbedded"
+    }
+];

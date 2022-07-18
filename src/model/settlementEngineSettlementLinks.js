@@ -13,17 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SettlementEngineSettlementLinks = void 0;
 class SettlementEngineSettlementLinks {
-    'self';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "self",
-            "baseName": "self",
-            "type": "any"
-        }
-    ];
     static getAttributeTypeMap() {
         return SettlementEngineSettlementLinks.attributeTypeMap;
     }
 }
 exports.SettlementEngineSettlementLinks = SettlementEngineSettlementLinks;
+SettlementEngineSettlementLinks.discriminator = undefined;
+SettlementEngineSettlementLinks.attributeTypeMap = [
+    {
+        "name": "self",
+        "baseName": "self",
+        "type": "any"
+    }
+];

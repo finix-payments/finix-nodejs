@@ -13,29 +13,26 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SettlementEngineSettlementsList = void 0;
 class SettlementEngineSettlementsList {
-    'page';
-    'embedded';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "page",
-            "baseName": "page",
-            "type": "PageCursor"
-        },
-        {
-            "name": "embedded",
-            "baseName": "_embedded",
-            "type": "SettlementEngineSettlementsListEmbedded"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "ListLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return SettlementEngineSettlementsList.attributeTypeMap;
     }
 }
 exports.SettlementEngineSettlementsList = SettlementEngineSettlementsList;
+SettlementEngineSettlementsList.discriminator = undefined;
+SettlementEngineSettlementsList.attributeTypeMap = [
+    {
+        "name": "page",
+        "baseName": "page",
+        "type": "PageCursor"
+    },
+    {
+        "name": "embedded",
+        "baseName": "_embedded",
+        "type": "SettlementEngineSettlementsListEmbedded"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "any"
+    }
+];

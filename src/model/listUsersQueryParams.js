@@ -13,20 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ListUsersQueryParams = void 0;
 class ListUsersQueryParams {
-    /**
-    * Filter by id
-    */
-    'id';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return ListUsersQueryParams.attributeTypeMap;
     }
 }
 exports.ListUsersQueryParams = ListUsersQueryParams;
+ListUsersQueryParams.discriminator = undefined;
+ListUsersQueryParams.attributeTypeMap = [
+    {
+        "name": "id",
+        "baseName": "id",
+        "type": "string"
+    }
+];

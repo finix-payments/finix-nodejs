@@ -13,20 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DownloadInstrumentUpdateQueryParams = void 0;
 class DownloadInstrumentUpdateQueryParams {
-    /**
-    * Specify the format you\'d like to download the response in (JSON is the only other format available for download).
-    */
-    'format';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "format",
-            "baseName": "format",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return DownloadInstrumentUpdateQueryParams.attributeTypeMap;
     }
 }
 exports.DownloadInstrumentUpdateQueryParams = DownloadInstrumentUpdateQueryParams;
+DownloadInstrumentUpdateQueryParams.discriminator = undefined;
+DownloadInstrumentUpdateQueryParams.attributeTypeMap = [
+    {
+        "name": "format",
+        "baseName": "format",
+        "type": "string"
+    }
+];

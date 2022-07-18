@@ -13,20 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateDisputeEvidenceRequest = void 0;
 class CreateDisputeEvidenceRequest {
-    /**
-    * The binary contents of the file.
-    */
-    'file';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "file",
-            "baseName": "file",
-            "type": "RequestFile"
-        }
-    ];
     static getAttributeTypeMap() {
         return CreateDisputeEvidenceRequest.attributeTypeMap;
     }
 }
 exports.CreateDisputeEvidenceRequest = CreateDisputeEvidenceRequest;
+CreateDisputeEvidenceRequest.discriminator = undefined;
+CreateDisputeEvidenceRequest.attributeTypeMap = [
+    {
+        "name": "file",
+        "baseName": "file",
+        "type": "RequestFile"
+    }
+];

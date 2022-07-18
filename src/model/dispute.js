@@ -16,161 +16,99 @@ exports.Dispute = void 0;
 * A `Dispute` objected created for a chargeback or customer disputes.
 */
 class Dispute {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    /**
-    * The ID of the `Dispute` resource.
-    */
-    'id';
-    /**
-    * Timestamp of when the object was created.
-    */
-    'createdAt';
-    /**
-    * Timestamp of when the object was last updated.
-    */
-    'updatedAt';
-    /**
-    * The next `action` required to move forward with the `Dispute`.
-    */
-    'action';
-    /**
-    * The total amount of the `Dispute` (in cents).
-    */
-    'amount';
-    /**
-    * The ID of the `Application` resource the `Dispute` was created under.
-    */
-    'application';
-    'currency';
-    /**
-    * Details about the `Dispute` recieved by the `Processor`.
-    */
-    'disputeDetails';
-    /**
-    * The ID of the resource.
-    */
-    'identity';
-    /**
-    * Message field that provides additional details. This field is typically null.
-    */
-    'message';
-    /**
-    * Point in time when dispute occurred.
-    */
-    'occurredAt';
-    /**
-    * The system-defined reason for the `Dispute`. Available values include:<ul><li>**INQUIRY**<li>**QUALITY**<li>**CLERICAL**<li>**FRAUD**<li>**TECHNICAL**</ul>
-    */
-    'reason';
-    /**
-    * Point in time when dispute has to be resolved and the `Merchant` needs to respond by.
-    */
-    'respondBy';
-    /**
-    * The current state of the `Dispute`.
-    */
-    'state';
-    /**
-    * ID of the `Transfer` resource.
-    */
-    'transfer';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "createdAt",
-            "baseName": "created_at",
-            "type": "Date"
-        },
-        {
-            "name": "updatedAt",
-            "baseName": "updated_at",
-            "type": "Date"
-        },
-        {
-            "name": "action",
-            "baseName": "action",
-            "type": "string"
-        },
-        {
-            "name": "amount",
-            "baseName": "amount",
-            "type": "number"
-        },
-        {
-            "name": "application",
-            "baseName": "application",
-            "type": "string"
-        },
-        {
-            "name": "currency",
-            "baseName": "currency",
-            "type": "Currency"
-        },
-        {
-            "name": "disputeDetails",
-            "baseName": "dispute_details",
-            "type": "{ [key: string]: any; }"
-        },
-        {
-            "name": "identity",
-            "baseName": "identity",
-            "type": "string"
-        },
-        {
-            "name": "message",
-            "baseName": "message",
-            "type": "string"
-        },
-        {
-            "name": "occurredAt",
-            "baseName": "occurred_at",
-            "type": "Date"
-        },
-        {
-            "name": "reason",
-            "baseName": "reason",
-            "type": "Dispute.ReasonEnum"
-        },
-        {
-            "name": "respondBy",
-            "baseName": "respond_by",
-            "type": "Date"
-        },
-        {
-            "name": "state",
-            "baseName": "state",
-            "type": "Dispute.StateEnum"
-        },
-        {
-            "name": "transfer",
-            "baseName": "transfer",
-            "type": "string"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "DisputeLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return Dispute.attributeTypeMap;
     }
 }
 exports.Dispute = Dispute;
+Dispute.discriminator = undefined;
+Dispute.attributeTypeMap = [
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "id",
+        "baseName": "id",
+        "type": "string"
+    },
+    {
+        "name": "createdAt",
+        "baseName": "created_at",
+        "type": "Date"
+    },
+    {
+        "name": "updatedAt",
+        "baseName": "updated_at",
+        "type": "Date"
+    },
+    {
+        "name": "action",
+        "baseName": "action",
+        "type": "string"
+    },
+    {
+        "name": "amount",
+        "baseName": "amount",
+        "type": "number"
+    },
+    {
+        "name": "application",
+        "baseName": "application",
+        "type": "string"
+    },
+    {
+        "name": "currency",
+        "baseName": "currency",
+        "type": "Currency"
+    },
+    {
+        "name": "disputeDetails",
+        "baseName": "dispute_details",
+        "type": "{ [key: string]: any; }"
+    },
+    {
+        "name": "identity",
+        "baseName": "identity",
+        "type": "string"
+    },
+    {
+        "name": "message",
+        "baseName": "message",
+        "type": "string"
+    },
+    {
+        "name": "occurredAt",
+        "baseName": "occurred_at",
+        "type": "Date"
+    },
+    {
+        "name": "reason",
+        "baseName": "reason",
+        "type": "Dispute.ReasonEnum"
+    },
+    {
+        "name": "respondBy",
+        "baseName": "respond_by",
+        "type": "Date"
+    },
+    {
+        "name": "state",
+        "baseName": "state",
+        "type": "Dispute.StateEnum"
+    },
+    {
+        "name": "transfer",
+        "baseName": "transfer",
+        "type": "string"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "DisputeLinks"
+    }
+];
 (function (Dispute) {
     let ReasonEnum;
     (function (ReasonEnum) {

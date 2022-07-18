@@ -16,71 +16,61 @@ exports.SettlementLinks = void 0;
 * For your convenience, every response includes several URLs which link to resources relevant to the request. You can use these `_links` to make your follow-up requests and quickly access relevant IDs.
 */
 class SettlementLinks {
-    'application';
-    'credits';
-    'debits';
-    'disputes';
-    'fees';
-    'fundingTransfers';
-    'identity';
-    'reversals';
-    'self';
-    'transfers';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "application",
-            "baseName": "application",
-            "type": "ApplicationProfileLinksApplication"
-        },
-        {
-            "name": "credits",
-            "baseName": "credits",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "debits",
-            "baseName": "debits",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "disputes",
-            "baseName": "disputes",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "fees",
-            "baseName": "fees",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "fundingTransfers",
-            "baseName": "funding_transfers",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "identity",
-            "baseName": "identity",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "reversals",
-            "baseName": "reversals",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "self",
-            "baseName": "self",
-            "type": "ApplicationLinksSelf"
-        },
-        {
-            "name": "transfers",
-            "baseName": "transfers",
-            "type": "ApplicationLinksApplicationProfile"
-        }
-    ];
     static getAttributeTypeMap() {
         return SettlementLinks.attributeTypeMap;
     }
 }
 exports.SettlementLinks = SettlementLinks;
+SettlementLinks.discriminator = undefined;
+SettlementLinks.attributeTypeMap = [
+    {
+        "name": "application",
+        "baseName": "application",
+        "type": "ApplicationProfileLinksApplication"
+    },
+    {
+        "name": "credits",
+        "baseName": "credits",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "debits",
+        "baseName": "debits",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "disputes",
+        "baseName": "disputes",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "fees",
+        "baseName": "fees",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "fundingTransfers",
+        "baseName": "funding_transfers",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "identity",
+        "baseName": "identity",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "reversals",
+        "baseName": "reversals",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "self",
+        "baseName": "self",
+        "type": "ApplicationLinksSelf"
+    },
+    {
+        "name": "transfers",
+        "baseName": "transfers",
+        "type": "ApplicationLinksApplicationProfile"
+    }
+];

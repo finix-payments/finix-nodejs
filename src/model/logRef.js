@@ -13,17 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LogRef = void 0;
 class LogRef {
-    'logref';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "logref",
-            "baseName": "logref",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return LogRef.attributeTypeMap;
     }
 }
 exports.LogRef = LogRef;
+LogRef.discriminator = undefined;
+LogRef.attributeTypeMap = [
+    {
+        "name": "logref",
+        "baseName": "logref",
+        "type": "string"
+    }
+];

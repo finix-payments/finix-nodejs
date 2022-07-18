@@ -16,47 +16,31 @@ exports.CreateAuthorizationRequest3dSecureAuthentication = void 0;
 * The 3D secure information for an authorization.
 */
 class CreateAuthorizationRequest3dSecureAuthentication {
-    /**
-    * Provides evidence that the cardholder authentication occurred or that the merchant attempted authentication. This is unique for each authentication transaction.
-    */
-    'cardholderAuthentication';
-    /**
-    * Only required for American Express cards. Format is nnn.nnn.nnn.nnn
-    */
-    'cardholderIpAddress';
-    /**
-    * AUTHENTICATED: Approved by 3D Secure Vendor; ATTEMPTED: Issuer or cardholder does not support 3D Secure
-    */
-    'electronicCommerceIndicator';
-    /**
-    * Only valid for Visa transactions
-    */
-    'transactionId';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "cardholderAuthentication",
-            "baseName": "cardholder_authentication",
-            "type": "string"
-        },
-        {
-            "name": "cardholderIpAddress",
-            "baseName": "cardholder_ip_address",
-            "type": "string"
-        },
-        {
-            "name": "electronicCommerceIndicator",
-            "baseName": "electronic_commerce_indicator",
-            "type": "string"
-        },
-        {
-            "name": "transactionId",
-            "baseName": "transaction_id",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return CreateAuthorizationRequest3dSecureAuthentication.attributeTypeMap;
     }
 }
 exports.CreateAuthorizationRequest3dSecureAuthentication = CreateAuthorizationRequest3dSecureAuthentication;
+CreateAuthorizationRequest3dSecureAuthentication.discriminator = undefined;
+CreateAuthorizationRequest3dSecureAuthentication.attributeTypeMap = [
+    {
+        "name": "cardholderAuthentication",
+        "baseName": "cardholder_authentication",
+        "type": "string"
+    },
+    {
+        "name": "cardholderIpAddress",
+        "baseName": "cardholder_ip_address",
+        "type": "string"
+    },
+    {
+        "name": "electronicCommerceIndicator",
+        "baseName": "electronic_commerce_indicator",
+        "type": "string"
+    },
+    {
+        "name": "transactionId",
+        "baseName": "transaction_id",
+        "type": "string"
+    }
+];

@@ -16,209 +16,129 @@ exports.CreateIdentityRequestEntity = void 0;
 * The underwriting details required to verify the `Identity` of the `Merchant`.
 */
 class CreateIdentityRequestEntity {
-    /**
-    * The legal last name of the merchant\'s control owner (max 20 characters).
-    */
-    'lastName';
-    /**
-    * The maximum amount (in cents) that can be charged for a single transaction (max 12 characters).
-    */
-    'maxTransactionAmount';
-    /**
-    * Defaults to **false** if not passed.
-    */
-    'hasAcceptedCreditCardsPreviously';
-    /**
-    * The description of the merchant that appears on the buyer\'s bank or card statement.
-    */
-    'defaultStatementDescriptor';
-    'personalAddress';
-    'incorporationDate';
-    'businessAddress';
-    /**
-    * Avalible values include: <ul><li><strong>PUBLIC</strong> to indicate a publicly-traded company.<li><strong>PRIVATE</strong> for privately-held businesses.
-    */
-    'ownershipType';
-    /**
-    * The legal first name of the merchant\'s control owner (max 20 characters).
-    */
-    'firstName';
-    /**
-    * The corporate title of the control owner (e.g. Chief Executive Officer, CFO, etc. Max 60 characters).
-    */
-    'title';
-    /**
-    * Nine digit Tax Identification Number (TIN), Employer Identification Number (EIN). If the `business_type` is **INDIVIDUAL\\_SOLE\\_PROPRIETORSHIP** and they do not have an EIN, use the sole proprietor\'s Social Security Number (SSN).
-    */
-    'businessTaxId';
-    /**
-    * Alternate names of the business. If there are no other names, pass the same value used for `business_name` (max 60 characters).
-    */
-    'doingBusinessAs';
-    /**
-    * Percentage of the company owned by the principal control owner (min 0; max 100).
-    */
-    'principalPercentageOwnership';
-    /**
-    * The email address of the principal control owner where they can be reached (max 100 characters).
-    */
-    'email';
-    /**
-    * The Merchant Category Code ([MCC](http://www.dm.usda.gov/procurement/card/card\\_x/mcc.pdf)) that this merchant will be classified under.
-    */
-    'mcc';
-    /**
-    * The principal control owner\'s phone number (max 10 characters).
-    */
-    'phone';
-    /**
-    * The merchant\'s legal business name (max 120 characters).<ul><li>If **INDIVIDUAL_SOLE_PROPRIETORSHIP**, pass the owner\'s legal first name, last name and middle initial.
-    */
-    'businessName';
-    /**
-    * Pass one of the following values (nine digits):<ul><li>Social Security Number (SSN)<li>Tax Identification Number (TIN)<li>Individual Taxpayer Identification Number (ITIN)</ul>
-    */
-    'taxId';
-    /**
-    * Include the value that best applies to the merchant.
-    */
-    'businessType';
-    /**
-    * Customer service phone number where the merchant can be reached (max 10 characters).
-    */
-    'businessPhone';
-    'dob';
-    /**
-    * The URL of the merchant\'s public website.
-    */
-    'url';
-    /**
-    * The annual credit card sales (in cents) expected to be processed by this merchant (max 19 characters).
-    */
-    'annualCardVolume';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "lastName",
-            "baseName": "last_name",
-            "type": "string"
-        },
-        {
-            "name": "maxTransactionAmount",
-            "baseName": "max_transaction_amount",
-            "type": "number"
-        },
-        {
-            "name": "hasAcceptedCreditCardsPreviously",
-            "baseName": "has_accepted_credit_cards_previously",
-            "type": "boolean"
-        },
-        {
-            "name": "defaultStatementDescriptor",
-            "baseName": "default_statement_descriptor",
-            "type": "string"
-        },
-        {
-            "name": "personalAddress",
-            "baseName": "personal_address",
-            "type": "CreateIdentityRequestEntityPersonalAddress"
-        },
-        {
-            "name": "incorporationDate",
-            "baseName": "incorporation_date",
-            "type": "CreateIdentityRequestEntityIncorporationDate"
-        },
-        {
-            "name": "businessAddress",
-            "baseName": "business_address",
-            "type": "CreateIdentityRequestEntityBusinessAddress"
-        },
-        {
-            "name": "ownershipType",
-            "baseName": "ownership_type",
-            "type": "CreateIdentityRequestEntity.OwnershipTypeEnum"
-        },
-        {
-            "name": "firstName",
-            "baseName": "first_name",
-            "type": "string"
-        },
-        {
-            "name": "title",
-            "baseName": "title",
-            "type": "string"
-        },
-        {
-            "name": "businessTaxId",
-            "baseName": "business_tax_id",
-            "type": "string"
-        },
-        {
-            "name": "doingBusinessAs",
-            "baseName": "doing_business_as",
-            "type": "string"
-        },
-        {
-            "name": "principalPercentageOwnership",
-            "baseName": "principal_percentage_ownership",
-            "type": "number"
-        },
-        {
-            "name": "email",
-            "baseName": "email",
-            "type": "string"
-        },
-        {
-            "name": "mcc",
-            "baseName": "mcc",
-            "type": "string"
-        },
-        {
-            "name": "phone",
-            "baseName": "phone",
-            "type": "string"
-        },
-        {
-            "name": "businessName",
-            "baseName": "business_name",
-            "type": "string"
-        },
-        {
-            "name": "taxId",
-            "baseName": "tax_id",
-            "type": "string"
-        },
-        {
-            "name": "businessType",
-            "baseName": "business_type",
-            "type": "CreateIdentityRequestEntity.BusinessTypeEnum"
-        },
-        {
-            "name": "businessPhone",
-            "baseName": "business_phone",
-            "type": "string"
-        },
-        {
-            "name": "dob",
-            "baseName": "dob",
-            "type": "CreateIdentityRequestEntityDob"
-        },
-        {
-            "name": "url",
-            "baseName": "url",
-            "type": "string"
-        },
-        {
-            "name": "annualCardVolume",
-            "baseName": "annual_card_volume",
-            "type": "number"
-        }
-    ];
     static getAttributeTypeMap() {
         return CreateIdentityRequestEntity.attributeTypeMap;
     }
 }
 exports.CreateIdentityRequestEntity = CreateIdentityRequestEntity;
+CreateIdentityRequestEntity.discriminator = undefined;
+CreateIdentityRequestEntity.attributeTypeMap = [
+    {
+        "name": "lastName",
+        "baseName": "last_name",
+        "type": "string"
+    },
+    {
+        "name": "maxTransactionAmount",
+        "baseName": "max_transaction_amount",
+        "type": "number"
+    },
+    {
+        "name": "hasAcceptedCreditCardsPreviously",
+        "baseName": "has_accepted_credit_cards_previously",
+        "type": "boolean"
+    },
+    {
+        "name": "defaultStatementDescriptor",
+        "baseName": "default_statement_descriptor",
+        "type": "string"
+    },
+    {
+        "name": "personalAddress",
+        "baseName": "personal_address",
+        "type": "CreateIdentityRequestEntityPersonalAddress"
+    },
+    {
+        "name": "incorporationDate",
+        "baseName": "incorporation_date",
+        "type": "CreateIdentityRequestEntityIncorporationDate"
+    },
+    {
+        "name": "businessAddress",
+        "baseName": "business_address",
+        "type": "CreateIdentityRequestEntityBusinessAddress"
+    },
+    {
+        "name": "ownershipType",
+        "baseName": "ownership_type",
+        "type": "CreateIdentityRequestEntity.OwnershipTypeEnum"
+    },
+    {
+        "name": "firstName",
+        "baseName": "first_name",
+        "type": "string"
+    },
+    {
+        "name": "title",
+        "baseName": "title",
+        "type": "string"
+    },
+    {
+        "name": "businessTaxId",
+        "baseName": "business_tax_id",
+        "type": "string"
+    },
+    {
+        "name": "doingBusinessAs",
+        "baseName": "doing_business_as",
+        "type": "string"
+    },
+    {
+        "name": "principalPercentageOwnership",
+        "baseName": "principal_percentage_ownership",
+        "type": "number"
+    },
+    {
+        "name": "email",
+        "baseName": "email",
+        "type": "string"
+    },
+    {
+        "name": "mcc",
+        "baseName": "mcc",
+        "type": "string"
+    },
+    {
+        "name": "phone",
+        "baseName": "phone",
+        "type": "string"
+    },
+    {
+        "name": "businessName",
+        "baseName": "business_name",
+        "type": "string"
+    },
+    {
+        "name": "taxId",
+        "baseName": "tax_id",
+        "type": "string"
+    },
+    {
+        "name": "businessType",
+        "baseName": "business_type",
+        "type": "CreateIdentityRequestEntity.BusinessTypeEnum"
+    },
+    {
+        "name": "businessPhone",
+        "baseName": "business_phone",
+        "type": "string"
+    },
+    {
+        "name": "dob",
+        "baseName": "dob",
+        "type": "CreateIdentityRequestEntityDob"
+    },
+    {
+        "name": "url",
+        "baseName": "url",
+        "type": "string"
+    },
+    {
+        "name": "annualCardVolume",
+        "baseName": "annual_card_volume",
+        "type": "number"
+    }
+];
 (function (CreateIdentityRequestEntity) {
     let OwnershipTypeEnum;
     (function (OwnershipTypeEnum) {

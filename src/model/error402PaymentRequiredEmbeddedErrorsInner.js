@@ -13,38 +13,34 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Error402PaymentRequiredEmbeddedErrorsInner = void 0;
 class Error402PaymentRequiredEmbeddedErrorsInner {
-    'code';
-    'logref';
-    'message';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "code",
-            "baseName": "code",
-            "type": "Error402PaymentRequiredEmbeddedErrorsInner.CodeEnum"
-        },
-        {
-            "name": "logref",
-            "baseName": "logref",
-            "type": "LogRef"
-        },
-        {
-            "name": "message",
-            "baseName": "message",
-            "type": "Error402PaymentRequiredEmbeddedErrorsInner.MessageEnum"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "Error402PaymentRequiredEmbeddedErrorsInnerLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return Error402PaymentRequiredEmbeddedErrorsInner.attributeTypeMap;
     }
 }
 exports.Error402PaymentRequiredEmbeddedErrorsInner = Error402PaymentRequiredEmbeddedErrorsInner;
+Error402PaymentRequiredEmbeddedErrorsInner.discriminator = undefined;
+Error402PaymentRequiredEmbeddedErrorsInner.attributeTypeMap = [
+    {
+        "name": "code",
+        "baseName": "code",
+        "type": "Error402PaymentRequiredEmbeddedErrorsInner.CodeEnum"
+    },
+    {
+        "name": "logref",
+        "baseName": "logref",
+        "type": "LogRef"
+    },
+    {
+        "name": "message",
+        "baseName": "message",
+        "type": "Error402PaymentRequiredEmbeddedErrorsInner.MessageEnum"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "Error402PaymentRequiredEmbeddedErrorsInnerLinks"
+    }
+];
 (function (Error402PaymentRequiredEmbeddedErrorsInner) {
     let CodeEnum;
     (function (CodeEnum) {

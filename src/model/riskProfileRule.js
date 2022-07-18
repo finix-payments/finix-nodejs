@@ -13,113 +13,86 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RiskProfileRule = void 0;
 class RiskProfileRule {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    'type';
-    'id';
-    /**
-    * Timestamp of when the object was created.
-    */
-    'createdAt';
-    /**
-    * Timestamp of when the object was last updated.
-    */
-    'updatedAt';
-    'action';
-    'amount';
-    'count';
-    'enabled';
-    'entityType';
-    'ratio';
-    /**
-    * The ID of the resource.
-    */
-    'riskProfile';
-    'trailing';
-    'trailingUnit';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "type",
-            "baseName": "type",
-            "type": "string"
-        },
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "createdAt",
-            "baseName": "created_at",
-            "type": "Date"
-        },
-        {
-            "name": "updatedAt",
-            "baseName": "updated_at",
-            "type": "Date"
-        },
-        {
-            "name": "action",
-            "baseName": "action",
-            "type": "string"
-        },
-        {
-            "name": "amount",
-            "baseName": "amount",
-            "type": "number"
-        },
-        {
-            "name": "count",
-            "baseName": "count",
-            "type": "number"
-        },
-        {
-            "name": "enabled",
-            "baseName": "enabled",
-            "type": "boolean"
-        },
-        {
-            "name": "entityType",
-            "baseName": "entity_type",
-            "type": "string"
-        },
-        {
-            "name": "ratio",
-            "baseName": "ratio",
-            "type": "number"
-        },
-        {
-            "name": "riskProfile",
-            "baseName": "risk_profile",
-            "type": "string"
-        },
-        {
-            "name": "trailing",
-            "baseName": "trailing",
-            "type": "number"
-        },
-        {
-            "name": "trailingUnit",
-            "baseName": "trailing_unit",
-            "type": "string"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "DisputeEvidenceLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return RiskProfileRule.attributeTypeMap;
     }
 }
 exports.RiskProfileRule = RiskProfileRule;
+RiskProfileRule.discriminator = undefined;
+RiskProfileRule.attributeTypeMap = [
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "type",
+        "baseName": "type",
+        "type": "string"
+    },
+    {
+        "name": "id",
+        "baseName": "id",
+        "type": "string"
+    },
+    {
+        "name": "createdAt",
+        "baseName": "created_at",
+        "type": "Date"
+    },
+    {
+        "name": "updatedAt",
+        "baseName": "updated_at",
+        "type": "Date"
+    },
+    {
+        "name": "action",
+        "baseName": "action",
+        "type": "string"
+    },
+    {
+        "name": "amount",
+        "baseName": "amount",
+        "type": "number"
+    },
+    {
+        "name": "count",
+        "baseName": "count",
+        "type": "number"
+    },
+    {
+        "name": "enabled",
+        "baseName": "enabled",
+        "type": "boolean"
+    },
+    {
+        "name": "entityType",
+        "baseName": "entity_type",
+        "type": "string"
+    },
+    {
+        "name": "ratio",
+        "baseName": "ratio",
+        "type": "number"
+    },
+    {
+        "name": "riskProfile",
+        "baseName": "risk_profile",
+        "type": "string"
+    },
+    {
+        "name": "trailing",
+        "baseName": "trailing",
+        "type": "number"
+    },
+    {
+        "name": "trailingUnit",
+        "baseName": "trailing_unit",
+        "type": "string"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "DisputeEvidenceLinks"
+    }
+];

@@ -16,17 +16,16 @@ exports.VerificationsListEmbedded = void 0;
 * List of `Verifications`.
 */
 class VerificationsListEmbedded {
-    'verifications';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "verifications",
-            "baseName": "verifications",
-            "type": "Set<Verification>"
-        }
-    ];
     static getAttributeTypeMap() {
         return VerificationsListEmbedded.attributeTypeMap;
     }
 }
 exports.VerificationsListEmbedded = VerificationsListEmbedded;
+VerificationsListEmbedded.discriminator = undefined;
+VerificationsListEmbedded.attributeTypeMap = [
+    {
+        "name": "verifications",
+        "baseName": "verifications",
+        "type": "Set<Verification>"
+    }
+];

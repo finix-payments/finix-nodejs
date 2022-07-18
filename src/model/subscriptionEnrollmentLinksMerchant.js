@@ -16,17 +16,16 @@ exports.SubscriptionEnrollmentLinksMerchant = void 0;
 * Link to the `Merhcant` resource that was used in the request.
 */
 class SubscriptionEnrollmentLinksMerchant {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return SubscriptionEnrollmentLinksMerchant.attributeTypeMap;
     }
 }
 exports.SubscriptionEnrollmentLinksMerchant = SubscriptionEnrollmentLinksMerchant;
+SubscriptionEnrollmentLinksMerchant.discriminator = undefined;
+SubscriptionEnrollmentLinksMerchant.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

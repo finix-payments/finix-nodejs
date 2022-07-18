@@ -10,6 +10,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -27,15 +36,15 @@ var IdentitiesApiApiKeys;
 (function (IdentitiesApiApiKeys) {
 })(IdentitiesApiApiKeys = exports.IdentitiesApiApiKeys || (exports.IdentitiesApiApiKeys = {}));
 class IdentitiesApi {
-    _basePath = defaultBasePath;
-    _defaultHeaders = {};
-    _useQuerystring = false;
-    authentications = {
-        'default': new models_1.VoidAuth(),
-        'BasicAuth': new models_2.HttpBasicAuth(),
-    };
-    interceptors = [];
     constructor(basePathOrUsername, password, basePath) {
+        this._basePath = defaultBasePath;
+        this._defaultHeaders = {};
+        this._useQuerystring = false;
+        this.authentications = {
+            'default': new models_1.VoidAuth(),
+            'BasicAuth': new models_2.HttpBasicAuth(),
+        };
+        this.interceptors = [];
         if (password) {
             this.username = basePathOrUsername;
             this.password = password;
@@ -86,67 +95,75 @@ class IdentitiesApi {
      * @param identityId ID of &#x60;Identity&#x60; to associate object with.
      * @param createIdentityRequest
      */
-    async createAssociatedIdentityHelper(identityId, createIdentityRequest, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/identities/{identity_id}/associated_identities'
-            .replace('{' + 'identity_id' + '}', encodeURIComponent(String(identityId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'identityId' is not null or undefined
-        if (identityId === null || identityId === undefined) {
-            throw new Error('Required parameter identityId was null or undefined when calling createAssociatedIdentity.');
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'POST',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: models_1.ObjectSerializer.serialize(createIdentityRequest, "CreateIdentityRequest")
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    createAssociatedIdentityHelper(identityId, createIdentityRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/identities/{identity_id}/associated_identities'
+                .replace('{' + 'identity_id' + '}', encodeURIComponent(String(identityId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'identityId' is not null or undefined
+            if (identityId === null || identityId === undefined) {
+                throw new Error('Required parameter identityId was null or undefined when calling createAssociatedIdentity.');
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'POST',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            if (createIdentityRequest != undefined && createIdentityRequest != null && createIdentityRequest.hasOwnProperty('file')) {
+                localVarRequestOptions.formData = createIdentityRequest;
+            }
+            else {
+                localVarRequestOptions.body = models_1.ObjectSerializer.serialize(createIdentityRequest, "CreateIdentityRequest");
+            }
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "Identity");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "Identity");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -157,13 +174,11 @@ class IdentitiesApi {
      * @param identityId ID of &#x60;Identity&#x60; to associate object with.
      * @param createIdentityRequest
      */
-    async createAssociatedIdentity(identityId, createIdentityRequest, options = { headers: {} }) {
-        const responseObject = await this.createAssociatedIdentityHelper(identityId, createIdentityRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    createAssociatedIdentity(identityId, createIdentityRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.createAssociatedIdentityHelper(identityId, createIdentityRequest, options);
+            return responseObject.body;
+        });
     }
     /**
      * Create an associated `Identity` for [every owner with 25% or more ownership](/guides/onboarding/#step-3-add-associated-identities) over the merchant.
@@ -171,13 +186,11 @@ class IdentitiesApi {
      * @param identityId ID of &#x60;Identity&#x60; to associate object with.
      * @param createIdentityRequest
      */
-    async createAssociatedIdentityHttp(identityId, createIdentityRequest, options = { headers: {} }) {
-        const responseObject = await this.createAssociatedIdentityHelper(identityId, createIdentityRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    createAssociatedIdentityHttp(identityId, createIdentityRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.createAssociatedIdentityHelper(identityId, createIdentityRequest, options);
+            return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -185,62 +198,70 @@ class IdentitiesApi {
      * @summary Create an Identity
      * @param createIdentityRequest
      */
-    async createHelper(createIdentityRequest, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/identities';
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'POST',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: models_1.ObjectSerializer.serialize(createIdentityRequest, "CreateIdentityRequest")
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    createHelper(createIdentityRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/identities';
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'POST',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            if (createIdentityRequest != undefined && createIdentityRequest != null && createIdentityRequest.hasOwnProperty('file')) {
+                localVarRequestOptions.formData = createIdentityRequest;
+            }
+            else {
+                localVarRequestOptions.body = models_1.ObjectSerializer.serialize(createIdentityRequest, "CreateIdentityRequest");
+            }
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "Identity");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "Identity");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -250,26 +271,22 @@ class IdentitiesApi {
      * @summary Create an Identity
      * @param createIdentityRequest
      */
-    async create(createIdentityRequest, options = { headers: {} }) {
-        const responseObject = await this.createHelper(createIdentityRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    create(createIdentityRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.createHelper(createIdentityRequest, options);
+            return responseObject.body;
+        });
     }
     /**
      * Create an `Identity` for your merchant or buyer.  Creating `Identities` for merchants requires they provide [KYC details](/docs/guides/getting-started/).  Related Guides: [Getting Started](/docs/guides/getting-started/), [Onboarding](/docs/guides/onboarding/)
      * @summary Create an Identity
      * @param createIdentityRequest
      */
-    async createHttp(createIdentityRequest, options = { headers: {} }) {
-        const responseObject = await this.createHelper(createIdentityRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    createHttp(createIdentityRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.createHelper(createIdentityRequest, options);
+            return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -278,67 +295,75 @@ class IdentitiesApi {
      * @param identityId ID of identity to fetch
      * @param createVerificationRequest
      */
-    async createIdentityVerificationHelper(identityId, createVerificationRequest, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/identities/{identity_id}/verifications'
-            .replace('{' + 'identity_id' + '}', encodeURIComponent(String(identityId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'identityId' is not null or undefined
-        if (identityId === null || identityId === undefined) {
-            throw new Error('Required parameter identityId was null or undefined when calling createIdentityVerification.');
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'POST',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: models_1.ObjectSerializer.serialize(createVerificationRequest, "CreateVerificationRequest")
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    createIdentityVerificationHelper(identityId, createVerificationRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/identities/{identity_id}/verifications'
+                .replace('{' + 'identity_id' + '}', encodeURIComponent(String(identityId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'identityId' is not null or undefined
+            if (identityId === null || identityId === undefined) {
+                throw new Error('Required parameter identityId was null or undefined when calling createIdentityVerification.');
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'POST',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            if (createVerificationRequest != undefined && createVerificationRequest != null && createVerificationRequest.hasOwnProperty('file')) {
+                localVarRequestOptions.formData = createVerificationRequest;
+            }
+            else {
+                localVarRequestOptions.body = models_1.ObjectSerializer.serialize(createVerificationRequest, "CreateVerificationRequest");
+            }
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "Verification");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "Verification");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -349,13 +374,11 @@ class IdentitiesApi {
      * @param identityId ID of identity to fetch
      * @param createVerificationRequest
      */
-    async createIdentityVerification(identityId, createVerificationRequest, options = { headers: {} }) {
-        const responseObject = await this.createIdentityVerificationHelper(identityId, createVerificationRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    createIdentityVerification(identityId, createVerificationRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.createIdentityVerificationHelper(identityId, createVerificationRequest, options);
+            return responseObject.body;
+        });
     }
     /**
      * Verify an `Identity`.
@@ -363,13 +386,11 @@ class IdentitiesApi {
      * @param identityId ID of identity to fetch
      * @param createVerificationRequest
      */
-    async createIdentityVerificationHttp(identityId, createVerificationRequest, options = { headers: {} }) {
-        const responseObject = await this.createIdentityVerificationHelper(identityId, createVerificationRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    createIdentityVerificationHttp(identityId, createVerificationRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.createIdentityVerificationHelper(identityId, createVerificationRequest, options);
+            return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -377,66 +398,69 @@ class IdentitiesApi {
      * @summary Fetch an Identity
      * @param identityId ID of the &#x60;identity&#x60; to fetch
      */
-    async getHelper(identityId, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/identities/{identity_id}'
-            .replace('{' + 'identity_id' + '}', encodeURIComponent(String(identityId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'identityId' is not null or undefined
-        if (identityId === null || identityId === undefined) {
-            throw new Error('Required parameter identityId was null or undefined when calling getIdentity.');
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    getHelper(identityId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/identities/{identity_id}'
+                .replace('{' + 'identity_id' + '}', encodeURIComponent(String(identityId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'identityId' is not null or undefined
+            if (identityId === null || identityId === undefined) {
+                throw new Error('Required parameter identityId was null or undefined when calling getIdentity.');
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'GET',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "Identity");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "Identity");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -446,26 +470,22 @@ class IdentitiesApi {
      * @summary Fetch an Identity
      * @param identityId ID of the &#x60;identity&#x60; to fetch
      */
-    async get(identityId, options = { headers: {} }) {
-        const responseObject = await this.getHelper(identityId, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    get(identityId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.getHelper(identityId, options);
+            return responseObject.body;
+        });
     }
     /**
      * Retrieve the details of a previously created `Identity`.
      * @summary Fetch an Identity
      * @param identityId ID of the &#x60;identity&#x60; to fetch
      */
-    async getHttp(identityId, options = { headers: {} }) {
-        const responseObject = await this.getHelper(identityId, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    getHttp(identityId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.getHelper(identityId, options);
+            return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -473,105 +493,108 @@ class IdentitiesApi {
      * @summary List Identities
 
     */
-    async listHelper(listIdentitiesQueryParams, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/identities';
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        if (listIdentitiesQueryParams != undefined) {
-            if (listIdentitiesQueryParams.sort !== undefined) {
-                localVarQueryParameters['sort'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.sort, "string");
+    listHelper(listIdentitiesQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/identities';
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            if (listIdentitiesQueryParams.afterCursor !== undefined) {
-                localVarQueryParameters['after_cursor'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.afterCursor, "string");
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
             }
-            if (listIdentitiesQueryParams.limit !== undefined) {
-                localVarQueryParameters['limit'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.limit, "number");
-            }
-            if (listIdentitiesQueryParams.id !== undefined) {
-                localVarQueryParameters['id'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.id, "string");
-            }
-            if (listIdentitiesQueryParams.createdAtGte !== undefined) {
-                localVarQueryParameters['created_at.gte'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.createdAtGte, "string");
-            }
-            if (listIdentitiesQueryParams.createdAtLte !== undefined) {
-                localVarQueryParameters['created_at.lte'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.createdAtLte, "string");
-            }
-            if (listIdentitiesQueryParams.defaultStatementDescriptor !== undefined) {
-                localVarQueryParameters['default_statement_descriptor'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.defaultStatementDescriptor, "string");
-            }
-            if (listIdentitiesQueryParams.businessName !== undefined) {
-                localVarQueryParameters['business_name'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.businessName, "string");
-            }
-            if (listIdentitiesQueryParams.businessType !== undefined) {
-                localVarQueryParameters['business_type'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.businessType, "string");
-            }
-            if (listIdentitiesQueryParams.email !== undefined) {
-                localVarQueryParameters['email'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.email, "string");
-            }
-            if (listIdentitiesQueryParams.firstName !== undefined) {
-                localVarQueryParameters['first_name'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.firstName, "string");
-            }
-            if (listIdentitiesQueryParams.lastName !== undefined) {
-                localVarQueryParameters['last_name'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.lastName, "string");
-            }
-            if (listIdentitiesQueryParams.title !== undefined) {
-                localVarQueryParameters['title'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.title, "string");
-            }
-            if (listIdentitiesQueryParams.beforeCursor !== undefined) {
-                localVarQueryParameters['before_cursor'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.beforeCursor, "string");
-            }
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
+            let localVarFormParams = {};
+            if (listIdentitiesQueryParams != undefined) {
+                if (listIdentitiesQueryParams.sort !== undefined) {
+                    localVarQueryParameters['sort'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.sort, "string");
                 }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
+                if (listIdentitiesQueryParams.afterCursor !== undefined) {
+                    localVarQueryParameters['after_cursor'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.afterCursor, "string");
+                }
+                if (listIdentitiesQueryParams.limit !== undefined) {
+                    localVarQueryParameters['limit'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.limit, "number");
+                }
+                if (listIdentitiesQueryParams.id !== undefined) {
+                    localVarQueryParameters['id'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.id, "string");
+                }
+                if (listIdentitiesQueryParams.createdAtGte !== undefined) {
+                    localVarQueryParameters['created_at.gte'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.createdAtGte, "string");
+                }
+                if (listIdentitiesQueryParams.createdAtLte !== undefined) {
+                    localVarQueryParameters['created_at.lte'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.createdAtLte, "string");
+                }
+                if (listIdentitiesQueryParams.defaultStatementDescriptor !== undefined) {
+                    localVarQueryParameters['default_statement_descriptor'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.defaultStatementDescriptor, "string");
+                }
+                if (listIdentitiesQueryParams.businessName !== undefined) {
+                    localVarQueryParameters['business_name'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.businessName, "string");
+                }
+                if (listIdentitiesQueryParams.businessType !== undefined) {
+                    localVarQueryParameters['business_type'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.businessType, "string");
+                }
+                if (listIdentitiesQueryParams.email !== undefined) {
+                    localVarQueryParameters['email'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.email, "string");
+                }
+                if (listIdentitiesQueryParams.firstName !== undefined) {
+                    localVarQueryParameters['first_name'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.firstName, "string");
+                }
+                if (listIdentitiesQueryParams.lastName !== undefined) {
+                    localVarQueryParameters['last_name'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.lastName, "string");
+                }
+                if (listIdentitiesQueryParams.title !== undefined) {
+                    localVarQueryParameters['title'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.title, "string");
+                }
+                if (listIdentitiesQueryParams.beforeCursor !== undefined) {
+                    localVarQueryParameters['before_cursor'] = models_1.ObjectSerializer.serialize(listIdentitiesQueryParams.beforeCursor, "string");
                 }
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'GET',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "IdentitiesList");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "IdentitiesList");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -581,26 +604,24 @@ class IdentitiesApi {
      * @summary List Identities
 
     */
-    async list(listIdentitiesQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listHelper(listIdentitiesQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    list(listIdentitiesQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listHelper(listIdentitiesQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return dataList;
-        }
-        return responseObject.body;
+        });
     }
     /**
      * Retrieves a list of `Identities`.
      * @summary List Identities
 
     */
-    async listHttp(listIdentitiesQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listHelper(listIdentitiesQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    listHttp(listIdentitiesQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listHelper(listIdentitiesQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -610,77 +631,80 @@ class IdentitiesApi {
     * @param identityId ID of &#x60;Identity&#x60; to associate object with.
     *
     */
-    async listAssocaiatedIdentitiesHelper(identityId, listIdentityAssociatedIdentitiesQueryParams, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/identities/{identity_id}/associated_identities'
-            .replace('{' + 'identity_id' + '}', encodeURIComponent(String(identityId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'identityId' is not null or undefined
-        if (identityId === null || identityId === undefined) {
-            throw new Error('Required parameter identityId was null or undefined when calling listIdentityAssociatedIdentities.');
-        }
-        if (listIdentityAssociatedIdentitiesQueryParams != undefined) {
-            if (listIdentityAssociatedIdentitiesQueryParams.limit !== undefined) {
-                localVarQueryParameters['limit'] = models_1.ObjectSerializer.serialize(listIdentityAssociatedIdentitiesQueryParams.limit, "number");
+    listAssocaiatedIdentitiesHelper(identityId, listIdentityAssociatedIdentitiesQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/identities/{identity_id}/associated_identities'
+                .replace('{' + 'identity_id' + '}', encodeURIComponent(String(identityId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            if (listIdentityAssociatedIdentitiesQueryParams.afterCursor !== undefined) {
-                localVarQueryParameters['after_cursor'] = models_1.ObjectSerializer.serialize(listIdentityAssociatedIdentitiesQueryParams.afterCursor, "string");
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
             }
-            if (listIdentityAssociatedIdentitiesQueryParams.beforeCursor !== undefined) {
-                localVarQueryParameters['before_cursor'] = models_1.ObjectSerializer.serialize(listIdentityAssociatedIdentitiesQueryParams.beforeCursor, "string");
+            let localVarFormParams = {};
+            // verify required parameter 'identityId' is not null or undefined
+            if (identityId === null || identityId === undefined) {
+                throw new Error('Required parameter identityId was null or undefined when calling listIdentityAssociatedIdentities.');
             }
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
+            if (listIdentityAssociatedIdentitiesQueryParams != undefined) {
+                if (listIdentityAssociatedIdentitiesQueryParams.limit !== undefined) {
+                    localVarQueryParameters['limit'] = models_1.ObjectSerializer.serialize(listIdentityAssociatedIdentitiesQueryParams.limit, "number");
                 }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
+                if (listIdentityAssociatedIdentitiesQueryParams.afterCursor !== undefined) {
+                    localVarQueryParameters['after_cursor'] = models_1.ObjectSerializer.serialize(listIdentityAssociatedIdentitiesQueryParams.afterCursor, "string");
+                }
+                if (listIdentityAssociatedIdentitiesQueryParams.beforeCursor !== undefined) {
+                    localVarQueryParameters['before_cursor'] = models_1.ObjectSerializer.serialize(listIdentityAssociatedIdentitiesQueryParams.beforeCursor, "string");
                 }
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'GET',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "IdentitiesList");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "IdentitiesList");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -692,13 +716,12 @@ class IdentitiesApi {
     * @param identityId ID of &#x60;Identity&#x60; to associate object with.
     *
     */
-    async listAssocaiatedIdentities(identityId, listIdentityAssociatedIdentitiesQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listAssocaiatedIdentitiesHelper(identityId, listIdentityAssociatedIdentitiesQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    listAssocaiatedIdentities(identityId, listIdentityAssociatedIdentitiesQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listAssocaiatedIdentitiesHelper(identityId, listIdentityAssociatedIdentitiesQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return dataList;
-        }
-        return responseObject.body;
+        });
     }
     /**
      * Retrieve a list of `Associated Identities` for an `Identity`.
@@ -707,13 +730,12 @@ class IdentitiesApi {
     * @param identityId ID of &#x60;Identity&#x60; to associate object with.
     *
     */
-    async listAssocaiatedIdentitiesHttp(identityId, listIdentityAssociatedIdentitiesQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listAssocaiatedIdentitiesHelper(identityId, listIdentityAssociatedIdentitiesQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    listAssocaiatedIdentitiesHttp(identityId, listIdentityAssociatedIdentitiesQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listAssocaiatedIdentitiesHelper(identityId, listIdentityAssociatedIdentitiesQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -722,67 +744,75 @@ class IdentitiesApi {
      * @param identityId ID of the &#x60;identity&#x60; to fetch
      * @param updateIdentityRequest
      */
-    async updateHelper(identityId, updateIdentityRequest, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/identities/{identity_id}'
-            .replace('{' + 'identity_id' + '}', encodeURIComponent(String(identityId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'identityId' is not null or undefined
-        if (identityId === null || identityId === undefined) {
-            throw new Error('Required parameter identityId was null or undefined when calling updateIdentity.');
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'PUT',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: models_1.ObjectSerializer.serialize(updateIdentityRequest, "UpdateIdentityRequest")
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    updateHelper(identityId, updateIdentityRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/identities/{identity_id}'
+                .replace('{' + 'identity_id' + '}', encodeURIComponent(String(identityId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'identityId' is not null or undefined
+            if (identityId === null || identityId === undefined) {
+                throw new Error('Required parameter identityId was null or undefined when calling updateIdentity.');
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'PUT',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            if (updateIdentityRequest != undefined && updateIdentityRequest != null && updateIdentityRequest.hasOwnProperty('file')) {
+                localVarRequestOptions.formData = updateIdentityRequest;
+            }
+            else {
+                localVarRequestOptions.body = models_1.ObjectSerializer.serialize(updateIdentityRequest, "UpdateIdentityRequest");
+            }
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "Identity");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "Identity");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -793,13 +823,11 @@ class IdentitiesApi {
      * @param identityId ID of the &#x60;identity&#x60; to fetch
      * @param updateIdentityRequest
      */
-    async update(identityId, updateIdentityRequest, options = { headers: {} }) {
-        const responseObject = await this.updateHelper(identityId, updateIdentityRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    update(identityId, updateIdentityRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.updateHelper(identityId, updateIdentityRequest, options);
+            return responseObject.body;
+        });
     }
     /**
      * Update an existing `Identity`.  If you are updating the `Identity` of a `Merchant` that’s already been onboarded, you need to [verify the merchant again](#operation/createMerchantVerification).
@@ -807,20 +835,28 @@ class IdentitiesApi {
      * @param identityId ID of the &#x60;identity&#x60; to fetch
      * @param updateIdentityRequest
      */
-    async updateHttp(identityId, updateIdentityRequest, options = { headers: {} }) {
-        const responseObject = await this.updateHelper(identityId, updateIdentityRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    updateHttp(identityId, updateIdentityRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.updateHelper(identityId, updateIdentityRequest, options);
+            return responseObject;
+        });
     }
-    async embeddedHelper(responseObject) {
-        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let dataList = responseObject.body.embedded[embeddedName];
-        dataList.page = responseObject.body.page;
-        dataList.links = responseObject.body.links;
-        return dataList;
+    embeddedHelper(responseObject) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (responseObject.embedded == null || responseObject.embedded == undefined) {
+                const dataList = new models_1.SuperSet();
+                dataList.page = responseObject.body.page;
+                dataList.links = responseObject.body.links;
+                return dataList;
+            }
+            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+            let tempList = responseObject.body.embedded[embeddedName];
+            const dataList = new models_1.SuperSet();
+            tempList.forEach(item => { dataList.add(item); });
+            dataList.page = responseObject.body.page;
+            dataList.links = responseObject.body.links;
+            return dataList;
+        });
     }
 }
 exports.IdentitiesApi = IdentitiesApi;

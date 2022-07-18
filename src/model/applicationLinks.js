@@ -16,101 +16,86 @@ exports.ApplicationLinks = void 0;
 * For your convenience, every response includes several URLs which link to resources relevant to the request. You can use these `_links` to make your follow-up requests and quickly access relevant IDs.
 */
 class ApplicationLinks {
-    'applicationProfile';
-    'authorizations';
-    'disputes';
-    'identities';
-    'merchants';
-    'ownerIdentity';
-    'paymentInstruments';
-    'processors';
-    'reversals';
-    'self';
-    'settlements';
-    'tokens';
-    'transfers';
-    'users';
-    'webhooks';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "applicationProfile",
-            "baseName": "application_profile",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "authorizations",
-            "baseName": "authorizations",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "disputes",
-            "baseName": "disputes",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "identities",
-            "baseName": "identities",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "merchants",
-            "baseName": "merchants",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "ownerIdentity",
-            "baseName": "owner_identity",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "paymentInstruments",
-            "baseName": "payment_instruments",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "processors",
-            "baseName": "processors",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "reversals",
-            "baseName": "reversals",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "self",
-            "baseName": "self",
-            "type": "ApplicationLinksSelf"
-        },
-        {
-            "name": "settlements",
-            "baseName": "settlements",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "tokens",
-            "baseName": "tokens",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "transfers",
-            "baseName": "transfers",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "users",
-            "baseName": "users",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "webhooks",
-            "baseName": "webhooks",
-            "type": "ApplicationLinksApplicationProfile"
-        }
-    ];
     static getAttributeTypeMap() {
         return ApplicationLinks.attributeTypeMap;
     }
 }
 exports.ApplicationLinks = ApplicationLinks;
+ApplicationLinks.discriminator = undefined;
+ApplicationLinks.attributeTypeMap = [
+    {
+        "name": "applicationProfile",
+        "baseName": "application_profile",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "authorizations",
+        "baseName": "authorizations",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "disputes",
+        "baseName": "disputes",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "identities",
+        "baseName": "identities",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "merchants",
+        "baseName": "merchants",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "ownerIdentity",
+        "baseName": "owner_identity",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "paymentInstruments",
+        "baseName": "payment_instruments",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "processors",
+        "baseName": "processors",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "reversals",
+        "baseName": "reversals",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "self",
+        "baseName": "self",
+        "type": "ApplicationLinksSelf"
+    },
+    {
+        "name": "settlements",
+        "baseName": "settlements",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "tokens",
+        "baseName": "tokens",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "transfers",
+        "baseName": "transfers",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "users",
+        "baseName": "users",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "webhooks",
+        "baseName": "webhooks",
+        "type": "ApplicationLinksApplicationProfile"
+    }
+];

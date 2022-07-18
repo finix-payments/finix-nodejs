@@ -13,47 +13,31 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ApplePaySessionRequest = void 0;
 class ApplePaySessionRequest {
-    /**
-    * This will be the merchant name shown to users when making a purchase via Apple Pay.1
-    */
-    'displayName';
-    /**
-    * The domain where the buyer is initiating the payment.
-    */
-    'domain';
-    /**
-    * The `merchant_identity_id` used when registering the business with Apple Pay through our registration API.
-    */
-    'merchantIdentity';
-    /**
-    * A unique validation URL that will be provided by the Apple SDK front-end for every payment.
-    */
-    'validationUrl';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "displayName",
-            "baseName": "display_name",
-            "type": "string"
-        },
-        {
-            "name": "domain",
-            "baseName": "domain",
-            "type": "string"
-        },
-        {
-            "name": "merchantIdentity",
-            "baseName": "merchant_identity",
-            "type": "string"
-        },
-        {
-            "name": "validationUrl",
-            "baseName": "validation_url",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return ApplePaySessionRequest.attributeTypeMap;
     }
 }
 exports.ApplePaySessionRequest = ApplePaySessionRequest;
+ApplePaySessionRequest.discriminator = undefined;
+ApplePaySessionRequest.attributeTypeMap = [
+    {
+        "name": "displayName",
+        "baseName": "display_name",
+        "type": "string"
+    },
+    {
+        "name": "domain",
+        "baseName": "domain",
+        "type": "string"
+    },
+    {
+        "name": "merchantIdentity",
+        "baseName": "merchant_identity",
+        "type": "string"
+    },
+    {
+        "name": "validationUrl",
+        "baseName": "validation_url",
+        "type": "string"
+    }
+];

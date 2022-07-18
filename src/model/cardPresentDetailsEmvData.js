@@ -16,83 +16,51 @@ exports.CardPresentDetailsEmvData = void 0;
 * Encrypted card data used to process the transaction.
 */
 class CardPresentDetailsEmvData {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    /**
-    * ID of the EMV application processing the transaction.
-    */
-    'applicationIdentifier';
-    /**
-    * EMV card label.
-    */
-    'applicationLabel';
-    /**
-    * Alternate EMV application name (if provided).
-    */
-    'applicationPreferredName';
-    /**
-    * Transaction number for the EMV application.
-    */
-    'applicationTransactionCounter';
-    /**
-    * Encrypted card infromation used to process the transaction.
-    */
-    'cryptogram';
-    /**
-    * The alphabet code table (according to ISO 8859) used by the EMV application (if provided).
-    */
-    'issuerCodeTableIndex';
-    /**
-    * Details if the cardholder\'s PIN number was verified.
-    */
-    'pinVerified';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "applicationIdentifier",
-            "baseName": "application_identifier",
-            "type": "string"
-        },
-        {
-            "name": "applicationLabel",
-            "baseName": "application_label",
-            "type": "string"
-        },
-        {
-            "name": "applicationPreferredName",
-            "baseName": "application_preferred_name",
-            "type": "string"
-        },
-        {
-            "name": "applicationTransactionCounter",
-            "baseName": "application_transaction_counter",
-            "type": "string"
-        },
-        {
-            "name": "cryptogram",
-            "baseName": "cryptogram",
-            "type": "string"
-        },
-        {
-            "name": "issuerCodeTableIndex",
-            "baseName": "issuer_code_table_index",
-            "type": "string"
-        },
-        {
-            "name": "pinVerified",
-            "baseName": "pin_verified",
-            "type": "boolean"
-        }
-    ];
     static getAttributeTypeMap() {
         return CardPresentDetailsEmvData.attributeTypeMap;
     }
 }
 exports.CardPresentDetailsEmvData = CardPresentDetailsEmvData;
+CardPresentDetailsEmvData.discriminator = undefined;
+CardPresentDetailsEmvData.attributeTypeMap = [
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "applicationIdentifier",
+        "baseName": "application_identifier",
+        "type": "string"
+    },
+    {
+        "name": "applicationLabel",
+        "baseName": "application_label",
+        "type": "string"
+    },
+    {
+        "name": "applicationPreferredName",
+        "baseName": "application_preferred_name",
+        "type": "string"
+    },
+    {
+        "name": "applicationTransactionCounter",
+        "baseName": "application_transaction_counter",
+        "type": "string"
+    },
+    {
+        "name": "cryptogram",
+        "baseName": "cryptogram",
+        "type": "string"
+    },
+    {
+        "name": "issuerCodeTableIndex",
+        "baseName": "issuer_code_table_index",
+        "type": "string"
+    },
+    {
+        "name": "pinVerified",
+        "baseName": "pin_verified",
+        "type": "boolean"
+    }
+];

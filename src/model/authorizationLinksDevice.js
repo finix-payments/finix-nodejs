@@ -16,17 +16,16 @@ exports.AuthorizationLinksDevice = void 0;
 * Link to the `Device` the request was made under.
 */
 class AuthorizationLinksDevice {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return AuthorizationLinksDevice.attributeTypeMap;
     }
 }
 exports.AuthorizationLinksDevice = AuthorizationLinksDevice;
+AuthorizationLinksDevice.discriminator = undefined;
+AuthorizationLinksDevice.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

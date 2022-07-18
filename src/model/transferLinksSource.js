@@ -16,17 +16,16 @@ exports.TransferLinksSource = void 0;
 * Link to the `Payment Instrument` the `Transfer` was created under.
 */
 class TransferLinksSource {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return TransferLinksSource.attributeTypeMap;
     }
 }
 exports.TransferLinksSource = TransferLinksSource;
+TransferLinksSource.discriminator = undefined;
+TransferLinksSource.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

@@ -16,107 +16,79 @@ exports.ReviewQueueItem = void 0;
 *
 */
 class ReviewQueueItem {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    'id';
-    /**
-    * Timestamp of when the object was created.
-    */
-    'createdAt';
-    /**
-    * Timestamp of when the object was last updated.
-    */
-    'updatedAt';
-    /**
-    * The ID of the resource.
-    */
-    'application';
-    'completedAt';
-    /**
-    * The ID of the resource.
-    */
-    'entityId';
-    'entityType';
-    'outcome';
-    'processorType';
-    'reviewType';
-    'reviewedBy';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "createdAt",
-            "baseName": "created_at",
-            "type": "Date"
-        },
-        {
-            "name": "updatedAt",
-            "baseName": "updated_at",
-            "type": "Date"
-        },
-        {
-            "name": "application",
-            "baseName": "application",
-            "type": "string"
-        },
-        {
-            "name": "completedAt",
-            "baseName": "completed_at",
-            "type": "Date"
-        },
-        {
-            "name": "entityId",
-            "baseName": "entity_id",
-            "type": "string"
-        },
-        {
-            "name": "entityType",
-            "baseName": "entity_type",
-            "type": "ReviewQueueItem.EntityTypeEnum"
-        },
-        {
-            "name": "outcome",
-            "baseName": "outcome",
-            "type": "ReviewQueueItem.OutcomeEnum"
-        },
-        {
-            "name": "processorType",
-            "baseName": "processor_type",
-            "type": "ReviewQueueItem.ProcessorTypeEnum"
-        },
-        {
-            "name": "reviewType",
-            "baseName": "review_type",
-            "type": "ReviewQueueItem.ReviewTypeEnum"
-        },
-        {
-            "name": "reviewedBy",
-            "baseName": "reviewed_by",
-            "type": "string"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "ReviewQueueItemLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return ReviewQueueItem.attributeTypeMap;
     }
 }
 exports.ReviewQueueItem = ReviewQueueItem;
+ReviewQueueItem.discriminator = undefined;
+ReviewQueueItem.attributeTypeMap = [
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "id",
+        "baseName": "id",
+        "type": "string"
+    },
+    {
+        "name": "createdAt",
+        "baseName": "created_at",
+        "type": "Date"
+    },
+    {
+        "name": "updatedAt",
+        "baseName": "updated_at",
+        "type": "Date"
+    },
+    {
+        "name": "application",
+        "baseName": "application",
+        "type": "string"
+    },
+    {
+        "name": "completedAt",
+        "baseName": "completed_at",
+        "type": "Date"
+    },
+    {
+        "name": "entityId",
+        "baseName": "entity_id",
+        "type": "string"
+    },
+    {
+        "name": "entityType",
+        "baseName": "entity_type",
+        "type": "ReviewQueueItem.EntityTypeEnum"
+    },
+    {
+        "name": "outcome",
+        "baseName": "outcome",
+        "type": "ReviewQueueItem.OutcomeEnum"
+    },
+    {
+        "name": "processorType",
+        "baseName": "processor_type",
+        "type": "ReviewQueueItem.ProcessorTypeEnum"
+    },
+    {
+        "name": "reviewType",
+        "baseName": "review_type",
+        "type": "ReviewQueueItem.ReviewTypeEnum"
+    },
+    {
+        "name": "reviewedBy",
+        "baseName": "reviewed_by",
+        "type": "string"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "ReviewQueueItemLinks"
+    }
+];
 (function (ReviewQueueItem) {
     let EntityTypeEnum;
     (function (EntityTypeEnum) {

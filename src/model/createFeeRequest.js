@@ -13,98 +13,64 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateFeeRequest = void 0;
 class CreateFeeRequest {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    /**
-    * The total amount that will be debited in cents (e.g. 100 cents to debit $1.00).
-    */
-    'amount';
-    'currency';
-    /**
-    * The display name of the `Fee` that can be used for filtering purposes.
-    */
-    'label';
-    /**
-    * Subtype of the fee. Set to **CUSTOM**.
-    */
-    'feeSubtype';
-    'feeType';
-    /**
-    * ID of the linked resource
-    */
-    'linkedId';
-    /**
-    * The type of entity the fee is linked to (**null** by default).
-    */
-    'linkedType';
-    /**
-    * The ID of the resource.
-    */
-    'merchantId';
-    /**
-    * Delays in days, when the fee will be submitted for settlement.
-    */
-    'settlementDelayDays';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "amount",
-            "baseName": "amount",
-            "type": "number"
-        },
-        {
-            "name": "currency",
-            "baseName": "currency",
-            "type": "Currency"
-        },
-        {
-            "name": "label",
-            "baseName": "label",
-            "type": "string"
-        },
-        {
-            "name": "feeSubtype",
-            "baseName": "fee_subtype",
-            "type": "CreateFeeRequest.FeeSubtypeEnum"
-        },
-        {
-            "name": "feeType",
-            "baseName": "fee_type",
-            "type": "FeeType"
-        },
-        {
-            "name": "linkedId",
-            "baseName": "linked_id",
-            "type": "string"
-        },
-        {
-            "name": "linkedType",
-            "baseName": "linked_type",
-            "type": "CreateFeeRequest.LinkedTypeEnum"
-        },
-        {
-            "name": "merchantId",
-            "baseName": "merchant_id",
-            "type": "string"
-        },
-        {
-            "name": "settlementDelayDays",
-            "baseName": "settlement_delay_days",
-            "type": "number"
-        }
-    ];
     static getAttributeTypeMap() {
         return CreateFeeRequest.attributeTypeMap;
     }
 }
 exports.CreateFeeRequest = CreateFeeRequest;
+CreateFeeRequest.discriminator = undefined;
+CreateFeeRequest.attributeTypeMap = [
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "amount",
+        "baseName": "amount",
+        "type": "number"
+    },
+    {
+        "name": "currency",
+        "baseName": "currency",
+        "type": "Currency"
+    },
+    {
+        "name": "label",
+        "baseName": "label",
+        "type": "string"
+    },
+    {
+        "name": "feeSubtype",
+        "baseName": "fee_subtype",
+        "type": "CreateFeeRequest.FeeSubtypeEnum"
+    },
+    {
+        "name": "feeType",
+        "baseName": "fee_type",
+        "type": "FeeType"
+    },
+    {
+        "name": "linkedId",
+        "baseName": "linked_id",
+        "type": "string"
+    },
+    {
+        "name": "linkedType",
+        "baseName": "linked_type",
+        "type": "CreateFeeRequest.LinkedTypeEnum"
+    },
+    {
+        "name": "merchantId",
+        "baseName": "merchant_id",
+        "type": "string"
+    },
+    {
+        "name": "settlementDelayDays",
+        "baseName": "settlement_delay_days",
+        "type": "number"
+    }
+];
 (function (CreateFeeRequest) {
     let FeeSubtypeEnum;
     (function (FeeSubtypeEnum) {

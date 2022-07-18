@@ -16,17 +16,16 @@ exports.IdentityLinksTransfers = void 0;
 * Link to the `Transfer` the request was made under.
 */
 class IdentityLinksTransfers {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return IdentityLinksTransfers.attributeTypeMap;
     }
 }
 exports.IdentityLinksTransfers = IdentityLinksTransfers;
+IdentityLinksTransfers.discriminator = undefined;
+IdentityLinksTransfers.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

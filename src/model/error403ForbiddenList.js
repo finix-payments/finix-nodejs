@@ -16,23 +16,21 @@ exports.Error403ForbiddenList = void 0;
 *
 */
 class Error403ForbiddenList {
-    'total';
-    'embedded';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "total",
-            "baseName": "total",
-            "type": "number"
-        },
-        {
-            "name": "embedded",
-            "baseName": "_embedded",
-            "type": "Error403ForbiddenListEmbedded"
-        }
-    ];
     static getAttributeTypeMap() {
         return Error403ForbiddenList.attributeTypeMap;
     }
 }
 exports.Error403ForbiddenList = Error403ForbiddenList;
+Error403ForbiddenList.discriminator = undefined;
+Error403ForbiddenList.attributeTypeMap = [
+    {
+        "name": "total",
+        "baseName": "total",
+        "type": "number"
+    },
+    {
+        "name": "embedded",
+        "baseName": "_embedded",
+        "type": "Error403ForbiddenListEmbedded"
+    }
+];

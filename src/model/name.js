@@ -13,44 +13,31 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Name = void 0;
 class Name {
-    /**
-    * The first name of the `Payment Instrument` owner.
-    */
-    'firstName';
-    /**
-    * The full name of the `Payment Instrument` owner.
-    */
-    'fullName';
-    /**
-    * The last name of the `Payment Instrument` owner.
-    */
-    'lastName';
-    'value';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "firstName",
-            "baseName": "first_name",
-            "type": "string"
-        },
-        {
-            "name": "fullName",
-            "baseName": "full_name",
-            "type": "string"
-        },
-        {
-            "name": "lastName",
-            "baseName": "last_name",
-            "type": "string"
-        },
-        {
-            "name": "value",
-            "baseName": "value",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return Name.attributeTypeMap;
     }
 }
 exports.Name = Name;
+Name.discriminator = undefined;
+Name.attributeTypeMap = [
+    {
+        "name": "firstName",
+        "baseName": "first_name",
+        "type": "string"
+    },
+    {
+        "name": "fullName",
+        "baseName": "full_name",
+        "type": "string"
+    },
+    {
+        "name": "lastName",
+        "baseName": "last_name",
+        "type": "string"
+    },
+    {
+        "name": "value",
+        "baseName": "value",
+        "type": "string"
+    }
+];

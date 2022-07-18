@@ -16,29 +16,21 @@ exports.CreateSubscriptionScheduleRequestPeriodOffset = void 0;
 * Specifies when the Fee is charged. This field is null for **FIXED_TIME_INTERVAL** subscription schedules
 */
 class CreateSubscriptionScheduleRequestPeriodOffset {
-    /**
-    * Specifies the day when the Subscription Schedule starts.
-    */
-    'day';
-    /**
-    * Specifies the month when the Subscription Schedule starts. If the Subscription Schedule is **PERIODIC_MONTHLY**, the month field can be left null
-    */
-    'month';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "day",
-            "baseName": "day",
-            "type": "number"
-        },
-        {
-            "name": "month",
-            "baseName": "month",
-            "type": "number"
-        }
-    ];
     static getAttributeTypeMap() {
         return CreateSubscriptionScheduleRequestPeriodOffset.attributeTypeMap;
     }
 }
 exports.CreateSubscriptionScheduleRequestPeriodOffset = CreateSubscriptionScheduleRequestPeriodOffset;
+CreateSubscriptionScheduleRequestPeriodOffset.discriminator = undefined;
+CreateSubscriptionScheduleRequestPeriodOffset.attributeTypeMap = [
+    {
+        "name": "day",
+        "baseName": "day",
+        "type": "number"
+    },
+    {
+        "name": "month",
+        "baseName": "month",
+        "type": "number"
+    }
+];

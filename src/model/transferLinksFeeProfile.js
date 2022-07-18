@@ -16,17 +16,16 @@ exports.TransferLinksFeeProfile = void 0;
 * Link to the `fee_profile` the request was made under.
 */
 class TransferLinksFeeProfile {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return TransferLinksFeeProfile.attributeTypeMap;
     }
 }
 exports.TransferLinksFeeProfile = TransferLinksFeeProfile;
+TransferLinksFeeProfile.discriminator = undefined;
+TransferLinksFeeProfile.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

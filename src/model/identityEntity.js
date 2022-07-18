@@ -16,245 +16,149 @@ exports.IdentityEntity = void 0;
 * The underwriting details required to verify the `Identity` of the `Merchant`.
 */
 class IdentityEntity {
-    /**
-    * The corporate title of the control owner (e.g. Chief Executive Officer, CFO, etc. Max 60 characters).
-    */
-    'title';
-    /**
-    * The legal first name of the merchant\'s control owner (max 20 characters).
-    */
-    'firstName';
-    /**
-    * The legal last name of the merchant\'s control owner (max 20 characters).
-    */
-    'lastName';
-    /**
-    * The email address of the principal control owner where they can be reached (max 100 characters).
-    */
-    'email';
-    /**
-    * The merchant\'s legal business name (max 120 characters).<ul><li>If <strong>INDIVIDUAL_SOLE_PROPRIETORSHIP</strong>, pass the owner\'s legal first name, last name and middle initial.
-    */
-    'businessName';
-    /**
-    * Include the value that best applies to the merchant.
-    */
-    'businessType';
-    /**
-    * Alternate names of the business. If there are no other names, pass the same value used for `business_name` (max 60 characters).
-    */
-    'doingBusinessAs';
-    /**
-    * The principal control owner\'s phone number (max 10 characters).
-    */
-    'phone';
-    /**
-    * Customer service phone number where the merchant can be reached (max 10 characters).
-    */
-    'businessPhone';
-    'personalAddress';
-    'businessAddress';
-    /**
-    * The Merchant Category Code ([MCC](http://www.dm.usda.gov/procurement/card/card\\_x/mcc.pdf)) that this merchant will be classified under.
-    */
-    'mcc';
-    'dob';
-    /**
-    * The maximum amount (in cents) that can be charged for a single transaction (max 12 characters).
-    */
-    'maxTransactionAmount';
-    /**
-    * Assigned amexMid value. If a value is passed, it must be 10 or 11 digits.
-    */
-    'amexMid';
-    /**
-    * Assigned discoverMid value.
-    */
-    'discoverMid';
-    /**
-    * The URL of the merchant\'s public website.
-    */
-    'url';
-    /**
-    * The annual credit card sales (in cents) expected to be processed by this merchant (max 19 characters).
-    */
-    'annualCardVolume';
-    /**
-    * Defaults to **false** if not passed.
-    */
-    'hasAcceptedCreditCardsPreviously';
-    'incorporationDate';
-    /**
-    * Percentage of the company owned by the principal control owner (min 0; max 100).
-    */
-    'principalPercentageOwnership';
-    /**
-    * Abbreviated names of the business. If there are no abbreviated name, leave this field blank.
-    */
-    'shortBusinessName';
-    /**
-    * Values can be either: <ul><li><strong>PUBLIC</strong> to indicate a publicly-traded company.<li><strong>PRIVATE</strong> for privately-held businesses.
-    */
-    'ownershipType';
-    /**
-    * <ul><li>Only required when onboarding a merchant with a <tt>MCC</tt> of <strong>9311</strong>.<li> The <tt>tax_authority</tt> is the tax gathering entity (e.g San Francisco Water Authority).
-    */
-    'taxAuthority';
-    /**
-    * Details if the `tax_id` was provided.
-    */
-    'taxIdProvided';
-    /**
-    * Details if the `business_tax_id` was provided.
-    */
-    'businessTaxIdProvided';
-    /**
-    * The description of the merchant that appears on the buyer\'s bank or card statement.
-    */
-    'defaultStatementDescriptor';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "title",
-            "baseName": "title",
-            "type": "string"
-        },
-        {
-            "name": "firstName",
-            "baseName": "first_name",
-            "type": "string"
-        },
-        {
-            "name": "lastName",
-            "baseName": "last_name",
-            "type": "string"
-        },
-        {
-            "name": "email",
-            "baseName": "email",
-            "type": "string"
-        },
-        {
-            "name": "businessName",
-            "baseName": "business_name",
-            "type": "string"
-        },
-        {
-            "name": "businessType",
-            "baseName": "business_type",
-            "type": "string"
-        },
-        {
-            "name": "doingBusinessAs",
-            "baseName": "doing_business_as",
-            "type": "string"
-        },
-        {
-            "name": "phone",
-            "baseName": "phone",
-            "type": "string"
-        },
-        {
-            "name": "businessPhone",
-            "baseName": "business_phone",
-            "type": "string"
-        },
-        {
-            "name": "personalAddress",
-            "baseName": "personal_address",
-            "type": "IdentityEntityPersonalAddress"
-        },
-        {
-            "name": "businessAddress",
-            "baseName": "business_address",
-            "type": "IdentityEntityBusinessAddress"
-        },
-        {
-            "name": "mcc",
-            "baseName": "mcc",
-            "type": "string"
-        },
-        {
-            "name": "dob",
-            "baseName": "dob",
-            "type": "IdentityEntityDob"
-        },
-        {
-            "name": "maxTransactionAmount",
-            "baseName": "max_transaction_amount",
-            "type": "number"
-        },
-        {
-            "name": "amexMid",
-            "baseName": "amex_mid",
-            "type": "number"
-        },
-        {
-            "name": "discoverMid",
-            "baseName": "discover_mid",
-            "type": "number"
-        },
-        {
-            "name": "url",
-            "baseName": "url",
-            "type": "string"
-        },
-        {
-            "name": "annualCardVolume",
-            "baseName": "annual_card_volume",
-            "type": "number"
-        },
-        {
-            "name": "hasAcceptedCreditCardsPreviously",
-            "baseName": "has_accepted_credit_cards_previously",
-            "type": "boolean"
-        },
-        {
-            "name": "incorporationDate",
-            "baseName": "incorporation_date",
-            "type": "IdentityEntityIncorporationDate"
-        },
-        {
-            "name": "principalPercentageOwnership",
-            "baseName": "principal_percentage_ownership",
-            "type": "number"
-        },
-        {
-            "name": "shortBusinessName",
-            "baseName": "short_business_name",
-            "type": "string"
-        },
-        {
-            "name": "ownershipType",
-            "baseName": "ownership_type",
-            "type": "IdentityEntity.OwnershipTypeEnum"
-        },
-        {
-            "name": "taxAuthority",
-            "baseName": "tax_authority",
-            "type": "string"
-        },
-        {
-            "name": "taxIdProvided",
-            "baseName": "tax_id_provided",
-            "type": "boolean"
-        },
-        {
-            "name": "businessTaxIdProvided",
-            "baseName": "business_tax_id_provided",
-            "type": "boolean"
-        },
-        {
-            "name": "defaultStatementDescriptor",
-            "baseName": "default_statement_descriptor",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return IdentityEntity.attributeTypeMap;
     }
 }
 exports.IdentityEntity = IdentityEntity;
+IdentityEntity.discriminator = undefined;
+IdentityEntity.attributeTypeMap = [
+    {
+        "name": "title",
+        "baseName": "title",
+        "type": "string"
+    },
+    {
+        "name": "firstName",
+        "baseName": "first_name",
+        "type": "string"
+    },
+    {
+        "name": "lastName",
+        "baseName": "last_name",
+        "type": "string"
+    },
+    {
+        "name": "email",
+        "baseName": "email",
+        "type": "string"
+    },
+    {
+        "name": "businessName",
+        "baseName": "business_name",
+        "type": "string"
+    },
+    {
+        "name": "businessType",
+        "baseName": "business_type",
+        "type": "string"
+    },
+    {
+        "name": "doingBusinessAs",
+        "baseName": "doing_business_as",
+        "type": "string"
+    },
+    {
+        "name": "phone",
+        "baseName": "phone",
+        "type": "string"
+    },
+    {
+        "name": "businessPhone",
+        "baseName": "business_phone",
+        "type": "string"
+    },
+    {
+        "name": "personalAddress",
+        "baseName": "personal_address",
+        "type": "IdentityEntityPersonalAddress"
+    },
+    {
+        "name": "businessAddress",
+        "baseName": "business_address",
+        "type": "IdentityEntityBusinessAddress"
+    },
+    {
+        "name": "mcc",
+        "baseName": "mcc",
+        "type": "string"
+    },
+    {
+        "name": "dob",
+        "baseName": "dob",
+        "type": "IdentityEntityDob"
+    },
+    {
+        "name": "maxTransactionAmount",
+        "baseName": "max_transaction_amount",
+        "type": "number"
+    },
+    {
+        "name": "amexMid",
+        "baseName": "amex_mid",
+        "type": "number"
+    },
+    {
+        "name": "discoverMid",
+        "baseName": "discover_mid",
+        "type": "number"
+    },
+    {
+        "name": "url",
+        "baseName": "url",
+        "type": "string"
+    },
+    {
+        "name": "annualCardVolume",
+        "baseName": "annual_card_volume",
+        "type": "number"
+    },
+    {
+        "name": "hasAcceptedCreditCardsPreviously",
+        "baseName": "has_accepted_credit_cards_previously",
+        "type": "boolean"
+    },
+    {
+        "name": "incorporationDate",
+        "baseName": "incorporation_date",
+        "type": "IdentityEntityIncorporationDate"
+    },
+    {
+        "name": "principalPercentageOwnership",
+        "baseName": "principal_percentage_ownership",
+        "type": "number"
+    },
+    {
+        "name": "shortBusinessName",
+        "baseName": "short_business_name",
+        "type": "string"
+    },
+    {
+        "name": "ownershipType",
+        "baseName": "ownership_type",
+        "type": "IdentityEntity.OwnershipTypeEnum"
+    },
+    {
+        "name": "taxAuthority",
+        "baseName": "tax_authority",
+        "type": "string"
+    },
+    {
+        "name": "taxIdProvided",
+        "baseName": "tax_id_provided",
+        "type": "boolean"
+    },
+    {
+        "name": "businessTaxIdProvided",
+        "baseName": "business_tax_id_provided",
+        "type": "boolean"
+    },
+    {
+        "name": "defaultStatementDescriptor",
+        "baseName": "default_statement_descriptor",
+        "type": "string"
+    }
+];
 (function (IdentityEntity) {
     let OwnershipTypeEnum;
     (function (OwnershipTypeEnum) {

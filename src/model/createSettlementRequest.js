@@ -13,44 +13,31 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateSettlementRequest = void 0;
 class CreateSettlementRequest {
-    'currency';
-    /**
-    * If the `Application` has more than one associated `processor`, it\'s required when creating `settlements` to include the `processor` (e.g. DUMMY_V1).
-    */
-    'processor';
-    /**
-    * If the `Application` has more than one associated `processor`, this field is required.
-    */
-    'merchantId';
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "currency",
-            "baseName": "currency",
-            "type": "Currency"
-        },
-        {
-            "name": "processor",
-            "baseName": "processor",
-            "type": "string"
-        },
-        {
-            "name": "merchantId",
-            "baseName": "merchant_id",
-            "type": "string"
-        },
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        }
-    ];
     static getAttributeTypeMap() {
         return CreateSettlementRequest.attributeTypeMap;
     }
 }
 exports.CreateSettlementRequest = CreateSettlementRequest;
+CreateSettlementRequest.discriminator = undefined;
+CreateSettlementRequest.attributeTypeMap = [
+    {
+        "name": "currency",
+        "baseName": "currency",
+        "type": "Currency"
+    },
+    {
+        "name": "processor",
+        "baseName": "processor",
+        "type": "string"
+    },
+    {
+        "name": "merchantId",
+        "baseName": "merchant_id",
+        "type": "string"
+    },
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    }
+];

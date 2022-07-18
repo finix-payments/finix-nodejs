@@ -13,20 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProcessorsListEmbedded = void 0;
 class ProcessorsListEmbedded {
-    /**
-    * `Processors` object.
-    */
-    'processors';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "processors",
-            "baseName": "processors",
-            "type": "Set<Processor>"
-        }
-    ];
     static getAttributeTypeMap() {
         return ProcessorsListEmbedded.attributeTypeMap;
     }
 }
 exports.ProcessorsListEmbedded = ProcessorsListEmbedded;
+ProcessorsListEmbedded.discriminator = undefined;
+ProcessorsListEmbedded.attributeTypeMap = [
+    {
+        "name": "processors",
+        "baseName": "processors",
+        "type": "Set<Processor>"
+    }
+];

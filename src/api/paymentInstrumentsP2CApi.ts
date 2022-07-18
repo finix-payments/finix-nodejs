@@ -132,7 +132,7 @@ export class PaymentInstrumentsP2CApi {
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -143,8 +143,7 @@ export class PaymentInstrumentsP2CApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (createVerificationRequest.hasOwnProperty('file')){
-            createVerificationRequest = await this.fileHelper(createVerificationRequest);
+        if (createVerificationRequest != undefined && createVerificationRequest != null && createVerificationRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = createVerificationRequest;
         }
         else{
@@ -214,15 +213,18 @@ export class PaymentInstrumentsP2CApi {
 
 
     private async embeddedHelper(responseObject: any){
+        if(responseObject.embedded == null || responseObject.embedded == undefined){
+            const dataList = new SuperSet<any>();
+            dataList.page = responseObject.body.page;
+            dataList.links = responseObject.body.links;
+            return dataList;
+        }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        let tempList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        const dataList = new SuperSet<any>();
+        tempList.forEach(item => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
-    }
-
-    private async fileHelper(request: any){
-        request.file = fs.createReadStream(<string>request.file)
-        return request;
     }
 }

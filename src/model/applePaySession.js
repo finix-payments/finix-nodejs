@@ -13,53 +13,36 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ApplePaySession = void 0;
 class ApplePaySession {
-    /**
-    * The ID of the `apple_pay_session` resource.
-    */
-    'id';
-    /**
-    * Timestamp of when the object was created.
-    */
-    'createdAt';
-    /**
-    * Timestamp of when the object was last updated.
-    */
-    'updatedAt';
-    /**
-    * Details about the `apple_pay_session` that was created.
-    */
-    'sessionDetails';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "createdAt",
-            "baseName": "created_at",
-            "type": "Date"
-        },
-        {
-            "name": "updatedAt",
-            "baseName": "updated_at",
-            "type": "Date"
-        },
-        {
-            "name": "sessionDetails",
-            "baseName": "session_details",
-            "type": "string"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "DisputeEvidenceLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return ApplePaySession.attributeTypeMap;
     }
 }
 exports.ApplePaySession = ApplePaySession;
+ApplePaySession.discriminator = undefined;
+ApplePaySession.attributeTypeMap = [
+    {
+        "name": "id",
+        "baseName": "id",
+        "type": "string"
+    },
+    {
+        "name": "createdAt",
+        "baseName": "created_at",
+        "type": "Date"
+    },
+    {
+        "name": "updatedAt",
+        "baseName": "updated_at",
+        "type": "Date"
+    },
+    {
+        "name": "sessionDetails",
+        "baseName": "session_details",
+        "type": "string"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "DisputeEvidenceLinks"
+    }
+];

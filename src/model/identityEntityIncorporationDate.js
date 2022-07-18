@@ -16,29 +16,26 @@ exports.IdentityEntityIncorporationDate = void 0;
 * The date the company was founded and registered with the US.
 */
 class IdentityEntityIncorporationDate {
-    'day';
-    'month';
-    'year';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "day",
-            "baseName": "day",
-            "type": "number"
-        },
-        {
-            "name": "month",
-            "baseName": "month",
-            "type": "number"
-        },
-        {
-            "name": "year",
-            "baseName": "year",
-            "type": "number"
-        }
-    ];
     static getAttributeTypeMap() {
         return IdentityEntityIncorporationDate.attributeTypeMap;
     }
 }
 exports.IdentityEntityIncorporationDate = IdentityEntityIncorporationDate;
+IdentityEntityIncorporationDate.discriminator = undefined;
+IdentityEntityIncorporationDate.attributeTypeMap = [
+    {
+        "name": "day",
+        "baseName": "day",
+        "type": "number"
+    },
+    {
+        "name": "month",
+        "baseName": "month",
+        "type": "number"
+    },
+    {
+        "name": "year",
+        "baseName": "year",
+        "type": "number"
+    }
+];

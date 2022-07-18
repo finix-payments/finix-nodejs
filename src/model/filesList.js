@@ -13,29 +13,26 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FilesList = void 0;
 class FilesList {
-    'embedded';
-    'page';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "embedded",
-            "baseName": "_embedded",
-            "type": "FilesListEmbedded"
-        },
-        {
-            "name": "page",
-            "baseName": "page",
-            "type": "PageCursor"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "ListLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return FilesList.attributeTypeMap;
     }
 }
 exports.FilesList = FilesList;
+FilesList.discriminator = undefined;
+FilesList.attributeTypeMap = [
+    {
+        "name": "embedded",
+        "baseName": "_embedded",
+        "type": "FilesListEmbedded"
+    },
+    {
+        "name": "page",
+        "baseName": "page",
+        "type": "PageCursor"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "ListLinks"
+    }
+];

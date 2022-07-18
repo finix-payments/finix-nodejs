@@ -16,17 +16,16 @@ exports.MerchantLinksVerifications = void 0;
 * Link to the `Verification` that was used to verify the `Merchant` that the request was made under.
 */
 class MerchantLinksVerifications {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return MerchantLinksVerifications.attributeTypeMap;
     }
 }
 exports.MerchantLinksVerifications = MerchantLinksVerifications;
+MerchantLinksVerifications.discriminator = undefined;
+MerchantLinksVerifications.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

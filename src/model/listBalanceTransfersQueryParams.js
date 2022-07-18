@@ -13,146 +13,86 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ListBalanceTransfersQueryParams = void 0;
 class ListBalanceTransfersQueryParams {
-    /**
-    * The numbers of items to return
-    */
-    'limit';
-    /**
-    * The number of items to skip before starting to collect the result set
-    */
-    'offset';
-    /**
-    * The page number to list
-    */
-    'pageNumber';
-    /**
-    * The size of the page
-    */
-    'pageSize';
-    /**
-    * Filter where created_at is after the given date.
-    */
-    'createdAtGte';
-    /**
-    * Filter where created_at is before the given date.
-    */
-    'createdAtLte';
-    /**
-    * Filter where updated_at is after the given date
-    */
-    'updatedAtGte';
-    /**
-    * Filter where updated_at is before the given date
-    */
-    'updatedAtLte';
-    /**
-    * Filter by idempotency_id
-    */
-    'idempotencyId';
-    /**
-    * Filter by an amount equal to the given value
-    */
-    'amount';
-    /**
-    * Filter by the `description` value
-    */
-    'description';
-    /**
-    * Filter by the `Payment Instrument` saved in `destination`
-    */
-    'destination';
-    /**
-    * Filter by the value saved in `external_reference_id`
-    */
-    'externalReferenceId';
-    /**
-    * Filter by the value saved in `reference_id`
-    */
-    'referenceId';
-    /**
-    * Filter by the `Payment Instrument` saved in `source`
-    */
-    'source';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "limit",
-            "baseName": "limit",
-            "type": "number"
-        },
-        {
-            "name": "offset",
-            "baseName": "offset",
-            "type": "number"
-        },
-        {
-            "name": "pageNumber",
-            "baseName": "pageNumber",
-            "type": "number"
-        },
-        {
-            "name": "pageSize",
-            "baseName": "pageSize",
-            "type": "number"
-        },
-        {
-            "name": "createdAtGte",
-            "baseName": "created_at.gte",
-            "type": "string"
-        },
-        {
-            "name": "createdAtLte",
-            "baseName": "created_at.lte",
-            "type": "string"
-        },
-        {
-            "name": "updatedAtGte",
-            "baseName": "updated_at.gte",
-            "type": "string"
-        },
-        {
-            "name": "updatedAtLte",
-            "baseName": "updated_at.lte",
-            "type": "string"
-        },
-        {
-            "name": "idempotencyId",
-            "baseName": "idempotency_id",
-            "type": "string"
-        },
-        {
-            "name": "amount",
-            "baseName": "amount",
-            "type": "number"
-        },
-        {
-            "name": "description",
-            "baseName": "description",
-            "type": "string"
-        },
-        {
-            "name": "destination",
-            "baseName": "destination",
-            "type": "string"
-        },
-        {
-            "name": "externalReferenceId",
-            "baseName": "external_reference_id",
-            "type": "string"
-        },
-        {
-            "name": "referenceId",
-            "baseName": "reference_id",
-            "type": "string"
-        },
-        {
-            "name": "source",
-            "baseName": "source",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return ListBalanceTransfersQueryParams.attributeTypeMap;
     }
 }
 exports.ListBalanceTransfersQueryParams = ListBalanceTransfersQueryParams;
+ListBalanceTransfersQueryParams.discriminator = undefined;
+ListBalanceTransfersQueryParams.attributeTypeMap = [
+    {
+        "name": "limit",
+        "baseName": "limit",
+        "type": "number"
+    },
+    {
+        "name": "offset",
+        "baseName": "offset",
+        "type": "number"
+    },
+    {
+        "name": "pageNumber",
+        "baseName": "pageNumber",
+        "type": "number"
+    },
+    {
+        "name": "pageSize",
+        "baseName": "pageSize",
+        "type": "number"
+    },
+    {
+        "name": "createdAtGte",
+        "baseName": "created_at.gte",
+        "type": "string"
+    },
+    {
+        "name": "createdAtLte",
+        "baseName": "created_at.lte",
+        "type": "string"
+    },
+    {
+        "name": "updatedAtGte",
+        "baseName": "updated_at.gte",
+        "type": "string"
+    },
+    {
+        "name": "updatedAtLte",
+        "baseName": "updated_at.lte",
+        "type": "string"
+    },
+    {
+        "name": "idempotencyId",
+        "baseName": "idempotency_id",
+        "type": "string"
+    },
+    {
+        "name": "amount",
+        "baseName": "amount",
+        "type": "number"
+    },
+    {
+        "name": "description",
+        "baseName": "description",
+        "type": "string"
+    },
+    {
+        "name": "destination",
+        "baseName": "destination",
+        "type": "string"
+    },
+    {
+        "name": "externalReferenceId",
+        "baseName": "external_reference_id",
+        "type": "string"
+    },
+    {
+        "name": "referenceId",
+        "baseName": "reference_id",
+        "type": "string"
+    },
+    {
+        "name": "source",
+        "baseName": "source",
+        "type": "string"
+    }
+];

@@ -16,29 +16,26 @@ exports.PaymentInstrumentUpdatesList = void 0;
 *
 */
 class PaymentInstrumentUpdatesList {
-    'page';
-    'embedded';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "page",
-            "baseName": "page",
-            "type": "PageOffset"
-        },
-        {
-            "name": "embedded",
-            "baseName": "_embedded",
-            "type": "PaymentInstrumentUpdatesListEmbedded"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "{ [key: string]: any; }"
-        }
-    ];
     static getAttributeTypeMap() {
         return PaymentInstrumentUpdatesList.attributeTypeMap;
     }
 }
 exports.PaymentInstrumentUpdatesList = PaymentInstrumentUpdatesList;
+PaymentInstrumentUpdatesList.discriminator = undefined;
+PaymentInstrumentUpdatesList.attributeTypeMap = [
+    {
+        "name": "page",
+        "baseName": "page",
+        "type": "PageOffset"
+    },
+    {
+        "name": "embedded",
+        "baseName": "_embedded",
+        "type": "PaymentInstrumentUpdatesListEmbedded"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "{ [key: string]: any; }"
+    }
+];

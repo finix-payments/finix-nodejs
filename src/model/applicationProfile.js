@@ -13,80 +13,51 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ApplicationProfile = void 0;
 class ApplicationProfile {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    /**
-    * ID of the `application_profile` resource.
-    */
-    'id';
-    /**
-    * Timestamp of when the object was created.
-    */
-    'createdAt';
-    /**
-    * Timestamp of when the object was last updated.
-    */
-    'updatedAt';
-    /**
-    * The ID of the `Application` resource.
-    */
-    'application';
-    /**
-    * The ID of the `Fee Profile` associated with the `Application`.
-    */
-    'feeProfile';
-    /**
-    * The ID of the `risk_profile` that was created during provisioning.
-    */
-    'riskProfile';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "createdAt",
-            "baseName": "created_at",
-            "type": "Date"
-        },
-        {
-            "name": "updatedAt",
-            "baseName": "updated_at",
-            "type": "Date"
-        },
-        {
-            "name": "application",
-            "baseName": "application",
-            "type": "string"
-        },
-        {
-            "name": "feeProfile",
-            "baseName": "fee_profile",
-            "type": "string"
-        },
-        {
-            "name": "riskProfile",
-            "baseName": "risk_profile",
-            "type": "string"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "ApplicationProfileLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return ApplicationProfile.attributeTypeMap;
     }
 }
 exports.ApplicationProfile = ApplicationProfile;
+ApplicationProfile.discriminator = undefined;
+ApplicationProfile.attributeTypeMap = [
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "id",
+        "baseName": "id",
+        "type": "string"
+    },
+    {
+        "name": "createdAt",
+        "baseName": "created_at",
+        "type": "Date"
+    },
+    {
+        "name": "updatedAt",
+        "baseName": "updated_at",
+        "type": "Date"
+    },
+    {
+        "name": "application",
+        "baseName": "application",
+        "type": "string"
+    },
+    {
+        "name": "feeProfile",
+        "baseName": "fee_profile",
+        "type": "string"
+    },
+    {
+        "name": "riskProfile",
+        "baseName": "risk_profile",
+        "type": "string"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "ApplicationProfileLinks"
+    }
+];

@@ -16,17 +16,16 @@ exports.BalanceTransferListEmbedded = void 0;
 * List of `balance_transfer` objects.
 */
 class BalanceTransferListEmbedded {
-    'balanceTransfers';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "balanceTransfers",
-            "baseName": "balance_transfers",
-            "type": "Array<BalanceTransferList>"
-        }
-    ];
     static getAttributeTypeMap() {
         return BalanceTransferListEmbedded.attributeTypeMap;
     }
 }
 exports.BalanceTransferListEmbedded = BalanceTransferListEmbedded;
+BalanceTransferListEmbedded.discriminator = undefined;
+BalanceTransferListEmbedded.attributeTypeMap = [
+    {
+        "name": "balanceTransfers",
+        "baseName": "balance_transfers",
+        "type": "Array<BalanceTransferList>"
+    }
+];

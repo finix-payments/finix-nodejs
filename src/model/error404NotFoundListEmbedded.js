@@ -13,17 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Error404NotFoundListEmbedded = void 0;
 class Error404NotFoundListEmbedded {
-    'errors';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "errors",
-            "baseName": "errors",
-            "type": "Array<Error404NotFoundListEmbeddedErrorsInner>"
-        }
-    ];
     static getAttributeTypeMap() {
         return Error404NotFoundListEmbedded.attributeTypeMap;
     }
 }
 exports.Error404NotFoundListEmbedded = Error404NotFoundListEmbedded;
+Error404NotFoundListEmbedded.discriminator = undefined;
+Error404NotFoundListEmbedded.attributeTypeMap = [
+    {
+        "name": "errors",
+        "baseName": "errors",
+        "type": "Array<Error404NotFoundListEmbeddedErrorsInner>"
+    }
+];

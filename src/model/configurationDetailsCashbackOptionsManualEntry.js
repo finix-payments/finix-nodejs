@@ -13,23 +13,21 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConfigurationDetailsCashbackOptionsManualEntry = void 0;
 class ConfigurationDetailsCashbackOptionsManualEntry {
-    'amountIncrement';
-    'maximumAmount';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "amountIncrement",
-            "baseName": "amount_increment",
-            "type": "number"
-        },
-        {
-            "name": "maximumAmount",
-            "baseName": "maximum_amount",
-            "type": "number"
-        }
-    ];
     static getAttributeTypeMap() {
         return ConfigurationDetailsCashbackOptionsManualEntry.attributeTypeMap;
     }
 }
 exports.ConfigurationDetailsCashbackOptionsManualEntry = ConfigurationDetailsCashbackOptionsManualEntry;
+ConfigurationDetailsCashbackOptionsManualEntry.discriminator = undefined;
+ConfigurationDetailsCashbackOptionsManualEntry.attributeTypeMap = [
+    {
+        "name": "amountIncrement",
+        "baseName": "amount_increment",
+        "type": "number"
+    },
+    {
+        "name": "maximumAmount",
+        "baseName": "maximum_amount",
+        "type": "number"
+    }
+];

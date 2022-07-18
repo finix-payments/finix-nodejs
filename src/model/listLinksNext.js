@@ -16,17 +16,16 @@ exports.ListLinksNext = void 0;
 * Link to the next page of entries.
 */
 class ListLinksNext {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return ListLinksNext.attributeTypeMap;
     }
 }
 exports.ListLinksNext = ListLinksNext;
+ListLinksNext.discriminator = undefined;
+ListLinksNext.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

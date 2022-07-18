@@ -16,197 +16,119 @@ exports.ProcessorApplicationConfig = void 0;
 * Details that configure how the `Processor` handles transactions.
 */
 class ProcessorApplicationConfig {
-    /**
-    * Details how days ACH settlments are delayed by.
-    */
-    'achSettlementDelayDays';
-    /**
-    * Details if the `Processor` allows split payouts to `Merchants`.
-    */
-    'allowSplitPayouts';
-    /**
-    * Identifies the `Processors` business application type for VisaNet transaction processing.
-    */
-    'allowedBusinessApplicationIds';
-    /**
-    * An ID for the card acceptor (e.g Visa).
-    */
-    'cardAcceptorIdCode';
-    /**
-    * The ID for the terminal at a card acceptor location.
-    */
-    'cardAcceptorTerminalId';
-    'configurationTemplates';
-    /**
-    * ISO 4217 3 letter currency code.
-    */
-    'defaultCurrencies';
-    /**
-    * The Merchant Category Code of the `Merchan.
-    */
-    'defaultMcc';
-    /**
-    * The default account of the sender.
-    */
-    'defaultSenderAccountNumber';
-    /**
-    * The sender’s address.
-    */
-    'defaultSenderAddress';
-    /**
-    * The city saved in the sender\'s address.
-    */
-    'defaultSenderCity';
-    'defaultSenderCountry';
-    /**
-    * The sender\'s 3 letter ISO 4217 currency code.
-    */
-    'defaultSenderCountryCode';
-    /**
-    * The sender’s county.
-    */
-    'defaultSenderCountyCode';
-    /**
-    * The sender’s name.
-    */
-    'defaultSenderName';
-    /**
-    * The sender\'s 2-letter State code.
-    */
-    'defaultSenderStateCode';
-    /**
-    * The sender’s zip code.
-    */
-    'defaultSenderZipCode';
-    /**
-    * Must be true if transactions are in Colombia where there are different fees.
-    */
-    'includeColombiaData';
-    /**
-    * Identifies the level of security used in an electronic commerce transaction (only applies to card-present transactions).
-    */
-    'motoEciindicator';
-    /**
-    * A 2-digit code that identifies the method used to enter the cardholder account number and card expiration date (only applies to card-present transactions).
-    */
-    'panEntryMode';
-    /**
-    * Contains a code identifying transaction conditions at the point of sale or point of service (only applies to card-present transactions).
-    */
-    'posConditionCode';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "achSettlementDelayDays",
-            "baseName": "ach_settlement_delay_days",
-            "type": "number"
-        },
-        {
-            "name": "allowSplitPayouts",
-            "baseName": "allow_split_payouts",
-            "type": "boolean"
-        },
-        {
-            "name": "allowedBusinessApplicationIds",
-            "baseName": "allowed_business_application_ids",
-            "type": "Array<ProcessorApplicationConfig.AllowedBusinessApplicationIdsEnum>"
-        },
-        {
-            "name": "cardAcceptorIdCode",
-            "baseName": "card_acceptor_id_code",
-            "type": "string"
-        },
-        {
-            "name": "cardAcceptorTerminalId",
-            "baseName": "card_acceptor_terminal_id",
-            "type": "string"
-        },
-        {
-            "name": "configurationTemplates",
-            "baseName": "configuration_templates",
-            "type": "ProcessorApplicationConfigConfigurationTemplates"
-        },
-        {
-            "name": "defaultCurrencies",
-            "baseName": "default_currencies",
-            "type": "Array<Currency>"
-        },
-        {
-            "name": "defaultMcc",
-            "baseName": "default_mcc",
-            "type": "ProcessorApplicationConfig.DefaultMccEnum"
-        },
-        {
-            "name": "defaultSenderAccountNumber",
-            "baseName": "default_sender_account_number",
-            "type": "string"
-        },
-        {
-            "name": "defaultSenderAddress",
-            "baseName": "default_sender_address",
-            "type": "string"
-        },
-        {
-            "name": "defaultSenderCity",
-            "baseName": "default_sender_city",
-            "type": "string"
-        },
-        {
-            "name": "defaultSenderCountry",
-            "baseName": "default_sender_country",
-            "type": "Country"
-        },
-        {
-            "name": "defaultSenderCountryCode",
-            "baseName": "default_sender_country_code",
-            "type": "string"
-        },
-        {
-            "name": "defaultSenderCountyCode",
-            "baseName": "default_sender_county_code",
-            "type": "string"
-        },
-        {
-            "name": "defaultSenderName",
-            "baseName": "default_sender_name",
-            "type": "string"
-        },
-        {
-            "name": "defaultSenderStateCode",
-            "baseName": "default_sender_state_code",
-            "type": "string"
-        },
-        {
-            "name": "defaultSenderZipCode",
-            "baseName": "default_sender_zip_code",
-            "type": "string"
-        },
-        {
-            "name": "includeColombiaData",
-            "baseName": "include_colombia_data",
-            "type": "boolean"
-        },
-        {
-            "name": "motoEciindicator",
-            "baseName": "moto_eciindicator",
-            "type": "ProcessorApplicationConfig.MotoEciindicatorEnum"
-        },
-        {
-            "name": "panEntryMode",
-            "baseName": "pan_entry_mode",
-            "type": "ProcessorApplicationConfig.PanEntryModeEnum"
-        },
-        {
-            "name": "posConditionCode",
-            "baseName": "pos_condition_code",
-            "type": "ProcessorApplicationConfig.PosConditionCodeEnum"
-        }
-    ];
     static getAttributeTypeMap() {
         return ProcessorApplicationConfig.attributeTypeMap;
     }
 }
 exports.ProcessorApplicationConfig = ProcessorApplicationConfig;
+ProcessorApplicationConfig.discriminator = undefined;
+ProcessorApplicationConfig.attributeTypeMap = [
+    {
+        "name": "achSettlementDelayDays",
+        "baseName": "ach_settlement_delay_days",
+        "type": "number"
+    },
+    {
+        "name": "allowSplitPayouts",
+        "baseName": "allow_split_payouts",
+        "type": "boolean"
+    },
+    {
+        "name": "allowedBusinessApplicationIds",
+        "baseName": "allowed_business_application_ids",
+        "type": "Array<ProcessorApplicationConfig.AllowedBusinessApplicationIdsEnum>"
+    },
+    {
+        "name": "cardAcceptorIdCode",
+        "baseName": "card_acceptor_id_code",
+        "type": "string"
+    },
+    {
+        "name": "cardAcceptorTerminalId",
+        "baseName": "card_acceptor_terminal_id",
+        "type": "string"
+    },
+    {
+        "name": "configurationTemplates",
+        "baseName": "configuration_templates",
+        "type": "ProcessorApplicationConfigConfigurationTemplates"
+    },
+    {
+        "name": "defaultCurrencies",
+        "baseName": "default_currencies",
+        "type": "Array<Currency>"
+    },
+    {
+        "name": "defaultMcc",
+        "baseName": "default_mcc",
+        "type": "ProcessorApplicationConfig.DefaultMccEnum"
+    },
+    {
+        "name": "defaultSenderAccountNumber",
+        "baseName": "default_sender_account_number",
+        "type": "string"
+    },
+    {
+        "name": "defaultSenderAddress",
+        "baseName": "default_sender_address",
+        "type": "string"
+    },
+    {
+        "name": "defaultSenderCity",
+        "baseName": "default_sender_city",
+        "type": "string"
+    },
+    {
+        "name": "defaultSenderCountry",
+        "baseName": "default_sender_country",
+        "type": "Country"
+    },
+    {
+        "name": "defaultSenderCountryCode",
+        "baseName": "default_sender_country_code",
+        "type": "string"
+    },
+    {
+        "name": "defaultSenderCountyCode",
+        "baseName": "default_sender_county_code",
+        "type": "string"
+    },
+    {
+        "name": "defaultSenderName",
+        "baseName": "default_sender_name",
+        "type": "string"
+    },
+    {
+        "name": "defaultSenderStateCode",
+        "baseName": "default_sender_state_code",
+        "type": "string"
+    },
+    {
+        "name": "defaultSenderZipCode",
+        "baseName": "default_sender_zip_code",
+        "type": "string"
+    },
+    {
+        "name": "includeColombiaData",
+        "baseName": "include_colombia_data",
+        "type": "boolean"
+    },
+    {
+        "name": "motoEciindicator",
+        "baseName": "moto_eciindicator",
+        "type": "ProcessorApplicationConfig.MotoEciindicatorEnum"
+    },
+    {
+        "name": "panEntryMode",
+        "baseName": "pan_entry_mode",
+        "type": "ProcessorApplicationConfig.PanEntryModeEnum"
+    },
+    {
+        "name": "posConditionCode",
+        "baseName": "pos_condition_code",
+        "type": "ProcessorApplicationConfig.PosConditionCodeEnum"
+    }
+];
 (function (ProcessorApplicationConfig) {
     let AllowedBusinessApplicationIdsEnum;
     (function (AllowedBusinessApplicationIdsEnum) {

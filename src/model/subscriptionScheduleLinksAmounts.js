@@ -16,17 +16,16 @@ exports.SubscriptionScheduleLinksAmounts = void 0;
 * Link to the `subscription_amounts` related to the request.
 */
 class SubscriptionScheduleLinksAmounts {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return SubscriptionScheduleLinksAmounts.attributeTypeMap;
     }
 }
 exports.SubscriptionScheduleLinksAmounts = SubscriptionScheduleLinksAmounts;
+SubscriptionScheduleLinksAmounts.discriminator = undefined;
+SubscriptionScheduleLinksAmounts.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

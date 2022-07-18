@@ -22,47 +22,17 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Environment = exports.Client = void 0;
+exports.Environment = exports.Client = exports.Models = void 0;
 // This is the entrypoint for the package
 const finix = __importStar(require("./api/apis"));
-__exportStar(require("./api/apis"), exports);
-__exportStar(require("./model/models"), exports);
+exports.Models = __importStar(require("./model/models"));
 let defaultBasePath = 'https://finix.sandbox-payments-api.com';
 class Client {
-    ApplicationProfiles;
-    Applications;
-    Authorizations;
-    BalanceTransfers;
-    Devices;
-    Disputes;
-    FeeProfiles;
-    Fees;
-    Files;
-    Identities;
-    InstrumentUpdates;
-    MerchantProfiles;
-    Merchants;
-    PaymentInstruments;
-    PaymentInstrumentsP2C;
-    Processors;
-    Settlements;
-    SubscriptionAmounts;
-    SubscriptionEnrollments;
-    SubscriptionSchedules;
-    Transfers;
-    Users;
-    Verifications;
-    Webhooks;
-    _basePath = defaultBasePath;
-    _defaultHeaders = {};
-    _useQuerystring = false;
-    _username;
-    _password;
     constructor(basePathOrUsername, password, basePath) {
+        this._basePath = defaultBasePath;
+        this._defaultHeaders = {};
+        this._useQuerystring = false;
         if (password) {
             this.username = basePathOrUsername;
             this.password = password;

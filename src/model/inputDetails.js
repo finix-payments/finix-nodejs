@@ -13,29 +13,26 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.InputDetails = void 0;
 class InputDetails {
-    'inputText';
-    'selection';
-    'signatureData';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "inputText",
-            "baseName": "input_text",
-            "type": "string"
-        },
-        {
-            "name": "selection",
-            "baseName": "selection",
-            "type": "number"
-        },
-        {
-            "name": "signatureData",
-            "baseName": "signature_data",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return InputDetails.attributeTypeMap;
     }
 }
 exports.InputDetails = InputDetails;
+InputDetails.discriminator = undefined;
+InputDetails.attributeTypeMap = [
+    {
+        "name": "inputText",
+        "baseName": "input_text",
+        "type": "string"
+    },
+    {
+        "name": "selection",
+        "baseName": "selection",
+        "type": "number"
+    },
+    {
+        "name": "signatureData",
+        "baseName": "signature_data",
+        "type": "string"
+    }
+];

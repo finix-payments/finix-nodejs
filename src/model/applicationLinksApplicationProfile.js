@@ -13,17 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ApplicationLinksApplicationProfile = void 0;
 class ApplicationLinksApplicationProfile {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return ApplicationLinksApplicationProfile.attributeTypeMap;
     }
 }
 exports.ApplicationLinksApplicationProfile = ApplicationLinksApplicationProfile;
+ApplicationLinksApplicationProfile.discriminator = undefined;
+ApplicationLinksApplicationProfile.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

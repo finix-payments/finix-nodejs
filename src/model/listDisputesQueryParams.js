@@ -13,74 +13,46 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ListDisputesQueryParams = void 0;
 class ListDisputesQueryParams {
-    /**
-    * Specify key to be used for sorting the collection
-    */
-    'sort';
-    /**
-    * The number of items to skip before starting to collect the result set
-    */
-    'offset';
-    /**
-    * The numbers of items to return
-    */
-    'limit';
-    /**
-    * Filter where created_at is after the given date.
-    */
-    'createdAtGte';
-    /**
-    * Filter where created_at is before the given date.
-    */
-    'createdAtLte';
-    /**
-    * Filter where updated_at is after the given date
-    */
-    'updatedAtGte';
-    /**
-    * Filter where updated_at is before the given date
-    */
-    'updatedAtLte';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "sort",
-            "baseName": "sort",
-            "type": "string"
-        },
-        {
-            "name": "offset",
-            "baseName": "offset",
-            "type": "number"
-        },
-        {
-            "name": "limit",
-            "baseName": "limit",
-            "type": "number"
-        },
-        {
-            "name": "createdAtGte",
-            "baseName": "created_at.gte",
-            "type": "string"
-        },
-        {
-            "name": "createdAtLte",
-            "baseName": "created_at.lte",
-            "type": "string"
-        },
-        {
-            "name": "updatedAtGte",
-            "baseName": "updated_at.gte",
-            "type": "string"
-        },
-        {
-            "name": "updatedAtLte",
-            "baseName": "updated_at.lte",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return ListDisputesQueryParams.attributeTypeMap;
     }
 }
 exports.ListDisputesQueryParams = ListDisputesQueryParams;
+ListDisputesQueryParams.discriminator = undefined;
+ListDisputesQueryParams.attributeTypeMap = [
+    {
+        "name": "sort",
+        "baseName": "sort",
+        "type": "string"
+    },
+    {
+        "name": "offset",
+        "baseName": "offset",
+        "type": "number"
+    },
+    {
+        "name": "limit",
+        "baseName": "limit",
+        "type": "number"
+    },
+    {
+        "name": "createdAtGte",
+        "baseName": "created_at.gte",
+        "type": "string"
+    },
+    {
+        "name": "createdAtLte",
+        "baseName": "created_at.lte",
+        "type": "string"
+    },
+    {
+        "name": "updatedAtGte",
+        "baseName": "updated_at.gte",
+        "type": "string"
+    },
+    {
+        "name": "updatedAtLte",
+        "baseName": "updated_at.lte",
+        "type": "string"
+    }
+];

@@ -16,35 +16,31 @@ exports.DeviceLinks = void 0;
 * For your convenience, every response includes several URLs which link to resources relevant to the request. You can use these `_links` to make your follow-up requests and quickly access relevant IDs.
 */
 class DeviceLinks {
-    'authorizations';
-    'merchant';
-    'self';
-    'transfers';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "authorizations",
-            "baseName": "authorizations",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "merchant",
-            "baseName": "merchant",
-            "type": "DeviceLinksMerchant"
-        },
-        {
-            "name": "self",
-            "baseName": "self",
-            "type": "ApplicationLinksSelf"
-        },
-        {
-            "name": "transfers",
-            "baseName": "transfers",
-            "type": "ApplicationLinksApplicationProfile"
-        }
-    ];
     static getAttributeTypeMap() {
         return DeviceLinks.attributeTypeMap;
     }
 }
 exports.DeviceLinks = DeviceLinks;
+DeviceLinks.discriminator = undefined;
+DeviceLinks.attributeTypeMap = [
+    {
+        "name": "authorizations",
+        "baseName": "authorizations",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "merchant",
+        "baseName": "merchant",
+        "type": "DeviceLinksMerchant"
+    },
+    {
+        "name": "self",
+        "baseName": "self",
+        "type": "ApplicationLinksSelf"
+    },
+    {
+        "name": "transfers",
+        "baseName": "transfers",
+        "type": "ApplicationLinksApplicationProfile"
+    }
+];

@@ -13,17 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Error401UnauthorizedEmbedded = void 0;
 class Error401UnauthorizedEmbedded {
-    'errors';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "errors",
-            "baseName": "errors",
-            "type": "Array<Error401UnauthorizedEmbeddedErrorsInner>"
-        }
-    ];
     static getAttributeTypeMap() {
         return Error401UnauthorizedEmbedded.attributeTypeMap;
     }
 }
 exports.Error401UnauthorizedEmbedded = Error401UnauthorizedEmbedded;
+Error401UnauthorizedEmbedded.discriminator = undefined;
+Error401UnauthorizedEmbedded.attributeTypeMap = [
+    {
+        "name": "errors",
+        "baseName": "errors",
+        "type": "Array<Error401UnauthorizedEmbeddedErrorsInner>"
+    }
+];

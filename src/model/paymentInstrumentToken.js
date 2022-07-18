@@ -13,104 +13,74 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PaymentInstrumentToken = void 0;
 class PaymentInstrumentToken {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    'type';
-    /**
-    * The ID of the resource.
-    */
-    'id';
-    /**
-    * Timestamp of when the object was created.
-    */
-    'createdAt';
-    /**
-    * Timestamp of when the object was last updated.
-    */
-    'updatedAt';
-    /**
-    * The ID of the resource.
-    */
-    'application';
-    'currency';
-    'fingerprint';
-    /**
-    * The ID of the resource.
-    */
-    'identity';
-    'instrumentType';
-    'payloadType';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "type",
-            "baseName": "type",
-            "type": "PaymentInstrumentToken.TypeEnum"
-        },
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "createdAt",
-            "baseName": "created_at",
-            "type": "Date"
-        },
-        {
-            "name": "updatedAt",
-            "baseName": "updated_at",
-            "type": "Date"
-        },
-        {
-            "name": "application",
-            "baseName": "application",
-            "type": "string"
-        },
-        {
-            "name": "currency",
-            "baseName": "currency",
-            "type": "Currency"
-        },
-        {
-            "name": "fingerprint",
-            "baseName": "fingerprint",
-            "type": "string"
-        },
-        {
-            "name": "identity",
-            "baseName": "identity",
-            "type": "string"
-        },
-        {
-            "name": "instrumentType",
-            "baseName": "instrument_type",
-            "type": "PaymentInstrumentToken.InstrumentTypeEnum"
-        },
-        {
-            "name": "payloadType",
-            "baseName": "payload_type",
-            "type": "PaymentInstrumentToken.PayloadTypeEnum"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "PaymentInstrumentTokenLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return PaymentInstrumentToken.attributeTypeMap;
     }
 }
 exports.PaymentInstrumentToken = PaymentInstrumentToken;
+PaymentInstrumentToken.discriminator = undefined;
+PaymentInstrumentToken.attributeTypeMap = [
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "type",
+        "baseName": "type",
+        "type": "PaymentInstrumentToken.TypeEnum"
+    },
+    {
+        "name": "id",
+        "baseName": "id",
+        "type": "string"
+    },
+    {
+        "name": "createdAt",
+        "baseName": "created_at",
+        "type": "Date"
+    },
+    {
+        "name": "updatedAt",
+        "baseName": "updated_at",
+        "type": "Date"
+    },
+    {
+        "name": "application",
+        "baseName": "application",
+        "type": "string"
+    },
+    {
+        "name": "currency",
+        "baseName": "currency",
+        "type": "Currency"
+    },
+    {
+        "name": "fingerprint",
+        "baseName": "fingerprint",
+        "type": "string"
+    },
+    {
+        "name": "identity",
+        "baseName": "identity",
+        "type": "string"
+    },
+    {
+        "name": "instrumentType",
+        "baseName": "instrument_type",
+        "type": "PaymentInstrumentToken.InstrumentTypeEnum"
+    },
+    {
+        "name": "payloadType",
+        "baseName": "payload_type",
+        "type": "PaymentInstrumentToken.PayloadTypeEnum"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "PaymentInstrumentTokenLinks"
+    }
+];
 (function (PaymentInstrumentToken) {
     let TypeEnum;
     (function (TypeEnum) {

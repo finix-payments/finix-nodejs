@@ -13,23 +13,21 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ErrorGeneric = void 0;
 class ErrorGeneric {
-    'total';
-    'embedded';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "total",
-            "baseName": "total",
-            "type": "number"
-        },
-        {
-            "name": "embedded",
-            "baseName": "_embedded",
-            "type": "Error403ForbiddenListEmbedded"
-        }
-    ];
     static getAttributeTypeMap() {
         return ErrorGeneric.attributeTypeMap;
     }
 }
 exports.ErrorGeneric = ErrorGeneric;
+ErrorGeneric.discriminator = undefined;
+ErrorGeneric.attributeTypeMap = [
+    {
+        "name": "total",
+        "baseName": "total",
+        "type": "number"
+    },
+    {
+        "name": "embedded",
+        "baseName": "_embedded",
+        "type": "Error403ForbiddenListEmbedded"
+    }
+];

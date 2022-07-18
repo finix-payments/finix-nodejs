@@ -16,134 +16,84 @@ exports.Fee = void 0;
 * An out of flow `fee` that is added to a `settlement`.
 */
 class Fee {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    /**
-    * The ID of the `fee` resource.
-    */
-    'id';
-    /**
-    * Timestamp of when the object was created.
-    */
-    'createdAt';
-    /**
-    * Timestamp of when the object was last updated.
-    */
-    'updatedAt';
-    /**
-    * The amount of the fee in cents.
-    */
-    'amount';
-    'currency';
-    /**
-    * The name of the `fee` object that was include in `display_name` when creating the fee.
-    */
-    'displayName';
-    /**
-    * Subtype of the `fee`.
-    */
-    'feeSubtype';
-    /**
-    * The type of `fee`.
-    */
-    'feeType';
-    /**
-    * The name of the `fee` object that was include in `label` when creating the fee.
-    */
-    'label';
-    /**
-    * ID of the linked resource.
-    */
-    'linkedId';
-    /**
-    * The type of entity the `fee` is linked (**null** by default).
-    */
-    'linkedType';
-    /**
-    * The `Merchant` ID that the fee is being debited from.
-    */
-    'merchant';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "createdAt",
-            "baseName": "created_at",
-            "type": "Date"
-        },
-        {
-            "name": "updatedAt",
-            "baseName": "updated_at",
-            "type": "Date"
-        },
-        {
-            "name": "amount",
-            "baseName": "amount",
-            "type": "number"
-        },
-        {
-            "name": "currency",
-            "baseName": "currency",
-            "type": "Currency"
-        },
-        {
-            "name": "displayName",
-            "baseName": "display_name",
-            "type": "string"
-        },
-        {
-            "name": "feeSubtype",
-            "baseName": "fee_subtype",
-            "type": "Fee.FeeSubtypeEnum"
-        },
-        {
-            "name": "feeType",
-            "baseName": "fee_type",
-            "type": "Fee.FeeTypeEnum"
-        },
-        {
-            "name": "label",
-            "baseName": "label",
-            "type": "string"
-        },
-        {
-            "name": "linkedId",
-            "baseName": "linked_id",
-            "type": "string"
-        },
-        {
-            "name": "linkedType",
-            "baseName": "linked_type",
-            "type": "Fee.LinkedTypeEnum"
-        },
-        {
-            "name": "merchant",
-            "baseName": "merchant",
-            "type": "string"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "FeeLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return Fee.attributeTypeMap;
     }
 }
 exports.Fee = Fee;
+Fee.discriminator = undefined;
+Fee.attributeTypeMap = [
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "id",
+        "baseName": "id",
+        "type": "string"
+    },
+    {
+        "name": "createdAt",
+        "baseName": "created_at",
+        "type": "Date"
+    },
+    {
+        "name": "updatedAt",
+        "baseName": "updated_at",
+        "type": "Date"
+    },
+    {
+        "name": "amount",
+        "baseName": "amount",
+        "type": "number"
+    },
+    {
+        "name": "currency",
+        "baseName": "currency",
+        "type": "Currency"
+    },
+    {
+        "name": "displayName",
+        "baseName": "display_name",
+        "type": "string"
+    },
+    {
+        "name": "feeSubtype",
+        "baseName": "fee_subtype",
+        "type": "Fee.FeeSubtypeEnum"
+    },
+    {
+        "name": "feeType",
+        "baseName": "fee_type",
+        "type": "Fee.FeeTypeEnum"
+    },
+    {
+        "name": "label",
+        "baseName": "label",
+        "type": "string"
+    },
+    {
+        "name": "linkedId",
+        "baseName": "linked_id",
+        "type": "string"
+    },
+    {
+        "name": "linkedType",
+        "baseName": "linked_type",
+        "type": "Fee.LinkedTypeEnum"
+    },
+    {
+        "name": "merchant",
+        "baseName": "merchant",
+        "type": "string"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "FeeLinks"
+    }
+];
 (function (Fee) {
     let FeeSubtypeEnum;
     (function (FeeSubtypeEnum) {

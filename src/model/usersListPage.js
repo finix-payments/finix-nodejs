@@ -16,38 +16,26 @@ exports.UsersListPage = void 0;
 * Details the page that\'s returned.
 */
 class UsersListPage {
-    /**
-    * The number of entries returned.
-    */
-    'count';
-    /**
-    * The number of entries to return.
-    */
-    'limit';
-    /**
-    * The number of items to skip before starting to collect the result set.
-    */
-    'offset';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "count",
-            "baseName": "count",
-            "type": "number"
-        },
-        {
-            "name": "limit",
-            "baseName": "limit",
-            "type": "number"
-        },
-        {
-            "name": "offset",
-            "baseName": "offset",
-            "type": "number"
-        }
-    ];
     static getAttributeTypeMap() {
         return UsersListPage.attributeTypeMap;
     }
 }
 exports.UsersListPage = UsersListPage;
+UsersListPage.discriminator = undefined;
+UsersListPage.attributeTypeMap = [
+    {
+        "name": "count",
+        "baseName": "count",
+        "type": "number"
+    },
+    {
+        "name": "limit",
+        "baseName": "limit",
+        "type": "number"
+    },
+    {
+        "name": "offset",
+        "baseName": "offset",
+        "type": "number"
+    }
+];

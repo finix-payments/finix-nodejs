@@ -16,20 +16,16 @@ exports.IdentitiesListEmbedded = void 0;
 * List of `Identity` resources.
 */
 class IdentitiesListEmbedded {
-    /**
-    * An `Identity` resource represents either a person or business in Finix.
-    */
-    'identities';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "identities",
-            "baseName": "identities",
-            "type": "Set<Identity>"
-        }
-    ];
     static getAttributeTypeMap() {
         return IdentitiesListEmbedded.attributeTypeMap;
     }
 }
 exports.IdentitiesListEmbedded = IdentitiesListEmbedded;
+IdentitiesListEmbedded.discriminator = undefined;
+IdentitiesListEmbedded.attributeTypeMap = [
+    {
+        "name": "identities",
+        "baseName": "identities",
+        "type": "Set<Identity>"
+    }
+];

@@ -13,29 +13,26 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TransferReversalsList = void 0;
 class TransferReversalsList {
-    'page';
-    'embedded';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "page",
-            "baseName": "page",
-            "type": "PageCursor"
-        },
-        {
-            "name": "embedded",
-            "baseName": "_embedded",
-            "type": "TransferReversalsListEmbedded"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "ListLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return TransferReversalsList.attributeTypeMap;
     }
 }
 exports.TransferReversalsList = TransferReversalsList;
+TransferReversalsList.discriminator = undefined;
+TransferReversalsList.attributeTypeMap = [
+    {
+        "name": "page",
+        "baseName": "page",
+        "type": "PageCursor"
+    },
+    {
+        "name": "embedded",
+        "baseName": "_embedded",
+        "type": "TransferReversalsListEmbedded"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "ListLinks"
+    }
+];

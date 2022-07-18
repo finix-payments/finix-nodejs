@@ -16,56 +16,36 @@ exports.CreatePaymentInstrumentRequestAddress = void 0;
 * The address of the bank account or card owner.
 */
 class CreatePaymentInstrumentRequestAddress {
-    /**
-    * City (max 20 characters).
-    */
-    'city';
-    /**
-    * 2-letter State code.
-    */
-    'region';
-    /**
-    * Zip or Postal code (max 7 characters).
-    */
-    'postalCode';
-    /**
-    * First line of the address (max 35 characters).
-    */
-    'line1';
-    /**
-    * 3 Letter country code (e.g. USA).
-    */
-    'country';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "city",
-            "baseName": "city",
-            "type": "string"
-        },
-        {
-            "name": "region",
-            "baseName": "region",
-            "type": "string"
-        },
-        {
-            "name": "postalCode",
-            "baseName": "postal_code",
-            "type": "string"
-        },
-        {
-            "name": "line1",
-            "baseName": "line1",
-            "type": "string"
-        },
-        {
-            "name": "country",
-            "baseName": "country",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return CreatePaymentInstrumentRequestAddress.attributeTypeMap;
     }
 }
 exports.CreatePaymentInstrumentRequestAddress = CreatePaymentInstrumentRequestAddress;
+CreatePaymentInstrumentRequestAddress.discriminator = undefined;
+CreatePaymentInstrumentRequestAddress.attributeTypeMap = [
+    {
+        "name": "city",
+        "baseName": "city",
+        "type": "string"
+    },
+    {
+        "name": "region",
+        "baseName": "region",
+        "type": "string"
+    },
+    {
+        "name": "postalCode",
+        "baseName": "postal_code",
+        "type": "string"
+    },
+    {
+        "name": "line1",
+        "baseName": "line1",
+        "type": "string"
+    },
+    {
+        "name": "country",
+        "baseName": "country",
+        "type": "string"
+    }
+];

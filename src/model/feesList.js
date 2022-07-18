@@ -13,29 +13,26 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FeesList = void 0;
 class FeesList {
-    'page';
-    'embedded';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "page",
-            "baseName": "page",
-            "type": "PageOffset"
-        },
-        {
-            "name": "embedded",
-            "baseName": "_embedded",
-            "type": "FeesListEmbedded"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "ListLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return FeesList.attributeTypeMap;
     }
 }
 exports.FeesList = FeesList;
+FeesList.discriminator = undefined;
+FeesList.attributeTypeMap = [
+    {
+        "name": "page",
+        "baseName": "page",
+        "type": "PageOffset"
+    },
+    {
+        "name": "embedded",
+        "baseName": "_embedded",
+        "type": "FeesListEmbedded"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "ListLinks"
+    }
+];

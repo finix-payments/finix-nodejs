@@ -13,29 +13,26 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SubscriptionEnrollmentList = void 0;
 class SubscriptionEnrollmentList {
-    'page';
-    'embedded';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "page",
-            "baseName": "page",
-            "type": "UsersListPage"
-        },
-        {
-            "name": "embedded",
-            "baseName": "_embedded",
-            "type": "SubscriptionEnrollmentListEmbedded"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "DisputeEvidenceLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return SubscriptionEnrollmentList.attributeTypeMap;
     }
 }
 exports.SubscriptionEnrollmentList = SubscriptionEnrollmentList;
+SubscriptionEnrollmentList.discriminator = undefined;
+SubscriptionEnrollmentList.attributeTypeMap = [
+    {
+        "name": "page",
+        "baseName": "page",
+        "type": "UsersListPage"
+    },
+    {
+        "name": "embedded",
+        "baseName": "_embedded",
+        "type": "SubscriptionEnrollmentListEmbedded"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "DisputeEvidenceLinks"
+    }
+];

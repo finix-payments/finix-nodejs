@@ -16,17 +16,16 @@ exports.PaymentInstrumentTokenLinksVerifications = void 0;
 * Link to the `Verification` the request was made under.
 */
 class PaymentInstrumentTokenLinksVerifications {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return PaymentInstrumentTokenLinksVerifications.attributeTypeMap;
     }
 }
 exports.PaymentInstrumentTokenLinksVerifications = PaymentInstrumentTokenLinksVerifications;
+PaymentInstrumentTokenLinksVerifications.discriminator = undefined;
+PaymentInstrumentTokenLinksVerifications.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

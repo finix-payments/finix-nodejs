@@ -13,74 +13,49 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DisputeEvidence = void 0;
 class DisputeEvidence {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    /**
-    * The ID of the `Dispute` resource.
-    */
-    'id';
-    /**
-    * Timestamp of when the object was created.
-    */
-    'createdAt';
-    /**
-    * Timestamp of when the object was last updated.
-    */
-    'updatedAt';
-    /**
-    * The ID of the resource.
-    */
-    'dispute';
-    /**
-    * Result of the evidence uploaded. - PENDING: The evidence file has not yet been submitted to the Processor. No user action is required. - SUCCEEDED: The evidence file has been successfully sent to the Processor. No further user action is required. - CANCELED: The evidence file upload was not completed due to user action. - FAILED: An issue occurred. User action is required. Any of the following issues could have occurred:   - There was an error in the system and the user should retry uploading their evidence file.   - There is an issue with the file and the user should retry uploading a different file.   - There is an issue and the user should contact Support.
-    */
-    'state';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "createdAt",
-            "baseName": "created_at",
-            "type": "Date"
-        },
-        {
-            "name": "updatedAt",
-            "baseName": "updated_at",
-            "type": "Date"
-        },
-        {
-            "name": "dispute",
-            "baseName": "dispute",
-            "type": "string"
-        },
-        {
-            "name": "state",
-            "baseName": "state",
-            "type": "DisputeEvidence.StateEnum"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "DisputeEvidenceLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return DisputeEvidence.attributeTypeMap;
     }
 }
 exports.DisputeEvidence = DisputeEvidence;
+DisputeEvidence.discriminator = undefined;
+DisputeEvidence.attributeTypeMap = [
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "id",
+        "baseName": "id",
+        "type": "string"
+    },
+    {
+        "name": "createdAt",
+        "baseName": "created_at",
+        "type": "Date"
+    },
+    {
+        "name": "updatedAt",
+        "baseName": "updated_at",
+        "type": "Date"
+    },
+    {
+        "name": "dispute",
+        "baseName": "dispute",
+        "type": "string"
+    },
+    {
+        "name": "state",
+        "baseName": "state",
+        "type": "DisputeEvidence.StateEnum"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "DisputeEvidenceLinks"
+    }
+];
 (function (DisputeEvidence) {
     let StateEnum;
     (function (StateEnum) {

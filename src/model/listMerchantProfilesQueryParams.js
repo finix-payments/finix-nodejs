@@ -13,47 +13,31 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ListMerchantProfilesQueryParams = void 0;
 class ListMerchantProfilesQueryParams {
-    /**
-    * Filter by id
-    */
-    'id';
-    /**
-    * Return every resource created before the cursor value.
-    */
-    'beforeCursor';
-    /**
-    * Return every resource created after the cursor value.
-    */
-    'afterCursor';
-    /**
-    * The numbers of items to return
-    */
-    'limit';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "beforeCursor",
-            "baseName": "before_cursor",
-            "type": "string"
-        },
-        {
-            "name": "afterCursor",
-            "baseName": "after_cursor",
-            "type": "string"
-        },
-        {
-            "name": "limit",
-            "baseName": "limit",
-            "type": "number"
-        }
-    ];
     static getAttributeTypeMap() {
         return ListMerchantProfilesQueryParams.attributeTypeMap;
     }
 }
 exports.ListMerchantProfilesQueryParams = ListMerchantProfilesQueryParams;
+ListMerchantProfilesQueryParams.discriminator = undefined;
+ListMerchantProfilesQueryParams.attributeTypeMap = [
+    {
+        "name": "id",
+        "baseName": "id",
+        "type": "string"
+    },
+    {
+        "name": "beforeCursor",
+        "baseName": "before_cursor",
+        "type": "string"
+    },
+    {
+        "name": "afterCursor",
+        "baseName": "after_cursor",
+        "type": "string"
+    },
+    {
+        "name": "limit",
+        "baseName": "limit",
+        "type": "number"
+    }
+];

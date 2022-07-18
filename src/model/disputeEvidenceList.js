@@ -13,29 +13,26 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DisputeEvidenceList = void 0;
 class DisputeEvidenceList {
-    'page';
-    'embedded';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "page",
-            "baseName": "page",
-            "type": "PageCursor"
-        },
-        {
-            "name": "embedded",
-            "baseName": "_embedded",
-            "type": "DisputeEvidenceListEmbedded"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "DisputeEvidenceLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return DisputeEvidenceList.attributeTypeMap;
     }
 }
 exports.DisputeEvidenceList = DisputeEvidenceList;
+DisputeEvidenceList.discriminator = undefined;
+DisputeEvidenceList.attributeTypeMap = [
+    {
+        "name": "page",
+        "baseName": "page",
+        "type": "PageCursor"
+    },
+    {
+        "name": "embedded",
+        "baseName": "_embedded",
+        "type": "DisputeEvidenceListEmbedded"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "DisputeEvidenceLinks"
+    }
+];

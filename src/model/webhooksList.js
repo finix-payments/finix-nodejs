@@ -16,29 +16,26 @@ exports.WebhooksList = void 0;
 * `Webhook` resource.
 */
 class WebhooksList {
-    'page';
-    'embedded';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "page",
-            "baseName": "page",
-            "type": "PageCursor"
-        },
-        {
-            "name": "embedded",
-            "baseName": "_embedded",
-            "type": "WebhooksListEmbedded"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "ListLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return WebhooksList.attributeTypeMap;
     }
 }
 exports.WebhooksList = WebhooksList;
+WebhooksList.discriminator = undefined;
+WebhooksList.attributeTypeMap = [
+    {
+        "name": "page",
+        "baseName": "page",
+        "type": "PageCursor"
+    },
+    {
+        "name": "embedded",
+        "baseName": "_embedded",
+        "type": "WebhooksListEmbedded"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "ListLinks"
+    }
+];

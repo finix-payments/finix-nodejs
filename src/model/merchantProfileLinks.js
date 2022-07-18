@@ -16,59 +16,51 @@ exports.MerchantProfileLinks = void 0;
 * For your convenience, every response includes several URLs which link to resources relevant to the request. You can use these `_links` to make your follow-up requests and quickly access relevant IDs.
 */
 class MerchantProfileLinks {
-    'application';
-    'feeProfile';
-    'ownerIdentity';
-    'processors';
-    'reserveProfile';
-    'riskProfile';
-    'self';
-    'users';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "application",
-            "baseName": "application",
-            "type": "ApplicationProfileLinksApplication"
-        },
-        {
-            "name": "feeProfile",
-            "baseName": "fee_profile",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "ownerIdentity",
-            "baseName": "owner_identity",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "processors",
-            "baseName": "processors",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "reserveProfile",
-            "baseName": "reserve_profile",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "riskProfile",
-            "baseName": "risk_profile",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "self",
-            "baseName": "self",
-            "type": "ApplicationLinksSelf"
-        },
-        {
-            "name": "users",
-            "baseName": "users",
-            "type": "ApplicationLinksApplicationProfile"
-        }
-    ];
     static getAttributeTypeMap() {
         return MerchantProfileLinks.attributeTypeMap;
     }
 }
 exports.MerchantProfileLinks = MerchantProfileLinks;
+MerchantProfileLinks.discriminator = undefined;
+MerchantProfileLinks.attributeTypeMap = [
+    {
+        "name": "application",
+        "baseName": "application",
+        "type": "ApplicationProfileLinksApplication"
+    },
+    {
+        "name": "feeProfile",
+        "baseName": "fee_profile",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "ownerIdentity",
+        "baseName": "owner_identity",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "processors",
+        "baseName": "processors",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "reserveProfile",
+        "baseName": "reserve_profile",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "riskProfile",
+        "baseName": "risk_profile",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "self",
+        "baseName": "self",
+        "type": "ApplicationLinksSelf"
+    },
+    {
+        "name": "users",
+        "baseName": "users",
+        "type": "ApplicationLinksApplicationProfile"
+    }
+];

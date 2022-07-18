@@ -13,74 +13,51 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReserveProfile = void 0;
 class ReserveProfile {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    /**
-    * The ID of the resource.
-    */
-    'id';
-    /**
-    * Timestamp of when the object was created.
-    */
-    'createdAt';
-    /**
-    * Timestamp of when the object was last updated.
-    */
-    'updatedAt';
-    /**
-    * The ID of the resource.
-    */
-    'application';
-    'reserveDays';
-    'reservePercentage';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "createdAt",
-            "baseName": "created_at",
-            "type": "Date"
-        },
-        {
-            "name": "updatedAt",
-            "baseName": "updated_at",
-            "type": "Date"
-        },
-        {
-            "name": "application",
-            "baseName": "application",
-            "type": "string"
-        },
-        {
-            "name": "reserveDays",
-            "baseName": "reserve_days",
-            "type": "number"
-        },
-        {
-            "name": "reservePercentage",
-            "baseName": "reserve_percentage",
-            "type": "number"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "FeeProfileLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return ReserveProfile.attributeTypeMap;
     }
 }
 exports.ReserveProfile = ReserveProfile;
+ReserveProfile.discriminator = undefined;
+ReserveProfile.attributeTypeMap = [
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "id",
+        "baseName": "id",
+        "type": "string"
+    },
+    {
+        "name": "createdAt",
+        "baseName": "created_at",
+        "type": "Date"
+    },
+    {
+        "name": "updatedAt",
+        "baseName": "updated_at",
+        "type": "Date"
+    },
+    {
+        "name": "application",
+        "baseName": "application",
+        "type": "string"
+    },
+    {
+        "name": "reserveDays",
+        "baseName": "reserve_days",
+        "type": "number"
+    },
+    {
+        "name": "reservePercentage",
+        "baseName": "reserve_percentage",
+        "type": "number"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "FeeProfileLinks"
+    }
+];

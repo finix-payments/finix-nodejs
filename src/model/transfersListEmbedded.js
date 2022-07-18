@@ -13,20 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TransfersListEmbedded = void 0;
 class TransfersListEmbedded {
-    /**
-    * `Transfer` object.
-    */
-    'transfers';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "transfers",
-            "baseName": "transfers",
-            "type": "Set<Transfer>"
-        }
-    ];
     static getAttributeTypeMap() {
         return TransfersListEmbedded.attributeTypeMap;
     }
 }
 exports.TransfersListEmbedded = TransfersListEmbedded;
+TransfersListEmbedded.discriminator = undefined;
+TransfersListEmbedded.attributeTypeMap = [
+    {
+        "name": "transfers",
+        "baseName": "transfers",
+        "type": "Set<Transfer>"
+    }
+];

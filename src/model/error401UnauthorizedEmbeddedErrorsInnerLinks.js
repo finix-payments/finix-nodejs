@@ -13,23 +13,21 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Error401UnauthorizedEmbeddedErrorsInnerLinks = void 0;
 class Error401UnauthorizedEmbeddedErrorsInnerLinks {
-    'self';
-    'source';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "self",
-            "baseName": "self",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "source",
-            "baseName": "source",
-            "type": "ApplicationLinksApplicationProfile"
-        }
-    ];
     static getAttributeTypeMap() {
         return Error401UnauthorizedEmbeddedErrorsInnerLinks.attributeTypeMap;
     }
 }
 exports.Error401UnauthorizedEmbeddedErrorsInnerLinks = Error401UnauthorizedEmbeddedErrorsInnerLinks;
+Error401UnauthorizedEmbeddedErrorsInnerLinks.discriminator = undefined;
+Error401UnauthorizedEmbeddedErrorsInnerLinks.attributeTypeMap = [
+    {
+        "name": "self",
+        "baseName": "self",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "source",
+        "baseName": "source",
+        "type": "ApplicationLinksApplicationProfile"
+    }
+];

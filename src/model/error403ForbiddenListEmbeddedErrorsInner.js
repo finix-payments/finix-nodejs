@@ -13,38 +13,34 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Error403ForbiddenListEmbeddedErrorsInner = void 0;
 class Error403ForbiddenListEmbeddedErrorsInner {
-    'code';
-    'logref';
-    'message';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "code",
-            "baseName": "code",
-            "type": "Error403ForbiddenListEmbeddedErrorsInner.CodeEnum"
-        },
-        {
-            "name": "logref",
-            "baseName": "logref",
-            "type": "LogRef"
-        },
-        {
-            "name": "message",
-            "baseName": "message",
-            "type": "string"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "Error402PaymentRequiredEmbeddedErrorsInnerLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return Error403ForbiddenListEmbeddedErrorsInner.attributeTypeMap;
     }
 }
 exports.Error403ForbiddenListEmbeddedErrorsInner = Error403ForbiddenListEmbeddedErrorsInner;
+Error403ForbiddenListEmbeddedErrorsInner.discriminator = undefined;
+Error403ForbiddenListEmbeddedErrorsInner.attributeTypeMap = [
+    {
+        "name": "code",
+        "baseName": "code",
+        "type": "Error403ForbiddenListEmbeddedErrorsInner.CodeEnum"
+    },
+    {
+        "name": "logref",
+        "baseName": "logref",
+        "type": "LogRef"
+    },
+    {
+        "name": "message",
+        "baseName": "message",
+        "type": "string"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "Error402PaymentRequiredEmbeddedErrorsInnerLinks"
+    }
+];
 (function (Error403ForbiddenListEmbeddedErrorsInner) {
     let CodeEnum;
     (function (CodeEnum) {

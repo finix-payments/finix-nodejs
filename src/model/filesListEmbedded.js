@@ -16,17 +16,16 @@ exports.FilesListEmbedded = void 0;
 * The number of items to skip before starting to collect the result set.
 */
 class FilesListEmbedded {
-    'files';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "files",
-            "baseName": "files",
-            "type": "Array<any>"
-        }
-    ];
     static getAttributeTypeMap() {
         return FilesListEmbedded.attributeTypeMap;
     }
 }
 exports.FilesListEmbedded = FilesListEmbedded;
+FilesListEmbedded.discriminator = undefined;
+FilesListEmbedded.attributeTypeMap = [
+    {
+        "name": "files",
+        "baseName": "files",
+        "type": "Array<ModelFile>"
+    }
+];

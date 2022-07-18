@@ -16,116 +16,74 @@ exports.CardPresentInstrumentForm = void 0;
 * Details the `Payment Instrument` that the `Transfer` debits or credits.
 */
 class CardPresentInstrumentForm {
-    /**
-    * The type of `Payment Instrument`.
-    */
-    'type';
-    'availableAccountType';
-    /**
-    * Encrypted card data used to process the transaction.
-    */
-    'emvData';
-    /**
-    * Encrypted EMV card data about the key serial number used to process the transaction.
-    */
-    'emvDataKeySerialNumber';
-    /**
-    * Encrypted EMV card data. Required if using an encrypted device.
-    */
-    'encryptedEmvData';
-    /**
-    * EMV encryption format provided from integrated encryption devices (defaults to **0**).
-    */
-    'encryptedEmvFormat';
-    /**
-    * Expiration month of the `Payment Instrument` (e.g. 12 for December).
-    */
-    'expirationMonth';
-    /**
-    * 4-digit expiration year of the `Payment Instrument`.
-    */
-    'expirationYear';
-    /**
-    * The first name of the `Payment Instrument` owner.
-    */
-    'firstName';
-    /**
-    * The last name of the `Payment Instrument` owner.
-    */
-    'lastName';
-    'name';
-    /**
-    * Primary card account number (no dashes in between numbers).
-    */
-    'number';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "type",
-            "baseName": "type",
-            "type": "CardPresentInstrumentForm.TypeEnum"
-        },
-        {
-            "name": "availableAccountType",
-            "baseName": "available_account_type",
-            "type": "CardPresentInstrumentForm.AvailableAccountTypeEnum"
-        },
-        {
-            "name": "emvData",
-            "baseName": "emv_data",
-            "type": "string"
-        },
-        {
-            "name": "emvDataKeySerialNumber",
-            "baseName": "emv_data_key_serial_number",
-            "type": "string"
-        },
-        {
-            "name": "encryptedEmvData",
-            "baseName": "encrypted_emv_data",
-            "type": "string"
-        },
-        {
-            "name": "encryptedEmvFormat",
-            "baseName": "encrypted_emv_format",
-            "type": "number"
-        },
-        {
-            "name": "expirationMonth",
-            "baseName": "expiration_month",
-            "type": "number"
-        },
-        {
-            "name": "expirationYear",
-            "baseName": "expiration_year",
-            "type": "number"
-        },
-        {
-            "name": "firstName",
-            "baseName": "first_name",
-            "type": "string"
-        },
-        {
-            "name": "lastName",
-            "baseName": "last_name",
-            "type": "string"
-        },
-        {
-            "name": "name",
-            "baseName": "name",
-            "type": "Name"
-        },
-        {
-            "name": "number",
-            "baseName": "number",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return CardPresentInstrumentForm.attributeTypeMap;
     }
 }
 exports.CardPresentInstrumentForm = CardPresentInstrumentForm;
+CardPresentInstrumentForm.discriminator = undefined;
+CardPresentInstrumentForm.attributeTypeMap = [
+    {
+        "name": "type",
+        "baseName": "type",
+        "type": "CardPresentInstrumentForm.TypeEnum"
+    },
+    {
+        "name": "availableAccountType",
+        "baseName": "available_account_type",
+        "type": "CardPresentInstrumentForm.AvailableAccountTypeEnum"
+    },
+    {
+        "name": "emvData",
+        "baseName": "emv_data",
+        "type": "string"
+    },
+    {
+        "name": "emvDataKeySerialNumber",
+        "baseName": "emv_data_key_serial_number",
+        "type": "string"
+    },
+    {
+        "name": "encryptedEmvData",
+        "baseName": "encrypted_emv_data",
+        "type": "string"
+    },
+    {
+        "name": "encryptedEmvFormat",
+        "baseName": "encrypted_emv_format",
+        "type": "number"
+    },
+    {
+        "name": "expirationMonth",
+        "baseName": "expiration_month",
+        "type": "number"
+    },
+    {
+        "name": "expirationYear",
+        "baseName": "expiration_year",
+        "type": "number"
+    },
+    {
+        "name": "firstName",
+        "baseName": "first_name",
+        "type": "string"
+    },
+    {
+        "name": "lastName",
+        "baseName": "last_name",
+        "type": "string"
+    },
+    {
+        "name": "name",
+        "baseName": "name",
+        "type": "Name"
+    },
+    {
+        "name": "number",
+        "baseName": "number",
+        "type": "string"
+    }
+];
 (function (CardPresentInstrumentForm) {
     let TypeEnum;
     (function (TypeEnum) {

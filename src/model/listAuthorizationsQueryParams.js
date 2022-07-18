@@ -13,272 +13,156 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ListAuthorizationsQueryParams = void 0;
 class ListAuthorizationsQueryParams {
-    /**
-    * Specify key to be used for sorting the collection
-    */
-    'sort';
-    /**
-    * Return every resource created before the cursor value.
-    */
-    'beforeCursor';
-    /**
-    * The numbers of items to return
-    */
-    'limit';
-    /**
-    * Filter by idempotency_id
-    */
-    'idempotencyId';
-    /**
-    * Filter by Transaction state.
-    */
-    'state';
-    /**
-    * Filter where created_at is after the given date.
-    */
-    'createdAtGte';
-    /**
-    * Filter where created_at is before the given date.
-    */
-    'createdAtLte';
-    /**
-    * Filter where updated_at is after the given date
-    */
-    'updatedAtGte';
-    /**
-    * Filter where updated_at is before the given date
-    */
-    'updatedAtLte';
-    /**
-    * Filter by idempotency_id
-    */
-    'isVoid';
-    /**
-    * Filter by an amount equal to the given value
-    */
-    'amount';
-    /**
-    * Filter by an amount less than
-    */
-    'amountLt';
-    /**
-    * Filter by an amount greater than
-    */
-    'amountGt';
-    /**
-    * Filter by an amount less than or equal
-    */
-    'amountLte';
-    /**
-    * Filter by an amount greater than or equal
-    */
-    'amountGte';
-    /**
-    * Filter by trace_id
-    */
-    'traceId';
-    /**
-    * Filter by Bank Identification Number (BIN). The BIN is the first 6 digits of the masked number
-    */
-    'instrumentBin';
-    /**
-    * Filter Transactions by the last 4 digits of the bank account. The bank account last 4 are the last 4 digits of the masked number instrument_account_last4=9444 BIN
-    */
-    'instrumentAccountLast4';
-    /**
-    * Filter by card brand. Available card brand types can be found in the drop-down
-    */
-    'instrumentBrandType';
-    /**
-    * Filter by Identity ID
-    */
-    'merchantIdentityId';
-    /**
-    * Filter Transactions by Identity name. The name is not case-sensitive
-    */
-    'merchantIdentityName';
-    /**
-    * Filter Transactions by payment instrument name
-    */
-    'instrumentName';
-    /**
-    * Filter Transactions by payment instrument type. Available instrument types include: Bank Account or Payment Card
-    */
-    'instrumentType';
-    /**
-    * Filter by Merchant ID
-    */
-    'merchantId';
-    /**
-    * Filter by Merchant Identification Number (MID)
-    */
-    'merchantMid';
-    /**
-    * Filter by the payment card last 4 digits
-    */
-    'instrumentCardLast4';
-    /**
-    * Filter by Processor ID
-    */
-    'merchantProcessorId';
-    /**
-    * Type of the authorization.
-    */
-    'type';
-    /**
-    * Return every resource created after the cursor value.
-    */
-    'afterCursor';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "sort",
-            "baseName": "sort",
-            "type": "string"
-        },
-        {
-            "name": "beforeCursor",
-            "baseName": "before_cursor",
-            "type": "string"
-        },
-        {
-            "name": "limit",
-            "baseName": "limit",
-            "type": "number"
-        },
-        {
-            "name": "idempotencyId",
-            "baseName": "idempotency_id",
-            "type": "string"
-        },
-        {
-            "name": "state",
-            "baseName": "state",
-            "type": "string"
-        },
-        {
-            "name": "createdAtGte",
-            "baseName": "created_at.gte",
-            "type": "string"
-        },
-        {
-            "name": "createdAtLte",
-            "baseName": "created_at.lte",
-            "type": "string"
-        },
-        {
-            "name": "updatedAtGte",
-            "baseName": "updated_at.gte",
-            "type": "string"
-        },
-        {
-            "name": "updatedAtLte",
-            "baseName": "updated_at.lte",
-            "type": "string"
-        },
-        {
-            "name": "isVoid",
-            "baseName": "is_void",
-            "type": "string"
-        },
-        {
-            "name": "amount",
-            "baseName": "amount",
-            "type": "number"
-        },
-        {
-            "name": "amountLt",
-            "baseName": "amount.lt",
-            "type": "number"
-        },
-        {
-            "name": "amountGt",
-            "baseName": "amount.gt",
-            "type": "number"
-        },
-        {
-            "name": "amountLte",
-            "baseName": "amount.lte",
-            "type": "number"
-        },
-        {
-            "name": "amountGte",
-            "baseName": "amount.gte",
-            "type": "number"
-        },
-        {
-            "name": "traceId",
-            "baseName": "trace_id",
-            "type": "string"
-        },
-        {
-            "name": "instrumentBin",
-            "baseName": "instrument_bin",
-            "type": "string"
-        },
-        {
-            "name": "instrumentAccountLast4",
-            "baseName": "instrument_account_last4",
-            "type": "string"
-        },
-        {
-            "name": "instrumentBrandType",
-            "baseName": "instrument_brand_type",
-            "type": "string"
-        },
-        {
-            "name": "merchantIdentityId",
-            "baseName": "merchant_identity_id",
-            "type": "string"
-        },
-        {
-            "name": "merchantIdentityName",
-            "baseName": "merchant_identity_name",
-            "type": "string"
-        },
-        {
-            "name": "instrumentName",
-            "baseName": "instrument_name",
-            "type": "string"
-        },
-        {
-            "name": "instrumentType",
-            "baseName": "instrument_type",
-            "type": "string"
-        },
-        {
-            "name": "merchantId",
-            "baseName": "merchant_id",
-            "type": "string"
-        },
-        {
-            "name": "merchantMid",
-            "baseName": "merchant_mid",
-            "type": "string"
-        },
-        {
-            "name": "instrumentCardLast4",
-            "baseName": "instrument_card_last4",
-            "type": "string"
-        },
-        {
-            "name": "merchantProcessorId",
-            "baseName": "merchant_processor_id",
-            "type": "string"
-        },
-        {
-            "name": "type",
-            "baseName": "type",
-            "type": "string"
-        },
-        {
-            "name": "afterCursor",
-            "baseName": "after_cursor",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return ListAuthorizationsQueryParams.attributeTypeMap;
     }
 }
 exports.ListAuthorizationsQueryParams = ListAuthorizationsQueryParams;
+ListAuthorizationsQueryParams.discriminator = undefined;
+ListAuthorizationsQueryParams.attributeTypeMap = [
+    {
+        "name": "sort",
+        "baseName": "sort",
+        "type": "string"
+    },
+    {
+        "name": "beforeCursor",
+        "baseName": "before_cursor",
+        "type": "string"
+    },
+    {
+        "name": "limit",
+        "baseName": "limit",
+        "type": "number"
+    },
+    {
+        "name": "idempotencyId",
+        "baseName": "idempotency_id",
+        "type": "string"
+    },
+    {
+        "name": "state",
+        "baseName": "state",
+        "type": "string"
+    },
+    {
+        "name": "createdAtGte",
+        "baseName": "created_at.gte",
+        "type": "string"
+    },
+    {
+        "name": "createdAtLte",
+        "baseName": "created_at.lte",
+        "type": "string"
+    },
+    {
+        "name": "updatedAtGte",
+        "baseName": "updated_at.gte",
+        "type": "string"
+    },
+    {
+        "name": "updatedAtLte",
+        "baseName": "updated_at.lte",
+        "type": "string"
+    },
+    {
+        "name": "isVoid",
+        "baseName": "is_void",
+        "type": "string"
+    },
+    {
+        "name": "amount",
+        "baseName": "amount",
+        "type": "number"
+    },
+    {
+        "name": "amountLt",
+        "baseName": "amount.lt",
+        "type": "number"
+    },
+    {
+        "name": "amountGt",
+        "baseName": "amount.gt",
+        "type": "number"
+    },
+    {
+        "name": "amountLte",
+        "baseName": "amount.lte",
+        "type": "number"
+    },
+    {
+        "name": "amountGte",
+        "baseName": "amount.gte",
+        "type": "number"
+    },
+    {
+        "name": "traceId",
+        "baseName": "trace_id",
+        "type": "string"
+    },
+    {
+        "name": "instrumentBin",
+        "baseName": "instrument_bin",
+        "type": "string"
+    },
+    {
+        "name": "instrumentAccountLast4",
+        "baseName": "instrument_account_last4",
+        "type": "string"
+    },
+    {
+        "name": "instrumentBrandType",
+        "baseName": "instrument_brand_type",
+        "type": "string"
+    },
+    {
+        "name": "merchantIdentityId",
+        "baseName": "merchant_identity_id",
+        "type": "string"
+    },
+    {
+        "name": "merchantIdentityName",
+        "baseName": "merchant_identity_name",
+        "type": "string"
+    },
+    {
+        "name": "instrumentName",
+        "baseName": "instrument_name",
+        "type": "string"
+    },
+    {
+        "name": "instrumentType",
+        "baseName": "instrument_type",
+        "type": "string"
+    },
+    {
+        "name": "merchantId",
+        "baseName": "merchant_id",
+        "type": "string"
+    },
+    {
+        "name": "merchantMid",
+        "baseName": "merchant_mid",
+        "type": "string"
+    },
+    {
+        "name": "instrumentCardLast4",
+        "baseName": "instrument_card_last4",
+        "type": "string"
+    },
+    {
+        "name": "merchantProcessorId",
+        "baseName": "merchant_processor_id",
+        "type": "string"
+    },
+    {
+        "name": "type",
+        "baseName": "type",
+        "type": "string"
+    },
+    {
+        "name": "afterCursor",
+        "baseName": "after_cursor",
+        "type": "string"
+    }
+];

@@ -16,17 +16,16 @@ exports.IdentityLinksSelf = void 0;
 * Link to the resource that was used in the request.
 */
 class IdentityLinksSelf {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return IdentityLinksSelf.attributeTypeMap;
     }
 }
 exports.IdentityLinksSelf = IdentityLinksSelf;
+IdentityLinksSelf.discriminator = undefined;
+IdentityLinksSelf.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

@@ -13,92 +13,56 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ListExternalLinksQueryParams = void 0;
 class ListExternalLinksQueryParams {
-    /**
-    * Specify key to be used for sorting the collection
-    */
-    'sort';
-    /**
-    * Return every resource created after the cursor value.
-    */
-    'afterCursor';
-    /**
-    * The numbers of items to return
-    */
-    'limit';
-    /**
-    * Filter by id
-    */
-    'id';
-    /**
-    * Filter where created_at is after the given date.
-    */
-    'createdAtGte';
-    /**
-    * Filter where created_at is before the given date.
-    */
-    'createdAtLte';
-    /**
-    * Filter where updated_at is after the given date
-    */
-    'updatedAtGte';
-    /**
-    * Filter where updated_at is before the given date
-    */
-    'updatedAtLte';
-    /**
-    * Return every resource created before the cursor value.
-    */
-    'beforeCursor';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "sort",
-            "baseName": "sort",
-            "type": "string"
-        },
-        {
-            "name": "afterCursor",
-            "baseName": "after_cursor",
-            "type": "string"
-        },
-        {
-            "name": "limit",
-            "baseName": "limit",
-            "type": "number"
-        },
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "createdAtGte",
-            "baseName": "created_at.gte",
-            "type": "string"
-        },
-        {
-            "name": "createdAtLte",
-            "baseName": "created_at.lte",
-            "type": "string"
-        },
-        {
-            "name": "updatedAtGte",
-            "baseName": "updated_at.gte",
-            "type": "string"
-        },
-        {
-            "name": "updatedAtLte",
-            "baseName": "updated_at.lte",
-            "type": "string"
-        },
-        {
-            "name": "beforeCursor",
-            "baseName": "before_cursor",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return ListExternalLinksQueryParams.attributeTypeMap;
     }
 }
 exports.ListExternalLinksQueryParams = ListExternalLinksQueryParams;
+ListExternalLinksQueryParams.discriminator = undefined;
+ListExternalLinksQueryParams.attributeTypeMap = [
+    {
+        "name": "sort",
+        "baseName": "sort",
+        "type": "string"
+    },
+    {
+        "name": "afterCursor",
+        "baseName": "after_cursor",
+        "type": "string"
+    },
+    {
+        "name": "limit",
+        "baseName": "limit",
+        "type": "number"
+    },
+    {
+        "name": "id",
+        "baseName": "id",
+        "type": "string"
+    },
+    {
+        "name": "createdAtGte",
+        "baseName": "created_at.gte",
+        "type": "string"
+    },
+    {
+        "name": "createdAtLte",
+        "baseName": "created_at.lte",
+        "type": "string"
+    },
+    {
+        "name": "updatedAtGte",
+        "baseName": "updated_at.gte",
+        "type": "string"
+    },
+    {
+        "name": "updatedAtLte",
+        "baseName": "updated_at.lte",
+        "type": "string"
+    },
+    {
+        "name": "beforeCursor",
+        "baseName": "before_cursor",
+        "type": "string"
+    }
+];

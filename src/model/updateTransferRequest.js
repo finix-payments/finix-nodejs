@@ -13,20 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateTransferRequest = void 0;
 class UpdateTransferRequest {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        }
-    ];
     static getAttributeTypeMap() {
         return UpdateTransferRequest.attributeTypeMap;
     }
 }
 exports.UpdateTransferRequest = UpdateTransferRequest;
+UpdateTransferRequest.discriminator = undefined;
+UpdateTransferRequest.attributeTypeMap = [
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    }
+];

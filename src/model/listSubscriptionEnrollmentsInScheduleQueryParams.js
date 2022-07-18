@@ -13,20 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ListSubscriptionEnrollmentsInScheduleQueryParams = void 0;
 class ListSubscriptionEnrollmentsInScheduleQueryParams {
-    /**
-    * The ID of the `subscription_schedule`
-    */
-    'subscriptionScheduleId';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "subscriptionScheduleId",
-            "baseName": "subscription_schedule_id",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return ListSubscriptionEnrollmentsInScheduleQueryParams.attributeTypeMap;
     }
 }
 exports.ListSubscriptionEnrollmentsInScheduleQueryParams = ListSubscriptionEnrollmentsInScheduleQueryParams;
+ListSubscriptionEnrollmentsInScheduleQueryParams.discriminator = undefined;
+ListSubscriptionEnrollmentsInScheduleQueryParams.attributeTypeMap = [
+    {
+        "name": "subscriptionScheduleId",
+        "baseName": "subscription_schedule_id",
+        "type": "string"
+    }
+];

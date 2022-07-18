@@ -16,47 +16,41 @@ exports.MerchantLinks = void 0;
 * For your convenience, every response includes several URLs which link to resources relevant to the request. You can use these `_links` to make your follow-up requests and quickly access relevant IDs.
 */
 class MerchantLinks {
-    'self';
-    'identity';
-    'verifications';
-    'merchantProfile';
-    'application';
-    'verification';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "self",
-            "baseName": "self",
-            "type": "ApplicationLinksSelf"
-        },
-        {
-            "name": "identity",
-            "baseName": "identity",
-            "type": "MerchantLinksIdentity"
-        },
-        {
-            "name": "verifications",
-            "baseName": "verifications",
-            "type": "MerchantLinksVerifications"
-        },
-        {
-            "name": "merchantProfile",
-            "baseName": "merchant_profile",
-            "type": "MerchantLinksMerchantProfile"
-        },
-        {
-            "name": "application",
-            "baseName": "application",
-            "type": "MerchantLinksApplication"
-        },
-        {
-            "name": "verification",
-            "baseName": "verification",
-            "type": "MerchantLinksVerification"
-        }
-    ];
     static getAttributeTypeMap() {
         return MerchantLinks.attributeTypeMap;
     }
 }
 exports.MerchantLinks = MerchantLinks;
+MerchantLinks.discriminator = undefined;
+MerchantLinks.attributeTypeMap = [
+    {
+        "name": "self",
+        "baseName": "self",
+        "type": "ApplicationLinksSelf"
+    },
+    {
+        "name": "identity",
+        "baseName": "identity",
+        "type": "MerchantLinksIdentity"
+    },
+    {
+        "name": "verifications",
+        "baseName": "verifications",
+        "type": "MerchantLinksVerifications"
+    },
+    {
+        "name": "merchantProfile",
+        "baseName": "merchant_profile",
+        "type": "MerchantLinksMerchantProfile"
+    },
+    {
+        "name": "application",
+        "baseName": "application",
+        "type": "MerchantLinksApplication"
+    },
+    {
+        "name": "verification",
+        "baseName": "verification",
+        "type": "MerchantLinksVerification"
+    }
+];

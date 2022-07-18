@@ -16,17 +16,16 @@ exports.IdentityLinksMerchants = void 0;
 * Link to the `Merchant` the request was made under.
 */
 class IdentityLinksMerchants {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return IdentityLinksMerchants.attributeTypeMap;
     }
 }
 exports.IdentityLinksMerchants = IdentityLinksMerchants;
+IdentityLinksMerchants.discriminator = undefined;
+IdentityLinksMerchants.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

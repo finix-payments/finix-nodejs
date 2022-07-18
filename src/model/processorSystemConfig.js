@@ -16,290 +16,169 @@ exports.ProcessorSystemConfig = void 0;
 * Details that configure how the `Processor` handles transactions with the processor.
 */
 class ProcessorSystemConfig {
-    /**
-    * Field used by processor to communicate with Finix.
-    */
-    'cLASSKEYIDENTIFIER';
-    /**
-    * The 3 letter ISO 4217 country code for the country transactions are originating from.
-    */
-    'acquirerCountryCode';
-    /**
-    * The Bank Identification Number (BIN) the `Processor` is registered under with Visa Direct.
-    */
-    'acquiringBin';
-    /**
-    * Field used by Finix and processor to handle transactions.
-    */
-    'allowCreditForPartner';
-    /**
-    * Details the countries the `Processor` is avalible in.
-    */
-    'availableCountries';
-    /**
-    * The ID of the resource.
-    */
-    'businessApplicationId';
-    'configurationTemplates';
-    /**
-    * ISO 4217 3 letter currency code.
-    */
-    'defaultCurrencies';
-    /**
-    * Set to **true** to enables the option to push payments to other U.S. debit networks using our Visa Direct integration.
-    */
-    'disablePpgs';
-    /**
-    * Details the price of a Visa Direct payout.
-    */
-    'feeProgramIndicator';
-    /**
-    * Used if the Gateway needs a proxy. Not applicable to Visa Direct.
-    */
-    'gatewayProxyCertificate';
-    /**
-    * Used if the Gateway needs a proxy. Not applicable to Visa Direct.
-    */
-    'gatewayProxyHost';
-    /**
-    * Used if the Gateway needs a proxy. Not applicable to Visa Direct.
-    */
-    'gatewayProxyPassword';
-    /**
-    * Used if the Gateway needs a proxy. Not applicable to Visa Direct.
-    */
-    'gatewayProxyPort';
-    /**
-    * Used if the Gateway needs a proxy. Not applicable to Visa Direct.
-    */
-    'gatewayProxyUsername';
-    /**
-    * The password for the Java Keystore that stores the private keys and cert.pem files needed to process transactions using Visa Direct.
-    */
-    'keyStorePassword';
-    /**
-    * The path in AWS where the Java Keystore that stores the private keys and cert.pem files are and use to transact using Visa Direct.
-    */
-    'keyStorePath';
-    /**
-    * A unique ID that\'s provided when a `Processor` signs up for Push Payment Gateway transactions (PPGS). PPGS allows you to push payments to other U.S. debit networks using our Visa Direct integration.
-    */
-    'merchantPseudoAbaNumber';
-    /**
-    * Details if the `Processor` can handle online credit transactions.
-    */
-    'onlineCreditProcessing';
-    /**
-    * Details if the `Processor` can handle online debit transactions.
-    */
-    'onlineDebitProcessing';
-    /**
-    * The password found in the credentials section of the Visa Developer Portal (VDP) project. This is needed to connect to Visa Direct.
-    */
-    'password';
-    /**
-    * The password that was used to encrypt the private key that is contained in the Java Keystore.
-    */
-    'privateKeyPassword';
-    /**
-    * Field used by Finix and processor to handle transactions.
-    */
-    'processorSequenceLimit';
-    /**
-    * Field used by Finix and processor to handle transactions.
-    */
-    'pseudoBatchPush';
-    /**
-    * Specific code that reflects the use case (e.g. funds disbursement, money transfer, etc.). For a full list of codes, see the following [list from Visa](https://developer.visa.com/request_response_codes#source_of_funds).
-    */
-    'sourceOfFunds';
-    /**
-    * The user ID found in the credentials section of the Visa Developer Portal (VDP) project. This is needed to connect to Visa Direct.
-    */
-    'userId';
-    /**
-    * Field used by Finix and processor to handle transactions.
-    */
-    'visaAcceptanceCloudKeyStorePath';
-    /**
-    * Field used by Finix and processor to handle transactions.
-    */
-    'visaAcceptanceCloudPassword';
-    /**
-    * Field used by Finix and processor to handle transactions.
-    */
-    'visaAcceptanceCloudUrl';
-    /**
-    * Field used by Finix and processor to handle transactions.
-    */
-    'visaAcceptanceCloudUserId';
-    /**
-    * The URL that is used to connect to Visa.
-    */
-    'visaUrl';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "cLASSKEYIDENTIFIER",
-            "baseName": "CLASS_KEY_IDENTIFIER",
-            "type": "ProcessorSystemConfig.CLASSKEYIDENTIFIEREnum"
-        },
-        {
-            "name": "acquirerCountryCode",
-            "baseName": "acquirer_country_code",
-            "type": "ProcessorSystemConfig.AcquirerCountryCodeEnum"
-        },
-        {
-            "name": "acquiringBin",
-            "baseName": "acquiring_bin",
-            "type": "string"
-        },
-        {
-            "name": "allowCreditForPartner",
-            "baseName": "allow_credit_for_partner",
-            "type": "boolean"
-        },
-        {
-            "name": "availableCountries",
-            "baseName": "available_countries",
-            "type": "Array<Country>"
-        },
-        {
-            "name": "businessApplicationId",
-            "baseName": "business_application_id",
-            "type": "string"
-        },
-        {
-            "name": "configurationTemplates",
-            "baseName": "configuration_templates",
-            "type": "ProcessorSystemConfigConfigurationTemplates"
-        },
-        {
-            "name": "defaultCurrencies",
-            "baseName": "default_currencies",
-            "type": "Array<Currency>"
-        },
-        {
-            "name": "disablePpgs",
-            "baseName": "disable_ppgs",
-            "type": "boolean"
-        },
-        {
-            "name": "feeProgramIndicator",
-            "baseName": "fee_program_indicator",
-            "type": "string"
-        },
-        {
-            "name": "gatewayProxyCertificate",
-            "baseName": "gateway_proxy_certificate",
-            "type": "string"
-        },
-        {
-            "name": "gatewayProxyHost",
-            "baseName": "gateway_proxy_host",
-            "type": "string"
-        },
-        {
-            "name": "gatewayProxyPassword",
-            "baseName": "gateway_proxy_password",
-            "type": "string"
-        },
-        {
-            "name": "gatewayProxyPort",
-            "baseName": "gateway_proxy_port",
-            "type": "string"
-        },
-        {
-            "name": "gatewayProxyUsername",
-            "baseName": "gateway_proxy_username",
-            "type": "string"
-        },
-        {
-            "name": "keyStorePassword",
-            "baseName": "key_store_password",
-            "type": "string"
-        },
-        {
-            "name": "keyStorePath",
-            "baseName": "key_store_path",
-            "type": "string"
-        },
-        {
-            "name": "merchantPseudoAbaNumber",
-            "baseName": "merchant_pseudo_aba_number",
-            "type": "string"
-        },
-        {
-            "name": "onlineCreditProcessing",
-            "baseName": "online_credit_processing",
-            "type": "boolean"
-        },
-        {
-            "name": "onlineDebitProcessing",
-            "baseName": "online_debit_processing",
-            "type": "boolean"
-        },
-        {
-            "name": "password",
-            "baseName": "password",
-            "type": "string"
-        },
-        {
-            "name": "privateKeyPassword",
-            "baseName": "private_key_password",
-            "type": "string"
-        },
-        {
-            "name": "processorSequenceLimit",
-            "baseName": "processor_sequence_limit",
-            "type": "number"
-        },
-        {
-            "name": "pseudoBatchPush",
-            "baseName": "pseudo_batch_push",
-            "type": "boolean"
-        },
-        {
-            "name": "sourceOfFunds",
-            "baseName": "source_of_funds",
-            "type": "ProcessorSystemConfig.SourceOfFundsEnum"
-        },
-        {
-            "name": "userId",
-            "baseName": "user_id",
-            "type": "string"
-        },
-        {
-            "name": "visaAcceptanceCloudKeyStorePath",
-            "baseName": "visa_acceptance_cloud_key_store_path",
-            "type": "string"
-        },
-        {
-            "name": "visaAcceptanceCloudPassword",
-            "baseName": "visa_acceptance_cloud_password",
-            "type": "string"
-        },
-        {
-            "name": "visaAcceptanceCloudUrl",
-            "baseName": "visa_acceptance_cloud_url",
-            "type": "string"
-        },
-        {
-            "name": "visaAcceptanceCloudUserId",
-            "baseName": "visa_acceptance_cloud_user_id",
-            "type": "string"
-        },
-        {
-            "name": "visaUrl",
-            "baseName": "visa_url",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return ProcessorSystemConfig.attributeTypeMap;
     }
 }
 exports.ProcessorSystemConfig = ProcessorSystemConfig;
+ProcessorSystemConfig.discriminator = undefined;
+ProcessorSystemConfig.attributeTypeMap = [
+    {
+        "name": "cLASSKEYIDENTIFIER",
+        "baseName": "CLASS_KEY_IDENTIFIER",
+        "type": "ProcessorSystemConfig.CLASSKEYIDENTIFIEREnum"
+    },
+    {
+        "name": "acquirerCountryCode",
+        "baseName": "acquirer_country_code",
+        "type": "ProcessorSystemConfig.AcquirerCountryCodeEnum"
+    },
+    {
+        "name": "acquiringBin",
+        "baseName": "acquiring_bin",
+        "type": "string"
+    },
+    {
+        "name": "allowCreditForPartner",
+        "baseName": "allow_credit_for_partner",
+        "type": "boolean"
+    },
+    {
+        "name": "availableCountries",
+        "baseName": "available_countries",
+        "type": "Array<Country>"
+    },
+    {
+        "name": "businessApplicationId",
+        "baseName": "business_application_id",
+        "type": "string"
+    },
+    {
+        "name": "configurationTemplates",
+        "baseName": "configuration_templates",
+        "type": "ProcessorSystemConfigConfigurationTemplates"
+    },
+    {
+        "name": "defaultCurrencies",
+        "baseName": "default_currencies",
+        "type": "Array<Currency>"
+    },
+    {
+        "name": "disablePpgs",
+        "baseName": "disable_ppgs",
+        "type": "boolean"
+    },
+    {
+        "name": "feeProgramIndicator",
+        "baseName": "fee_program_indicator",
+        "type": "string"
+    },
+    {
+        "name": "gatewayProxyCertificate",
+        "baseName": "gateway_proxy_certificate",
+        "type": "string"
+    },
+    {
+        "name": "gatewayProxyHost",
+        "baseName": "gateway_proxy_host",
+        "type": "string"
+    },
+    {
+        "name": "gatewayProxyPassword",
+        "baseName": "gateway_proxy_password",
+        "type": "string"
+    },
+    {
+        "name": "gatewayProxyPort",
+        "baseName": "gateway_proxy_port",
+        "type": "string"
+    },
+    {
+        "name": "gatewayProxyUsername",
+        "baseName": "gateway_proxy_username",
+        "type": "string"
+    },
+    {
+        "name": "keyStorePassword",
+        "baseName": "key_store_password",
+        "type": "string"
+    },
+    {
+        "name": "keyStorePath",
+        "baseName": "key_store_path",
+        "type": "string"
+    },
+    {
+        "name": "merchantPseudoAbaNumber",
+        "baseName": "merchant_pseudo_aba_number",
+        "type": "string"
+    },
+    {
+        "name": "onlineCreditProcessing",
+        "baseName": "online_credit_processing",
+        "type": "boolean"
+    },
+    {
+        "name": "onlineDebitProcessing",
+        "baseName": "online_debit_processing",
+        "type": "boolean"
+    },
+    {
+        "name": "password",
+        "baseName": "password",
+        "type": "string"
+    },
+    {
+        "name": "privateKeyPassword",
+        "baseName": "private_key_password",
+        "type": "string"
+    },
+    {
+        "name": "processorSequenceLimit",
+        "baseName": "processor_sequence_limit",
+        "type": "number"
+    },
+    {
+        "name": "pseudoBatchPush",
+        "baseName": "pseudo_batch_push",
+        "type": "boolean"
+    },
+    {
+        "name": "sourceOfFunds",
+        "baseName": "source_of_funds",
+        "type": "ProcessorSystemConfig.SourceOfFundsEnum"
+    },
+    {
+        "name": "userId",
+        "baseName": "user_id",
+        "type": "string"
+    },
+    {
+        "name": "visaAcceptanceCloudKeyStorePath",
+        "baseName": "visa_acceptance_cloud_key_store_path",
+        "type": "string"
+    },
+    {
+        "name": "visaAcceptanceCloudPassword",
+        "baseName": "visa_acceptance_cloud_password",
+        "type": "string"
+    },
+    {
+        "name": "visaAcceptanceCloudUrl",
+        "baseName": "visa_acceptance_cloud_url",
+        "type": "string"
+    },
+    {
+        "name": "visaAcceptanceCloudUserId",
+        "baseName": "visa_acceptance_cloud_user_id",
+        "type": "string"
+    },
+    {
+        "name": "visaUrl",
+        "baseName": "visa_url",
+        "type": "string"
+    }
+];
 (function (ProcessorSystemConfig) {
     let CLASSKEYIDENTIFIEREnum;
     (function (CLASSKEYIDENTIFIEREnum) {

@@ -13,17 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SettlementEngineSettlementsListEmbedded = void 0;
 class SettlementEngineSettlementsListEmbedded {
-    'settlements';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "settlements",
-            "baseName": "settlements",
-            "type": "Set<SettlementEngineSettlement>"
-        }
-    ];
     static getAttributeTypeMap() {
         return SettlementEngineSettlementsListEmbedded.attributeTypeMap;
     }
 }
 exports.SettlementEngineSettlementsListEmbedded = SettlementEngineSettlementsListEmbedded;
+SettlementEngineSettlementsListEmbedded.discriminator = undefined;
+SettlementEngineSettlementsListEmbedded.attributeTypeMap = [
+    {
+        "name": "settlements",
+        "baseName": "settlements",
+        "type": "Set<SettlementEngineSettlement>"
+    }
+];

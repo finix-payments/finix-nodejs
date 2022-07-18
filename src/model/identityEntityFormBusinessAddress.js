@@ -16,68 +16,44 @@ exports.IdentityEntityFormBusinessAddress = void 0;
 * Primary address for the legal entity.
 */
 class IdentityEntityFormBusinessAddress {
-    /**
-    * City (max 20 characters).
-    */
-    'city';
-    /**
-    * 3-Letter Country code.
-    */
-    'country';
-    /**
-    * First line of the address (max 35 characters).
-    */
-    'line1';
-    /**
-    * Second line of the address (max 35 characters).
-    */
-    'line2';
-    /**
-    * Zip or Postal code (max 7 characters).
-    */
-    'postalCode';
-    /**
-    * 2-letter State code.
-    */
-    'region';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "city",
-            "baseName": "city",
-            "type": "string"
-        },
-        {
-            "name": "country",
-            "baseName": "country",
-            "type": "IdentityEntityFormBusinessAddress.CountryEnum"
-        },
-        {
-            "name": "line1",
-            "baseName": "line1",
-            "type": "string"
-        },
-        {
-            "name": "line2",
-            "baseName": "line2",
-            "type": "string"
-        },
-        {
-            "name": "postalCode",
-            "baseName": "postal_code",
-            "type": "string"
-        },
-        {
-            "name": "region",
-            "baseName": "region",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return IdentityEntityFormBusinessAddress.attributeTypeMap;
     }
 }
 exports.IdentityEntityFormBusinessAddress = IdentityEntityFormBusinessAddress;
+IdentityEntityFormBusinessAddress.discriminator = undefined;
+IdentityEntityFormBusinessAddress.attributeTypeMap = [
+    {
+        "name": "city",
+        "baseName": "city",
+        "type": "string"
+    },
+    {
+        "name": "country",
+        "baseName": "country",
+        "type": "IdentityEntityFormBusinessAddress.CountryEnum"
+    },
+    {
+        "name": "line1",
+        "baseName": "line1",
+        "type": "string"
+    },
+    {
+        "name": "line2",
+        "baseName": "line2",
+        "type": "string"
+    },
+    {
+        "name": "postalCode",
+        "baseName": "postal_code",
+        "type": "string"
+    },
+    {
+        "name": "region",
+        "baseName": "region",
+        "type": "string"
+    }
+];
 (function (IdentityEntityFormBusinessAddress) {
     let CountryEnum;
     (function (CountryEnum) {

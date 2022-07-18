@@ -16,38 +16,26 @@ exports.CreateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution = 
 * The distribution of the merchant\'s credit card volume The sum of `card_volume_distribution` must be 100.
 */
 class CreateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution {
-    /**
-    * The percentage of the merchant\'s volume that\'s card present (between 0 and 100).
-    */
-    'cardPresentPercentage';
-    /**
-    * The percentage of the merchant\'s business that is a mail order or telephone order (between 0 and 100).
-    */
-    'mailOrderTelephoneOrderPercentage';
-    /**
-    * The percentage of the merchant\'s business that is eCommerce (between 0 and 100).
-    */
-    'ecommercePercentage';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "cardPresentPercentage",
-            "baseName": "card_present_percentage",
-            "type": "number"
-        },
-        {
-            "name": "mailOrderTelephoneOrderPercentage",
-            "baseName": "mail_order_telephone_order_percentage",
-            "type": "number"
-        },
-        {
-            "name": "ecommercePercentage",
-            "baseName": "ecommerce_percentage",
-            "type": "number"
-        }
-    ];
     static getAttributeTypeMap() {
         return CreateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution.attributeTypeMap;
     }
 }
 exports.CreateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution = CreateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution;
+CreateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution.discriminator = undefined;
+CreateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution.attributeTypeMap = [
+    {
+        "name": "cardPresentPercentage",
+        "baseName": "card_present_percentage",
+        "type": "number"
+    },
+    {
+        "name": "mailOrderTelephoneOrderPercentage",
+        "baseName": "mail_order_telephone_order_percentage",
+        "type": "number"
+    },
+    {
+        "name": "ecommercePercentage",
+        "baseName": "ecommerce_percentage",
+        "type": "number"
+    }
+];

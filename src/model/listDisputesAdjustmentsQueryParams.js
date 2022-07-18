@@ -13,29 +13,21 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ListDisputesAdjustmentsQueryParams = void 0;
 class ListDisputesAdjustmentsQueryParams {
-    /**
-    * The numbers of items to return
-    */
-    'limit';
-    /**
-    * The number of items to skip before starting to collect the result set
-    */
-    'offset';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "limit",
-            "baseName": "limit",
-            "type": "number"
-        },
-        {
-            "name": "offset",
-            "baseName": "offset",
-            "type": "number"
-        }
-    ];
     static getAttributeTypeMap() {
         return ListDisputesAdjustmentsQueryParams.attributeTypeMap;
     }
 }
 exports.ListDisputesAdjustmentsQueryParams = ListDisputesAdjustmentsQueryParams;
+ListDisputesAdjustmentsQueryParams.discriminator = undefined;
+ListDisputesAdjustmentsQueryParams.attributeTypeMap = [
+    {
+        "name": "limit",
+        "baseName": "limit",
+        "type": "number"
+    },
+    {
+        "name": "offset",
+        "baseName": "offset",
+        "type": "number"
+    }
+];

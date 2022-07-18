@@ -16,29 +16,26 @@ exports.SubscriptionSchedulesListLinks = void 0;
 * For your convenience, every response includes several URLs which link to resources relevant to the request. You can use these `_links` to make your follow-up requests and quickly access relevant IDs.
 */
 class SubscriptionSchedulesListLinks {
-    'self';
-    'next';
-    'last';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "self",
-            "baseName": "self:",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "next",
-            "baseName": "next",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "last",
-            "baseName": "last",
-            "type": "ApplicationLinksApplicationProfile"
-        }
-    ];
     static getAttributeTypeMap() {
         return SubscriptionSchedulesListLinks.attributeTypeMap;
     }
 }
 exports.SubscriptionSchedulesListLinks = SubscriptionSchedulesListLinks;
+SubscriptionSchedulesListLinks.discriminator = undefined;
+SubscriptionSchedulesListLinks.attributeTypeMap = [
+    {
+        "name": "self",
+        "baseName": "self:",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "next",
+        "baseName": "next",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "last",
+        "baseName": "last",
+        "type": "ApplicationLinksApplicationProfile"
+    }
+];

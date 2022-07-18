@@ -13,20 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProcessorApplicationConfigConfigurationTemplates = void 0;
 class ProcessorApplicationConfigConfigurationTemplates {
-    /**
-    * 3-Letter Country code.
-    */
-    'country';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "country",
-            "baseName": "country",
-            "type": "object"
-        }
-    ];
     static getAttributeTypeMap() {
         return ProcessorApplicationConfigConfigurationTemplates.attributeTypeMap;
     }
 }
 exports.ProcessorApplicationConfigConfigurationTemplates = ProcessorApplicationConfigConfigurationTemplates;
+ProcessorApplicationConfigConfigurationTemplates.discriminator = undefined;
+ProcessorApplicationConfigConfigurationTemplates.attributeTypeMap = [
+    {
+        "name": "country",
+        "baseName": "country",
+        "type": "object"
+    }
+];

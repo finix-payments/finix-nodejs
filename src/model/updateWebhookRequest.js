@@ -13,29 +13,21 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateWebhookRequest = void 0;
 class UpdateWebhookRequest {
-    /**
-    * The HTTP or HTTPS url where the callbacks will be sent via POST request (max 120 characters).
-    */
-    'url';
-    /**
-    * Set to false to disable `Webhooks`. Default value when created is true.
-    */
-    'enabled';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "url",
-            "baseName": "url",
-            "type": "string"
-        },
-        {
-            "name": "enabled",
-            "baseName": "enabled",
-            "type": "boolean"
-        }
-    ];
     static getAttributeTypeMap() {
         return UpdateWebhookRequest.attributeTypeMap;
     }
 }
 exports.UpdateWebhookRequest = UpdateWebhookRequest;
+UpdateWebhookRequest.discriminator = undefined;
+UpdateWebhookRequest.attributeTypeMap = [
+    {
+        "name": "url",
+        "baseName": "url",
+        "type": "string"
+    },
+    {
+        "name": "enabled",
+        "baseName": "enabled",
+        "type": "boolean"
+    }
+];

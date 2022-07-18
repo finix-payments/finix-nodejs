@@ -13,38 +13,26 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ListSettlementTransfersQueryParams = void 0;
 class ListSettlementTransfersQueryParams {
-    /**
-    * The numbers of items to return
-    */
-    'limit';
-    /**
-    * Return every resource created after the cursor value.
-    */
-    'afterCursor';
-    /**
-    * Return every resource created before the cursor value.
-    */
-    'beforeCursor';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "limit",
-            "baseName": "limit",
-            "type": "number"
-        },
-        {
-            "name": "afterCursor",
-            "baseName": "after_cursor",
-            "type": "string"
-        },
-        {
-            "name": "beforeCursor",
-            "baseName": "before_cursor",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return ListSettlementTransfersQueryParams.attributeTypeMap;
     }
 }
 exports.ListSettlementTransfersQueryParams = ListSettlementTransfersQueryParams;
+ListSettlementTransfersQueryParams.discriminator = undefined;
+ListSettlementTransfersQueryParams.attributeTypeMap = [
+    {
+        "name": "limit",
+        "baseName": "limit",
+        "type": "number"
+    },
+    {
+        "name": "afterCursor",
+        "baseName": "after_cursor",
+        "type": "string"
+    },
+    {
+        "name": "beforeCursor",
+        "baseName": "before_cursor",
+        "type": "string"
+    }
+];

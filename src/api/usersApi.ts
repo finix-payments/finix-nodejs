@@ -135,7 +135,7 @@ export class UsersApi {
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -146,8 +146,7 @@ export class UsersApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (createUserRequest.hasOwnProperty('file')){
-            createUserRequest = await this.fileHelper(createUserRequest);
+        if (createUserRequest != undefined && createUserRequest != null && createUserRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = createUserRequest;
         }
         else{
@@ -241,7 +240,7 @@ export class UsersApi {
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -337,7 +336,7 @@ export class UsersApi {
 
         }
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -437,7 +436,7 @@ export class UsersApi {
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -448,8 +447,7 @@ export class UsersApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (updateUserRequest.hasOwnProperty('file')){
-            updateUserRequest = await this.fileHelper(updateUserRequest);
+        if (updateUserRequest != undefined && updateUserRequest != null && updateUserRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = updateUserRequest;
         }
         else{
@@ -519,15 +517,18 @@ export class UsersApi {
 
 
     private async embeddedHelper(responseObject: any){
+        if(responseObject.embedded == null || responseObject.embedded == undefined){
+            const dataList = new SuperSet<any>();
+            dataList.page = responseObject.body.page;
+            dataList.links = responseObject.body.links;
+            return dataList;
+        }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        let tempList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        const dataList = new SuperSet<any>();
+        tempList.forEach(item => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
-    }
-
-    private async fileHelper(request: any){
-        request.file = fs.createReadStream(<string>request.file)
-        return request;
     }
 }

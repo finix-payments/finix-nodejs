@@ -1179,8 +1179,10 @@ class ObjectSerializer {
 }
 exports.ObjectSerializer = ObjectSerializer;
 class HttpBasicAuth {
-    username = '';
-    password = '';
+    constructor() {
+        this.username = '';
+        this.password = '';
+    }
     applyToRequest(requestOptions) {
         requestOptions.auth = {
             username: this.username, password: this.password
@@ -1189,7 +1191,9 @@ class HttpBasicAuth {
 }
 exports.HttpBasicAuth = HttpBasicAuth;
 class HttpBearerAuth {
-    accessToken = '';
+    constructor() {
+        this.accessToken = '';
+    }
     applyToRequest(requestOptions) {
         if (requestOptions && requestOptions.headers) {
             const accessToken = typeof this.accessToken === 'function'
@@ -1201,12 +1205,10 @@ class HttpBearerAuth {
 }
 exports.HttpBearerAuth = HttpBearerAuth;
 class ApiKeyAuth {
-    location;
-    paramName;
-    apiKey = '';
     constructor(location, paramName) {
         this.location = location;
         this.paramName = paramName;
+        this.apiKey = '';
     }
     applyToRequest(requestOptions) {
         if (this.location == "query") {
@@ -1227,7 +1229,9 @@ class ApiKeyAuth {
 }
 exports.ApiKeyAuth = ApiKeyAuth;
 class OAuth {
-    accessToken = '';
+    constructor() {
+        this.accessToken = '';
+    }
     applyToRequest(requestOptions) {
         if (requestOptions && requestOptions.headers) {
             requestOptions.headers["Authorization"] = "Bearer " + this.accessToken;
@@ -1236,16 +1240,16 @@ class OAuth {
 }
 exports.OAuth = OAuth;
 class VoidAuth {
-    username = '';
-    password = '';
+    constructor() {
+        this.username = '';
+        this.password = '';
+    }
     applyToRequest(_) {
         // Do nothing
     }
 }
 exports.VoidAuth = VoidAuth;
 class SuperSet extends Set {
-    _page;
-    _links;
     constructor() {
         super();
     }

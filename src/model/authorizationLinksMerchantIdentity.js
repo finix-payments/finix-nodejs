@@ -16,17 +16,16 @@ exports.AuthorizationLinksMerchantIdentity = void 0;
 * Link to the `Identity` the `Merchant` was created under and the `Transfer` was submitted with.
 */
 class AuthorizationLinksMerchantIdentity {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return AuthorizationLinksMerchantIdentity.attributeTypeMap;
     }
 }
 exports.AuthorizationLinksMerchantIdentity = AuthorizationLinksMerchantIdentity;
+AuthorizationLinksMerchantIdentity.discriminator = undefined;
+AuthorizationLinksMerchantIdentity.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

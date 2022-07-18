@@ -13,17 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReviewQueueItemsListEmbedded = void 0;
 class ReviewQueueItemsListEmbedded {
-    'reviewQueueItems';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "reviewQueueItems",
-            "baseName": "review_queue_items",
-            "type": "Set<ReviewQueueItem>"
-        }
-    ];
     static getAttributeTypeMap() {
         return ReviewQueueItemsListEmbedded.attributeTypeMap;
     }
 }
 exports.ReviewQueueItemsListEmbedded = ReviewQueueItemsListEmbedded;
+ReviewQueueItemsListEmbedded.discriminator = undefined;
+ReviewQueueItemsListEmbedded.attributeTypeMap = [
+    {
+        "name": "reviewQueueItems",
+        "baseName": "review_queue_items",
+        "type": "Set<ReviewQueueItem>"
+    }
+];

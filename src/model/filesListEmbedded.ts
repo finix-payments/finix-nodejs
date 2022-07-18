@@ -11,12 +11,13 @@
  */
 
 import { RequestFile } from './models';
+import { ModelFile } from './modelFile';
 
 /**
 * The number of items to skip before starting to collect the result set.
 */
 export class FilesListEmbedded {
-    'files'?: Array<any>;
+    'files'?: Array<ModelFile>;
 
     static discriminator: string | undefined = undefined;
 
@@ -24,7 +25,7 @@ export class FilesListEmbedded {
         {
             "name": "files",
             "baseName": "files",
-            "type": "Array<any>"
+            "type": "Array<ModelFile>"
         }    ];
 
     static getAttributeTypeMap() {

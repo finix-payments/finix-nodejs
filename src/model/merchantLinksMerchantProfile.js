@@ -16,17 +16,16 @@ exports.MerchantLinksMerchantProfile = void 0;
 * Link to the `merchant_profile` the request was made under.
 */
 class MerchantLinksMerchantProfile {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return MerchantLinksMerchantProfile.attributeTypeMap;
     }
 }
 exports.MerchantLinksMerchantProfile = MerchantLinksMerchantProfile;
+MerchantLinksMerchantProfile.discriminator = undefined;
+MerchantLinksMerchantProfile.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

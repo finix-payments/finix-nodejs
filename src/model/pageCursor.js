@@ -16,29 +16,21 @@ exports.PageCursor = void 0;
 *
 */
 class PageCursor {
-    /**
-    * The number of entries to return.
-    */
-    'limit';
-    /**
-    * The cursor to use for the next page of results.
-    */
-    'nextCursor';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "limit",
-            "baseName": "limit",
-            "type": "number"
-        },
-        {
-            "name": "nextCursor",
-            "baseName": "next_cursor",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return PageCursor.attributeTypeMap;
     }
 }
 exports.PageCursor = PageCursor;
+PageCursor.discriminator = undefined;
+PageCursor.attributeTypeMap = [
+    {
+        "name": "limit",
+        "baseName": "limit",
+        "type": "number"
+    },
+    {
+        "name": "nextCursor",
+        "baseName": "next_cursor",
+        "type": "string"
+    }
+];

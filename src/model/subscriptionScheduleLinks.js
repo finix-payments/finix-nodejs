@@ -16,23 +16,21 @@ exports.SubscriptionScheduleLinks = void 0;
 * For your convenience, every response includes several URLs which link to resources relevant to the request. You can use these `_links` to make your follow-up requests and quickly access relevant IDs.
 */
 class SubscriptionScheduleLinks {
-    'self';
-    'amounts';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "self",
-            "baseName": "self",
-            "type": "IdentityLinksSelf"
-        },
-        {
-            "name": "amounts",
-            "baseName": "amounts",
-            "type": "SubscriptionScheduleLinksAmounts"
-        }
-    ];
     static getAttributeTypeMap() {
         return SubscriptionScheduleLinks.attributeTypeMap;
     }
 }
 exports.SubscriptionScheduleLinks = SubscriptionScheduleLinks;
+SubscriptionScheduleLinks.discriminator = undefined;
+SubscriptionScheduleLinks.attributeTypeMap = [
+    {
+        "name": "self",
+        "baseName": "self",
+        "type": "IdentityLinksSelf"
+    },
+    {
+        "name": "amounts",
+        "baseName": "amounts",
+        "type": "SubscriptionScheduleLinksAmounts"
+    }
+];

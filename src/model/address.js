@@ -16,62 +16,41 @@ exports.Address = void 0;
 * Principal\'s personal home address. This field is used for `Identity` verification purposes.
 */
 class Address {
-    /**
-    * City (max 20 characters).
-    */
-    'city';
-    'country';
-    /**
-    * First line of the address (max 35 characters).
-    */
-    'line1';
-    /**
-    * Second line of the address (max 35 characters).
-    */
-    'line2';
-    /**
-    * Zip or Postal code (max 7 characters).
-    */
-    'postalCode';
-    /**
-    * 2-letter State code.
-    */
-    'region';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "city",
-            "baseName": "city",
-            "type": "string"
-        },
-        {
-            "name": "country",
-            "baseName": "country",
-            "type": "Country"
-        },
-        {
-            "name": "line1",
-            "baseName": "line1",
-            "type": "string"
-        },
-        {
-            "name": "line2",
-            "baseName": "line2",
-            "type": "string"
-        },
-        {
-            "name": "postalCode",
-            "baseName": "postal_code",
-            "type": "string"
-        },
-        {
-            "name": "region",
-            "baseName": "region",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return Address.attributeTypeMap;
     }
 }
 exports.Address = Address;
+Address.discriminator = undefined;
+Address.attributeTypeMap = [
+    {
+        "name": "city",
+        "baseName": "city",
+        "type": "string"
+    },
+    {
+        "name": "country",
+        "baseName": "country",
+        "type": "Country"
+    },
+    {
+        "name": "line1",
+        "baseName": "line1",
+        "type": "string"
+    },
+    {
+        "name": "line2",
+        "baseName": "line2",
+        "type": "string"
+    },
+    {
+        "name": "postalCode",
+        "baseName": "postal_code",
+        "type": "string"
+    },
+    {
+        "name": "region",
+        "baseName": "region",
+        "type": "string"
+    }
+];

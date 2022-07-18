@@ -13,29 +13,26 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.VerificationsList = void 0;
 class VerificationsList {
-    'embedded';
-    'links';
-    'page';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "embedded",
-            "baseName": "_embedded",
-            "type": "VerificationsListEmbedded"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "ListLinks"
-        },
-        {
-            "name": "page",
-            "baseName": "page",
-            "type": "PageCursor"
-        }
-    ];
     static getAttributeTypeMap() {
         return VerificationsList.attributeTypeMap;
     }
 }
 exports.VerificationsList = VerificationsList;
+VerificationsList.discriminator = undefined;
+VerificationsList.attributeTypeMap = [
+    {
+        "name": "embedded",
+        "baseName": "_embedded",
+        "type": "VerificationsListEmbedded"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "ListLinks"
+    },
+    {
+        "name": "page",
+        "baseName": "page",
+        "type": "PageCursor"
+    }
+];

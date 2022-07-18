@@ -13,119 +13,71 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateMerchantRequest = void 0;
 class UpdateMerchantRequest {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    /**
-    * Details if transaction processing is enabled for the `Merchant`.
-    */
-    'processingEnabled';
-    /**
-    * Details if settlement processing is enabled for the `Merchant`.
-    */
-    'settlementEnabled';
-    /**
-    * Set to **true** to enable gross settlements.
-    */
-    'grossSettlementEnabled';
-    /**
-    * Set to **true** to automatically create `Transfers` once settlement reports get generated.
-    */
-    'creatingTransferFromReportEnabled';
-    /**
-    * Set to **true** to require the card\'s expiration date.
-    */
-    'cardExpirationDateRequired';
-    /**
-    * Set to **true** to require the card\'s CVV code.
-    */
-    'cardCvvRequired';
-    /**
-    * The legal name saved in the `Merchant` resource.
-    */
-    'merchantName';
-    /**
-    * Include addtional information (like the MID) when submitting funding `Tranfers` to processors.
-    */
-    'settlementFundingIdentifier';
-    /**
-    * Details how `Authorizations` captured by the `Merchant` are settled.
-    */
-    'readyToSettleUpon';
-    /**
-    * Details how the `Merchant` settles fees.
-    */
-    'feeReadyToSettleUpon';
-    /**
-    * Set to **true** to enable the `Merchant` for Level 2 and Level 3 processing. Default value is **false**.
-    */
-    'levelTwoLevelThreeDataEnabled';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "processingEnabled",
-            "baseName": "processing_enabled",
-            "type": "boolean"
-        },
-        {
-            "name": "settlementEnabled",
-            "baseName": "settlement_enabled",
-            "type": "boolean"
-        },
-        {
-            "name": "grossSettlementEnabled",
-            "baseName": "gross_settlement_enabled",
-            "type": "boolean"
-        },
-        {
-            "name": "creatingTransferFromReportEnabled",
-            "baseName": "creating_transfer_from_report_enabled",
-            "type": "boolean"
-        },
-        {
-            "name": "cardExpirationDateRequired",
-            "baseName": "card_expiration_date_required",
-            "type": "boolean"
-        },
-        {
-            "name": "cardCvvRequired",
-            "baseName": "card_cvv_required",
-            "type": "boolean"
-        },
-        {
-            "name": "merchantName",
-            "baseName": "merchant_name",
-            "type": "string"
-        },
-        {
-            "name": "settlementFundingIdentifier",
-            "baseName": "settlement_funding_identifier",
-            "type": "string"
-        },
-        {
-            "name": "readyToSettleUpon",
-            "baseName": "ready_to_settle_upon",
-            "type": "string"
-        },
-        {
-            "name": "feeReadyToSettleUpon",
-            "baseName": "fee_ready_to_settle_upon",
-            "type": "string"
-        },
-        {
-            "name": "levelTwoLevelThreeDataEnabled",
-            "baseName": "level_two_level_three_data_enabled",
-            "type": "boolean"
-        }
-    ];
     static getAttributeTypeMap() {
         return UpdateMerchantRequest.attributeTypeMap;
     }
 }
 exports.UpdateMerchantRequest = UpdateMerchantRequest;
+UpdateMerchantRequest.discriminator = undefined;
+UpdateMerchantRequest.attributeTypeMap = [
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "processingEnabled",
+        "baseName": "processing_enabled",
+        "type": "boolean"
+    },
+    {
+        "name": "settlementEnabled",
+        "baseName": "settlement_enabled",
+        "type": "boolean"
+    },
+    {
+        "name": "grossSettlementEnabled",
+        "baseName": "gross_settlement_enabled",
+        "type": "boolean"
+    },
+    {
+        "name": "creatingTransferFromReportEnabled",
+        "baseName": "creating_transfer_from_report_enabled",
+        "type": "boolean"
+    },
+    {
+        "name": "cardExpirationDateRequired",
+        "baseName": "card_expiration_date_required",
+        "type": "boolean"
+    },
+    {
+        "name": "cardCvvRequired",
+        "baseName": "card_cvv_required",
+        "type": "boolean"
+    },
+    {
+        "name": "merchantName",
+        "baseName": "merchant_name",
+        "type": "string"
+    },
+    {
+        "name": "settlementFundingIdentifier",
+        "baseName": "settlement_funding_identifier",
+        "type": "string"
+    },
+    {
+        "name": "readyToSettleUpon",
+        "baseName": "ready_to_settle_upon",
+        "type": "string"
+    },
+    {
+        "name": "feeReadyToSettleUpon",
+        "baseName": "fee_ready_to_settle_upon",
+        "type": "string"
+    },
+    {
+        "name": "levelTwoLevelThreeDataEnabled",
+        "baseName": "level_two_level_three_data_enabled",
+        "type": "boolean"
+    }
+];

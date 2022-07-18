@@ -16,65 +16,44 @@ exports.CreateDevice = void 0;
 *
 */
 class CreateDevice {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    /**
-    * Additional information about device (e.g. self serving terminal).
-    */
-    'description';
-    'configuration';
-    /**
-    * ID of the `Merchant` the `Device` is associated with.
-    */
-    'merchantId';
-    /**
-    * Include one of the following values to let Finix know the type of device that\'s being used.
-    */
-    'model';
-    /**
-    * Name of the `Device`.
-    */
-    'name';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "description",
-            "baseName": "description",
-            "type": "string"
-        },
-        {
-            "name": "configuration",
-            "baseName": "configuration",
-            "type": "ConfigurationDetails"
-        },
-        {
-            "name": "merchantId",
-            "baseName": "merchant_id",
-            "type": "string"
-        },
-        {
-            "name": "model",
-            "baseName": "model",
-            "type": "CreateDevice.ModelEnum"
-        },
-        {
-            "name": "name",
-            "baseName": "name",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return CreateDevice.attributeTypeMap;
     }
 }
 exports.CreateDevice = CreateDevice;
+CreateDevice.discriminator = undefined;
+CreateDevice.attributeTypeMap = [
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "description",
+        "baseName": "description",
+        "type": "string"
+    },
+    {
+        "name": "configuration",
+        "baseName": "configuration",
+        "type": "ConfigurationDetails"
+    },
+    {
+        "name": "merchantId",
+        "baseName": "merchant_id",
+        "type": "string"
+    },
+    {
+        "name": "model",
+        "baseName": "model",
+        "type": "CreateDevice.ModelEnum"
+    },
+    {
+        "name": "name",
+        "baseName": "name",
+        "type": "string"
+    }
+];
 (function (CreateDevice) {
     let ModelEnum;
     (function (ModelEnum) {

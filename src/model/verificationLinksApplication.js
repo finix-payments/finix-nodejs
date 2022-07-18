@@ -16,17 +16,16 @@ exports.VerificationLinksApplication = void 0;
 * Link to the `Application` that was used in the request.
 */
 class VerificationLinksApplication {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return VerificationLinksApplication.attributeTypeMap;
     }
 }
 exports.VerificationLinksApplication = VerificationLinksApplication;
+VerificationLinksApplication.discriminator = undefined;
+VerificationLinksApplication.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

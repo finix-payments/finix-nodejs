@@ -13,23 +13,21 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Error402PaymentRequired = void 0;
 class Error402PaymentRequired {
-    'total';
-    'embedded';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "total",
-            "baseName": "total",
-            "type": "number"
-        },
-        {
-            "name": "embedded",
-            "baseName": "_embedded",
-            "type": "Error402PaymentRequiredEmbedded"
-        }
-    ];
     static getAttributeTypeMap() {
         return Error402PaymentRequired.attributeTypeMap;
     }
 }
 exports.Error402PaymentRequired = Error402PaymentRequired;
+Error402PaymentRequired.discriminator = undefined;
+Error402PaymentRequired.attributeTypeMap = [
+    {
+        "name": "total",
+        "baseName": "total",
+        "type": "number"
+    },
+    {
+        "name": "embedded",
+        "baseName": "_embedded",
+        "type": "Error402PaymentRequiredEmbedded"
+    }
+];

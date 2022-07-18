@@ -13,17 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Error402PaymentRequiredEmbeddedErrorsInnerLinks = void 0;
 class Error402PaymentRequiredEmbeddedErrorsInnerLinks {
-    'source';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "source",
-            "baseName": "source",
-            "type": "ApplicationLinksApplicationProfile"
-        }
-    ];
     static getAttributeTypeMap() {
         return Error402PaymentRequiredEmbeddedErrorsInnerLinks.attributeTypeMap;
     }
 }
 exports.Error402PaymentRequiredEmbeddedErrorsInnerLinks = Error402PaymentRequiredEmbeddedErrorsInnerLinks;
+Error402PaymentRequiredEmbeddedErrorsInnerLinks.discriminator = undefined;
+Error402PaymentRequiredEmbeddedErrorsInnerLinks.attributeTypeMap = [
+    {
+        "name": "source",
+        "baseName": "source",
+        "type": "ApplicationLinksApplicationProfile"
+    }
+];

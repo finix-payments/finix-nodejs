@@ -13,38 +13,26 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateApplicationProfileRequest = void 0;
 class UpdateApplicationProfileRequest {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    /**
-    * The ID of the resource.
-    */
-    'feeProfile';
-    /**
-    * The ID of the resource.
-    */
-    'riskProfile';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "feeProfile",
-            "baseName": "fee_profile",
-            "type": "string"
-        },
-        {
-            "name": "riskProfile",
-            "baseName": "risk_profile",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return UpdateApplicationProfileRequest.attributeTypeMap;
     }
 }
 exports.UpdateApplicationProfileRequest = UpdateApplicationProfileRequest;
+UpdateApplicationProfileRequest.discriminator = undefined;
+UpdateApplicationProfileRequest.attributeTypeMap = [
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "feeProfile",
+        "baseName": "fee_profile",
+        "type": "string"
+    },
+    {
+        "name": "riskProfile",
+        "baseName": "risk_profile",
+        "type": "string"
+    }
+];

@@ -13,29 +13,26 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdjustmentTransfersList = void 0;
 class AdjustmentTransfersList {
-    'embedded';
-    'links';
-    'page';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "embedded",
-            "baseName": "_embedded",
-            "type": "AdjustmentTransfersListEmbedded"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "DisputeEvidenceLinks"
-        },
-        {
-            "name": "page",
-            "baseName": "page",
-            "type": "PageCursor"
-        }
-    ];
     static getAttributeTypeMap() {
         return AdjustmentTransfersList.attributeTypeMap;
     }
 }
 exports.AdjustmentTransfersList = AdjustmentTransfersList;
+AdjustmentTransfersList.discriminator = undefined;
+AdjustmentTransfersList.attributeTypeMap = [
+    {
+        "name": "embedded",
+        "baseName": "_embedded",
+        "type": "AdjustmentTransfersListEmbedded"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "DisputeEvidenceLinks"
+    },
+    {
+        "name": "page",
+        "baseName": "page",
+        "type": "PageCursor"
+    }
+];

@@ -13,146 +13,89 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Verification = void 0;
 class Verification {
-    /**
-    * The ID of the `Verification` attempt (begins with `VIXXX`).
-    */
-    'id';
-    /**
-    * ID of the `Application` the `Merchant` was created under.
-    */
-    'application';
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    /**
-    * Provides additional details about the verification (e.g why it failed). This field is usually **null**.
-    */
-    'messages';
-    /**
-    * Raw response from the processor
-    */
-    'raw';
-    /**
-    * Name of the verification processor.
-    */
-    'processor';
-    /**
-    * The status of the `Verification` request.
-    */
-    'state';
-    /**
-    * Timestamp of when the object was created.
-    */
-    'createdAt';
-    /**
-    * Timestamp of when the object was last updated.
-    */
-    'updatedAt';
-    /**
-    * Trace ID of the `Verification`. The processor sends back the `trace_id` so you can track the verification end-to-end.
-    */
-    'traceId';
-    /**
-    * The `Payment Instrument` that\'ll be used to settle the `Merchant\'s` processed funds.
-    */
-    'paymentInstrument';
-    /**
-    * ID of the `Merchant` resource.
-    */
-    'merchant';
-    /**
-    * ID of the `Identity` that created the `Merchant`.
-    */
-    'identity';
-    /**
-    * ID of the `Identity` associated with the `Merchant`.
-    */
-    'merchantIdentity';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "application",
-            "baseName": "application",
-            "type": "string"
-        },
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "messages",
-            "baseName": "messages",
-            "type": "Array<object>"
-        },
-        {
-            "name": "raw",
-            "baseName": "raw",
-            "type": "object"
-        },
-        {
-            "name": "processor",
-            "baseName": "processor",
-            "type": "string"
-        },
-        {
-            "name": "state",
-            "baseName": "state",
-            "type": "Verification.StateEnum"
-        },
-        {
-            "name": "createdAt",
-            "baseName": "created_at",
-            "type": "Date"
-        },
-        {
-            "name": "updatedAt",
-            "baseName": "updated_at",
-            "type": "Date"
-        },
-        {
-            "name": "traceId",
-            "baseName": "trace_id",
-            "type": "string"
-        },
-        {
-            "name": "paymentInstrument",
-            "baseName": "payment_instrument",
-            "type": "string"
-        },
-        {
-            "name": "merchant",
-            "baseName": "merchant",
-            "type": "string"
-        },
-        {
-            "name": "identity",
-            "baseName": "identity",
-            "type": "string"
-        },
-        {
-            "name": "merchantIdentity",
-            "baseName": "merchant_identity",
-            "type": "string"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "VerificationLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return Verification.attributeTypeMap;
     }
 }
 exports.Verification = Verification;
+Verification.discriminator = undefined;
+Verification.attributeTypeMap = [
+    {
+        "name": "id",
+        "baseName": "id",
+        "type": "string"
+    },
+    {
+        "name": "application",
+        "baseName": "application",
+        "type": "string"
+    },
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "messages",
+        "baseName": "messages",
+        "type": "Array<object>"
+    },
+    {
+        "name": "raw",
+        "baseName": "raw",
+        "type": "object"
+    },
+    {
+        "name": "processor",
+        "baseName": "processor",
+        "type": "string"
+    },
+    {
+        "name": "state",
+        "baseName": "state",
+        "type": "Verification.StateEnum"
+    },
+    {
+        "name": "createdAt",
+        "baseName": "created_at",
+        "type": "Date"
+    },
+    {
+        "name": "updatedAt",
+        "baseName": "updated_at",
+        "type": "Date"
+    },
+    {
+        "name": "traceId",
+        "baseName": "trace_id",
+        "type": "string"
+    },
+    {
+        "name": "paymentInstrument",
+        "baseName": "payment_instrument",
+        "type": "string"
+    },
+    {
+        "name": "merchant",
+        "baseName": "merchant",
+        "type": "string"
+    },
+    {
+        "name": "identity",
+        "baseName": "identity",
+        "type": "string"
+    },
+    {
+        "name": "merchantIdentity",
+        "baseName": "merchant_identity",
+        "type": "string"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "VerificationLinks"
+    }
+];
 (function (Verification) {
     let StateEnum;
     (function (StateEnum) {

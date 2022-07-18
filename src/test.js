@@ -1,60 +1,31 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const api = __importStar(require("./api"));
 const api_1 = require("./api");
-const fs = __importStar(require("fs"));
-const userName = 'USsRhsHYZGBPnQw8CByJyEQW';
-const password = '8a14c2f9-d94b-4c72-8f5c-a62908e5b30e';
+const userName = 'USpumes23XhzHwXqiy9bfX2B';
+const password = 'c69d39e3-f9ff-4735-8c3e-abca86441906';
 const client = new api_1.Client(userName, password, api_1.Environment.Test);
-const client_identity = new api.IdentitiesApi(userName, password);
-// declare module "*.png" {
-//     const value: any;
-//     export = value;
-// }
-// const environment = api.Environment.Test;
-async function quickstart() {
-    try {
-        // let transferList = await client.Transfers.list({"limit": 2}, 
-        // {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
-        // console.log(transferList.page.nextCursor);
-        // const oneTransfer: api.Transfer = await client.Transfers.get("TRmB5hgMVPYxiacYkGoCRjHq", 
-        //  {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
-        // console.log(oneTransfer.state);
-        // var fileBuffer = Buffer.from("./src/finix.png");
-        var readStream = fs.createReadStream("./src/finix.png");
-        // console.log(readStream);
-        const disputeEvidence = await client.Disputes.createDisputeEvidence("DIs7yQRkHDdMYhurzYz72SFk", {
-            file: "./src/finix.png"
-        }, { headers: { ["Finix-Version"]: "2022-02-01" } });
-        // ["Content-Type"]: "multipart/form-data",
-        console.log(disputeEvidence);
-    }
-    catch (error) {
-        console.log(error);
-        // console.log(error.body._embedded.errors);
-    }
+function quickstart() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const removedSettlement = yield client.Settlements.removeTransfersFromSettlement("STmCc8GbjjX33SdymwNhb9Et", {
+                transfers: ["TRr61njQxaa7AJf6E1C3QwCc"]
+            });
+            console.log(removedSettlement);
+        }
+        catch (error) {
+            // console.log(error);
+            console.log("here");
+            console.log(error.body._embedded.errors[0].message);
+        }
+    });
 }
 quickstart();

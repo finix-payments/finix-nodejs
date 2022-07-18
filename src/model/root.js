@@ -13,17 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Root = void 0;
 class Root {
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "RootLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return Root.attributeTypeMap;
     }
 }
 exports.Root = Root;
+Root.discriminator = undefined;
+Root.attributeTypeMap = [
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "RootLinks"
+    }
+];

@@ -16,17 +16,16 @@ exports.IdentityLinksAssociatedIdentities = void 0;
 * Link to any other `Identites` associated with the request.
 */
 class IdentityLinksAssociatedIdentities {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return IdentityLinksAssociatedIdentities.attributeTypeMap;
     }
 }
 exports.IdentityLinksAssociatedIdentities = IdentityLinksAssociatedIdentities;
+IdentityLinksAssociatedIdentities.discriminator = undefined;
+IdentityLinksAssociatedIdentities.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

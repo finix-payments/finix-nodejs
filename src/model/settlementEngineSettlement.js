@@ -13,245 +13,189 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SettlementEngineSettlement = void 0;
 class SettlementEngineSettlement {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    /**
-    * The ID of the resource.
-    */
-    'id';
-    /**
-    * Timestamp of when the object was created.
-    */
-    'createdAt';
-    /**
-    * Timestamp of when the object was last updated.
-    */
-    'updatedAt';
-    'adjustmentCreditAmount';
-    'adjustmentCreditCount';
-    'adjustmentDebitAmount';
-    'adjustmentDebitCount';
-    /**
-    * The ID of the resource.
-    */
-    'application';
-    'autoCloseTime';
-    'currency';
-    'disputeCreditAmount';
-    'disputeCreditCount';
-    'disputeDebitAmount';
-    'disputeDebitCount';
-    'exception';
-    'feeCount';
-    /**
-    * The ID of the resource.
-    */
-    'identity';
-    /**
-    * The ID of the resource.
-    */
-    'merchant';
-    'payoutPlan';
-    'processorType';
-    'reverseAmount';
-    'reverseCount';
-    'scheduleType';
-    'settlementGroup';
-    'status';
-    'totalAmount';
-    'totalFeeAmount';
-    'transferCreditAmount';
-    'transferCreditCount';
-    'transferDebitAmount';
-    'transferDebitCount';
-    'windowEnd';
-    'windowStart';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "createdAt",
-            "baseName": "created_at",
-            "type": "Date"
-        },
-        {
-            "name": "updatedAt",
-            "baseName": "updated_at",
-            "type": "Date"
-        },
-        {
-            "name": "adjustmentCreditAmount",
-            "baseName": "adjustment_credit_amount",
-            "type": "number"
-        },
-        {
-            "name": "adjustmentCreditCount",
-            "baseName": "adjustment_credit_count",
-            "type": "number"
-        },
-        {
-            "name": "adjustmentDebitAmount",
-            "baseName": "adjustment_debit_amount",
-            "type": "number"
-        },
-        {
-            "name": "adjustmentDebitCount",
-            "baseName": "adjustment_debit_count",
-            "type": "number"
-        },
-        {
-            "name": "application",
-            "baseName": "application",
-            "type": "string"
-        },
-        {
-            "name": "autoCloseTime",
-            "baseName": "auto_close_time",
-            "type": "Date"
-        },
-        {
-            "name": "currency",
-            "baseName": "currency",
-            "type": "Currency"
-        },
-        {
-            "name": "disputeCreditAmount",
-            "baseName": "dispute_credit_amount",
-            "type": "number"
-        },
-        {
-            "name": "disputeCreditCount",
-            "baseName": "dispute_credit_count",
-            "type": "number"
-        },
-        {
-            "name": "disputeDebitAmount",
-            "baseName": "dispute_debit_amount",
-            "type": "number"
-        },
-        {
-            "name": "disputeDebitCount",
-            "baseName": "dispute_debit_count",
-            "type": "number"
-        },
-        {
-            "name": "exception",
-            "baseName": "exception",
-            "type": "boolean"
-        },
-        {
-            "name": "feeCount",
-            "baseName": "fee_count",
-            "type": "number"
-        },
-        {
-            "name": "identity",
-            "baseName": "identity",
-            "type": "string"
-        },
-        {
-            "name": "merchant",
-            "baseName": "merchant",
-            "type": "string"
-        },
-        {
-            "name": "payoutPlan",
-            "baseName": "payout_plan",
-            "type": "string"
-        },
-        {
-            "name": "processorType",
-            "baseName": "processor_type",
-            "type": "string"
-        },
-        {
-            "name": "reverseAmount",
-            "baseName": "reverse_amount",
-            "type": "number"
-        },
-        {
-            "name": "reverseCount",
-            "baseName": "reverse_count",
-            "type": "number"
-        },
-        {
-            "name": "scheduleType",
-            "baseName": "schedule_type",
-            "type": "SettlementEngineSettlement.ScheduleTypeEnum"
-        },
-        {
-            "name": "settlementGroup",
-            "baseName": "settlement_group",
-            "type": "string"
-        },
-        {
-            "name": "status",
-            "baseName": "status",
-            "type": "SettlementEngineSettlement.StatusEnum"
-        },
-        {
-            "name": "totalAmount",
-            "baseName": "total_amount",
-            "type": "number"
-        },
-        {
-            "name": "totalFeeAmount",
-            "baseName": "total_fee_amount",
-            "type": "number"
-        },
-        {
-            "name": "transferCreditAmount",
-            "baseName": "transfer_credit_amount",
-            "type": "number"
-        },
-        {
-            "name": "transferCreditCount",
-            "baseName": "transfer_credit_count",
-            "type": "number"
-        },
-        {
-            "name": "transferDebitAmount",
-            "baseName": "transfer_debit_amount",
-            "type": "number"
-        },
-        {
-            "name": "transferDebitCount",
-            "baseName": "transfer_debit_count",
-            "type": "number"
-        },
-        {
-            "name": "windowEnd",
-            "baseName": "window_end",
-            "type": "Date"
-        },
-        {
-            "name": "windowStart",
-            "baseName": "window_start",
-            "type": "Date"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "SettlementEngineSettlementLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return SettlementEngineSettlement.attributeTypeMap;
     }
 }
 exports.SettlementEngineSettlement = SettlementEngineSettlement;
+SettlementEngineSettlement.discriminator = undefined;
+SettlementEngineSettlement.attributeTypeMap = [
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "id",
+        "baseName": "id",
+        "type": "string"
+    },
+    {
+        "name": "createdAt",
+        "baseName": "created_at",
+        "type": "Date"
+    },
+    {
+        "name": "updatedAt",
+        "baseName": "updated_at",
+        "type": "Date"
+    },
+    {
+        "name": "adjustmentCreditAmount",
+        "baseName": "adjustment_credit_amount",
+        "type": "number"
+    },
+    {
+        "name": "adjustmentCreditCount",
+        "baseName": "adjustment_credit_count",
+        "type": "number"
+    },
+    {
+        "name": "adjustmentDebitAmount",
+        "baseName": "adjustment_debit_amount",
+        "type": "number"
+    },
+    {
+        "name": "adjustmentDebitCount",
+        "baseName": "adjustment_debit_count",
+        "type": "number"
+    },
+    {
+        "name": "application",
+        "baseName": "application",
+        "type": "string"
+    },
+    {
+        "name": "autoCloseTime",
+        "baseName": "auto_close_time",
+        "type": "Date"
+    },
+    {
+        "name": "currency",
+        "baseName": "currency",
+        "type": "Currency"
+    },
+    {
+        "name": "disputeCreditAmount",
+        "baseName": "dispute_credit_amount",
+        "type": "number"
+    },
+    {
+        "name": "disputeCreditCount",
+        "baseName": "dispute_credit_count",
+        "type": "number"
+    },
+    {
+        "name": "disputeDebitAmount",
+        "baseName": "dispute_debit_amount",
+        "type": "number"
+    },
+    {
+        "name": "disputeDebitCount",
+        "baseName": "dispute_debit_count",
+        "type": "number"
+    },
+    {
+        "name": "exception",
+        "baseName": "exception",
+        "type": "boolean"
+    },
+    {
+        "name": "feeCount",
+        "baseName": "fee_count",
+        "type": "number"
+    },
+    {
+        "name": "identity",
+        "baseName": "identity",
+        "type": "string"
+    },
+    {
+        "name": "merchant",
+        "baseName": "merchant",
+        "type": "string"
+    },
+    {
+        "name": "payoutPlan",
+        "baseName": "payout_plan",
+        "type": "string"
+    },
+    {
+        "name": "processorType",
+        "baseName": "processor_type",
+        "type": "string"
+    },
+    {
+        "name": "reverseAmount",
+        "baseName": "reverse_amount",
+        "type": "number"
+    },
+    {
+        "name": "reverseCount",
+        "baseName": "reverse_count",
+        "type": "number"
+    },
+    {
+        "name": "scheduleType",
+        "baseName": "schedule_type",
+        "type": "SettlementEngineSettlement.ScheduleTypeEnum"
+    },
+    {
+        "name": "settlementGroup",
+        "baseName": "settlement_group",
+        "type": "string"
+    },
+    {
+        "name": "status",
+        "baseName": "status",
+        "type": "SettlementEngineSettlement.StatusEnum"
+    },
+    {
+        "name": "totalAmount",
+        "baseName": "total_amount",
+        "type": "number"
+    },
+    {
+        "name": "totalFeeAmount",
+        "baseName": "total_fee_amount",
+        "type": "number"
+    },
+    {
+        "name": "transferCreditAmount",
+        "baseName": "transfer_credit_amount",
+        "type": "number"
+    },
+    {
+        "name": "transferCreditCount",
+        "baseName": "transfer_credit_count",
+        "type": "number"
+    },
+    {
+        "name": "transferDebitAmount",
+        "baseName": "transfer_debit_amount",
+        "type": "number"
+    },
+    {
+        "name": "transferDebitCount",
+        "baseName": "transfer_debit_count",
+        "type": "number"
+    },
+    {
+        "name": "windowEnd",
+        "baseName": "window_end",
+        "type": "Date"
+    },
+    {
+        "name": "windowStart",
+        "baseName": "window_start",
+        "type": "Date"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "SettlementEngineSettlementLinks"
+    }
+];
 (function (SettlementEngineSettlement) {
     let ScheduleTypeEnum;
     (function (ScheduleTypeEnum) {

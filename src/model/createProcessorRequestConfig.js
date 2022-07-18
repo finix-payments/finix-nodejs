@@ -13,20 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateProcessorRequestConfig = void 0;
 class CreateProcessorRequestConfig {
-    /**
-    * Details if a `Processor` can debit bank accounts.
-    */
-    'canDebitBankAccount';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "canDebitBankAccount",
-            "baseName": "canDebitBankAccount",
-            "type": "boolean"
-        }
-    ];
     static getAttributeTypeMap() {
         return CreateProcessorRequestConfig.attributeTypeMap;
     }
 }
 exports.CreateProcessorRequestConfig = CreateProcessorRequestConfig;
+CreateProcessorRequestConfig.discriminator = undefined;
+CreateProcessorRequestConfig.attributeTypeMap = [
+    {
+        "name": "canDebitBankAccount",
+        "baseName": "canDebitBankAccount",
+        "type": "boolean"
+    }
+];

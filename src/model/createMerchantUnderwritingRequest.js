@@ -13,50 +13,34 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateMerchantUnderwritingRequest = void 0;
 class CreateMerchantUnderwritingRequest {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    /**
-    * Name of the gateway that processes the `Merchant\'s` transaction.
-    */
-    'gateway';
-    /**
-    * Name of acquiring processor that settles the `Merchant\'s` transactions.
-    */
-    'processor';
-    /**
-    * Additional information required by the processor being used.
-    */
-    'processorSpecificParameters';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "gateway",
-            "baseName": "gateway",
-            "type": "CreateMerchantUnderwritingRequest.GatewayEnum"
-        },
-        {
-            "name": "processor",
-            "baseName": "processor",
-            "type": "string"
-        },
-        {
-            "name": "processorSpecificParameters",
-            "baseName": "processor_specific_parameters",
-            "type": "object"
-        }
-    ];
     static getAttributeTypeMap() {
         return CreateMerchantUnderwritingRequest.attributeTypeMap;
     }
 }
 exports.CreateMerchantUnderwritingRequest = CreateMerchantUnderwritingRequest;
+CreateMerchantUnderwritingRequest.discriminator = undefined;
+CreateMerchantUnderwritingRequest.attributeTypeMap = [
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "gateway",
+        "baseName": "gateway",
+        "type": "CreateMerchantUnderwritingRequest.GatewayEnum"
+    },
+    {
+        "name": "processor",
+        "baseName": "processor",
+        "type": "string"
+    },
+    {
+        "name": "processorSpecificParameters",
+        "baseName": "processor_specific_parameters",
+        "type": "object"
+    }
+];
 (function (CreateMerchantUnderwritingRequest) {
     let GatewayEnum;
     (function (GatewayEnum) {

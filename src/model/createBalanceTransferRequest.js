@@ -16,74 +16,49 @@ exports.CreateBalanceTransferRequest = void 0;
 * Create a `balance_transfer` resource.
 */
 class CreateBalanceTransferRequest {
-    /**
-    * Additional information about the `balance_transfer` (e.g. **Transferring funds for Holidays**).
-    */
-    'description';
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    /**
-    * Choose the value that best applies to the account where funds will get credited.
-    */
-    'destination';
-    'currency';
-    /**
-    * The total amount that will be debited in cents (e.g. 100 cents to debit $1.00).
-    */
-    'amount';
-    /**
-    * Choose the value that best applies to the account where funds will get debited.
-    */
-    'source';
-    /**
-    * Pass **LITLE_V1**; `balance_transfers` are only avalible for platforms with **LITLE_V1** credentials.
-    */
-    'processorType';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "description",
-            "baseName": "description",
-            "type": "string"
-        },
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "destination",
-            "baseName": "destination",
-            "type": "CreateBalanceTransferRequest.DestinationEnum"
-        },
-        {
-            "name": "currency",
-            "baseName": "currency",
-            "type": "Currency"
-        },
-        {
-            "name": "amount",
-            "baseName": "amount",
-            "type": "number"
-        },
-        {
-            "name": "source",
-            "baseName": "source",
-            "type": "CreateBalanceTransferRequest.SourceEnum"
-        },
-        {
-            "name": "processorType",
-            "baseName": "processor_type",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return CreateBalanceTransferRequest.attributeTypeMap;
     }
 }
 exports.CreateBalanceTransferRequest = CreateBalanceTransferRequest;
+CreateBalanceTransferRequest.discriminator = undefined;
+CreateBalanceTransferRequest.attributeTypeMap = [
+    {
+        "name": "description",
+        "baseName": "description",
+        "type": "string"
+    },
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "destination",
+        "baseName": "destination",
+        "type": "CreateBalanceTransferRequest.DestinationEnum"
+    },
+    {
+        "name": "currency",
+        "baseName": "currency",
+        "type": "Currency"
+    },
+    {
+        "name": "amount",
+        "baseName": "amount",
+        "type": "number"
+    },
+    {
+        "name": "source",
+        "baseName": "source",
+        "type": "CreateBalanceTransferRequest.SourceEnum"
+    },
+    {
+        "name": "processorType",
+        "baseName": "processor_type",
+        "type": "string"
+    }
+];
 (function (CreateBalanceTransferRequest) {
     let DestinationEnum;
     (function (DestinationEnum) {

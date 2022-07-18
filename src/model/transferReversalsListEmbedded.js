@@ -13,17 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TransferReversalsListEmbedded = void 0;
 class TransferReversalsListEmbedded {
-    'transfers';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "transfers",
-            "baseName": "transfers",
-            "type": "Set<Transfer>"
-        }
-    ];
     static getAttributeTypeMap() {
         return TransferReversalsListEmbedded.attributeTypeMap;
     }
 }
 exports.TransferReversalsListEmbedded = TransferReversalsListEmbedded;
+TransferReversalsListEmbedded.discriminator = undefined;
+TransferReversalsListEmbedded.attributeTypeMap = [
+    {
+        "name": "transfers",
+        "baseName": "transfers",
+        "type": "Set<Transfer>"
+    }
+];

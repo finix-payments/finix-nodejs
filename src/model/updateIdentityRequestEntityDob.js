@@ -16,29 +16,26 @@ exports.UpdateIdentityRequestEntityDob = void 0;
 * The control owner\'s date of birth.
 */
 class UpdateIdentityRequestEntityDob {
-    'year';
-    'day';
-    'month';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "year",
-            "baseName": "year",
-            "type": "number"
-        },
-        {
-            "name": "day",
-            "baseName": "day",
-            "type": "number"
-        },
-        {
-            "name": "month",
-            "baseName": "month",
-            "type": "number"
-        }
-    ];
     static getAttributeTypeMap() {
         return UpdateIdentityRequestEntityDob.attributeTypeMap;
     }
 }
 exports.UpdateIdentityRequestEntityDob = UpdateIdentityRequestEntityDob;
+UpdateIdentityRequestEntityDob.discriminator = undefined;
+UpdateIdentityRequestEntityDob.attributeTypeMap = [
+    {
+        "name": "year",
+        "baseName": "year",
+        "type": "number"
+    },
+    {
+        "name": "day",
+        "baseName": "day",
+        "type": "number"
+    },
+    {
+        "name": "month",
+        "baseName": "month",
+        "type": "number"
+    }
+];

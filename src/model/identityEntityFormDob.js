@@ -16,38 +16,26 @@ exports.IdentityEntityFormDob = void 0;
 * Principal\'s date of birth.
 */
 class IdentityEntityFormDob {
-    /**
-    * Year of birth (4-digit).
-    */
-    'year';
-    /**
-    * Day of birth (between 1 and 31).
-    */
-    'day';
-    /**
-    * Month of birth (between 1 and 12).
-    */
-    'month';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "year",
-            "baseName": "year",
-            "type": "number"
-        },
-        {
-            "name": "day",
-            "baseName": "day",
-            "type": "number"
-        },
-        {
-            "name": "month",
-            "baseName": "month",
-            "type": "number"
-        }
-    ];
     static getAttributeTypeMap() {
         return IdentityEntityFormDob.attributeTypeMap;
     }
 }
 exports.IdentityEntityFormDob = IdentityEntityFormDob;
+IdentityEntityFormDob.discriminator = undefined;
+IdentityEntityFormDob.attributeTypeMap = [
+    {
+        "name": "year",
+        "baseName": "year",
+        "type": "number"
+    },
+    {
+        "name": "day",
+        "baseName": "day",
+        "type": "number"
+    },
+    {
+        "name": "month",
+        "baseName": "month",
+        "type": "number"
+    }
+];

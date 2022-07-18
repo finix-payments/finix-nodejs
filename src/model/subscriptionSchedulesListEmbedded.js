@@ -13,17 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SubscriptionSchedulesListEmbedded = void 0;
 class SubscriptionSchedulesListEmbedded {
-    'subscriptionSchedules';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "subscriptionSchedules",
-            "baseName": "subscription_schedules",
-            "type": "Set<SubscriptionSchedule>"
-        }
-    ];
     static getAttributeTypeMap() {
         return SubscriptionSchedulesListEmbedded.attributeTypeMap;
     }
 }
 exports.SubscriptionSchedulesListEmbedded = SubscriptionSchedulesListEmbedded;
+SubscriptionSchedulesListEmbedded.discriminator = undefined;
+SubscriptionSchedulesListEmbedded.attributeTypeMap = [
+    {
+        "name": "subscriptionSchedules",
+        "baseName": "subscription_schedules",
+        "type": "Set<SubscriptionSchedule>"
+    }
+];

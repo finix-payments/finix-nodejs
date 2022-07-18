@@ -13,74 +13,46 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ListMerchantsQueryParams = void 0;
 class ListMerchantsQueryParams {
-    /**
-    * Filter by id
-    */
-    'id';
-    /**
-    * Filter where created_at is after the given date.
-    */
-    'createdAtGte';
-    /**
-    * Filter where created_at is before the given date.
-    */
-    'createdAtLte';
-    /**
-    * Specify key to be used for sorting the collection
-    */
-    'sort';
-    /**
-    * Return every resource created after the cursor value.
-    */
-    'afterCursor';
-    /**
-    * The numbers of items to return
-    */
-    'limit';
-    /**
-    * Return every resource created before the cursor value.
-    */
-    'beforeCursor';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "createdAtGte",
-            "baseName": "created_at.gte",
-            "type": "string"
-        },
-        {
-            "name": "createdAtLte",
-            "baseName": "created_at.lte",
-            "type": "string"
-        },
-        {
-            "name": "sort",
-            "baseName": "sort",
-            "type": "string"
-        },
-        {
-            "name": "afterCursor",
-            "baseName": "after_cursor",
-            "type": "string"
-        },
-        {
-            "name": "limit",
-            "baseName": "limit",
-            "type": "number"
-        },
-        {
-            "name": "beforeCursor",
-            "baseName": "before_cursor",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return ListMerchantsQueryParams.attributeTypeMap;
     }
 }
 exports.ListMerchantsQueryParams = ListMerchantsQueryParams;
+ListMerchantsQueryParams.discriminator = undefined;
+ListMerchantsQueryParams.attributeTypeMap = [
+    {
+        "name": "id",
+        "baseName": "id",
+        "type": "string"
+    },
+    {
+        "name": "createdAtGte",
+        "baseName": "created_at.gte",
+        "type": "string"
+    },
+    {
+        "name": "createdAtLte",
+        "baseName": "created_at.lte",
+        "type": "string"
+    },
+    {
+        "name": "sort",
+        "baseName": "sort",
+        "type": "string"
+    },
+    {
+        "name": "afterCursor",
+        "baseName": "after_cursor",
+        "type": "string"
+    },
+    {
+        "name": "limit",
+        "baseName": "limit",
+        "type": "number"
+    },
+    {
+        "name": "beforeCursor",
+        "baseName": "before_cursor",
+        "type": "string"
+    }
+];

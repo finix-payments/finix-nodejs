@@ -16,17 +16,16 @@ exports.TransferLinksFees = void 0;
 * Link to the `fees` the request is associated with.
 */
 class TransferLinksFees {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return TransferLinksFees.attributeTypeMap;
     }
 }
 exports.TransferLinksFees = TransferLinksFees;
+TransferLinksFees.discriminator = undefined;
+TransferLinksFees.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

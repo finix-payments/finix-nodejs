@@ -13,17 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProcessorSystemConfigConfigurationTemplates = void 0;
 class ProcessorSystemConfigConfigurationTemplates {
-    'country';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "country",
-            "baseName": "country",
-            "type": "{ [key: string]: object; }"
-        }
-    ];
     static getAttributeTypeMap() {
         return ProcessorSystemConfigConfigurationTemplates.attributeTypeMap;
     }
 }
 exports.ProcessorSystemConfigConfigurationTemplates = ProcessorSystemConfigConfigurationTemplates;
+ProcessorSystemConfigConfigurationTemplates.discriminator = undefined;
+ProcessorSystemConfigConfigurationTemplates.attributeTypeMap = [
+    {
+        "name": "country",
+        "baseName": "country",
+        "type": "{ [key: string]: object; }"
+    }
+];

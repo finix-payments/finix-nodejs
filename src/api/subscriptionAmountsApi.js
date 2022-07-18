@@ -10,6 +10,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -27,15 +36,15 @@ var SubscriptionAmountsApiApiKeys;
 (function (SubscriptionAmountsApiApiKeys) {
 })(SubscriptionAmountsApiApiKeys = exports.SubscriptionAmountsApiApiKeys || (exports.SubscriptionAmountsApiApiKeys = {}));
 class SubscriptionAmountsApi {
-    _basePath = defaultBasePath;
-    _defaultHeaders = {};
-    _useQuerystring = false;
-    authentications = {
-        'default': new models_1.VoidAuth(),
-        'BasicAuth': new models_2.HttpBasicAuth(),
-    };
-    interceptors = [];
     constructor(basePathOrUsername, password, basePath) {
+        this._basePath = defaultBasePath;
+        this._defaultHeaders = {};
+        this._useQuerystring = false;
+        this.authentications = {
+            'default': new models_1.VoidAuth(),
+            'BasicAuth': new models_2.HttpBasicAuth(),
+        };
+        this.interceptors = [];
         if (password) {
             this.username = basePathOrUsername;
             this.password = password;
@@ -86,67 +95,75 @@ class SubscriptionAmountsApi {
      * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
      * @param createSubscriptionAmountRequest
      */
-    async lcreateHelper(subscriptionScheduleId, createSubscriptionAmountRequest, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/subscription/subscription_schedules/{subscription_schedule_id}/subscription_amounts'
-            .replace('{' + 'subscription_schedule_id' + '}', encodeURIComponent(String(subscriptionScheduleId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'subscriptionScheduleId' is not null or undefined
-        if (subscriptionScheduleId === null || subscriptionScheduleId === undefined) {
-            throw new Error('Required parameter subscriptionScheduleId was null or undefined when calling createSubscriptionAmounts.');
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'POST',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: models_1.ObjectSerializer.serialize(createSubscriptionAmountRequest, "CreateSubscriptionAmountRequest")
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    lcreateHelper(subscriptionScheduleId, createSubscriptionAmountRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/subscription/subscription_schedules/{subscription_schedule_id}/subscription_amounts'
+                .replace('{' + 'subscription_schedule_id' + '}', encodeURIComponent(String(subscriptionScheduleId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'subscriptionScheduleId' is not null or undefined
+            if (subscriptionScheduleId === null || subscriptionScheduleId === undefined) {
+                throw new Error('Required parameter subscriptionScheduleId was null or undefined when calling createSubscriptionAmounts.');
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'POST',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            if (createSubscriptionAmountRequest != undefined && createSubscriptionAmountRequest != null && createSubscriptionAmountRequest.hasOwnProperty('file')) {
+                localVarRequestOptions.formData = createSubscriptionAmountRequest;
+            }
+            else {
+                localVarRequestOptions.body = models_1.ObjectSerializer.serialize(createSubscriptionAmountRequest, "CreateSubscriptionAmountRequest");
+            }
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "SubscriptionAmount");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "SubscriptionAmount");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -157,13 +174,11 @@ class SubscriptionAmountsApi {
      * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
      * @param createSubscriptionAmountRequest
      */
-    async lcreate(subscriptionScheduleId, createSubscriptionAmountRequest, options = { headers: {} }) {
-        const responseObject = await this.lcreateHelper(subscriptionScheduleId, createSubscriptionAmountRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    lcreate(subscriptionScheduleId, createSubscriptionAmountRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.lcreateHelper(subscriptionScheduleId, createSubscriptionAmountRequest, options);
+            return responseObject.body;
+        });
     }
     /**
      * Create a `subscription_amount`.  The `Subscription Amount` is the amount to be charged to a `Merchant`. The `Subscription Amount` must be associated to a `Subscription Schedule`.
@@ -171,13 +186,11 @@ class SubscriptionAmountsApi {
      * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
      * @param createSubscriptionAmountRequest
      */
-    async lcreateHttp(subscriptionScheduleId, createSubscriptionAmountRequest, options = { headers: {} }) {
-        const responseObject = await this.lcreateHelper(subscriptionScheduleId, createSubscriptionAmountRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    lcreateHttp(subscriptionScheduleId, createSubscriptionAmountRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.lcreateHelper(subscriptionScheduleId, createSubscriptionAmountRequest, options);
+            return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -186,70 +199,73 @@ class SubscriptionAmountsApi {
      * @param subscriptionAmountId The ID of the &#x60;Subscription Amount&#x60;.
      * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
      */
-    async deleteSubscriptionAmountHelper(subscriptionAmountId, subscriptionScheduleId, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/subscription/subscription_schedules/{subscription_schedule_id}/subscription_amounts/{subscription_amount_id}'
-            .replace('{' + 'subscription_amount_id' + '}', encodeURIComponent(String(subscriptionAmountId)))
-            .replace('{' + 'subscription_schedule_id' + '}', encodeURIComponent(String(subscriptionScheduleId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'subscriptionAmountId' is not null or undefined
-        if (subscriptionAmountId === null || subscriptionAmountId === undefined) {
-            throw new Error('Required parameter subscriptionAmountId was null or undefined when calling deleteSubscriptionAmount.');
-        }
-        // verify required parameter 'subscriptionScheduleId' is not null or undefined
-        if (subscriptionScheduleId === null || subscriptionScheduleId === undefined) {
-            throw new Error('Required parameter subscriptionScheduleId was null or undefined when calling deleteSubscriptionAmount.');
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'DELETE',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    deleteSubscriptionAmountHelper(subscriptionAmountId, subscriptionScheduleId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/subscription/subscription_schedules/{subscription_schedule_id}/subscription_amounts/{subscription_amount_id}'
+                .replace('{' + 'subscription_amount_id' + '}', encodeURIComponent(String(subscriptionAmountId)))
+                .replace('{' + 'subscription_schedule_id' + '}', encodeURIComponent(String(subscriptionScheduleId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'subscriptionAmountId' is not null or undefined
+            if (subscriptionAmountId === null || subscriptionAmountId === undefined) {
+                throw new Error('Required parameter subscriptionAmountId was null or undefined when calling deleteSubscriptionAmount.');
+            }
+            // verify required parameter 'subscriptionScheduleId' is not null or undefined
+            if (subscriptionScheduleId === null || subscriptionScheduleId === undefined) {
+                throw new Error('Required parameter subscriptionScheduleId was null or undefined when calling deleteSubscriptionAmount.');
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'DELETE',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -260,13 +276,11 @@ class SubscriptionAmountsApi {
      * @param subscriptionAmountId The ID of the &#x60;Subscription Amount&#x60;.
      * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
      */
-    async deleteSubscriptionAmount(subscriptionAmountId, subscriptionScheduleId, options = { headers: {} }) {
-        const responseObject = await this.deleteSubscriptionAmountHelper(subscriptionAmountId, subscriptionScheduleId, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    deleteSubscriptionAmount(subscriptionAmountId, subscriptionScheduleId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.deleteSubscriptionAmountHelper(subscriptionAmountId, subscriptionScheduleId, options);
+            return responseObject.body;
+        });
     }
     /**
      * Delete a previously created `Subscription Amount`.
@@ -274,13 +288,11 @@ class SubscriptionAmountsApi {
      * @param subscriptionAmountId The ID of the &#x60;Subscription Amount&#x60;.
      * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
      */
-    async deleteSubscriptionAmountHttp(subscriptionAmountId, subscriptionScheduleId, options = { headers: {} }) {
-        const responseObject = await this.deleteSubscriptionAmountHelper(subscriptionAmountId, subscriptionScheduleId, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    deleteSubscriptionAmountHttp(subscriptionAmountId, subscriptionScheduleId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.deleteSubscriptionAmountHelper(subscriptionAmountId, subscriptionScheduleId, options);
+            return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -289,71 +301,74 @@ class SubscriptionAmountsApi {
      * @param subscriptionAmountId The ID of the &#x60;Subscription Amount&#x60;.
      * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
      */
-    async getHelper(subscriptionAmountId, subscriptionScheduleId, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/subscription/subscription_schedules/{subscription_schedule_id}/subscription_amounts/{subscription_amount_id}'
-            .replace('{' + 'subscription_amount_id' + '}', encodeURIComponent(String(subscriptionAmountId)))
-            .replace('{' + 'subscription_schedule_id' + '}', encodeURIComponent(String(subscriptionScheduleId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'subscriptionAmountId' is not null or undefined
-        if (subscriptionAmountId === null || subscriptionAmountId === undefined) {
-            throw new Error('Required parameter subscriptionAmountId was null or undefined when calling getSubscriptionAmount.');
-        }
-        // verify required parameter 'subscriptionScheduleId' is not null or undefined
-        if (subscriptionScheduleId === null || subscriptionScheduleId === undefined) {
-            throw new Error('Required parameter subscriptionScheduleId was null or undefined when calling getSubscriptionAmount.');
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    getHelper(subscriptionAmountId, subscriptionScheduleId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/subscription/subscription_schedules/{subscription_schedule_id}/subscription_amounts/{subscription_amount_id}'
+                .replace('{' + 'subscription_amount_id' + '}', encodeURIComponent(String(subscriptionAmountId)))
+                .replace('{' + 'subscription_schedule_id' + '}', encodeURIComponent(String(subscriptionScheduleId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'subscriptionAmountId' is not null or undefined
+            if (subscriptionAmountId === null || subscriptionAmountId === undefined) {
+                throw new Error('Required parameter subscriptionAmountId was null or undefined when calling getSubscriptionAmount.');
+            }
+            // verify required parameter 'subscriptionScheduleId' is not null or undefined
+            if (subscriptionScheduleId === null || subscriptionScheduleId === undefined) {
+                throw new Error('Required parameter subscriptionScheduleId was null or undefined when calling getSubscriptionAmount.');
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'GET',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "SubscriptionAmount");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "SubscriptionAmount");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -364,13 +379,11 @@ class SubscriptionAmountsApi {
      * @param subscriptionAmountId The ID of the &#x60;Subscription Amount&#x60;.
      * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
      */
-    async get(subscriptionAmountId, subscriptionScheduleId, options = { headers: {} }) {
-        const responseObject = await this.getHelper(subscriptionAmountId, subscriptionScheduleId, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    get(subscriptionAmountId, subscriptionScheduleId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.getHelper(subscriptionAmountId, subscriptionScheduleId, options);
+            return responseObject.body;
+        });
     }
     /**
      * Retrieve the details of a `subscription_amount`.
@@ -378,13 +391,11 @@ class SubscriptionAmountsApi {
      * @param subscriptionAmountId The ID of the &#x60;Subscription Amount&#x60;.
      * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
      */
-    async getHttp(subscriptionAmountId, subscriptionScheduleId, options = { headers: {} }) {
-        const responseObject = await this.getHelper(subscriptionAmountId, subscriptionScheduleId, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    getHttp(subscriptionAmountId, subscriptionScheduleId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.getHelper(subscriptionAmountId, subscriptionScheduleId, options);
+            return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -394,77 +405,80 @@ class SubscriptionAmountsApi {
     * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
     *
     */
-    async listBySubscriptionScheduleHelper(subscriptionScheduleId, listSubscriptionAmountQueryParams, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/subscription/subscription_schedules/{subscription_schedule_id}/subscription_amounts'
-            .replace('{' + 'subscription_schedule_id' + '}', encodeURIComponent(String(subscriptionScheduleId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'subscriptionScheduleId' is not null or undefined
-        if (subscriptionScheduleId === null || subscriptionScheduleId === undefined) {
-            throw new Error('Required parameter subscriptionScheduleId was null or undefined when calling listSubscriptionAmount.');
-        }
-        if (listSubscriptionAmountQueryParams != undefined) {
-            if (listSubscriptionAmountQueryParams.limit !== undefined) {
-                localVarQueryParameters['limit'] = models_1.ObjectSerializer.serialize(listSubscriptionAmountQueryParams.limit, "number");
+    listBySubscriptionScheduleHelper(subscriptionScheduleId, listSubscriptionAmountQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/subscription/subscription_schedules/{subscription_schedule_id}/subscription_amounts'
+                .replace('{' + 'subscription_schedule_id' + '}', encodeURIComponent(String(subscriptionScheduleId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            if (listSubscriptionAmountQueryParams.afterCursor !== undefined) {
-                localVarQueryParameters['after_cursor'] = models_1.ObjectSerializer.serialize(listSubscriptionAmountQueryParams.afterCursor, "string");
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
             }
-            if (listSubscriptionAmountQueryParams.beforeCursor !== undefined) {
-                localVarQueryParameters['before_cursor'] = models_1.ObjectSerializer.serialize(listSubscriptionAmountQueryParams.beforeCursor, "string");
+            let localVarFormParams = {};
+            // verify required parameter 'subscriptionScheduleId' is not null or undefined
+            if (subscriptionScheduleId === null || subscriptionScheduleId === undefined) {
+                throw new Error('Required parameter subscriptionScheduleId was null or undefined when calling listSubscriptionAmount.');
             }
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
+            if (listSubscriptionAmountQueryParams != undefined) {
+                if (listSubscriptionAmountQueryParams.limit !== undefined) {
+                    localVarQueryParameters['limit'] = models_1.ObjectSerializer.serialize(listSubscriptionAmountQueryParams.limit, "number");
                 }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
+                if (listSubscriptionAmountQueryParams.afterCursor !== undefined) {
+                    localVarQueryParameters['after_cursor'] = models_1.ObjectSerializer.serialize(listSubscriptionAmountQueryParams.afterCursor, "string");
+                }
+                if (listSubscriptionAmountQueryParams.beforeCursor !== undefined) {
+                    localVarQueryParameters['before_cursor'] = models_1.ObjectSerializer.serialize(listSubscriptionAmountQueryParams.beforeCursor, "string");
                 }
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'GET',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "SubscriptionAmountList");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "SubscriptionAmountList");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -476,13 +490,12 @@ class SubscriptionAmountsApi {
     * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
     *
     */
-    async listBySubscriptionSchedule(subscriptionScheduleId, listSubscriptionAmountQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listBySubscriptionScheduleHelper(subscriptionScheduleId, listSubscriptionAmountQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    listBySubscriptionSchedule(subscriptionScheduleId, listSubscriptionAmountQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listBySubscriptionScheduleHelper(subscriptionScheduleId, listSubscriptionAmountQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return dataList;
-        }
-        return responseObject.body;
+        });
     }
     /**
      * Retrive a list of `Subscription Amounts`.
@@ -491,13 +504,12 @@ class SubscriptionAmountsApi {
     * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
     *
     */
-    async listBySubscriptionScheduleHttp(subscriptionScheduleId, listSubscriptionAmountQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listBySubscriptionScheduleHelper(subscriptionScheduleId, listSubscriptionAmountQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    listBySubscriptionScheduleHttp(subscriptionScheduleId, listSubscriptionAmountQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listBySubscriptionScheduleHelper(subscriptionScheduleId, listSubscriptionAmountQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -507,72 +519,80 @@ class SubscriptionAmountsApi {
      * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
      * @param createSubscriptionAmountRequest
      */
-    async patchSubscriptionAmountHelper(subscriptionAmountId, subscriptionScheduleId, createSubscriptionAmountRequest, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/subscription/subscription_schedules/{subscription_schedule_id}/subscription_amounts/{subscription_amount_id}'
-            .replace('{' + 'subscription_amount_id' + '}', encodeURIComponent(String(subscriptionAmountId)))
-            .replace('{' + 'subscription_schedule_id' + '}', encodeURIComponent(String(subscriptionScheduleId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'subscriptionAmountId' is not null or undefined
-        if (subscriptionAmountId === null || subscriptionAmountId === undefined) {
-            throw new Error('Required parameter subscriptionAmountId was null or undefined when calling patchSubscriptionAmount.');
-        }
-        // verify required parameter 'subscriptionScheduleId' is not null or undefined
-        if (subscriptionScheduleId === null || subscriptionScheduleId === undefined) {
-            throw new Error('Required parameter subscriptionScheduleId was null or undefined when calling patchSubscriptionAmount.');
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'PATCH',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: models_1.ObjectSerializer.serialize(createSubscriptionAmountRequest, "CreateSubscriptionAmountRequest")
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    patchSubscriptionAmountHelper(subscriptionAmountId, subscriptionScheduleId, createSubscriptionAmountRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/subscription/subscription_schedules/{subscription_schedule_id}/subscription_amounts/{subscription_amount_id}'
+                .replace('{' + 'subscription_amount_id' + '}', encodeURIComponent(String(subscriptionAmountId)))
+                .replace('{' + 'subscription_schedule_id' + '}', encodeURIComponent(String(subscriptionScheduleId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'subscriptionAmountId' is not null or undefined
+            if (subscriptionAmountId === null || subscriptionAmountId === undefined) {
+                throw new Error('Required parameter subscriptionAmountId was null or undefined when calling patchSubscriptionAmount.');
+            }
+            // verify required parameter 'subscriptionScheduleId' is not null or undefined
+            if (subscriptionScheduleId === null || subscriptionScheduleId === undefined) {
+                throw new Error('Required parameter subscriptionScheduleId was null or undefined when calling patchSubscriptionAmount.');
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'PATCH',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            if (createSubscriptionAmountRequest != undefined && createSubscriptionAmountRequest != null && createSubscriptionAmountRequest.hasOwnProperty('file')) {
+                localVarRequestOptions.formData = createSubscriptionAmountRequest;
+            }
+            else {
+                localVarRequestOptions.body = models_1.ObjectSerializer.serialize(createSubscriptionAmountRequest, "CreateSubscriptionAmountRequest");
+            }
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "SubscriptionAmount");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "SubscriptionAmount");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -584,13 +604,11 @@ class SubscriptionAmountsApi {
      * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
      * @param createSubscriptionAmountRequest
      */
-    async patchSubscriptionAmount(subscriptionAmountId, subscriptionScheduleId, createSubscriptionAmountRequest, options = { headers: {} }) {
-        const responseObject = await this.patchSubscriptionAmountHelper(subscriptionAmountId, subscriptionScheduleId, createSubscriptionAmountRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    patchSubscriptionAmount(subscriptionAmountId, subscriptionScheduleId, createSubscriptionAmountRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.patchSubscriptionAmountHelper(subscriptionAmountId, subscriptionScheduleId, createSubscriptionAmountRequest, options);
+            return responseObject.body;
+        });
     }
     /**
      * Update the details of a `subscription_amount`.
@@ -599,20 +617,28 @@ class SubscriptionAmountsApi {
      * @param subscriptionScheduleId The ID of the &#x60;Subscription Schedule&#x60;.
      * @param createSubscriptionAmountRequest
      */
-    async patchSubscriptionAmountHttp(subscriptionAmountId, subscriptionScheduleId, createSubscriptionAmountRequest, options = { headers: {} }) {
-        const responseObject = await this.patchSubscriptionAmountHelper(subscriptionAmountId, subscriptionScheduleId, createSubscriptionAmountRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    patchSubscriptionAmountHttp(subscriptionAmountId, subscriptionScheduleId, createSubscriptionAmountRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.patchSubscriptionAmountHelper(subscriptionAmountId, subscriptionScheduleId, createSubscriptionAmountRequest, options);
+            return responseObject;
+        });
     }
-    async embeddedHelper(responseObject) {
-        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let dataList = responseObject.body.embedded[embeddedName];
-        dataList.page = responseObject.body.page;
-        dataList.links = responseObject.body.links;
-        return dataList;
+    embeddedHelper(responseObject) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (responseObject.embedded == null || responseObject.embedded == undefined) {
+                const dataList = new models_1.SuperSet();
+                dataList.page = responseObject.body.page;
+                dataList.links = responseObject.body.links;
+                return dataList;
+            }
+            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+            let tempList = responseObject.body.embedded[embeddedName];
+            const dataList = new models_1.SuperSet();
+            tempList.forEach(item => { dataList.add(item); });
+            dataList.page = responseObject.body.page;
+            dataList.links = responseObject.body.links;
+            return dataList;
+        });
     }
 }
 exports.SubscriptionAmountsApi = SubscriptionAmountsApi;

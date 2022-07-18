@@ -16,41 +16,36 @@ exports.ApplicationProfilesListLinks = void 0;
 * For your convenience, every response includes several URLs which link to resources relevant to the request. You can use these `_links` to make your follow-up requests and quickly access relevant IDs.
 */
 class ApplicationProfilesListLinks {
-    'first';
-    'last';
-    'next';
-    'prev';
-    'self';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "first",
-            "baseName": "first",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "last",
-            "baseName": "last",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "next",
-            "baseName": "next",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "prev",
-            "baseName": "prev",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "self",
-            "baseName": "self",
-            "type": "ApplicationLinksSelf"
-        }
-    ];
     static getAttributeTypeMap() {
         return ApplicationProfilesListLinks.attributeTypeMap;
     }
 }
 exports.ApplicationProfilesListLinks = ApplicationProfilesListLinks;
+ApplicationProfilesListLinks.discriminator = undefined;
+ApplicationProfilesListLinks.attributeTypeMap = [
+    {
+        "name": "first",
+        "baseName": "first",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "last",
+        "baseName": "last",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "next",
+        "baseName": "next",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "prev",
+        "baseName": "prev",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "self",
+        "baseName": "self",
+        "type": "ApplicationLinksSelf"
+    }
+];

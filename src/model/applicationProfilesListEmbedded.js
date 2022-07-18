@@ -13,20 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ApplicationProfilesListEmbedded = void 0;
 class ApplicationProfilesListEmbedded {
-    /**
-    * `application_profile` resource.
-    */
-    'applicationProfiles';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "applicationProfiles",
-            "baseName": "application_profiles",
-            "type": "Set<ApplicationProfile>"
-        }
-    ];
     static getAttributeTypeMap() {
         return ApplicationProfilesListEmbedded.attributeTypeMap;
     }
 }
 exports.ApplicationProfilesListEmbedded = ApplicationProfilesListEmbedded;
+ApplicationProfilesListEmbedded.discriminator = undefined;
+ApplicationProfilesListEmbedded.attributeTypeMap = [
+    {
+        "name": "applicationProfiles",
+        "baseName": "application_profiles",
+        "type": "Set<ApplicationProfile>"
+    }
+];

@@ -16,62 +16,44 @@ exports.CreateSubscriptionScheduleRequest = void 0;
 *
 */
 class CreateSubscriptionScheduleRequest {
-    /**
-    * Subscription Schedule type. For subscriptions, the type is **FEE**.
-    */
-    'lineItemType';
-    /**
-    * Human readable name.
-    */
-    'nickname';
-    'fixedTimeIntervalOffset';
-    'periodOffset';
-    /**
-    * Specify the type of schedule: - **FIXED\\_TIME\\_INTERVAL**: Charges a Merchant on a fixed hourly interval. - **PERIODIC\\_MONTHLY**: Charges a Merchant once a month on a specific day. - **PERIODIC\\_YEARLY**: Charges a Merchant once a year on a specific day and month.
-    */
-    'subscriptionType';
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "lineItemType",
-            "baseName": "line_item_type",
-            "type": "CreateSubscriptionScheduleRequest.LineItemTypeEnum"
-        },
-        {
-            "name": "nickname",
-            "baseName": "nickname",
-            "type": "string"
-        },
-        {
-            "name": "fixedTimeIntervalOffset",
-            "baseName": "fixed_time_interval_offset",
-            "type": "CreateSubscriptionScheduleRequestFixedTimeIntervalOffset"
-        },
-        {
-            "name": "periodOffset",
-            "baseName": "period_offset",
-            "type": "CreateSubscriptionScheduleRequestPeriodOffset"
-        },
-        {
-            "name": "subscriptionType",
-            "baseName": "subscription_type",
-            "type": "CreateSubscriptionScheduleRequest.SubscriptionTypeEnum"
-        },
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        }
-    ];
     static getAttributeTypeMap() {
         return CreateSubscriptionScheduleRequest.attributeTypeMap;
     }
 }
 exports.CreateSubscriptionScheduleRequest = CreateSubscriptionScheduleRequest;
+CreateSubscriptionScheduleRequest.discriminator = undefined;
+CreateSubscriptionScheduleRequest.attributeTypeMap = [
+    {
+        "name": "lineItemType",
+        "baseName": "line_item_type",
+        "type": "CreateSubscriptionScheduleRequest.LineItemTypeEnum"
+    },
+    {
+        "name": "nickname",
+        "baseName": "nickname",
+        "type": "string"
+    },
+    {
+        "name": "fixedTimeIntervalOffset",
+        "baseName": "fixed_time_interval_offset",
+        "type": "CreateSubscriptionScheduleRequestFixedTimeIntervalOffset"
+    },
+    {
+        "name": "periodOffset",
+        "baseName": "period_offset",
+        "type": "CreateSubscriptionScheduleRequestPeriodOffset"
+    },
+    {
+        "name": "subscriptionType",
+        "baseName": "subscription_type",
+        "type": "CreateSubscriptionScheduleRequest.SubscriptionTypeEnum"
+    },
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    }
+];
 (function (CreateSubscriptionScheduleRequest) {
     let LineItemTypeEnum;
     (function (LineItemTypeEnum) {

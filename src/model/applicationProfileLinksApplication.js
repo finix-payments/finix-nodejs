@@ -16,17 +16,16 @@ exports.ApplicationProfileLinksApplication = void 0;
 * Link to the `Application` the resource was created under.
 */
 class ApplicationProfileLinksApplication {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return ApplicationProfileLinksApplication.attributeTypeMap;
     }
 }
 exports.ApplicationProfileLinksApplication = ApplicationProfileLinksApplication;
+ApplicationProfileLinksApplication.discriminator = undefined;
+ApplicationProfileLinksApplication.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

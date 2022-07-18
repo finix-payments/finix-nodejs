@@ -16,17 +16,16 @@ exports.AuthorizationLinksTransfer = void 0;
 * Link to the `Transfers` realted to the `Authorization`.
 */
 class AuthorizationLinksTransfer {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return AuthorizationLinksTransfer.attributeTypeMap;
     }
 }
 exports.AuthorizationLinksTransfer = AuthorizationLinksTransfer;
+AuthorizationLinksTransfer.discriminator = undefined;
+AuthorizationLinksTransfer.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

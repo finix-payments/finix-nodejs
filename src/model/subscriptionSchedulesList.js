@@ -16,29 +16,26 @@ exports.SubscriptionSchedulesList = void 0;
 * `Subscription Schedule` resource.
 */
 class SubscriptionSchedulesList {
-    'page';
-    'embedded';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "page",
-            "baseName": "page",
-            "type": "UsersListPage"
-        },
-        {
-            "name": "embedded",
-            "baseName": "_embedded",
-            "type": "SubscriptionSchedulesListEmbedded"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "SubscriptionSchedulesListLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return SubscriptionSchedulesList.attributeTypeMap;
     }
 }
 exports.SubscriptionSchedulesList = SubscriptionSchedulesList;
+SubscriptionSchedulesList.discriminator = undefined;
+SubscriptionSchedulesList.attributeTypeMap = [
+    {
+        "name": "page",
+        "baseName": "page",
+        "type": "UsersListPage"
+    },
+    {
+        "name": "embedded",
+        "baseName": "_embedded",
+        "type": "SubscriptionSchedulesListEmbedded"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "SubscriptionSchedulesListLinks"
+    }
+];

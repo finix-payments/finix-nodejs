@@ -13,17 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RiskProfileRulesListEmbedded = void 0;
 class RiskProfileRulesListEmbedded {
-    'riskProfileRules';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "riskProfileRules",
-            "baseName": "risk_profile_rules",
-            "type": "Set<RiskProfileRule>"
-        }
-    ];
     static getAttributeTypeMap() {
         return RiskProfileRulesListEmbedded.attributeTypeMap;
     }
 }
 exports.RiskProfileRulesListEmbedded = RiskProfileRulesListEmbedded;
+RiskProfileRulesListEmbedded.discriminator = undefined;
+RiskProfileRulesListEmbedded.attributeTypeMap = [
+    {
+        "name": "riskProfileRules",
+        "baseName": "risk_profile_rules",
+        "type": "Set<RiskProfileRule>"
+    }
+];

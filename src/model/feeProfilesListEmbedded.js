@@ -13,17 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FeeProfilesListEmbedded = void 0;
 class FeeProfilesListEmbedded {
-    'feeProfiles';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "feeProfiles",
-            "baseName": "fee_profiles",
-            "type": "Set<FeeProfile>"
-        }
-    ];
     static getAttributeTypeMap() {
         return FeeProfilesListEmbedded.attributeTypeMap;
     }
 }
 exports.FeeProfilesListEmbedded = FeeProfilesListEmbedded;
+FeeProfilesListEmbedded.discriminator = undefined;
+FeeProfilesListEmbedded.attributeTypeMap = [
+    {
+        "name": "feeProfiles",
+        "baseName": "fee_profiles",
+        "type": "Set<FeeProfile>"
+    }
+];

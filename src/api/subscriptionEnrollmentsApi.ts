@@ -135,7 +135,7 @@ export class SubscriptionEnrollmentsApi {
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -146,8 +146,7 @@ export class SubscriptionEnrollmentsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (createSubscriptionEnrollmentRequest.hasOwnProperty('file')){
-            createSubscriptionEnrollmentRequest = await this.fileHelper(createSubscriptionEnrollmentRequest);
+        if (createSubscriptionEnrollmentRequest != undefined && createSubscriptionEnrollmentRequest != null && createSubscriptionEnrollmentRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = createSubscriptionEnrollmentRequest;
         }
         else{
@@ -241,7 +240,7 @@ export class SubscriptionEnrollmentsApi {
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -341,7 +340,7 @@ export class SubscriptionEnrollmentsApi {
             localVarQueryParameters['merchant'] = ObjectSerializer.serialize(merchant, "string");
         }
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -436,7 +435,7 @@ export class SubscriptionEnrollmentsApi {
 
         }
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -538,7 +537,7 @@ export class SubscriptionEnrollmentsApi {
 
         }
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -642,7 +641,7 @@ export class SubscriptionEnrollmentsApi {
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -653,8 +652,7 @@ export class SubscriptionEnrollmentsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (updateSubscriptionEnrollmentRequest.hasOwnProperty('file')){
-            updateSubscriptionEnrollmentRequest = await this.fileHelper(updateSubscriptionEnrollmentRequest);
+        if (updateSubscriptionEnrollmentRequest != undefined && updateSubscriptionEnrollmentRequest != null && updateSubscriptionEnrollmentRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = updateSubscriptionEnrollmentRequest;
         }
         else{
@@ -724,15 +722,18 @@ export class SubscriptionEnrollmentsApi {
 
 
     private async embeddedHelper(responseObject: any){
+        if(responseObject.embedded == null || responseObject.embedded == undefined){
+            const dataList = new SuperSet<any>();
+            dataList.page = responseObject.body.page;
+            dataList.links = responseObject.body.links;
+            return dataList;
+        }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        let tempList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        const dataList = new SuperSet<any>();
+        tempList.forEach(item => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
-    }
-
-    private async fileHelper(request: any){
-        request.file = fs.createReadStream(<string>request.file)
-        return request;
     }
 }

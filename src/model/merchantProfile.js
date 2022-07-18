@@ -13,86 +13,56 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MerchantProfile = void 0;
 class MerchantProfile {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    /**
-    * The ID of the resource.
-    */
-    'id';
-    /**
-    * Timestamp of when the object was created.
-    */
-    'createdAt';
-    /**
-    * Timestamp of when the object was last updated.
-    */
-    'updatedAt';
-    /**
-    * The ID of the resource.
-    */
-    'application';
-    /**
-    * The ID of the resource.
-    */
-    'feeProfile';
-    'reserveProfile';
-    /**
-    * The ID of the resource.
-    */
-    'riskProfile';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "createdAt",
-            "baseName": "created_at",
-            "type": "Date"
-        },
-        {
-            "name": "updatedAt",
-            "baseName": "updated_at",
-            "type": "Date"
-        },
-        {
-            "name": "application",
-            "baseName": "application",
-            "type": "string"
-        },
-        {
-            "name": "feeProfile",
-            "baseName": "fee_profile",
-            "type": "string"
-        },
-        {
-            "name": "reserveProfile",
-            "baseName": "reserve_profile",
-            "type": "string"
-        },
-        {
-            "name": "riskProfile",
-            "baseName": "risk_profile",
-            "type": "string"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "MerchantProfileLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return MerchantProfile.attributeTypeMap;
     }
 }
 exports.MerchantProfile = MerchantProfile;
+MerchantProfile.discriminator = undefined;
+MerchantProfile.attributeTypeMap = [
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "id",
+        "baseName": "id",
+        "type": "string"
+    },
+    {
+        "name": "createdAt",
+        "baseName": "created_at",
+        "type": "Date"
+    },
+    {
+        "name": "updatedAt",
+        "baseName": "updated_at",
+        "type": "Date"
+    },
+    {
+        "name": "application",
+        "baseName": "application",
+        "type": "string"
+    },
+    {
+        "name": "feeProfile",
+        "baseName": "fee_profile",
+        "type": "string"
+    },
+    {
+        "name": "reserveProfile",
+        "baseName": "reserve_profile",
+        "type": "string"
+    },
+    {
+        "name": "riskProfile",
+        "baseName": "risk_profile",
+        "type": "string"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "MerchantProfileLinks"
+    }
+];

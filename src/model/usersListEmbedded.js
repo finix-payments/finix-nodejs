@@ -13,20 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersListEmbedded = void 0;
 class UsersListEmbedded {
-    /**
-    * `User` object.
-    */
-    'users';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "users",
-            "baseName": "users",
-            "type": "Set<User>"
-        }
-    ];
     static getAttributeTypeMap() {
         return UsersListEmbedded.attributeTypeMap;
     }
 }
 exports.UsersListEmbedded = UsersListEmbedded;
+UsersListEmbedded.discriminator = undefined;
+UsersListEmbedded.attributeTypeMap = [
+    {
+        "name": "users",
+        "baseName": "users",
+        "type": "Set<User>"
+    }
+];

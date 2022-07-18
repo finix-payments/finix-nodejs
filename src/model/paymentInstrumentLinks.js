@@ -16,47 +16,41 @@ exports.PaymentInstrumentLinks = void 0;
 * For your convenience, every response includes several URLs which link to resources relevant to the request. You can use these `_links` to make your follow-up requests and quickly access relevant IDs.
 */
 class PaymentInstrumentLinks {
-    'application';
-    'authorizations';
-    'identity';
-    'self';
-    'transfers';
-    'verifications';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "application",
-            "baseName": "application",
-            "type": "MerchantLinksApplication"
-        },
-        {
-            "name": "authorizations",
-            "baseName": "authorizations",
-            "type": "PaymentInstrumentLinksAuthorizations"
-        },
-        {
-            "name": "identity",
-            "baseName": "identity",
-            "type": "MerchantLinksIdentity"
-        },
-        {
-            "name": "self",
-            "baseName": "self",
-            "type": "ApplicationLinksSelf"
-        },
-        {
-            "name": "transfers",
-            "baseName": "transfers",
-            "type": "PaymentInstrumentLinksTransfers"
-        },
-        {
-            "name": "verifications",
-            "baseName": "verifications",
-            "type": "MerchantLinksVerifications"
-        }
-    ];
     static getAttributeTypeMap() {
         return PaymentInstrumentLinks.attributeTypeMap;
     }
 }
 exports.PaymentInstrumentLinks = PaymentInstrumentLinks;
+PaymentInstrumentLinks.discriminator = undefined;
+PaymentInstrumentLinks.attributeTypeMap = [
+    {
+        "name": "application",
+        "baseName": "application",
+        "type": "MerchantLinksApplication"
+    },
+    {
+        "name": "authorizations",
+        "baseName": "authorizations",
+        "type": "PaymentInstrumentLinksAuthorizations"
+    },
+    {
+        "name": "identity",
+        "baseName": "identity",
+        "type": "MerchantLinksIdentity"
+    },
+    {
+        "name": "self",
+        "baseName": "self",
+        "type": "ApplicationLinksSelf"
+    },
+    {
+        "name": "transfers",
+        "baseName": "transfers",
+        "type": "PaymentInstrumentLinksTransfers"
+    },
+    {
+        "name": "verifications",
+        "baseName": "verifications",
+        "type": "MerchantLinksVerifications"
+    }
+];

@@ -16,47 +16,41 @@ exports.ReviewQueueItemLinks = void 0;
 * For your convenience, every response includes several URLs which link to resources relevant to the request. You can use these `_links` to make your follow-up requests and quickly access relevant IDs.
 */
 class ReviewQueueItemLinks {
-    'application';
-    'identity';
-    'merchant';
-    'reviewBy';
-    'self';
-    'settlement';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "application",
-            "baseName": "application",
-            "type": "ApplicationProfileLinksApplication"
-        },
-        {
-            "name": "identity",
-            "baseName": "identity",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "merchant",
-            "baseName": "merchant",
-            "type": "DeviceLinksMerchant"
-        },
-        {
-            "name": "reviewBy",
-            "baseName": "review_by",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "self",
-            "baseName": "self",
-            "type": "ApplicationLinksSelf"
-        },
-        {
-            "name": "settlement",
-            "baseName": "settlement",
-            "type": "ApplicationLinksApplicationProfile"
-        }
-    ];
     static getAttributeTypeMap() {
         return ReviewQueueItemLinks.attributeTypeMap;
     }
 }
 exports.ReviewQueueItemLinks = ReviewQueueItemLinks;
+ReviewQueueItemLinks.discriminator = undefined;
+ReviewQueueItemLinks.attributeTypeMap = [
+    {
+        "name": "application",
+        "baseName": "application",
+        "type": "ApplicationProfileLinksApplication"
+    },
+    {
+        "name": "identity",
+        "baseName": "identity",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "merchant",
+        "baseName": "merchant",
+        "type": "DeviceLinksMerchant"
+    },
+    {
+        "name": "reviewBy",
+        "baseName": "review_by",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "self",
+        "baseName": "self",
+        "type": "ApplicationLinksSelf"
+    },
+    {
+        "name": "settlement",
+        "baseName": "settlement",
+        "type": "ApplicationLinksApplicationProfile"
+    }
+];

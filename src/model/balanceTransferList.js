@@ -16,29 +16,26 @@ exports.BalanceTransferList = void 0;
 * List of `balance_transfer` resources.
 */
 class BalanceTransferList {
-    'page';
-    'embedded';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "page",
-            "baseName": "page",
-            "type": "UsersListPage"
-        },
-        {
-            "name": "embedded",
-            "baseName": "_embedded",
-            "type": "BalanceTransferListEmbedded"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "ListLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return BalanceTransferList.attributeTypeMap;
     }
 }
 exports.BalanceTransferList = BalanceTransferList;
+BalanceTransferList.discriminator = undefined;
+BalanceTransferList.attributeTypeMap = [
+    {
+        "name": "page",
+        "baseName": "page",
+        "type": "UsersListPage"
+    },
+    {
+        "name": "embedded",
+        "baseName": "_embedded",
+        "type": "BalanceTransferListEmbedded"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "ListLinks"
+    }
+];

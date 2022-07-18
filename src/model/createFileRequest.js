@@ -13,50 +13,34 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateFileRequest = void 0;
 class CreateFileRequest {
-    /**
-    * The name of the `File` you\'ll create.
-    */
-    'displayName';
-    /**
-    * The resource ID that you want linked to the `File` (e.g. Merchant ID).
-    */
-    'linkedTo';
-    /**
-    * The type of document. | Available values include: <br>Identity Verification<ul><li> **DRIVERS\\_LICENSE\\_FRONT**<li>**DRIVERS\\_LICENSE\\_BACK**<li>**IDENTIFICATION\\_CARD\\_FRONT**<li>**IDENTIFICATION\\_CARD\\_BACK**</ul>Bank account validation<ul><li>**BANK\\_STATEMENT**</ul>Business Verification<ul><li>**TAX\\_DOCUMENT**<li>**BUSINESS\\_REGISTRATION**<li>**BUSINESS\\_ADDRESS\\_VERIFICATION**</ul>Additional<ul><li>**OTHER**<li>**PCI\\_DOCUMENT**<li>**PASSPORT**<ul>
-    */
-    'type';
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "displayName",
-            "baseName": "display_name",
-            "type": "string"
-        },
-        {
-            "name": "linkedTo",
-            "baseName": "linked_to",
-            "type": "string"
-        },
-        {
-            "name": "type",
-            "baseName": "type",
-            "type": "CreateFileRequest.TypeEnum"
-        },
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        }
-    ];
     static getAttributeTypeMap() {
         return CreateFileRequest.attributeTypeMap;
     }
 }
 exports.CreateFileRequest = CreateFileRequest;
+CreateFileRequest.discriminator = undefined;
+CreateFileRequest.attributeTypeMap = [
+    {
+        "name": "displayName",
+        "baseName": "display_name",
+        "type": "string"
+    },
+    {
+        "name": "linkedTo",
+        "baseName": "linked_to",
+        "type": "string"
+    },
+    {
+        "name": "type",
+        "baseName": "type",
+        "type": "CreateFileRequest.TypeEnum"
+    },
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    }
+];
 (function (CreateFileRequest) {
     let TypeEnum;
     (function (TypeEnum) {

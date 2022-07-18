@@ -16,17 +16,16 @@ exports.TransferLinksDisputes = void 0;
 * Link to the `Dispute` the request was made under.
 */
 class TransferLinksDisputes {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return TransferLinksDisputes.attributeTypeMap;
     }
 }
 exports.TransferLinksDisputes = TransferLinksDisputes;
+TransferLinksDisputes.discriminator = undefined;
+TransferLinksDisputes.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

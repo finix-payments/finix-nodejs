@@ -16,29 +16,21 @@ exports.SubscriptionScheduleFixedTimeIntervalOffset = void 0;
 * Specifies when the `Fee` is charged.
 */
 class SubscriptionScheduleFixedTimeIntervalOffset {
-    /**
-    * Hourly increments between recurring charges.
-    */
-    'hourlyInterval';
-    /**
-    * Number of recurring charges.
-    */
-    'intervalCount';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "hourlyInterval",
-            "baseName": "hourly_interval",
-            "type": "number"
-        },
-        {
-            "name": "intervalCount",
-            "baseName": "interval_count",
-            "type": "number"
-        }
-    ];
     static getAttributeTypeMap() {
         return SubscriptionScheduleFixedTimeIntervalOffset.attributeTypeMap;
     }
 }
 exports.SubscriptionScheduleFixedTimeIntervalOffset = SubscriptionScheduleFixedTimeIntervalOffset;
+SubscriptionScheduleFixedTimeIntervalOffset.discriminator = undefined;
+SubscriptionScheduleFixedTimeIntervalOffset.attributeTypeMap = [
+    {
+        "name": "hourlyInterval",
+        "baseName": "hourly_interval",
+        "type": "number"
+    },
+    {
+        "name": "intervalCount",
+        "baseName": "interval_count",
+        "type": "number"
+    }
+];

@@ -16,71 +16,46 @@ exports.CardPresentDetails = void 0;
 * Details needed to process card present transactions.
 */
 class CardPresentDetails {
-    /**
-    * Unique ID used to identify the approval of the `Transfer`.
-    */
-    'approvalCode';
-    /**
-    * The brand of the card saved in the `Payment Instrument`.
-    */
-    'brand';
-    'emvData';
-    /**
-    * Details how the card was entered to process the transaction.
-    */
-    'entryMode';
-    /**
-    * Last four digits of the bank account number.
-    */
-    'maskedAccountNumber';
-    /**
-    * The name of the bank account or card owner.
-    */
-    'name';
-    /**
-    * The type of `Payment Instrument` used in the transaction (or the original payment).
-    */
-    'paymentType';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "approvalCode",
-            "baseName": "approval_code",
-            "type": "string"
-        },
-        {
-            "name": "brand",
-            "baseName": "brand",
-            "type": "string"
-        },
-        {
-            "name": "emvData",
-            "baseName": "emv_data",
-            "type": "CardPresentDetailsEmvData"
-        },
-        {
-            "name": "entryMode",
-            "baseName": "entry_mode",
-            "type": "string"
-        },
-        {
-            "name": "maskedAccountNumber",
-            "baseName": "masked_account_number",
-            "type": "string"
-        },
-        {
-            "name": "name",
-            "baseName": "name",
-            "type": "string"
-        },
-        {
-            "name": "paymentType",
-            "baseName": "payment_type",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return CardPresentDetails.attributeTypeMap;
     }
 }
 exports.CardPresentDetails = CardPresentDetails;
+CardPresentDetails.discriminator = undefined;
+CardPresentDetails.attributeTypeMap = [
+    {
+        "name": "approvalCode",
+        "baseName": "approval_code",
+        "type": "string"
+    },
+    {
+        "name": "brand",
+        "baseName": "brand",
+        "type": "string"
+    },
+    {
+        "name": "emvData",
+        "baseName": "emv_data",
+        "type": "CardPresentDetailsEmvData"
+    },
+    {
+        "name": "entryMode",
+        "baseName": "entry_mode",
+        "type": "string"
+    },
+    {
+        "name": "maskedAccountNumber",
+        "baseName": "masked_account_number",
+        "type": "string"
+    },
+    {
+        "name": "name",
+        "baseName": "name",
+        "type": "string"
+    },
+    {
+        "name": "paymentType",
+        "baseName": "payment_type",
+        "type": "string"
+    }
+];

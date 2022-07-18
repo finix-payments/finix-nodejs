@@ -13,20 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ListApplicationProcessorsQueryParams = void 0;
 class ListApplicationProcessorsQueryParams {
-    /**
-    * The ID of the `subscription_schedule`
-    */
-    'applicationId';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "applicationId",
-            "baseName": "application_id",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return ListApplicationProcessorsQueryParams.attributeTypeMap;
     }
 }
 exports.ListApplicationProcessorsQueryParams = ListApplicationProcessorsQueryParams;
+ListApplicationProcessorsQueryParams.discriminator = undefined;
+ListApplicationProcessorsQueryParams.attributeTypeMap = [
+    {
+        "name": "applicationId",
+        "baseName": "application_id",
+        "type": "string"
+    }
+];

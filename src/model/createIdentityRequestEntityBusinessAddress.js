@@ -16,65 +16,41 @@ exports.CreateIdentityRequestEntityBusinessAddress = void 0;
 * The primary address for the legal entity.
 */
 class CreateIdentityRequestEntityBusinessAddress {
-    /**
-    * City (max 20 characters).
-    */
-    'city';
-    /**
-    * 3-Letter Country code (e.g. USA).
-    */
-    'country';
-    /**
-    * 2-letter state code.
-    */
-    'region';
-    /**
-    * Second line of the address (max 35 characters).
-    */
-    'line2';
-    /**
-    * First line of the address (max 35 characters).
-    */
-    'line1';
-    /**
-    * Zip or Postal code (max 7 characters).
-    */
-    'postalCode';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "city",
-            "baseName": "city",
-            "type": "string"
-        },
-        {
-            "name": "country",
-            "baseName": "country",
-            "type": "string"
-        },
-        {
-            "name": "region",
-            "baseName": "region",
-            "type": "string"
-        },
-        {
-            "name": "line2",
-            "baseName": "line2",
-            "type": "string"
-        },
-        {
-            "name": "line1",
-            "baseName": "line1",
-            "type": "string"
-        },
-        {
-            "name": "postalCode",
-            "baseName": "postal_code",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return CreateIdentityRequestEntityBusinessAddress.attributeTypeMap;
     }
 }
 exports.CreateIdentityRequestEntityBusinessAddress = CreateIdentityRequestEntityBusinessAddress;
+CreateIdentityRequestEntityBusinessAddress.discriminator = undefined;
+CreateIdentityRequestEntityBusinessAddress.attributeTypeMap = [
+    {
+        "name": "city",
+        "baseName": "city",
+        "type": "string"
+    },
+    {
+        "name": "country",
+        "baseName": "country",
+        "type": "string"
+    },
+    {
+        "name": "region",
+        "baseName": "region",
+        "type": "string"
+    },
+    {
+        "name": "line2",
+        "baseName": "line2",
+        "type": "string"
+    },
+    {
+        "name": "line1",
+        "baseName": "line1",
+        "type": "string"
+    },
+    {
+        "name": "postalCode",
+        "baseName": "postal_code",
+        "type": "string"
+    }
+];

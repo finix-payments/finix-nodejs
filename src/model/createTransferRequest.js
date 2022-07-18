@@ -16,194 +16,124 @@ exports.CreateTransferRequest = void 0;
 * Create a `transfer`.
 */
 class CreateTransferRequest {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    /**
-    * Details if the `transfer` was created to adjust funds.
-    */
-    'adjustmentRequest';
-    /**
-    * The total amount that will be debited in cents (e.g. 100 cents to debit $1.00).
-    */
-    'amount';
-    'configOverride';
-    'currency';
-    /**
-    * ID of the `Payment Instrument` where funds will be sent.
-    */
-    'destination';
-    /**
-    * The ID of the activated device.
-    */
-    'device';
-    'deviceConfiguration';
-    /**
-    * The amount of the `Transfer` you\'d like to collect as your fee in cents. Defaults to zero (must be less than or equal to the `amount`).
-    */
-    'fee';
-    /**
-    * Name of the gateway that processed this `transfer`. (Finix Core only).
-    */
-    'gateway';
-    '_3dSecureAuthentication';
-    /**
-    * A randomly generated value that\'ll be associated with the request.
-    */
-    'idempotencyId';
-    /**
-    * Details how the card details were entered.
-    */
-    'inputMethod';
-    /**
-    * ID of the `Merchant` the `Transfer` was created under.
-    */
-    'merchant';
-    /**
-    * ID of the `Identity` the `Merchant` was created under and the `Transfer` was submitted with.
-    */
-    'merchantIdentity';
-    /**
-    * Details the operation that\'ll be performed in the transaction.
-    */
-    'operationKey';
-    'paymentInstrument';
-    /**
-    * Name of the transaction processor.
-    */
-    'processor';
-    /**
-    * ID of the `Payment Instrument` where funds get debited.
-    */
-    'source';
-    /**
-    * The description of the transaction that appears on the buyer\'s bank or card statement.
-    */
-    'statementDescriptor';
-    /**
-    * The `fraud_session_session` ID you want to review for fraud. For more info, see [Fraud Detection](/docs/guides/payments/fraud-detection/).
-    */
-    'fraudSessionId';
-    'additionalPurchaseData';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "adjustmentRequest",
-            "baseName": "adjustment_request",
-            "type": "boolean"
-        },
-        {
-            "name": "amount",
-            "baseName": "amount",
-            "type": "number"
-        },
-        {
-            "name": "configOverride",
-            "baseName": "config_override",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "currency",
-            "baseName": "currency",
-            "type": "Currency"
-        },
-        {
-            "name": "destination",
-            "baseName": "destination",
-            "type": "string"
-        },
-        {
-            "name": "device",
-            "baseName": "device",
-            "type": "string"
-        },
-        {
-            "name": "deviceConfiguration",
-            "baseName": "device_configuration",
-            "type": "ConfigurationDetails"
-        },
-        {
-            "name": "fee",
-            "baseName": "fee",
-            "type": "number"
-        },
-        {
-            "name": "gateway",
-            "baseName": "gateway",
-            "type": "CreateTransferRequest.GatewayEnum"
-        },
-        {
-            "name": "_3dSecureAuthentication",
-            "baseName": "3d_secure_authentication",
-            "type": "CreateAuthorizationRequest3dSecureAuthentication"
-        },
-        {
-            "name": "idempotencyId",
-            "baseName": "idempotency_id",
-            "type": "string"
-        },
-        {
-            "name": "inputMethod",
-            "baseName": "input_method",
-            "type": "CreateTransferRequest.InputMethodEnum"
-        },
-        {
-            "name": "merchant",
-            "baseName": "merchant",
-            "type": "string"
-        },
-        {
-            "name": "merchantIdentity",
-            "baseName": "merchant_identity",
-            "type": "string"
-        },
-        {
-            "name": "operationKey",
-            "baseName": "operation_key",
-            "type": "CreateTransferRequest.OperationKeyEnum"
-        },
-        {
-            "name": "paymentInstrument",
-            "baseName": "payment_instrument",
-            "type": "CardPresentInstrumentForm"
-        },
-        {
-            "name": "processor",
-            "baseName": "processor",
-            "type": "string"
-        },
-        {
-            "name": "source",
-            "baseName": "source",
-            "type": "string"
-        },
-        {
-            "name": "statementDescriptor",
-            "baseName": "statement_descriptor",
-            "type": "string"
-        },
-        {
-            "name": "fraudSessionId",
-            "baseName": "fraud_session_id",
-            "type": "string"
-        },
-        {
-            "name": "additionalPurchaseData",
-            "baseName": "additional_purchase_data",
-            "type": "AdditionalPurchaseData"
-        }
-    ];
     static getAttributeTypeMap() {
         return CreateTransferRequest.attributeTypeMap;
     }
 }
 exports.CreateTransferRequest = CreateTransferRequest;
+CreateTransferRequest.discriminator = undefined;
+CreateTransferRequest.attributeTypeMap = [
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "adjustmentRequest",
+        "baseName": "adjustment_request",
+        "type": "boolean"
+    },
+    {
+        "name": "amount",
+        "baseName": "amount",
+        "type": "number"
+    },
+    {
+        "name": "configOverride",
+        "baseName": "config_override",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "currency",
+        "baseName": "currency",
+        "type": "Currency"
+    },
+    {
+        "name": "destination",
+        "baseName": "destination",
+        "type": "string"
+    },
+    {
+        "name": "device",
+        "baseName": "device",
+        "type": "string"
+    },
+    {
+        "name": "deviceConfiguration",
+        "baseName": "device_configuration",
+        "type": "ConfigurationDetails"
+    },
+    {
+        "name": "fee",
+        "baseName": "fee",
+        "type": "number"
+    },
+    {
+        "name": "gateway",
+        "baseName": "gateway",
+        "type": "CreateTransferRequest.GatewayEnum"
+    },
+    {
+        "name": "_3dSecureAuthentication",
+        "baseName": "3d_secure_authentication",
+        "type": "CreateAuthorizationRequest3dSecureAuthentication"
+    },
+    {
+        "name": "idempotencyId",
+        "baseName": "idempotency_id",
+        "type": "string"
+    },
+    {
+        "name": "inputMethod",
+        "baseName": "input_method",
+        "type": "CreateTransferRequest.InputMethodEnum"
+    },
+    {
+        "name": "merchant",
+        "baseName": "merchant",
+        "type": "string"
+    },
+    {
+        "name": "merchantIdentity",
+        "baseName": "merchant_identity",
+        "type": "string"
+    },
+    {
+        "name": "operationKey",
+        "baseName": "operation_key",
+        "type": "CreateTransferRequest.OperationKeyEnum"
+    },
+    {
+        "name": "paymentInstrument",
+        "baseName": "payment_instrument",
+        "type": "CardPresentInstrumentForm"
+    },
+    {
+        "name": "processor",
+        "baseName": "processor",
+        "type": "string"
+    },
+    {
+        "name": "source",
+        "baseName": "source",
+        "type": "string"
+    },
+    {
+        "name": "statementDescriptor",
+        "baseName": "statement_descriptor",
+        "type": "string"
+    },
+    {
+        "name": "fraudSessionId",
+        "baseName": "fraud_session_id",
+        "type": "string"
+    },
+    {
+        "name": "additionalPurchaseData",
+        "baseName": "additional_purchase_data",
+        "type": "AdditionalPurchaseData"
+    }
+];
 (function (CreateTransferRequest) {
     let GatewayEnum;
     (function (GatewayEnum) {

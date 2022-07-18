@@ -16,44 +16,31 @@ exports.CreateSubscriptionAmountRequest = void 0;
 *
 */
 class CreateSubscriptionAmountRequest {
-    /**
-    * `Subscription Amount` type. For subscriptions, the type is **FEE**.
-    */
-    'amountType';
-    'feeAmountData';
-    /**
-    * Human readable name.
-    */
-    'nickname';
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "amountType",
-            "baseName": "amount_type",
-            "type": "string"
-        },
-        {
-            "name": "feeAmountData",
-            "baseName": "fee_amount_data",
-            "type": "CreateSubscriptionAmountRequestFeeAmountData"
-        },
-        {
-            "name": "nickname",
-            "baseName": "nickname",
-            "type": "string"
-        },
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        }
-    ];
     static getAttributeTypeMap() {
         return CreateSubscriptionAmountRequest.attributeTypeMap;
     }
 }
 exports.CreateSubscriptionAmountRequest = CreateSubscriptionAmountRequest;
+CreateSubscriptionAmountRequest.discriminator = undefined;
+CreateSubscriptionAmountRequest.attributeTypeMap = [
+    {
+        "name": "amountType",
+        "baseName": "amount_type",
+        "type": "string"
+    },
+    {
+        "name": "feeAmountData",
+        "baseName": "fee_amount_data",
+        "type": "CreateSubscriptionAmountRequestFeeAmountData"
+    },
+    {
+        "name": "nickname",
+        "baseName": "nickname",
+        "type": "string"
+    },
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    }
+];

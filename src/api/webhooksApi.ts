@@ -130,7 +130,7 @@ export class WebhooksApi {
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -141,8 +141,7 @@ export class WebhooksApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (createWebhookRequest.hasOwnProperty('file')){
-            createWebhookRequest = await this.fileHelper(createWebhookRequest);
+        if (createWebhookRequest != undefined && createWebhookRequest != null && createWebhookRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = createWebhookRequest;
         }
         else{
@@ -234,7 +233,7 @@ export class WebhooksApi {
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -336,7 +335,7 @@ export class WebhooksApi {
 
         }
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -436,7 +435,7 @@ export class WebhooksApi {
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -447,8 +446,7 @@ export class WebhooksApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (updateWebhookRequest.hasOwnProperty('file')){
-            updateWebhookRequest = await this.fileHelper(updateWebhookRequest);
+        if (updateWebhookRequest != undefined && updateWebhookRequest != null && updateWebhookRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = updateWebhookRequest;
         }
         else{
@@ -518,15 +516,18 @@ export class WebhooksApi {
 
 
     private async embeddedHelper(responseObject: any){
+        if(responseObject.embedded == null || responseObject.embedded == undefined){
+            const dataList = new SuperSet<any>();
+            dataList.page = responseObject.body.page;
+            dataList.links = responseObject.body.links;
+            return dataList;
+        }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        let tempList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        const dataList = new SuperSet<any>();
+        tempList.forEach(item => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
-    }
-
-    private async fileHelper(request: any){
-        request.file = fs.createReadStream(<string>request.file)
-        return request;
     }
 }

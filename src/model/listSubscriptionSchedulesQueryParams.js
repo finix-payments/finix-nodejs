@@ -13,29 +13,21 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ListSubscriptionSchedulesQueryParams = void 0;
 class ListSubscriptionSchedulesQueryParams {
-    /**
-    * Filter by the object\'s `nickname`.
-    */
-    'nickname';
-    /**
-    * Filter by the object\'s `type`.
-    */
-    'type';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "nickname",
-            "baseName": "nickname",
-            "type": "string"
-        },
-        {
-            "name": "type",
-            "baseName": "type",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return ListSubscriptionSchedulesQueryParams.attributeTypeMap;
     }
 }
 exports.ListSubscriptionSchedulesQueryParams = ListSubscriptionSchedulesQueryParams;
+ListSubscriptionSchedulesQueryParams.discriminator = undefined;
+ListSubscriptionSchedulesQueryParams.attributeTypeMap = [
+    {
+        "name": "nickname",
+        "baseName": "nickname",
+        "type": "string"
+    },
+    {
+        "name": "type",
+        "baseName": "type",
+        "type": "string"
+    }
+];

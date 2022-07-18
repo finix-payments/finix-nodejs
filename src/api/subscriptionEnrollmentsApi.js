@@ -10,6 +10,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -27,15 +36,15 @@ var SubscriptionEnrollmentsApiApiKeys;
 (function (SubscriptionEnrollmentsApiApiKeys) {
 })(SubscriptionEnrollmentsApiApiKeys = exports.SubscriptionEnrollmentsApiApiKeys || (exports.SubscriptionEnrollmentsApiApiKeys = {}));
 class SubscriptionEnrollmentsApi {
-    _basePath = defaultBasePath;
-    _defaultHeaders = {};
-    _useQuerystring = false;
-    authentications = {
-        'default': new models_1.VoidAuth(),
-        'BasicAuth': new models_2.HttpBasicAuth(),
-    };
-    interceptors = [];
     constructor(basePathOrUsername, password, basePath) {
+        this._basePath = defaultBasePath;
+        this._defaultHeaders = {};
+        this._useQuerystring = false;
+        this.authentications = {
+            'default': new models_1.VoidAuth(),
+            'BasicAuth': new models_2.HttpBasicAuth(),
+        };
+        this.interceptors = [];
         if (password) {
             this.username = basePathOrUsername;
             this.password = password;
@@ -86,67 +95,75 @@ class SubscriptionEnrollmentsApi {
      * @param subscriptionScheduleId The ID of the &#x60;subscription_schedule&#x60;.
      * @param createSubscriptionEnrollmentRequest
      */
-    async createHelper(subscriptionScheduleId, createSubscriptionEnrollmentRequest, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/subscription/subscription_schedules/{subscription_schedule_id}/subscription_enrollments'
-            .replace('{' + 'subscription_schedule_id' + '}', encodeURIComponent(String(subscriptionScheduleId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'subscriptionScheduleId' is not null or undefined
-        if (subscriptionScheduleId === null || subscriptionScheduleId === undefined) {
-            throw new Error('Required parameter subscriptionScheduleId was null or undefined when calling createSubscriptionEnrollments.');
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'POST',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: models_1.ObjectSerializer.serialize(createSubscriptionEnrollmentRequest, "CreateSubscriptionEnrollmentRequest")
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    createHelper(subscriptionScheduleId, createSubscriptionEnrollmentRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/subscription/subscription_schedules/{subscription_schedule_id}/subscription_enrollments'
+                .replace('{' + 'subscription_schedule_id' + '}', encodeURIComponent(String(subscriptionScheduleId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'subscriptionScheduleId' is not null or undefined
+            if (subscriptionScheduleId === null || subscriptionScheduleId === undefined) {
+                throw new Error('Required parameter subscriptionScheduleId was null or undefined when calling createSubscriptionEnrollments.');
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'POST',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            if (createSubscriptionEnrollmentRequest != undefined && createSubscriptionEnrollmentRequest != null && createSubscriptionEnrollmentRequest.hasOwnProperty('file')) {
+                localVarRequestOptions.formData = createSubscriptionEnrollmentRequest;
+            }
+            else {
+                localVarRequestOptions.body = models_1.ObjectSerializer.serialize(createSubscriptionEnrollmentRequest, "CreateSubscriptionEnrollmentRequest");
+            }
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "SubscriptionEnrollment");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "SubscriptionEnrollment");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -157,13 +174,11 @@ class SubscriptionEnrollmentsApi {
      * @param subscriptionScheduleId The ID of the &#x60;subscription_schedule&#x60;.
      * @param createSubscriptionEnrollmentRequest
      */
-    async create(subscriptionScheduleId, createSubscriptionEnrollmentRequest, options = { headers: {} }) {
-        const responseObject = await this.createHelper(subscriptionScheduleId, createSubscriptionEnrollmentRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    create(subscriptionScheduleId, createSubscriptionEnrollmentRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.createHelper(subscriptionScheduleId, createSubscriptionEnrollmentRequest, options);
+            return responseObject.body;
+        });
     }
     /**
      * Create a `subscription_enrollment`.  A `subscription_enrollment` details which `Merchant` gets charged, to what schedule, and when the subscription will start. The `subscription_enrollment` must be associated with a `Subscription Schedule`.
@@ -171,13 +186,11 @@ class SubscriptionEnrollmentsApi {
      * @param subscriptionScheduleId The ID of the &#x60;subscription_schedule&#x60;.
      * @param createSubscriptionEnrollmentRequest
      */
-    async createHttp(subscriptionScheduleId, createSubscriptionEnrollmentRequest, options = { headers: {} }) {
-        const responseObject = await this.createHelper(subscriptionScheduleId, createSubscriptionEnrollmentRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    createHttp(subscriptionScheduleId, createSubscriptionEnrollmentRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.createHelper(subscriptionScheduleId, createSubscriptionEnrollmentRequest, options);
+            return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -185,65 +198,68 @@ class SubscriptionEnrollmentsApi {
      * @summary Delete a Subscription Enrollment
      * @param subscriptionEnrollmentId The ID of the &#x60;subscription_enrollment&#x60;.
      */
-    async removeHelper(subscriptionEnrollmentId, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/subscription/subscription_enrollments/{subscription_enrollment_id}'
-            .replace('{' + 'subscription_enrollment_id' + '}', encodeURIComponent(String(subscriptionEnrollmentId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'subscriptionEnrollmentId' is not null or undefined
-        if (subscriptionEnrollmentId === null || subscriptionEnrollmentId === undefined) {
-            throw new Error('Required parameter subscriptionEnrollmentId was null or undefined when calling deleteSubscriptionEnrollment.');
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'DELETE',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    removeHelper(subscriptionEnrollmentId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/subscription/subscription_enrollments/{subscription_enrollment_id}'
+                .replace('{' + 'subscription_enrollment_id' + '}', encodeURIComponent(String(subscriptionEnrollmentId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'subscriptionEnrollmentId' is not null or undefined
+            if (subscriptionEnrollmentId === null || subscriptionEnrollmentId === undefined) {
+                throw new Error('Required parameter subscriptionEnrollmentId was null or undefined when calling deleteSubscriptionEnrollment.');
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'DELETE',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -253,26 +269,22 @@ class SubscriptionEnrollmentsApi {
      * @summary Delete a Subscription Enrollment
      * @param subscriptionEnrollmentId The ID of the &#x60;subscription_enrollment&#x60;.
      */
-    async remove(subscriptionEnrollmentId, options = { headers: {} }) {
-        const responseObject = await this.removeHelper(subscriptionEnrollmentId, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    remove(subscriptionEnrollmentId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.removeHelper(subscriptionEnrollmentId, options);
+            return responseObject.body;
+        });
     }
     /**
      * Remove a `subscription_enrollment`.
      * @summary Delete a Subscription Enrollment
      * @param subscriptionEnrollmentId The ID of the &#x60;subscription_enrollment&#x60;.
      */
-    async removeHttp(subscriptionEnrollmentId, options = { headers: {} }) {
-        const responseObject = await this.removeHelper(subscriptionEnrollmentId, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    removeHttp(subscriptionEnrollmentId, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.removeHelper(subscriptionEnrollmentId, options);
+            return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -281,69 +293,72 @@ class SubscriptionEnrollmentsApi {
      * @param subscriptionEnrollmentId The ID of the &#x60;subscription_enrollment&#x60;.
      * @param merchant Filter by the objects &#x60;merchant&#x60; ID.
      */
-    async getHelper(subscriptionEnrollmentId, merchant, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/subscription/subscription_enrollments/{subscription_enrollment_id}'
-            .replace('{' + 'subscription_enrollment_id' + '}', encodeURIComponent(String(subscriptionEnrollmentId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'subscriptionEnrollmentId' is not null or undefined
-        if (subscriptionEnrollmentId === null || subscriptionEnrollmentId === undefined) {
-            throw new Error('Required parameter subscriptionEnrollmentId was null or undefined when calling getSubscriptionEnrollment.');
-        }
-        if (merchant !== undefined) {
-            localVarQueryParameters['merchant'] = models_1.ObjectSerializer.serialize(merchant, "string");
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    getHelper(subscriptionEnrollmentId, merchant, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/subscription/subscription_enrollments/{subscription_enrollment_id}'
+                .replace('{' + 'subscription_enrollment_id' + '}', encodeURIComponent(String(subscriptionEnrollmentId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'subscriptionEnrollmentId' is not null or undefined
+            if (subscriptionEnrollmentId === null || subscriptionEnrollmentId === undefined) {
+                throw new Error('Required parameter subscriptionEnrollmentId was null or undefined when calling getSubscriptionEnrollment.');
+            }
+            if (merchant !== undefined) {
+                localVarQueryParameters['merchant'] = models_1.ObjectSerializer.serialize(merchant, "string");
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'GET',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "SubscriptionEnrollment");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "SubscriptionEnrollment");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -354,13 +369,11 @@ class SubscriptionEnrollmentsApi {
      * @param subscriptionEnrollmentId The ID of the &#x60;subscription_enrollment&#x60;.
      * @param merchant Filter by the objects &#x60;merchant&#x60; ID.
      */
-    async get(subscriptionEnrollmentId, merchant, options = { headers: {} }) {
-        const responseObject = await this.getHelper(subscriptionEnrollmentId, merchant, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    get(subscriptionEnrollmentId, merchant, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.getHelper(subscriptionEnrollmentId, merchant, options);
+            return responseObject.body;
+        });
     }
     /**
      * Retrieve the details of a `subscription_enrollment`.
@@ -368,13 +381,11 @@ class SubscriptionEnrollmentsApi {
      * @param subscriptionEnrollmentId The ID of the &#x60;subscription_enrollment&#x60;.
      * @param merchant Filter by the objects &#x60;merchant&#x60; ID.
      */
-    async getHttp(subscriptionEnrollmentId, merchant, options = { headers: {} }) {
-        const responseObject = await this.getHelper(subscriptionEnrollmentId, merchant, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    getHttp(subscriptionEnrollmentId, merchant, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.getHelper(subscriptionEnrollmentId, merchant, options);
+            return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -382,63 +393,66 @@ class SubscriptionEnrollmentsApi {
      * @summary List Subscription Enrollments
 
     */
-    async listHelper(listSubscriptionEnrollmentsQueryParams, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/subscription/subscription_enrollments';
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        if (listSubscriptionEnrollmentsQueryParams != undefined) {
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    listHelper(listSubscriptionEnrollmentsQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/subscription/subscription_enrollments';
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            if (listSubscriptionEnrollmentsQueryParams != undefined) {
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'GET',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "SubscriptionEnrollmentList");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "SubscriptionEnrollmentList");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -448,26 +462,24 @@ class SubscriptionEnrollmentsApi {
      * @summary List Subscription Enrollments
 
     */
-    async list(listSubscriptionEnrollmentsQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listHelper(listSubscriptionEnrollmentsQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    list(listSubscriptionEnrollmentsQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listHelper(listSubscriptionEnrollmentsQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return dataList;
-        }
-        return responseObject.body;
+        });
     }
     /**
      * Retrieve a list of `Subscription Enrollments`.
      * @summary List Subscription Enrollments
 
     */
-    async listHttp(listSubscriptionEnrollmentsQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listHelper(listSubscriptionEnrollmentsQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    listHttp(listSubscriptionEnrollmentsQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listHelper(listSubscriptionEnrollmentsQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -477,68 +489,71 @@ class SubscriptionEnrollmentsApi {
     * @param subscriptionScheduleId The ID of the &#x60;subscription_schedule&#x60;.
     *
     */
-    async listBySubscriptionScheduleIdHelper(subscriptionScheduleId, listSubscriptionEnrollmentsInScheduleQueryParams, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/subscription/subscription_schedules/{subscription_schedule_id}/subscription_enrollments'
-            .replace('{' + 'subscription_schedule_id' + '}', encodeURIComponent(String(subscriptionScheduleId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'subscriptionScheduleId' is not null or undefined
-        if (subscriptionScheduleId === null || subscriptionScheduleId === undefined) {
-            throw new Error('Required parameter subscriptionScheduleId was null or undefined when calling listSubscriptionEnrollmentsInSchedule.');
-        }
-        if (listSubscriptionEnrollmentsInScheduleQueryParams != undefined) {
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    listBySubscriptionScheduleIdHelper(subscriptionScheduleId, listSubscriptionEnrollmentsInScheduleQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/subscription/subscription_schedules/{subscription_schedule_id}/subscription_enrollments'
+                .replace('{' + 'subscription_schedule_id' + '}', encodeURIComponent(String(subscriptionScheduleId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'subscriptionScheduleId' is not null or undefined
+            if (subscriptionScheduleId === null || subscriptionScheduleId === undefined) {
+                throw new Error('Required parameter subscriptionScheduleId was null or undefined when calling listSubscriptionEnrollmentsInSchedule.');
+            }
+            if (listSubscriptionEnrollmentsInScheduleQueryParams != undefined) {
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'GET',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "SubscriptionEnrollmentList");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "SubscriptionEnrollmentList");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -550,13 +565,12 @@ class SubscriptionEnrollmentsApi {
     * @param subscriptionScheduleId The ID of the &#x60;subscription_schedule&#x60;.
     *
     */
-    async listBySubscriptionScheduleId(subscriptionScheduleId, listSubscriptionEnrollmentsInScheduleQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listBySubscriptionScheduleIdHelper(subscriptionScheduleId, listSubscriptionEnrollmentsInScheduleQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    listBySubscriptionScheduleId(subscriptionScheduleId, listSubscriptionEnrollmentsInScheduleQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listBySubscriptionScheduleIdHelper(subscriptionScheduleId, listSubscriptionEnrollmentsInScheduleQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return dataList;
-        }
-        return responseObject.body;
+        });
     }
     /**
      * Retrieve a list of `Subscription Enrollments` for a specific `subscription_schedule`.
@@ -565,13 +579,12 @@ class SubscriptionEnrollmentsApi {
     * @param subscriptionScheduleId The ID of the &#x60;subscription_schedule&#x60;.
     *
     */
-    async listBySubscriptionScheduleIdHttp(subscriptionScheduleId, listSubscriptionEnrollmentsInScheduleQueryParams, options = { headers: {} }) {
-        const responseObject = await this.listBySubscriptionScheduleIdHelper(subscriptionScheduleId, listSubscriptionEnrollmentsInScheduleQueryParams, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
+    listBySubscriptionScheduleIdHttp(subscriptionScheduleId, listSubscriptionEnrollmentsInScheduleQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listBySubscriptionScheduleIdHelper(subscriptionScheduleId, listSubscriptionEnrollmentsInScheduleQueryParams, options);
+            let dataList = yield this.embeddedHelper(responseObject);
             return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+        });
     }
     /**
      * Helper function.
@@ -580,67 +593,75 @@ class SubscriptionEnrollmentsApi {
      * @param subscriptionEnrollmentId The ID of the &#x60;subscription_enrollment&#x60;.
      * @param updateSubscriptionEnrollmentRequest
      */
-    async updateHelper(subscriptionEnrollmentId, updateSubscriptionEnrollmentRequest, options = { headers: {} }) {
-        const localVarPath = this.basePath + '/subscription/subscription_enrollments/{subscription_enrollment_id}'
-            .replace('{' + 'subscription_enrollment_id' + '}', encodeURIComponent(String(subscriptionEnrollmentId)));
-        let localVarQueryParameters = {};
-        let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        }
-        else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams = {};
-        // verify required parameter 'subscriptionEnrollmentId' is not null or undefined
-        if (subscriptionEnrollmentId === null || subscriptionEnrollmentId === undefined) {
-            throw new Error('Required parameter subscriptionEnrollmentId was null or undefined when calling updateSubscriptionEnrollment.');
-        }
-        Object.assign(localVarHeaderParams, options.headers);
-        let localVarUseFormData = false;
-        let localVarRequestOptions = {
-            method: 'PUT',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: models_1.ObjectSerializer.serialize(updateSubscriptionEnrollmentRequest, "UpdateSubscriptionEnrollmentRequest")
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    localVarRequestOptions.formData = localVarFormParams;
-                }
-                else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
+    updateHelper(subscriptionEnrollmentId, updateSubscriptionEnrollmentRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/subscription/subscription_enrollments/{subscription_enrollment_id}'
+                .replace('{' + 'subscription_enrollment_id' + '}', encodeURIComponent(String(subscriptionEnrollmentId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
             }
-            return new Promise((resolve, reject) => {
-                (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'subscriptionEnrollmentId' is not null or undefined
+            if (subscriptionEnrollmentId === null || subscriptionEnrollmentId === undefined) {
+                throw new Error('Required parameter subscriptionEnrollmentId was null or undefined when calling updateSubscriptionEnrollment.');
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'PUT',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            if (updateSubscriptionEnrollmentRequest != undefined && updateSubscriptionEnrollmentRequest != null && updateSubscriptionEnrollmentRequest.hasOwnProperty('file')) {
+                localVarRequestOptions.formData = updateSubscriptionEnrollmentRequest;
+            }
+            else {
+                localVarRequestOptions.body = models_1.ObjectSerializer.serialize(updateSubscriptionEnrollmentRequest, "UpdateSubscriptionEnrollmentRequest");
+            }
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
                     }
                     else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = models_1.ObjectSerializer.deserialize(body, "SubscriptionEnrollment");
-                            resolve({ response: response, body: body });
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
                         }
                         else {
-                            reject(new apis_1.HttpError(response, body, response.statusCode));
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "SubscriptionEnrollment");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
@@ -651,13 +672,11 @@ class SubscriptionEnrollmentsApi {
      * @param subscriptionEnrollmentId The ID of the &#x60;subscription_enrollment&#x60;.
      * @param updateSubscriptionEnrollmentRequest
      */
-    async update(subscriptionEnrollmentId, updateSubscriptionEnrollmentRequest, options = { headers: {} }) {
-        const responseObject = await this.updateHelper(subscriptionEnrollmentId, updateSubscriptionEnrollmentRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return dataList;
-        }
-        return responseObject.body;
+    update(subscriptionEnrollmentId, updateSubscriptionEnrollmentRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.updateHelper(subscriptionEnrollmentId, updateSubscriptionEnrollmentRequest, options);
+            return responseObject.body;
+        });
     }
     /**
      * Update the details of a `subscription_enrollment`.
@@ -665,20 +684,28 @@ class SubscriptionEnrollmentsApi {
      * @param subscriptionEnrollmentId The ID of the &#x60;subscription_enrollment&#x60;.
      * @param updateSubscriptionEnrollmentRequest
      */
-    async updateHttp(subscriptionEnrollmentId, updateSubscriptionEnrollmentRequest, options = { headers: {} }) {
-        const responseObject = await this.updateHelper(subscriptionEnrollmentId, updateSubscriptionEnrollmentRequest, options);
-        if (responseObject.body.hasOwnProperty('embedded')) {
-            let dataList = await this.embeddedHelper(responseObject);
-            return Promise.resolve({ response: responseObject.response, body: dataList });
-        }
-        return responseObject;
+    updateHttp(subscriptionEnrollmentId, updateSubscriptionEnrollmentRequest, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.updateHelper(subscriptionEnrollmentId, updateSubscriptionEnrollmentRequest, options);
+            return responseObject;
+        });
     }
-    async embeddedHelper(responseObject) {
-        const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let dataList = responseObject.body.embedded[embeddedName];
-        dataList.page = responseObject.body.page;
-        dataList.links = responseObject.body.links;
-        return dataList;
+    embeddedHelper(responseObject) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (responseObject.embedded == null || responseObject.embedded == undefined) {
+                const dataList = new models_1.SuperSet();
+                dataList.page = responseObject.body.page;
+                dataList.links = responseObject.body.links;
+                return dataList;
+            }
+            const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
+            let tempList = responseObject.body.embedded[embeddedName];
+            const dataList = new models_1.SuperSet();
+            tempList.forEach(item => { dataList.add(item); });
+            dataList.page = responseObject.body.page;
+            dataList.links = responseObject.body.links;
+            return dataList;
+        });
     }
 }
 exports.SubscriptionEnrollmentsApi = SubscriptionEnrollmentsApi;

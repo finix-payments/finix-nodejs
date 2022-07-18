@@ -16,41 +16,36 @@ exports.AuthorizationLinks = void 0;
 * For your convenience, every response includes several URLs which link to resources relevant to the request. You can use these `_links` to make your follow-up requests and quickly access relevant IDs.
 */
 class AuthorizationLinks {
-    'application';
-    'device';
-    'merchantIdentity';
-    'self';
-    'transfer';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "application",
-            "baseName": "application",
-            "type": "ApplicationProfileLinksApplication"
-        },
-        {
-            "name": "device",
-            "baseName": "device",
-            "type": "AuthorizationLinksDevice"
-        },
-        {
-            "name": "merchantIdentity",
-            "baseName": "merchant_identity",
-            "type": "AuthorizationLinksMerchantIdentity"
-        },
-        {
-            "name": "self",
-            "baseName": "self",
-            "type": "ApplicationLinksSelf"
-        },
-        {
-            "name": "transfer",
-            "baseName": "transfer",
-            "type": "AuthorizationLinksTransfer"
-        }
-    ];
     static getAttributeTypeMap() {
         return AuthorizationLinks.attributeTypeMap;
     }
 }
 exports.AuthorizationLinks = AuthorizationLinks;
+AuthorizationLinks.discriminator = undefined;
+AuthorizationLinks.attributeTypeMap = [
+    {
+        "name": "application",
+        "baseName": "application",
+        "type": "ApplicationProfileLinksApplication"
+    },
+    {
+        "name": "device",
+        "baseName": "device",
+        "type": "AuthorizationLinksDevice"
+    },
+    {
+        "name": "merchantIdentity",
+        "baseName": "merchant_identity",
+        "type": "AuthorizationLinksMerchantIdentity"
+    },
+    {
+        "name": "self",
+        "baseName": "self",
+        "type": "ApplicationLinksSelf"
+    },
+    {
+        "name": "transfer",
+        "baseName": "transfer",
+        "type": "AuthorizationLinksTransfer"
+    }
+];

@@ -16,104 +16,69 @@ exports.SubscriptionSchedule = void 0;
 *
 */
 class SubscriptionSchedule {
-    /**
-    * ID of the `Subscription Schedule`.
-    */
-    'id';
-    /**
-    * Timestamp of when the object was created.
-    */
-    'createdAt';
-    /**
-    * Timestamp of when the object was last updated.
-    */
-    'updatedAt';
-    /**
-    * `User` ID who created the schedule.
-    */
-    'createdBy';
-    'fixedTimeIntervalOffset';
-    /**
-    * `Subscription Schedule` type. For subscriptions, the type is **FEE**.
-    */
-    'lineItemType';
-    /**
-    * Human readable name.
-    */
-    'nickname';
-    'periodOffset';
-    /**
-    * `Subscription Schedule` type.
-    */
-    'subscriptionType';
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "createdAt",
-            "baseName": "created_at",
-            "type": "Date"
-        },
-        {
-            "name": "updatedAt",
-            "baseName": "updated_at",
-            "type": "Date"
-        },
-        {
-            "name": "createdBy",
-            "baseName": "created_by",
-            "type": "string"
-        },
-        {
-            "name": "fixedTimeIntervalOffset",
-            "baseName": "fixed_time_interval_offset",
-            "type": "SubscriptionScheduleFixedTimeIntervalOffset"
-        },
-        {
-            "name": "lineItemType",
-            "baseName": "line_item_type",
-            "type": "SubscriptionSchedule.LineItemTypeEnum"
-        },
-        {
-            "name": "nickname",
-            "baseName": "nickname",
-            "type": "string"
-        },
-        {
-            "name": "periodOffset",
-            "baseName": "period_offset",
-            "type": "SubscriptionSchedulePeriodOffset"
-        },
-        {
-            "name": "subscriptionType",
-            "baseName": "subscription_type",
-            "type": "SubscriptionSchedule.SubscriptionTypeEnum"
-        },
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "SubscriptionScheduleLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return SubscriptionSchedule.attributeTypeMap;
     }
 }
 exports.SubscriptionSchedule = SubscriptionSchedule;
+SubscriptionSchedule.discriminator = undefined;
+SubscriptionSchedule.attributeTypeMap = [
+    {
+        "name": "id",
+        "baseName": "id",
+        "type": "string"
+    },
+    {
+        "name": "createdAt",
+        "baseName": "created_at",
+        "type": "Date"
+    },
+    {
+        "name": "updatedAt",
+        "baseName": "updated_at",
+        "type": "Date"
+    },
+    {
+        "name": "createdBy",
+        "baseName": "created_by",
+        "type": "string"
+    },
+    {
+        "name": "fixedTimeIntervalOffset",
+        "baseName": "fixed_time_interval_offset",
+        "type": "SubscriptionScheduleFixedTimeIntervalOffset"
+    },
+    {
+        "name": "lineItemType",
+        "baseName": "line_item_type",
+        "type": "SubscriptionSchedule.LineItemTypeEnum"
+    },
+    {
+        "name": "nickname",
+        "baseName": "nickname",
+        "type": "string"
+    },
+    {
+        "name": "periodOffset",
+        "baseName": "period_offset",
+        "type": "SubscriptionSchedulePeriodOffset"
+    },
+    {
+        "name": "subscriptionType",
+        "baseName": "subscription_type",
+        "type": "SubscriptionSchedule.SubscriptionTypeEnum"
+    },
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "SubscriptionScheduleLinks"
+    }
+];
 (function (SubscriptionSchedule) {
     let LineItemTypeEnum;
     (function (LineItemTypeEnum) {

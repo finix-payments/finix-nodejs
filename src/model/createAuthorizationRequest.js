@@ -16,125 +16,84 @@ exports.CreateAuthorizationRequest = void 0;
 * Create an `Authorization` resource.
 */
 class CreateAuthorizationRequest {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    /**
-    * The total amount that will be debited in cents (e.g. 100 cents to debit $1.00).
-    */
-    'amount';
-    'currency';
-    /**
-    * A randomly generated value that\'ll be associated with the request.
-    */
-    'idempotencyId';
-    /**
-    * The ID of the resource.
-    */
-    'merchant';
-    /**
-    * The ID of the resource.
-    */
-    'merchantIdentity';
-    /**
-    * Name of the transaction processor.
-    */
-    'processor';
-    /**
-    * The ID of the resource.
-    */
-    'source';
-    'additionalPurchaseData';
-    /**
-    * The `fraud_session_session` ID you want to review for fraud. For more info, see [Fraud Detection](/docs/guides/payments/fraud-detection/).
-    */
-    'fraudSessionId';
-    'subType';
-    'operationKey';
-    /**
-    * The ID of the resource.
-    */
-    'device';
-    '_3dSecureAuthentication';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "amount",
-            "baseName": "amount",
-            "type": "number"
-        },
-        {
-            "name": "currency",
-            "baseName": "currency",
-            "type": "Currency"
-        },
-        {
-            "name": "idempotencyId",
-            "baseName": "idempotency_id",
-            "type": "string"
-        },
-        {
-            "name": "merchant",
-            "baseName": "merchant",
-            "type": "string"
-        },
-        {
-            "name": "merchantIdentity",
-            "baseName": "merchant_identity",
-            "type": "string"
-        },
-        {
-            "name": "processor",
-            "baseName": "processor",
-            "type": "CreateAuthorizationRequest.ProcessorEnum"
-        },
-        {
-            "name": "source",
-            "baseName": "source",
-            "type": "string"
-        },
-        {
-            "name": "additionalPurchaseData",
-            "baseName": "additional_purchase_data",
-            "type": "AdditionalPurchaseData"
-        },
-        {
-            "name": "fraudSessionId",
-            "baseName": "fraud_session_id",
-            "type": "string"
-        },
-        {
-            "name": "subType",
-            "baseName": "sub_type",
-            "type": "SubTypeTransfer"
-        },
-        {
-            "name": "operationKey",
-            "baseName": "operation_key",
-            "type": "OperationKey"
-        },
-        {
-            "name": "device",
-            "baseName": "device",
-            "type": "string"
-        },
-        {
-            "name": "_3dSecureAuthentication",
-            "baseName": "3d_secure_authentication",
-            "type": "CreateAuthorizationRequest3dSecureAuthentication"
-        }
-    ];
     static getAttributeTypeMap() {
         return CreateAuthorizationRequest.attributeTypeMap;
     }
 }
 exports.CreateAuthorizationRequest = CreateAuthorizationRequest;
+CreateAuthorizationRequest.discriminator = undefined;
+CreateAuthorizationRequest.attributeTypeMap = [
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "amount",
+        "baseName": "amount",
+        "type": "number"
+    },
+    {
+        "name": "currency",
+        "baseName": "currency",
+        "type": "Currency"
+    },
+    {
+        "name": "idempotencyId",
+        "baseName": "idempotency_id",
+        "type": "string"
+    },
+    {
+        "name": "merchant",
+        "baseName": "merchant",
+        "type": "string"
+    },
+    {
+        "name": "merchantIdentity",
+        "baseName": "merchant_identity",
+        "type": "string"
+    },
+    {
+        "name": "processor",
+        "baseName": "processor",
+        "type": "CreateAuthorizationRequest.ProcessorEnum"
+    },
+    {
+        "name": "source",
+        "baseName": "source",
+        "type": "string"
+    },
+    {
+        "name": "additionalPurchaseData",
+        "baseName": "additional_purchase_data",
+        "type": "AdditionalPurchaseData"
+    },
+    {
+        "name": "fraudSessionId",
+        "baseName": "fraud_session_id",
+        "type": "string"
+    },
+    {
+        "name": "subType",
+        "baseName": "sub_type",
+        "type": "SubTypeTransfer"
+    },
+    {
+        "name": "operationKey",
+        "baseName": "operation_key",
+        "type": "OperationKey"
+    },
+    {
+        "name": "device",
+        "baseName": "device",
+        "type": "string"
+    },
+    {
+        "name": "_3dSecureAuthentication",
+        "baseName": "3d_secure_authentication",
+        "type": "CreateAuthorizationRequest3dSecureAuthentication"
+    }
+];
 (function (CreateAuthorizationRequest) {
     let ProcessorEnum;
     (function (ProcessorEnum) {

@@ -13,38 +13,26 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ListWebhooksQueryParams = void 0;
 class ListWebhooksQueryParams {
-    /**
-    * The numbers of items to return
-    */
-    'limit';
-    /**
-    * Return every resource created after the cursor value.
-    */
-    'afterCursor';
-    /**
-    * Return every resource created before the cursor value.
-    */
-    'beforeCursor';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "limit",
-            "baseName": "limit",
-            "type": "number"
-        },
-        {
-            "name": "afterCursor",
-            "baseName": "after_cursor",
-            "type": "string"
-        },
-        {
-            "name": "beforeCursor",
-            "baseName": "before_cursor",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return ListWebhooksQueryParams.attributeTypeMap;
     }
 }
 exports.ListWebhooksQueryParams = ListWebhooksQueryParams;
+ListWebhooksQueryParams.discriminator = undefined;
+ListWebhooksQueryParams.attributeTypeMap = [
+    {
+        "name": "limit",
+        "baseName": "limit",
+        "type": "number"
+    },
+    {
+        "name": "afterCursor",
+        "baseName": "after_cursor",
+        "type": "string"
+    },
+    {
+        "name": "beforeCursor",
+        "baseName": "before_cursor",
+        "type": "string"
+    }
+];

@@ -13,10 +13,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ListSubscriptionEnrollmentsQueryParams = void 0;
 class ListSubscriptionEnrollmentsQueryParams {
-    static discriminator = undefined;
-    static attributeTypeMap = [];
     static getAttributeTypeMap() {
         return ListSubscriptionEnrollmentsQueryParams.attributeTypeMap;
     }
 }
 exports.ListSubscriptionEnrollmentsQueryParams = ListSubscriptionEnrollmentsQueryParams;
+ListSubscriptionEnrollmentsQueryParams.discriminator = undefined;
+ListSubscriptionEnrollmentsQueryParams.attributeTypeMap = [];

@@ -13,17 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SubscriptionAmountListEmbedded = void 0;
 class SubscriptionAmountListEmbedded {
-    'subscriptionAmounts';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "subscriptionAmounts",
-            "baseName": "subscription_amounts",
-            "type": "Set<SubscriptionAmount>"
-        }
-    ];
     static getAttributeTypeMap() {
         return SubscriptionAmountListEmbedded.attributeTypeMap;
     }
 }
 exports.SubscriptionAmountListEmbedded = SubscriptionAmountListEmbedded;
+SubscriptionAmountListEmbedded.discriminator = undefined;
+SubscriptionAmountListEmbedded.attributeTypeMap = [
+    {
+        "name": "subscriptionAmounts",
+        "baseName": "subscription_amounts",
+        "type": "Set<SubscriptionAmount>"
+    }
+];

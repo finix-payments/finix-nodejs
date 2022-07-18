@@ -16,74 +16,51 @@ exports.Identity = void 0;
 *
 */
 class Identity {
-    /**
-    * The ID of the `Identity` resource.
-    */
-    'id';
-    /**
-    * ID of the `Application` associated with the `Identity`.
-    */
-    'application';
-    'entity';
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    /**
-    * Timestamp of when the `Identity` was created
-    */
-    'createdAt';
-    /**
-    * Timestamp of when the `Identity` was last updated.
-    */
-    'updatedAt';
-    'additionalUnderwritingData';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "application",
-            "baseName": "application",
-            "type": "string"
-        },
-        {
-            "name": "entity",
-            "baseName": "entity",
-            "type": "IdentityEntity"
-        },
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "createdAt",
-            "baseName": "created_at",
-            "type": "string"
-        },
-        {
-            "name": "updatedAt",
-            "baseName": "updated_at",
-            "type": "string"
-        },
-        {
-            "name": "additionalUnderwritingData",
-            "baseName": "additional_underwriting_data",
-            "type": "IdentityAdditionalUnderwritingData"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "IdentityLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return Identity.attributeTypeMap;
     }
 }
 exports.Identity = Identity;
+Identity.discriminator = undefined;
+Identity.attributeTypeMap = [
+    {
+        "name": "id",
+        "baseName": "id",
+        "type": "string"
+    },
+    {
+        "name": "application",
+        "baseName": "application",
+        "type": "string"
+    },
+    {
+        "name": "entity",
+        "baseName": "entity",
+        "type": "IdentityEntity"
+    },
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "createdAt",
+        "baseName": "created_at",
+        "type": "string"
+    },
+    {
+        "name": "updatedAt",
+        "baseName": "updated_at",
+        "type": "string"
+    },
+    {
+        "name": "additionalUnderwritingData",
+        "baseName": "additional_underwriting_data",
+        "type": "IdentityAdditionalUnderwritingData"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "IdentityLinks"
+    }
+];

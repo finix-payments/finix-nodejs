@@ -13,53 +13,36 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateApplicationRequest = void 0;
 class CreateApplicationRequest {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    'entity';
-    /**
-    * Maximum amount that can be processed for a single transaction in cents (max 12 characters).
-    */
-    'maxTransactionAmount';
-    /**
-    * Merchant\'s full legal business name (If INDIVIDUAL_SOLE_PROPRIETORSHIP, please input first name, Full legal last name and middle initial; max 120 characters).
-    */
-    'name';
-    /**
-    * ID of the `User` resource.
-    */
-    'user';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "entity",
-            "baseName": "entity",
-            "type": "IdentityEntityForm"
-        },
-        {
-            "name": "maxTransactionAmount",
-            "baseName": "max_transaction_amount",
-            "type": "number"
-        },
-        {
-            "name": "name",
-            "baseName": "name",
-            "type": "string"
-        },
-        {
-            "name": "user",
-            "baseName": "user",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return CreateApplicationRequest.attributeTypeMap;
     }
 }
 exports.CreateApplicationRequest = CreateApplicationRequest;
+CreateApplicationRequest.discriminator = undefined;
+CreateApplicationRequest.attributeTypeMap = [
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "entity",
+        "baseName": "entity",
+        "type": "IdentityEntityForm"
+    },
+    {
+        "name": "maxTransactionAmount",
+        "baseName": "max_transaction_amount",
+        "type": "number"
+    },
+    {
+        "name": "name",
+        "baseName": "name",
+        "type": "string"
+    },
+    {
+        "name": "user",
+        "baseName": "user",
+        "type": "string"
+    }
+];

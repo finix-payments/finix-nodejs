@@ -13,38 +13,34 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Error404NotFoundListEmbeddedErrorsInner = void 0;
 class Error404NotFoundListEmbeddedErrorsInner {
-    'code';
-    'logref';
-    'message';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "code",
-            "baseName": "code",
-            "type": "Error404NotFoundListEmbeddedErrorsInner.CodeEnum"
-        },
-        {
-            "name": "logref",
-            "baseName": "logref",
-            "type": "LogRef"
-        },
-        {
-            "name": "message",
-            "baseName": "message",
-            "type": "string"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "Error402PaymentRequiredEmbeddedErrorsInnerLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return Error404NotFoundListEmbeddedErrorsInner.attributeTypeMap;
     }
 }
 exports.Error404NotFoundListEmbeddedErrorsInner = Error404NotFoundListEmbeddedErrorsInner;
+Error404NotFoundListEmbeddedErrorsInner.discriminator = undefined;
+Error404NotFoundListEmbeddedErrorsInner.attributeTypeMap = [
+    {
+        "name": "code",
+        "baseName": "code",
+        "type": "Error404NotFoundListEmbeddedErrorsInner.CodeEnum"
+    },
+    {
+        "name": "logref",
+        "baseName": "logref",
+        "type": "LogRef"
+    },
+    {
+        "name": "message",
+        "baseName": "message",
+        "type": "string"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "Error402PaymentRequiredEmbeddedErrorsInnerLinks"
+    }
+];
 (function (Error404NotFoundListEmbeddedErrorsInner) {
     let CodeEnum;
     (function (CodeEnum) {

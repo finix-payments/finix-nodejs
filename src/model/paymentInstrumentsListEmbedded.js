@@ -13,20 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PaymentInstrumentsListEmbedded = void 0;
 class PaymentInstrumentsListEmbedded {
-    /**
-    * List of `Payment Instruments`.
-    */
-    'paymentInstruments';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "paymentInstruments",
-            "baseName": "payment_instruments",
-            "type": "Set<PaymentInstrument>"
-        }
-    ];
     static getAttributeTypeMap() {
         return PaymentInstrumentsListEmbedded.attributeTypeMap;
     }
 }
 exports.PaymentInstrumentsListEmbedded = PaymentInstrumentsListEmbedded;
+PaymentInstrumentsListEmbedded.discriminator = undefined;
+PaymentInstrumentsListEmbedded.attributeTypeMap = [
+    {
+        "name": "paymentInstruments",
+        "baseName": "payment_instruments",
+        "type": "Set<PaymentInstrument>"
+    }
+];

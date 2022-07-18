@@ -16,17 +16,16 @@ exports.TransferLinksParent = void 0;
 * Link to the original resource that was used in the request.
 */
 class TransferLinksParent {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return TransferLinksParent.attributeTypeMap;
     }
 }
 exports.TransferLinksParent = TransferLinksParent;
+TransferLinksParent.discriminator = undefined;
+TransferLinksParent.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

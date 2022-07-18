@@ -13,17 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthorizationsListEmbedded = void 0;
 class AuthorizationsListEmbedded {
-    'authorizations';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "authorizations",
-            "baseName": "authorizations",
-            "type": "Set<Authorization>"
-        }
-    ];
     static getAttributeTypeMap() {
         return AuthorizationsListEmbedded.attributeTypeMap;
     }
 }
 exports.AuthorizationsListEmbedded = AuthorizationsListEmbedded;
+AuthorizationsListEmbedded.discriminator = undefined;
+AuthorizationsListEmbedded.attributeTypeMap = [
+    {
+        "name": "authorizations",
+        "baseName": "authorizations",
+        "type": "Set<Authorization>"
+    }
+];

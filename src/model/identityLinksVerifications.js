@@ -16,17 +16,16 @@ exports.IdentityLinksVerifications = void 0;
 * Link to the `Verification` the request was made under.
 */
 class IdentityLinksVerifications {
-    'href';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "href",
-            "baseName": "href",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return IdentityLinksVerifications.attributeTypeMap;
     }
 }
 exports.IdentityLinksVerifications = IdentityLinksVerifications;
+IdentityLinksVerifications.discriminator = undefined;
+IdentityLinksVerifications.attributeTypeMap = [
+    {
+        "name": "href",
+        "baseName": "href",
+        "type": "string"
+    }
+];

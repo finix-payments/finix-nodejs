@@ -16,17 +16,16 @@ exports.MerchantsListEmbedded = void 0;
 * List of `Merchant` objects.
 */
 class MerchantsListEmbedded {
-    'merchants';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "merchants",
-            "baseName": "merchants",
-            "type": "Set<Merchant>"
-        }
-    ];
     static getAttributeTypeMap() {
         return MerchantsListEmbedded.attributeTypeMap;
     }
 }
 exports.MerchantsListEmbedded = MerchantsListEmbedded;
+MerchantsListEmbedded.discriminator = undefined;
+MerchantsListEmbedded.attributeTypeMap = [
+    {
+        "name": "merchants",
+        "baseName": "merchants",
+        "type": "Set<Merchant>"
+    }
+];

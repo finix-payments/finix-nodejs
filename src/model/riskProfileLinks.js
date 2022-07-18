@@ -16,29 +16,26 @@ exports.RiskProfileLinks = void 0;
 * For your convenience, every response includes several URLs which link to resources relevant to the request. You can use these `_links` to make your follow-up requests and quickly access relevant IDs.
 */
 class RiskProfileLinks {
-    'application';
-    'rules';
-    'self';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "application",
-            "baseName": "application",
-            "type": "ApplicationProfileLinksApplication"
-        },
-        {
-            "name": "rules",
-            "baseName": "rules",
-            "type": "ApplicationLinksApplicationProfile"
-        },
-        {
-            "name": "self",
-            "baseName": "self",
-            "type": "ApplicationLinksSelf"
-        }
-    ];
     static getAttributeTypeMap() {
         return RiskProfileLinks.attributeTypeMap;
     }
 }
 exports.RiskProfileLinks = RiskProfileLinks;
+RiskProfileLinks.discriminator = undefined;
+RiskProfileLinks.attributeTypeMap = [
+    {
+        "name": "application",
+        "baseName": "application",
+        "type": "ApplicationProfileLinksApplication"
+    },
+    {
+        "name": "rules",
+        "baseName": "rules",
+        "type": "ApplicationLinksApplicationProfile"
+    },
+    {
+        "name": "self",
+        "baseName": "self",
+        "type": "ApplicationLinksSelf"
+    }
+];

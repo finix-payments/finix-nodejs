@@ -16,20 +16,16 @@ exports.UpdateSubscriptionEnrollmentRequest = void 0;
 * ID of the `subscription_enrollment`.
 */
 class UpdateSubscriptionEnrollmentRequest {
-    /**
-    * ID of the `subscription_enrollment`.
-    */
-    'id';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return UpdateSubscriptionEnrollmentRequest.attributeTypeMap;
     }
 }
 exports.UpdateSubscriptionEnrollmentRequest = UpdateSubscriptionEnrollmentRequest;
+UpdateSubscriptionEnrollmentRequest.discriminator = undefined;
+UpdateSubscriptionEnrollmentRequest.attributeTypeMap = [
+    {
+        "name": "id",
+        "baseName": "id",
+        "type": "string"
+    }
+];

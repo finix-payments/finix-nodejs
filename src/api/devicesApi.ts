@@ -132,7 +132,7 @@ export class DevicesApi {
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -143,8 +143,7 @@ export class DevicesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (createDevice.hasOwnProperty('file')){
-            createDevice = await this.fileHelper(createDevice);
+        if (createDevice != undefined && createDevice != null && createDevice.hasOwnProperty('file')){
             localVarRequestOptions.formData = createDevice;
         }
         else{
@@ -238,7 +237,7 @@ export class DevicesApi {
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -336,7 +335,7 @@ export class DevicesApi {
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -347,8 +346,7 @@ export class DevicesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (body.hasOwnProperty('file')){
-            body = await this.fileHelper(body);
+        if (body != undefined && body != null && body.hasOwnProperty('file')){
             localVarRequestOptions.formData = body;
         }
         else{
@@ -418,15 +416,18 @@ export class DevicesApi {
 
 
     private async embeddedHelper(responseObject: any){
+        if(responseObject.embedded == null || responseObject.embedded == undefined){
+            const dataList = new SuperSet<any>();
+            dataList.page = responseObject.body.page;
+            dataList.links = responseObject.body.links;
+            return dataList;
+        }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        let tempList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        const dataList = new SuperSet<any>();
+        tempList.forEach(item => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
-    }
-
-    private async fileHelper(request: any){
-        request.file = fs.createReadStream(<string>request.file)
-        return request;
     }
 }

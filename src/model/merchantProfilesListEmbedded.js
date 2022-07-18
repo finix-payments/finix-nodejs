@@ -13,17 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MerchantProfilesListEmbedded = void 0;
 class MerchantProfilesListEmbedded {
-    'merchantProfiles';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "merchantProfiles",
-            "baseName": "merchant_profiles",
-            "type": "Array<MerchantProfile>"
-        }
-    ];
     static getAttributeTypeMap() {
         return MerchantProfilesListEmbedded.attributeTypeMap;
     }
 }
 exports.MerchantProfilesListEmbedded = MerchantProfilesListEmbedded;
+MerchantProfilesListEmbedded.discriminator = undefined;
+MerchantProfilesListEmbedded.attributeTypeMap = [
+    {
+        "name": "merchantProfiles",
+        "baseName": "merchant_profiles",
+        "type": "Array<MerchantProfile>"
+    }
+];

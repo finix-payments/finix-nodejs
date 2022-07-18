@@ -13,32 +13,26 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateIdentityRequest = void 0;
 class UpdateIdentityRequest {
-    'additionalUnderwritingData';
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    'entity';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "additionalUnderwritingData",
-            "baseName": "additional_underwriting_data",
-            "type": "UpdateIdentityRequestAdditionalUnderwritingData"
-        },
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "entity",
-            "baseName": "entity",
-            "type": "UpdateIdentityRequestEntity"
-        }
-    ];
     static getAttributeTypeMap() {
         return UpdateIdentityRequest.attributeTypeMap;
     }
 }
 exports.UpdateIdentityRequest = UpdateIdentityRequest;
+UpdateIdentityRequest.discriminator = undefined;
+UpdateIdentityRequest.attributeTypeMap = [
+    {
+        "name": "additionalUnderwritingData",
+        "baseName": "additional_underwriting_data",
+        "type": "UpdateIdentityRequestAdditionalUnderwritingData"
+    },
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "entity",
+        "baseName": "entity",
+        "type": "UpdateIdentityRequestEntity"
+    }
+];

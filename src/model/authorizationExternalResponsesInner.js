@@ -13,23 +13,21 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthorizationExternalResponsesInner = void 0;
 class AuthorizationExternalResponsesInner {
-    'body';
-    'contentType';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "body",
-            "baseName": "body",
-            "type": "string"
-        },
-        {
-            "name": "contentType",
-            "baseName": "content_type",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return AuthorizationExternalResponsesInner.attributeTypeMap;
     }
 }
 exports.AuthorizationExternalResponsesInner = AuthorizationExternalResponsesInner;
+AuthorizationExternalResponsesInner.discriminator = undefined;
+AuthorizationExternalResponsesInner.attributeTypeMap = [
+    {
+        "name": "body",
+        "baseName": "body",
+        "type": "string"
+    },
+    {
+        "name": "contentType",
+        "baseName": "content_type",
+        "type": "string"
+    }
+];

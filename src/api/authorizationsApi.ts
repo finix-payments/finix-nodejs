@@ -130,7 +130,7 @@ export class AuthorizationsApi {
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -141,8 +141,7 @@ export class AuthorizationsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (createAuthorizationRequest.hasOwnProperty('file')){
-            createAuthorizationRequest = await this.fileHelper(createAuthorizationRequest);
+        if (createAuthorizationRequest != undefined && createAuthorizationRequest != null && createAuthorizationRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = createAuthorizationRequest;
         }
         else{
@@ -234,7 +233,7 @@ export class AuthorizationsApi {
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -414,7 +413,7 @@ export class AuthorizationsApi {
 
         }
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -514,7 +513,7 @@ export class AuthorizationsApi {
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -525,8 +524,7 @@ export class AuthorizationsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (updateAuthorizationRequest.hasOwnProperty('file')){
-            updateAuthorizationRequest = await this.fileHelper(updateAuthorizationRequest);
+        if (updateAuthorizationRequest != undefined && updateAuthorizationRequest != null && updateAuthorizationRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = updateAuthorizationRequest;
         }
         else{
@@ -596,15 +594,18 @@ export class AuthorizationsApi {
 
 
     private async embeddedHelper(responseObject: any){
+        if(responseObject.embedded == null || responseObject.embedded == undefined){
+            const dataList = new SuperSet<any>();
+            dataList.page = responseObject.body.page;
+            dataList.links = responseObject.body.links;
+            return dataList;
+        }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        let tempList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        const dataList = new SuperSet<any>();
+        tempList.forEach(item => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
-    }
-
-    private async fileHelper(request: any){
-        request.file = fs.createReadStream(<string>request.file)
-        return request;
     }
 }

@@ -13,17 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Error422InvalidFieldListEmbedded = void 0;
 class Error422InvalidFieldListEmbedded {
-    'errors';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "errors",
-            "baseName": "errors",
-            "type": "Array<Error422InvalidFieldListEmbeddedErrorsInner>"
-        }
-    ];
     static getAttributeTypeMap() {
         return Error422InvalidFieldListEmbedded.attributeTypeMap;
     }
 }
 exports.Error422InvalidFieldListEmbedded = Error422InvalidFieldListEmbedded;
+Error422InvalidFieldListEmbedded.discriminator = undefined;
+Error422InvalidFieldListEmbedded.attributeTypeMap = [
+    {
+        "name": "errors",
+        "baseName": "errors",
+        "type": "Array<Error422InvalidFieldListEmbeddedErrorsInner>"
+    }
+];

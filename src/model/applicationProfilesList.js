@@ -13,29 +13,26 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ApplicationProfilesList = void 0;
 class ApplicationProfilesList {
-    'page';
-    'embedded';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "page",
-            "baseName": "page",
-            "type": "PageCursor"
-        },
-        {
-            "name": "embedded",
-            "baseName": "_embedded",
-            "type": "ApplicationProfilesListEmbedded"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "ApplicationProfilesListLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return ApplicationProfilesList.attributeTypeMap;
     }
 }
 exports.ApplicationProfilesList = ApplicationProfilesList;
+ApplicationProfilesList.discriminator = undefined;
+ApplicationProfilesList.attributeTypeMap = [
+    {
+        "name": "page",
+        "baseName": "page",
+        "type": "PageCursor"
+    },
+    {
+        "name": "embedded",
+        "baseName": "_embedded",
+        "type": "ApplicationProfilesListEmbedded"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "ApplicationProfilesListLinks"
+    }
+];

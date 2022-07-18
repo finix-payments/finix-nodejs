@@ -134,7 +134,7 @@ export class PaymentInstrumentsApi {
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -145,8 +145,7 @@ export class PaymentInstrumentsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (applePaySessionRequest.hasOwnProperty('file')){
-            applePaySessionRequest = await this.fileHelper(applePaySessionRequest);
+        if (applePaySessionRequest != undefined && applePaySessionRequest != null && applePaySessionRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = applePaySessionRequest;
         }
         else{
@@ -233,7 +232,7 @@ export class PaymentInstrumentsApi {
 
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -244,8 +243,7 @@ export class PaymentInstrumentsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (createPaymentInstrumentRequest.hasOwnProperty('file')){
-            createPaymentInstrumentRequest = await this.fileHelper(createPaymentInstrumentRequest);
+        if (createPaymentInstrumentRequest != undefined && createPaymentInstrumentRequest != null && createPaymentInstrumentRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = createPaymentInstrumentRequest;
         }
         else{
@@ -338,7 +336,7 @@ export class PaymentInstrumentsApi {
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -349,8 +347,7 @@ export class PaymentInstrumentsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (createVerificationRequest.hasOwnProperty('file')){
-            createVerificationRequest = await this.fileHelper(createVerificationRequest);
+        if (createVerificationRequest != undefined && createVerificationRequest != null && createVerificationRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = createVerificationRequest;
         }
         else{
@@ -444,7 +441,7 @@ export class PaymentInstrumentsApi {
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -582,7 +579,7 @@ export class PaymentInstrumentsApi {
 
         }
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -682,7 +679,7 @@ export class PaymentInstrumentsApi {
         }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
-
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -693,8 +690,7 @@ export class PaymentInstrumentsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (updatePaymentInstrumentRequest.hasOwnProperty('file')){
-            updatePaymentInstrumentRequest = await this.fileHelper(updatePaymentInstrumentRequest);
+        if (updatePaymentInstrumentRequest != undefined && updatePaymentInstrumentRequest != null && updatePaymentInstrumentRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = updatePaymentInstrumentRequest;
         }
         else{
@@ -764,15 +760,18 @@ export class PaymentInstrumentsApi {
 
 
     private async embeddedHelper(responseObject: any){
+        if(responseObject.embedded == null || responseObject.embedded == undefined){
+            const dataList = new SuperSet<any>();
+            dataList.page = responseObject.body.page;
+            dataList.links = responseObject.body.links;
+            return dataList;
+        }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let dataList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        let tempList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
+        const dataList = new SuperSet<any>();
+        tempList.forEach(item => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
-    }
-
-    private async fileHelper(request: any){
-        request.file = fs.createReadStream(<string>request.file)
-        return request;
     }
 }

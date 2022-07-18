@@ -16,146 +16,95 @@ exports.UpdatePaymentInstrumentRequest = void 0;
 *
 */
 class UpdatePaymentInstrumentRequest {
-    /**
-    * The name of the bank account or card owner.
-    */
-    'name';
-    /**
-    * The 4-digit expiration year of the card.
-    */
-    'expirationYear';
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    /**
-    * The card or bank account number (no dashes in between numbers).
-    */
-    'number';
-    /**
-    * The expiration month of the card (e.g. 12 for December).
-    */
-    'expirationMonth';
-    'address';
-    /**
-    * The 3-4 digit security code of the card (i.e. CVV code).
-    */
-    'securityCode';
-    /**
-    * Type of `Payment Instrument`.
-    */
-    'type';
-    /**
-    * The ID of the resource.
-    */
-    'identity';
-    'thirdPartyToken';
-    /**
-    * The bank account number (no dashes in between numbers).
-    */
-    'accountNumber';
-    /**
-    * The type of bank account.
-    */
-    'accountType';
-    /**
-    * The routing number of the bank account.
-    */
-    'bankCode';
-    /**
-    * 3 Letter country code (e.g. USA).
-    */
-    'country';
-    'token';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "name",
-            "baseName": "name",
-            "type": "string"
-        },
-        {
-            "name": "expirationYear",
-            "baseName": "expiration_year",
-            "type": "number"
-        },
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "number",
-            "baseName": "number",
-            "type": "string"
-        },
-        {
-            "name": "expirationMonth",
-            "baseName": "expiration_month",
-            "type": "number"
-        },
-        {
-            "name": "address",
-            "baseName": "address",
-            "type": "CreatePaymentInstrumentRequestAddress"
-        },
-        {
-            "name": "securityCode",
-            "baseName": "security_code",
-            "type": "string"
-        },
-        {
-            "name": "type",
-            "baseName": "type",
-            "type": "UpdatePaymentInstrumentRequest.TypeEnum"
-        },
-        {
-            "name": "identity",
-            "baseName": "identity",
-            "type": "string"
-        },
-        {
-            "name": "thirdPartyToken",
-            "baseName": "third_party_token",
-            "type": "string"
-        },
-        {
-            "name": "accountNumber",
-            "baseName": "account_number",
-            "type": "string"
-        },
-        {
-            "name": "accountType",
-            "baseName": "account_type",
-            "type": "UpdatePaymentInstrumentRequest.AccountTypeEnum"
-        },
-        {
-            "name": "bankCode",
-            "baseName": "bank_code",
-            "type": "string"
-        },
-        {
-            "name": "country",
-            "baseName": "country",
-            "type": "string"
-        },
-        {
-            "name": "token",
-            "baseName": "token",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return UpdatePaymentInstrumentRequest.attributeTypeMap;
     }
 }
 exports.UpdatePaymentInstrumentRequest = UpdatePaymentInstrumentRequest;
+UpdatePaymentInstrumentRequest.discriminator = undefined;
+UpdatePaymentInstrumentRequest.attributeTypeMap = [
+    {
+        "name": "name",
+        "baseName": "name",
+        "type": "string"
+    },
+    {
+        "name": "expirationYear",
+        "baseName": "expiration_year",
+        "type": "number"
+    },
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "number",
+        "baseName": "number",
+        "type": "string"
+    },
+    {
+        "name": "expirationMonth",
+        "baseName": "expiration_month",
+        "type": "number"
+    },
+    {
+        "name": "address",
+        "baseName": "address",
+        "type": "CreatePaymentInstrumentRequestAddress"
+    },
+    {
+        "name": "securityCode",
+        "baseName": "security_code",
+        "type": "string"
+    },
+    {
+        "name": "type",
+        "baseName": "type",
+        "type": "UpdatePaymentInstrumentRequest.TypeEnum"
+    },
+    {
+        "name": "identity",
+        "baseName": "identity",
+        "type": "string"
+    },
+    {
+        "name": "thirdPartyToken",
+        "baseName": "third_party_token",
+        "type": "string"
+    },
+    {
+        "name": "accountNumber",
+        "baseName": "account_number",
+        "type": "string"
+    },
+    {
+        "name": "accountType",
+        "baseName": "account_type",
+        "type": "UpdatePaymentInstrumentRequest.AccountTypeEnum"
+    },
+    {
+        "name": "bankCode",
+        "baseName": "bank_code",
+        "type": "string"
+    },
+    {
+        "name": "country",
+        "baseName": "country",
+        "type": "string"
+    },
+    {
+        "name": "token",
+        "baseName": "token",
+        "type": "string"
+    }
+];
 (function (UpdatePaymentInstrumentRequest) {
     let TypeEnum;
     (function (TypeEnum) {
-        TypeEnum[TypeEnum["Token"] = 'TOKEN'] = "Token";
-        TypeEnum[TypeEnum["BankAccount"] = 'BANK_ACCOUNT'] = "BankAccount";
         TypeEnum[TypeEnum["PaymentCard"] = 'PAYMENT_CARD'] = "PaymentCard";
+        TypeEnum[TypeEnum["BankAccount"] = 'BANK_ACCOUNT'] = "BankAccount";
+        TypeEnum[TypeEnum["Token"] = 'TOKEN'] = "Token";
     })(TypeEnum = UpdatePaymentInstrumentRequest.TypeEnum || (UpdatePaymentInstrumentRequest.TypeEnum = {}));
     let AccountTypeEnum;
     (function (AccountTypeEnum) {

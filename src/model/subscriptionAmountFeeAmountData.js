@@ -16,35 +16,26 @@ exports.SubscriptionAmountFeeAmountData = void 0;
 * The amount and currency of this `Subsciption Amount`.
 */
 class SubscriptionAmountFeeAmountData {
-    /**
-    * A positive integer in cents representing how much to charge on a recurring basis
-    */
-    'amount';
-    'currency';
-    /**
-    * The display name of the `Subscription Amount` that can be used for filtering purposes.
-    */
-    'label';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "amount",
-            "baseName": "amount",
-            "type": "number"
-        },
-        {
-            "name": "currency",
-            "baseName": "currency",
-            "type": "Currency"
-        },
-        {
-            "name": "label",
-            "baseName": "label",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return SubscriptionAmountFeeAmountData.attributeTypeMap;
     }
 }
 exports.SubscriptionAmountFeeAmountData = SubscriptionAmountFeeAmountData;
+SubscriptionAmountFeeAmountData.discriminator = undefined;
+SubscriptionAmountFeeAmountData.attributeTypeMap = [
+    {
+        "name": "amount",
+        "baseName": "amount",
+        "type": "number"
+    },
+    {
+        "name": "currency",
+        "baseName": "currency",
+        "type": "Currency"
+    },
+    {
+        "name": "label",
+        "baseName": "label",
+        "type": "string"
+    }
+];

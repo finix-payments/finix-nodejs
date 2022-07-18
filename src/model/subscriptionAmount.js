@@ -16,98 +16,64 @@ exports.SubscriptionAmount = void 0;
 *
 */
 class SubscriptionAmount {
-    /**
-    * ID of the `Subscription Amount`.
-    */
-    'id';
-    /**
-    * Timestamp of when the object was created.
-    */
-    'createdAt';
-    /**
-    * Timestamp of when the object was last updated.
-    */
-    'updatedAt';
-    /**
-    * `Subscription Amount` type. The only type supported as of now is **FEE**.
-    */
-    'amountType';
-    /**
-    * The ID of the `User` that created the `Subscription Amount`.
-    */
-    'createdBy';
-    'feeAmountData';
-    /**
-    * Human readable name.
-    */
-    'nickname';
-    /**
-    * ID of the `Subscription Schedule`.
-    */
-    'subscriptionSchedule';
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    'links';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "createdAt",
-            "baseName": "created_at",
-            "type": "Date"
-        },
-        {
-            "name": "updatedAt",
-            "baseName": "updated_at",
-            "type": "Date"
-        },
-        {
-            "name": "amountType",
-            "baseName": "amount_type",
-            "type": "SubscriptionAmount.AmountTypeEnum"
-        },
-        {
-            "name": "createdBy",
-            "baseName": "created_by",
-            "type": "string"
-        },
-        {
-            "name": "feeAmountData",
-            "baseName": "fee_amount_data",
-            "type": "SubscriptionAmountFeeAmountData"
-        },
-        {
-            "name": "nickname",
-            "baseName": "nickname",
-            "type": "string"
-        },
-        {
-            "name": "subscriptionSchedule",
-            "baseName": "subscription_schedule",
-            "type": "string"
-        },
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "SubscriptionAmountLinks"
-        }
-    ];
     static getAttributeTypeMap() {
         return SubscriptionAmount.attributeTypeMap;
     }
 }
 exports.SubscriptionAmount = SubscriptionAmount;
+SubscriptionAmount.discriminator = undefined;
+SubscriptionAmount.attributeTypeMap = [
+    {
+        "name": "id",
+        "baseName": "id",
+        "type": "string"
+    },
+    {
+        "name": "createdAt",
+        "baseName": "created_at",
+        "type": "Date"
+    },
+    {
+        "name": "updatedAt",
+        "baseName": "updated_at",
+        "type": "Date"
+    },
+    {
+        "name": "amountType",
+        "baseName": "amount_type",
+        "type": "SubscriptionAmount.AmountTypeEnum"
+    },
+    {
+        "name": "createdBy",
+        "baseName": "created_by",
+        "type": "string"
+    },
+    {
+        "name": "feeAmountData",
+        "baseName": "fee_amount_data",
+        "type": "SubscriptionAmountFeeAmountData"
+    },
+    {
+        "name": "nickname",
+        "baseName": "nickname",
+        "type": "string"
+    },
+    {
+        "name": "subscriptionSchedule",
+        "baseName": "subscription_schedule",
+        "type": "string"
+    },
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    },
+    {
+        "name": "links",
+        "baseName": "_links",
+        "type": "SubscriptionAmountLinks"
+    }
+];
 (function (SubscriptionAmount) {
     let AmountTypeEnum;
     (function (AmountTypeEnum) {

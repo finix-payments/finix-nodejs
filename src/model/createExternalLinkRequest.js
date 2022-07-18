@@ -13,41 +13,29 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateExternalLinkRequest = void 0;
 class CreateExternalLinkRequest {
-    /**
-    * <ul><li>Set to <strong>UPLOAD</strong> to create a link that can be used to upload files to Finix.<li>Set to <strong>DOWNLOAD</strong> to create a link where the uploaded file can be downloaded from.<li>Set to <strong>VIEW</strong> to create a link that displays the file in browser.
-    */
-    'type';
-    /**
-    * Set how long (in minutes) the external link should be active for. The link can be active for up to 7 days in the future.
-    */
-    'duration';
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "type",
-            "baseName": "type",
-            "type": "CreateExternalLinkRequest.TypeEnum"
-        },
-        {
-            "name": "duration",
-            "baseName": "duration",
-            "type": "number"
-        },
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        }
-    ];
     static getAttributeTypeMap() {
         return CreateExternalLinkRequest.attributeTypeMap;
     }
 }
 exports.CreateExternalLinkRequest = CreateExternalLinkRequest;
+CreateExternalLinkRequest.discriminator = undefined;
+CreateExternalLinkRequest.attributeTypeMap = [
+    {
+        "name": "type",
+        "baseName": "type",
+        "type": "CreateExternalLinkRequest.TypeEnum"
+    },
+    {
+        "name": "duration",
+        "baseName": "duration",
+        "type": "number"
+    },
+    {
+        "name": "tags",
+        "baseName": "tags",
+        "type": "{ [key: string]: string; }"
+    }
+];
 (function (CreateExternalLinkRequest) {
     let TypeEnum;
     (function (TypeEnum) {

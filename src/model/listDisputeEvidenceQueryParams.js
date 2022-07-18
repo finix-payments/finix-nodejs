@@ -13,38 +13,26 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ListDisputeEvidenceQueryParams = void 0;
 class ListDisputeEvidenceQueryParams {
-    /**
-    * The numbers of items to return
-    */
-    'limit';
-    /**
-    * Return every resource created after the cursor value.
-    */
-    'afterCursor';
-    /**
-    * Return every resource created before the cursor value.
-    */
-    'beforeCursor';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "limit",
-            "baseName": "limit",
-            "type": "number"
-        },
-        {
-            "name": "afterCursor",
-            "baseName": "after_cursor",
-            "type": "string"
-        },
-        {
-            "name": "beforeCursor",
-            "baseName": "before_cursor",
-            "type": "string"
-        }
-    ];
     static getAttributeTypeMap() {
         return ListDisputeEvidenceQueryParams.attributeTypeMap;
     }
 }
 exports.ListDisputeEvidenceQueryParams = ListDisputeEvidenceQueryParams;
+ListDisputeEvidenceQueryParams.discriminator = undefined;
+ListDisputeEvidenceQueryParams.attributeTypeMap = [
+    {
+        "name": "limit",
+        "baseName": "limit",
+        "type": "number"
+    },
+    {
+        "name": "afterCursor",
+        "baseName": "after_cursor",
+        "type": "string"
+    },
+    {
+        "name": "beforeCursor",
+        "baseName": "before_cursor",
+        "type": "string"
+    }
+];

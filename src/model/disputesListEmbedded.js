@@ -13,20 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DisputesListEmbedded = void 0;
 class DisputesListEmbedded {
-    /**
-    * `Dispute` object.
-    */
-    'disputes';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "disputes",
-            "baseName": "disputes",
-            "type": "Set<Dispute>"
-        }
-    ];
     static getAttributeTypeMap() {
         return DisputesListEmbedded.attributeTypeMap;
     }
 }
 exports.DisputesListEmbedded = DisputesListEmbedded;
+DisputesListEmbedded.discriminator = undefined;
+DisputesListEmbedded.attributeTypeMap = [
+    {
+        "name": "disputes",
+        "baseName": "disputes",
+        "type": "Set<Dispute>"
+    }
+];

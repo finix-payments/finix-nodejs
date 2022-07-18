@@ -13,20 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UploadFileRequest = void 0;
 class UploadFileRequest {
-    /**
-    * Path to the file you want to upload (e.g. **_/Users/Desktop/finix_file.png**).
-    */
-    'file';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "file",
-            "baseName": "file",
-            "type": "RequestFile"
-        }
-    ];
     static getAttributeTypeMap() {
         return UploadFileRequest.attributeTypeMap;
     }
 }
 exports.UploadFileRequest = UploadFileRequest;
+UploadFileRequest.discriminator = undefined;
+UploadFileRequest.attributeTypeMap = [
+    {
+        "name": "file",
+        "baseName": "file",
+        "type": "RequestFile"
+    }
+];

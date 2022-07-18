@@ -13,17 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdjustmentTransfersListEmbedded = void 0;
 class AdjustmentTransfersListEmbedded {
-    'transfers';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "transfers",
-            "baseName": "transfers",
-            "type": "Array<Transfer>"
-        }
-    ];
     static getAttributeTypeMap() {
         return AdjustmentTransfersListEmbedded.attributeTypeMap;
     }
 }
 exports.AdjustmentTransfersListEmbedded = AdjustmentTransfersListEmbedded;
+AdjustmentTransfersListEmbedded.discriminator = undefined;
+AdjustmentTransfersListEmbedded.attributeTypeMap = [
+    {
+        "name": "transfers",
+        "baseName": "transfers",
+        "type": "Array<Transfer>"
+    }
+];

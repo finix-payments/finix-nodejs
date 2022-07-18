@@ -13,20 +13,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SubscriptionEnrollmentListEmbedded = void 0;
 class SubscriptionEnrollmentListEmbedded {
-    /**
-    * `Subscription Enrollments` resource.
-    */
-    'subscriptionEnrollments';
-    static discriminator = undefined;
-    static attributeTypeMap = [
-        {
-            "name": "subscriptionEnrollments",
-            "baseName": "subscription_enrollments",
-            "type": "Set<SubscriptionEnrollment>"
-        }
-    ];
     static getAttributeTypeMap() {
         return SubscriptionEnrollmentListEmbedded.attributeTypeMap;
     }
 }
 exports.SubscriptionEnrollmentListEmbedded = SubscriptionEnrollmentListEmbedded;
+SubscriptionEnrollmentListEmbedded.discriminator = undefined;
+SubscriptionEnrollmentListEmbedded.attributeTypeMap = [
+    {
+        "name": "subscriptionEnrollments",
+        "baseName": "subscription_enrollments",
+        "type": "Set<SubscriptionEnrollment>"
+    }
+];
