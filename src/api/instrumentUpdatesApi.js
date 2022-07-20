@@ -267,10 +267,9 @@ class InstrumentUpdatesApi {
     /**
      * Fetch a previously created `instrument_updates` resource as a CSV.   To fetch the `instrument_updates` resource in JSON, add `?format=json` to the request endpoint.
      * @summary Download Instrument Updates
-
-    * @param instrumentUpdatesId The ID of the &#x60;instrument_updates&#x60; resource. This ID was returned when initially creating the &#x60;instrument_updates&#x60; object.
-    *
-    */
+     * @param instrumentUpdatesId The ID of the &#x60;instrument_updates&#x60; resource. This ID was returned when initially creating the &#x60;instrument_updates&#x60; object.
+     *
+     */
     download(instrumentUpdatesId, downloadInstrumentUpdateQueryParams, options = { headers: {} }) {
         return __awaiter(this, void 0, void 0, function* () {
             const responseObject = yield this.downloadHelper(instrumentUpdatesId, downloadInstrumentUpdateQueryParams, options);
@@ -280,10 +279,9 @@ class InstrumentUpdatesApi {
     /**
      * Fetch a previously created `instrument_updates` resource as a CSV.   To fetch the `instrument_updates` resource in JSON, add `?format=json` to the request endpoint.
      * @summary Download Instrument Updates
-
-    * @param instrumentUpdatesId The ID of the &#x60;instrument_updates&#x60; resource. This ID was returned when initially creating the &#x60;instrument_updates&#x60; object.
-    *
-    */
+     * @param instrumentUpdatesId The ID of the &#x60;instrument_updates&#x60; resource. This ID was returned when initially creating the &#x60;instrument_updates&#x60; object.
+     *
+     */
     downloadHttp(instrumentUpdatesId, downloadInstrumentUpdateQueryParams, options = { headers: {} }) {
         return __awaiter(this, void 0, void 0, function* () {
             const responseObject = yield this.downloadHelper(instrumentUpdatesId, downloadInstrumentUpdateQueryParams, options);
@@ -385,22 +383,38 @@ class InstrumentUpdatesApi {
             return responseObject;
         });
     }
-    embeddedHelper(responseObject) {
+    embeddedHelper(responseObject, dataList) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (responseObject.embedded == null || responseObject.embedded == undefined) {
-                const dataList = new models_1.SuperSet();
+            if (responseObject.body.embedded == null || responseObject.body.embedded == undefined) {
+                // const dataList = new finixList<any>();
                 dataList.page = responseObject.body.page;
                 dataList.links = responseObject.body.links;
                 return dataList;
             }
             const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
             let tempList = responseObject.body.embedded[embeddedName];
-            const dataList = new models_1.SuperSet();
+            // const dataList = new finixList<any>();
             tempList.forEach(item => { dataList.add(item); });
             dataList.page = responseObject.body.page;
             dataList.links = responseObject.body.links;
             return dataList;
         });
+    }
+    getoffsetQueryParam(responseObject, queryParam) {
+        queryParam.offset = responseObject.body.page.offset;
+        var endReached = false;
+        if (responseObject.body.page.offset + responseObject.body.page.limit > responseObject.body.page.count) {
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+    getCursorQueryParam(responseObject, queryParam) {
+        queryParam.afterCursor = responseObject.body.page.nextCursor;
+        var endReached = false;
+        if (responseObject.body.page.nextCursor == undefined) {
+            endReached = true;
+        }
+        return [queryParam, endReached];
     }
 }
 exports.InstrumentUpdatesApi = InstrumentUpdatesApi;

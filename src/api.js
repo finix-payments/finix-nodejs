@@ -45,28 +45,19 @@ class Client {
                 this.basePath = basePathOrUsername;
             }
         }
-        this.ApplicationProfiles = new finix.ApplicationProfilesApi(this.username, this.password, this.basePath);
-        this.Applications = new finix.ApplicationsApi(this.username, this.password, this.basePath);
         this.Authorizations = new finix.AuthorizationsApi(this.username, this.password, this.basePath);
         this.BalanceTransfers = new finix.BalanceTransfersApi(this.username, this.password, this.basePath);
         this.Devices = new finix.DevicesApi(this.username, this.password, this.basePath);
         this.Disputes = new finix.DisputesApi(this.username, this.password, this.basePath);
         this.FeeProfiles = new finix.FeeProfilesApi(this.username, this.password, this.basePath);
-        this.Fees = new finix.FeesApi(this.username, this.password, this.basePath);
         this.Files = new finix.FilesApi(this.username, this.password, this.basePath);
         this.Identities = new finix.IdentitiesApi(this.username, this.password, this.basePath);
         this.InstrumentUpdates = new finix.InstrumentUpdatesApi(this.username, this.password, this.basePath);
         this.MerchantProfiles = new finix.MerchantProfilesApi(this.username, this.password, this.basePath);
         this.Merchants = new finix.MerchantsApi(this.username, this.password, this.basePath);
         this.PaymentInstruments = new finix.PaymentInstrumentsApi(this.username, this.password, this.basePath);
-        this.PaymentInstrumentsP2C = new finix.PaymentInstrumentsP2CApi(this.username, this.password, this.basePath);
-        this.Processors = new finix.ProcessorsApi(this.username, this.password, this.basePath);
         this.Settlements = new finix.SettlementsApi(this.username, this.password, this.basePath);
-        this.SubscriptionAmounts = new finix.SubscriptionAmountsApi(this.username, this.password, this.basePath);
-        this.SubscriptionEnrollments = new finix.SubscriptionEnrollmentsApi(this.username, this.password, this.basePath);
-        this.SubscriptionSchedules = new finix.SubscriptionSchedulesApi(this.username, this.password, this.basePath);
         this.Transfers = new finix.TransfersApi(this.username, this.password, this.basePath);
-        this.Users = new finix.UsersApi(this.username, this.password, this.basePath);
         this.Verifications = new finix.VerificationsApi(this.username, this.password, this.basePath);
         this.Webhooks = new finix.WebhooksApi(this.username, this.password, this.basePath);
     }

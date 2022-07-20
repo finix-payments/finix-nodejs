@@ -24,7 +24,7 @@ import { Error404NotFoundList } from '../model/error404NotFoundList';
 import { Error406NotAcceptable } from '../model/error406NotAcceptable';
 import { ErrorGeneric } from '../model/errorGeneric';
 import { ListBalanceTransfersQueryParams } from '../model/listBalanceTransfersQueryParams';
-import { ObjectSerializer, Authentication, VoidAuth, Interceptor, SuperSet } from '../model/models';
+import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
 import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
 
 import { HttpError, RequestFile } from './apis';
@@ -186,7 +186,6 @@ export class BalanceTransfersApi {
      * @summary Create a Balance Transfer
      * @param createBalanceTransferRequest 
      */
-
     public async create(createBalanceTransferRequest?: CreateBalanceTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<BalanceTransfer> {
         const responseObject = await this.createHelper(createBalanceTransferRequest,  options);
@@ -198,7 +197,6 @@ export class BalanceTransfersApi {
      * @summary Create a Balance Transfer
      * @param createBalanceTransferRequest 
      */
-
     public async createHttp(createBalanceTransferRequest?: CreateBalanceTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: BalanceTransfer; }> {
         const responseObject = await this.createHelper(createBalanceTransferRequest,  options);
@@ -283,7 +281,6 @@ export class BalanceTransfersApi {
      * @summary Get a Balance Transfer
      * @param balanceTransfersId ID of the &#x60;balance_transfer&#x60; resource.
      */
-
     public async get(balanceTransfersId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<BalanceTransfer> {
         const responseObject = await this.getHelper(balanceTransfersId,  options);
@@ -295,7 +292,6 @@ export class BalanceTransfersApi {
      * @summary Get a Balance Transfer
      * @param balanceTransfersId ID of the &#x60;balance_transfer&#x60; resource.
      */
-
     public async getHttp(balanceTransfersId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: BalanceTransfer; }> {
         const responseObject = await this.getHelper(balanceTransfersId,  options);
@@ -419,43 +415,107 @@ export class BalanceTransfersApi {
     /**
      * Retrieve a list of `balance_transfers`.
      * @summary List Balance Transfers
-
-    */
+     */
     public async list (listBalanceTransfersQueryParams?:ListBalanceTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<SuperSet<any>> {
+        Promise<finixList<any>> {
         const responseObject = await this.listHelper(listBalanceTransfersQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        // var queryParam: ListBalanceTransfersQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.list(queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return dataList;
     }
 
     /**
      * Retrieve a list of `balance_transfers`.
      * @summary List Balance Transfers
-
-    */
+     */
     public async listHttp (listBalanceTransfersQueryParams?:ListBalanceTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listHelper(listBalanceTransfersQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        //var queryParam: ListBalanceTransfersQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd]  = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.list(queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return Promise.resolve({response: responseObject.response, body: dataList});
     }
 
 
-    private async embeddedHelper(responseObject: any){
-        if(responseObject.embedded == null || responseObject.embedded == undefined){
-            const dataList = new SuperSet<any>();
+    private async embeddedHelper(responseObject: any, dataList: finixList<any>){
+        if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
+            // const dataList = new finixList<any>();
             dataList.page = responseObject.body.page;
             dataList.links = responseObject.body.links;
             return dataList;
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let tempList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-        const dataList = new SuperSet<any>();
+        let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
+        // const dataList = new finixList<any>();
         tempList.forEach(item => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
     }
-}
+
+    private getoffsetQueryParam(responseObject: any, queryParam: any){
+        queryParam.offset = responseObject.body.page.offset;
+        var endReached: Boolean = false;
+        if (responseObject.body.page.offset + responseObject.body.page.limit > responseObject.body.page.count){
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+
+    private getCursorQueryParam(responseObject: any, queryParam: any){
+        queryParam.afterCursor = responseObject.body.page.nextCursor;
+        var endReached: Boolean = false;
+        if (responseObject.body.page.nextCursor == undefined){
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+}   

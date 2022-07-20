@@ -21,8 +21,18 @@ exports.ListVerificationsQueryParams = ListVerificationsQueryParams;
 ListVerificationsQueryParams.discriminator = undefined;
 ListVerificationsQueryParams.attributeTypeMap = [
     {
-        "name": "id",
-        "baseName": "id",
+        "name": "limit",
+        "baseName": "limit",
+        "type": "number"
+    },
+    {
+        "name": "afterCursor",
+        "baseName": "after_cursor",
+        "type": "string"
+    },
+    {
+        "name": "beforeCursor",
+        "baseName": "before_cursor",
         "type": "string"
     }
 ];

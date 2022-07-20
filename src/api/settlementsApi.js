@@ -90,13 +90,15 @@ class SettlementsApi {
     }
     /**
      * Helper function.
-     * Create a batch `Settlement`. A `Settlement` is a collection of **SUCCEEDED** `Transfers` that are ready to get paid out to a `Merchant`.
+     * Create a batch `Settlement`. A `Settlement` is a collection of **SUCCEEDED** Transfers that are ready to get paid out to a `Merchant`.
      * @summary Create a Batch Settlement
+     * @param identityId ID of identity to fetch
      * @param createSettlementRequest
      */
-    createHelper(createSettlementRequest, options = { headers: {} }) {
+    createHelper(identityId, createSettlementRequest, options = { headers: {} }) {
         return __awaiter(this, void 0, void 0, function* () {
-            const localVarPath = this.basePath + '/settlements';
+            const localVarPath = this.basePath + '/identities/{identity_id}/settlements'
+                .replace('{' + 'identity_id' + '}', encodeURIComponent(String(identityId)));
             let localVarQueryParameters = {};
             let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
             const produces = ['application/hal+json'];
@@ -108,6 +110,10 @@ class SettlementsApi {
                 localVarHeaderParams.Accept = produces.join(',');
             }
             let localVarFormParams = {};
+            // verify required parameter 'identityId' is not null or undefined
+            if (identityId === null || identityId === undefined) {
+                throw new Error('Required parameter identityId was null or undefined when calling createIdentitySettlement.');
+            }
             Object.assign(localVarHeaderParams, options.headers);
             localVarHeaderParams['Finix-Version'] = "2022-02-01";
             let localVarUseFormData = false;
@@ -163,24 +169,26 @@ class SettlementsApi {
         });
     }
     /**
-     * Create a batch `Settlement`. A `Settlement` is a collection of **SUCCEEDED** `Transfers` that are ready to get paid out to a `Merchant`.
+     * Create a batch `Settlement`. A `Settlement` is a collection of **SUCCEEDED** Transfers that are ready to get paid out to a `Merchant`.
      * @summary Create a Batch Settlement
+     * @param identityId ID of identity to fetch
      * @param createSettlementRequest
      */
-    create(createSettlementRequest, options = { headers: {} }) {
+    create(identityId, createSettlementRequest, options = { headers: {} }) {
         return __awaiter(this, void 0, void 0, function* () {
-            const responseObject = yield this.createHelper(createSettlementRequest, options);
+            const responseObject = yield this.createHelper(identityId, createSettlementRequest, options);
             return responseObject.body;
         });
     }
     /**
-     * Create a batch `Settlement`. A `Settlement` is a collection of **SUCCEEDED** `Transfers` that are ready to get paid out to a `Merchant`.
+     * Create a batch `Settlement`. A `Settlement` is a collection of **SUCCEEDED** Transfers that are ready to get paid out to a `Merchant`.
      * @summary Create a Batch Settlement
+     * @param identityId ID of identity to fetch
      * @param createSettlementRequest
      */
-    createHttp(createSettlementRequest, options = { headers: {} }) {
+    createHttp(identityId, createSettlementRequest, options = { headers: {} }) {
         return __awaiter(this, void 0, void 0, function* () {
-            const responseObject = yield this.createHelper(createSettlementRequest, options);
+            const responseObject = yield this.createHelper(identityId, createSettlementRequest, options);
             return responseObject;
         });
     }
@@ -368,28 +376,78 @@ class SettlementsApi {
     /**
      * Retrieve the `Transfers` in a `Settlement` that have `type` **CREDIT**.
      * @summary List Settlement Funding Transfers
-
-    * @param settlementId ID of &#x60;Settlement&#x60; object.
-    *
-    */
+     * @param settlementId ID of &#x60;Settlement&#x60; object.
+     *
+     */
     listFundingTransfers(settlementId, listSettlementFundingTransfersQueryParams, options = { headers: {} }) {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             const responseObject = yield this.listFundingTransfersHelper(settlementId, listSettlementFundingTransfersQueryParams, options);
-            let dataList = yield this.embeddedHelper(responseObject);
+            // var queryParam: ListSettlementFundingTransfersQueryParams;
+            var reachedEnd;
+            if ((_b = (_a = responseObject.body) === null || _a === void 0 ? void 0 : _a.page) === null || _b === void 0 ? void 0 : _b.hasOwnProperty('nextCursor')) {
+                var queryParam = {
+                    afterCursor: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+            }
+            else {
+                var queryParam = {
+                    offset: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            }
+            const nextFetch = (limit) => {
+                queryParam.limit = limit;
+                if (reachedEnd) {
+                    throw new RangeError("End of list reached");
+                }
+                return this.listFundingTransfers(settlementId, queryParam);
+            };
+            let dataList = new models_1.finixList(nextFetch);
+            dataList = yield this.embeddedHelper(responseObject, dataList);
+            dataList.hasMore = !reachedEnd;
             return dataList;
         });
     }
     /**
      * Retrieve the `Transfers` in a `Settlement` that have `type` **CREDIT**.
      * @summary List Settlement Funding Transfers
-
-    * @param settlementId ID of &#x60;Settlement&#x60; object.
-    *
-    */
+     * @param settlementId ID of &#x60;Settlement&#x60; object.
+     *
+     */
     listFundingTransfersHttp(settlementId, listSettlementFundingTransfersQueryParams, options = { headers: {} }) {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             const responseObject = yield this.listFundingTransfersHelper(settlementId, listSettlementFundingTransfersQueryParams, options);
-            let dataList = yield this.embeddedHelper(responseObject);
+            //var queryParam: ListSettlementFundingTransfersQueryParams;
+            var reachedEnd;
+            if ((_b = (_a = responseObject.body) === null || _a === void 0 ? void 0 : _a.page) === null || _b === void 0 ? void 0 : _b.hasOwnProperty('nextCursor')) {
+                var queryParam = {
+                    afterCursor: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+            }
+            else {
+                var queryParam = {
+                    offset: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            }
+            const nextFetch = (limit) => {
+                queryParam.limit = limit;
+                if (reachedEnd) {
+                    throw new RangeError("End of list reached");
+                }
+                return this.listFundingTransfers(settlementId, queryParam);
+            };
+            let dataList = new models_1.finixList(nextFetch);
+            dataList = yield this.embeddedHelper(responseObject, dataList);
+            dataList.hasMore = !reachedEnd;
             return Promise.resolve({ response: responseObject.response, body: dataList });
         });
     }
@@ -482,28 +540,78 @@ class SettlementsApi {
     /**
      * Retrieve the `Transfers` in a `Settlement` that have `type` **DEBIT** or **REFUND**.
      * @summary List Settlement Transfers
-
-    * @param settlementId ID of &#x60;Settlement&#x60; object.
-    *
-    */
+     * @param settlementId ID of &#x60;Settlement&#x60; object.
+     *
+     */
     listTransfersBySettlementId(settlementId, listSettlementTransfersQueryParams, options = { headers: {} }) {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             const responseObject = yield this.listTransfersBySettlementIdHelper(settlementId, listSettlementTransfersQueryParams, options);
-            let dataList = yield this.embeddedHelper(responseObject);
+            // var queryParam: ListSettlementTransfersQueryParams;
+            var reachedEnd;
+            if ((_b = (_a = responseObject.body) === null || _a === void 0 ? void 0 : _a.page) === null || _b === void 0 ? void 0 : _b.hasOwnProperty('nextCursor')) {
+                var queryParam = {
+                    afterCursor: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+            }
+            else {
+                var queryParam = {
+                    offset: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            }
+            const nextFetch = (limit) => {
+                queryParam.limit = limit;
+                if (reachedEnd) {
+                    throw new RangeError("End of list reached");
+                }
+                return this.listTransfersBySettlementId(settlementId, queryParam);
+            };
+            let dataList = new models_1.finixList(nextFetch);
+            dataList = yield this.embeddedHelper(responseObject, dataList);
+            dataList.hasMore = !reachedEnd;
             return dataList;
         });
     }
     /**
      * Retrieve the `Transfers` in a `Settlement` that have `type` **DEBIT** or **REFUND**.
      * @summary List Settlement Transfers
-
-    * @param settlementId ID of &#x60;Settlement&#x60; object.
-    *
-    */
+     * @param settlementId ID of &#x60;Settlement&#x60; object.
+     *
+     */
     listTransfersBySettlementIdHttp(settlementId, listSettlementTransfersQueryParams, options = { headers: {} }) {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             const responseObject = yield this.listTransfersBySettlementIdHelper(settlementId, listSettlementTransfersQueryParams, options);
-            let dataList = yield this.embeddedHelper(responseObject);
+            //var queryParam: ListSettlementTransfersQueryParams;
+            var reachedEnd;
+            if ((_b = (_a = responseObject.body) === null || _a === void 0 ? void 0 : _a.page) === null || _b === void 0 ? void 0 : _b.hasOwnProperty('nextCursor')) {
+                var queryParam = {
+                    afterCursor: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+            }
+            else {
+                var queryParam = {
+                    offset: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            }
+            const nextFetch = (limit) => {
+                queryParam.limit = limit;
+                if (reachedEnd) {
+                    throw new RangeError("End of list reached");
+                }
+                return this.listTransfersBySettlementId(settlementId, queryParam);
+            };
+            let dataList = new models_1.finixList(nextFetch);
+            dataList = yield this.embeddedHelper(responseObject, dataList);
+            dataList.hasMore = !reachedEnd;
             return Promise.resolve({ response: responseObject.response, body: dataList });
         });
     }
@@ -604,24 +712,74 @@ class SettlementsApi {
     /**
      * Retrieve a list of `Settlements`.
      * @summary List Settlements
-
-    */
+     */
     list(listSettlementsQueryParams, options = { headers: {} }) {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             const responseObject = yield this.listHelper(listSettlementsQueryParams, options);
-            let dataList = yield this.embeddedHelper(responseObject);
+            // var queryParam: ListSettlementsQueryParams;
+            var reachedEnd;
+            if ((_b = (_a = responseObject.body) === null || _a === void 0 ? void 0 : _a.page) === null || _b === void 0 ? void 0 : _b.hasOwnProperty('nextCursor')) {
+                var queryParam = {
+                    afterCursor: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+            }
+            else {
+                var queryParam = {
+                    offset: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            }
+            const nextFetch = (limit) => {
+                queryParam.limit = limit;
+                if (reachedEnd) {
+                    throw new RangeError("End of list reached");
+                }
+                return this.list(queryParam);
+            };
+            let dataList = new models_1.finixList(nextFetch);
+            dataList = yield this.embeddedHelper(responseObject, dataList);
+            dataList.hasMore = !reachedEnd;
             return dataList;
         });
     }
     /**
      * Retrieve a list of `Settlements`.
      * @summary List Settlements
-
-    */
+     */
     listHttp(listSettlementsQueryParams, options = { headers: {} }) {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             const responseObject = yield this.listHelper(listSettlementsQueryParams, options);
-            let dataList = yield this.embeddedHelper(responseObject);
+            //var queryParam: ListSettlementsQueryParams;
+            var reachedEnd;
+            if ((_b = (_a = responseObject.body) === null || _a === void 0 ? void 0 : _a.page) === null || _b === void 0 ? void 0 : _b.hasOwnProperty('nextCursor')) {
+                var queryParam = {
+                    afterCursor: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+            }
+            else {
+                var queryParam = {
+                    offset: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            }
+            const nextFetch = (limit) => {
+                queryParam.limit = limit;
+                if (reachedEnd) {
+                    throw new RangeError("End of list reached");
+                }
+                return this.list(queryParam);
+            };
+            let dataList = new models_1.finixList(nextFetch);
+            dataList = yield this.embeddedHelper(responseObject, dataList);
+            dataList.hasMore = !reachedEnd;
             return Promise.resolve({ response: responseObject.response, body: dataList });
         });
     }
@@ -832,22 +990,38 @@ class SettlementsApi {
             return responseObject;
         });
     }
-    embeddedHelper(responseObject) {
+    embeddedHelper(responseObject, dataList) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (responseObject.embedded == null || responseObject.embedded == undefined) {
-                const dataList = new models_1.SuperSet();
+            if (responseObject.body.embedded == null || responseObject.body.embedded == undefined) {
+                // const dataList = new finixList<any>();
                 dataList.page = responseObject.body.page;
                 dataList.links = responseObject.body.links;
                 return dataList;
             }
             const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
             let tempList = responseObject.body.embedded[embeddedName];
-            const dataList = new models_1.SuperSet();
+            // const dataList = new finixList<any>();
             tempList.forEach(item => { dataList.add(item); });
             dataList.page = responseObject.body.page;
             dataList.links = responseObject.body.links;
             return dataList;
         });
+    }
+    getoffsetQueryParam(responseObject, queryParam) {
+        queryParam.offset = responseObject.body.page.offset;
+        var endReached = false;
+        if (responseObject.body.page.offset + responseObject.body.page.limit > responseObject.body.page.count) {
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+    getCursorQueryParam(responseObject, queryParam) {
+        queryParam.afterCursor = responseObject.body.page.nextCursor;
+        var endReached = false;
+        if (responseObject.body.page.nextCursor == undefined) {
+            endReached = true;
+        }
+        return [queryParam, endReached];
     }
 }
 exports.SettlementsApi = SettlementsApi;

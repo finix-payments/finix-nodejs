@@ -368,28 +368,78 @@ class VerificationsApi {
     /**
      * Get a list of all the `Verifications` in the `Merchant` object.
      * @summary List Merchant Verifications
-
-    * @param merchantId ID of &#x60;Merchant&#x60; object.
-    *
-    */
+     * @param merchantId ID of &#x60;Merchant&#x60; object.
+     *
+     */
     listByMerchantId(merchantId, listMerchantVerificationsQueryParams, options = { headers: {} }) {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             const responseObject = yield this.listByMerchantIdHelper(merchantId, listMerchantVerificationsQueryParams, options);
-            let dataList = yield this.embeddedHelper(responseObject);
+            // var queryParam: ListMerchantVerificationsQueryParams;
+            var reachedEnd;
+            if ((_b = (_a = responseObject.body) === null || _a === void 0 ? void 0 : _a.page) === null || _b === void 0 ? void 0 : _b.hasOwnProperty('nextCursor')) {
+                var queryParam = {
+                    afterCursor: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+            }
+            else {
+                var queryParam = {
+                    offset: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            }
+            const nextFetch = (limit) => {
+                queryParam.limit = limit;
+                if (reachedEnd) {
+                    throw new RangeError("End of list reached");
+                }
+                return this.listByMerchantId(merchantId, queryParam);
+            };
+            let dataList = new models_1.finixList(nextFetch);
+            dataList = yield this.embeddedHelper(responseObject, dataList);
+            dataList.hasMore = !reachedEnd;
             return dataList;
         });
     }
     /**
      * Get a list of all the `Verifications` in the `Merchant` object.
      * @summary List Merchant Verifications
-
-    * @param merchantId ID of &#x60;Merchant&#x60; object.
-    *
-    */
+     * @param merchantId ID of &#x60;Merchant&#x60; object.
+     *
+     */
     listByMerchantIdHttp(merchantId, listMerchantVerificationsQueryParams, options = { headers: {} }) {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             const responseObject = yield this.listByMerchantIdHelper(merchantId, listMerchantVerificationsQueryParams, options);
-            let dataList = yield this.embeddedHelper(responseObject);
+            //var queryParam: ListMerchantVerificationsQueryParams;
+            var reachedEnd;
+            if ((_b = (_a = responseObject.body) === null || _a === void 0 ? void 0 : _a.page) === null || _b === void 0 ? void 0 : _b.hasOwnProperty('nextCursor')) {
+                var queryParam = {
+                    afterCursor: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+            }
+            else {
+                var queryParam = {
+                    offset: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            }
+            const nextFetch = (limit) => {
+                queryParam.limit = limit;
+                if (reachedEnd) {
+                    throw new RangeError("End of list reached");
+                }
+                return this.listByMerchantId(merchantId, queryParam);
+            };
+            let dataList = new models_1.finixList(nextFetch);
+            dataList = yield this.embeddedHelper(responseObject, dataList);
+            dataList.hasMore = !reachedEnd;
             return Promise.resolve({ response: responseObject.response, body: dataList });
         });
     }
@@ -414,8 +464,14 @@ class VerificationsApi {
             }
             let localVarFormParams = {};
             if (listVerificationsQueryParams != undefined) {
-                if (listVerificationsQueryParams.id !== undefined) {
-                    localVarQueryParameters['id'] = models_1.ObjectSerializer.serialize(listVerificationsQueryParams.id, "string");
+                if (listVerificationsQueryParams.limit !== undefined) {
+                    localVarQueryParameters['limit'] = models_1.ObjectSerializer.serialize(listVerificationsQueryParams.limit, "number");
+                }
+                if (listVerificationsQueryParams.afterCursor !== undefined) {
+                    localVarQueryParameters['after_cursor'] = models_1.ObjectSerializer.serialize(listVerificationsQueryParams.afterCursor, "string");
+                }
+                if (listVerificationsQueryParams.beforeCursor !== undefined) {
+                    localVarQueryParameters['before_cursor'] = models_1.ObjectSerializer.serialize(listVerificationsQueryParams.beforeCursor, "string");
                 }
             }
             Object.assign(localVarHeaderParams, options.headers);
@@ -469,43 +525,109 @@ class VerificationsApi {
     /**
      * Retrieve a list of `Verifications`.
      * @summary List Verifications
-
-    */
+     */
     list(listVerificationsQueryParams, options = { headers: {} }) {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             const responseObject = yield this.listHelper(listVerificationsQueryParams, options);
-            let dataList = yield this.embeddedHelper(responseObject);
+            // var queryParam: ListVerificationsQueryParams;
+            var reachedEnd;
+            if ((_b = (_a = responseObject.body) === null || _a === void 0 ? void 0 : _a.page) === null || _b === void 0 ? void 0 : _b.hasOwnProperty('nextCursor')) {
+                var queryParam = {
+                    afterCursor: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+            }
+            else {
+                var queryParam = {
+                    offset: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            }
+            const nextFetch = (limit) => {
+                queryParam.limit = limit;
+                if (reachedEnd) {
+                    throw new RangeError("End of list reached");
+                }
+                return this.list(queryParam);
+            };
+            let dataList = new models_1.finixList(nextFetch);
+            dataList = yield this.embeddedHelper(responseObject, dataList);
+            dataList.hasMore = !reachedEnd;
             return dataList;
         });
     }
     /**
      * Retrieve a list of `Verifications`.
      * @summary List Verifications
-
-    */
+     */
     listHttp(listVerificationsQueryParams, options = { headers: {} }) {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             const responseObject = yield this.listHelper(listVerificationsQueryParams, options);
-            let dataList = yield this.embeddedHelper(responseObject);
+            //var queryParam: ListVerificationsQueryParams;
+            var reachedEnd;
+            if ((_b = (_a = responseObject.body) === null || _a === void 0 ? void 0 : _a.page) === null || _b === void 0 ? void 0 : _b.hasOwnProperty('nextCursor')) {
+                var queryParam = {
+                    afterCursor: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+            }
+            else {
+                var queryParam = {
+                    offset: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            }
+            const nextFetch = (limit) => {
+                queryParam.limit = limit;
+                if (reachedEnd) {
+                    throw new RangeError("End of list reached");
+                }
+                return this.list(queryParam);
+            };
+            let dataList = new models_1.finixList(nextFetch);
+            dataList = yield this.embeddedHelper(responseObject, dataList);
+            dataList.hasMore = !reachedEnd;
             return Promise.resolve({ response: responseObject.response, body: dataList });
         });
     }
-    embeddedHelper(responseObject) {
+    embeddedHelper(responseObject, dataList) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (responseObject.embedded == null || responseObject.embedded == undefined) {
-                const dataList = new models_1.SuperSet();
+            if (responseObject.body.embedded == null || responseObject.body.embedded == undefined) {
+                // const dataList = new finixList<any>();
                 dataList.page = responseObject.body.page;
                 dataList.links = responseObject.body.links;
                 return dataList;
             }
             const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
             let tempList = responseObject.body.embedded[embeddedName];
-            const dataList = new models_1.SuperSet();
+            // const dataList = new finixList<any>();
             tempList.forEach(item => { dataList.add(item); });
             dataList.page = responseObject.body.page;
             dataList.links = responseObject.body.links;
             return dataList;
         });
+    }
+    getoffsetQueryParam(responseObject, queryParam) {
+        queryParam.offset = responseObject.body.page.offset;
+        var endReached = false;
+        if (responseObject.body.page.offset + responseObject.body.page.limit > responseObject.body.page.count) {
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+    getCursorQueryParam(responseObject, queryParam) {
+        queryParam.afterCursor = responseObject.body.page.nextCursor;
+        var endReached = false;
+        if (responseObject.body.page.nextCursor == undefined) {
+            endReached = true;
+        }
+        return [queryParam, endReached];
     }
 }
 exports.VerificationsApi = VerificationsApi;

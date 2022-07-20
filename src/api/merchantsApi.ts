@@ -27,7 +27,7 @@ import { MerchantsList } from '../model/merchantsList';
 import { UpdateMerchantRequest } from '../model/updateMerchantRequest';
 import { Verification } from '../model/verification';
 import { ListMerchantsQueryParams } from '../model/listMerchantsQueryParams';
-import { ObjectSerializer, Authentication, VoidAuth, Interceptor, SuperSet } from '../model/models';
+import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
 import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
 
 import { HttpError, RequestFile } from './apis';
@@ -196,7 +196,6 @@ export class MerchantsApi {
      * @param identityId ID of &#x60;Identity&#x60; to fetch.
      * @param createMerchantUnderwritingRequest 
      */
-
     public async create(identityId: string, createMerchantUnderwritingRequest?: CreateMerchantUnderwritingRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Merchant> {
         const responseObject = await this.createHelper(identityId, createMerchantUnderwritingRequest,  options);
@@ -209,7 +208,6 @@ export class MerchantsApi {
      * @param identityId ID of &#x60;Identity&#x60; to fetch.
      * @param createMerchantUnderwritingRequest 
      */
-
     public async createHttp(identityId: string, createMerchantUnderwritingRequest?: CreateMerchantUnderwritingRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Merchant; }> {
         const responseObject = await this.createHelper(identityId, createMerchantUnderwritingRequest,  options);
@@ -302,7 +300,6 @@ export class MerchantsApi {
      * @param merchantId ID of &#x60;Merchant&#x60; object.
      * @param createVerificationRequest 
      */
-
     public async createMerchantVerification(merchantId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Verification> {
         const responseObject = await this.createMerchantVerificationHelper(merchantId, createVerificationRequest,  options);
@@ -315,7 +312,6 @@ export class MerchantsApi {
      * @param merchantId ID of &#x60;Merchant&#x60; object.
      * @param createVerificationRequest 
      */
-
     public async createMerchantVerificationHttp(merchantId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Verification; }> {
         const responseObject = await this.createMerchantVerificationHelper(merchantId, createVerificationRequest,  options);
@@ -400,7 +396,6 @@ export class MerchantsApi {
      * @summary Get a Merchant
      * @param merchantId ID of &#x60;Merchant&#x60;.
      */
-
     public async get(merchantId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Merchant> {
         const responseObject = await this.getHelper(merchantId,  options);
@@ -412,7 +407,6 @@ export class MerchantsApi {
      * @summary Get a Merchant
      * @param merchantId ID of &#x60;Merchant&#x60;.
      */
-
     public async getHttp(merchantId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Merchant; }> {
         const responseObject = await this.getHelper(merchantId,  options);
@@ -512,26 +506,72 @@ export class MerchantsApi {
     /**
      * Retrieve a list of `Merchants`. 
      * @summary List Merchants
-
-    */
+     */
     public async list (listMerchantsQueryParams?:ListMerchantsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<SuperSet<any>> {
+        Promise<finixList<any>> {
         const responseObject = await this.listHelper(listMerchantsQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        // var queryParam: ListMerchantsQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.list(queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return dataList;
     }
 
     /**
      * Retrieve a list of `Merchants`. 
      * @summary List Merchants
-
-    */
+     */
     public async listHttp (listMerchantsQueryParams?:ListMerchantsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listHelper(listMerchantsQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        //var queryParam: ListMerchantsQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd]  = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.list(queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return Promise.resolve({response: responseObject.response, body: dataList});
     }
     /**
@@ -621,7 +661,6 @@ export class MerchantsApi {
      * @param merchantId ID of &#x60;Merchant&#x60;.
      * @param updateMerchantRequest 
      */
-
     public async update(merchantId: string, updateMerchantRequest?: UpdateMerchantRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Merchant> {
         const responseObject = await this.updateHelper(merchantId, updateMerchantRequest,  options);
@@ -634,7 +673,6 @@ export class MerchantsApi {
      * @param merchantId ID of &#x60;Merchant&#x60;.
      * @param updateMerchantRequest 
      */
-
     public async updateHttp(merchantId: string, updateMerchantRequest?: UpdateMerchantRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Merchant; }> {
         const responseObject = await this.updateHelper(merchantId, updateMerchantRequest,  options);
@@ -642,19 +680,37 @@ export class MerchantsApi {
     }
 
 
-    private async embeddedHelper(responseObject: any){
-        if(responseObject.embedded == null || responseObject.embedded == undefined){
-            const dataList = new SuperSet<any>();
+    private async embeddedHelper(responseObject: any, dataList: finixList<any>){
+        if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
+            // const dataList = new finixList<any>();
             dataList.page = responseObject.body.page;
             dataList.links = responseObject.body.links;
             return dataList;
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let tempList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-        const dataList = new SuperSet<any>();
+        let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
+        // const dataList = new finixList<any>();
         tempList.forEach(item => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
     }
-}
+
+    private getoffsetQueryParam(responseObject: any, queryParam: any){
+        queryParam.offset = responseObject.body.page.offset;
+        var endReached: Boolean = false;
+        if (responseObject.body.page.offset + responseObject.body.page.limit > responseObject.body.page.count){
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+
+    private getCursorQueryParam(responseObject: any, queryParam: any){
+        queryParam.afterCursor = responseObject.body.page.nextCursor;
+        var endReached: Boolean = false;
+        if (responseObject.body.page.nextCursor == undefined){
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+}   

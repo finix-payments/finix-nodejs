@@ -11,7 +11,7 @@
  */
 
 import { RequestFile } from './models';
-import { DisputeEvidenceLinks } from './disputeEvidenceLinks';
+import { InstrumentUpdateLinks } from './instrumentUpdateLinks';
 
 export class InstrumentUpdate {
     /**
@@ -34,7 +34,20 @@ export class InstrumentUpdate {
     * The status of the `instrument_updates` resource and update request.
     */
     'state'?: string;
-    'links'?: DisputeEvidenceLinks;
+    /**
+    * The id of the application.
+    */
+    'application'?: string;
+    'messages'?: Array<string>;
+    /**
+    * Trace ID of the `Update`. The processor sends back the `trace_id` so you can track the update end-to-end.
+    */
+    'traceId'?: string;
+    /**
+    * The id of the payment instrument the update occured against.
+    */
+    'paymentInstrument'?: string;
+    'links'?: InstrumentUpdateLinks;
 
     static discriminator: string | undefined = undefined;
 
@@ -65,9 +78,29 @@ export class InstrumentUpdate {
             "type": "string"
         },
         {
+            "name": "application",
+            "baseName": "application",
+            "type": "string"
+        },
+        {
+            "name": "messages",
+            "baseName": "messages",
+            "type": "Array<string>"
+        },
+        {
+            "name": "traceId",
+            "baseName": "trace_id",
+            "type": "string"
+        },
+        {
+            "name": "paymentInstrument",
+            "baseName": "payment_instrument",
+            "type": "string"
+        },
+        {
             "name": "links",
             "baseName": "_links",
-            "type": "DisputeEvidenceLinks"
+            "type": "InstrumentUpdateLinks"
         }    ];
 
     static getAttributeTypeMap() {

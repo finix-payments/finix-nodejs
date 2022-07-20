@@ -25,12 +25,12 @@ describe('Transfers API', () => {
             processor: "DUMMY_V1"
         };
 
-        const debitAccount = await client.Transfers.create(debitRequest, {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const debitAccountTransfer = await client.Transfers.create(debitRequest, {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
 
-        expect(debitAccount.amount).toBe(debitRequest.amount);
-        expect(debitAccount.fee).toBe(debitRequest.fee);
-        expect(debitAccount.application).toBe("APgPDQrLD52TYvqazjHJJchM");
-        expect(debitAccount.source).toBe(debitRequest.source);
+        expect(debitAccountTransfer.amount).toBe(debitRequest.amount);
+        expect(debitAccountTransfer.fee).toBe(debitRequest.fee);
+        expect(debitAccountTransfer.application).toBe("APgPDQrLD52TYvqazjHJJchM");
+        expect(debitAccountTransfer.source).toBe(debitRequest.source);
     });
 
     test("Test: Create sale", async() => {
@@ -44,11 +44,11 @@ describe('Transfers API', () => {
              amount: 662154,
          };
  
-         const createdSale = await client.Transfers.create(saleRequest, {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+         const createdSaleTransfer = await client.Transfers.create(saleRequest, {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
  
-         expect(createdSale.amount).toBe(saleRequest.amount);
-         expect(createdSale.application).toBe("APgPDQrLD52TYvqazjHJJchM");
-         expect(createdSale.source).toBe(saleRequest.source);
+         expect(createdSaleTransfer.amount).toBe(saleRequest.amount);
+         expect(createdSaleTransfer.application).toBe("APgPDQrLD52TYvqazjHJJchM");
+         expect(createdSaleTransfer.source).toBe(saleRequest.source);
      });
 
      test("Test: Create sale with 3D secure", async() => {
@@ -67,11 +67,11 @@ describe('Transfers API', () => {
              }
          };
  
-         const created3dSecureSale = await client.Transfers.create(sale3dSecureRequest, {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+         const created3dSecureSaleTransfer = await client.Transfers.create(sale3dSecureRequest, {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
  
-         expect(created3dSecureSale.amount).toBe(sale3dSecureRequest.amount);
-         expect(created3dSecureSale.application).toBe("APgPDQrLD52TYvqazjHJJchM");
-         expect(created3dSecureSale.source).toBe(sale3dSecureRequest.source);
+         expect(created3dSecureSaleTransfer.amount).toBe(sale3dSecureRequest.amount);
+         expect(created3dSecureSaleTransfer.application).toBe("APgPDQrLD52TYvqazjHJJchM");
+         expect(created3dSecureSaleTransfer.source).toBe(sale3dSecureRequest.source);
      });
 
      test("Test: Create sale with level 2 processing", async() => {
@@ -89,11 +89,11 @@ describe('Transfers API', () => {
              }
          };
  
-         const createdL2Sale = await client.Transfers.create(saleL2Request, {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+         const createdL2SaleTransfer = await client.Transfers.create(saleL2Request, {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
  
-         expect(createdL2Sale.amount).toBe(saleL2Request.amount);
-         expect(createdL2Sale.application).toBe("APgPDQrLD52TYvqazjHJJchM");
-         expect(createdL2Sale.source).toBe(saleL2Request.source);
+         expect(createdL2SaleTransfer.amount).toBe(saleL2Request.amount);
+         expect(createdL2SaleTransfer.application).toBe("APgPDQrLD52TYvqazjHJJchM");
+         expect(createdL2SaleTransfer.source).toBe(saleL2Request.source);
      });
 
      test("Test: Create sale with level 23 processing", async() => {
@@ -124,11 +124,11 @@ describe('Transfers API', () => {
              }
          };
  
-         const createdL3Sale = await client.Transfers.create(saleL3Request, {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+         const createdL3SaleTransfer = await client.Transfers.create(saleL3Request, {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
  
-         expect(createdL3Sale.amount).toBe(saleL3Request.amount);
-         expect(createdL3Sale.application).toBe("APgPDQrLD52TYvqazjHJJchM");
-         expect(createdL3Sale.source).toBe(saleL3Request.source);
+         expect(createdL3SaleTransfer.amount).toBe(saleL3Request.amount);
+         expect(createdL3SaleTransfer.application).toBe("APgPDQrLD52TYvqazjHJJchM");
+         expect(createdL3SaleTransfer.source).toBe(saleL3Request.source);
      });
 
      test("Test: Fetch a transfer", async() => {

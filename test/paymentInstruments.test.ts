@@ -35,14 +35,13 @@ describe('Payment Instruments API', () => {
             identity: "IDgWxBhfGYLLdkhxx2ddYf9K"
         };
 
-        const createdPaymentCard = await client.PaymentInstruments.create(paymentCardRequest, 
-        {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
-        paymentCardId = <string>createdPaymentCard.id;
+        const createdPaymentInstrument = await client.PaymentInstruments.create(paymentCardRequest);
+        paymentCardId = <string>createdPaymentInstrument.id;
 
-        expect(createdPaymentCard.application).toBe("APgPDQrLD52TYvqazjHJJchM");
-        expect(createdPaymentCard.name).toBe(paymentCardRequest.name);
-        expect(createdPaymentCard.identity).toBe(paymentCardRequest.identity);
-        expect(createdPaymentCard.expirationMonth).toBe(paymentCardRequest.expirationMonth);
+        expect(createdPaymentInstrument.application).toBe("APgPDQrLD52TYvqazjHJJchM");
+        expect(createdPaymentInstrument.name).toBe(paymentCardRequest.name);
+        expect(createdPaymentInstrument.identity).toBe(paymentCardRequest.identity);
+        expect(createdPaymentInstrument.expirationMonth).toBe(paymentCardRequest.expirationMonth);
     });
 
     test('Test: Create a bank account', async() => {
@@ -59,8 +58,7 @@ describe('Payment Instruments API', () => {
             identity: "IDpYDM7J9n57q849o9E9yNrG"
         };
 
-        const createdPaymentInstrument = await client.PaymentInstruments.create(paymentRequest, 
-        {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const createdPaymentInstrument = await client.PaymentInstruments.create(paymentRequest);
         bankAccountId = <string> createdPaymentInstrument.id;
 
         expect(createdPaymentInstrument.application).toBe("APgPDQrLD52TYvqazjHJJchM");
@@ -70,17 +68,17 @@ describe('Payment Instruments API', () => {
     });
 
     test('Test: Fetch a bank account' ,async () => {
-        const fetchedBankAccount = await client.PaymentInstruments.get(bankAccountId);
-        expect(fetchedBankAccount.id).toBe(bankAccountId);
-        expect(fetchedBankAccount.bankCode).toBe("123123123");
-        expect(fetchedBankAccount.application).toBe("APgPDQrLD52TYvqazjHJJchM");
+        const fetchedPaymentInstrument= await client.PaymentInstruments.get(bankAccountId);
+        expect(fetchedPaymentInstrument.id).toBe(bankAccountId);
+        expect(fetchedPaymentInstrument.bankCode).toBe("123123123");
+        expect(fetchedPaymentInstrument.application).toBe("APgPDQrLD52TYvqazjHJJchM");
     });
 
     test('Test: Fetch a payment card' ,async () => {
-        const fetchedPaymentCard = await client.PaymentInstruments.get(paymentCardId);
-        expect(fetchedPaymentCard.id).toBe(paymentCardId);
-        expect(fetchedPaymentCard.expirationMonth).toBe(12);
-        expect(fetchedPaymentCard.application).toBe("APgPDQrLD52TYvqazjHJJchM");
+        const fetchedPaymentInstrument = await client.PaymentInstruments.get(paymentCardId);
+        expect(fetchedPaymentInstrument.id).toBe(paymentCardId);
+        expect(fetchedPaymentInstrument.expirationMonth).toBe(12);
+        expect(fetchedPaymentInstrument.application).toBe("APgPDQrLD52TYvqazjHJJchM");
     });
 
     test('Test: Create instrument update',async () => {
@@ -90,10 +88,10 @@ describe('Payment Instruments API', () => {
             request: "{\"merchant\":\"MUucec6fHeaWo3VHYoSkUySM\"}"
         }
 
-        const createdRequest = await client.InstrumentUpdates.create(updateRequest);
-        instrumentUpdateId = <string> createdRequest.id;
+        const createdInstrumentUpdate = await client.InstrumentUpdates.create(updateRequest);
+        instrumentUpdateId = <string> createdInstrumentUpdate.id;
 
-        expect(createdRequest.merchant).toBe("MUucec6fHeaWo3VHYoSkUySM");
+        expect(createdInstrumentUpdate.merchant).toBe("MUucec6fHeaWo3VHYoSkUySM");
     })
 
     test('Test: Fetch a instrument update' ,async () => {
@@ -103,8 +101,7 @@ describe('Payment Instruments API', () => {
     });
 
     test("Test: List all payment instruments", async() => {
-        const paymentInstrumentList = await client.PaymentInstruments.list(undefined,
-        {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const paymentInstrumentList = await client.PaymentInstruments.list();
 
         expect(paymentInstrumentList.page.limit).toEqual(expect.any(Number));
         if (paymentInstrumentList.page.nextCursor != undefined){
@@ -114,12 +111,12 @@ describe('Payment Instruments API', () => {
     });
 
     test('Test: Payment instrument verification' ,async () => {
-        const verifiedPaymentInstrument = await client.PaymentInstrumentsP2C.createPaymentInstrumentVerification(bankAccountId,{
+        const paymentInstrumentVerification = await client.PaymentInstrumentsP2C.createPaymentInstrumentVerification(bankAccountId,{
             processor: "DUMMY_V1"
         });
 
-        expect(verifiedPaymentInstrument.paymentInstrument).toBe(bankAccountId);
-        expect(verifiedPaymentInstrument.processor).toBe("DUMMY_V1");
+        expect(paymentInstrumentVerification.paymentInstrument).toBe(bankAccountId);
+        expect(paymentInstrumentVerification.processor).toBe("DUMMY_V1");
     });
     
 })

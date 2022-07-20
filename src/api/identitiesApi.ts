@@ -28,7 +28,7 @@ import { UpdateIdentityRequest } from '../model/updateIdentityRequest';
 import { Verification } from '../model/verification';
 import { ListIdentitiesQueryParams } from '../model/listIdentitiesQueryParams';
 import { ListIdentityAssociatedIdentitiesQueryParams } from '../model/listIdentityAssociatedIdentitiesQueryParams';
-import { ObjectSerializer, Authentication, VoidAuth, Interceptor, SuperSet } from '../model/models';
+import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
 import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
 
 import { HttpError, RequestFile } from './apis';
@@ -197,7 +197,6 @@ export class IdentitiesApi {
      * @param identityId ID of &#x60;Identity&#x60; to associate object with.
      * @param createIdentityRequest 
      */
-
     public async createAssociatedIdentity(identityId: string, createIdentityRequest?: CreateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Identity> {
         const responseObject = await this.createAssociatedIdentityHelper(identityId, createIdentityRequest,  options);
@@ -210,7 +209,6 @@ export class IdentitiesApi {
      * @param identityId ID of &#x60;Identity&#x60; to associate object with.
      * @param createIdentityRequest 
      */
-
     public async createAssociatedIdentityHttp(identityId: string, createIdentityRequest?: CreateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Identity; }> {
         const responseObject = await this.createAssociatedIdentityHelper(identityId, createIdentityRequest,  options);
@@ -296,7 +294,6 @@ export class IdentitiesApi {
      * @summary Create an Identity
      * @param createIdentityRequest 
      */
-
     public async create(createIdentityRequest?: CreateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Identity> {
         const responseObject = await this.createHelper(createIdentityRequest,  options);
@@ -308,7 +305,6 @@ export class IdentitiesApi {
      * @summary Create an Identity
      * @param createIdentityRequest 
      */
-
     public async createHttp(createIdentityRequest?: CreateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Identity; }> {
         const responseObject = await this.createHelper(createIdentityRequest,  options);
@@ -401,7 +397,6 @@ export class IdentitiesApi {
      * @param identityId ID of identity to fetch
      * @param createVerificationRequest 
      */
-
     public async createIdentityVerification(identityId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Verification> {
         const responseObject = await this.createIdentityVerificationHelper(identityId, createVerificationRequest,  options);
@@ -414,7 +409,6 @@ export class IdentitiesApi {
      * @param identityId ID of identity to fetch
      * @param createVerificationRequest 
      */
-
     public async createIdentityVerificationHttp(identityId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Verification; }> {
         const responseObject = await this.createIdentityVerificationHelper(identityId, createVerificationRequest,  options);
@@ -499,7 +493,6 @@ export class IdentitiesApi {
      * @summary Fetch an Identity
      * @param identityId ID of the &#x60;identity&#x60; to fetch
      */
-
     public async get(identityId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Identity> {
         const responseObject = await this.getHelper(identityId,  options);
@@ -511,7 +504,6 @@ export class IdentitiesApi {
      * @summary Fetch an Identity
      * @param identityId ID of the &#x60;identity&#x60; to fetch
      */
-
     public async getHttp(identityId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Identity; }> {
         const responseObject = await this.getHelper(identityId,  options);
@@ -632,26 +624,72 @@ export class IdentitiesApi {
     /**
      * Retrieves a list of `Identities`.
      * @summary List Identities
-
-    */
+     */
     public async list (listIdentitiesQueryParams?:ListIdentitiesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<SuperSet<any>> {
+        Promise<finixList<any>> {
         const responseObject = await this.listHelper(listIdentitiesQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        // var queryParam: ListIdentitiesQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.list(queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return dataList;
     }
 
     /**
      * Retrieves a list of `Identities`.
      * @summary List Identities
-
-    */
+     */
     public async listHttp (listIdentitiesQueryParams?:ListIdentitiesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listHelper(listIdentitiesQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        //var queryParam: ListIdentitiesQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd]  = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.list(queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return Promise.resolve({response: responseObject.response, body: dataList});
     }
     /**
@@ -743,30 +781,76 @@ export class IdentitiesApi {
     /**
      * Retrieve a list of `Associated Identities` for an `Identity`.
      * @summary List Associated Identities
-
-    * @param identityId ID of &#x60;Identity&#x60; to associate object with.
-    * 
-    */
+     * @param identityId ID of &#x60;Identity&#x60; to associate object with.
+     *  
+     */
     public async listAssocaiatedIdentities (identityId: string, listIdentityAssociatedIdentitiesQueryParams?:ListIdentityAssociatedIdentitiesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<SuperSet<any>> {
+        Promise<finixList<any>> {
         const responseObject = await this.listAssocaiatedIdentitiesHelper(identityId, listIdentityAssociatedIdentitiesQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        // var queryParam: ListIdentityAssociatedIdentitiesQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.listAssocaiatedIdentities(identityId, queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return dataList;
     }
 
     /**
      * Retrieve a list of `Associated Identities` for an `Identity`.
      * @summary List Associated Identities
-
-    * @param identityId ID of &#x60;Identity&#x60; to associate object with.
-    * 
-    */
+     * @param identityId ID of &#x60;Identity&#x60; to associate object with.
+     * 
+     */
     public async listAssocaiatedIdentitiesHttp (identityId: string, listIdentityAssociatedIdentitiesQueryParams?:ListIdentityAssociatedIdentitiesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listAssocaiatedIdentitiesHelper(identityId, listIdentityAssociatedIdentitiesQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        //var queryParam: ListIdentityAssociatedIdentitiesQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd]  = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.listAssocaiatedIdentities(identityId, queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return Promise.resolve({response: responseObject.response, body: dataList});
     }
     /**
@@ -856,7 +940,6 @@ export class IdentitiesApi {
      * @param identityId ID of the &#x60;identity&#x60; to fetch
      * @param updateIdentityRequest 
      */
-
     public async update(identityId: string, updateIdentityRequest?: UpdateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Identity> {
         const responseObject = await this.updateHelper(identityId, updateIdentityRequest,  options);
@@ -869,7 +952,6 @@ export class IdentitiesApi {
      * @param identityId ID of the &#x60;identity&#x60; to fetch
      * @param updateIdentityRequest 
      */
-
     public async updateHttp(identityId: string, updateIdentityRequest?: UpdateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Identity; }> {
         const responseObject = await this.updateHelper(identityId, updateIdentityRequest,  options);
@@ -877,19 +959,37 @@ export class IdentitiesApi {
     }
 
 
-    private async embeddedHelper(responseObject: any){
-        if(responseObject.embedded == null || responseObject.embedded == undefined){
-            const dataList = new SuperSet<any>();
+    private async embeddedHelper(responseObject: any, dataList: finixList<any>){
+        if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
+            // const dataList = new finixList<any>();
             dataList.page = responseObject.body.page;
             dataList.links = responseObject.body.links;
             return dataList;
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let tempList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-        const dataList = new SuperSet<any>();
+        let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
+        // const dataList = new finixList<any>();
         tempList.forEach(item => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
     }
-}
+
+    private getoffsetQueryParam(responseObject: any, queryParam: any){
+        queryParam.offset = responseObject.body.page.offset;
+        var endReached: Boolean = false;
+        if (responseObject.body.page.offset + responseObject.body.page.limit > responseObject.body.page.count){
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+
+    private getCursorQueryParam(responseObject: any, queryParam: any){
+        queryParam.afterCursor = responseObject.body.page.nextCursor;
+        var endReached: Boolean = false;
+        if (responseObject.body.page.nextCursor == undefined){
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+}   

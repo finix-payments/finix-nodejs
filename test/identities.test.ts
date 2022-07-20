@@ -20,7 +20,7 @@ describe('Identity API', () => {
                 email: "therock@gmail.com"
             }
         }
-        const createdIdentity = await client.Identities.create(createIdentityRequest, {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const createdIdentity = await client.Identities.create(createIdentityRequest);
 
         expect(createdIdentity.entity?.firstName).toBe(createIdentityRequest.entity.firstName);
         expect(createdIdentity.entity?.lastName).toBe(createIdentityRequest.entity.lastName);
@@ -45,7 +45,7 @@ describe('Identity API', () => {
                 phone: "1234567890"
             }
         }
-        const createdIdentity = await client.Identities.create(createIdentityRequest, {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const createdIdentity = await client.Identities.create(createIdentityRequest);
 
         identitiesId = <string> createdIdentity.id;
         expect(createdIdentity.entity?.firstName).toBe(createIdentityRequest.entity.firstName);
@@ -54,8 +54,7 @@ describe('Identity API', () => {
     });
 
     test("Test: Fetch an identity", async() => {
-        const fetchedIdentity = await client.Identities.get(identitiesId, 
-            {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const fetchedIdentity = await client.Identities.get(identitiesId);
 
         expect(fetchedIdentity.entity?.firstName).toBe("dwayne");
         expect(fetchedIdentity.entity?.lastName).toBe("Sunkhronos");
@@ -64,8 +63,7 @@ describe('Identity API', () => {
     });
 
     test("Test: List all identities", async() => {
-        const identitiesList = await client.Identities.list(undefined,
-        {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const identitiesList = await client.Identities.list();
 
         expect(identitiesList.page.limit).toEqual(expect.any(Number));
         if (identitiesList.page.nextCursor != undefined){
@@ -83,8 +81,7 @@ describe('Identity API', () => {
                 phone: "7144177878"
             }
         }
-        const updatedIdentity = await client.Identities.update(identitiesId,updateIdentityRequest, 
-            {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const updatedIdentity = await client.Identities.update(identitiesId,updateIdentityRequest);
 
         expect(updatedIdentity.entity?.firstName).toBe(updateIdentityRequest.entity?.firstName);
         expect(updatedIdentity.entity?.lastName).toBe(updateIdentityRequest.entity?.lastName);

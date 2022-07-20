@@ -13,8 +13,17 @@ var __createBinding = (this && this.__createBinding) || (Object.create ? (functi
 var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SuperSet = exports.VoidAuth = exports.OAuth = exports.ApiKeyAuth = exports.HttpBearerAuth = exports.HttpBasicAuth = exports.ObjectSerializer = void 0;
+exports.finixList = exports.VoidAuth = exports.OAuth = exports.ApiKeyAuth = exports.HttpBearerAuth = exports.HttpBasicAuth = exports.ObjectSerializer = void 0;
 __exportStar(require("./additionalPurchaseData"), exports);
 __exportStar(require("./additionalPurchaseDataItemDataInner"), exports);
 __exportStar(require("./additionalPurchaseDataOrderDate"), exports);
@@ -167,8 +176,9 @@ __exportStar(require("./identityLinksTransfers"), exports);
 __exportStar(require("./identityLinksVerifications"), exports);
 __exportStar(require("./inputDetails"), exports);
 __exportStar(require("./instrumentUpdate"), exports);
-__exportStar(require("./listApplicationProfilesQueryParams"), exports);
-__exportStar(require("./listApplicationsQueryParams"), exports);
+__exportStar(require("./instrumentUpdateLinks"), exports);
+__exportStar(require("./instrumentUpdateLinksApplication"), exports);
+__exportStar(require("./instrumentUpdateLinksPaymentInstrument"), exports);
 __exportStar(require("./listAuthorizationsQueryParams"), exports);
 __exportStar(require("./listBalanceTransfersQueryParams"), exports);
 __exportStar(require("./listDisputeEvidenceQueryParams"), exports);
@@ -176,7 +186,6 @@ __exportStar(require("./listDisputesAdjustmentsQueryParams"), exports);
 __exportStar(require("./listDisputesQueryParams"), exports);
 __exportStar(require("./listExternalLinksQueryParams"), exports);
 __exportStar(require("./listFeeProfilesQueryParams"), exports);
-__exportStar(require("./listFeesQueryParams"), exports);
 __exportStar(require("./listFilesQueryParams"), exports);
 __exportStar(require("./listIdentitiesQueryParams"), exports);
 __exportStar(require("./listIdentityAssociatedIdentitiesQueryParams"), exports);
@@ -185,15 +194,13 @@ __exportStar(require("./listLinksNext"), exports);
 __exportStar(require("./listMerchantProfilesQueryParams"), exports);
 __exportStar(require("./listMerchantVerificationsQueryParams"), exports);
 __exportStar(require("./listMerchantsQueryParams"), exports);
+__exportStar(require("./listPaymentInstrumentUpdatesQueryParams"), exports);
 __exportStar(require("./listPaymentInstrumentsQueryParams"), exports);
 __exportStar(require("./listSettlementFundingTransfersQueryParams"), exports);
 __exportStar(require("./listSettlementTransfersQueryParams"), exports);
 __exportStar(require("./listSettlementsQueryParams"), exports);
-__exportStar(require("./listSubscriptionAmountQueryParams"), exports);
-__exportStar(require("./listSubscriptionSchedulesQueryParams"), exports);
 __exportStar(require("./listTransferReversalsQueryParams"), exports);
 __exportStar(require("./listTransfersQueryParams"), exports);
-__exportStar(require("./listUsersQueryParams"), exports);
 __exportStar(require("./listVerificationsQueryParams"), exports);
 __exportStar(require("./listWebhooksQueryParams"), exports);
 __exportStar(require("./logRef"), exports);
@@ -236,27 +243,7 @@ __exportStar(require("./processorSystemConfigConfigurationTemplates"), exports);
 __exportStar(require("./processorsList"), exports);
 __exportStar(require("./processorsListEmbedded"), exports);
 __exportStar(require("./removeSettlementTransfer"), exports);
-__exportStar(require("./reserveProfile"), exports);
-__exportStar(require("./reserveProfilesList"), exports);
-__exportStar(require("./reserveProfilesListEmbedded"), exports);
-__exportStar(require("./reviewQueueItem"), exports);
-__exportStar(require("./reviewQueueItemLinks"), exports);
-__exportStar(require("./reviewQueueItemsList"), exports);
-__exportStar(require("./reviewQueueItemsListEmbedded"), exports);
-__exportStar(require("./riskProfile"), exports);
-__exportStar(require("./riskProfileLinks"), exports);
-__exportStar(require("./riskProfileRule"), exports);
-__exportStar(require("./riskProfileRulesList"), exports);
-__exportStar(require("./riskProfileRulesListEmbedded"), exports);
-__exportStar(require("./riskProfilesList"), exports);
-__exportStar(require("./riskProfilesListEmbedded"), exports);
-__exportStar(require("./root"), exports);
-__exportStar(require("./rootLinks"), exports);
 __exportStar(require("./settlement"), exports);
-__exportStar(require("./settlementEngineSettlement"), exports);
-__exportStar(require("./settlementEngineSettlementLinks"), exports);
-__exportStar(require("./settlementEngineSettlementsList"), exports);
-__exportStar(require("./settlementEngineSettlementsListEmbedded"), exports);
 __exportStar(require("./settlementLinks"), exports);
 __exportStar(require("./settlementsList"), exports);
 __exportStar(require("./settlementsListEmbedded"), exports);
@@ -293,8 +280,6 @@ __exportStar(require("./transferLinksParent"), exports);
 __exportStar(require("./transferLinksPaymentInstruments"), exports);
 __exportStar(require("./transferLinksReversals"), exports);
 __exportStar(require("./transferLinksSource"), exports);
-__exportStar(require("./transferReversalsList"), exports);
-__exportStar(require("./transferReversalsListEmbedded"), exports);
 __exportStar(require("./transfersList"), exports);
 __exportStar(require("./transfersListEmbedded"), exports);
 __exportStar(require("./updateApplicationProfileRequest"), exports);
@@ -482,8 +467,9 @@ const identityLinksTransfers_1 = require("./identityLinksTransfers");
 const identityLinksVerifications_1 = require("./identityLinksVerifications");
 const inputDetails_1 = require("./inputDetails");
 const instrumentUpdate_1 = require("./instrumentUpdate");
-const listApplicationProfilesQueryParams_1 = require("./listApplicationProfilesQueryParams");
-const listApplicationsQueryParams_1 = require("./listApplicationsQueryParams");
+const instrumentUpdateLinks_1 = require("./instrumentUpdateLinks");
+const instrumentUpdateLinksApplication_1 = require("./instrumentUpdateLinksApplication");
+const instrumentUpdateLinksPaymentInstrument_1 = require("./instrumentUpdateLinksPaymentInstrument");
 const listAuthorizationsQueryParams_1 = require("./listAuthorizationsQueryParams");
 const listBalanceTransfersQueryParams_1 = require("./listBalanceTransfersQueryParams");
 const listDisputeEvidenceQueryParams_1 = require("./listDisputeEvidenceQueryParams");
@@ -491,7 +477,6 @@ const listDisputesAdjustmentsQueryParams_1 = require("./listDisputesAdjustmentsQ
 const listDisputesQueryParams_1 = require("./listDisputesQueryParams");
 const listExternalLinksQueryParams_1 = require("./listExternalLinksQueryParams");
 const listFeeProfilesQueryParams_1 = require("./listFeeProfilesQueryParams");
-const listFeesQueryParams_1 = require("./listFeesQueryParams");
 const listFilesQueryParams_1 = require("./listFilesQueryParams");
 const listIdentitiesQueryParams_1 = require("./listIdentitiesQueryParams");
 const listIdentityAssociatedIdentitiesQueryParams_1 = require("./listIdentityAssociatedIdentitiesQueryParams");
@@ -500,15 +485,13 @@ const listLinksNext_1 = require("./listLinksNext");
 const listMerchantProfilesQueryParams_1 = require("./listMerchantProfilesQueryParams");
 const listMerchantVerificationsQueryParams_1 = require("./listMerchantVerificationsQueryParams");
 const listMerchantsQueryParams_1 = require("./listMerchantsQueryParams");
+const listPaymentInstrumentUpdatesQueryParams_1 = require("./listPaymentInstrumentUpdatesQueryParams");
 const listPaymentInstrumentsQueryParams_1 = require("./listPaymentInstrumentsQueryParams");
 const listSettlementFundingTransfersQueryParams_1 = require("./listSettlementFundingTransfersQueryParams");
 const listSettlementTransfersQueryParams_1 = require("./listSettlementTransfersQueryParams");
 const listSettlementsQueryParams_1 = require("./listSettlementsQueryParams");
-const listSubscriptionAmountQueryParams_1 = require("./listSubscriptionAmountQueryParams");
-const listSubscriptionSchedulesQueryParams_1 = require("./listSubscriptionSchedulesQueryParams");
 const listTransferReversalsQueryParams_1 = require("./listTransferReversalsQueryParams");
 const listTransfersQueryParams_1 = require("./listTransfersQueryParams");
-const listUsersQueryParams_1 = require("./listUsersQueryParams");
 const listVerificationsQueryParams_1 = require("./listVerificationsQueryParams");
 const listWebhooksQueryParams_1 = require("./listWebhooksQueryParams");
 const logRef_1 = require("./logRef");
@@ -551,27 +534,7 @@ const processorSystemConfigConfigurationTemplates_1 = require("./processorSystem
 const processorsList_1 = require("./processorsList");
 const processorsListEmbedded_1 = require("./processorsListEmbedded");
 const removeSettlementTransfer_1 = require("./removeSettlementTransfer");
-const reserveProfile_1 = require("./reserveProfile");
-const reserveProfilesList_1 = require("./reserveProfilesList");
-const reserveProfilesListEmbedded_1 = require("./reserveProfilesListEmbedded");
-const reviewQueueItem_1 = require("./reviewQueueItem");
-const reviewQueueItemLinks_1 = require("./reviewQueueItemLinks");
-const reviewQueueItemsList_1 = require("./reviewQueueItemsList");
-const reviewQueueItemsListEmbedded_1 = require("./reviewQueueItemsListEmbedded");
-const riskProfile_1 = require("./riskProfile");
-const riskProfileLinks_1 = require("./riskProfileLinks");
-const riskProfileRule_1 = require("./riskProfileRule");
-const riskProfileRulesList_1 = require("./riskProfileRulesList");
-const riskProfileRulesListEmbedded_1 = require("./riskProfileRulesListEmbedded");
-const riskProfilesList_1 = require("./riskProfilesList");
-const riskProfilesListEmbedded_1 = require("./riskProfilesListEmbedded");
-const root_1 = require("./root");
-const rootLinks_1 = require("./rootLinks");
 const settlement_1 = require("./settlement");
-const settlementEngineSettlement_1 = require("./settlementEngineSettlement");
-const settlementEngineSettlementLinks_1 = require("./settlementEngineSettlementLinks");
-const settlementEngineSettlementsList_1 = require("./settlementEngineSettlementsList");
-const settlementEngineSettlementsListEmbedded_1 = require("./settlementEngineSettlementsListEmbedded");
 const settlementLinks_1 = require("./settlementLinks");
 const settlementsList_1 = require("./settlementsList");
 const settlementsListEmbedded_1 = require("./settlementsListEmbedded");
@@ -608,8 +571,6 @@ const transferLinksParent_1 = require("./transferLinksParent");
 const transferLinksPaymentInstruments_1 = require("./transferLinksPaymentInstruments");
 const transferLinksReversals_1 = require("./transferLinksReversals");
 const transferLinksSource_1 = require("./transferLinksSource");
-const transferReversalsList_1 = require("./transferReversalsList");
-const transferReversalsListEmbedded_1 = require("./transferReversalsListEmbedded");
 const transfersList_1 = require("./transfersList");
 const transfersListEmbedded_1 = require("./transfersListEmbedded");
 const updateApplicationProfileRequest_1 = require("./updateApplicationProfileRequest");
@@ -726,14 +687,8 @@ let enumsMap = {
     "ProcessorSystemConfig.CLASSKEYIDENTIFIEREnum": processorSystemConfig_1.ProcessorSystemConfig.CLASSKEYIDENTIFIEREnum,
     "ProcessorSystemConfig.AcquirerCountryCodeEnum": processorSystemConfig_1.ProcessorSystemConfig.AcquirerCountryCodeEnum,
     "ProcessorSystemConfig.SourceOfFundsEnum": processorSystemConfig_1.ProcessorSystemConfig.SourceOfFundsEnum,
-    "ReviewQueueItem.EntityTypeEnum": reviewQueueItem_1.ReviewQueueItem.EntityTypeEnum,
-    "ReviewQueueItem.OutcomeEnum": reviewQueueItem_1.ReviewQueueItem.OutcomeEnum,
-    "ReviewQueueItem.ProcessorTypeEnum": reviewQueueItem_1.ReviewQueueItem.ProcessorTypeEnum,
-    "ReviewQueueItem.ReviewTypeEnum": reviewQueueItem_1.ReviewQueueItem.ReviewTypeEnum,
     "Settlement.TypeEnum": settlement_1.Settlement.TypeEnum,
     "Settlement.StatusEnum": settlement_1.Settlement.StatusEnum,
-    "SettlementEngineSettlement.ScheduleTypeEnum": settlementEngineSettlement_1.SettlementEngineSettlement.ScheduleTypeEnum,
-    "SettlementEngineSettlement.StatusEnum": settlementEngineSettlement_1.SettlementEngineSettlement.StatusEnum,
     "SubTypeTransfer": subTypeTransfer_1.SubTypeTransfer,
     "SubscriptionAmount.AmountTypeEnum": subscriptionAmount_1.SubscriptionAmount.AmountTypeEnum,
     "SubscriptionSchedule.LineItemTypeEnum": subscriptionSchedule_1.SubscriptionSchedule.LineItemTypeEnum,
@@ -898,8 +853,9 @@ let typeMap = {
     "IdentityLinksVerifications": identityLinksVerifications_1.IdentityLinksVerifications,
     "InputDetails": inputDetails_1.InputDetails,
     "InstrumentUpdate": instrumentUpdate_1.InstrumentUpdate,
-    "ListApplicationProfilesQueryParams": listApplicationProfilesQueryParams_1.ListApplicationProfilesQueryParams,
-    "ListApplicationsQueryParams": listApplicationsQueryParams_1.ListApplicationsQueryParams,
+    "InstrumentUpdateLinks": instrumentUpdateLinks_1.InstrumentUpdateLinks,
+    "InstrumentUpdateLinksApplication": instrumentUpdateLinksApplication_1.InstrumentUpdateLinksApplication,
+    "InstrumentUpdateLinksPaymentInstrument": instrumentUpdateLinksPaymentInstrument_1.InstrumentUpdateLinksPaymentInstrument,
     "ListAuthorizationsQueryParams": listAuthorizationsQueryParams_1.ListAuthorizationsQueryParams,
     "ListBalanceTransfersQueryParams": listBalanceTransfersQueryParams_1.ListBalanceTransfersQueryParams,
     "ListDisputeEvidenceQueryParams": listDisputeEvidenceQueryParams_1.ListDisputeEvidenceQueryParams,
@@ -907,7 +863,6 @@ let typeMap = {
     "ListDisputesQueryParams": listDisputesQueryParams_1.ListDisputesQueryParams,
     "ListExternalLinksQueryParams": listExternalLinksQueryParams_1.ListExternalLinksQueryParams,
     "ListFeeProfilesQueryParams": listFeeProfilesQueryParams_1.ListFeeProfilesQueryParams,
-    "ListFeesQueryParams": listFeesQueryParams_1.ListFeesQueryParams,
     "ListFilesQueryParams": listFilesQueryParams_1.ListFilesQueryParams,
     "ListIdentitiesQueryParams": listIdentitiesQueryParams_1.ListIdentitiesQueryParams,
     "ListIdentityAssociatedIdentitiesQueryParams": listIdentityAssociatedIdentitiesQueryParams_1.ListIdentityAssociatedIdentitiesQueryParams,
@@ -916,15 +871,13 @@ let typeMap = {
     "ListMerchantProfilesQueryParams": listMerchantProfilesQueryParams_1.ListMerchantProfilesQueryParams,
     "ListMerchantVerificationsQueryParams": listMerchantVerificationsQueryParams_1.ListMerchantVerificationsQueryParams,
     "ListMerchantsQueryParams": listMerchantsQueryParams_1.ListMerchantsQueryParams,
+    "ListPaymentInstrumentUpdatesQueryParams": listPaymentInstrumentUpdatesQueryParams_1.ListPaymentInstrumentUpdatesQueryParams,
     "ListPaymentInstrumentsQueryParams": listPaymentInstrumentsQueryParams_1.ListPaymentInstrumentsQueryParams,
     "ListSettlementFundingTransfersQueryParams": listSettlementFundingTransfersQueryParams_1.ListSettlementFundingTransfersQueryParams,
     "ListSettlementTransfersQueryParams": listSettlementTransfersQueryParams_1.ListSettlementTransfersQueryParams,
     "ListSettlementsQueryParams": listSettlementsQueryParams_1.ListSettlementsQueryParams,
-    "ListSubscriptionAmountQueryParams": listSubscriptionAmountQueryParams_1.ListSubscriptionAmountQueryParams,
-    "ListSubscriptionSchedulesQueryParams": listSubscriptionSchedulesQueryParams_1.ListSubscriptionSchedulesQueryParams,
     "ListTransferReversalsQueryParams": listTransferReversalsQueryParams_1.ListTransferReversalsQueryParams,
     "ListTransfersQueryParams": listTransfersQueryParams_1.ListTransfersQueryParams,
-    "ListUsersQueryParams": listUsersQueryParams_1.ListUsersQueryParams,
     "ListVerificationsQueryParams": listVerificationsQueryParams_1.ListVerificationsQueryParams,
     "ListWebhooksQueryParams": listWebhooksQueryParams_1.ListWebhooksQueryParams,
     "LogRef": logRef_1.LogRef,
@@ -966,27 +919,7 @@ let typeMap = {
     "ProcessorsList": processorsList_1.ProcessorsList,
     "ProcessorsListEmbedded": processorsListEmbedded_1.ProcessorsListEmbedded,
     "RemoveSettlementTransfer": removeSettlementTransfer_1.RemoveSettlementTransfer,
-    "ReserveProfile": reserveProfile_1.ReserveProfile,
-    "ReserveProfilesList": reserveProfilesList_1.ReserveProfilesList,
-    "ReserveProfilesListEmbedded": reserveProfilesListEmbedded_1.ReserveProfilesListEmbedded,
-    "ReviewQueueItem": reviewQueueItem_1.ReviewQueueItem,
-    "ReviewQueueItemLinks": reviewQueueItemLinks_1.ReviewQueueItemLinks,
-    "ReviewQueueItemsList": reviewQueueItemsList_1.ReviewQueueItemsList,
-    "ReviewQueueItemsListEmbedded": reviewQueueItemsListEmbedded_1.ReviewQueueItemsListEmbedded,
-    "RiskProfile": riskProfile_1.RiskProfile,
-    "RiskProfileLinks": riskProfileLinks_1.RiskProfileLinks,
-    "RiskProfileRule": riskProfileRule_1.RiskProfileRule,
-    "RiskProfileRulesList": riskProfileRulesList_1.RiskProfileRulesList,
-    "RiskProfileRulesListEmbedded": riskProfileRulesListEmbedded_1.RiskProfileRulesListEmbedded,
-    "RiskProfilesList": riskProfilesList_1.RiskProfilesList,
-    "RiskProfilesListEmbedded": riskProfilesListEmbedded_1.RiskProfilesListEmbedded,
-    "Root": root_1.Root,
-    "RootLinks": rootLinks_1.RootLinks,
     "Settlement": settlement_1.Settlement,
-    "SettlementEngineSettlement": settlementEngineSettlement_1.SettlementEngineSettlement,
-    "SettlementEngineSettlementLinks": settlementEngineSettlementLinks_1.SettlementEngineSettlementLinks,
-    "SettlementEngineSettlementsList": settlementEngineSettlementsList_1.SettlementEngineSettlementsList,
-    "SettlementEngineSettlementsListEmbedded": settlementEngineSettlementsListEmbedded_1.SettlementEngineSettlementsListEmbedded,
     "SettlementLinks": settlementLinks_1.SettlementLinks,
     "SettlementsList": settlementsList_1.SettlementsList,
     "SettlementsListEmbedded": settlementsListEmbedded_1.SettlementsListEmbedded,
@@ -1022,8 +955,6 @@ let typeMap = {
     "TransferLinksPaymentInstruments": transferLinksPaymentInstruments_1.TransferLinksPaymentInstruments,
     "TransferLinksReversals": transferLinksReversals_1.TransferLinksReversals,
     "TransferLinksSource": transferLinksSource_1.TransferLinksSource,
-    "TransferReversalsList": transferReversalsList_1.TransferReversalsList,
-    "TransferReversalsListEmbedded": transferReversalsListEmbedded_1.TransferReversalsListEmbedded,
     "TransfersList": transfersList_1.TransfersList,
     "TransfersListEmbedded": transfersListEmbedded_1.TransfersListEmbedded,
     "UpdateApplicationProfileRequest": updateApplicationProfileRequest_1.UpdateApplicationProfileRequest,
@@ -1249,11 +1180,15 @@ class VoidAuth {
     }
 }
 exports.VoidAuth = VoidAuth;
-class SuperSet extends Set {
-    constructor() {
+class finixList extends Set {
+    constructor(listFunction) {
         super();
+        this.listNextBase = listFunction;
     }
     set page(page) {
+        if (page.hasOwnProperty("nextCursor") == false && page.hasOwnProperty("offset") == false) {
+            throw new TypeError("Unsupported type");
+        }
         this._page = page;
     }
     get page() {
@@ -1265,5 +1200,16 @@ class SuperSet extends Set {
     get links() {
         return this._links;
     }
+    get hasMore() {
+        return this._hasMore;
+    }
+    set hasMore(hasMore) {
+        this._hasMore = hasMore;
+    }
+    listNext(limitVal) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.listNextBase(limitVal);
+        });
+    }
 }
-exports.SuperSet = SuperSet;
+exports.finixList = finixList;

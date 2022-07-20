@@ -24,8 +24,7 @@ describe('Authorization API', () => {
             amount: 100
         };
 
-        const createdAuthorization = await client.Authorizations.create(authorizationRequest, 
-        {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const createdAuthorization = await client.Authorizations.create(authorizationRequest);
 
         authorizationID = <string>createdAuthorization.id;
         expect(createdAuthorization.amount).toBe(authorizationRequest.amount);
@@ -50,8 +49,7 @@ describe('Authorization API', () => {
             }
         };
 
-        const createdAuthorization = await client.Authorizations.create(authorizationRequest, 
-        {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const createdAuthorization = await client.Authorizations.create(authorizationRequest);
 
         expect(createdAuthorization.amount).toBe(authorizationRequest.amount);
         expect(createdAuthorization.source).toBe(authorizationRequest.source);
@@ -74,8 +72,7 @@ describe('Authorization API', () => {
             }
         };
 
-        const createdAuthorization = await client.Authorizations.create(authorizationRequest, 
-        {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const createdAuthorization = await client.Authorizations.create(authorizationRequest);
 
         expect(createdAuthorization.amount).toBe(authorizationRequest.amount);
         expect(createdAuthorization.source).toBe(authorizationRequest.source);
@@ -111,8 +108,7 @@ describe('Authorization API', () => {
             }
         };
 
-        const createdAuthorization = await client.Authorizations.create(authorizationRequest, 
-        {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const createdAuthorization = await client.Authorizations.create(authorizationRequest);
         testVoidID = <string>createdAuthorization.id;
         expect(createdAuthorization.amount).toBe(authorizationRequest.amount);
         expect(createdAuthorization.source).toBe(authorizationRequest.source);
@@ -125,8 +121,7 @@ describe('Authorization API', () => {
             fee: 0,
             captureAmount: 100
         }
-        const capturedAuthorization = await client.Authorizations.update(authorizationID, updateRequest,
-             {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const capturedAuthorization = await client.Authorizations.update(authorizationID, updateRequest);
         
         expect(capturedAuthorization.id).toBe(authorizationID);
         expect(capturedAuthorization.amount).toBe(updateRequest.captureAmount);
@@ -148,8 +143,7 @@ describe('Authorization API', () => {
                     itemDescription: "printing paper"
                 }],
                 customerReferenceNumber: "321xyz"
-            }},
-        {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+            }});
         
         expect(capturedAuthorization.id).toBe(authorizationID);
         expect(capturedAuthorization.source).toBe("PIe2YvpcjvoVJ6PzoRPBK137");
@@ -159,8 +153,7 @@ describe('Authorization API', () => {
         const updateRequest: Models.UpdateAuthorizationRequest = {
             voidMe: true
         }
-        const voidedAuthorization = await client.Authorizations.update(testVoidID, updateRequest,
-             {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const voidedAuthorization = await client.Authorizations.update(testVoidID, updateRequest);
         
         expect(voidedAuthorization.id).toBe(testVoidID);
         expect(voidedAuthorization.state).toBe("SUCCEEDED");
@@ -168,8 +161,7 @@ describe('Authorization API', () => {
     });
 
     test('Test: Fetch an authorization',async () => {
-        const fetchedAuthorization = await client.Authorizations.get(authorizationID,
-             {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const fetchedAuthorization = await client.Authorizations.get(authorizationID);
         
         expect(fetchedAuthorization.id).toBe(authorizationID);
         expect(fetchedAuthorization.amount).toBe(100);

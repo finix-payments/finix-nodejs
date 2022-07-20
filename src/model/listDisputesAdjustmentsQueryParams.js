@@ -26,8 +26,13 @@ ListDisputesAdjustmentsQueryParams.attributeTypeMap = [
         "type": "number"
     },
     {
-        "name": "offset",
-        "baseName": "offset",
-        "type": "number"
+        "name": "afterCursor",
+        "baseName": "after_cursor",
+        "type": "string"
+    },
+    {
+        "name": "beforeCursor",
+        "baseName": "before_cursor",
+        "type": "string"
     }
 ];

@@ -29,7 +29,7 @@ import { TransfersList } from '../model/transfersList';
 import { UpdateTransferRequest } from '../model/updateTransferRequest';
 import { ListTransferReversalsQueryParams } from '../model/listTransferReversalsQueryParams';
 import { ListTransfersQueryParams } from '../model/listTransfersQueryParams';
-import { ObjectSerializer, Authentication, VoidAuth, Interceptor, SuperSet } from '../model/models';
+import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
 import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
 
 import { HttpError, RequestFile } from './apis';
@@ -191,7 +191,6 @@ export class TransfersApi {
      * @summary Create a Transfer
      * @param createTransferRequest 
      */
-
     public async create(createTransferRequest?: CreateTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Transfer> {
         const responseObject = await this.createHelper(createTransferRequest,  options);
@@ -203,7 +202,6 @@ export class TransfersApi {
      * @summary Create a Transfer
      * @param createTransferRequest 
      */
-
     public async createHttp(createTransferRequest?: CreateTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Transfer; }> {
         const responseObject = await this.createHelper(createTransferRequest,  options);
@@ -296,7 +294,6 @@ export class TransfersApi {
      * @param transferId ID of &#x60;transfer&#x60; object
      * @param createReversalRequest 
      */
-
     public async createTransferReversal(transferId: string, createReversalRequest?: CreateReversalRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Transfer> {
         const responseObject = await this.createTransferReversalHelper(transferId, createReversalRequest,  options);
@@ -309,7 +306,6 @@ export class TransfersApi {
      * @param transferId ID of &#x60;transfer&#x60; object
      * @param createReversalRequest 
      */
-
     public async createTransferReversalHttp(transferId: string, createReversalRequest?: CreateReversalRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Transfer; }> {
         const responseObject = await this.createTransferReversalHelper(transferId, createReversalRequest,  options);
@@ -394,7 +390,6 @@ export class TransfersApi {
      * @summary Get a Transfer
      * @param transferId ID of &#x60;transfer&#x60; object.
      */
-
     public async get(transferId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Transfer> {
         const responseObject = await this.getHelper(transferId,  options);
@@ -406,7 +401,6 @@ export class TransfersApi {
      * @summary Get a Transfer
      * @param transferId ID of &#x60;transfer&#x60; object.
      */
-
     public async getHttp(transferId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Transfer; }> {
         const responseObject = await this.getHelper(transferId,  options);
@@ -501,30 +495,76 @@ export class TransfersApi {
     /**
      * Retrieve a list of reversals for a `Transfer`.
      * @summary List Reversals on a Transfer
-
-    * @param transferId ID of &#x60;transfer&#x60; object
-    * 
-    */
+     * @param transferId ID of &#x60;transfer&#x60; object
+     *  
+     */
     public async listTransfersReversals (transferId: string, listTransferReversalsQueryParams?:ListTransferReversalsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<SuperSet<any>> {
+        Promise<finixList<any>> {
         const responseObject = await this.listTransfersReversalsHelper(transferId, listTransferReversalsQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        // var queryParam: ListTransferReversalsQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.listTransfersReversals(transferId, queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return dataList;
     }
 
     /**
      * Retrieve a list of reversals for a `Transfer`.
      * @summary List Reversals on a Transfer
-
-    * @param transferId ID of &#x60;transfer&#x60; object
-    * 
-    */
+     * @param transferId ID of &#x60;transfer&#x60; object
+     * 
+     */
     public async listTransfersReversalsHttp (transferId: string, listTransferReversalsQueryParams?:ListTransferReversalsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listTransfersReversalsHelper(transferId, listTransferReversalsQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        //var queryParam: ListTransferReversalsQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd]  = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.listTransfersReversals(transferId, queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return Promise.resolve({response: responseObject.response, body: dataList});
     }
     /**
@@ -696,26 +736,72 @@ export class TransfersApi {
     /**
      * Retrieve a list of `Transfers`.
      * @summary List Transfers
-
-    */
+     */
     public async list (listTransfersQueryParams?:ListTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<SuperSet<any>> {
+        Promise<finixList<any>> {
         const responseObject = await this.listHelper(listTransfersQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        // var queryParam: ListTransfersQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.list(queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return dataList;
     }
 
     /**
      * Retrieve a list of `Transfers`.
      * @summary List Transfers
-
-    */
+     */
     public async listHttp (listTransfersQueryParams?:ListTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listHelper(listTransfersQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        //var queryParam: ListTransfersQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd]  = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.list(queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return Promise.resolve({response: responseObject.response, body: dataList});
     }
     /**
@@ -805,7 +891,6 @@ export class TransfersApi {
      * @param transferId ID of &#x60;transfer&#x60; object.
      * @param updateTransferRequest 
      */
-
     public async update(transferId: string, updateTransferRequest?: UpdateTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Transfer> {
         const responseObject = await this.updateHelper(transferId, updateTransferRequest,  options);
@@ -818,7 +903,6 @@ export class TransfersApi {
      * @param transferId ID of &#x60;transfer&#x60; object.
      * @param updateTransferRequest 
      */
-
     public async updateHttp(transferId: string, updateTransferRequest?: UpdateTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Transfer; }> {
         const responseObject = await this.updateHelper(transferId, updateTransferRequest,  options);
@@ -826,19 +910,37 @@ export class TransfersApi {
     }
 
 
-    private async embeddedHelper(responseObject: any){
-        if(responseObject.embedded == null || responseObject.embedded == undefined){
-            const dataList = new SuperSet<any>();
+    private async embeddedHelper(responseObject: any, dataList: finixList<any>){
+        if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
+            // const dataList = new finixList<any>();
             dataList.page = responseObject.body.page;
             dataList.links = responseObject.body.links;
             return dataList;
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let tempList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-        const dataList = new SuperSet<any>();
+        let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
+        // const dataList = new finixList<any>();
         tempList.forEach(item => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
     }
-}
+
+    private getoffsetQueryParam(responseObject: any, queryParam: any){
+        queryParam.offset = responseObject.body.page.offset;
+        var endReached: Boolean = false;
+        if (responseObject.body.page.offset + responseObject.body.page.limit > responseObject.body.page.count){
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+
+    private getCursorQueryParam(responseObject: any, queryParam: any){
+        queryParam.afterCursor = responseObject.body.page.nextCursor;
+        var endReached: Boolean = false;
+        if (responseObject.body.page.nextCursor == undefined){
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+}   

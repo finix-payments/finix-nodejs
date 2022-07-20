@@ -282,110 +282,6 @@ class PaymentInstrumentsApi {
     }
     /**
      * Helper function.
-     * Verify a `Payment Instrument` to determine if it\'s elligable for Push To Card transactions.   > Only verify `Payment Instruments` for [Push To Card](/guides/push-to-card) customers.
-     * @summary Verify a Payment Instrument
-     * @param paymentInstrumentId ID of object
-     * @param createVerificationRequest
-     */
-    createPaymentInstrumentVerificationHelper(paymentInstrumentId, createVerificationRequest, options = { headers: {} }) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const localVarPath = this.basePath + '/payment_instruments/{payment_instrument_id}/verifications'
-                .replace('{' + 'payment_instrument_id' + '}', encodeURIComponent(String(paymentInstrumentId)));
-            let localVarQueryParameters = {};
-            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
-            const produces = ['application/hal+json'];
-            // give precedence to 'application/json'
-            if (produces.indexOf('application/json') >= 0) {
-                localVarHeaderParams.Accept = 'application/json';
-            }
-            else {
-                localVarHeaderParams.Accept = produces.join(',');
-            }
-            let localVarFormParams = {};
-            // verify required parameter 'paymentInstrumentId' is not null or undefined
-            if (paymentInstrumentId === null || paymentInstrumentId === undefined) {
-                throw new Error('Required parameter paymentInstrumentId was null or undefined when calling createPaymentInstrumentVerification.');
-            }
-            Object.assign(localVarHeaderParams, options.headers);
-            localVarHeaderParams['Finix-Version'] = "2022-02-01";
-            let localVarUseFormData = false;
-            let localVarRequestOptions = {
-                method: 'POST',
-                qs: localVarQueryParameters,
-                headers: localVarHeaderParams,
-                uri: localVarPath,
-                useQuerystring: this._useQuerystring,
-                json: true,
-            };
-            if (createVerificationRequest != undefined && createVerificationRequest != null && createVerificationRequest.hasOwnProperty('file')) {
-                localVarRequestOptions.formData = createVerificationRequest;
-            }
-            else {
-                localVarRequestOptions.body = models_1.ObjectSerializer.serialize(createVerificationRequest, "CreateVerificationRequest");
-            }
-            let authenticationPromise = Promise.resolve();
-            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-            }
-            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-            let interceptorPromise = authenticationPromise;
-            for (const interceptor of this.interceptors) {
-                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-            }
-            return interceptorPromise.then(() => {
-                if (Object.keys(localVarFormParams).length) {
-                    if (localVarUseFormData) {
-                        localVarRequestOptions.formData = localVarFormParams;
-                    }
-                    else {
-                        localVarRequestOptions.form = localVarFormParams;
-                    }
-                }
-                return new Promise((resolve, reject) => {
-                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
-                        if (error) {
-                            reject(error);
-                        }
-                        else {
-                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                                body = models_1.ObjectSerializer.deserialize(body, "Verification");
-                                resolve({ response: response, body: body });
-                            }
-                            else {
-                                reject(new apis_1.HttpError(response, body, response.statusCode));
-                            }
-                        }
-                    });
-                });
-            });
-        });
-    }
-    /**
-     * Verify a `Payment Instrument` to determine if it\'s elligable for Push To Card transactions.   > Only verify `Payment Instruments` for [Push To Card](/guides/push-to-card) customers.
-     * @summary Verify a Payment Instrument
-     * @param paymentInstrumentId ID of object
-     * @param createVerificationRequest
-     */
-    createPaymentInstrumentVerification(paymentInstrumentId, createVerificationRequest, options = { headers: {} }) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const responseObject = yield this.createPaymentInstrumentVerificationHelper(paymentInstrumentId, createVerificationRequest, options);
-            return responseObject.body;
-        });
-    }
-    /**
-     * Verify a `Payment Instrument` to determine if it\'s elligable for Push To Card transactions.   > Only verify `Payment Instruments` for [Push To Card](/guides/push-to-card) customers.
-     * @summary Verify a Payment Instrument
-     * @param paymentInstrumentId ID of object
-     * @param createVerificationRequest
-     */
-    createPaymentInstrumentVerificationHttp(paymentInstrumentId, createVerificationRequest, options = { headers: {} }) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const responseObject = yield this.createPaymentInstrumentVerificationHelper(paymentInstrumentId, createVerificationRequest, options);
-            return responseObject;
-        });
-    }
-    /**
-     * Helper function.
      * Retrieve the details of a `Payment Instrument`.
      * @summary Get a Payment Instrument
      * @param paymentInstrumentId ID of object
@@ -477,6 +373,170 @@ class PaymentInstrumentsApi {
         return __awaiter(this, void 0, void 0, function* () {
             const responseObject = yield this.getHelper(paymentInstrumentId, options);
             return responseObject;
+        });
+    }
+    /**
+     * Helper function.
+     * List the updates on a `Payment Instrument`.  When using the [account updater](/guides/payments/account-updater), `Payment Instrument` details that are updated are represented by an `Update`.
+     * @summary List Payment Instrument Updates
+
+    * @param paymentInstrumentId ID of object
+    *
+    */
+    listUpdatesByPaymentInstrumentIdHelper(paymentInstrumentId, listPaymentInstrumentUpdatesQueryParams, options = { headers: {} }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = this.basePath + '/payment_instruments/{payment_instrument_id}/updates'
+                .replace('{' + 'payment_instrument_id' + '}', encodeURIComponent(String(paymentInstrumentId)));
+            let localVarQueryParameters = {};
+            let localVarHeaderParams = Object.assign({}, this._defaultHeaders);
+            const produces = ['application/hal+json'];
+            // give precedence to 'application/json'
+            if (produces.indexOf('application/json') >= 0) {
+                localVarHeaderParams.Accept = 'application/json';
+            }
+            else {
+                localVarHeaderParams.Accept = produces.join(',');
+            }
+            let localVarFormParams = {};
+            // verify required parameter 'paymentInstrumentId' is not null or undefined
+            if (paymentInstrumentId === null || paymentInstrumentId === undefined) {
+                throw new Error('Required parameter paymentInstrumentId was null or undefined when calling listPaymentInstrumentUpdates.');
+            }
+            if (listPaymentInstrumentUpdatesQueryParams != undefined) {
+                if (listPaymentInstrumentUpdatesQueryParams.limit !== undefined) {
+                    localVarQueryParameters['limit'] = models_1.ObjectSerializer.serialize(listPaymentInstrumentUpdatesQueryParams.limit, "number");
+                }
+                if (listPaymentInstrumentUpdatesQueryParams.offset !== undefined) {
+                    localVarQueryParameters['offset'] = models_1.ObjectSerializer.serialize(listPaymentInstrumentUpdatesQueryParams.offset, "number");
+                }
+                if (listPaymentInstrumentUpdatesQueryParams.pageSize !== undefined) {
+                    localVarQueryParameters['pageSize'] = models_1.ObjectSerializer.serialize(listPaymentInstrumentUpdatesQueryParams.pageSize, "number");
+                }
+            }
+            Object.assign(localVarHeaderParams, options.headers);
+            localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            let localVarUseFormData = false;
+            let localVarRequestOptions = {
+                method: 'GET',
+                qs: localVarQueryParameters,
+                headers: localVarHeaderParams,
+                uri: localVarPath,
+                useQuerystring: this._useQuerystring,
+                json: true,
+            };
+            let authenticationPromise = Promise.resolve();
+            if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+                authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+            }
+            authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+            let interceptorPromise = authenticationPromise;
+            for (const interceptor of this.interceptors) {
+                interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+            }
+            return interceptorPromise.then(() => {
+                if (Object.keys(localVarFormParams).length) {
+                    if (localVarUseFormData) {
+                        localVarRequestOptions.formData = localVarFormParams;
+                    }
+                    else {
+                        localVarRequestOptions.form = localVarFormParams;
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    (0, request_1.default)(localVarRequestOptions, (error, response, body) => {
+                        if (error) {
+                            reject(error);
+                        }
+                        else {
+                            if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                                body = models_1.ObjectSerializer.deserialize(body, "PaymentInstrumentUpdatesList");
+                                resolve({ response: response, body: body });
+                            }
+                            else {
+                                reject(new apis_1.HttpError(response, body, response.statusCode));
+                            }
+                        }
+                    });
+                });
+            });
+        });
+    }
+    /**
+     * List the updates on a `Payment Instrument`.  When using the [account updater](/guides/payments/account-updater), `Payment Instrument` details that are updated are represented by an `Update`.
+     * @summary List Payment Instrument Updates
+     * @param paymentInstrumentId ID of object
+     *
+     */
+    listUpdatesByPaymentInstrumentId(paymentInstrumentId, listPaymentInstrumentUpdatesQueryParams, options = { headers: {} }) {
+        var _a, _b;
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listUpdatesByPaymentInstrumentIdHelper(paymentInstrumentId, listPaymentInstrumentUpdatesQueryParams, options);
+            // var queryParam: ListPaymentInstrumentUpdatesQueryParams;
+            var reachedEnd;
+            if ((_b = (_a = responseObject.body) === null || _a === void 0 ? void 0 : _a.page) === null || _b === void 0 ? void 0 : _b.hasOwnProperty('nextCursor')) {
+                var queryParam = {
+                    afterCursor: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+            }
+            else {
+                var queryParam = {
+                    offset: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            }
+            const nextFetch = (limit) => {
+                queryParam.limit = limit;
+                if (reachedEnd) {
+                    throw new RangeError("End of list reached");
+                }
+                return this.listUpdatesByPaymentInstrumentId(paymentInstrumentId, queryParam);
+            };
+            let dataList = new models_1.finixList(nextFetch);
+            dataList = yield this.embeddedHelper(responseObject, dataList);
+            dataList.hasMore = !reachedEnd;
+            return dataList;
+        });
+    }
+    /**
+     * List the updates on a `Payment Instrument`.  When using the [account updater](/guides/payments/account-updater), `Payment Instrument` details that are updated are represented by an `Update`.
+     * @summary List Payment Instrument Updates
+     * @param paymentInstrumentId ID of object
+     *
+     */
+    listUpdatesByPaymentInstrumentIdHttp(paymentInstrumentId, listPaymentInstrumentUpdatesQueryParams, options = { headers: {} }) {
+        var _a, _b;
+        return __awaiter(this, void 0, void 0, function* () {
+            const responseObject = yield this.listUpdatesByPaymentInstrumentIdHelper(paymentInstrumentId, listPaymentInstrumentUpdatesQueryParams, options);
+            //var queryParam: ListPaymentInstrumentUpdatesQueryParams;
+            var reachedEnd;
+            if ((_b = (_a = responseObject.body) === null || _a === void 0 ? void 0 : _a.page) === null || _b === void 0 ? void 0 : _b.hasOwnProperty('nextCursor')) {
+                var queryParam = {
+                    afterCursor: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+            }
+            else {
+                var queryParam = {
+                    offset: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            }
+            const nextFetch = (limit) => {
+                queryParam.limit = limit;
+                if (reachedEnd) {
+                    throw new RangeError("End of list reached");
+                }
+                return this.listUpdatesByPaymentInstrumentId(paymentInstrumentId, queryParam);
+            };
+            let dataList = new models_1.finixList(nextFetch);
+            dataList = yield this.embeddedHelper(responseObject, dataList);
+            dataList.hasMore = !reachedEnd;
+            return Promise.resolve({ response: responseObject.response, body: dataList });
         });
     }
     /**
@@ -597,24 +657,74 @@ class PaymentInstrumentsApi {
     /**
      * Retrieve a list of `Payment Instruments`.
      * @summary List Payment Instruments
-
-    */
+     */
     list(listPaymentInstrumentsQueryParams, options = { headers: {} }) {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             const responseObject = yield this.listHelper(listPaymentInstrumentsQueryParams, options);
-            let dataList = yield this.embeddedHelper(responseObject);
+            // var queryParam: ListPaymentInstrumentsQueryParams;
+            var reachedEnd;
+            if ((_b = (_a = responseObject.body) === null || _a === void 0 ? void 0 : _a.page) === null || _b === void 0 ? void 0 : _b.hasOwnProperty('nextCursor')) {
+                var queryParam = {
+                    afterCursor: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+            }
+            else {
+                var queryParam = {
+                    offset: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            }
+            const nextFetch = (limit) => {
+                queryParam.limit = limit;
+                if (reachedEnd) {
+                    throw new RangeError("End of list reached");
+                }
+                return this.list(queryParam);
+            };
+            let dataList = new models_1.finixList(nextFetch);
+            dataList = yield this.embeddedHelper(responseObject, dataList);
+            dataList.hasMore = !reachedEnd;
             return dataList;
         });
     }
     /**
      * Retrieve a list of `Payment Instruments`.
      * @summary List Payment Instruments
-
-    */
+     */
     listHttp(listPaymentInstrumentsQueryParams, options = { headers: {} }) {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             const responseObject = yield this.listHelper(listPaymentInstrumentsQueryParams, options);
-            let dataList = yield this.embeddedHelper(responseObject);
+            //var queryParam: ListPaymentInstrumentsQueryParams;
+            var reachedEnd;
+            if ((_b = (_a = responseObject.body) === null || _a === void 0 ? void 0 : _a.page) === null || _b === void 0 ? void 0 : _b.hasOwnProperty('nextCursor')) {
+                var queryParam = {
+                    afterCursor: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+            }
+            else {
+                var queryParam = {
+                    offset: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            }
+            const nextFetch = (limit) => {
+                queryParam.limit = limit;
+                if (reachedEnd) {
+                    throw new RangeError("End of list reached");
+                }
+                return this.list(queryParam);
+            };
+            let dataList = new models_1.finixList(nextFetch);
+            dataList = yield this.embeddedHelper(responseObject, dataList);
+            dataList.hasMore = !reachedEnd;
             return Promise.resolve({ response: responseObject.response, body: dataList });
         });
     }
@@ -722,22 +832,38 @@ class PaymentInstrumentsApi {
             return responseObject;
         });
     }
-    embeddedHelper(responseObject) {
+    embeddedHelper(responseObject, dataList) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (responseObject.embedded == null || responseObject.embedded == undefined) {
-                const dataList = new models_1.SuperSet();
+            if (responseObject.body.embedded == null || responseObject.body.embedded == undefined) {
+                // const dataList = new finixList<any>();
                 dataList.page = responseObject.body.page;
                 dataList.links = responseObject.body.links;
                 return dataList;
             }
             const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
             let tempList = responseObject.body.embedded[embeddedName];
-            const dataList = new models_1.SuperSet();
+            // const dataList = new finixList<any>();
             tempList.forEach(item => { dataList.add(item); });
             dataList.page = responseObject.body.page;
             dataList.links = responseObject.body.links;
             return dataList;
         });
+    }
+    getoffsetQueryParam(responseObject, queryParam) {
+        queryParam.offset = responseObject.body.page.offset;
+        var endReached = false;
+        if (responseObject.body.page.offset + responseObject.body.page.limit > responseObject.body.page.count) {
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+    getCursorQueryParam(responseObject, queryParam) {
+        queryParam.afterCursor = responseObject.body.page.nextCursor;
+        var endReached = false;
+        if (responseObject.body.page.nextCursor == undefined) {
+            endReached = true;
+        }
+        return [queryParam, endReached];
     }
 }
 exports.PaymentInstrumentsApi = PaymentInstrumentsApi;

@@ -174,13 +174,13 @@ PaymentInstrument.attributeTypeMap = [
 (function (PaymentInstrument) {
     let TypeEnum;
     (function (TypeEnum) {
-        TypeEnum[TypeEnum["PaymentCard"] = 'PAYMENT_CARD'] = "PaymentCard";
         TypeEnum[TypeEnum["VantivOmniToken"] = 'VANTIV_OMNI_TOKEN'] = "VantivOmniToken";
         TypeEnum[TypeEnum["Token"] = 'TOKEN'] = "Token";
+        TypeEnum[TypeEnum["PaymentCard"] = 'PAYMENT_CARD'] = "PaymentCard";
         TypeEnum[TypeEnum["BankAccount"] = 'BANK_ACCOUNT'] = "BankAccount";
-        TypeEnum[TypeEnum["Virtual"] = 'VIRTUAL'] = "Virtual";
         TypeEnum[TypeEnum["PaymentCardPresent"] = 'PAYMENT_CARD_PRESENT'] = "PaymentCardPresent";
         TypeEnum[TypeEnum["SwipedPaymentCard"] = 'SWIPED_PAYMENT_CARD'] = "SwipedPaymentCard";
+        TypeEnum[TypeEnum["Virtual"] = 'VIRTUAL'] = "Virtual";
     })(TypeEnum = PaymentInstrument.TypeEnum || (PaymentInstrument.TypeEnum = {}));
     let AccountTypeEnum;
     (function (AccountTypeEnum) {
@@ -191,13 +191,13 @@ PaymentInstrument.attributeTypeMap = [
     })(AccountTypeEnum = PaymentInstrument.AccountTypeEnum || (PaymentInstrument.AccountTypeEnum = {}));
     let InstrumentTypeEnum;
     (function (InstrumentTypeEnum) {
-        InstrumentTypeEnum[InstrumentTypeEnum["PaymentCard"] = 'PAYMENT_CARD'] = "PaymentCard";
         InstrumentTypeEnum[InstrumentTypeEnum["VantivOmniToken"] = 'VANTIV_OMNI_TOKEN'] = "VantivOmniToken";
         InstrumentTypeEnum[InstrumentTypeEnum["Token"] = 'TOKEN'] = "Token";
+        InstrumentTypeEnum[InstrumentTypeEnum["PaymentCard"] = 'PAYMENT_CARD'] = "PaymentCard";
         InstrumentTypeEnum[InstrumentTypeEnum["BankAccount"] = 'BANK_ACCOUNT'] = "BankAccount";
-        InstrumentTypeEnum[InstrumentTypeEnum["Virtual"] = 'VIRTUAL'] = "Virtual";
         InstrumentTypeEnum[InstrumentTypeEnum["PaymentCardPresent"] = 'PAYMENT_CARD_PRESENT'] = "PaymentCardPresent";
         InstrumentTypeEnum[InstrumentTypeEnum["SwipedPaymentCard"] = 'SWIPED_PAYMENT_CARD'] = "SwipedPaymentCard";
+        InstrumentTypeEnum[InstrumentTypeEnum["Virtual"] = 'VIRTUAL'] = "Virtual";
     })(InstrumentTypeEnum = PaymentInstrument.InstrumentTypeEnum || (PaymentInstrument.InstrumentTypeEnum = {}));
     let PayloadTypeEnum;
     (function (PayloadTypeEnum) {

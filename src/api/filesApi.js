@@ -688,28 +688,78 @@ class FilesApi {
     /**
      * List the previously `external_links` for a `File`. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#create-an-external-link).
      * @summary List All External Links
-
-    * @param fileId Your &#x60;File&#x60; ID.
-    *
-    */
+     * @param fileId Your &#x60;File&#x60; ID.
+     *
+     */
     listExternalLinks(fileId, listExternalLinksQueryParams, options = { headers: {} }) {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             const responseObject = yield this.listExternalLinksHelper(fileId, listExternalLinksQueryParams, options);
-            let dataList = yield this.embeddedHelper(responseObject);
+            // var queryParam: ListExternalLinksQueryParams;
+            var reachedEnd;
+            if ((_b = (_a = responseObject.body) === null || _a === void 0 ? void 0 : _a.page) === null || _b === void 0 ? void 0 : _b.hasOwnProperty('nextCursor')) {
+                var queryParam = {
+                    afterCursor: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+            }
+            else {
+                var queryParam = {
+                    offset: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            }
+            const nextFetch = (limit) => {
+                queryParam.limit = limit;
+                if (reachedEnd) {
+                    throw new RangeError("End of list reached");
+                }
+                return this.listExternalLinks(fileId, queryParam);
+            };
+            let dataList = new models_1.finixList(nextFetch);
+            dataList = yield this.embeddedHelper(responseObject, dataList);
+            dataList.hasMore = !reachedEnd;
             return dataList;
         });
     }
     /**
      * List the previously `external_links` for a `File`. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#create-an-external-link).
      * @summary List All External Links
-
-    * @param fileId Your &#x60;File&#x60; ID.
-    *
-    */
+     * @param fileId Your &#x60;File&#x60; ID.
+     *
+     */
     listExternalLinksHttp(fileId, listExternalLinksQueryParams, options = { headers: {} }) {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             const responseObject = yield this.listExternalLinksHelper(fileId, listExternalLinksQueryParams, options);
-            let dataList = yield this.embeddedHelper(responseObject);
+            //var queryParam: ListExternalLinksQueryParams;
+            var reachedEnd;
+            if ((_b = (_a = responseObject.body) === null || _a === void 0 ? void 0 : _a.page) === null || _b === void 0 ? void 0 : _b.hasOwnProperty('nextCursor')) {
+                var queryParam = {
+                    afterCursor: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+            }
+            else {
+                var queryParam = {
+                    offset: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            }
+            const nextFetch = (limit) => {
+                queryParam.limit = limit;
+                if (reachedEnd) {
+                    throw new RangeError("End of list reached");
+                }
+                return this.listExternalLinks(fileId, queryParam);
+            };
+            let dataList = new models_1.finixList(nextFetch);
+            dataList = yield this.embeddedHelper(responseObject, dataList);
+            dataList.hasMore = !reachedEnd;
             return Promise.resolve({ response: responseObject.response, body: dataList });
         });
     }
@@ -813,24 +863,74 @@ class FilesApi {
     /**
      * List all the `File` resources you\'ve created. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#step-1-create-a-file).
      * @summary List All Files
-
-    */
+     */
     list(listFilesQueryParams, options = { headers: {} }) {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             const responseObject = yield this.listHelper(listFilesQueryParams, options);
-            let dataList = yield this.embeddedHelper(responseObject);
+            // var queryParam: ListFilesQueryParams;
+            var reachedEnd;
+            if ((_b = (_a = responseObject.body) === null || _a === void 0 ? void 0 : _a.page) === null || _b === void 0 ? void 0 : _b.hasOwnProperty('nextCursor')) {
+                var queryParam = {
+                    afterCursor: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+            }
+            else {
+                var queryParam = {
+                    offset: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            }
+            const nextFetch = (limit) => {
+                queryParam.limit = limit;
+                if (reachedEnd) {
+                    throw new RangeError("End of list reached");
+                }
+                return this.list(queryParam);
+            };
+            let dataList = new models_1.finixList(nextFetch);
+            dataList = yield this.embeddedHelper(responseObject, dataList);
+            dataList.hasMore = !reachedEnd;
             return dataList;
         });
     }
     /**
      * List all the `File` resources you\'ve created. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#step-1-create-a-file).
      * @summary List All Files
-
-    */
+     */
     listHttp(listFilesQueryParams, options = { headers: {} }) {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             const responseObject = yield this.listHelper(listFilesQueryParams, options);
-            let dataList = yield this.embeddedHelper(responseObject);
+            //var queryParam: ListFilesQueryParams;
+            var reachedEnd;
+            if ((_b = (_a = responseObject.body) === null || _a === void 0 ? void 0 : _a.page) === null || _b === void 0 ? void 0 : _b.hasOwnProperty('nextCursor')) {
+                var queryParam = {
+                    afterCursor: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+            }
+            else {
+                var queryParam = {
+                    offset: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            }
+            const nextFetch = (limit) => {
+                queryParam.limit = limit;
+                if (reachedEnd) {
+                    throw new RangeError("End of list reached");
+                }
+                return this.list(queryParam);
+            };
+            let dataList = new models_1.finixList(nextFetch);
+            dataList = yield this.embeddedHelper(responseObject, dataList);
+            dataList.hasMore = !reachedEnd;
             return Promise.resolve({ response: responseObject.response, body: dataList });
         });
     }
@@ -938,22 +1038,38 @@ class FilesApi {
             return responseObject;
         });
     }
-    embeddedHelper(responseObject) {
+    embeddedHelper(responseObject, dataList) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (responseObject.embedded == null || responseObject.embedded == undefined) {
-                const dataList = new models_1.SuperSet();
+            if (responseObject.body.embedded == null || responseObject.body.embedded == undefined) {
+                // const dataList = new finixList<any>();
                 dataList.page = responseObject.body.page;
                 dataList.links = responseObject.body.links;
                 return dataList;
             }
             const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
             let tempList = responseObject.body.embedded[embeddedName];
-            const dataList = new models_1.SuperSet();
+            // const dataList = new finixList<any>();
             tempList.forEach(item => { dataList.add(item); });
             dataList.page = responseObject.body.page;
             dataList.links = responseObject.body.links;
             return dataList;
         });
+    }
+    getoffsetQueryParam(responseObject, queryParam) {
+        queryParam.offset = responseObject.body.page.offset;
+        var endReached = false;
+        if (responseObject.body.page.offset + responseObject.body.page.limit > responseObject.body.page.count) {
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+    getCursorQueryParam(responseObject, queryParam) {
+        queryParam.afterCursor = responseObject.body.page.nextCursor;
+        var endReached = false;
+        if (responseObject.body.page.nextCursor == undefined) {
+            endReached = true;
+        }
+        return [queryParam, endReached];
     }
 }
 exports.FilesApi = FilesApi;

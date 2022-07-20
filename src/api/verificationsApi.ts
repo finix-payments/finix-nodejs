@@ -26,7 +26,7 @@ import { Verification } from '../model/verification';
 import { VerificationsList } from '../model/verificationsList';
 import { ListMerchantVerificationsQueryParams } from '../model/listMerchantVerificationsQueryParams';
 import { ListVerificationsQueryParams } from '../model/listVerificationsQueryParams';
-import { ObjectSerializer, Authentication, VoidAuth, Interceptor, SuperSet } from '../model/models';
+import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
 import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
 
 import { HttpError, RequestFile } from './apis';
@@ -188,7 +188,6 @@ export class VerificationsApi {
      * @summary Perform a Verification
      * @param createVerificationRequest 
      */
-
     public async create(createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Verification> {
         const responseObject = await this.createHelper(createVerificationRequest,  options);
@@ -200,7 +199,6 @@ export class VerificationsApi {
      * @summary Perform a Verification
      * @param createVerificationRequest 
      */
-
     public async createHttp(createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Verification; }> {
         const responseObject = await this.createHelper(createVerificationRequest,  options);
@@ -285,7 +283,6 @@ export class VerificationsApi {
      * @summary Get a Verification
      * @param verificationId ID of &#x60;Verification&#x60; object.
      */
-
     public async get(verificationId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Verification> {
         const responseObject = await this.getHelper(verificationId,  options);
@@ -297,7 +294,6 @@ export class VerificationsApi {
      * @summary Get a Verification
      * @param verificationId ID of &#x60;Verification&#x60; object.
      */
-
     public async getHttp(verificationId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Verification; }> {
         const responseObject = await this.getHelper(verificationId,  options);
@@ -392,30 +388,76 @@ export class VerificationsApi {
     /**
      * Get a list of all the `Verifications` in the `Merchant` object.
      * @summary List Merchant Verifications
-
-    * @param merchantId ID of &#x60;Merchant&#x60; object.
-    * 
-    */
+     * @param merchantId ID of &#x60;Merchant&#x60; object.
+     *  
+     */
     public async listByMerchantId (merchantId: string, listMerchantVerificationsQueryParams?:ListMerchantVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<SuperSet<any>> {
+        Promise<finixList<any>> {
         const responseObject = await this.listByMerchantIdHelper(merchantId, listMerchantVerificationsQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        // var queryParam: ListMerchantVerificationsQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.listByMerchantId(merchantId, queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return dataList;
     }
 
     /**
      * Get a list of all the `Verifications` in the `Merchant` object.
      * @summary List Merchant Verifications
-
-    * @param merchantId ID of &#x60;Merchant&#x60; object.
-    * 
-    */
+     * @param merchantId ID of &#x60;Merchant&#x60; object.
+     * 
+     */
     public async listByMerchantIdHttp (merchantId: string, listMerchantVerificationsQueryParams?:ListMerchantVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listByMerchantIdHelper(merchantId, listMerchantVerificationsQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        //var queryParam: ListMerchantVerificationsQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd]  = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.listByMerchantId(merchantId, queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return Promise.resolve({response: responseObject.response, body: dataList});
     }
     /**
@@ -438,8 +480,14 @@ export class VerificationsApi {
         let localVarFormParams: any = {};
 
         if (listVerificationsQueryParams != undefined){ 
-            if (listVerificationsQueryParams.id !== undefined) {
-                localVarQueryParameters['id'] = ObjectSerializer.serialize(listVerificationsQueryParams.id, "string");
+            if (listVerificationsQueryParams.limit !== undefined) {
+                localVarQueryParameters['limit'] = ObjectSerializer.serialize(listVerificationsQueryParams.limit, "number");
+            }
+            if (listVerificationsQueryParams.afterCursor !== undefined) {
+                localVarQueryParameters['after_cursor'] = ObjectSerializer.serialize(listVerificationsQueryParams.afterCursor, "string");
+            }
+            if (listVerificationsQueryParams.beforeCursor !== undefined) {
+                localVarQueryParameters['before_cursor'] = ObjectSerializer.serialize(listVerificationsQueryParams.beforeCursor, "string");
             }
 
         }
@@ -494,43 +542,107 @@ export class VerificationsApi {
     /**
      * Retrieve a list of `Verifications`.
      * @summary List Verifications
-
-    */
+     */
     public async list (listVerificationsQueryParams?:ListVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<SuperSet<any>> {
+        Promise<finixList<any>> {
         const responseObject = await this.listHelper(listVerificationsQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        // var queryParam: ListVerificationsQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.list(queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return dataList;
     }
 
     /**
      * Retrieve a list of `Verifications`.
      * @summary List Verifications
-
-    */
+     */
     public async listHttp (listVerificationsQueryParams?:ListVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listHelper(listVerificationsQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        //var queryParam: ListVerificationsQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd]  = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.list(queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return Promise.resolve({response: responseObject.response, body: dataList});
     }
 
 
-    private async embeddedHelper(responseObject: any){
-        if(responseObject.embedded == null || responseObject.embedded == undefined){
-            const dataList = new SuperSet<any>();
+    private async embeddedHelper(responseObject: any, dataList: finixList<any>){
+        if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
+            // const dataList = new finixList<any>();
             dataList.page = responseObject.body.page;
             dataList.links = responseObject.body.links;
             return dataList;
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let tempList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-        const dataList = new SuperSet<any>();
+        let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
+        // const dataList = new finixList<any>();
         tempList.forEach(item => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
     }
-}
+
+    private getoffsetQueryParam(responseObject: any, queryParam: any){
+        queryParam.offset = responseObject.body.page.offset;
+        var endReached: Boolean = false;
+        if (responseObject.body.page.offset + responseObject.body.page.limit > responseObject.body.page.count){
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+
+    private getCursorQueryParam(responseObject: any, queryParam: any){
+        queryParam.afterCursor = responseObject.body.page.nextCursor;
+        var endReached: Boolean = false;
+        if (responseObject.body.page.nextCursor == undefined){
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+}   

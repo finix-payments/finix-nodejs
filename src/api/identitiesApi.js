@@ -602,24 +602,74 @@ class IdentitiesApi {
     /**
      * Retrieves a list of `Identities`.
      * @summary List Identities
-
-    */
+     */
     list(listIdentitiesQueryParams, options = { headers: {} }) {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             const responseObject = yield this.listHelper(listIdentitiesQueryParams, options);
-            let dataList = yield this.embeddedHelper(responseObject);
+            // var queryParam: ListIdentitiesQueryParams;
+            var reachedEnd;
+            if ((_b = (_a = responseObject.body) === null || _a === void 0 ? void 0 : _a.page) === null || _b === void 0 ? void 0 : _b.hasOwnProperty('nextCursor')) {
+                var queryParam = {
+                    afterCursor: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+            }
+            else {
+                var queryParam = {
+                    offset: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            }
+            const nextFetch = (limit) => {
+                queryParam.limit = limit;
+                if (reachedEnd) {
+                    throw new RangeError("End of list reached");
+                }
+                return this.list(queryParam);
+            };
+            let dataList = new models_1.finixList(nextFetch);
+            dataList = yield this.embeddedHelper(responseObject, dataList);
+            dataList.hasMore = !reachedEnd;
             return dataList;
         });
     }
     /**
      * Retrieves a list of `Identities`.
      * @summary List Identities
-
-    */
+     */
     listHttp(listIdentitiesQueryParams, options = { headers: {} }) {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             const responseObject = yield this.listHelper(listIdentitiesQueryParams, options);
-            let dataList = yield this.embeddedHelper(responseObject);
+            //var queryParam: ListIdentitiesQueryParams;
+            var reachedEnd;
+            if ((_b = (_a = responseObject.body) === null || _a === void 0 ? void 0 : _a.page) === null || _b === void 0 ? void 0 : _b.hasOwnProperty('nextCursor')) {
+                var queryParam = {
+                    afterCursor: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+            }
+            else {
+                var queryParam = {
+                    offset: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            }
+            const nextFetch = (limit) => {
+                queryParam.limit = limit;
+                if (reachedEnd) {
+                    throw new RangeError("End of list reached");
+                }
+                return this.list(queryParam);
+            };
+            let dataList = new models_1.finixList(nextFetch);
+            dataList = yield this.embeddedHelper(responseObject, dataList);
+            dataList.hasMore = !reachedEnd;
             return Promise.resolve({ response: responseObject.response, body: dataList });
         });
     }
@@ -712,28 +762,78 @@ class IdentitiesApi {
     /**
      * Retrieve a list of `Associated Identities` for an `Identity`.
      * @summary List Associated Identities
-
-    * @param identityId ID of &#x60;Identity&#x60; to associate object with.
-    *
-    */
+     * @param identityId ID of &#x60;Identity&#x60; to associate object with.
+     *
+     */
     listAssocaiatedIdentities(identityId, listIdentityAssociatedIdentitiesQueryParams, options = { headers: {} }) {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             const responseObject = yield this.listAssocaiatedIdentitiesHelper(identityId, listIdentityAssociatedIdentitiesQueryParams, options);
-            let dataList = yield this.embeddedHelper(responseObject);
+            // var queryParam: ListIdentityAssociatedIdentitiesQueryParams;
+            var reachedEnd;
+            if ((_b = (_a = responseObject.body) === null || _a === void 0 ? void 0 : _a.page) === null || _b === void 0 ? void 0 : _b.hasOwnProperty('nextCursor')) {
+                var queryParam = {
+                    afterCursor: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+            }
+            else {
+                var queryParam = {
+                    offset: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            }
+            const nextFetch = (limit) => {
+                queryParam.limit = limit;
+                if (reachedEnd) {
+                    throw new RangeError("End of list reached");
+                }
+                return this.listAssocaiatedIdentities(identityId, queryParam);
+            };
+            let dataList = new models_1.finixList(nextFetch);
+            dataList = yield this.embeddedHelper(responseObject, dataList);
+            dataList.hasMore = !reachedEnd;
             return dataList;
         });
     }
     /**
      * Retrieve a list of `Associated Identities` for an `Identity`.
      * @summary List Associated Identities
-
-    * @param identityId ID of &#x60;Identity&#x60; to associate object with.
-    *
-    */
+     * @param identityId ID of &#x60;Identity&#x60; to associate object with.
+     *
+     */
     listAssocaiatedIdentitiesHttp(identityId, listIdentityAssociatedIdentitiesQueryParams, options = { headers: {} }) {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             const responseObject = yield this.listAssocaiatedIdentitiesHelper(identityId, listIdentityAssociatedIdentitiesQueryParams, options);
-            let dataList = yield this.embeddedHelper(responseObject);
+            //var queryParam: ListIdentityAssociatedIdentitiesQueryParams;
+            var reachedEnd;
+            if ((_b = (_a = responseObject.body) === null || _a === void 0 ? void 0 : _a.page) === null || _b === void 0 ? void 0 : _b.hasOwnProperty('nextCursor')) {
+                var queryParam = {
+                    afterCursor: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+            }
+            else {
+                var queryParam = {
+                    offset: '',
+                    limit: 20
+                };
+                [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            }
+            const nextFetch = (limit) => {
+                queryParam.limit = limit;
+                if (reachedEnd) {
+                    throw new RangeError("End of list reached");
+                }
+                return this.listAssocaiatedIdentities(identityId, queryParam);
+            };
+            let dataList = new models_1.finixList(nextFetch);
+            dataList = yield this.embeddedHelper(responseObject, dataList);
+            dataList.hasMore = !reachedEnd;
             return Promise.resolve({ response: responseObject.response, body: dataList });
         });
     }
@@ -841,22 +941,38 @@ class IdentitiesApi {
             return responseObject;
         });
     }
-    embeddedHelper(responseObject) {
+    embeddedHelper(responseObject, dataList) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (responseObject.embedded == null || responseObject.embedded == undefined) {
-                const dataList = new models_1.SuperSet();
+            if (responseObject.body.embedded == null || responseObject.body.embedded == undefined) {
+                // const dataList = new finixList<any>();
                 dataList.page = responseObject.body.page;
                 dataList.links = responseObject.body.links;
                 return dataList;
             }
             const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
             let tempList = responseObject.body.embedded[embeddedName];
-            const dataList = new models_1.SuperSet();
+            // const dataList = new finixList<any>();
             tempList.forEach(item => { dataList.add(item); });
             dataList.page = responseObject.body.page;
             dataList.links = responseObject.body.links;
             return dataList;
         });
+    }
+    getoffsetQueryParam(responseObject, queryParam) {
+        queryParam.offset = responseObject.body.page.offset;
+        var endReached = false;
+        if (responseObject.body.page.offset + responseObject.body.page.limit > responseObject.body.page.count) {
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+    getCursorQueryParam(responseObject, queryParam) {
+        queryParam.afterCursor = responseObject.body.page.nextCursor;
+        var endReached = false;
+        if (responseObject.body.page.nextCursor == undefined) {
+            endReached = true;
+        }
+        return [queryParam, endReached];
     }
 }
 exports.IdentitiesApi = IdentitiesApi;

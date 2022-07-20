@@ -18,13 +18,13 @@ describe('Dispute API', () => {
    
         const fileName : string = __dirname.concat("/test.png");
         const fileObject: fs.ReadStream = fs.createReadStream(fileName);
-        const uploadedDispute = await client.Disputes.createDisputeEvidence(disputeId, {
+        const uploadedDisputeEvidence = await client.Disputes.createDisputeEvidence(disputeId, {
             file: fileObject},
             {headers:{["Finix-Version"]: "2022-02-01"}});
-        evidenceID = <string>uploadedDispute.id;
+        evidenceID = <string>uploadedDisputeEvidence.id;
 
-        expect(uploadedDispute.dispute).toBe(disputeId);
-        expect(uploadedDispute.tags?.["file-name"]).toBe("test.png");
+        expect(uploadedDisputeEvidence.dispute).toBe(disputeId);
+        expect(uploadedDisputeEvidence.tags?.["file-name"]).toBe("test.png");
     });
 
     test("Test: Fetch a dispute", async() => {
@@ -66,12 +66,12 @@ describe('Dispute API', () => {
     });
 
     test("Test: Fetch dispute evidence files", async() => {
-        const evidenceFile = await client.Disputes.getDisputeEvidence(disputeId, evidenceID,
+        const disputeEvidenceFile = await client.Disputes.getDisputeEvidence(disputeId, evidenceID,
         {headers:{["Content-Type"]: "application/vnd.json+api"}});
 
-        expect(evidenceFile.dispute).toBe(disputeId);
-        expect(evidenceFile.tags?.["file-name"]).toBe("test.png");
-        expect(evidenceFile.id).toBe(evidenceID);
+        expect(disputeEvidenceFile.dispute).toBe(disputeId);
+        expect(disputeEvidenceFile.tags?.["file-name"]).toBe("test.png");
+        expect(disputeEvidenceFile.id).toBe(evidenceID);
     });
 
     test("Test: List dispute evidence files", async() => {

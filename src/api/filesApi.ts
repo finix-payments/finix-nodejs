@@ -28,7 +28,7 @@ import { ModelFile } from '../model/modelFile';
 import { UploadFileRequest } from '../model/uploadFileRequest';
 import { ListExternalLinksQueryParams } from '../model/listExternalLinksQueryParams';
 import { ListFilesQueryParams } from '../model/listFilesQueryParams';
-import { ObjectSerializer, Authentication, VoidAuth, Interceptor, SuperSet } from '../model/models';
+import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
 import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
 
 import { HttpError, RequestFile } from './apis';
@@ -197,7 +197,6 @@ export class FilesApi {
      * @param fileId Your &#x60;File&#x60; ID.
      * @param createExternalLinkRequest 
      */
-
     public async createExternalLink(fileId: string, createExternalLinkRequest?: CreateExternalLinkRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<ExternalLink> {
         const responseObject = await this.createExternalLinkHelper(fileId, createExternalLinkRequest,  options);
@@ -210,7 +209,6 @@ export class FilesApi {
      * @param fileId Your &#x60;File&#x60; ID.
      * @param createExternalLinkRequest 
      */
-
     public async createExternalLinkHttp(fileId: string, createExternalLinkRequest?: CreateExternalLinkRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: ExternalLink; }> {
         const responseObject = await this.createExternalLinkHelper(fileId, createExternalLinkRequest,  options);
@@ -296,7 +294,6 @@ export class FilesApi {
      * @summary Create a File
      * @param createFileRequest 
      */
-
     public async create(createFileRequest?: CreateFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<ModelFile> {
         const responseObject = await this.createHelper(createFileRequest,  options);
@@ -308,7 +305,6 @@ export class FilesApi {
      * @summary Create a File
      * @param createFileRequest 
      */
-
     public async createHttp(createFileRequest?: CreateFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: ModelFile; }> {
         const responseObject = await this.createHelper(createFileRequest,  options);
@@ -393,7 +389,6 @@ export class FilesApi {
      * @summary Download a file
      * @param fileId The ID of the &#x60;File&#x60; that was created to upload the file.
      */
-
     public async downloadFile(fileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Buffer> {
         const responseObject = await this.downloadFileHelper(fileId,  options);
@@ -405,7 +400,6 @@ export class FilesApi {
      * @summary Download a file
      * @param fileId The ID of the &#x60;File&#x60; that was created to upload the file.
      */
-
     public async downloadFileHttp(fileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Buffer; }> {
         const responseObject = await this.downloadFileHelper(fileId,  options);
@@ -497,7 +491,6 @@ export class FilesApi {
      * @param fileId The ID of the &#x60;File&#x60; that has the links you want to retrieve.
      * @param externalLinkId The ID of the &#x60;external_link&#x60; that you want to retireve.
      */
-
     public async getExternalLink(fileId: string, externalLinkId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<ExternalLink> {
         const responseObject = await this.getExternalLinkHelper(fileId, externalLinkId,  options);
@@ -510,7 +503,6 @@ export class FilesApi {
      * @param fileId The ID of the &#x60;File&#x60; that has the links you want to retrieve.
      * @param externalLinkId The ID of the &#x60;external_link&#x60; that you want to retireve.
      */
-
     public async getExternalLinkHttp(fileId: string, externalLinkId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: ExternalLink; }> {
         const responseObject = await this.getExternalLinkHelper(fileId, externalLinkId,  options);
@@ -595,7 +587,6 @@ export class FilesApi {
      * @summary Fetch a File
      * @param fileId Your &#x60;File&#x60; ID.
      */
-
     public async get(fileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<ModelFile> {
         const responseObject = await this.getHelper(fileId,  options);
@@ -607,7 +598,6 @@ export class FilesApi {
      * @summary Fetch a File
      * @param fileId Your &#x60;File&#x60; ID.
      */
-
     public async getHttp(fileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: ModelFile; }> {
         const responseObject = await this.getHelper(fileId,  options);
@@ -720,30 +710,76 @@ export class FilesApi {
     /**
      * List the previously `external_links` for a `File`. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#create-an-external-link).
      * @summary List All External Links
-
-    * @param fileId Your &#x60;File&#x60; ID.
-    * 
-    */
+     * @param fileId Your &#x60;File&#x60; ID.
+     *  
+     */
     public async listExternalLinks (fileId: string, listExternalLinksQueryParams?:ListExternalLinksQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<SuperSet<any>> {
+        Promise<finixList<any>> {
         const responseObject = await this.listExternalLinksHelper(fileId, listExternalLinksQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        // var queryParam: ListExternalLinksQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.listExternalLinks(fileId, queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return dataList;
     }
 
     /**
      * List the previously `external_links` for a `File`. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#create-an-external-link).
      * @summary List All External Links
-
-    * @param fileId Your &#x60;File&#x60; ID.
-    * 
-    */
+     * @param fileId Your &#x60;File&#x60; ID.
+     * 
+     */
     public async listExternalLinksHttp (fileId: string, listExternalLinksQueryParams?:ListExternalLinksQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listExternalLinksHelper(fileId, listExternalLinksQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        //var queryParam: ListExternalLinksQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd]  = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.listExternalLinks(fileId, queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return Promise.resolve({response: responseObject.response, body: dataList});
     }
     /**
@@ -846,26 +882,72 @@ export class FilesApi {
     /**
      * List all the `File` resources you\'ve created. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#step-1-create-a-file).
      * @summary List All Files
-
-    */
+     */
     public async list (listFilesQueryParams?:ListFilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<SuperSet<any>> {
+        Promise<finixList<any>> {
         const responseObject = await this.listHelper(listFilesQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        // var queryParam: ListFilesQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.list(queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return dataList;
     }
 
     /**
      * List all the `File` resources you\'ve created. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#step-1-create-a-file).
      * @summary List All Files
-
-    */
+     */
     public async listHttp (listFilesQueryParams?:ListFilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listHelper(listFilesQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        //var queryParam: ListFilesQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd]  = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.list(queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return Promise.resolve({response: responseObject.response, body: dataList});
     }
     /**
@@ -955,7 +1037,6 @@ export class FilesApi {
      * @param fileId The ID of the &#x60;File&#x60; that was created to upload the file.
      * @param uploadFileRequest 
      */
-
     public async uploadFile(fileId: string, uploadFileRequest?: UploadFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<ModelFile> {
         const responseObject = await this.uploadFileHelper(fileId, uploadFileRequest,  options);
@@ -968,7 +1049,6 @@ export class FilesApi {
      * @param fileId The ID of the &#x60;File&#x60; that was created to upload the file.
      * @param uploadFileRequest 
      */
-
     public async uploadFileHttp(fileId: string, uploadFileRequest?: UploadFileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: ModelFile; }> {
         const responseObject = await this.uploadFileHelper(fileId, uploadFileRequest,  options);
@@ -976,19 +1056,37 @@ export class FilesApi {
     }
 
 
-    private async embeddedHelper(responseObject: any){
-        if(responseObject.embedded == null || responseObject.embedded == undefined){
-            const dataList = new SuperSet<any>();
+    private async embeddedHelper(responseObject: any, dataList: finixList<any>){
+        if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
+            // const dataList = new finixList<any>();
             dataList.page = responseObject.body.page;
             dataList.links = responseObject.body.links;
             return dataList;
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let tempList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-        const dataList = new SuperSet<any>();
+        let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
+        // const dataList = new finixList<any>();
         tempList.forEach(item => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
     }
-}
+
+    private getoffsetQueryParam(responseObject: any, queryParam: any){
+        queryParam.offset = responseObject.body.page.offset;
+        var endReached: Boolean = false;
+        if (responseObject.body.page.offset + responseObject.body.page.limit > responseObject.body.page.count){
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+
+    private getCursorQueryParam(responseObject: any, queryParam: any){
+        queryParam.afterCursor = responseObject.body.page.nextCursor;
+        var endReached: Boolean = false;
+        if (responseObject.body.page.nextCursor == undefined){
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+}   

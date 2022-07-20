@@ -23,7 +23,7 @@ import { Error406NotAcceptable } from '../model/error406NotAcceptable';
 import { ErrorGeneric } from '../model/errorGeneric';
 import { InstrumentUpdate } from '../model/instrumentUpdate';
 import { DownloadInstrumentUpdateQueryParams } from '../model/downloadInstrumentUpdateQueryParams';
-import { ObjectSerializer, Authentication, VoidAuth, Interceptor, SuperSet } from '../model/models';
+import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
 import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
 
 import { HttpError, RequestFile } from './apis';
@@ -185,7 +185,6 @@ export class InstrumentUpdatesApi {
      * @summary Create Instrument Updates
      * @param createInstrumentUpdateRequest 
      */
-
     public async create(createInstrumentUpdateRequest?: CreateInstrumentUpdateRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<InstrumentUpdate> {
         const responseObject = await this.createHelper(createInstrumentUpdateRequest,  options);
@@ -197,7 +196,6 @@ export class InstrumentUpdatesApi {
      * @summary Create Instrument Updates
      * @param createInstrumentUpdateRequest 
      */
-
     public async createHttp(createInstrumentUpdateRequest?: CreateInstrumentUpdateRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: InstrumentUpdate; }> {
         const responseObject = await this.createHelper(createInstrumentUpdateRequest,  options);
@@ -286,10 +284,9 @@ export class InstrumentUpdatesApi {
     /**
      * Fetch a previously created `instrument_updates` resource as a CSV.   To fetch the `instrument_updates` resource in JSON, add `?format=json` to the request endpoint.
      * @summary Download Instrument Updates
-
-    * @param instrumentUpdatesId The ID of the &#x60;instrument_updates&#x60; resource. This ID was returned when initially creating the &#x60;instrument_updates&#x60; object.
-    * 
-    */
+     * @param instrumentUpdatesId The ID of the &#x60;instrument_updates&#x60; resource. This ID was returned when initially creating the &#x60;instrument_updates&#x60; object.
+     *  
+     */
     public async download (instrumentUpdatesId: string, downloadInstrumentUpdateQueryParams?:DownloadInstrumentUpdateQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
         Promise<Buffer> {
         const responseObject = await this.downloadHelper(instrumentUpdatesId, downloadInstrumentUpdateQueryParams, options);
@@ -299,10 +296,9 @@ export class InstrumentUpdatesApi {
     /**
      * Fetch a previously created `instrument_updates` resource as a CSV.   To fetch the `instrument_updates` resource in JSON, add `?format=json` to the request endpoint.
      * @summary Download Instrument Updates
-
-    * @param instrumentUpdatesId The ID of the &#x60;instrument_updates&#x60; resource. This ID was returned when initially creating the &#x60;instrument_updates&#x60; object.
-    * 
-    */
+     * @param instrumentUpdatesId The ID of the &#x60;instrument_updates&#x60; resource. This ID was returned when initially creating the &#x60;instrument_updates&#x60; object.
+     * 
+     */
     public async downloadHttp (instrumentUpdatesId: string, downloadInstrumentUpdateQueryParams?:DownloadInstrumentUpdateQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
         Promise<{response: http.IncomingMessage, body: Buffer; }> {
         const responseObject = await this.downloadHelper(instrumentUpdatesId, downloadInstrumentUpdateQueryParams, options);
@@ -387,7 +383,6 @@ export class InstrumentUpdatesApi {
      * @summary Fetch an Instrument Update
      * @param instrumentUpdatesId The Id of the instrument update.
      */
-
     public async get(instrumentUpdatesId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<InstrumentUpdate> {
         const responseObject = await this.getHelper(instrumentUpdatesId,  options);
@@ -399,7 +394,6 @@ export class InstrumentUpdatesApi {
      * @summary Fetch an Instrument Update
      * @param instrumentUpdatesId The Id of the instrument update.
      */
-
     public async getHttp(instrumentUpdatesId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: InstrumentUpdate; }> {
         const responseObject = await this.getHelper(instrumentUpdatesId,  options);
@@ -407,19 +401,37 @@ export class InstrumentUpdatesApi {
     }
 
 
-    private async embeddedHelper(responseObject: any){
-        if(responseObject.embedded == null || responseObject.embedded == undefined){
-            const dataList = new SuperSet<any>();
+    private async embeddedHelper(responseObject: any, dataList: finixList<any>){
+        if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
+            // const dataList = new finixList<any>();
             dataList.page = responseObject.body.page;
             dataList.links = responseObject.body.links;
             return dataList;
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let tempList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-        const dataList = new SuperSet<any>();
+        let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
+        // const dataList = new finixList<any>();
         tempList.forEach(item => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
     }
-}
+
+    private getoffsetQueryParam(responseObject: any, queryParam: any){
+        queryParam.offset = responseObject.body.page.offset;
+        var endReached: Boolean = false;
+        if (responseObject.body.page.offset + responseObject.body.page.limit > responseObject.body.page.count){
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+
+    private getCursorQueryParam(responseObject: any, queryParam: any){
+        queryParam.afterCursor = responseObject.body.page.nextCursor;
+        var endReached: Boolean = false;
+        if (responseObject.body.page.nextCursor == undefined){
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+}   

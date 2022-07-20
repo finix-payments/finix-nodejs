@@ -1,5 +1,5 @@
 import {Client, Environment, Models} from '../src/api';
-
+import * as fs from 'fs';
 describe('Files API', () => {
 
     let client: Client;
@@ -16,7 +16,7 @@ describe('Files API', () => {
 
     test("Test: Create a file", async() => {
         const fileRequest: Models.CreateFileRequest = {
-            displayName: "Driver License test",
+            displayName: "Driver License test1",
             linkedTo: "MU2n7BSovtwYsWYZF6rBnnzk",
             type: Models.CreateFileRequest.TypeEnum.DriversLicenseBack,
             tags: {
@@ -25,8 +25,7 @@ describe('Files API', () => {
         }
 
         createFileRequest = fileRequest;
-        const createdFile = await client.Files.create(fileRequest,
-            {headers: {['Content-Type'] : "application/vnd.api+json"}});
+        const createdFile = await client.Files.create(fileRequest, {headers: {['Content-Type'] : "application/vnd.api+json"}});
         
         fileId = <string>createdFile.id;
         expect(createdFile.linkedTo).toBe(fileRequest.linkedTo);
@@ -36,11 +35,10 @@ describe('Files API', () => {
 
     test("Test: Upload files directly", async() => {
         const fileName : string = __dirname.concat("/test.png");
-        
+        const fileStream : fs.ReadStream = fs.createReadStream(fileName);
         const uploadedFile = await client.Files.uploadFile(fileId, {
-            file: fileName
-        },
-            {headers:{["Finix-Version"]: "2022-02-01"}});
+            file: fileStream
+        });
 
         expect(uploadedFile.id).toBe(fileId);
         expect(uploadedFile.displayName).toBe(createFileRequest.displayName);
@@ -53,11 +51,10 @@ describe('Files API', () => {
             duration: 15
         }
 
-        const createdExternalLink = await client.Files.createExternalLink(fileId,externalLinkRequest,
+        const createdExternalLink = await client.Files.createExternalLink(fileId,externalLinkRequest, 
             {headers: {['Content-Type'] : "application/vnd.api+json"}});
         
         externalLinkId = <string>createdExternalLink.id;
-
         expect(createdExternalLink.type).toBe(externalLinkRequest.type);
         expect(createdExternalLink.fileId).toBe(fileId);
     });
@@ -79,8 +76,7 @@ describe('Files API', () => {
     });
 
     test("Test: List all files", async() => {
-        const fileList = await client.Files.list(undefined,
-        {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const fileList = await client.Files.list();
 
         expect(fileList.page.limit).toEqual(expect.any(Number));
         if (fileList.page.nextCursor != undefined){
@@ -91,16 +87,14 @@ describe('Files API', () => {
 
     test("Test: Fetch an external link", async() => {
         // const tempFileId = "FILE_bJecqoRPasStEPVpvKHtgA";
-        const fetchedExternalLink = await client.Files.getExternalLink(fileId, externalLinkId,
-            {headers: {['Content-Type'] : "application/vnd.api+json"}});
+        const fetchedExternalLink = await client.Files.getExternalLink(fileId, externalLinkId);
         
         expect(fetchedExternalLink.fileId).toBe(fileId);
         expect(fetchedExternalLink.type).toBe(Models.CreateExternalLinkRequest.TypeEnum.Upload);
     });
 
     test("Test: List all external links", async() => {
-        const externalLinksList = await client.Files.listExternalLinks(fileId, undefined,
-        {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const externalLinksList = await client.Files.listExternalLinks(fileId);
 
         expect(externalLinksList.page.limit).toEqual(expect.any(Number));
         if (externalLinksList.page.nextCursor != undefined){

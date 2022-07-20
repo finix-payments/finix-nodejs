@@ -152,8 +152,9 @@ export * from './identityLinksTransfers';
 export * from './identityLinksVerifications';
 export * from './inputDetails';
 export * from './instrumentUpdate';
-export * from './listApplicationProfilesQueryParams';
-export * from './listApplicationsQueryParams';
+export * from './instrumentUpdateLinks';
+export * from './instrumentUpdateLinksApplication';
+export * from './instrumentUpdateLinksPaymentInstrument';
 export * from './listAuthorizationsQueryParams';
 export * from './listBalanceTransfersQueryParams';
 export * from './listDisputeEvidenceQueryParams';
@@ -161,7 +162,6 @@ export * from './listDisputesAdjustmentsQueryParams';
 export * from './listDisputesQueryParams';
 export * from './listExternalLinksQueryParams';
 export * from './listFeeProfilesQueryParams';
-export * from './listFeesQueryParams';
 export * from './listFilesQueryParams';
 export * from './listIdentitiesQueryParams';
 export * from './listIdentityAssociatedIdentitiesQueryParams';
@@ -170,15 +170,13 @@ export * from './listLinksNext';
 export * from './listMerchantProfilesQueryParams';
 export * from './listMerchantVerificationsQueryParams';
 export * from './listMerchantsQueryParams';
+export * from './listPaymentInstrumentUpdatesQueryParams';
 export * from './listPaymentInstrumentsQueryParams';
 export * from './listSettlementFundingTransfersQueryParams';
 export * from './listSettlementTransfersQueryParams';
 export * from './listSettlementsQueryParams';
-export * from './listSubscriptionAmountQueryParams';
-export * from './listSubscriptionSchedulesQueryParams';
 export * from './listTransferReversalsQueryParams';
 export * from './listTransfersQueryParams';
-export * from './listUsersQueryParams';
 export * from './listVerificationsQueryParams';
 export * from './listWebhooksQueryParams';
 export * from './logRef';
@@ -221,27 +219,7 @@ export * from './processorSystemConfigConfigurationTemplates';
 export * from './processorsList';
 export * from './processorsListEmbedded';
 export * from './removeSettlementTransfer';
-export * from './reserveProfile';
-export * from './reserveProfilesList';
-export * from './reserveProfilesListEmbedded';
-export * from './reviewQueueItem';
-export * from './reviewQueueItemLinks';
-export * from './reviewQueueItemsList';
-export * from './reviewQueueItemsListEmbedded';
-export * from './riskProfile';
-export * from './riskProfileLinks';
-export * from './riskProfileRule';
-export * from './riskProfileRulesList';
-export * from './riskProfileRulesListEmbedded';
-export * from './riskProfilesList';
-export * from './riskProfilesListEmbedded';
-export * from './root';
-export * from './rootLinks';
 export * from './settlement';
-export * from './settlementEngineSettlement';
-export * from './settlementEngineSettlementLinks';
-export * from './settlementEngineSettlementsList';
-export * from './settlementEngineSettlementsListEmbedded';
 export * from './settlementLinks';
 export * from './settlementsList';
 export * from './settlementsListEmbedded';
@@ -278,8 +256,6 @@ export * from './transferLinksParent';
 export * from './transferLinksPaymentInstruments';
 export * from './transferLinksReversals';
 export * from './transferLinksSource';
-export * from './transferReversalsList';
-export * from './transferReversalsListEmbedded';
 export * from './transfersList';
 export * from './transfersListEmbedded';
 export * from './updateApplicationProfileRequest';
@@ -317,6 +293,7 @@ export * from './webhooksList';
 export * from './webhooksListEmbedded';
 
 import * as fs from 'fs';
+import { Client } from '../api';
 
 export interface RequestDetailedFile {
     value: Buffer;
@@ -481,8 +458,9 @@ import { IdentityLinksTransfers } from './identityLinksTransfers';
 import { IdentityLinksVerifications } from './identityLinksVerifications';
 import { InputDetails } from './inputDetails';
 import { InstrumentUpdate } from './instrumentUpdate';
-import { ListApplicationProfilesQueryParams } from './listApplicationProfilesQueryParams';
-import { ListApplicationsQueryParams } from './listApplicationsQueryParams';
+import { InstrumentUpdateLinks } from './instrumentUpdateLinks';
+import { InstrumentUpdateLinksApplication } from './instrumentUpdateLinksApplication';
+import { InstrumentUpdateLinksPaymentInstrument } from './instrumentUpdateLinksPaymentInstrument';
 import { ListAuthorizationsQueryParams } from './listAuthorizationsQueryParams';
 import { ListBalanceTransfersQueryParams } from './listBalanceTransfersQueryParams';
 import { ListDisputeEvidenceQueryParams } from './listDisputeEvidenceQueryParams';
@@ -490,7 +468,6 @@ import { ListDisputesAdjustmentsQueryParams } from './listDisputesAdjustmentsQue
 import { ListDisputesQueryParams } from './listDisputesQueryParams';
 import { ListExternalLinksQueryParams } from './listExternalLinksQueryParams';
 import { ListFeeProfilesQueryParams } from './listFeeProfilesQueryParams';
-import { ListFeesQueryParams } from './listFeesQueryParams';
 import { ListFilesQueryParams } from './listFilesQueryParams';
 import { ListIdentitiesQueryParams } from './listIdentitiesQueryParams';
 import { ListIdentityAssociatedIdentitiesQueryParams } from './listIdentityAssociatedIdentitiesQueryParams';
@@ -499,15 +476,13 @@ import { ListLinksNext } from './listLinksNext';
 import { ListMerchantProfilesQueryParams } from './listMerchantProfilesQueryParams';
 import { ListMerchantVerificationsQueryParams } from './listMerchantVerificationsQueryParams';
 import { ListMerchantsQueryParams } from './listMerchantsQueryParams';
+import { ListPaymentInstrumentUpdatesQueryParams } from './listPaymentInstrumentUpdatesQueryParams';
 import { ListPaymentInstrumentsQueryParams } from './listPaymentInstrumentsQueryParams';
 import { ListSettlementFundingTransfersQueryParams } from './listSettlementFundingTransfersQueryParams';
 import { ListSettlementTransfersQueryParams } from './listSettlementTransfersQueryParams';
 import { ListSettlementsQueryParams } from './listSettlementsQueryParams';
-import { ListSubscriptionAmountQueryParams } from './listSubscriptionAmountQueryParams';
-import { ListSubscriptionSchedulesQueryParams } from './listSubscriptionSchedulesQueryParams';
 import { ListTransferReversalsQueryParams } from './listTransferReversalsQueryParams';
 import { ListTransfersQueryParams } from './listTransfersQueryParams';
-import { ListUsersQueryParams } from './listUsersQueryParams';
 import { ListVerificationsQueryParams } from './listVerificationsQueryParams';
 import { ListWebhooksQueryParams } from './listWebhooksQueryParams';
 import { LogRef } from './logRef';
@@ -550,27 +525,7 @@ import { ProcessorSystemConfigConfigurationTemplates } from './processorSystemCo
 import { ProcessorsList } from './processorsList';
 import { ProcessorsListEmbedded } from './processorsListEmbedded';
 import { RemoveSettlementTransfer } from './removeSettlementTransfer';
-import { ReserveProfile } from './reserveProfile';
-import { ReserveProfilesList } from './reserveProfilesList';
-import { ReserveProfilesListEmbedded } from './reserveProfilesListEmbedded';
-import { ReviewQueueItem } from './reviewQueueItem';
-import { ReviewQueueItemLinks } from './reviewQueueItemLinks';
-import { ReviewQueueItemsList } from './reviewQueueItemsList';
-import { ReviewQueueItemsListEmbedded } from './reviewQueueItemsListEmbedded';
-import { RiskProfile } from './riskProfile';
-import { RiskProfileLinks } from './riskProfileLinks';
-import { RiskProfileRule } from './riskProfileRule';
-import { RiskProfileRulesList } from './riskProfileRulesList';
-import { RiskProfileRulesListEmbedded } from './riskProfileRulesListEmbedded';
-import { RiskProfilesList } from './riskProfilesList';
-import { RiskProfilesListEmbedded } from './riskProfilesListEmbedded';
-import { Root } from './root';
-import { RootLinks } from './rootLinks';
 import { Settlement } from './settlement';
-import { SettlementEngineSettlement } from './settlementEngineSettlement';
-import { SettlementEngineSettlementLinks } from './settlementEngineSettlementLinks';
-import { SettlementEngineSettlementsList } from './settlementEngineSettlementsList';
-import { SettlementEngineSettlementsListEmbedded } from './settlementEngineSettlementsListEmbedded';
 import { SettlementLinks } from './settlementLinks';
 import { SettlementsList } from './settlementsList';
 import { SettlementsListEmbedded } from './settlementsListEmbedded';
@@ -607,8 +562,6 @@ import { TransferLinksParent } from './transferLinksParent';
 import { TransferLinksPaymentInstruments } from './transferLinksPaymentInstruments';
 import { TransferLinksReversals } from './transferLinksReversals';
 import { TransferLinksSource } from './transferLinksSource';
-import { TransferReversalsList } from './transferReversalsList';
-import { TransferReversalsListEmbedded } from './transferReversalsListEmbedded';
 import { TransfersList } from './transfersList';
 import { TransfersListEmbedded } from './transfersListEmbedded';
 import { UpdateApplicationProfileRequest } from './updateApplicationProfileRequest';
@@ -727,14 +680,8 @@ let enumsMap: {[index: string]: any} = {
         "ProcessorSystemConfig.CLASSKEYIDENTIFIEREnum": ProcessorSystemConfig.CLASSKEYIDENTIFIEREnum,
         "ProcessorSystemConfig.AcquirerCountryCodeEnum": ProcessorSystemConfig.AcquirerCountryCodeEnum,
         "ProcessorSystemConfig.SourceOfFundsEnum": ProcessorSystemConfig.SourceOfFundsEnum,
-        "ReviewQueueItem.EntityTypeEnum": ReviewQueueItem.EntityTypeEnum,
-        "ReviewQueueItem.OutcomeEnum": ReviewQueueItem.OutcomeEnum,
-        "ReviewQueueItem.ProcessorTypeEnum": ReviewQueueItem.ProcessorTypeEnum,
-        "ReviewQueueItem.ReviewTypeEnum": ReviewQueueItem.ReviewTypeEnum,
         "Settlement.TypeEnum": Settlement.TypeEnum,
         "Settlement.StatusEnum": Settlement.StatusEnum,
-        "SettlementEngineSettlement.ScheduleTypeEnum": SettlementEngineSettlement.ScheduleTypeEnum,
-        "SettlementEngineSettlement.StatusEnum": SettlementEngineSettlement.StatusEnum,
         "SubTypeTransfer": SubTypeTransfer,
         "SubscriptionAmount.AmountTypeEnum": SubscriptionAmount.AmountTypeEnum,
         "SubscriptionSchedule.LineItemTypeEnum": SubscriptionSchedule.LineItemTypeEnum,
@@ -900,8 +847,9 @@ let typeMap: {[index: string]: any} = {
     "IdentityLinksVerifications": IdentityLinksVerifications,
     "InputDetails": InputDetails,
     "InstrumentUpdate": InstrumentUpdate,
-    "ListApplicationProfilesQueryParams": ListApplicationProfilesQueryParams,
-    "ListApplicationsQueryParams": ListApplicationsQueryParams,
+    "InstrumentUpdateLinks": InstrumentUpdateLinks,
+    "InstrumentUpdateLinksApplication": InstrumentUpdateLinksApplication,
+    "InstrumentUpdateLinksPaymentInstrument": InstrumentUpdateLinksPaymentInstrument,
     "ListAuthorizationsQueryParams": ListAuthorizationsQueryParams,
     "ListBalanceTransfersQueryParams": ListBalanceTransfersQueryParams,
     "ListDisputeEvidenceQueryParams": ListDisputeEvidenceQueryParams,
@@ -909,7 +857,6 @@ let typeMap: {[index: string]: any} = {
     "ListDisputesQueryParams": ListDisputesQueryParams,
     "ListExternalLinksQueryParams": ListExternalLinksQueryParams,
     "ListFeeProfilesQueryParams": ListFeeProfilesQueryParams,
-    "ListFeesQueryParams": ListFeesQueryParams,
     "ListFilesQueryParams": ListFilesQueryParams,
     "ListIdentitiesQueryParams": ListIdentitiesQueryParams,
     "ListIdentityAssociatedIdentitiesQueryParams": ListIdentityAssociatedIdentitiesQueryParams,
@@ -918,15 +865,13 @@ let typeMap: {[index: string]: any} = {
     "ListMerchantProfilesQueryParams": ListMerchantProfilesQueryParams,
     "ListMerchantVerificationsQueryParams": ListMerchantVerificationsQueryParams,
     "ListMerchantsQueryParams": ListMerchantsQueryParams,
+    "ListPaymentInstrumentUpdatesQueryParams": ListPaymentInstrumentUpdatesQueryParams,
     "ListPaymentInstrumentsQueryParams": ListPaymentInstrumentsQueryParams,
     "ListSettlementFundingTransfersQueryParams": ListSettlementFundingTransfersQueryParams,
     "ListSettlementTransfersQueryParams": ListSettlementTransfersQueryParams,
     "ListSettlementsQueryParams": ListSettlementsQueryParams,
-    "ListSubscriptionAmountQueryParams": ListSubscriptionAmountQueryParams,
-    "ListSubscriptionSchedulesQueryParams": ListSubscriptionSchedulesQueryParams,
     "ListTransferReversalsQueryParams": ListTransferReversalsQueryParams,
     "ListTransfersQueryParams": ListTransfersQueryParams,
-    "ListUsersQueryParams": ListUsersQueryParams,
     "ListVerificationsQueryParams": ListVerificationsQueryParams,
     "ListWebhooksQueryParams": ListWebhooksQueryParams,
     "LogRef": LogRef,
@@ -968,27 +913,7 @@ let typeMap: {[index: string]: any} = {
     "ProcessorsList": ProcessorsList,
     "ProcessorsListEmbedded": ProcessorsListEmbedded,
     "RemoveSettlementTransfer": RemoveSettlementTransfer,
-    "ReserveProfile": ReserveProfile,
-    "ReserveProfilesList": ReserveProfilesList,
-    "ReserveProfilesListEmbedded": ReserveProfilesListEmbedded,
-    "ReviewQueueItem": ReviewQueueItem,
-    "ReviewQueueItemLinks": ReviewQueueItemLinks,
-    "ReviewQueueItemsList": ReviewQueueItemsList,
-    "ReviewQueueItemsListEmbedded": ReviewQueueItemsListEmbedded,
-    "RiskProfile": RiskProfile,
-    "RiskProfileLinks": RiskProfileLinks,
-    "RiskProfileRule": RiskProfileRule,
-    "RiskProfileRulesList": RiskProfileRulesList,
-    "RiskProfileRulesListEmbedded": RiskProfileRulesListEmbedded,
-    "RiskProfilesList": RiskProfilesList,
-    "RiskProfilesListEmbedded": RiskProfilesListEmbedded,
-    "Root": Root,
-    "RootLinks": RootLinks,
     "Settlement": Settlement,
-    "SettlementEngineSettlement": SettlementEngineSettlement,
-    "SettlementEngineSettlementLinks": SettlementEngineSettlementLinks,
-    "SettlementEngineSettlementsList": SettlementEngineSettlementsList,
-    "SettlementEngineSettlementsListEmbedded": SettlementEngineSettlementsListEmbedded,
     "SettlementLinks": SettlementLinks,
     "SettlementsList": SettlementsList,
     "SettlementsListEmbedded": SettlementsListEmbedded,
@@ -1024,8 +949,6 @@ let typeMap: {[index: string]: any} = {
     "TransferLinksPaymentInstruments": TransferLinksPaymentInstruments,
     "TransferLinksReversals": TransferLinksReversals,
     "TransferLinksSource": TransferLinksSource,
-    "TransferReversalsList": TransferReversalsList,
-    "TransferReversalsListEmbedded": TransferReversalsListEmbedded,
     "TransfersList": TransfersList,
     "TransfersListEmbedded": TransfersListEmbedded,
     "UpdateApplicationProfileRequest": UpdateApplicationProfileRequest,
@@ -1248,15 +1171,21 @@ export class VoidAuth implements Authentication {
 
 export type Interceptor = (requestOptions: localVarRequest.Options) => (Promise<void> | void);
 
-export class SuperSet<T extends object> extends Set<T>{    
-    private _page: PageCursor;
+export class finixList<T extends object> extends Set<T>{    
+    private _page: any;
     private _links: ListLinks;
-
-    constructor () {
+    protected listNextBase: Function; 
+    private _hasMore: Boolean;
+    
+    constructor (listFunction: Function) {
         super();
+        this.listNextBase = listFunction;
     }
 
-    set page(page: PageCursor){
+    set page(page: any){
+        if (page.hasOwnProperty("nextCursor") == false && page.hasOwnProperty("offset") == false){
+            throw new TypeError("Unsupported type");
+        }
         this._page = page;
     }
 
@@ -1271,4 +1200,16 @@ export class SuperSet<T extends object> extends Set<T>{
     get links(){
         return this._links;
     }
-} 
+
+    get hasMore(){
+        return this._hasMore;
+    }
+
+    set hasMore(hasMore: Boolean){
+        this._hasMore = hasMore;
+    }
+
+    public async listNext(limitVal?: number): Promise<finixList<any>>{
+        return this.listNextBase(limitVal);
+    }
+}  

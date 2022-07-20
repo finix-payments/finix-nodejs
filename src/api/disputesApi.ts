@@ -28,7 +28,7 @@ import { Error406NotAcceptable } from '../model/error406NotAcceptable';
 import { ListDisputeEvidenceQueryParams } from '../model/listDisputeEvidenceQueryParams';
 import { ListDisputesQueryParams } from '../model/listDisputesQueryParams';
 import { ListDisputesAdjustmentsQueryParams } from '../model/listDisputesAdjustmentsQueryParams';
-import { ObjectSerializer, Authentication, VoidAuth, Interceptor, SuperSet } from '../model/models';
+import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
 import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
 
 import { HttpError, RequestFile } from './apis';
@@ -197,7 +197,6 @@ export class DisputesApi {
      * @param disputeId ID of &#x60;Dispute&#x60; to mange evidence for.
      * @param createDisputeEvidenceRequest 
      */
-
     public async createDisputeEvidence(disputeId: string, createDisputeEvidenceRequest?: CreateDisputeEvidenceRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<DisputeEvidence> {
         const responseObject = await this.createDisputeEvidenceHelper(disputeId, createDisputeEvidenceRequest,  options);
@@ -210,7 +209,6 @@ export class DisputesApi {
      * @param disputeId ID of &#x60;Dispute&#x60; to mange evidence for.
      * @param createDisputeEvidenceRequest 
      */
-
     public async createDisputeEvidenceHttp(disputeId: string, createDisputeEvidenceRequest?: CreateDisputeEvidenceRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: DisputeEvidence; }> {
         const responseObject = await this.createDisputeEvidenceHelper(disputeId, createDisputeEvidenceRequest,  options);
@@ -295,7 +293,6 @@ export class DisputesApi {
      * @summary Get Dispute
      * @param disputeId ID of &#x60;Dispute&#x60; to fetch.
      */
-
     public async get(disputeId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Dispute> {
         const responseObject = await this.getHelper(disputeId,  options);
@@ -307,7 +304,6 @@ export class DisputesApi {
      * @summary Get Dispute
      * @param disputeId ID of &#x60;Dispute&#x60; to fetch.
      */
-
     public async getHttp(disputeId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Dispute; }> {
         const responseObject = await this.getHelper(disputeId,  options);
@@ -399,7 +395,6 @@ export class DisputesApi {
      * @param disputeId ID of &#x60;Dispute&#x60; to fetch evidence for.
      * @param evidenceId ID of &#x60;evidence&#x60; to fetch.
      */
-
     public async getDisputeEvidence(disputeId: string, evidenceId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<DisputeEvidence> {
         const responseObject = await this.getDisputeEvidenceHelper(disputeId, evidenceId,  options);
@@ -412,7 +407,6 @@ export class DisputesApi {
      * @param disputeId ID of &#x60;Dispute&#x60; to fetch evidence for.
      * @param evidenceId ID of &#x60;evidence&#x60; to fetch.
      */
-
     public async getDisputeEvidenceHttp(disputeId: string, evidenceId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: DisputeEvidence; }> {
         const responseObject = await this.getDisputeEvidenceHelper(disputeId, evidenceId,  options);
@@ -507,30 +501,76 @@ export class DisputesApi {
     /**
      * Retrieve a list of dispute evidence for a `Dispute`.
      * @summary List Dispute Evidence
-
-    * @param disputeId ID of &#x60;Dispute&#x60; to mange evidence for.
-    * 
-    */
+     * @param disputeId ID of &#x60;Dispute&#x60; to mange evidence for.
+     *  
+     */
     public async listDisputeEvidenceByDisputeId (disputeId: string, listDisputeEvidenceQueryParams?:ListDisputeEvidenceQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<SuperSet<any>> {
+        Promise<finixList<any>> {
         const responseObject = await this.listDisputeEvidenceByDisputeIdHelper(disputeId, listDisputeEvidenceQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        // var queryParam: ListDisputeEvidenceQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.listDisputeEvidenceByDisputeId(disputeId, queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return dataList;
     }
 
     /**
      * Retrieve a list of dispute evidence for a `Dispute`.
      * @summary List Dispute Evidence
-
-    * @param disputeId ID of &#x60;Dispute&#x60; to mange evidence for.
-    * 
-    */
+     * @param disputeId ID of &#x60;Dispute&#x60; to mange evidence for.
+     * 
+     */
     public async listDisputeEvidenceByDisputeIdHttp (disputeId: string, listDisputeEvidenceQueryParams?:ListDisputeEvidenceQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listDisputeEvidenceByDisputeIdHelper(disputeId, listDisputeEvidenceQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        //var queryParam: ListDisputeEvidenceQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd]  = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.listDisputeEvidenceByDisputeId(disputeId, queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return Promise.resolve({response: responseObject.response, body: dataList});
     }
     /**
@@ -627,26 +667,72 @@ export class DisputesApi {
     /**
      * Retrieve a list of `Disputes`.
      * @summary List Disputes
-
-    */
+     */
     public async list (listDisputesQueryParams?:ListDisputesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<SuperSet<any>> {
+        Promise<finixList<any>> {
         const responseObject = await this.listHelper(listDisputesQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        // var queryParam: ListDisputesQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.list(queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return dataList;
     }
 
     /**
      * Retrieve a list of `Disputes`.
      * @summary List Disputes
-
-    */
+     */
     public async listHttp (listDisputesQueryParams?:ListDisputesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listHelper(listDisputesQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        //var queryParam: ListDisputesQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd]  = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.list(queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return Promise.resolve({response: responseObject.response, body: dataList});
     }
     /**
@@ -679,8 +765,11 @@ export class DisputesApi {
             if (listDisputesAdjustmentsQueryParams.limit !== undefined) {
                 localVarQueryParameters['limit'] = ObjectSerializer.serialize(listDisputesAdjustmentsQueryParams.limit, "number");
             }
-            if (listDisputesAdjustmentsQueryParams.offset !== undefined) {
-                localVarQueryParameters['offset'] = ObjectSerializer.serialize(listDisputesAdjustmentsQueryParams.offset, "number");
+            if (listDisputesAdjustmentsQueryParams.afterCursor !== undefined) {
+                localVarQueryParameters['after_cursor'] = ObjectSerializer.serialize(listDisputesAdjustmentsQueryParams.afterCursor, "string");
+            }
+            if (listDisputesAdjustmentsQueryParams.beforeCursor !== undefined) {
+                localVarQueryParameters['before_cursor'] = ObjectSerializer.serialize(listDisputesAdjustmentsQueryParams.beforeCursor, "string");
             }
 
         }
@@ -735,47 +824,111 @@ export class DisputesApi {
     /**
      * List the adjustment `Transfers` for a `Dispute`. Depending on the stage of the `Dispute`, different adjustment `Transfer` subtypes can be applied.  There are four available subtypes for adjustment `Transfers` in `Disputes`: <ul><li><strong>PLATFORM\\_CREDIT</strong><li><strong>MERCHANT\\_DEBIT</strong><li><strong>MERCHANT\\_CREDIT</strong><li><strong>PLATFORM\\_DEBIT</strong></ul>
      * @summary Fetch Dispute Adjustment Transfers
-
-    * @param disputeId ID of the &#x60;Dispute&#x60; resource.
-    * 
-    */
+     * @param disputeId ID of the &#x60;Dispute&#x60; resource.
+     *  
+     */
     public async listDisputesAdjustments (disputeId: string, listDisputesAdjustmentsQueryParams?:ListDisputesAdjustmentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<SuperSet<any>> {
+        Promise<finixList<any>> {
         const responseObject = await this.listDisputesAdjustmentsHelper(disputeId, listDisputesAdjustmentsQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        // var queryParam: ListDisputesAdjustmentsQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.listDisputesAdjustments(disputeId, queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return dataList;
     }
 
     /**
      * List the adjustment `Transfers` for a `Dispute`. Depending on the stage of the `Dispute`, different adjustment `Transfer` subtypes can be applied.  There are four available subtypes for adjustment `Transfers` in `Disputes`: <ul><li><strong>PLATFORM\\_CREDIT</strong><li><strong>MERCHANT\\_DEBIT</strong><li><strong>MERCHANT\\_CREDIT</strong><li><strong>PLATFORM\\_DEBIT</strong></ul>
      * @summary Fetch Dispute Adjustment Transfers
-
-    * @param disputeId ID of the &#x60;Dispute&#x60; resource.
-    * 
-    */
+     * @param disputeId ID of the &#x60;Dispute&#x60; resource.
+     * 
+     */
     public async listDisputesAdjustmentsHttp (disputeId: string, listDisputesAdjustmentsQueryParams?:ListDisputesAdjustmentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listDisputesAdjustmentsHelper(disputeId, listDisputesAdjustmentsQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        //var queryParam: ListDisputesAdjustmentsQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd]  = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.listDisputesAdjustments(disputeId, queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return Promise.resolve({response: responseObject.response, body: dataList});
     }
 
 
-    private async embeddedHelper(responseObject: any){
-        if(responseObject.embedded == null || responseObject.embedded == undefined){
-            const dataList = new SuperSet<any>();
+    private async embeddedHelper(responseObject: any, dataList: finixList<any>){
+        if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
+            // const dataList = new finixList<any>();
             dataList.page = responseObject.body.page;
             dataList.links = responseObject.body.links;
             return dataList;
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let tempList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-        const dataList = new SuperSet<any>();
+        let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
+        // const dataList = new finixList<any>();
         tempList.forEach(item => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
     }
-}
+
+    private getoffsetQueryParam(responseObject: any, queryParam: any){
+        queryParam.offset = responseObject.body.page.offset;
+        var endReached: Boolean = false;
+        if (responseObject.body.page.offset + responseObject.body.page.limit > responseObject.body.page.count){
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+
+    private getCursorQueryParam(responseObject: any, queryParam: any){
+        queryParam.afterCursor = responseObject.body.page.nextCursor;
+        var endReached: Boolean = false;
+        if (responseObject.body.page.nextCursor == undefined){
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+}   

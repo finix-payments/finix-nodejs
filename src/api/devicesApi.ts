@@ -22,7 +22,7 @@ import { Error403ForbiddenList } from '../model/error403ForbiddenList';
 import { Error404NotFoundList } from '../model/error404NotFoundList';
 import { Error406NotAcceptable } from '../model/error406NotAcceptable';
 import { ErrorGeneric } from '../model/errorGeneric';
-import { ObjectSerializer, Authentication, VoidAuth, Interceptor, SuperSet } from '../model/models';
+import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
 import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
 
 import { HttpError, RequestFile } from './apis';
@@ -191,7 +191,6 @@ export class DevicesApi {
      * @param merchantId ID of the &#x60;Merchant&#x60; object.
      * @param createDevice 
      */
-
     public async create(merchantId: string, createDevice?: CreateDevice, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Device> {
         const responseObject = await this.createHelper(merchantId, createDevice,  options);
@@ -204,7 +203,6 @@ export class DevicesApi {
      * @param merchantId ID of the &#x60;Merchant&#x60; object.
      * @param createDevice 
      */
-
     public async createHttp(merchantId: string, createDevice?: CreateDevice, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Device; }> {
         const responseObject = await this.createHelper(merchantId, createDevice,  options);
@@ -289,7 +287,6 @@ export class DevicesApi {
      * @summary Get Device
      * @param deviceId ID of the &#x60;Device&#x60;.
      */
-
     public async get(deviceId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Device> {
         const responseObject = await this.getHelper(deviceId,  options);
@@ -301,7 +298,6 @@ export class DevicesApi {
      * @summary Get Device
      * @param deviceId ID of the &#x60;Device&#x60;.
      */
-
     public async getHttp(deviceId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Device; }> {
         const responseObject = await this.getHelper(deviceId,  options);
@@ -394,7 +390,6 @@ export class DevicesApi {
      * @param deviceId ID of the &#x60;Device&#x60;.
      * @param body 
      */
-
     public async update(deviceId: string, body?: object, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Device> {
         const responseObject = await this.updateHelper(deviceId, body,  options);
@@ -407,7 +402,6 @@ export class DevicesApi {
      * @param deviceId ID of the &#x60;Device&#x60;.
      * @param body 
      */
-
     public async updateHttp(deviceId: string, body?: object, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Device; }> {
         const responseObject = await this.updateHelper(deviceId, body,  options);
@@ -415,19 +409,37 @@ export class DevicesApi {
     }
 
 
-    private async embeddedHelper(responseObject: any){
-        if(responseObject.embedded == null || responseObject.embedded == undefined){
-            const dataList = new SuperSet<any>();
+    private async embeddedHelper(responseObject: any, dataList: finixList<any>){
+        if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
+            // const dataList = new finixList<any>();
             dataList.page = responseObject.body.page;
             dataList.links = responseObject.body.links;
             return dataList;
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let tempList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-        const dataList = new SuperSet<any>();
+        let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
+        // const dataList = new finixList<any>();
         tempList.forEach(item => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
     }
-}
+
+    private getoffsetQueryParam(responseObject: any, queryParam: any){
+        queryParam.offset = responseObject.body.page.offset;
+        var endReached: Boolean = false;
+        if (responseObject.body.page.offset + responseObject.body.page.limit > responseObject.body.page.count){
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+
+    private getCursorQueryParam(responseObject: any, queryParam: any){
+        queryParam.afterCursor = responseObject.body.page.nextCursor;
+        var endReached: Boolean = false;
+        if (responseObject.body.page.nextCursor == undefined){
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+}   

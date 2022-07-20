@@ -9,6 +9,7 @@ export * from '{{{ classFilename }}}';
 {{/models}}
 
 import * as fs from 'fs';
+import { Client } from '../api';
 
 export interface RequestDetailedFile {
     value: Buffer;
@@ -253,15 +254,21 @@ export class VoidAuth implements Authentication {
 
 export type Interceptor = (requestOptions: localVarRequest.Options) => (Promise<void> | void);
 
-export class SuperSet<T extends object> extends Set<T>{    
-    private _page: PageCursor;
+export class finixList<T extends object> extends Set<T>{    
+    private _page: any;
     private _links: ListLinks;
-
-    constructor () {
+    protected listNextBase: Function; 
+    private _hasMore: Boolean;
+    
+    constructor (listFunction: Function) {
         super();
+        this.listNextBase = listFunction;
     }
 
-    set page(page: PageCursor){
+    set page(page: any){
+        if (page.hasOwnProperty("nextCursor") == false && page.hasOwnProperty("offset") == false){
+            throw new TypeError("Unsupported type");
+        }
         this._page = page;
     }
 
@@ -276,5 +283,17 @@ export class SuperSet<T extends object> extends Set<T>{
     get links(){
         return this._links;
     }
-} 
+
+    get hasMore(){
+        return this._hasMore;
+    }
+
+    set hasMore(hasMore: Boolean){
+        this._hasMore = hasMore;
+    }
+
+    public async listNext(limitVal?: number): Promise<finixList<any>>{
+        return this.listNextBase(limitVal);
+    }
+}  
 {{/generateApis}}

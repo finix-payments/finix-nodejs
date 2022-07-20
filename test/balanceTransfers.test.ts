@@ -25,7 +25,7 @@ describe('Balance Transfer API', () => {
             processorType: "LITLE_V1"
             };
 
-        const createdBalanceTransfer = await client.BalanceTransfers.create(balanceTransferRequest, {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const createdBalanceTransfer = await client.BalanceTransfers.create(balanceTransferRequest);
         balanceTransferID = <string> createdBalanceTransfer.id;
 
         expect(balanceTransferRequest.amount).toBe(createdBalanceTransfer.amount);
@@ -34,8 +34,7 @@ describe('Balance Transfer API', () => {
     });
 
      test("Test: Fetch a balance transfer", async() => { 
-         const fetchedBalanceTransfer = await client.BalanceTransfers.get(balanceTransferID, 
-            {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+         const fetchedBalanceTransfer = await client.BalanceTransfers.get(balanceTransferID);
  
          expect(fetchedBalanceTransfer.id).toBe(balanceTransferID);
          expect(fetchedBalanceTransfer.amount).toBe(4000);
@@ -44,8 +43,7 @@ describe('Balance Transfer API', () => {
 
 
     test("Test: List all balance transfer", async() => {
-        const balanceTransferList = await client.BalanceTransfers.list(undefined,
-        {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const balanceTransferList = await client.BalanceTransfers.list();
 
         expect(balanceTransferList.page.limit).toEqual(expect.any(Number));
         if (balanceTransferList.page.nextCursor != undefined){

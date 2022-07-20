@@ -1,0 +1,8 @@
+**/applicationsApi*.ts
+**/applicationProfilesApi*.ts
+**/feesApi*.ts
+**/paymentInstrumentsP2CApi*.ts
+**/processorsApi*.ts
+**/reviewQueueApi*.ts
+**/subscription*Api*.ts
+**/usersApi*.ts

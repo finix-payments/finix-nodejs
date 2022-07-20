@@ -18,9 +18,13 @@ export class ListDisputesAdjustmentsQueryParams {
     */
     'limit'?: number;
     /**
-    * The number of items to skip before starting to collect the result set
+    * Return every resource created after the cursor value.
     */
-    'offset'?: number;
+    'afterCursor'?: string;
+    /**
+    * Return every resource created before the cursor value.
+    */
+    'beforeCursor'?: string;
 
     static discriminator: string | undefined = undefined;
 
@@ -31,9 +35,14 @@ export class ListDisputesAdjustmentsQueryParams {
             "type": "number"
         },
         {
-            "name": "offset",
-            "baseName": "offset",
-            "type": "number"
+            "name": "afterCursor",
+            "baseName": "after_cursor",
+            "type": "string"
+        },
+        {
+            "name": "beforeCursor",
+            "baseName": "before_cursor",
+            "type": "string"
         }    ];
 
     static getAttributeTypeMap() {

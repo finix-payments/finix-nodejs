@@ -13,12 +13,12 @@
 import { RequestFile } from './models';
 import { DisputesListEmbedded } from './disputesListEmbedded';
 import { ListLinks } from './listLinks';
-import { PageCursor } from './pageCursor';
+import { PageOffset } from './pageOffset';
 
 export class DisputesList {
     'embedded'?: DisputesListEmbedded;
     'links'?: ListLinks;
-    'page'?: PageCursor;
+    'page'?: PageOffset;
 
     static discriminator: string | undefined = undefined;
 
@@ -36,7 +36,7 @@ export class DisputesList {
         {
             "name": "page",
             "baseName": "page",
-            "type": "PageCursor"
+            "type": "PageOffset"
         }    ];
 
     static getAttributeTypeMap() {

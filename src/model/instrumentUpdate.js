@@ -46,8 +46,28 @@ InstrumentUpdate.attributeTypeMap = [
         "type": "string"
     },
     {
+        "name": "application",
+        "baseName": "application",
+        "type": "string"
+    },
+    {
+        "name": "messages",
+        "baseName": "messages",
+        "type": "Array<string>"
+    },
+    {
+        "name": "traceId",
+        "baseName": "trace_id",
+        "type": "string"
+    },
+    {
+        "name": "paymentInstrument",
+        "baseName": "payment_instrument",
+        "type": "string"
+    },
+    {
         "name": "links",
         "baseName": "_links",
-        "type": "DisputeEvidenceLinks"
+        "type": "InstrumentUpdateLinks"
     }
 ];

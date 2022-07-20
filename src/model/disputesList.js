@@ -33,6 +33,6 @@ DisputesList.attributeTypeMap = [
     {
         "name": "page",
         "baseName": "page",
-        "type": "PageCursor"
+        "type": "PageOffset"
     }
 ];

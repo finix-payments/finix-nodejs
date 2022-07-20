@@ -104,10 +104,10 @@ CreatePaymentInstrumentRequest.attributeTypeMap = [
 (function (CreatePaymentInstrumentRequest) {
     let TypeEnum;
     (function (TypeEnum) {
-        TypeEnum[TypeEnum["ApplePay"] = 'APPLE_PAY'] = "ApplePay";
-        TypeEnum[TypeEnum["PaymentCard"] = 'PAYMENT_CARD'] = "PaymentCard";
-        TypeEnum[TypeEnum["BankAccount"] = 'BANK_ACCOUNT'] = "BankAccount";
         TypeEnum[TypeEnum["Token"] = 'TOKEN'] = "Token";
+        TypeEnum[TypeEnum["PaymentCard"] = 'PAYMENT_CARD'] = "PaymentCard";
+        TypeEnum[TypeEnum["ApplePay"] = 'APPLE_PAY'] = "ApplePay";
+        TypeEnum[TypeEnum["BankAccount"] = 'BANK_ACCOUNT'] = "BankAccount";
     })(TypeEnum = CreatePaymentInstrumentRequest.TypeEnum || (CreatePaymentInstrumentRequest.TypeEnum = {}));
     let AccountTypeEnum;
     (function (AccountTypeEnum) {

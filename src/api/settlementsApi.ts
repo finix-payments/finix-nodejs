@@ -30,7 +30,7 @@ import { UpdateSettlementRequest } from '../model/updateSettlementRequest';
 import { ListSettlementFundingTransfersQueryParams } from '../model/listSettlementFundingTransfersQueryParams';
 import { ListSettlementTransfersQueryParams } from '../model/listSettlementTransfersQueryParams';
 import { ListSettlementsQueryParams } from '../model/listSettlementsQueryParams';
-import { ObjectSerializer, Authentication, VoidAuth, Interceptor, SuperSet } from '../model/models';
+import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
 import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
 
 import { HttpError, RequestFile } from './apis';
@@ -114,13 +114,15 @@ export class SettlementsApi {
 
     /**
      * Helper function. 
-     * Create a batch `Settlement`. A `Settlement` is a collection of **SUCCEEDED** `Transfers` that are ready to get paid out to a `Merchant`.
+     * Create a batch `Settlement`. A `Settlement` is a collection of **SUCCEEDED** Transfers that are ready to get paid out to a `Merchant`.
      * @summary Create a Batch Settlement
+     * @param identityId ID of identity to fetch
      * @param createSettlementRequest 
      */
 
-    private async createHelper(createSettlementRequest?: CreateSettlementRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Settlement;  }> {
-        const localVarPath = this.basePath + '/settlements';
+    private async createHelper(identityId: string, createSettlementRequest?: CreateSettlementRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Settlement;  }> {
+        const localVarPath = this.basePath + '/identities/{identity_id}/settlements'
+            .replace('{' + 'identity_id' + '}', encodeURIComponent(String(identityId)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
         const produces = ['application/hal+json'];
@@ -132,6 +134,10 @@ export class SettlementsApi {
         }
         let localVarFormParams: any = {};
 
+        // verify required parameter 'identityId' is not null or undefined
+        if (identityId === null || identityId === undefined) {
+            throw new Error('Required parameter identityId was null or undefined when calling createIdentitySettlement.');
+        }
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
         localVarHeaderParams['Finix-Version'] = "2022-02-01";
@@ -188,26 +194,26 @@ export class SettlementsApi {
     }
 
     /**
-     * Create a batch `Settlement`. A `Settlement` is a collection of **SUCCEEDED** `Transfers` that are ready to get paid out to a `Merchant`.
+     * Create a batch `Settlement`. A `Settlement` is a collection of **SUCCEEDED** Transfers that are ready to get paid out to a `Merchant`.
      * @summary Create a Batch Settlement
+     * @param identityId ID of identity to fetch
      * @param createSettlementRequest 
      */
-
-    public async create(createSettlementRequest?: CreateSettlementRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+    public async create(identityId: string, createSettlementRequest?: CreateSettlementRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Settlement> {
-        const responseObject = await this.createHelper(createSettlementRequest,  options);
+        const responseObject = await this.createHelper(identityId, createSettlementRequest,  options);
         return responseObject.body;
     }
 
     /**
-     * Create a batch `Settlement`. A `Settlement` is a collection of **SUCCEEDED** `Transfers` that are ready to get paid out to a `Merchant`.
+     * Create a batch `Settlement`. A `Settlement` is a collection of **SUCCEEDED** Transfers that are ready to get paid out to a `Merchant`.
      * @summary Create a Batch Settlement
+     * @param identityId ID of identity to fetch
      * @param createSettlementRequest 
      */
-
-    public async createHttp(createSettlementRequest?: CreateSettlementRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+    public async createHttp(identityId: string, createSettlementRequest?: CreateSettlementRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Settlement; }> {
-        const responseObject = await this.createHelper(createSettlementRequest,  options);
+        const responseObject = await this.createHelper(identityId, createSettlementRequest,  options);
         return responseObject;
     }
     /**
@@ -289,7 +295,6 @@ export class SettlementsApi {
      * @summary Get a Settlement
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      */
-
     public async get(settlementId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Settlement> {
         const responseObject = await this.getHelper(settlementId,  options);
@@ -301,7 +306,6 @@ export class SettlementsApi {
      * @summary Get a Settlement
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      */
-
     public async getHttp(settlementId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Settlement; }> {
         const responseObject = await this.getHelper(settlementId,  options);
@@ -396,30 +400,76 @@ export class SettlementsApi {
     /**
      * Retrieve the `Transfers` in a `Settlement` that have `type` **CREDIT**.
      * @summary List Settlement Funding Transfers
-
-    * @param settlementId ID of &#x60;Settlement&#x60; object.
-    * 
-    */
+     * @param settlementId ID of &#x60;Settlement&#x60; object.
+     *  
+     */
     public async listFundingTransfers (settlementId: string, listSettlementFundingTransfersQueryParams?:ListSettlementFundingTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<SuperSet<any>> {
+        Promise<finixList<any>> {
         const responseObject = await this.listFundingTransfersHelper(settlementId, listSettlementFundingTransfersQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        // var queryParam: ListSettlementFundingTransfersQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.listFundingTransfers(settlementId, queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return dataList;
     }
 
     /**
      * Retrieve the `Transfers` in a `Settlement` that have `type` **CREDIT**.
      * @summary List Settlement Funding Transfers
-
-    * @param settlementId ID of &#x60;Settlement&#x60; object.
-    * 
-    */
+     * @param settlementId ID of &#x60;Settlement&#x60; object.
+     * 
+     */
     public async listFundingTransfersHttp (settlementId: string, listSettlementFundingTransfersQueryParams?:ListSettlementFundingTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listFundingTransfersHelper(settlementId, listSettlementFundingTransfersQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        //var queryParam: ListSettlementFundingTransfersQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd]  = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.listFundingTransfers(settlementId, queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return Promise.resolve({response: responseObject.response, body: dataList});
     }
     /**
@@ -511,30 +561,76 @@ export class SettlementsApi {
     /**
      * Retrieve the `Transfers` in a `Settlement` that have `type` **DEBIT** or **REFUND**.
      * @summary List Settlement Transfers
-
-    * @param settlementId ID of &#x60;Settlement&#x60; object.
-    * 
-    */
+     * @param settlementId ID of &#x60;Settlement&#x60; object.
+     *  
+     */
     public async listTransfersBySettlementId (settlementId: string, listSettlementTransfersQueryParams?:ListSettlementTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<SuperSet<any>> {
+        Promise<finixList<any>> {
         const responseObject = await this.listTransfersBySettlementIdHelper(settlementId, listSettlementTransfersQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        // var queryParam: ListSettlementTransfersQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.listTransfersBySettlementId(settlementId, queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return dataList;
     }
 
     /**
      * Retrieve the `Transfers` in a `Settlement` that have `type` **DEBIT** or **REFUND**.
      * @summary List Settlement Transfers
-
-    * @param settlementId ID of &#x60;Settlement&#x60; object.
-    * 
-    */
+     * @param settlementId ID of &#x60;Settlement&#x60; object.
+     * 
+     */
     public async listTransfersBySettlementIdHttp (settlementId: string, listSettlementTransfersQueryParams?:ListSettlementTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listTransfersBySettlementIdHelper(settlementId, listSettlementTransfersQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        //var queryParam: ListSettlementTransfersQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd]  = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.listTransfersBySettlementId(settlementId, queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return Promise.resolve({response: responseObject.response, body: dataList});
     }
     /**
@@ -634,26 +730,72 @@ export class SettlementsApi {
     /**
      * Retrieve a list of `Settlements`.
      * @summary List Settlements
-
-    */
+     */
     public async list (listSettlementsQueryParams?:ListSettlementsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<SuperSet<any>> {
+        Promise<finixList<any>> {
         const responseObject = await this.listHelper(listSettlementsQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        // var queryParam: ListSettlementsQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.list(queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return dataList;
     }
 
     /**
      * Retrieve a list of `Settlements`.
      * @summary List Settlements
-
-    */
+     */
     public async listHttp (listSettlementsQueryParams?:ListSettlementsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listHelper(listSettlementsQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        //var queryParam: ListSettlementsQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd]  = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.list(queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return Promise.resolve({response: responseObject.response, body: dataList});
     }
     /**
@@ -742,7 +884,6 @@ export class SettlementsApi {
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      * @param removeSettlementTransfer 
      */
-
     public async removeTransfersFromSettlement(settlementId: string, removeSettlementTransfer?: RemoveSettlementTransfer, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<any> {
         const responseObject = await this.removeTransfersFromSettlementHelper(settlementId, removeSettlementTransfer,  options);
@@ -755,7 +896,6 @@ export class SettlementsApi {
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      * @param removeSettlementTransfer 
      */
-
     public async removeTransfersFromSettlementHttp(settlementId: string, removeSettlementTransfer?: RemoveSettlementTransfer, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body?: any; }> {
         const responseObject = await this.removeTransfersFromSettlementHelper(settlementId, removeSettlementTransfer,  options);
@@ -848,7 +988,6 @@ export class SettlementsApi {
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      * @param updateSettlementRequest 
      */
-
     public async update(settlementId: string, updateSettlementRequest?: UpdateSettlementRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Settlement> {
         const responseObject = await this.updateHelper(settlementId, updateSettlementRequest,  options);
@@ -861,7 +1000,6 @@ export class SettlementsApi {
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      * @param updateSettlementRequest 
      */
-
     public async updateHttp(settlementId: string, updateSettlementRequest?: UpdateSettlementRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Settlement; }> {
         const responseObject = await this.updateHelper(settlementId, updateSettlementRequest,  options);
@@ -869,19 +1007,37 @@ export class SettlementsApi {
     }
 
 
-    private async embeddedHelper(responseObject: any){
-        if(responseObject.embedded == null || responseObject.embedded == undefined){
-            const dataList = new SuperSet<any>();
+    private async embeddedHelper(responseObject: any, dataList: finixList<any>){
+        if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
+            // const dataList = new finixList<any>();
             dataList.page = responseObject.body.page;
             dataList.links = responseObject.body.links;
             return dataList;
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let tempList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-        const dataList = new SuperSet<any>();
+        let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
+        // const dataList = new finixList<any>();
         tempList.forEach(item => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
     }
-}
+
+    private getoffsetQueryParam(responseObject: any, queryParam: any){
+        queryParam.offset = responseObject.body.page.offset;
+        var endReached: Boolean = false;
+        if (responseObject.body.page.offset + responseObject.body.page.limit > responseObject.body.page.count){
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+
+    private getCursorQueryParam(responseObject: any, queryParam: any){
+        queryParam.afterCursor = responseObject.body.page.nextCursor;
+        var endReached: Boolean = false;
+        if (responseObject.body.page.nextCursor == undefined){
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+}   

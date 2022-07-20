@@ -26,7 +26,7 @@ import { Error422InvalidFieldList } from '../model/error422InvalidFieldList';
 import { ErrorGeneric } from '../model/errorGeneric';
 import { UpdateAuthorizationRequest } from '../model/updateAuthorizationRequest';
 import { ListAuthorizationsQueryParams } from '../model/listAuthorizationsQueryParams';
-import { ObjectSerializer, Authentication, VoidAuth, Interceptor, SuperSet } from '../model/models';
+import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
 import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
 
 import { HttpError, RequestFile } from './apis';
@@ -188,7 +188,6 @@ export class AuthorizationsApi {
      * @summary Create an Authorization
      * @param createAuthorizationRequest 
      */
-
     public async create(createAuthorizationRequest?: CreateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Authorization> {
         const responseObject = await this.createHelper(createAuthorizationRequest,  options);
@@ -200,7 +199,6 @@ export class AuthorizationsApi {
      * @summary Create an Authorization
      * @param createAuthorizationRequest 
      */
-
     public async createHttp(createAuthorizationRequest?: CreateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Authorization; }> {
         const responseObject = await this.createHelper(createAuthorizationRequest,  options);
@@ -285,7 +283,6 @@ export class AuthorizationsApi {
      * @summary Get an Authorization
      * @param authorizationId ID of authorization to fetch
      */
-
     public async get(authorizationId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Authorization> {
         const responseObject = await this.getHelper(authorizationId,  options);
@@ -297,7 +294,6 @@ export class AuthorizationsApi {
      * @summary Get an Authorization
      * @param authorizationId ID of authorization to fetch
      */
-
     public async getHttp(authorizationId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Authorization; }> {
         const responseObject = await this.getHelper(authorizationId,  options);
@@ -463,26 +459,72 @@ export class AuthorizationsApi {
     /**
      * Retrieve a list of `Authorizations`. 
      * @summary List Authorizations
-
-    */
+     */
     public async list (listAuthorizationsQueryParams?:ListAuthorizationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<SuperSet<any>> {
+        Promise<finixList<any>> {
         const responseObject = await this.listHelper(listAuthorizationsQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        // var queryParam: ListAuthorizationsQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.list(queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return dataList;
     }
 
     /**
      * Retrieve a list of `Authorizations`. 
      * @summary List Authorizations
-
-    */
+     */
     public async listHttp (listAuthorizationsQueryParams?:ListAuthorizationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: SuperSet<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listHelper(listAuthorizationsQueryParams, options);
-
-        let dataList = await this.embeddedHelper(responseObject);
+        //var queryParam: ListAuthorizationsQueryParams;
+        var reachedEnd: Boolean;
+        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
+            var queryParam: any = {
+                afterCursor: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd]  = this.getCursorQueryParam(responseObject, queryParam);
+        }
+        else{
+            var queryParam: any = {
+                offset: '',
+                limit: 20
+            };
+            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+        }
+        const nextFetch = (limit?: number) => {
+            queryParam.limit = limit;
+            if (reachedEnd){
+                throw new RangeError("End of list reached");
+            }
+            return this.list(queryParam);
+        }
+        let dataList = new finixList<any>(nextFetch);
+        dataList = await this.embeddedHelper(responseObject, dataList);
+        dataList.hasMore = !reachedEnd;
         return Promise.resolve({response: responseObject.response, body: dataList});
     }
     /**
@@ -572,7 +614,6 @@ export class AuthorizationsApi {
      * @param authorizationId ID of authorization to fetch
      * @param updateAuthorizationRequest 
      */
-
     public async update(authorizationId: string, updateAuthorizationRequest?: UpdateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Authorization> {
         const responseObject = await this.updateHelper(authorizationId, updateAuthorizationRequest,  options);
@@ -585,7 +626,6 @@ export class AuthorizationsApi {
      * @param authorizationId ID of authorization to fetch
      * @param updateAuthorizationRequest 
      */
-
     public async updateHttp(authorizationId: string, updateAuthorizationRequest?: UpdateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Authorization; }> {
         const responseObject = await this.updateHelper(authorizationId, updateAuthorizationRequest,  options);
@@ -593,19 +633,37 @@ export class AuthorizationsApi {
     }
 
 
-    private async embeddedHelper(responseObject: any){
-        if(responseObject.embedded == null || responseObject.embedded == undefined){
-            const dataList = new SuperSet<any>();
+    private async embeddedHelper(responseObject: any, dataList: finixList<any>){
+        if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
+            // const dataList = new finixList<any>();
             dataList.page = responseObject.body.page;
             dataList.links = responseObject.body.links;
             return dataList;
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
-        let tempList = <SuperSet<any>> responseObject.body.embedded[embeddedName];
-        const dataList = new SuperSet<any>();
+        let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
+        // const dataList = new finixList<any>();
         tempList.forEach(item => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
     }
-}
+
+    private getoffsetQueryParam(responseObject: any, queryParam: any){
+        queryParam.offset = responseObject.body.page.offset;
+        var endReached: Boolean = false;
+        if (responseObject.body.page.offset + responseObject.body.page.limit > responseObject.body.page.count){
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+
+    private getCursorQueryParam(responseObject: any, queryParam: any){
+        queryParam.afterCursor = responseObject.body.page.nextCursor;
+        var endReached: Boolean = false;
+        if (responseObject.body.page.nextCursor == undefined){
+            endReached = true;
+        }
+        return [queryParam, endReached];
+    }
+}   

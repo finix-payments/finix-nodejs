@@ -31,7 +31,7 @@ describe('Merchants API', () => {
                 phone: "1234567890"
             }
         }
-        const createdIdentity = await client.Identities.create(createIdentityRequest, {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const createdIdentity = await client.Identities.create(createIdentityRequest);
         identityId = <string>createdIdentity.id;
         const paymentRequest : Models.CreatePaymentInstrumentRequest = {
             accountType: Models.CreatePaymentInstrumentRequest.AccountTypeEnum.Savings,
@@ -45,8 +45,7 @@ describe('Merchants API', () => {
             type: Models.CreatePaymentInstrumentRequest.TypeEnum.BankAccount,
             identity: identityId
         };
-        const createdPaymentInstrument = await client.PaymentInstruments.create(paymentRequest, 
-        {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const createdPaymentInstrument = await client.PaymentInstruments.create(paymentRequest);
 
         const MerchantRequest: Models.CreateMerchantUnderwritingRequest = {
             processor: "DUMMY_V1",
@@ -55,8 +54,7 @@ describe('Merchants API', () => {
             }
         };
 
-        const createdMerchant = await client.Merchants.create(identityId, MerchantRequest, 
-            {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const createdMerchant = await client.Merchants.create(identityId, MerchantRequest);
         merchantID = <string>createdMerchant.id;
 
         expect(createdMerchant.identity).toBe(identityId);
@@ -65,8 +63,7 @@ describe('Merchants API', () => {
     });
 
     test("Test: Fetch a merchant", async() => { 
-        const fetchedMerchant = await client.Merchants.get(merchantID, 
-        {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const fetchedMerchant = await client.Merchants.get(merchantID);
 
         expect(fetchedMerchant.identity).toBe(identityId);
         expect(fetchedMerchant.processor).toBe("DUMMY_V1");
@@ -74,12 +71,11 @@ describe('Merchants API', () => {
     });
 
     test("Test: Reattempt merchant provisioning", async() => {
-        const reattemptedMerchant = await client.Merchants.createMerchantVerification(merchantID, {},
-            {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const reattemptedMerchantVerification = await client.Merchants.createMerchantVerification(merchantID, {});
 
-        expect(reattemptedMerchant.merchant).toBe(merchantID);
-        expect(reattemptedMerchant.application).toBe("APgPDQrLD52TYvqazjHJJchM");
-        expect(reattemptedMerchant.processor).toBe("DUMMY_V1");
+        expect(reattemptedMerchantVerification.merchant).toBe(merchantID);
+        expect(reattemptedMerchantVerification.application).toBe("APgPDQrLD52TYvqazjHJJchM");
+        expect(reattemptedMerchantVerification.processor).toBe("DUMMY_V1");
     });
 
     test("Test: Update merchant to enable Level 2/Level 3 processing", async() => {
@@ -87,8 +83,7 @@ describe('Merchants API', () => {
 
         const updatedMerchant = await client2.Merchants.update(merchantID, {
             levelTwoLevelThreeDataEnabled: true
-        },
-            {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        });
 
         expect(updatedMerchant.id).toBe(merchantID);
         expect(updatedMerchant.application).toBe("APgPDQrLD52TYvqazjHJJchM");
@@ -97,8 +92,7 @@ describe('Merchants API', () => {
 
 
     test("Test: List all merchant", async() => {
-        const merchantList = await client.Merchants.list(undefined,
-        {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const merchantList = await client.Merchants.list();
 
         expect(merchantList.page.limit).toEqual(expect.any(Number));
         if (merchantList.page.nextCursor != undefined){
@@ -108,8 +102,7 @@ describe('Merchants API', () => {
     });
 
     test("Test: List all merchant verification", async() => {
-        const merchantVerificationList = await client.Verifications.listByMerchantId(merchantID, undefined,
-        {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const merchantVerificationList = await client.Verifications.listByMerchantId(merchantID);
 
         expect(merchantVerificationList.page.limit).toEqual(expect.any(Number));
         if (merchantVerificationList.page.nextCursor != undefined){
@@ -117,5 +110,12 @@ describe('Merchants API', () => {
         }        
         expect(merchantVerificationList.size).toEqual(expect.any(Number));
     });
+    
+    test("Test: Raw as string", async() => {
+        const verificationId = "VIcrdHd2vBu5RDZJWNGTQihc";
+        const clientTemp = new Client("USpumes23XhzHwXqiy9bfX2B","c69d39e3-f9ff-4735-8c3e-abca86441906",Environment.Test);
+        const verification = await clientTemp.Verifications.get(verificationId);
 
+        expect(verification.raw).toEqual("RawDummyMerchantUnderwriteResult");
+    });
 })
