@@ -36,3 +36,4 @@ UsersList.attributeTypeMap = [
         "type": "ListLinks"
     }
 ];
+//# sourceMappingURL=usersList.js.map

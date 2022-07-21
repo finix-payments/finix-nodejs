@@ -39,3 +39,4 @@ UpdateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution.attributeT
         "type": "number"
     }
 ];
+//# sourceMappingURL=updateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution.js.map

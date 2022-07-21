@@ -26,3 +26,4 @@ DisputeEvidenceListEmbedded.attributeTypeMap = [
         "type": "Set<DisputeEvidence>"
     }
 ];
+//# sourceMappingURL=disputeEvidenceListEmbedded.js.map

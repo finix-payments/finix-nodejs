@@ -44,9 +44,20 @@ describe('Webhooks API', () => {
         const webhookList = await client.Webhooks.list();
 
         expect(webhookList.page.limit).toEqual(expect.any(Number));
-        if (webhookList.page.nextCursor != undefined){
-            expect(webhookList.page.nextCursor).toEqual(expect.any(String));
+        if (webhookList.page.hasOwnProperty('offset')){
+            expect(webhookList.page.offset).toEqual(expect.any(Number));
+        }
+        else{
+            if (webhookList.page.nextCursor != undefined) {
+                expect(webhookList.page.nextCursor).toEqual(expect.any(String));
+            }
         }        
         expect(webhookList.size).toEqual(expect.any(Number));
+
+        if(webhookList.hasMore) {
+            const nextWebhookList = await webhookList.listNext();
+            expect(nextWebhookList.page.limit).toEqual(expect.any(Number));
+            expect(nextWebhookList.size).toEqual(expect.any(Number));
+        }
     });
 })

@@ -39,3 +39,4 @@ IdentityAdditionalUnderwritingDataCardVolumeDistribution.attributeTypeMap = [
         "type": "number"
     }
 ];
+//# sourceMappingURL=identityAdditionalUnderwritingDataCardVolumeDistribution.js.map

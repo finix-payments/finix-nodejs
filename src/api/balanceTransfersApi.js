@@ -110,6 +110,7 @@ class BalanceTransfersApi {
             let localVarFormParams = {};
             Object.assign(localVarHeaderParams, options.headers);
             localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            localVarHeaderParams['Content-Type'] = "application/hal+json";
             let localVarUseFormData = false;
             let localVarRequestOptions = {
                 method: 'POST',
@@ -503,3 +504,4 @@ class BalanceTransfersApi {
     }
 }
 exports.BalanceTransfersApi = BalanceTransfersApi;
+//# sourceMappingURL=balanceTransfersApi.js.map

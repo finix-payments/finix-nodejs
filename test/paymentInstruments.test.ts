@@ -1,4 +1,5 @@
 import {Client, Environment, Models} from '../src/api';
+import * as fs from 'fs';
 
 describe('Payment Instruments API', () => {
 
@@ -83,8 +84,9 @@ describe('Payment Instruments API', () => {
 
     test('Test: Create instrument update',async () => {
         const fileName : string = __dirname.concat("/test.csv");
+        const fileStream : fs.ReadStream = fs.createReadStream(fileName);
         const updateRequest: Models.CreateInstrumentUpdateRequest = {
-            file: fileName,
+            file: fileStream,
             request: "{\"merchant\":\"MUucec6fHeaWo3VHYoSkUySM\"}"
         }
 
@@ -104,19 +106,21 @@ describe('Payment Instruments API', () => {
         const paymentInstrumentList = await client.PaymentInstruments.list();
 
         expect(paymentInstrumentList.page.limit).toEqual(expect.any(Number));
-        if (paymentInstrumentList.page.nextCursor != undefined){
-            expect(paymentInstrumentList.page.nextCursor).toEqual(expect.any(String));
+        if (paymentInstrumentList.page.hasOwnProperty('offset')){
+            expect(paymentInstrumentList.page.offset).toEqual(expect.any(Number));
+        }
+        else{
+            if (paymentInstrumentList.page.nextCursor != undefined) {
+                expect(paymentInstrumentList.page.nextCursor).toEqual(expect.any(String));
+            }
         }        
         expect(paymentInstrumentList.size).toEqual(expect.any(Number));
-    });
 
-    test('Test: Payment instrument verification' ,async () => {
-        const paymentInstrumentVerification = await client.PaymentInstrumentsP2C.createPaymentInstrumentVerification(bankAccountId,{
-            processor: "DUMMY_V1"
-        });
-
-        expect(paymentInstrumentVerification.paymentInstrument).toBe(bankAccountId);
-        expect(paymentInstrumentVerification.processor).toBe("DUMMY_V1");
+        if(paymentInstrumentList.hasMore) {
+            const nextPaymentInstrumentList = await paymentInstrumentList.listNext();
+            expect(nextPaymentInstrumentList.page.limit).toEqual(expect.any(Number));
+            expect(nextPaymentInstrumentList.size).toEqual(expect.any(Number));
+        }
     });
     
 })

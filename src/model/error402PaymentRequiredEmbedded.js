@@ -26,3 +26,4 @@ Error402PaymentRequiredEmbedded.attributeTypeMap = [
         "type": "Array<Error402PaymentRequiredEmbeddedErrorsInner>"
     }
 ];
+//# sourceMappingURL=error402PaymentRequiredEmbedded.js.map

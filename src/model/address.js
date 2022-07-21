@@ -54,3 +54,4 @@ Address.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=address.js.map

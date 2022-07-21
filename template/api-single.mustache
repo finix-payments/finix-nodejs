@@ -228,6 +228,9 @@ export class {{classname}} {
 {{/headerParams}}
         (<any>Object).assign(localVarHeaderParams, options.headers);
         localVarHeaderParams['Finix-Version'] = "{{version}}";
+        {{#consumes}}
+        localVarHeaderParams['Content-Type'] = "{{mediaType}}";
+        {{/consumes}}
         let localVarUseFormData = false;
 
 {{#formParams}}

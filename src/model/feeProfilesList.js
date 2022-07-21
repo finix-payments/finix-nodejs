@@ -36,3 +36,4 @@ FeeProfilesList.attributeTypeMap = [
         "type": "ListLinks"
     }
 ];
+//# sourceMappingURL=feeProfilesList.js.map

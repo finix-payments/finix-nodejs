@@ -154,3 +154,4 @@ Merchant.attributeTypeMap = [
         OnboardingStateEnum[OnboardingStateEnum["Rejected"] = 'REJECTED'] = "Rejected";
     })(OnboardingStateEnum = Merchant.OnboardingStateEnum || (Merchant.OnboardingStateEnum = {}));
 })(Merchant = exports.Merchant || (exports.Merchant = {}));
+//# sourceMappingURL=merchant.js.map

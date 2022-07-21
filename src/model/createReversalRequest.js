@@ -51,3 +51,4 @@ CreateReversalRequest.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=createReversalRequest.js.map

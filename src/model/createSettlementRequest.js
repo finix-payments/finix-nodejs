@@ -41,3 +41,4 @@ CreateSettlementRequest.attributeTypeMap = [
         "type": "{ [key: string]: string; }"
     }
 ];
+//# sourceMappingURL=createSettlementRequest.js.map

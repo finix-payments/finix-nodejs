@@ -31,3 +31,4 @@ ErrorGeneric.attributeTypeMap = [
         "type": "Error403ForbiddenListEmbedded"
     }
 ];
+//# sourceMappingURL=errorGeneric.js.map

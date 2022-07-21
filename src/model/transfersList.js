@@ -39,3 +39,4 @@ TransfersList.attributeTypeMap = [
         "type": "ListLinks"
     }
 ];
+//# sourceMappingURL=transfersList.js.map

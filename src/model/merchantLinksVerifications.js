@@ -29,3 +29,4 @@ MerchantLinksVerifications.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=merchantLinksVerifications.js.map

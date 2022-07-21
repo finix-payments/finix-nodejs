@@ -29,3 +29,4 @@ AuthorizationLinksTransfer.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=authorizationLinksTransfer.js.map

@@ -26,3 +26,4 @@ PaymentInstrumentsListEmbedded.attributeTypeMap = [
         "type": "Set<PaymentInstrument>"
     }
 ];
+//# sourceMappingURL=paymentInstrumentsListEmbedded.js.map

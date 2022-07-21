@@ -26,3 +26,4 @@ RemoveSettlementTransfer.attributeTypeMap = [
         "type": "Array<string>"
     }
 ];
+//# sourceMappingURL=removeSettlementTransfer.js.map

@@ -131,6 +131,7 @@ export class AuthorizationsApi {
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
         localVarHeaderParams['Finix-Version'] = "2022-02-01";
+        localVarHeaderParams['Content-Type'] = "application/hal+json";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -556,6 +557,7 @@ export class AuthorizationsApi {
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
         localVarHeaderParams['Finix-Version'] = "2022-02-01";
+        localVarHeaderParams['Content-Type'] = "application/hal+json";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {

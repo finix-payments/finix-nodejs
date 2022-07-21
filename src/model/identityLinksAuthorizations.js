@@ -29,3 +29,4 @@ IdentityLinksAuthorizations.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=identityLinksAuthorizations.js.map

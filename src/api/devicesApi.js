@@ -116,6 +116,7 @@ class DevicesApi {
             }
             Object.assign(localVarHeaderParams, options.headers);
             localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            localVarHeaderParams['Content-Type'] = "application/hal+json";
             let localVarUseFormData = false;
             let localVarRequestOptions = {
                 method: 'POST',
@@ -315,6 +316,7 @@ class DevicesApi {
             }
             Object.assign(localVarHeaderParams, options.headers);
             localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            localVarHeaderParams['Content-Type'] = "application/hal+json";
             let localVarUseFormData = false;
             let localVarRequestOptions = {
                 method: 'PUT',
@@ -426,3 +428,4 @@ class DevicesApi {
     }
 }
 exports.DevicesApi = DevicesApi;
+//# sourceMappingURL=devicesApi.js.map

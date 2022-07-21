@@ -29,3 +29,4 @@ TransferLinksReversals.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=transferLinksReversals.js.map

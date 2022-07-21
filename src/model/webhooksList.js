@@ -39,3 +39,4 @@ WebhooksList.attributeTypeMap = [
         "type": "ListLinks"
     }
 ];
+//# sourceMappingURL=webhooksList.js.map

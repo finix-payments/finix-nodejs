@@ -34,3 +34,4 @@ CreateSubscriptionScheduleRequestPeriodOffset.attributeTypeMap = [
         "type": "number"
     }
 ];
+//# sourceMappingURL=createSubscriptionScheduleRequestPeriodOffset.js.map

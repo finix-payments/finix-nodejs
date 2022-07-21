@@ -54,3 +54,4 @@ PaymentInstrumentTokenLinks.attributeTypeMap = [
         "type": "PaymentInstrumentTokenLinksVerifications"
     }
 ];
+//# sourceMappingURL=paymentInstrumentTokenLinks.js.map

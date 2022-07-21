@@ -34,3 +34,4 @@ ProcessorLinks.attributeTypeMap = [
         "type": "ApplicationLinksSelf"
     }
 ];
+//# sourceMappingURL=processorLinks.js.map

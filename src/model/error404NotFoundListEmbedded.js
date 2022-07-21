@@ -26,3 +26,4 @@ Error404NotFoundListEmbedded.attributeTypeMap = [
         "type": "Array<Error404NotFoundListEmbeddedErrorsInner>"
     }
 ];
+//# sourceMappingURL=error404NotFoundListEmbedded.js.map

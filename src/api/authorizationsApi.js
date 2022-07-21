@@ -110,6 +110,7 @@ class AuthorizationsApi {
             let localVarFormParams = {};
             Object.assign(localVarHeaderParams, options.headers);
             localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            localVarHeaderParams['Content-Type'] = "application/hal+json";
             let localVarUseFormData = false;
             let localVarRequestOptions = {
                 method: 'POST',
@@ -538,6 +539,7 @@ class AuthorizationsApi {
             }
             Object.assign(localVarHeaderParams, options.headers);
             localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            localVarHeaderParams['Content-Type'] = "application/hal+json";
             let localVarUseFormData = false;
             let localVarRequestOptions = {
                 method: 'PUT',
@@ -649,3 +651,4 @@ class AuthorizationsApi {
     }
 }
 exports.AuthorizationsApi = AuthorizationsApi;
+//# sourceMappingURL=authorizationsApi.js.map

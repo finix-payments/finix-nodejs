@@ -96,3 +96,4 @@ PaymentInstrumentToken.attributeTypeMap = [
         PayloadTypeEnum[PayloadTypeEnum["Destination"] = 'DESTINATION'] = "Destination";
     })(PayloadTypeEnum = PaymentInstrumentToken.PayloadTypeEnum || (PaymentInstrumentToken.PayloadTypeEnum = {}));
 })(PaymentInstrumentToken = exports.PaymentInstrumentToken || (exports.PaymentInstrumentToken = {}));
+//# sourceMappingURL=paymentInstrumentToken.js.map

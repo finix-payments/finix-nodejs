@@ -26,3 +26,4 @@ UpdateSettlementRequest.attributeTypeMap = [
         "type": "{ [key: string]: string; }"
     }
 ];
+//# sourceMappingURL=updateSettlementRequest.js.map

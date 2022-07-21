@@ -36,3 +36,4 @@ ListDisputeEvidenceQueryParams.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=listDisputeEvidenceQueryParams.js.map

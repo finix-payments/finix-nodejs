@@ -36,3 +36,4 @@ AdditionalPurchaseDataOrderDate.attributeTypeMap = [
         "type": "number"
     }
 ];
+//# sourceMappingURL=additionalPurchaseDataOrderDate.js.map

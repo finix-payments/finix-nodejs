@@ -26,3 +26,4 @@ CreateDisputeEvidenceRequest.attributeTypeMap = [
         "type": "RequestFile"
     }
 ];
+//# sourceMappingURL=createDisputeEvidenceRequest.js.map

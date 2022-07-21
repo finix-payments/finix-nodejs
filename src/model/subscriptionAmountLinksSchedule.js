@@ -29,3 +29,4 @@ SubscriptionAmountLinksSchedule.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=subscriptionAmountLinksSchedule.js.map

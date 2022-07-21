@@ -59,3 +59,4 @@ CardPresentDetails.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=cardPresentDetails.js.map

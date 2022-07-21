@@ -31,3 +31,4 @@ UpdateUserRequest.attributeTypeMap = [
         "type": "boolean"
     }
 ];
+//# sourceMappingURL=updateUserRequest.js.map

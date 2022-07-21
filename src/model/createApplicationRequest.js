@@ -46,3 +46,4 @@ CreateApplicationRequest.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=createApplicationRequest.js.map

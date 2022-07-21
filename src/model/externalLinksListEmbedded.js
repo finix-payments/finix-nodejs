@@ -29,3 +29,4 @@ ExternalLinksListEmbedded.attributeTypeMap = [
         "type": "Array<ExternalLink>"
     }
 ];
+//# sourceMappingURL=externalLinksListEmbedded.js.map

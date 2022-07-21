@@ -26,3 +26,4 @@ WebhooksListEmbedded.attributeTypeMap = [
         "type": "Set<Webhook>"
     }
 ];
+//# sourceMappingURL=webhooksListEmbedded.js.map

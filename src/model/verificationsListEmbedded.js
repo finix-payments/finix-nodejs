@@ -29,3 +29,4 @@ VerificationsListEmbedded.attributeTypeMap = [
         "type": "Set<Verification>"
     }
 ];
+//# sourceMappingURL=verificationsListEmbedded.js.map

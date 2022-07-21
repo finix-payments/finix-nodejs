@@ -29,3 +29,4 @@ IdentityLinksDisputes.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=identityLinksDisputes.js.map

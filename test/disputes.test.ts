@@ -48,10 +48,21 @@ describe('Dispute API', () => {
         {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
 
         expect(disputeList.page.limit).toEqual(expect.any(Number));
-        if (disputeList.page.nextCursor != undefined){
-            expect(disputeList.page.nextCursor).toEqual(expect.any(String));
+        if (disputeList.page.hasOwnProperty('offset')){
+            expect(disputeList.page.offset).toEqual(expect.any(Number));
+        }
+        else{
+            if (disputeList.page.nextCursor != undefined) {
+                expect(disputeList.page.nextCursor).toEqual(expect.any(String));
+            }
         }
         expect(disputeList.size).toEqual(expect.any(Number));
+
+        if(disputeList.hasMore) {
+            const nextDisputeList = await disputeList.listNext();
+            expect(nextDisputeList.page.limit).toEqual(expect.any(Number));
+            expect(nextDisputeList.size).toEqual(expect.any(Number));
+        }
     });
     
     test("Test: Fetch dispute adjustment transfers", async() => {
@@ -59,10 +70,21 @@ describe('Dispute API', () => {
         {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
 
         expect(disputeAdjTransferList.page.limit).toEqual(expect.any(Number));
-        if (disputeAdjTransferList.page.nextCursor != undefined){
-            expect(disputeAdjTransferList.page.nextCursor).toEqual(expect.any(String));
+        if (disputeAdjTransferList.page.hasOwnProperty('offset')){
+            expect(disputeAdjTransferList.page.offset).toEqual(expect.any(Number));
+        }
+        else{
+            if (disputeAdjTransferList.page.nextCursor != undefined) {
+                expect(disputeAdjTransferList.page.nextCursor).toEqual(expect.any(String));
+            }
         }
         expect(disputeAdjTransferList.size).toEqual(expect.any(Number));
+
+        if(disputeAdjTransferList.hasMore) {
+            const nextDisputeAdjList = await disputeAdjTransferList.listNext();
+            expect(nextDisputeAdjList.page.limit).toEqual(expect.any(Number));
+            expect(nextDisputeAdjList.size).toEqual(expect.any(Number));
+        }
     });
 
     test("Test: Fetch dispute evidence files", async() => {
@@ -79,10 +101,21 @@ describe('Dispute API', () => {
         {headers:{["Content-Type"]: "application/vnd.json+api"}});
 
         expect(disputeEvidenceList.page.limit).toEqual(expect.any(Number));
-        if (disputeEvidenceList.page.nextCursor != undefined){
-            expect(disputeEvidenceList.page.nextCursor).toEqual(expect.any(String));
+        if (disputeEvidenceList.page.hasOwnProperty('offset')){
+            expect(disputeEvidenceList.page.offset).toEqual(expect.any(Number));
+        }
+        else{
+            if (disputeEvidenceList.page.nextCursor != undefined) {
+                expect(disputeEvidenceList.page.nextCursor).toEqual(expect.any(String));
+            }
         }        
         expect(disputeEvidenceList.size).toEqual(expect.any(Number));
+
+        if(disputeEvidenceList.hasMore) {
+            const nextDipusteEvidenceList = await disputeEvidenceList.listNext();
+            expect(nextDipusteEvidenceList.page.limit).toEqual(expect.any(Number));
+            expect(nextDipusteEvidenceList.size).toEqual(expect.any(Number));
+        }
     });
 
 

@@ -26,3 +26,4 @@ CreateProcessorRequestConfig.attributeTypeMap = [
         "type": "boolean"
     }
 ];
+//# sourceMappingURL=createProcessorRequestConfig.js.map

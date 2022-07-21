@@ -26,3 +26,4 @@ UsersListEmbedded.attributeTypeMap = [
         "type": "Set<User>"
     }
 ];
+//# sourceMappingURL=usersListEmbedded.js.map

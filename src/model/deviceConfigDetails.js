@@ -59,3 +59,4 @@ DeviceConfigDetails.attributeTypeMap = [
         "type": "boolean"
     }
 ];
+//# sourceMappingURL=deviceConfigDetails.js.map

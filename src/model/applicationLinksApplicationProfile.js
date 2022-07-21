@@ -26,3 +26,4 @@ ApplicationLinksApplicationProfile.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=applicationLinksApplicationProfile.js.map

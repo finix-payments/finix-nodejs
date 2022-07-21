@@ -29,3 +29,4 @@ DisputeEvidenceLinks.attributeTypeMap = [
         "type": "ApplicationLinksSelf"
     }
 ];
+//# sourceMappingURL=disputeEvidenceLinks.js.map

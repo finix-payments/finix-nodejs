@@ -39,3 +39,4 @@ BalanceTransferList.attributeTypeMap = [
         "type": "ListLinks"
     }
 ];
+//# sourceMappingURL=balanceTransferList.js.map

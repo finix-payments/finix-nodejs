@@ -36,3 +36,4 @@ AuthorizationsList.attributeTypeMap = [
         "type": "ListLinks"
     }
 ];
+//# sourceMappingURL=authorizationsList.js.map

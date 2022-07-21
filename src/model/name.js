@@ -41,3 +41,4 @@ Name.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=name.js.map

@@ -31,3 +31,4 @@ ConfigurationDetailsCashbackOptionsManualEntry.attributeTypeMap = [
         "type": "number"
     }
 ];
+//# sourceMappingURL=configurationDetailsCashbackOptionsManualEntry.js.map

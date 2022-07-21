@@ -26,3 +26,4 @@ Error422InvalidFieldListEmbedded.attributeTypeMap = [
         "type": "Array<Error422InvalidFieldListEmbeddedErrorsInner>"
     }
 ];
+//# sourceMappingURL=error422InvalidFieldListEmbedded.js.map

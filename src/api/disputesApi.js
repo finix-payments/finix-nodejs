@@ -116,6 +116,7 @@ class DisputesApi {
             }
             Object.assign(localVarHeaderParams, options.headers);
             localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            localVarHeaderParams['Content-Type'] = "multipart/form-data";
             let localVarUseFormData = false;
             let localVarRequestOptions = {
                 method: 'POST',
@@ -918,3 +919,4 @@ class DisputesApi {
     }
 }
 exports.DisputesApi = DisputesApi;
+//# sourceMappingURL=disputesApi.js.map

@@ -39,3 +39,4 @@ VerificationLinks.attributeTypeMap = [
         "type": "VerificationLinksApplication"
     }
 ];
+//# sourceMappingURL=verificationLinks.js.map

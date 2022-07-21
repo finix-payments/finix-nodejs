@@ -29,3 +29,4 @@ VerificationLinksApplication.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=verificationLinksApplication.js.map

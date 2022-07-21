@@ -31,3 +31,4 @@ CreateInstrumentUpdateRequest.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=createInstrumentUpdateRequest.js.map

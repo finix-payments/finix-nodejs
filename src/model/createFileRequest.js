@@ -57,3 +57,4 @@ CreateFileRequest.attributeTypeMap = [
         TypeEnum[TypeEnum["Passport"] = 'PASSPORT'] = "Passport";
     })(TypeEnum = CreateFileRequest.TypeEnum || (CreateFileRequest.TypeEnum = {}));
 })(CreateFileRequest = exports.CreateFileRequest || (exports.CreateFileRequest = {}));
+//# sourceMappingURL=createFileRequest.js.map

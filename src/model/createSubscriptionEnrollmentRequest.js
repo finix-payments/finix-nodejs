@@ -44,3 +44,4 @@ CreateSubscriptionEnrollmentRequest.attributeTypeMap = [
         "type": "{ [key: string]: string; }"
     }
 ];
+//# sourceMappingURL=createSubscriptionEnrollmentRequest.js.map

@@ -25,7 +25,7 @@ describe('Files API', () => {
         }
 
         createFileRequest = fileRequest;
-        const createdFile = await client.Files.create(fileRequest, {headers: {['Content-Type'] : "application/vnd.api+json"}});
+        const createdFile = await client.Files.create(fileRequest);
         
         fileId = <string>createdFile.id;
         expect(createdFile.linkedTo).toBe(fileRequest.linkedTo);
@@ -51,8 +51,7 @@ describe('Files API', () => {
             duration: 15
         }
 
-        const createdExternalLink = await client.Files.createExternalLink(fileId,externalLinkRequest, 
-            {headers: {['Content-Type'] : "application/vnd.api+json"}});
+        const createdExternalLink = await client.Files.createExternalLink(fileId,externalLinkRequest);
         
         externalLinkId = <string>createdExternalLink.id;
         expect(createdExternalLink.type).toBe(externalLinkRequest.type);
@@ -68,8 +67,7 @@ describe('Files API', () => {
 
     test("Test: Fetch a file", async() => {
         const tempFileId = "FILE_bJecqoRPasStEPVpvKHtgA";
-        const fetchedFile = await client.Files.get(tempFileId, 
-            {headers: {['Content-Type'] : "application/vnd.api+json"}});
+        const fetchedFile = await client.Files.get(tempFileId);
         
         expect(fetchedFile.id).toBe(tempFileId);
         expect(fetchedFile.status).toBe("UPLOADED");
@@ -79,10 +77,21 @@ describe('Files API', () => {
         const fileList = await client.Files.list();
 
         expect(fileList.page.limit).toEqual(expect.any(Number));
-        if (fileList.page.nextCursor != undefined){
-            expect(fileList.page.nextCursor).toEqual(expect.any(String));
+        if (fileList.page.hasOwnProperty('offset')){
+            expect(fileList.page.offset).toEqual(expect.any(Number));
+        }
+        else{
+            if (fileList.page.nextCursor != undefined) {
+                expect(fileList.page.nextCursor).toEqual(expect.any(String));
+            }
         }        
         expect(fileList.size).toEqual(expect.any(Number));
+
+        if(fileList.hasMore) {
+            const nextFileList = await fileList.listNext();
+            expect(nextFileList.page.limit).toEqual(expect.any(Number));
+            expect(nextFileList.size).toEqual(expect.any(Number));
+        }
     });
 
     test("Test: Fetch an external link", async() => {
@@ -97,9 +106,20 @@ describe('Files API', () => {
         const externalLinksList = await client.Files.listExternalLinks(fileId);
 
         expect(externalLinksList.page.limit).toEqual(expect.any(Number));
-        if (externalLinksList.page.nextCursor != undefined){
-            expect(externalLinksList.page.nextCursor).toEqual(expect.any(String));
+        if (externalLinksList.page.hasOwnProperty('offset')){
+            expect(externalLinksList.page.offset).toEqual(expect.any(Number));
+        }
+        else{
+            if (externalLinksList.page.nextCursor != undefined) {
+                expect(externalLinksList.page.nextCursor).toEqual(expect.any(String));
+            }
         }        
         expect(externalLinksList.size).toEqual(expect.any(Number));
+
+        if(externalLinksList.hasMore) {
+            const nextExternalLinksList = await externalLinksList.listNext();
+            expect(nextExternalLinksList.page.limit).toEqual(expect.any(Number));
+            expect(nextExternalLinksList.size).toEqual(expect.any(Number));
+        }
     });
 })

@@ -110,6 +110,7 @@ class InstrumentUpdatesApi {
             let localVarFormParams = {};
             Object.assign(localVarHeaderParams, options.headers);
             localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            localVarHeaderParams['Content-Type'] = "multipart/form-data";
             let localVarUseFormData = false;
             let localVarRequestOptions = {
                 method: 'POST',
@@ -418,3 +419,4 @@ class InstrumentUpdatesApi {
     }
 }
 exports.InstrumentUpdatesApi = InstrumentUpdatesApi;
+//# sourceMappingURL=instrumentUpdatesApi.js.map

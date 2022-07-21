@@ -29,3 +29,4 @@ IdentitiesListEmbedded.attributeTypeMap = [
         "type": "Set<Identity>"
     }
 ];
+//# sourceMappingURL=identitiesListEmbedded.js.map

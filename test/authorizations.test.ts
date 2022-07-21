@@ -177,6 +177,14 @@ describe('Authorization API', () => {
         expect(authorizationList.page.limit).toEqual(expect.any(Number));
         expect(authorizationList.page.nextCursor).toEqual(expect.any(String));
         expect(authorizationList.size).toEqual(expect.any(Number));
+
+        if(authorizationList.hasMore) {
+            const nextAuthorizationList = await authorizationList.listNext();
+            expect(nextAuthorizationList.page.limit).toEqual(expect.any(Number));
+            expect(nextAuthorizationList.page.nextCursor).toEqual(expect.any(String));
+            expect(nextAuthorizationList.size).toEqual(expect.any(Number));
+        }
+        
     });
     
     

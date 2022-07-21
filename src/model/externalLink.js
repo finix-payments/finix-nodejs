@@ -71,3 +71,4 @@ ExternalLink.attributeTypeMap = [
         "type": "boolean"
     }
 ];
+//# sourceMappingURL=externalLink.js.map

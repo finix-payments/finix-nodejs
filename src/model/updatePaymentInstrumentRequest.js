@@ -114,3 +114,4 @@ UpdatePaymentInstrumentRequest.attributeTypeMap = [
         AccountTypeEnum[AccountTypeEnum["CorpSavings"] = 'CORP_SAVINGS'] = "CorpSavings";
     })(AccountTypeEnum = UpdatePaymentInstrumentRequest.AccountTypeEnum || (UpdatePaymentInstrumentRequest.AccountTypeEnum = {}));
 })(UpdatePaymentInstrumentRequest = exports.UpdatePaymentInstrumentRequest || (exports.UpdatePaymentInstrumentRequest = {}));
+//# sourceMappingURL=updatePaymentInstrumentRequest.js.map

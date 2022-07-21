@@ -86,3 +86,4 @@ ModelFile.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=modelFile.js.map

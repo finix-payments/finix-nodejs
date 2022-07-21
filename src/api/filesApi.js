@@ -116,6 +116,7 @@ class FilesApi {
             }
             Object.assign(localVarHeaderParams, options.headers);
             localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            localVarHeaderParams['Content-Type'] = "application/vnd.api+json";
             let localVarUseFormData = false;
             let localVarRequestOptions = {
                 method: 'POST',
@@ -214,6 +215,7 @@ class FilesApi {
             let localVarFormParams = {};
             Object.assign(localVarHeaderParams, options.headers);
             localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            localVarHeaderParams['Content-Type'] = "application/vnd.api+json";
             let localVarUseFormData = false;
             let localVarRequestOptions = {
                 method: 'POST',
@@ -962,6 +964,7 @@ class FilesApi {
             }
             Object.assign(localVarHeaderParams, options.headers);
             localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            localVarHeaderParams['Content-Type'] = "multipart/form-data";
             let localVarUseFormData = false;
             let localVarRequestOptions = {
                 method: 'POST',
@@ -1073,3 +1076,4 @@ class FilesApi {
     }
 }
 exports.FilesApi = FilesApi;
+//# sourceMappingURL=filesApi.js.map

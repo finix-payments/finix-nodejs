@@ -26,3 +26,4 @@ UpdateSubscriptionScheduleRequest.attributeTypeMap = [
         "type": "{ [key: string]: string; }"
     }
 ];
+//# sourceMappingURL=updateSubscriptionScheduleRequest.js.map

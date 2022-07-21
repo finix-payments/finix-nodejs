@@ -71,3 +71,4 @@ InstrumentUpdate.attributeTypeMap = [
         "type": "InstrumentUpdateLinks"
     }
 ];
+//# sourceMappingURL=instrumentUpdate.js.map

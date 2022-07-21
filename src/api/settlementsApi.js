@@ -116,6 +116,7 @@ class SettlementsApi {
             }
             Object.assign(localVarHeaderParams, options.headers);
             localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            localVarHeaderParams['Content-Type'] = "application/hal+json";
             let localVarUseFormData = false;
             let localVarRequestOptions = {
                 method: 'POST',
@@ -811,6 +812,7 @@ class SettlementsApi {
             }
             Object.assign(localVarHeaderParams, options.headers);
             localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            localVarHeaderParams['Content-Type'] = "application/hal+json";
             let localVarUseFormData = false;
             let localVarRequestOptions = {
                 method: 'DELETE',
@@ -914,6 +916,7 @@ class SettlementsApi {
             }
             Object.assign(localVarHeaderParams, options.headers);
             localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            localVarHeaderParams['Content-Type'] = "application/hal+json";
             let localVarUseFormData = false;
             let localVarRequestOptions = {
                 method: 'PUT',
@@ -1025,3 +1028,4 @@ class SettlementsApi {
     }
 }
 exports.SettlementsApi = SettlementsApi;
+//# sourceMappingURL=settlementsApi.js.map

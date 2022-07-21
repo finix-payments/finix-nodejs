@@ -49,3 +49,4 @@ AuthorizationLinks.attributeTypeMap = [
         "type": "AuthorizationLinksTransfer"
     }
 ];
+//# sourceMappingURL=authorizationLinks.js.map

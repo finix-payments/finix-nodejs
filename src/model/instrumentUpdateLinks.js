@@ -39,3 +39,4 @@ InstrumentUpdateLinks.attributeTypeMap = [
         "type": "InstrumentUpdateLinksApplication"
     }
 ];
+//# sourceMappingURL=instrumentUpdateLinks.js.map

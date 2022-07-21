@@ -39,3 +39,4 @@ SubscriptionSchedulesListLinks.attributeTypeMap = [
         "type": "ApplicationLinksApplicationProfile"
     }
 ];
+//# sourceMappingURL=subscriptionSchedulesListLinks.js.map

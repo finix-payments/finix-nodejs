@@ -29,3 +29,4 @@ TransferLinksDisputes.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=transferLinksDisputes.js.map

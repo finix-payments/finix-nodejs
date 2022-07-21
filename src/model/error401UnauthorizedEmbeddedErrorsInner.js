@@ -47,3 +47,4 @@ Error401UnauthorizedEmbeddedErrorsInner.attributeTypeMap = [
         CodeEnum[CodeEnum["Unknown"] = 'UNKNOWN'] = "Unknown";
     })(CodeEnum = Error401UnauthorizedEmbeddedErrorsInner.CodeEnum || (Error401UnauthorizedEmbeddedErrorsInner.CodeEnum = {}));
 })(Error401UnauthorizedEmbeddedErrorsInner = exports.Error401UnauthorizedEmbeddedErrorsInner || (exports.Error401UnauthorizedEmbeddedErrorsInner = {}));
+//# sourceMappingURL=error401UnauthorizedEmbeddedErrorsInner.js.map

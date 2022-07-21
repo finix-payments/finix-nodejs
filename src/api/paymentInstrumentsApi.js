@@ -110,6 +110,7 @@ class PaymentInstrumentsApi {
             let localVarFormParams = {};
             Object.assign(localVarHeaderParams, options.headers);
             localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            localVarHeaderParams['Content-Type'] = "application/hal+json";
             let localVarUseFormData = false;
             let localVarRequestOptions = {
                 method: 'POST',
@@ -206,6 +207,7 @@ class PaymentInstrumentsApi {
             let localVarFormParams = {};
             Object.assign(localVarHeaderParams, options.headers);
             localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            localVarHeaderParams['Content-Type'] = "application/hal+json";
             let localVarUseFormData = false;
             let localVarRequestOptions = {
                 method: 'POST',
@@ -756,6 +758,7 @@ class PaymentInstrumentsApi {
             }
             Object.assign(localVarHeaderParams, options.headers);
             localVarHeaderParams['Finix-Version'] = "2022-02-01";
+            localVarHeaderParams['Content-Type'] = "application/hal+json";
             let localVarUseFormData = false;
             let localVarRequestOptions = {
                 method: 'PUT',
@@ -867,3 +870,4 @@ class PaymentInstrumentsApi {
     }
 }
 exports.PaymentInstrumentsApi = PaymentInstrumentsApi;
+//# sourceMappingURL=paymentInstrumentsApi.js.map

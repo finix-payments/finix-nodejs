@@ -56,3 +56,4 @@ ListMerchantsQueryParams.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=listMerchantsQueryParams.js.map

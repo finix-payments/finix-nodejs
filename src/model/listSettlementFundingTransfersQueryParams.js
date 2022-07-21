@@ -36,3 +36,4 @@ ListSettlementFundingTransfersQueryParams.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=listSettlementFundingTransfersQueryParams.js.map

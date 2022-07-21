@@ -29,3 +29,4 @@ IdentityLinksPaymentInstruments.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=identityLinksPaymentInstruments.js.map

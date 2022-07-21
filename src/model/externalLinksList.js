@@ -36,3 +36,4 @@ ExternalLinksList.attributeTypeMap = [
         "type": "ListLinks"
     }
 ];
+//# sourceMappingURL=externalLinksList.js.map

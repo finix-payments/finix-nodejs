@@ -29,3 +29,4 @@ DeviceLinksMerchant.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=deviceLinksMerchant.js.map

@@ -36,3 +36,4 @@ VerificationsList.attributeTypeMap = [
         "type": "PageCursor"
     }
 ];
+//# sourceMappingURL=verificationsList.js.map

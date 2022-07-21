@@ -61,3 +61,4 @@ ListSettlementsQueryParams.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=listSettlementsQueryParams.js.map

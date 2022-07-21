@@ -29,3 +29,4 @@ MerchantsListEmbedded.attributeTypeMap = [
         "type": "Set<Merchant>"
     }
 ];
+//# sourceMappingURL=merchantsListEmbedded.js.map

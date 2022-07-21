@@ -26,3 +26,4 @@ MerchantProfilesListEmbedded.attributeTypeMap = [
         "type": "Array<MerchantProfile>"
     }
 ];
+//# sourceMappingURL=merchantProfilesListEmbedded.js.map

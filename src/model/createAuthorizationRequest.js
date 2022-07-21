@@ -117,3 +117,4 @@ CreateAuthorizationRequest.attributeTypeMap = [
         ProcessorEnum[ProcessorEnum["VisaV1"] = 'VISA_V1'] = "VisaV1";
     })(ProcessorEnum = CreateAuthorizationRequest.ProcessorEnum || (CreateAuthorizationRequest.ProcessorEnum = {}));
 })(CreateAuthorizationRequest = exports.CreateAuthorizationRequest || (exports.CreateAuthorizationRequest = {}));
+//# sourceMappingURL=createAuthorizationRequest.js.map

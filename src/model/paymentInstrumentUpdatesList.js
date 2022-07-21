@@ -39,3 +39,4 @@ PaymentInstrumentUpdatesList.attributeTypeMap = [
         "type": "{ [key: string]: any; }"
     }
 ];
+//# sourceMappingURL=paymentInstrumentUpdatesList.js.map

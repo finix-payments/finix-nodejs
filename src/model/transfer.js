@@ -208,3 +208,4 @@ Transfer.attributeTypeMap = [
         SubtypeEnum[SubtypeEnum["System"] = 'SYSTEM'] = "System";
     })(SubtypeEnum = Transfer.SubtypeEnum || (Transfer.SubtypeEnum = {}));
 })(Transfer = exports.Transfer || (exports.Transfer = {}));
+//# sourceMappingURL=transfer.js.map

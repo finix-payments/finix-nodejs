@@ -24,10 +24,21 @@ describe('Settlements API', () => {
         const settlementList = await client.Settlements.list();
 
         expect(settlementList.page.limit).toEqual(expect.any(Number));
-        if (settlementList.page.nextCursor != undefined){
-            expect(settlementList.page.nextCursor).toEqual(expect.any(String));
+        if (settlementList.page.hasOwnProperty('offset')){
+            expect(settlementList.page.offset).toEqual(expect.any(Number));
+        }
+        else{
+            if (settlementList.page.nextCursor != undefined) {
+                expect(settlementList.page.nextCursor).toEqual(expect.any(String));
+            }
         }        
         expect(settlementList.size).toEqual(expect.any(Number));
+
+        if(settlementList.hasMore) {
+            const nextSettlementList = await settlementList.listNext();
+            expect(nextSettlementList.page.limit).toEqual(expect.any(Number));
+            expect(nextSettlementList.size).toEqual(expect.any(Number));
+        }
     });
 
     test("Test: List transfers in a batch settlements", async() => {
@@ -35,10 +46,21 @@ describe('Settlements API', () => {
         const transferList = await client.Settlements.listTransfersBySettlementId(settlementId);
 
         expect(transferList.page.limit).toEqual(expect.any(Number));
-        if (transferList.page.nextCursor != undefined){
-            expect(transferList.page.nextCursor).toEqual(expect.any(String));
+        if (transferList.page.hasOwnProperty('offset')){
+            expect(transferList.page.offset).toEqual(expect.any(Number));
+        }
+        else{
+            if (transferList.page.nextCursor != undefined) {
+                expect(transferList.page.nextCursor).toEqual(expect.any(String));
+            }
         }        
         expect(transferList.size).toEqual(expect.any(Number));
+
+        if(transferList.hasMore) {
+            const nextTransferList = await transferList.listNext();
+            expect(nextTransferList.page.limit).toEqual(expect.any(Number));
+            expect(nextTransferList.size).toEqual(expect.any(Number));
+        }
     });
 
     test("Test: List funding transfers in a batch settlements", async() => {
@@ -46,10 +68,21 @@ describe('Settlements API', () => {
         const transferList = await client.Settlements.listFundingTransfers(settlementId);
 
         expect(transferList.page.limit).toEqual(expect.any(Number));
-        if (transferList.page.nextCursor != undefined){
-            expect(transferList.page.nextCursor).toEqual(expect.any(String));
+        if (transferList.page.hasOwnProperty('offset')){
+            expect(transferList.page.offset).toEqual(expect.any(Number));
+        }
+        else{
+            if (transferList.page.nextCursor != undefined) {
+                expect(transferList.page.nextCursor).toEqual(expect.any(String));
+            }
         }        
         expect(transferList.size).toEqual(expect.any(Number));
+
+        if(transferList.hasMore) {
+            const nextTransferList = await transferList.listNext();
+            expect(nextTransferList.page.limit).toEqual(expect.any(Number));
+            expect(nextTransferList.size).toEqual(expect.any(Number));
+        }
     });
 
     test("Test: Remove transfers from batch settlement", async() => {

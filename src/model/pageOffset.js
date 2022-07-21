@@ -36,3 +36,4 @@ PageOffset.attributeTypeMap = [
         "type": "number"
     }
 ];
+//# sourceMappingURL=pageOffset.js.map

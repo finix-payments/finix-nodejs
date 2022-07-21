@@ -26,3 +26,4 @@ TransfersListEmbedded.attributeTypeMap = [
         "type": "Set<Transfer>"
     }
 ];
+//# sourceMappingURL=transfersListEmbedded.js.map

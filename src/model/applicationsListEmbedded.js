@@ -26,3 +26,4 @@ ApplicationsListEmbedded.attributeTypeMap = [
         "type": "Set<Application>"
     }
 ];
+//# sourceMappingURL=applicationsListEmbedded.js.map

@@ -29,3 +29,4 @@ MerchantLinksMerchantProfile.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=merchantLinksMerchantProfile.js.map

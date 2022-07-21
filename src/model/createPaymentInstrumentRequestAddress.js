@@ -49,3 +49,4 @@ CreatePaymentInstrumentRequestAddress.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=createPaymentInstrumentRequestAddress.js.map

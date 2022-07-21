@@ -139,6 +139,7 @@ export class FilesApi {
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
         localVarHeaderParams['Finix-Version'] = "2022-02-01";
+        localVarHeaderParams['Content-Type'] = "application/vnd.api+json";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -237,6 +238,7 @@ export class FilesApi {
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
         localVarHeaderParams['Finix-Version'] = "2022-02-01";
+        localVarHeaderParams['Content-Type'] = "application/vnd.api+json";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {
@@ -979,6 +981,7 @@ export class FilesApi {
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
         localVarHeaderParams['Finix-Version'] = "2022-02-01";
+        localVarHeaderParams['Content-Type'] = "multipart/form-data";
         let localVarUseFormData = false;
 
         let localVarRequestOptions: localVarRequest.Options = {

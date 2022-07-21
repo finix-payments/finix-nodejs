@@ -36,3 +36,4 @@ FilesList.attributeTypeMap = [
         "type": "ListLinks"
     }
 ];
+//# sourceMappingURL=filesList.js.map

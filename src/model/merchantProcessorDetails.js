@@ -34,3 +34,4 @@ MerchantProcessorDetails.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=merchantProcessorDetails.js.map

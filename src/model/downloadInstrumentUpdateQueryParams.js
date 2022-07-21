@@ -26,3 +26,4 @@ DownloadInstrumentUpdateQueryParams.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=downloadInstrumentUpdateQueryParams.js.map

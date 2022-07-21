@@ -46,3 +46,4 @@ UpdateAuthorizationRequest.attributeTypeMap = [
         "type": "boolean"
     }
 ];
+//# sourceMappingURL=updateAuthorizationRequest.js.map

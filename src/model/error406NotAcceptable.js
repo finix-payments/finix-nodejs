@@ -31,3 +31,4 @@ Error406NotAcceptable.attributeTypeMap = [
         "type": "Error404NotFoundListEmbedded"
     }
 ];
+//# sourceMappingURL=error406NotAcceptable.js.map

@@ -44,3 +44,4 @@ CreateExternalLinkRequest.attributeTypeMap = [
         TypeEnum[TypeEnum["View"] = 'VIEW'] = "View";
     })(TypeEnum = CreateExternalLinkRequest.TypeEnum || (CreateExternalLinkRequest.TypeEnum = {}));
 })(CreateExternalLinkRequest = exports.CreateExternalLinkRequest || (exports.CreateExternalLinkRequest = {}));
+//# sourceMappingURL=createExternalLinkRequest.js.map

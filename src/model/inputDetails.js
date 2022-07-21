@@ -36,3 +36,4 @@ InputDetails.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=inputDetails.js.map

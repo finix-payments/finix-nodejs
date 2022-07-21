@@ -56,3 +56,4 @@ ListDisputesQueryParams.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=listDisputesQueryParams.js.map

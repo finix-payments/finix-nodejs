@@ -39,3 +39,4 @@ IdentityEntityIncorporationDate.attributeTypeMap = [
         "type": "number"
     }
 ];
+//# sourceMappingURL=identityEntityIncorporationDate.js.map

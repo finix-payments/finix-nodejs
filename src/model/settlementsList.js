@@ -39,3 +39,4 @@ SettlementsList.attributeTypeMap = [
         "type": "ListLinks"
     }
 ];
+//# sourceMappingURL=settlementsList.js.map

@@ -95,20 +95,42 @@ describe('Merchants API', () => {
         const merchantList = await client.Merchants.list();
 
         expect(merchantList.page.limit).toEqual(expect.any(Number));
-        if (merchantList.page.nextCursor != undefined){
-            expect(merchantList.page.nextCursor).toEqual(expect.any(String));
+        if (merchantList.page.hasOwnProperty('offset')){
+            expect(merchantList.page.offset).toEqual(expect.any(Number));
+        }
+        else{
+            if (merchantList.page.nextCursor != undefined) {
+                expect(merchantList.page.nextCursor).toEqual(expect.any(String));
+            }
         }        
         expect(merchantList.size).toEqual(expect.any(Number));
+
+        if(merchantList.hasMore) {
+            const nextMerchantList = await merchantList.listNext();
+            expect(nextMerchantList.page.limit).toEqual(expect.any(Number));
+            expect(nextMerchantList.size).toEqual(expect.any(Number));
+        }
     });
 
     test("Test: List all merchant verification", async() => {
         const merchantVerificationList = await client.Verifications.listByMerchantId(merchantID);
 
         expect(merchantVerificationList.page.limit).toEqual(expect.any(Number));
-        if (merchantVerificationList.page.nextCursor != undefined){
-            expect(merchantVerificationList.page.nextCursor).toEqual(expect.any(String));
+        if (merchantVerificationList.page.hasOwnProperty('offset')){
+            expect(merchantVerificationList.page.offset).toEqual(expect.any(Number));
+        }
+        else{
+            if (merchantVerificationList.page.nextCursor != undefined) {
+                expect(merchantVerificationList.page.nextCursor).toEqual(expect.any(String));
+            }
         }        
         expect(merchantVerificationList.size).toEqual(expect.any(Number));
+
+        if(merchantVerificationList.hasMore) {
+            const nextMerchantVerificationList = await merchantVerificationList.listNext();
+            expect(nextMerchantVerificationList.page.limit).toEqual(expect.any(Number));
+            expect(nextMerchantVerificationList.size).toEqual(expect.any(Number));
+        }
     });
     
     test("Test: Raw as string", async() => {

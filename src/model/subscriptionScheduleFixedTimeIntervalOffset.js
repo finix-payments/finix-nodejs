@@ -34,3 +34,4 @@ SubscriptionScheduleFixedTimeIntervalOffset.attributeTypeMap = [
         "type": "number"
     }
 ];
+//# sourceMappingURL=subscriptionScheduleFixedTimeIntervalOffset.js.map

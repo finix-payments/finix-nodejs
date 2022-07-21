@@ -39,3 +39,4 @@ UpdateIdentityRequestEntityDob.attributeTypeMap = [
         "type": "number"
     }
 ];
+//# sourceMappingURL=updateIdentityRequestEntityDob.js.map

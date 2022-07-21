@@ -43,13 +43,24 @@ describe('Balance Transfer API', () => {
 
 
     test("Test: List all balance transfer", async() => {
-        const balanceTransferList = await client.BalanceTransfers.list();
+        const balanceTransferList = await client.BalanceTransfers.list();       
 
         expect(balanceTransferList.page.limit).toEqual(expect.any(Number));
-        if (balanceTransferList.page.nextCursor != undefined){
-            expect(balanceTransferList.page.nextCursor).toEqual(expect.any(String));
+        if (balanceTransferList.page.hasOwnProperty('offset')){
+            expect(balanceTransferList.page.offset).toEqual(expect.any(Number));
+        }
+        else{
+            if (balanceTransferList.page.nextCursor != undefined) {
+                expect(balanceTransferList.page.nextCursor).toEqual(expect.any(String));
+            }
         }        
         expect(balanceTransferList.size).toEqual(expect.any(Number));
+
+        if(balanceTransferList.hasMore) {
+            const nextBalanceTransferList = await balanceTransferList.listNext();
+            expect(nextBalanceTransferList.page.limit).toEqual(expect.any(Number));
+            expect(nextBalanceTransferList.size).toEqual(expect.any(Number));
+        }
     });
      
 

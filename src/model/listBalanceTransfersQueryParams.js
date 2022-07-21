@@ -96,3 +96,4 @@ ListBalanceTransfersQueryParams.attributeTypeMap = [
         "type": "string"
     }
 ];
+//# sourceMappingURL=listBalanceTransfersQueryParams.js.map

@@ -84,3 +84,4 @@ AdditionalPurchaseData.attributeTypeMap = [
         "type": "boolean"
     }
 ];
+//# sourceMappingURL=additionalPurchaseData.js.map

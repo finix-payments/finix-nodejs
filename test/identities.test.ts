@@ -66,10 +66,21 @@ describe('Identity API', () => {
         const identitiesList = await client.Identities.list();
 
         expect(identitiesList.page.limit).toEqual(expect.any(Number));
-        if (identitiesList.page.nextCursor != undefined){
-            expect(identitiesList.page.nextCursor).toEqual(expect.any(String));
+        if (identitiesList.page.hasOwnProperty('offset')){
+            expect(identitiesList.page.offset).toEqual(expect.any(Number));
+        }
+        else{
+            if (identitiesList.page.nextCursor != undefined) {
+                expect(identitiesList.page.nextCursor).toEqual(expect.any(String));
+            }
         }        
         expect(identitiesList.size).toEqual(expect.any(Number));
+
+        if(identitiesList.hasMore) {
+            const nextIdentitiesList = await identitiesList.listNext();
+            expect(nextIdentitiesList.page.limit).toEqual(expect.any(Number));
+            expect(nextIdentitiesList.size).toEqual(expect.any(Number));
+        }
     });
 
     test("Test: Update an identity", async() => {

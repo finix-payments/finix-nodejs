@@ -39,3 +39,4 @@ CreateIdentityRequestEntityIncorporationDate.attributeTypeMap = [
         "type": "number"
     }
 ];
+//# sourceMappingURL=createIdentityRequestEntityIncorporationDate.js.map

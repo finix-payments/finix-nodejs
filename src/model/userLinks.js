@@ -39,3 +39,4 @@ UserLinks.attributeTypeMap = [
         "type": "ApplicationLinksSelf"
     }
 ];
+//# sourceMappingURL=userLinks.js.map

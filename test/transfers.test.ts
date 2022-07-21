@@ -25,7 +25,7 @@ describe('Transfers API', () => {
             processor: "DUMMY_V1"
         };
 
-        const debitAccountTransfer = await client.Transfers.create(debitRequest, {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const debitAccountTransfer = await client.Transfers.create(debitRequest);
 
         expect(debitAccountTransfer.amount).toBe(debitRequest.amount);
         expect(debitAccountTransfer.fee).toBe(debitRequest.fee);
@@ -44,7 +44,7 @@ describe('Transfers API', () => {
              amount: 662154,
          };
  
-         const createdSaleTransfer = await client.Transfers.create(saleRequest, {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+         const createdSaleTransfer = await client.Transfers.create(saleRequest);
  
          expect(createdSaleTransfer.amount).toBe(saleRequest.amount);
          expect(createdSaleTransfer.application).toBe("APgPDQrLD52TYvqazjHJJchM");
@@ -67,7 +67,7 @@ describe('Transfers API', () => {
              }
          };
  
-         const created3dSecureSaleTransfer = await client.Transfers.create(sale3dSecureRequest, {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+         const created3dSecureSaleTransfer = await client.Transfers.create(sale3dSecureRequest);
  
          expect(created3dSecureSaleTransfer.amount).toBe(sale3dSecureRequest.amount);
          expect(created3dSecureSaleTransfer.application).toBe("APgPDQrLD52TYvqazjHJJchM");
@@ -89,7 +89,7 @@ describe('Transfers API', () => {
              }
          };
  
-         const createdL2SaleTransfer = await client.Transfers.create(saleL2Request, {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+         const createdL2SaleTransfer = await client.Transfers.create(saleL2Request);
  
          expect(createdL2SaleTransfer.amount).toBe(saleL2Request.amount);
          expect(createdL2SaleTransfer.application).toBe("APgPDQrLD52TYvqazjHJJchM");
@@ -124,7 +124,7 @@ describe('Transfers API', () => {
              }
          };
  
-         const createdL3SaleTransfer = await client.Transfers.create(saleL3Request, {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+         const createdL3SaleTransfer = await client.Transfers.create(saleL3Request);
  
          expect(createdL3SaleTransfer.amount).toBe(saleL3Request.amount);
          expect(createdL3SaleTransfer.application).toBe("APgPDQrLD52TYvqazjHJJchM");
@@ -134,7 +134,7 @@ describe('Transfers API', () => {
      test("Test: Fetch a transfer", async() => {
         const transferId = "TRnH7FkSB7zePeHExNZwSb9H";
  
-         const fetchedTransfer = await client.Transfers.get(transferId, {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+         const fetchedTransfer = await client.Transfers.get(transferId);
  
          expect(fetchedTransfer.id).toBe(transferId);
          expect(fetchedTransfer.application).toBe("APgPDQrLD52TYvqazjHJJchM");
@@ -152,8 +152,7 @@ describe('Transfers API', () => {
             }
         };
 
-        const reversedTransfer = await client.Transfers.createTransferReversal(transferId, reversalRequest, 
-            {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const reversedTransfer = await client.Transfers.createTransferReversal(transferId, reversalRequest);
 
         //expect(reversedTransfer.id).toBe(transferId);
         expect(reversedTransfer.amount).toBe(reversalRequest.refundAmount);
@@ -169,24 +168,31 @@ describe('Transfers API', () => {
             }
         };
 
-        const updatedTransfer = await client.Transfers.update(transferId, updateReqest, 
-            {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const updatedTransfer = await client.Transfers.update(transferId, updateReqest);
 
         //expect(reversedTransfer.id).toBe(transferId);
         expect(updatedTransfer.tags?.["order_number"]).toBe(updateReqest.tags?.["order_number"]);
     });
 
     test("Test: List all transfers", async() => {
-        const transferList = await client.Transfers.list({
-            limit: 2
-        },
-        {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const transferList = await client.Transfers.list();
 
         expect(transferList.page.limit).toEqual(expect.any(Number));
-        if (transferList.page.nextCursor != undefined){
-            expect(transferList.page.nextCursor).toEqual(expect.any(String));
+        if (transferList.page.hasOwnProperty('offset')){
+            expect(transferList.page.offset).toEqual(expect.any(Number));
+        }
+        else{
+            if (transferList.page.nextCursor != undefined) {
+                expect(transferList.page.nextCursor).toEqual(expect.any(String));
+            }
         }        
         expect(transferList.size).toEqual(expect.any(Number));
+
+        if(transferList.hasMore) {
+            const nextTransferList = await transferList.listNext();
+            expect(nextTransferList.page.limit).toEqual(expect.any(Number));
+            expect(nextTransferList.size).toEqual(expect.any(Number));
+        }
     });
      
 

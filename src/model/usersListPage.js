@@ -39,3 +39,4 @@ UsersListPage.attributeTypeMap = [
         "type": "number"
     }
 ];
+//# sourceMappingURL=usersListPage.js.map
