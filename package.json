@@ -2,12 +2,14 @@
   "devDependencies": {
     "@types/jest": "^28.1.4",
     "jest": "^28.1.2",
+    "mocha": "^10.0.0",
     "ts-jest": "^28.0.5"
   },
   "scripts": {
     "test": "jest"
   },
   "dependencies": {
+    "chai": "^4.3.6",
     "form-data": "^4.0.0"
   }
 }
