@@ -1,5 +1,6 @@
 import {Client, Environment, Models} from '../api';
 import * as fs from 'fs';
+import { TIMEOUT } from 'dns';
 
 describe('Payment Instruments API', () => {
 
@@ -121,6 +122,6 @@ describe('Payment Instruments API', () => {
             expect(nextPaymentInstrumentList.page.limit).toEqual(expect.any(Number));
             expect(nextPaymentInstrumentList.size).toEqual(expect.any(Number));
         }
-    });
+    }, 10000);
     
 })

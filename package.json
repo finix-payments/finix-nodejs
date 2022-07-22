@@ -245,7 +245,7 @@
     "ts-jest": "^28.0.5"
   },
   "scripts": {
-    "test": "npm test"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
