@@ -54,4 +54,3 @@ IdentityEntityPersonalAddress.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=identityEntityPersonalAddress.js.map

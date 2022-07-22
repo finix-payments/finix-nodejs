@@ -36,4 +36,3 @@ IdentitiesList.attributeTypeMap = [
         "type": "ListLinks"
     }
 ];
-//# sourceMappingURL=identitiesList.js.map

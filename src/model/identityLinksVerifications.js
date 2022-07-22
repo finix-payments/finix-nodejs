@@ -29,4 +29,3 @@ IdentityLinksVerifications.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=identityLinksVerifications.js.map

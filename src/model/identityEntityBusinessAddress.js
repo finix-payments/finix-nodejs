@@ -54,4 +54,3 @@ IdentityEntityBusinessAddress.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=identityEntityBusinessAddress.js.map

@@ -157,4 +157,3 @@ CreateIdentityRequestEntity.attributeTypeMap = [
         BusinessTypeEnum[BusinessTypeEnum["GovernmentAgency"] = 'GOVERNMENT_AGENCY'] = "GovernmentAgency";
     })(BusinessTypeEnum = CreateIdentityRequestEntity.BusinessTypeEnum || (CreateIdentityRequestEntity.BusinessTypeEnum = {}));
 })(CreateIdentityRequestEntity = exports.CreateIdentityRequestEntity || (exports.CreateIdentityRequestEntity = {}));
-//# sourceMappingURL=createIdentityRequestEntity.js.map

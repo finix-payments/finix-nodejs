@@ -54,4 +54,3 @@ UpdateIdentityRequestEntityBusinessAddress.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=updateIdentityRequestEntityBusinessAddress.js.map

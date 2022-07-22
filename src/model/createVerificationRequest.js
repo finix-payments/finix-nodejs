@@ -46,4 +46,3 @@ CreateVerificationRequest.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=createVerificationRequest.js.map

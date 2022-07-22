@@ -34,4 +34,3 @@ SubscriptionSchedulePeriodOffset.attributeTypeMap = [
         "type": "number"
     }
 ];
-//# sourceMappingURL=subscriptionSchedulePeriodOffset.js.map

@@ -39,4 +39,3 @@ ApplicationsList.attributeTypeMap = [
         "type": "ListLinks"
     }
 ];
-//# sourceMappingURL=applicationsList.js.map

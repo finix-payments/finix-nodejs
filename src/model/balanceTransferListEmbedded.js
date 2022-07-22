@@ -29,4 +29,3 @@ BalanceTransferListEmbedded.attributeTypeMap = [
         "type": "Array<BalanceTransferList>"
     }
 ];
-//# sourceMappingURL=balanceTransferListEmbedded.js.map

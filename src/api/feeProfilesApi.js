@@ -468,4 +468,3 @@ class FeeProfilesApi {
     }
 }
 exports.FeeProfilesApi = FeeProfilesApi;
-//# sourceMappingURL=feeProfilesApi.js.map

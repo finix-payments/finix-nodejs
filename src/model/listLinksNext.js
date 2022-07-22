@@ -29,4 +29,3 @@ ListLinksNext.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=listLinksNext.js.map

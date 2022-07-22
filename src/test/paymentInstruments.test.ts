@@ -1,4 +1,4 @@
-import {Client, Environment, Models} from '../src/api';
+import {Client, Environment, Models} from '../api';
 import * as fs from 'fs';
 
 describe('Payment Instruments API', () => {

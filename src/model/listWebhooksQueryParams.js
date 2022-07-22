@@ -36,4 +36,3 @@ ListWebhooksQueryParams.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=listWebhooksQueryParams.js.map

@@ -71,4 +71,3 @@ CreateBalanceTransferRequest.attributeTypeMap = [
         SourceEnum[SourceEnum["OperatingAccount"] = 'OPERATING_ACCOUNT'] = "OperatingAccount";
     })(SourceEnum = CreateBalanceTransferRequest.SourceEnum || (CreateBalanceTransferRequest.SourceEnum = {}));
 })(CreateBalanceTransferRequest = exports.CreateBalanceTransferRequest || (exports.CreateBalanceTransferRequest = {}));
-//# sourceMappingURL=createBalanceTransferRequest.js.map

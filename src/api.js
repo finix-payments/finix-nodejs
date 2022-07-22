@@ -94,4 +94,3 @@ var Environment;
 (function (Environment) {
     Environment["Test"] = "https://finix.sandbox-payments-api.com";
 })(Environment = exports.Environment || (exports.Environment = {}));
-//# sourceMappingURL=api.js.map

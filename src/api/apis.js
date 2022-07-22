@@ -56,4 +56,3 @@ class HttpError extends Error {
 }
 exports.HttpError = HttpError;
 exports.APIS = [authorizationsApi_1.AuthorizationsApi, balanceTransfersApi_1.BalanceTransfersApi, devicesApi_1.DevicesApi, disputesApi_1.DisputesApi, feeProfilesApi_1.FeeProfilesApi, filesApi_1.FilesApi, identitiesApi_1.IdentitiesApi, instrumentUpdatesApi_1.InstrumentUpdatesApi, merchantProfilesApi_1.MerchantProfilesApi, merchantsApi_1.MerchantsApi, paymentInstrumentsApi_1.PaymentInstrumentsApi, settlementsApi_1.SettlementsApi, transfersApi_1.TransfersApi, verificationsApi_1.VerificationsApi, webhooksApi_1.WebhooksApi];
-//# sourceMappingURL=apis.js.map

@@ -26,4 +26,3 @@ UpdateTransferRequest.attributeTypeMap = [
         "type": "{ [key: string]: string; }"
     }
 ];
-//# sourceMappingURL=updateTransferRequest.js.map

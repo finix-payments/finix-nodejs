@@ -29,4 +29,3 @@ SubscriptionEnrollmentLinksMerchant.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=subscriptionEnrollmentLinksMerchant.js.map

@@ -39,4 +39,3 @@ CreateIdentityRequest.attributeTypeMap = [
         "type": "CreateIdentityRequestEntity"
     }
 ];
-//# sourceMappingURL=createIdentityRequest.js.map

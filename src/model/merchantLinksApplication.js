@@ -29,4 +29,3 @@ MerchantLinksApplication.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=merchantLinksApplication.js.map

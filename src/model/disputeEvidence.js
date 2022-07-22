@@ -65,4 +65,3 @@ DisputeEvidence.attributeTypeMap = [
         StateEnum[StateEnum["Failed"] = 'FAILED'] = "Failed";
     })(StateEnum = DisputeEvidence.StateEnum || (DisputeEvidence.StateEnum = {}));
 })(DisputeEvidence = exports.DisputeEvidence || (exports.DisputeEvidence = {}));
-//# sourceMappingURL=disputeEvidence.js.map

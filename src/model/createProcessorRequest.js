@@ -39,4 +39,3 @@ CreateProcessorRequest.attributeTypeMap = [
         "type": "{ [key: string]: string; }"
     }
 ];
-//# sourceMappingURL=createProcessorRequest.js.map

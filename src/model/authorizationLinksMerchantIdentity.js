@@ -29,4 +29,3 @@ AuthorizationLinksMerchantIdentity.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=authorizationLinksMerchantIdentity.js.map

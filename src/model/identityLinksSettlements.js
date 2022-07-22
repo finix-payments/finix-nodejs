@@ -29,4 +29,3 @@ IdentityLinksSettlements.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=identityLinksSettlements.js.map

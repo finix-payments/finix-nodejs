@@ -99,4 +99,3 @@ Device.attributeTypeMap = [
         "type": "DeviceLinks"
     }
 ];
-//# sourceMappingURL=device.js.map

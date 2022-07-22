@@ -26,4 +26,3 @@ ProcessorsListEmbedded.attributeTypeMap = [
         "type": "Set<Processor>"
     }
 ];
-//# sourceMappingURL=processorsListEmbedded.js.map

@@ -26,4 +26,3 @@ PaymentInstrumentUpdatesListEmbedded.attributeTypeMap = [
         "type": "Set<InstrumentUpdate>"
     }
 ];
-//# sourceMappingURL=paymentInstrumentUpdatesListEmbedded.js.map

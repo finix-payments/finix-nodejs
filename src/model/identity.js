@@ -64,4 +64,3 @@ Identity.attributeTypeMap = [
         "type": "IdentityLinks"
     }
 ];
-//# sourceMappingURL=identity.js.map

@@ -419,4 +419,3 @@ class InstrumentUpdatesApi {
     }
 }
 exports.InstrumentUpdatesApi = InstrumentUpdatesApi;
-//# sourceMappingURL=instrumentUpdatesApi.js.map

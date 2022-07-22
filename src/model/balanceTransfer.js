@@ -106,4 +106,3 @@ BalanceTransfer.attributeTypeMap = [
         StateEnum[StateEnum["Unknowm"] = 'UNKNOWM'] = "Unknowm";
     })(StateEnum = BalanceTransfer.StateEnum || (BalanceTransfer.StateEnum = {}));
 })(BalanceTransfer = exports.BalanceTransfer || (exports.BalanceTransfer = {}));
-//# sourceMappingURL=balanceTransfer.js.map

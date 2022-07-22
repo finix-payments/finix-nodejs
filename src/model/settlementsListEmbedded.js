@@ -26,4 +26,3 @@ SettlementsListEmbedded.attributeTypeMap = [
         "type": "Set<Settlement>"
     }
 ];
-//# sourceMappingURL=settlementsListEmbedded.js.map

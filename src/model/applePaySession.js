@@ -46,4 +46,3 @@ ApplePaySession.attributeTypeMap = [
         "type": "DisputeEvidenceLinks"
     }
 ];
-//# sourceMappingURL=applePaySession.js.map

@@ -26,4 +26,3 @@ SubscriptionSchedulesListEmbedded.attributeTypeMap = [
         "type": "Set<SubscriptionSchedule>"
     }
 ];
-//# sourceMappingURL=subscriptionSchedulesListEmbedded.js.map

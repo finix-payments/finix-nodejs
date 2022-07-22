@@ -16,13 +16,19 @@ async function quickstart(){
         // {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
         // console.log(transferList.page.nextCursor);
 
-        let oneTransfer = await client.Disputes.list();
-       
-        console.log(oneTransfer.page.offset);
+        let oneTransfer = await client.Files.list();
+        console.log(oneTransfer.page);
         console.log(oneTransfer.hasMore);
+        var hasMorebool = true;
+        while(hasMorebool){
+            let nextList = await oneTransfer.listNext(100);
+            hasMorebool = <boolean> nextList.hasMore;
+            console.log(nextList.page);
+            oneTransfer = nextList;
+        }
         // let nextList = await oneTransfer.listNext(100);
-        const num = 1;
-        oneTransfer.page = num;
+        // const num = 1;
+        // oneTransfer.page = num;
         // console.log(nextList.size);
     }
     catch(error)

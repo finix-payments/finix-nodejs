@@ -127,4 +127,3 @@ Dispute.attributeTypeMap = [
         StateEnum[StateEnum["Arbitration"] = 'ARBITRATION'] = "Arbitration";
     })(StateEnum = Dispute.StateEnum || (Dispute.StateEnum = {}));
 })(Dispute = exports.Dispute || (exports.Dispute = {}));
-//# sourceMappingURL=dispute.js.map

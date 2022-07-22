@@ -29,4 +29,3 @@ TransferLinksFees.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=transferLinksFees.js.map

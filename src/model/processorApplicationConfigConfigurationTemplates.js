@@ -26,4 +26,3 @@ ProcessorApplicationConfigConfigurationTemplates.attributeTypeMap = [
         "type": "object"
     }
 ];
-//# sourceMappingURL=processorApplicationConfigConfigurationTemplates.js.map

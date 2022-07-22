@@ -66,4 +66,3 @@ MerchantProfile.attributeTypeMap = [
         "type": "MerchantProfileLinks"
     }
 ];
-//# sourceMappingURL=merchantProfile.js.map

@@ -36,4 +36,3 @@ PaymentInstrumentsList.attributeTypeMap = [
         "type": "ListLinks"
     }
 ];
-//# sourceMappingURL=paymentInstrumentsList.js.map

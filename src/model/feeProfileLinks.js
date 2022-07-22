@@ -49,4 +49,3 @@ FeeProfileLinks.attributeTypeMap = [
         "type": "ApplicationLinksApplicationProfile"
     }
 ];
-//# sourceMappingURL=feeProfileLinks.js.map

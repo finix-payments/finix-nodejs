@@ -44,4 +44,3 @@ ApplicationProfileLinks.attributeTypeMap = [
         "type": "ApplicationLinksSelf"
     }
 ];
-//# sourceMappingURL=applicationProfileLinks.js.map

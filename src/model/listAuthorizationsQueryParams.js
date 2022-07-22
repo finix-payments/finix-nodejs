@@ -166,4 +166,3 @@ ListAuthorizationsQueryParams.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=listAuthorizationsQueryParams.js.map

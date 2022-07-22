@@ -81,4 +81,3 @@ UpdateMerchantRequest.attributeTypeMap = [
         "type": "boolean"
     }
 ];
-//# sourceMappingURL=updateMerchantRequest.js.map

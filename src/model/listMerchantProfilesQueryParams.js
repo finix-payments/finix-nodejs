@@ -41,4 +41,3 @@ ListMerchantProfilesQueryParams.attributeTypeMap = [
         "type": "number"
     }
 ];
-//# sourceMappingURL=listMerchantProfilesQueryParams.js.map

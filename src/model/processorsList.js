@@ -36,4 +36,3 @@ ProcessorsList.attributeTypeMap = [
         "type": "ListLinks"
     }
 ];
-//# sourceMappingURL=processorsList.js.map

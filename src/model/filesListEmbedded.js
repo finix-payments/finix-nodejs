@@ -29,4 +29,3 @@ FilesListEmbedded.attributeTypeMap = [
         "type": "Array<ModelFile>"
     }
 ];
-//# sourceMappingURL=filesListEmbedded.js.map

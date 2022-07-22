@@ -26,4 +26,3 @@ UploadFileRequest.attributeTypeMap = [
         "type": "RequestFile"
     }
 ];
-//# sourceMappingURL=uploadFileRequest.js.map

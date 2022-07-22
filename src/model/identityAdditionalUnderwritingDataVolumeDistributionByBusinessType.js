@@ -49,4 +49,3 @@ IdentityAdditionalUnderwritingDataVolumeDistributionByBusinessType.attributeType
         "type": "number"
     }
 ];
-//# sourceMappingURL=identityAdditionalUnderwritingDataVolumeDistributionByBusinessType.js.map

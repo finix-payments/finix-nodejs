@@ -31,4 +31,3 @@ SubscriptionAmountList.attributeTypeMap = [
         "type": "SubscriptionAmountListEmbedded"
     }
 ];
-//# sourceMappingURL=subscriptionAmountList.js.map

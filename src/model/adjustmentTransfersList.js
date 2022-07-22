@@ -36,4 +36,3 @@ AdjustmentTransfersList.attributeTypeMap = [
         "type": "PageCursor"
     }
 ];
-//# sourceMappingURL=adjustmentTransfersList.js.map

@@ -29,4 +29,3 @@ UpdateSubscriptionEnrollmentRequest.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=updateSubscriptionEnrollmentRequest.js.map

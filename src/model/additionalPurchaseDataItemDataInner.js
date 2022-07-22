@@ -66,4 +66,3 @@ AdditionalPurchaseDataItemDataInner.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=additionalPurchaseDataItemDataInner.js.map

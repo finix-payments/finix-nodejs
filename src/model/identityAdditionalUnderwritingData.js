@@ -108,4 +108,3 @@ IdentityAdditionalUnderwritingData.attributeTypeMap = [
         RefundPolicyEnum[RefundPolicyEnum["Other"] = 'OTHER'] = "Other";
     })(RefundPolicyEnum = IdentityAdditionalUnderwritingData.RefundPolicyEnum || (IdentityAdditionalUnderwritingData.RefundPolicyEnum = {}));
 })(IdentityAdditionalUnderwritingData = exports.IdentityAdditionalUnderwritingData || (exports.IdentityAdditionalUnderwritingData = {}));
-//# sourceMappingURL=identityAdditionalUnderwritingData.js.map

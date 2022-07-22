@@ -36,4 +36,3 @@ ListFeeProfilesQueryParams.attributeTypeMap = [
         "type": "number"
     }
 ];
-//# sourceMappingURL=listFeeProfilesQueryParams.js.map

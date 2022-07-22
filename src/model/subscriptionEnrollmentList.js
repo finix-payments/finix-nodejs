@@ -36,4 +36,3 @@ SubscriptionEnrollmentList.attributeTypeMap = [
         "type": "DisputeEvidenceLinks"
     }
 ];
-//# sourceMappingURL=subscriptionEnrollmentList.js.map

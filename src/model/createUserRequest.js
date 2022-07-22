@@ -34,4 +34,3 @@ CreateUserRequest.attributeTypeMap = [
         "type": "boolean"
     }
 ];
-//# sourceMappingURL=createUserRequest.js.map

@@ -26,4 +26,3 @@ FeesListEmbedded.attributeTypeMap = [
         "type": "Set<Fee>"
     }
 ];
-//# sourceMappingURL=feesListEmbedded.js.map

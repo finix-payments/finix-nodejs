@@ -1,4 +1,4 @@
-import {Client, Environment, Models} from '../src/api';
+import {Client, Environment, Models} from '../api';
 
 describe('Settlements API', () => {
 

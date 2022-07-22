@@ -479,4 +479,3 @@ class MerchantProfilesApi {
     }
 }
 exports.MerchantProfilesApi = MerchantProfilesApi;
-//# sourceMappingURL=merchantProfilesApi.js.map

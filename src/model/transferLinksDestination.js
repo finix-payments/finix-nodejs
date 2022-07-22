@@ -29,4 +29,3 @@ TransferLinksDestination.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=transferLinksDestination.js.map

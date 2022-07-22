@@ -39,4 +39,3 @@ SubscriptionAmountFeeAmountData.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=subscriptionAmountFeeAmountData.js.map

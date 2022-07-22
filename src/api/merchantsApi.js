@@ -698,4 +698,3 @@ class MerchantsApi {
     }
 }
 exports.MerchantsApi = MerchantsApi;
-//# sourceMappingURL=merchantsApi.js.map

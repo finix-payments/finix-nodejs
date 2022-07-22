@@ -29,4 +29,3 @@ UpdateFeeRequest.attributeTypeMap = [
         "type": "object"
     }
 ];
-//# sourceMappingURL=updateFeeRequest.js.map

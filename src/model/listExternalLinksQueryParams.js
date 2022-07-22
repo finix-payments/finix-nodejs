@@ -66,4 +66,3 @@ ListExternalLinksQueryParams.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=listExternalLinksQueryParams.js.map

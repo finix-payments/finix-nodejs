@@ -31,4 +31,3 @@ ConfigurationDetailsCashbackOptions.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=configurationDetailsCashbackOptions.js.map

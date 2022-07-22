@@ -36,4 +36,3 @@ DisputeEvidenceList.attributeTypeMap = [
         "type": "DisputeEvidenceLinks"
     }
 ];
-//# sourceMappingURL=disputeEvidenceList.js.map

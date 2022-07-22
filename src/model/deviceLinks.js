@@ -44,4 +44,3 @@ DeviceLinks.attributeTypeMap = [
         "type": "ApplicationLinksApplicationProfile"
     }
 ];
-//# sourceMappingURL=deviceLinks.js.map

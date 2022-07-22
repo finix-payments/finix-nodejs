@@ -181,4 +181,3 @@ ListTransfersQueryParams.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=listTransfersQueryParams.js.map

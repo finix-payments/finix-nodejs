@@ -31,4 +31,3 @@ CreateWebhookRequest.attributeTypeMap = [
         "type": "boolean"
     }
 ];
-//# sourceMappingURL=createWebhookRequest.js.map

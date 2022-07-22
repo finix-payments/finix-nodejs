@@ -94,4 +94,3 @@ ConfigurationDetails.attributeTypeMap = [
         "type": "ConfigurationDetailsTipOptions"
     }
 ];
-//# sourceMappingURL=configurationDetails.js.map

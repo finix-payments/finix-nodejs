@@ -29,4 +29,3 @@ TransferLinksPaymentInstruments.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=transferLinksPaymentInstruments.js.map

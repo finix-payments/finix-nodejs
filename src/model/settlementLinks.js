@@ -74,4 +74,3 @@ SettlementLinks.attributeTypeMap = [
         "type": "ApplicationLinksApplicationProfile"
     }
 ];
-//# sourceMappingURL=settlementLinks.js.map

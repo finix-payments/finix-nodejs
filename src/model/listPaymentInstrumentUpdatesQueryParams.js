@@ -36,4 +36,3 @@ ListPaymentInstrumentUpdatesQueryParams.attributeTypeMap = [
         "type": "number"
     }
 ];
-//# sourceMappingURL=listPaymentInstrumentUpdatesQueryParams.js.map

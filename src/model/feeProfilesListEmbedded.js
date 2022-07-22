@@ -26,4 +26,3 @@ FeeProfilesListEmbedded.attributeTypeMap = [
         "type": "Set<FeeProfile>"
     }
 ];
-//# sourceMappingURL=feeProfilesListEmbedded.js.map

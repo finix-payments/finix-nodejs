@@ -29,4 +29,3 @@ AuthorizationLinksDevice.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=authorizationLinksDevice.js.map

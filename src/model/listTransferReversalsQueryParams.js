@@ -36,4 +36,3 @@ ListTransferReversalsQueryParams.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=listTransferReversalsQueryParams.js.map

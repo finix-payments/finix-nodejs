@@ -870,4 +870,3 @@ class PaymentInstrumentsApi {
     }
 }
 exports.PaymentInstrumentsApi = PaymentInstrumentsApi;
-//# sourceMappingURL=paymentInstrumentsApi.js.map

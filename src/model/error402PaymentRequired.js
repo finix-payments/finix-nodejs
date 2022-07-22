@@ -31,4 +31,3 @@ Error402PaymentRequired.attributeTypeMap = [
         "type": "Error402PaymentRequiredEmbedded"
     }
 ];
-//# sourceMappingURL=error402PaymentRequired.js.map

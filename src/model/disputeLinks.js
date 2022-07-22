@@ -49,4 +49,3 @@ DisputeLinks.attributeTypeMap = [
         "type": "DisputeLinksTransfer"
     }
 ];
-//# sourceMappingURL=disputeLinks.js.map

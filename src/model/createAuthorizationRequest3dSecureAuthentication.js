@@ -44,4 +44,3 @@ CreateAuthorizationRequest3dSecureAuthentication.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=createAuthorizationRequest3dSecureAuthentication.js.map

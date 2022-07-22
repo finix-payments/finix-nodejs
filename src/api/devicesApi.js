@@ -428,4 +428,3 @@ class DevicesApi {
     }
 }
 exports.DevicesApi = DevicesApi;
-//# sourceMappingURL=devicesApi.js.map

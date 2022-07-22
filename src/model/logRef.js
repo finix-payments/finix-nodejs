@@ -26,4 +26,3 @@ LogRef.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=logRef.js.map

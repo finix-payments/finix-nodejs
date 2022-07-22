@@ -36,4 +36,3 @@ UpdateApplicationProfileRequest.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=updateApplicationProfileRequest.js.map

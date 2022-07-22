@@ -31,4 +31,3 @@ UpdateWebhookRequest.attributeTypeMap = [
         "type": "boolean"
     }
 ];
-//# sourceMappingURL=updateWebhookRequest.js.map

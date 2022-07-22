@@ -74,4 +74,3 @@ IdentityLinks.attributeTypeMap = [
         "type": "IdentityLinksApplication"
     }
 ];
-//# sourceMappingURL=identityLinks.js.map

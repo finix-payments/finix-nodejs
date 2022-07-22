@@ -36,4 +36,3 @@ UpdateIdentityRequest.attributeTypeMap = [
         "type": "UpdateIdentityRequestEntity"
     }
 ];
-//# sourceMappingURL=updateIdentityRequest.js.map

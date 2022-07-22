@@ -1028,4 +1028,3 @@ class SettlementsApi {
     }
 }
 exports.SettlementsApi = SettlementsApi;
-//# sourceMappingURL=settlementsApi.js.map

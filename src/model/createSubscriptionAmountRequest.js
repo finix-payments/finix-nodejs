@@ -44,4 +44,3 @@ CreateSubscriptionAmountRequest.attributeTypeMap = [
         "type": "{ [key: string]: string; }"
     }
 ];
-//# sourceMappingURL=createSubscriptionAmountRequest.js.map

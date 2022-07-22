@@ -26,4 +26,3 @@ AdjustmentTransfersListEmbedded.attributeTypeMap = [
         "type": "Array<Transfer>"
     }
 ];
-//# sourceMappingURL=adjustmentTransfersListEmbedded.js.map

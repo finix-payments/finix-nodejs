@@ -44,4 +44,3 @@ SubscriptionEnrollmentLinks.attributeTypeMap = [
         "type": "SubscriptionEnrollmentLinksAmounts"
     }
 ];
-//# sourceMappingURL=subscriptionEnrollmentLinks.js.map

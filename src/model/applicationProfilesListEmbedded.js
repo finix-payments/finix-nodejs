@@ -26,4 +26,3 @@ ApplicationProfilesListEmbedded.attributeTypeMap = [
         "type": "Set<ApplicationProfile>"
     }
 ];
-//# sourceMappingURL=applicationProfilesListEmbedded.js.map

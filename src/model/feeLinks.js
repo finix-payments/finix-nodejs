@@ -39,4 +39,3 @@ FeeLinks.attributeTypeMap = [
         "type": "DisputeLinksTransfer"
     }
 ];
-//# sourceMappingURL=feeLinks.js.map

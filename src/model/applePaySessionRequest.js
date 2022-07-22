@@ -41,4 +41,3 @@ ApplePaySessionRequest.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=applePaySessionRequest.js.map

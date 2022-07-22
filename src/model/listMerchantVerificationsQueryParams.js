@@ -36,4 +36,3 @@ ListMerchantVerificationsQueryParams.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=listMerchantVerificationsQueryParams.js.map

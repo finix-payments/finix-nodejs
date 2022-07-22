@@ -34,4 +34,3 @@ PageCursor.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=pageCursor.js.map

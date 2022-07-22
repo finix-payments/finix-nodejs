@@ -31,4 +31,3 @@ AuthorizationExternalResponsesInner.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=authorizationExternalResponsesInner.js.map

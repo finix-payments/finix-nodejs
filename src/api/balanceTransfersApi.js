@@ -504,4 +504,3 @@ class BalanceTransfersApi {
     }
 }
 exports.BalanceTransfersApi = BalanceTransfersApi;
-//# sourceMappingURL=balanceTransfersApi.js.map

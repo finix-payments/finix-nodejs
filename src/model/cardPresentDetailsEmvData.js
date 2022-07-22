@@ -64,4 +64,3 @@ CardPresentDetailsEmvData.attributeTypeMap = [
         "type": "boolean"
     }
 ];
-//# sourceMappingURL=cardPresentDetailsEmvData.js.map

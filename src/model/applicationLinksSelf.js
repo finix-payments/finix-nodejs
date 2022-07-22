@@ -29,4 +29,3 @@ ApplicationLinksSelf.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=applicationLinksSelf.js.map

@@ -62,4 +62,3 @@ var FeeType;
     FeeType[FeeType["AncillaryFixedFeeSecondary"] = 'ANCILLARY_FIXED_FEE_SECONDARY'] = "AncillaryFixedFeeSecondary";
     FeeType[FeeType["SettlementV2Transfer"] = 'SETTLEMENT_V2_TRANSFER'] = "SettlementV2Transfer";
 })(FeeType = exports.FeeType || (exports.FeeType = {}));
-//# sourceMappingURL=feeType.js.map

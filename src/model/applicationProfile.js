@@ -61,4 +61,3 @@ ApplicationProfile.attributeTypeMap = [
         "type": "ApplicationProfileLinks"
     }
 ];
-//# sourceMappingURL=applicationProfile.js.map

@@ -36,4 +36,3 @@ DisputesList.attributeTypeMap = [
         "type": "PageOffset"
     }
 ];
-//# sourceMappingURL=disputesList.js.map

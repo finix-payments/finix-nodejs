@@ -26,4 +26,3 @@ AuthorizationsListEmbedded.attributeTypeMap = [
         "type": "Set<Authorization>"
     }
 ];
-//# sourceMappingURL=authorizationsListEmbedded.js.map

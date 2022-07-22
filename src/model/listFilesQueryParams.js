@@ -66,4 +66,3 @@ ListFilesQueryParams.attributeTypeMap = [
         "type": "string"
     }
 ];
-//# sourceMappingURL=listFilesQueryParams.js.map
