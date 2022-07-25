@@ -48,4 +48,6 @@ node_modules
 **/src/model/*.js.map
 quickstart.ts
 quickstart.js
-
+src/api.js
+src/api.js.map
+debugOpenApi.sh
