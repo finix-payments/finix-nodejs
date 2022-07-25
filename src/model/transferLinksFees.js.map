@@ -1,1 +1,0 @@
-{"version":3,"file":"transferLinksFees.js","sourceRoot":"","sources":["transferLinksFees.ts"],"names":[],"mappings":";AAAA;;;;;;;;;;GAUG;;;AAIH;;EAEE;AACF,MAAa,iBAAiB;IAY1B,MAAM,CAAC,mBAAmB;QACtB,OAAO,iBAAiB,CAAC,gBAAgB,CAAC;IAC9C,CAAC;;AAdL,8CAeC;AAZU,+BAAa,GAAuB,SAAS,CAAC;AAE9C,kCAAgB,GAA0D;IAC7E;QACI,MAAM,EAAE,MAAM;QACd,UAAU,EAAE,MAAM;QAClB,MAAM,EAAE,QAAQ;KACnB;CAAK,CAAC"}

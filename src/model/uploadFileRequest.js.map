@@ -1,1 +1,0 @@
-{"version":3,"file":"uploadFileRequest.js","sourceRoot":"","sources":["uploadFileRequest.ts"],"names":[],"mappings":";AAAA;;;;;;;;;;GAUG;;;AAIH,MAAa,iBAAiB;IAe1B,MAAM,CAAC,mBAAmB;QACtB,OAAO,iBAAiB,CAAC,gBAAgB,CAAC;IAC9C,CAAC;;AAjBL,8CAkBC;AAZU,+BAAa,GAAuB,SAAS,CAAC;AAE9C,kCAAgB,GAA0D;IAC7E;QACI,MAAM,EAAE,MAAM;QACd,UAAU,EAAE,MAAM;QAClB,MAAM,EAAE,aAAa;KACxB;CAAK,CAAC"}

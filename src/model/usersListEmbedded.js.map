@@ -1,1 +1,0 @@
-{"version":3,"file":"usersListEmbedded.js","sourceRoot":"","sources":["usersListEmbedded.ts"],"names":[],"mappings":";AAAA;;;;;;;;;;GAUG;;;AAKH,MAAa,iBAAiB;IAe1B,MAAM,CAAC,mBAAmB;QACtB,OAAO,iBAAiB,CAAC,gBAAgB,CAAC;IAC9C,CAAC;;AAjBL,8CAkBC;AAZU,+BAAa,GAAuB,SAAS,CAAC;AAE9C,kCAAgB,GAA0D;IAC7E;QACI,MAAM,EAAE,OAAO;QACf,UAAU,EAAE,OAAO;QACnB,MAAM,EAAE,WAAW;KACtB;CAAK,CAAC"}

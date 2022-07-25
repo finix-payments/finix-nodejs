@@ -39,3 +39,13 @@ bin/
 /.idea/vcs.xml
 /.idea/modules.xml
 /.idea/misc.xml
+
+#  
+node_modules
+**/src/api/*.js
+**/src/model/*.js
+**/src/api/*.js.map
+**/src/model/*.js.map
+quickstart.ts
+quickstart.js
+

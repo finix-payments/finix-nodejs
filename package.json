@@ -1,5 +1,5 @@
 {
-  "name": "finix-nodejs",
+  "name": "finix-payments",
   "version": "1.0.0",
   "description": "Finix Node.js",
   "main": "src/api.ts",
