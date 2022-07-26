@@ -1,3 +1,4 @@
+import { IncomingMessage } from 'http';
 import {Client, Environment, Models} from '../api';
 
 describe('Transfers API', () => {
@@ -141,6 +142,18 @@ describe('Transfers API', () => {
          expect(fetchedTransfer.amount).toBe(7);
          expect(fetchedTransfer.traceId).toBe("0e201222-d357-4038-9ed2-23a38482fd07");
      });
+
+    test("Test: Fetch a transfer with http response", async() => {
+        const transferId = "TRnH7FkSB7zePeHExNZwSb9H";
+
+        const fetchedTransfer = await client.Transfers.getHttp(transferId);
+
+        expect(fetchedTransfer.response).toEqual(expect.any(IncomingMessage));
+        expect(fetchedTransfer.body.id).toBe(transferId);
+        expect(fetchedTransfer.body.application).toBe("APgPDQrLD52TYvqazjHJJchM");
+        expect(fetchedTransfer.body.amount).toBe(7);
+        expect(fetchedTransfer.body.traceId).toBe("0e201222-d357-4038-9ed2-23a38482fd07");
+    });
 
     test("Test: Refund a debit", async() => {
         const transferId = "TRacB6Q6GcW6yvFUKawSnMEP";

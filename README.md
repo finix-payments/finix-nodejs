@@ -9,14 +9,14 @@ This is the official Finix Node.js API Library
 
 ### NPM
 ```
-npm install --save finix
+npm install --save @finix-payments/finix
 ```
 
 ## Using the Library
 ### Initialization
 Provide your api username and password as well as the environment you are interacting with.
 ```typescript
-import {Client, Environment, Models} from 'finix-nodejs';
+import {Client, Environment, Models} from '@finix-payments/finix';
 
 const userName = 'USsRhsHYZGBPnQw8CByJyEQW';
 const password = '8a14c2f9-d94b-4c72-8f5c-a62908e5b30e';
