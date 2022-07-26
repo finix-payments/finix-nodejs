@@ -14,13 +14,15 @@ describe('Webhooks API', () => {
 
     test("Test: Create a webhook", async() => {
         const urlValue = "https://eohzjuj2prziycz.m.pipedream.net";
-        const webhook = await client.Webhooks.create({
+        let webhook: Models.Webhook;
+    
+        webhook = await client.Webhooks.create({
             url: urlValue
         });
         webhookId = <string>webhook.id;
         expect(webhook.url).toBe(urlValue);
         expect(webhook.application).toBe("APgPDQrLD52TYvqazjHJJchM");
-    });
+    }, 20000);
 
     test("Test: Update webhook", async() => {
         const urlValue = "https://eohzjuj2prziycz.m.pipedream.net";

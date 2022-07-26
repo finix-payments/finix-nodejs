@@ -98,6 +98,6 @@ export class Client {
 }
 
 export enum Environment{
-    Test = 'https://finix.sandbox-payments-api.com'
-
+    Test = 'https://finix.sandbox-payments-api.com',
+    Live = 'https://finix.live-payments-api.com'
 }

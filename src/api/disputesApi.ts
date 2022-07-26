@@ -508,7 +508,7 @@ export class DisputesApi {
     public async listDisputeEvidenceByDisputeId (disputeId: string, listDisputeEvidenceQueryParams?:ListDisputeEvidenceQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
         Promise<finixList<any>> {
         const responseObject = await this.listDisputeEvidenceByDisputeIdHelper(disputeId, listDisputeEvidenceQueryParams, options);
-        // var queryParam: ListDisputeEvidenceQueryParams;
+        // Check if response body has nextCursor property or offset property and extract the corresponding fields
         var reachedEnd: Boolean;
         if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
             var queryParam: any = {
@@ -522,7 +522,7 @@ export class DisputesApi {
                 offset: '',
                 limit: 20
             };
-            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            [queryParam, reachedEnd] = this.getOffsetQueryParam(responseObject, queryParam);
         }
         const nextFetch = (limit?: number) => {
             queryParam.limit = limit;
@@ -546,8 +546,9 @@ export class DisputesApi {
     public async listDisputeEvidenceByDisputeIdHttp (disputeId: string, listDisputeEvidenceQueryParams?:ListDisputeEvidenceQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
         Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listDisputeEvidenceByDisputeIdHelper(disputeId, listDisputeEvidenceQueryParams, options);
-        //var queryParam: ListDisputeEvidenceQueryParams;
         var reachedEnd: Boolean;
+
+        // Check if response body has nextCursor property or offset property and extract the corresponding fields
         if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
             var queryParam: any = {
                 afterCursor: '',
@@ -560,7 +561,7 @@ export class DisputesApi {
                 offset: '',
                 limit: 20
             };
-            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            [queryParam, reachedEnd] = this.getOffsetQueryParam(responseObject, queryParam);
         }
         const nextFetch = (limit?: number) => {
             queryParam.limit = limit;
@@ -672,7 +673,7 @@ export class DisputesApi {
     public async list (listDisputesQueryParams?:ListDisputesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
         Promise<finixList<any>> {
         const responseObject = await this.listHelper(listDisputesQueryParams, options);
-        // var queryParam: ListDisputesQueryParams;
+        // Check if response body has nextCursor property or offset property and extract the corresponding fields
         var reachedEnd: Boolean;
         if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
             var queryParam: any = {
@@ -686,7 +687,7 @@ export class DisputesApi {
                 offset: '',
                 limit: 20
             };
-            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            [queryParam, reachedEnd] = this.getOffsetQueryParam(responseObject, queryParam);
         }
         const nextFetch = (limit?: number) => {
             queryParam.limit = limit;
@@ -708,8 +709,9 @@ export class DisputesApi {
     public async listHttp (listDisputesQueryParams?:ListDisputesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
         Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listHelper(listDisputesQueryParams, options);
-        //var queryParam: ListDisputesQueryParams;
         var reachedEnd: Boolean;
+
+        // Check if response body has nextCursor property or offset property and extract the corresponding fields
         if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
             var queryParam: any = {
                 afterCursor: '',
@@ -722,7 +724,7 @@ export class DisputesApi {
                 offset: '',
                 limit: 20
             };
-            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            [queryParam, reachedEnd] = this.getOffsetQueryParam(responseObject, queryParam);
         }
         const nextFetch = (limit?: number) => {
             queryParam.limit = limit;
@@ -831,7 +833,7 @@ export class DisputesApi {
     public async listDisputesAdjustments (disputeId: string, listDisputesAdjustmentsQueryParams?:ListDisputesAdjustmentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
         Promise<finixList<any>> {
         const responseObject = await this.listDisputesAdjustmentsHelper(disputeId, listDisputesAdjustmentsQueryParams, options);
-        // var queryParam: ListDisputesAdjustmentsQueryParams;
+        // Check if response body has nextCursor property or offset property and extract the corresponding fields
         var reachedEnd: Boolean;
         if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
             var queryParam: any = {
@@ -845,7 +847,7 @@ export class DisputesApi {
                 offset: '',
                 limit: 20
             };
-            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            [queryParam, reachedEnd] = this.getOffsetQueryParam(responseObject, queryParam);
         }
         const nextFetch = (limit?: number) => {
             queryParam.limit = limit;
@@ -869,8 +871,9 @@ export class DisputesApi {
     public async listDisputesAdjustmentsHttp (disputeId: string, listDisputesAdjustmentsQueryParams?:ListDisputesAdjustmentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
         Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listDisputesAdjustmentsHelper(disputeId, listDisputesAdjustmentsQueryParams, options);
-        //var queryParam: ListDisputesAdjustmentsQueryParams;
         var reachedEnd: Boolean;
+
+        // Check if response body has nextCursor property or offset property and extract the corresponding fields
         if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
             var queryParam: any = {
                 afterCursor: '',
@@ -883,7 +886,7 @@ export class DisputesApi {
                 offset: '',
                 limit: 20
             };
-            [queryParam, reachedEnd] = this.getoffsetQueryParam(responseObject, queryParam);
+            [queryParam, reachedEnd] = this.getOffsetQueryParam(responseObject, queryParam);
         }
         const nextFetch = (limit?: number) => {
             queryParam.limit = limit;
@@ -898,24 +901,27 @@ export class DisputesApi {
         return Promise.resolve({response: responseObject.response, body: dataList});
     }
 
-
+    /**
+     * Extracts page and links fields from response body and assigns as properties to finixList
+     */ 
     private async embeddedHelper(responseObject: any, dataList: finixList<any>){
         if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
-            // const dataList = new finixList<any>();
             dataList.page = responseObject.body.page;
             dataList.links = responseObject.body.links;
             return dataList;
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
         let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
-        // const dataList = new finixList<any>();
         tempList.forEach(item => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
     }
 
-    private getoffsetQueryParam(responseObject: any, queryParam: any){
+    /**
+     * Extracts offset value from response body and determines if end of list has been reached
+     */
+    private getOffsetQueryParam(responseObject: any, queryParam: any){
         queryParam.offset = responseObject.body.page.offset;
         var endReached: Boolean = false;
         if (responseObject.body.page.offset + responseObject.body.page.limit > responseObject.body.page.count){
@@ -924,6 +930,9 @@ export class DisputesApi {
         return [queryParam, endReached];
     }
 
+    /**
+    * Extracts nextCursor value from response body and determines if end of list has been reached
+    */
     private getCursorQueryParam(responseObject: any, queryParam: any){
         queryParam.afterCursor = responseObject.body.page.nextCursor;
         var endReached: Boolean = false;

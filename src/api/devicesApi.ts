@@ -410,24 +410,27 @@ export class DevicesApi {
         return responseObject;
     }
 
-
+    /**
+     * Extracts page and links fields from response body and assigns as properties to finixList
+     */ 
     private async embeddedHelper(responseObject: any, dataList: finixList<any>){
         if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
-            // const dataList = new finixList<any>();
             dataList.page = responseObject.body.page;
             dataList.links = responseObject.body.links;
             return dataList;
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
         let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
-        // const dataList = new finixList<any>();
         tempList.forEach(item => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
     }
 
-    private getoffsetQueryParam(responseObject: any, queryParam: any){
+    /**
+     * Extracts offset value from response body and determines if end of list has been reached
+     */
+    private getOffsetQueryParam(responseObject: any, queryParam: any){
         queryParam.offset = responseObject.body.page.offset;
         var endReached: Boolean = false;
         if (responseObject.body.page.offset + responseObject.body.page.limit > responseObject.body.page.count){
@@ -436,6 +439,9 @@ export class DevicesApi {
         return [queryParam, endReached];
     }
 
+    /**
+    * Extracts nextCursor value from response body and determines if end of list has been reached
+    */
     private getCursorQueryParam(responseObject: any, queryParam: any){
         queryParam.afterCursor = responseObject.body.page.nextCursor;
         var endReached: Boolean = false;

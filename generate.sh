@@ -1,8 +1,8 @@
 openapi-generator generate \
 -g typescript-node \
--t finix-nodejs/template \
--i finix-nodejs/openapi/finix-api.yaml \
--o finix-nodejs/src \
+-t template \
+-i openapi/finix-api.yaml \
+-o src \
 --global-property skipFormModel=false \
 --skip-validate-spec \
 --type-mappings=File=ModelFile
