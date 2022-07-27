@@ -256,5 +256,8 @@
   "bugs": {
     "url": "https://github.com/finix-payments/finix-nodejs/issues"
   },
-  "homepage": "https://github.com/finix-payments/finix-nodejs#readme"
+  "homepage": "https://github.com/finix-payments/finix-nodejs#readme", 
+  "engines": {
+    "node": ">=16"
+  }
 }
