@@ -39,6 +39,52 @@ const createTransferRequest: Models.CreateTransferRequest = {
 const transfer = await client.Transfers.create(saleRequest);
 ```
 
+### Retrieving List 
+finixList serves as the return type for all functions that involve retriving a list. Here is an example of retrieving a list of transfers with and without query paramters, and a demonstration of the properties of finixList.
+```typescript 
+// Retrieving list of all transfers 
+const transfersList : Models.finixList<Models.Transfer> = await client.Transfers.list();
+
+// Retrieving list of transfers with the following filters: 
+// List limit: 2
+// Amount less than 100
+// Transfer type: Debits 
+const transfersListWithFilter = await client.Transfers.list({
+    limit: 2,
+    amountLt: 100,
+    type: "Debits"  
+});
+
+// Accessing a transfer at position 1 in the list 
+const transfer : Models.Transfer = transfersList[1];
+
+// Get the size of the current list 
+const transferListSize : number = transfersList.size;
+
+// Get the page object that contains properties including offset/nextCursor, limit.
+// Note: refer to the specific api to see if the page object associated is of type pageCursor or pageOffset
+const page : Models.pageCursor = transfersList.page;
+
+// Get the links 
+const links : Models.listLinks = transfersList.links;
+
+// Check if there is more to list, value equals to False if end of list has been reached 
+const hasMore : Boolean = transfersList.hasMore;
+
+// Get the next list 
+const nextTransfersList : Models.finixList<Models.Transfer> = transfersList.listNext();
+```
+
+### Uploading file 
+Files are expected to be of the type `fs.ReadStream`. Below is an example of uploading a dispute evidence file.
+``` typescript
+import * as fs from 'fs';
+
+const fileName : string = __dirname.concat("/test.png");
+const fileObject: fs.ReadStream = fs.createReadStream(fileName);
+const uploadedDisputeEvidence = await client.Disputes.createDisputeEvidence(disputeId, {
+    file: fileObject});
+```
 ## Supported APIs
 - Transfers
 - Authorizaitons
