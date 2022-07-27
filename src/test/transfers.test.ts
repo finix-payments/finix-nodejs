@@ -189,7 +189,7 @@ describe('Transfers API', () => {
 
     test("Test: List all transfers", async() => {
         const transferList = await client.Transfers.list();
-
+        
         expect(transferList.page.limit).toEqual(expect.any(Number));
         if (transferList.page.hasOwnProperty('offset')){
             expect(transferList.page.offset).toEqual(expect.any(Number));
@@ -206,8 +206,35 @@ describe('Transfers API', () => {
             expect(nextTransferList.page.limit).toEqual(expect.any(Number));
             expect(nextTransferList.size).toEqual(expect.any(Number));
         }
-    });
+    }, 20000);
      
+    test("Test: List transfers with query parameters", async() => {
+        const transferListWithLimit = await client.Transfers.list({
+            limit: 2
+        });
+        
+        expect(transferListWithLimit.page.limit).toBe(2);
 
+        const transferListWithFilter : Models.finixList<Models.Transfer> = await client.Transfers.list({
+            amountLt: 100,
+            type: "Debits"
+        })
+        
+        if (transferListWithFilter.page.hasOwnProperty('offset')){
+            expect(transferListWithFilter.page.offset).toEqual(expect.any(Number));
+        }
+        else{
+            if (transferListWithFilter.page.nextCursor != undefined) {
+                expect(transferListWithFilter.page.nextCursor).toEqual(expect.any(String));
+            }
+        }        
+        expect(transferListWithFilter.size).toEqual(expect.any(Number));
+
+        if(transferListWithFilter.hasMore) {
+            const nextTransferList = await transferListWithFilter.listNext();
+            expect(nextTransferList.page.limit).toEqual(expect.any(Number));
+            expect(nextTransferList.size).toEqual(expect.any(Number));
+        }
+    }, 20000);
 
 })

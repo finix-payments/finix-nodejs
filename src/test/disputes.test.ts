@@ -36,11 +36,6 @@ describe('Dispute API', () => {
         expect(fetchedDispute.id).toBe(disputeId);
         expect(fetchedDispute.amount).toBe(888888);
         expect(fetchedDispute.reason).toBe(Models.Dispute.ReasonEnum.Fraud);
-        // switch (fetchedDispute.reason){
-        //     case api.Models.Dispute.ReasonEnum.Fraud:
-        //     case api.Models.DisputeReasonEnum.Fraud;
-        //         // logic here
-        // }
     });
 
     test("Test: List disputes", async() => {
