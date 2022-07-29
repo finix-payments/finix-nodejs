@@ -144,7 +144,8 @@ export class DevicesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (createDevice != undefined && createDevice != null && createDevice.hasOwnProperty('file')){
+        if (createDevice && createDevice.hasOwnProperty('file')){
+        //if (createDevice != undefined && createDevice != null && createDevice.hasOwnProperty('file')){
             localVarRequestOptions.formData = createDevice;
         }
         else{
@@ -344,7 +345,8 @@ export class DevicesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (body != undefined && body != null && body.hasOwnProperty('file')){
+        if (body && body.hasOwnProperty('file')){
+        //if (body != undefined && body != null && body.hasOwnProperty('file')){
             localVarRequestOptions.formData = body;
         }
         else{
@@ -413,7 +415,7 @@ export class DevicesApi {
     /**
      * Extracts page and links fields from response body and assigns as properties to finixList
      */ 
-    private async embeddedHelper(responseObject: any, dataList: finixList<any>){
+    private embeddedHelper(responseObject: any, dataList: finixList<any>){
         if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
             dataList.page = responseObject.body.page;
             dataList.links = responseObject.body.links;

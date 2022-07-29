@@ -139,7 +139,8 @@ export class InstrumentUpdatesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (createInstrumentUpdateRequest != undefined && createInstrumentUpdateRequest != null && createInstrumentUpdateRequest.hasOwnProperty('file')){
+        if (createInstrumentUpdateRequest && createInstrumentUpdateRequest.hasOwnProperty('file')){
+        //if (createInstrumentUpdateRequest != undefined && createInstrumentUpdateRequest != null && createInstrumentUpdateRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = createInstrumentUpdateRequest;
         }
         else{
@@ -404,7 +405,7 @@ export class InstrumentUpdatesApi {
     /**
      * Extracts page and links fields from response body and assigns as properties to finixList
      */ 
-    private async embeddedHelper(responseObject: any, dataList: finixList<any>){
+    private embeddedHelper(responseObject: any, dataList: finixList<any>){
         if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
             dataList.page = responseObject.body.page;
             dataList.links = responseObject.body.links;

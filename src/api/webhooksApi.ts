@@ -142,7 +142,8 @@ export class WebhooksApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (createWebhookRequest != undefined && createWebhookRequest != null && createWebhookRequest.hasOwnProperty('file')){
+        if (createWebhookRequest && createWebhookRequest.hasOwnProperty('file')){
+        //if (createWebhookRequest != undefined && createWebhookRequest != null && createWebhookRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = createWebhookRequest;
         }
         else{
@@ -387,21 +388,14 @@ export class WebhooksApi {
         Promise<finixList<any>> {
         const responseObject = await this.listHelper(listWebhooksQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
-        var reachedEnd: Boolean;
-        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
-            var queryParam: any = {
-                afterCursor: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
-        }
-        else{
-            var queryParam: any = {
-                offset: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd] = this.getOffsetQueryParam(responseObject, queryParam);
-        }
+        let reachedEnd: Boolean;
+        const hasNextCursor: any = responseObject.body?.page?.hasOwnProperty('nextCursor');
+        let queryParam: any = hasNextCursor ? { afterCursor: '', limit: 20 } : { offset: '', limit: 20 };
+
+        [queryParam, reachedEnd] = hasNextCursor
+        ? this.getCursorQueryParam(responseObject, queryParam) 
+        : this.getOffsetQueryParam(responseObject, queryParam);
+
         const nextFetch = (limit?: number) => {
             queryParam.limit = limit;
             if (reachedEnd){
@@ -409,9 +403,8 @@ export class WebhooksApi {
             }
             return this.list(queryParam);
         }
-        let dataList = new finixList<any>(nextFetch);
-        dataList = await this.embeddedHelper(responseObject, dataList);
-        dataList.hasMore = !reachedEnd;
+        let dataList = new finixList<any>(nextFetch, !reachedEnd);
+        dataList = this.embeddedHelper(responseObject, dataList);
         return dataList;
     }
 
@@ -422,23 +415,15 @@ export class WebhooksApi {
     public async listHttp (listWebhooksQueryParams?:ListWebhooksQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
         Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listHelper(listWebhooksQueryParams, options);
-        var reachedEnd: Boolean;
-
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
-        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
-            var queryParam: any = {
-                afterCursor: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd]  = this.getCursorQueryParam(responseObject, queryParam);
-        }
-        else{
-            var queryParam: any = {
-                offset: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd] = this.getOffsetQueryParam(responseObject, queryParam);
-        }
+        let reachedEnd: Boolean;
+        const hasNextCursor: any = responseObject.body?.page?.hasOwnProperty('nextCursor');
+        let queryParam: any = hasNextCursor ? { afterCursor: '', limit: 20 } : { offset: '', limit: 20 };
+
+        [queryParam, reachedEnd] = hasNextCursor
+        ? this.getCursorQueryParam(responseObject, queryParam) 
+        : this.getOffsetQueryParam(responseObject, queryParam);
+
         const nextFetch = (limit?: number) => {
             queryParam.limit = limit;
             if (reachedEnd){
@@ -446,9 +431,9 @@ export class WebhooksApi {
             }
             return this.list(queryParam);
         }
-        let dataList = new finixList<any>(nextFetch);
-        dataList = await this.embeddedHelper(responseObject, dataList);
-        dataList.hasMore = !reachedEnd;
+        let dataList = new finixList<any>(nextFetch, reachedEnd);
+        dataList = this.embeddedHelper(responseObject, dataList);
+        //dataList.hasMore = !reachedEnd;
         return Promise.resolve({response: responseObject.response, body: dataList});
     }
     /**
@@ -491,7 +476,8 @@ export class WebhooksApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (updateWebhookRequest != undefined && updateWebhookRequest != null && updateWebhookRequest.hasOwnProperty('file')){
+        if (updateWebhookRequest && updateWebhookRequest.hasOwnProperty('file')){
+        //if (updateWebhookRequest != undefined && updateWebhookRequest != null && updateWebhookRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = updateWebhookRequest;
         }
         else{
@@ -560,7 +546,7 @@ export class WebhooksApi {
     /**
      * Extracts page and links fields from response body and assigns as properties to finixList
      */ 
-    private async embeddedHelper(responseObject: any, dataList: finixList<any>){
+    private embeddedHelper(responseObject: any, dataList: finixList<any>){
         if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
             dataList.page = responseObject.body.page;
             dataList.links = responseObject.body.links;

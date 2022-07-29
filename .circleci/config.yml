@@ -64,8 +64,8 @@ jobs:
       - run:
           name: build
           command: |
-          tsc --build tsconfig.json 
-          npm install 
+            npm install 
+            tsc --build tsconfig.json 
       - run:
           name: test
           command: npm test

@@ -142,7 +142,8 @@ export class AuthorizationsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (createAuthorizationRequest != undefined && createAuthorizationRequest != null && createAuthorizationRequest.hasOwnProperty('file')){
+        if (createAuthorizationRequest && createAuthorizationRequest.hasOwnProperty('file')){
+        //if (createAuthorizationRequest != undefined && createAuthorizationRequest != null && createAuthorizationRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = createAuthorizationRequest;
         }
         else{
@@ -465,21 +466,14 @@ export class AuthorizationsApi {
         Promise<finixList<any>> {
         const responseObject = await this.listHelper(listAuthorizationsQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
-        var reachedEnd: Boolean;
-        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
-            var queryParam: any = {
-                afterCursor: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
-        }
-        else{
-            var queryParam: any = {
-                offset: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd] = this.getOffsetQueryParam(responseObject, queryParam);
-        }
+        let reachedEnd: Boolean;
+        const hasNextCursor: any = responseObject.body?.page?.hasOwnProperty('nextCursor');
+        let queryParam: any = hasNextCursor ? { afterCursor: '', limit: 20 } : { offset: '', limit: 20 };
+
+        [queryParam, reachedEnd] = hasNextCursor
+        ? this.getCursorQueryParam(responseObject, queryParam) 
+        : this.getOffsetQueryParam(responseObject, queryParam);
+
         const nextFetch = (limit?: number) => {
             queryParam.limit = limit;
             if (reachedEnd){
@@ -487,9 +481,8 @@ export class AuthorizationsApi {
             }
             return this.list(queryParam);
         }
-        let dataList = new finixList<any>(nextFetch);
-        dataList = await this.embeddedHelper(responseObject, dataList);
-        dataList.hasMore = !reachedEnd;
+        let dataList = new finixList<any>(nextFetch, !reachedEnd);
+        dataList = this.embeddedHelper(responseObject, dataList);
         return dataList;
     }
 
@@ -500,23 +493,15 @@ export class AuthorizationsApi {
     public async listHttp (listAuthorizationsQueryParams?:ListAuthorizationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
         Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listHelper(listAuthorizationsQueryParams, options);
-        var reachedEnd: Boolean;
-
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
-        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
-            var queryParam: any = {
-                afterCursor: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd]  = this.getCursorQueryParam(responseObject, queryParam);
-        }
-        else{
-            var queryParam: any = {
-                offset: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd] = this.getOffsetQueryParam(responseObject, queryParam);
-        }
+        let reachedEnd: Boolean;
+        const hasNextCursor: any = responseObject.body?.page?.hasOwnProperty('nextCursor');
+        let queryParam: any = hasNextCursor ? { afterCursor: '', limit: 20 } : { offset: '', limit: 20 };
+
+        [queryParam, reachedEnd] = hasNextCursor
+        ? this.getCursorQueryParam(responseObject, queryParam) 
+        : this.getOffsetQueryParam(responseObject, queryParam);
+
         const nextFetch = (limit?: number) => {
             queryParam.limit = limit;
             if (reachedEnd){
@@ -524,9 +509,9 @@ export class AuthorizationsApi {
             }
             return this.list(queryParam);
         }
-        let dataList = new finixList<any>(nextFetch);
-        dataList = await this.embeddedHelper(responseObject, dataList);
-        dataList.hasMore = !reachedEnd;
+        let dataList = new finixList<any>(nextFetch, reachedEnd);
+        dataList = this.embeddedHelper(responseObject, dataList);
+        //dataList.hasMore = !reachedEnd;
         return Promise.resolve({response: responseObject.response, body: dataList});
     }
     /**
@@ -569,7 +554,8 @@ export class AuthorizationsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (updateAuthorizationRequest != undefined && updateAuthorizationRequest != null && updateAuthorizationRequest.hasOwnProperty('file')){
+        if (updateAuthorizationRequest && updateAuthorizationRequest.hasOwnProperty('file')){
+        //if (updateAuthorizationRequest != undefined && updateAuthorizationRequest != null && updateAuthorizationRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = updateAuthorizationRequest;
         }
         else{
@@ -638,7 +624,7 @@ export class AuthorizationsApi {
     /**
      * Extracts page and links fields from response body and assigns as properties to finixList
      */ 
-    private async embeddedHelper(responseObject: any, dataList: finixList<any>){
+    private embeddedHelper(responseObject: any, dataList: finixList<any>){
         if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
             dataList.page = responseObject.body.page;
             dataList.links = responseObject.body.links;

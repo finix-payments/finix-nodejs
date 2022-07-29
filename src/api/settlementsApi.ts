@@ -152,7 +152,8 @@ export class SettlementsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (createSettlementRequest != undefined && createSettlementRequest != null && createSettlementRequest.hasOwnProperty('file')){
+        if (createSettlementRequest && createSettlementRequest.hasOwnProperty('file')){
+        //if (createSettlementRequest != undefined && createSettlementRequest != null && createSettlementRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = createSettlementRequest;
         }
         else{
@@ -408,21 +409,14 @@ export class SettlementsApi {
         Promise<finixList<any>> {
         const responseObject = await this.listFundingTransfersHelper(settlementId, listSettlementFundingTransfersQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
-        var reachedEnd: Boolean;
-        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
-            var queryParam: any = {
-                afterCursor: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
-        }
-        else{
-            var queryParam: any = {
-                offset: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd] = this.getOffsetQueryParam(responseObject, queryParam);
-        }
+        let reachedEnd: Boolean;
+        const hasNextCursor: any = responseObject.body?.page?.hasOwnProperty('nextCursor');
+        let queryParam: any = hasNextCursor ? { afterCursor: '', limit: 20 } : { offset: '', limit: 20 };
+
+        [queryParam, reachedEnd] = hasNextCursor
+        ? this.getCursorQueryParam(responseObject, queryParam) 
+        : this.getOffsetQueryParam(responseObject, queryParam);
+
         const nextFetch = (limit?: number) => {
             queryParam.limit = limit;
             if (reachedEnd){
@@ -430,9 +424,8 @@ export class SettlementsApi {
             }
             return this.listFundingTransfers(settlementId, queryParam);
         }
-        let dataList = new finixList<any>(nextFetch);
-        dataList = await this.embeddedHelper(responseObject, dataList);
-        dataList.hasMore = !reachedEnd;
+        let dataList = new finixList<any>(nextFetch, !reachedEnd);
+        dataList = this.embeddedHelper(responseObject, dataList);
         return dataList;
     }
 
@@ -445,23 +438,15 @@ export class SettlementsApi {
     public async listFundingTransfersHttp (settlementId: string, listSettlementFundingTransfersQueryParams?:ListSettlementFundingTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
         Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listFundingTransfersHelper(settlementId, listSettlementFundingTransfersQueryParams, options);
-        var reachedEnd: Boolean;
-
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
-        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
-            var queryParam: any = {
-                afterCursor: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd]  = this.getCursorQueryParam(responseObject, queryParam);
-        }
-        else{
-            var queryParam: any = {
-                offset: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd] = this.getOffsetQueryParam(responseObject, queryParam);
-        }
+        let reachedEnd: Boolean;
+        const hasNextCursor: any = responseObject.body?.page?.hasOwnProperty('nextCursor');
+        let queryParam: any = hasNextCursor ? { afterCursor: '', limit: 20 } : { offset: '', limit: 20 };
+
+        [queryParam, reachedEnd] = hasNextCursor
+        ? this.getCursorQueryParam(responseObject, queryParam) 
+        : this.getOffsetQueryParam(responseObject, queryParam);
+
         const nextFetch = (limit?: number) => {
             queryParam.limit = limit;
             if (reachedEnd){
@@ -469,9 +454,9 @@ export class SettlementsApi {
             }
             return this.listFundingTransfers(settlementId, queryParam);
         }
-        let dataList = new finixList<any>(nextFetch);
-        dataList = await this.embeddedHelper(responseObject, dataList);
-        dataList.hasMore = !reachedEnd;
+        let dataList = new finixList<any>(nextFetch, reachedEnd);
+        dataList = this.embeddedHelper(responseObject, dataList);
+        //dataList.hasMore = !reachedEnd;
         return Promise.resolve({response: responseObject.response, body: dataList});
     }
     /**
@@ -570,21 +555,14 @@ export class SettlementsApi {
         Promise<finixList<any>> {
         const responseObject = await this.listTransfersBySettlementIdHelper(settlementId, listSettlementTransfersQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
-        var reachedEnd: Boolean;
-        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
-            var queryParam: any = {
-                afterCursor: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
-        }
-        else{
-            var queryParam: any = {
-                offset: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd] = this.getOffsetQueryParam(responseObject, queryParam);
-        }
+        let reachedEnd: Boolean;
+        const hasNextCursor: any = responseObject.body?.page?.hasOwnProperty('nextCursor');
+        let queryParam: any = hasNextCursor ? { afterCursor: '', limit: 20 } : { offset: '', limit: 20 };
+
+        [queryParam, reachedEnd] = hasNextCursor
+        ? this.getCursorQueryParam(responseObject, queryParam) 
+        : this.getOffsetQueryParam(responseObject, queryParam);
+
         const nextFetch = (limit?: number) => {
             queryParam.limit = limit;
             if (reachedEnd){
@@ -592,9 +570,8 @@ export class SettlementsApi {
             }
             return this.listTransfersBySettlementId(settlementId, queryParam);
         }
-        let dataList = new finixList<any>(nextFetch);
-        dataList = await this.embeddedHelper(responseObject, dataList);
-        dataList.hasMore = !reachedEnd;
+        let dataList = new finixList<any>(nextFetch, !reachedEnd);
+        dataList = this.embeddedHelper(responseObject, dataList);
         return dataList;
     }
 
@@ -607,23 +584,15 @@ export class SettlementsApi {
     public async listTransfersBySettlementIdHttp (settlementId: string, listSettlementTransfersQueryParams?:ListSettlementTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
         Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listTransfersBySettlementIdHelper(settlementId, listSettlementTransfersQueryParams, options);
-        var reachedEnd: Boolean;
-
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
-        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
-            var queryParam: any = {
-                afterCursor: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd]  = this.getCursorQueryParam(responseObject, queryParam);
-        }
-        else{
-            var queryParam: any = {
-                offset: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd] = this.getOffsetQueryParam(responseObject, queryParam);
-        }
+        let reachedEnd: Boolean;
+        const hasNextCursor: any = responseObject.body?.page?.hasOwnProperty('nextCursor');
+        let queryParam: any = hasNextCursor ? { afterCursor: '', limit: 20 } : { offset: '', limit: 20 };
+
+        [queryParam, reachedEnd] = hasNextCursor
+        ? this.getCursorQueryParam(responseObject, queryParam) 
+        : this.getOffsetQueryParam(responseObject, queryParam);
+
         const nextFetch = (limit?: number) => {
             queryParam.limit = limit;
             if (reachedEnd){
@@ -631,9 +600,9 @@ export class SettlementsApi {
             }
             return this.listTransfersBySettlementId(settlementId, queryParam);
         }
-        let dataList = new finixList<any>(nextFetch);
-        dataList = await this.embeddedHelper(responseObject, dataList);
-        dataList.hasMore = !reachedEnd;
+        let dataList = new finixList<any>(nextFetch, reachedEnd);
+        dataList = this.embeddedHelper(responseObject, dataList);
+        //dataList.hasMore = !reachedEnd;
         return Promise.resolve({response: responseObject.response, body: dataList});
     }
     /**
@@ -738,21 +707,14 @@ export class SettlementsApi {
         Promise<finixList<any>> {
         const responseObject = await this.listHelper(listSettlementsQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
-        var reachedEnd: Boolean;
-        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
-            var queryParam: any = {
-                afterCursor: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
-        }
-        else{
-            var queryParam: any = {
-                offset: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd] = this.getOffsetQueryParam(responseObject, queryParam);
-        }
+        let reachedEnd: Boolean;
+        const hasNextCursor: any = responseObject.body?.page?.hasOwnProperty('nextCursor');
+        let queryParam: any = hasNextCursor ? { afterCursor: '', limit: 20 } : { offset: '', limit: 20 };
+
+        [queryParam, reachedEnd] = hasNextCursor
+        ? this.getCursorQueryParam(responseObject, queryParam) 
+        : this.getOffsetQueryParam(responseObject, queryParam);
+
         const nextFetch = (limit?: number) => {
             queryParam.limit = limit;
             if (reachedEnd){
@@ -760,9 +722,8 @@ export class SettlementsApi {
             }
             return this.list(queryParam);
         }
-        let dataList = new finixList<any>(nextFetch);
-        dataList = await this.embeddedHelper(responseObject, dataList);
-        dataList.hasMore = !reachedEnd;
+        let dataList = new finixList<any>(nextFetch, !reachedEnd);
+        dataList = this.embeddedHelper(responseObject, dataList);
         return dataList;
     }
 
@@ -773,23 +734,15 @@ export class SettlementsApi {
     public async listHttp (listSettlementsQueryParams?:ListSettlementsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
         Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listHelper(listSettlementsQueryParams, options);
-        var reachedEnd: Boolean;
-
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
-        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
-            var queryParam: any = {
-                afterCursor: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd]  = this.getCursorQueryParam(responseObject, queryParam);
-        }
-        else{
-            var queryParam: any = {
-                offset: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd] = this.getOffsetQueryParam(responseObject, queryParam);
-        }
+        let reachedEnd: Boolean;
+        const hasNextCursor: any = responseObject.body?.page?.hasOwnProperty('nextCursor');
+        let queryParam: any = hasNextCursor ? { afterCursor: '', limit: 20 } : { offset: '', limit: 20 };
+
+        [queryParam, reachedEnd] = hasNextCursor
+        ? this.getCursorQueryParam(responseObject, queryParam) 
+        : this.getOffsetQueryParam(responseObject, queryParam);
+
         const nextFetch = (limit?: number) => {
             queryParam.limit = limit;
             if (reachedEnd){
@@ -797,9 +750,9 @@ export class SettlementsApi {
             }
             return this.list(queryParam);
         }
-        let dataList = new finixList<any>(nextFetch);
-        dataList = await this.embeddedHelper(responseObject, dataList);
-        dataList.hasMore = !reachedEnd;
+        let dataList = new finixList<any>(nextFetch, reachedEnd);
+        dataList = this.embeddedHelper(responseObject, dataList);
+        //dataList.hasMore = !reachedEnd;
         return Promise.resolve({response: responseObject.response, body: dataList});
     }
     /**
@@ -842,7 +795,8 @@ export class SettlementsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (removeSettlementTransfer != undefined && removeSettlementTransfer != null && removeSettlementTransfer.hasOwnProperty('file')){
+        if (removeSettlementTransfer && removeSettlementTransfer.hasOwnProperty('file')){
+        //if (removeSettlementTransfer != undefined && removeSettlementTransfer != null && removeSettlementTransfer.hasOwnProperty('file')){
             localVarRequestOptions.formData = removeSettlementTransfer;
         }
         else{
@@ -946,7 +900,8 @@ export class SettlementsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (updateSettlementRequest != undefined && updateSettlementRequest != null && updateSettlementRequest.hasOwnProperty('file')){
+        if (updateSettlementRequest && updateSettlementRequest.hasOwnProperty('file')){
+        //if (updateSettlementRequest != undefined && updateSettlementRequest != null && updateSettlementRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = updateSettlementRequest;
         }
         else{
@@ -1015,7 +970,7 @@ export class SettlementsApi {
     /**
      * Extracts page and links fields from response body and assigns as properties to finixList
      */ 
-    private async embeddedHelper(responseObject: any, dataList: finixList<any>){
+    private embeddedHelper(responseObject: any, dataList: finixList<any>){
         if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
             dataList.page = responseObject.body.page;
             dataList.links = responseObject.body.links;

@@ -146,7 +146,8 @@ export class PaymentInstrumentsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (applePaySessionRequest != undefined && applePaySessionRequest != null && applePaySessionRequest.hasOwnProperty('file')){
+        if (applePaySessionRequest && applePaySessionRequest.hasOwnProperty('file')){
+        //if (applePaySessionRequest != undefined && applePaySessionRequest != null && applePaySessionRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = applePaySessionRequest;
         }
         else{
@@ -243,7 +244,8 @@ export class PaymentInstrumentsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (createPaymentInstrumentRequest != undefined && createPaymentInstrumentRequest != null && createPaymentInstrumentRequest.hasOwnProperty('file')){
+        if (createPaymentInstrumentRequest && createPaymentInstrumentRequest.hasOwnProperty('file')){
+        //if (createPaymentInstrumentRequest != undefined && createPaymentInstrumentRequest != null && createPaymentInstrumentRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = createPaymentInstrumentRequest;
         }
         else{
@@ -497,21 +499,14 @@ export class PaymentInstrumentsApi {
         Promise<finixList<any>> {
         const responseObject = await this.listUpdatesByPaymentInstrumentIdHelper(paymentInstrumentId, listPaymentInstrumentUpdatesQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
-        var reachedEnd: Boolean;
-        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
-            var queryParam: any = {
-                afterCursor: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
-        }
-        else{
-            var queryParam: any = {
-                offset: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd] = this.getOffsetQueryParam(responseObject, queryParam);
-        }
+        let reachedEnd: Boolean;
+        const hasNextCursor: any = responseObject.body?.page?.hasOwnProperty('nextCursor');
+        let queryParam: any = hasNextCursor ? { afterCursor: '', limit: 20 } : { offset: '', limit: 20 };
+
+        [queryParam, reachedEnd] = hasNextCursor
+        ? this.getCursorQueryParam(responseObject, queryParam) 
+        : this.getOffsetQueryParam(responseObject, queryParam);
+
         const nextFetch = (limit?: number) => {
             queryParam.limit = limit;
             if (reachedEnd){
@@ -519,9 +514,8 @@ export class PaymentInstrumentsApi {
             }
             return this.listUpdatesByPaymentInstrumentId(paymentInstrumentId, queryParam);
         }
-        let dataList = new finixList<any>(nextFetch);
-        dataList = await this.embeddedHelper(responseObject, dataList);
-        dataList.hasMore = !reachedEnd;
+        let dataList = new finixList<any>(nextFetch, !reachedEnd);
+        dataList = this.embeddedHelper(responseObject, dataList);
         return dataList;
     }
 
@@ -534,23 +528,15 @@ export class PaymentInstrumentsApi {
     public async listUpdatesByPaymentInstrumentIdHttp (paymentInstrumentId: string, listPaymentInstrumentUpdatesQueryParams?:ListPaymentInstrumentUpdatesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
         Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listUpdatesByPaymentInstrumentIdHelper(paymentInstrumentId, listPaymentInstrumentUpdatesQueryParams, options);
-        var reachedEnd: Boolean;
-
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
-        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
-            var queryParam: any = {
-                afterCursor: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd]  = this.getCursorQueryParam(responseObject, queryParam);
-        }
-        else{
-            var queryParam: any = {
-                offset: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd] = this.getOffsetQueryParam(responseObject, queryParam);
-        }
+        let reachedEnd: Boolean;
+        const hasNextCursor: any = responseObject.body?.page?.hasOwnProperty('nextCursor');
+        let queryParam: any = hasNextCursor ? { afterCursor: '', limit: 20 } : { offset: '', limit: 20 };
+
+        [queryParam, reachedEnd] = hasNextCursor
+        ? this.getCursorQueryParam(responseObject, queryParam) 
+        : this.getOffsetQueryParam(responseObject, queryParam);
+
         const nextFetch = (limit?: number) => {
             queryParam.limit = limit;
             if (reachedEnd){
@@ -558,9 +544,9 @@ export class PaymentInstrumentsApi {
             }
             return this.listUpdatesByPaymentInstrumentId(paymentInstrumentId, queryParam);
         }
-        let dataList = new finixList<any>(nextFetch);
-        dataList = await this.embeddedHelper(responseObject, dataList);
-        dataList.hasMore = !reachedEnd;
+        let dataList = new finixList<any>(nextFetch, reachedEnd);
+        dataList = this.embeddedHelper(responseObject, dataList);
+        //dataList.hasMore = !reachedEnd;
         return Promise.resolve({response: responseObject.response, body: dataList});
     }
     /**
@@ -686,21 +672,14 @@ export class PaymentInstrumentsApi {
         Promise<finixList<any>> {
         const responseObject = await this.listHelper(listPaymentInstrumentsQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
-        var reachedEnd: Boolean;
-        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
-            var queryParam: any = {
-                afterCursor: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
-        }
-        else{
-            var queryParam: any = {
-                offset: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd] = this.getOffsetQueryParam(responseObject, queryParam);
-        }
+        let reachedEnd: Boolean;
+        const hasNextCursor: any = responseObject.body?.page?.hasOwnProperty('nextCursor');
+        let queryParam: any = hasNextCursor ? { afterCursor: '', limit: 20 } : { offset: '', limit: 20 };
+
+        [queryParam, reachedEnd] = hasNextCursor
+        ? this.getCursorQueryParam(responseObject, queryParam) 
+        : this.getOffsetQueryParam(responseObject, queryParam);
+
         const nextFetch = (limit?: number) => {
             queryParam.limit = limit;
             if (reachedEnd){
@@ -708,9 +687,8 @@ export class PaymentInstrumentsApi {
             }
             return this.list(queryParam);
         }
-        let dataList = new finixList<any>(nextFetch);
-        dataList = await this.embeddedHelper(responseObject, dataList);
-        dataList.hasMore = !reachedEnd;
+        let dataList = new finixList<any>(nextFetch, !reachedEnd);
+        dataList = this.embeddedHelper(responseObject, dataList);
         return dataList;
     }
 
@@ -721,23 +699,15 @@ export class PaymentInstrumentsApi {
     public async listHttp (listPaymentInstrumentsQueryParams?:ListPaymentInstrumentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
         Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listHelper(listPaymentInstrumentsQueryParams, options);
-        var reachedEnd: Boolean;
-
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
-        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
-            var queryParam: any = {
-                afterCursor: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd]  = this.getCursorQueryParam(responseObject, queryParam);
-        }
-        else{
-            var queryParam: any = {
-                offset: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd] = this.getOffsetQueryParam(responseObject, queryParam);
-        }
+        let reachedEnd: Boolean;
+        const hasNextCursor: any = responseObject.body?.page?.hasOwnProperty('nextCursor');
+        let queryParam: any = hasNextCursor ? { afterCursor: '', limit: 20 } : { offset: '', limit: 20 };
+
+        [queryParam, reachedEnd] = hasNextCursor
+        ? this.getCursorQueryParam(responseObject, queryParam) 
+        : this.getOffsetQueryParam(responseObject, queryParam);
+
         const nextFetch = (limit?: number) => {
             queryParam.limit = limit;
             if (reachedEnd){
@@ -745,9 +715,9 @@ export class PaymentInstrumentsApi {
             }
             return this.list(queryParam);
         }
-        let dataList = new finixList<any>(nextFetch);
-        dataList = await this.embeddedHelper(responseObject, dataList);
-        dataList.hasMore = !reachedEnd;
+        let dataList = new finixList<any>(nextFetch, reachedEnd);
+        dataList = this.embeddedHelper(responseObject, dataList);
+        //dataList.hasMore = !reachedEnd;
         return Promise.resolve({response: responseObject.response, body: dataList});
     }
     /**
@@ -790,7 +760,8 @@ export class PaymentInstrumentsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (updatePaymentInstrumentRequest != undefined && updatePaymentInstrumentRequest != null && updatePaymentInstrumentRequest.hasOwnProperty('file')){
+        if (updatePaymentInstrumentRequest && updatePaymentInstrumentRequest.hasOwnProperty('file')){
+        //if (updatePaymentInstrumentRequest != undefined && updatePaymentInstrumentRequest != null && updatePaymentInstrumentRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = updatePaymentInstrumentRequest;
         }
         else{
@@ -859,7 +830,7 @@ export class PaymentInstrumentsApi {
     /**
      * Extracts page and links fields from response body and assigns as properties to finixList
      */ 
-    private async embeddedHelper(responseObject: any, dataList: finixList<any>){
+    private embeddedHelper(responseObject: any, dataList: finixList<any>){
         if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
             dataList.page = responseObject.body.page;
             dataList.links = responseObject.body.links;

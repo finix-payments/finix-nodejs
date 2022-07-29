@@ -145,7 +145,8 @@ export class TransfersApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (createTransferRequest != undefined && createTransferRequest != null && createTransferRequest.hasOwnProperty('file')){
+        if (createTransferRequest && createTransferRequest.hasOwnProperty('file')){
+        //if (createTransferRequest != undefined && createTransferRequest != null && createTransferRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = createTransferRequest;
         }
         else{
@@ -248,7 +249,8 @@ export class TransfersApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (createReversalRequest != undefined && createReversalRequest != null && createReversalRequest.hasOwnProperty('file')){
+        if (createReversalRequest && createReversalRequest.hasOwnProperty('file')){
+        //if (createReversalRequest != undefined && createReversalRequest != null && createReversalRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = createReversalRequest;
         }
         else{
@@ -504,21 +506,14 @@ export class TransfersApi {
         Promise<finixList<any>> {
         const responseObject = await this.listTransfersReversalsHelper(transferId, listTransferReversalsQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
-        var reachedEnd: Boolean;
-        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
-            var queryParam: any = {
-                afterCursor: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
-        }
-        else{
-            var queryParam: any = {
-                offset: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd] = this.getOffsetQueryParam(responseObject, queryParam);
-        }
+        let reachedEnd: Boolean;
+        const hasNextCursor: any = responseObject.body?.page?.hasOwnProperty('nextCursor');
+        let queryParam: any = hasNextCursor ? { afterCursor: '', limit: 20 } : { offset: '', limit: 20 };
+
+        [queryParam, reachedEnd] = hasNextCursor
+        ? this.getCursorQueryParam(responseObject, queryParam) 
+        : this.getOffsetQueryParam(responseObject, queryParam);
+
         const nextFetch = (limit?: number) => {
             queryParam.limit = limit;
             if (reachedEnd){
@@ -526,9 +521,8 @@ export class TransfersApi {
             }
             return this.listTransfersReversals(transferId, queryParam);
         }
-        let dataList = new finixList<any>(nextFetch);
-        dataList = await this.embeddedHelper(responseObject, dataList);
-        dataList.hasMore = !reachedEnd;
+        let dataList = new finixList<any>(nextFetch, !reachedEnd);
+        dataList = this.embeddedHelper(responseObject, dataList);
         return dataList;
     }
 
@@ -541,23 +535,15 @@ export class TransfersApi {
     public async listTransfersReversalsHttp (transferId: string, listTransferReversalsQueryParams?:ListTransferReversalsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
         Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listTransfersReversalsHelper(transferId, listTransferReversalsQueryParams, options);
-        var reachedEnd: Boolean;
-
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
-        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
-            var queryParam: any = {
-                afterCursor: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd]  = this.getCursorQueryParam(responseObject, queryParam);
-        }
-        else{
-            var queryParam: any = {
-                offset: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd] = this.getOffsetQueryParam(responseObject, queryParam);
-        }
+        let reachedEnd: Boolean;
+        const hasNextCursor: any = responseObject.body?.page?.hasOwnProperty('nextCursor');
+        let queryParam: any = hasNextCursor ? { afterCursor: '', limit: 20 } : { offset: '', limit: 20 };
+
+        [queryParam, reachedEnd] = hasNextCursor
+        ? this.getCursorQueryParam(responseObject, queryParam) 
+        : this.getOffsetQueryParam(responseObject, queryParam);
+
         const nextFetch = (limit?: number) => {
             queryParam.limit = limit;
             if (reachedEnd){
@@ -565,9 +551,9 @@ export class TransfersApi {
             }
             return this.listTransfersReversals(transferId, queryParam);
         }
-        let dataList = new finixList<any>(nextFetch);
-        dataList = await this.embeddedHelper(responseObject, dataList);
-        dataList.hasMore = !reachedEnd;
+        let dataList = new finixList<any>(nextFetch, reachedEnd);
+        dataList = this.embeddedHelper(responseObject, dataList);
+        //dataList.hasMore = !reachedEnd;
         return Promise.resolve({response: responseObject.response, body: dataList});
     }
     /**
@@ -744,21 +730,14 @@ export class TransfersApi {
         Promise<finixList<any>> {
         const responseObject = await this.listHelper(listTransfersQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
-        var reachedEnd: Boolean;
-        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
-            var queryParam: any = {
-                afterCursor: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd] = this.getCursorQueryParam(responseObject, queryParam);
-        }
-        else{
-            var queryParam: any = {
-                offset: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd] = this.getOffsetQueryParam(responseObject, queryParam);
-        }
+        let reachedEnd: Boolean;
+        const hasNextCursor: any = responseObject.body?.page?.hasOwnProperty('nextCursor');
+        let queryParam: any = hasNextCursor ? { afterCursor: '', limit: 20 } : { offset: '', limit: 20 };
+
+        [queryParam, reachedEnd] = hasNextCursor
+        ? this.getCursorQueryParam(responseObject, queryParam) 
+        : this.getOffsetQueryParam(responseObject, queryParam);
+
         const nextFetch = (limit?: number) => {
             queryParam.limit = limit;
             if (reachedEnd){
@@ -766,9 +745,8 @@ export class TransfersApi {
             }
             return this.list(queryParam);
         }
-        let dataList = new finixList<any>(nextFetch);
-        dataList = await this.embeddedHelper(responseObject, dataList);
-        dataList.hasMore = !reachedEnd;
+        let dataList = new finixList<any>(nextFetch, !reachedEnd);
+        dataList = this.embeddedHelper(responseObject, dataList);
         return dataList;
     }
 
@@ -779,23 +757,15 @@ export class TransfersApi {
     public async listHttp (listTransfersQueryParams?:ListTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
         Promise<{response: http.IncomingMessage, body: finixList<any>}> {
         const responseObject = await this.listHelper(listTransfersQueryParams, options);
-        var reachedEnd: Boolean;
-
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
-        if(responseObject.body?.page?.hasOwnProperty('nextCursor')){
-            var queryParam: any = {
-                afterCursor: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd]  = this.getCursorQueryParam(responseObject, queryParam);
-        }
-        else{
-            var queryParam: any = {
-                offset: '',
-                limit: 20
-            };
-            [queryParam, reachedEnd] = this.getOffsetQueryParam(responseObject, queryParam);
-        }
+        let reachedEnd: Boolean;
+        const hasNextCursor: any = responseObject.body?.page?.hasOwnProperty('nextCursor');
+        let queryParam: any = hasNextCursor ? { afterCursor: '', limit: 20 } : { offset: '', limit: 20 };
+
+        [queryParam, reachedEnd] = hasNextCursor
+        ? this.getCursorQueryParam(responseObject, queryParam) 
+        : this.getOffsetQueryParam(responseObject, queryParam);
+
         const nextFetch = (limit?: number) => {
             queryParam.limit = limit;
             if (reachedEnd){
@@ -803,9 +773,9 @@ export class TransfersApi {
             }
             return this.list(queryParam);
         }
-        let dataList = new finixList<any>(nextFetch);
-        dataList = await this.embeddedHelper(responseObject, dataList);
-        dataList.hasMore = !reachedEnd;
+        let dataList = new finixList<any>(nextFetch, reachedEnd);
+        dataList = this.embeddedHelper(responseObject, dataList);
+        //dataList.hasMore = !reachedEnd;
         return Promise.resolve({response: responseObject.response, body: dataList});
     }
     /**
@@ -848,7 +818,8 @@ export class TransfersApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (updateTransferRequest != undefined && updateTransferRequest != null && updateTransferRequest.hasOwnProperty('file')){
+        if (updateTransferRequest && updateTransferRequest.hasOwnProperty('file')){
+        //if (updateTransferRequest != undefined && updateTransferRequest != null && updateTransferRequest.hasOwnProperty('file')){
             localVarRequestOptions.formData = updateTransferRequest;
         }
         else{
@@ -917,7 +888,7 @@ export class TransfersApi {
     /**
      * Extracts page and links fields from response body and assigns as properties to finixList
      */ 
-    private async embeddedHelper(responseObject: any, dataList: finixList<any>){
+    private embeddedHelper(responseObject: any, dataList: finixList<any>){
         if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
             dataList.page = responseObject.body.page;
             dataList.links = responseObject.body.links;
