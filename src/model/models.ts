@@ -1177,9 +1177,10 @@ export class finixList<T extends object> extends Set<T>{
     protected listNextBase: Function; 
     private _hasMore: Boolean;
     
-    constructor (listFunction: Function) {
+    constructor (listFunction: Function, hasMore: Boolean) {
         super();
         this.listNextBase = listFunction;
+        this._hasMore = hasMore;
     }
 
     set page(page: any){
@@ -1203,10 +1204,6 @@ export class finixList<T extends object> extends Set<T>{
 
     get hasMore(){
         return this._hasMore;
-    }
-
-    set hasMore(hasMore: Boolean){
-        this._hasMore = hasMore;
     }
 
     public async listNext(limitVal?: number): Promise<finixList<any>>{
