@@ -66,7 +66,7 @@ export class Dispute {
     /**
     * The system-defined reason for the `Dispute`. Available values include:<ul><li>**INQUIRY**<li>**QUALITY**<li>**CLERICAL**<li>**FRAUD**<li>**TECHNICAL**</ul>
     */
-    'reason'?: Dispute.ReasonEnum;
+    'reason'?: Dispute.ReasonEnum | string;
     /**
     * Point in time when dispute has to be resolved and the `Merchant` needs to respond by.
     */
@@ -74,7 +74,7 @@ export class Dispute {
     /**
     * The current state of the `Dispute`.
     */
-    'state'?: Dispute.StateEnum;
+    'state'?: Dispute.StateEnum | string;
     /**
     * ID of the `Transfer` resource.
     */

@@ -22,11 +22,11 @@ export class ProcessorSystemConfig {
     /**
     * Field used by processor to communicate with Finix.
     */
-    'cLASSKEYIDENTIFIER'?: ProcessorSystemConfig.CLASSKEYIDENTIFIEREnum;
+    'cLASSKEYIDENTIFIER'?: ProcessorSystemConfig.CLASSKEYIDENTIFIEREnum | string;
     /**
     * The 3 letter ISO 4217 country code for the country transactions are originating from.
     */
-    'acquirerCountryCode'?: ProcessorSystemConfig.AcquirerCountryCodeEnum;
+    'acquirerCountryCode'?: ProcessorSystemConfig.AcquirerCountryCodeEnum | string;
     /**
     * The Bank Identification Number (BIN) the `Processor` is registered under with Visa Direct.
     */
@@ -115,7 +115,7 @@ export class ProcessorSystemConfig {
     /**
     * Specific code that reflects the use case (e.g. funds disbursement, money transfer, etc.). For a full list of codes, see the following [list from Visa](https://developer.visa.com/request_response_codes#source_of_funds).
     */
-    'sourceOfFunds'?: ProcessorSystemConfig.SourceOfFundsEnum;
+    'sourceOfFunds'?: ProcessorSystemConfig.SourceOfFundsEnum | string;
     /**
     * The user ID found in the credentials section of the Visa Developer Portal (VDP) project. This is needed to connect to Visa Direct.
     */

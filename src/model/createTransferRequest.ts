@@ -51,7 +51,7 @@ export class CreateTransferRequest {
     /**
     * Name of the gateway that processed this `transfer`. (Finix Core only).
     */
-    'gateway'?: CreateTransferRequest.GatewayEnum;
+    'gateway'?: CreateTransferRequest.GatewayEnum | string;
     '_3dSecureAuthentication'?: CreateAuthorizationRequest3dSecureAuthentication | null;
     /**
     * A randomly generated value that\'ll be associated with the request.
@@ -60,7 +60,7 @@ export class CreateTransferRequest {
     /**
     * Details how the card details were entered.
     */
-    'inputMethod'?: CreateTransferRequest.InputMethodEnum;
+    'inputMethod'?: CreateTransferRequest.InputMethodEnum | string;
     /**
     * ID of the `Merchant` the `Transfer` was created under.
     */
@@ -72,7 +72,7 @@ export class CreateTransferRequest {
     /**
     * Details the operation that\'ll be performed in the transaction.
     */
-    'operationKey'?: CreateTransferRequest.OperationKeyEnum;
+    'operationKey'?: CreateTransferRequest.OperationKeyEnum | string;
     'paymentInstrument'?: CardPresentInstrumentForm;
     /**
     * Name of the transaction processor.

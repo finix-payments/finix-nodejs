@@ -24,7 +24,7 @@ export class PaymentInstrument {
     /**
     * Type of `Payment Instrument`.
     */
-    'type'?: PaymentInstrument.TypeEnum;
+    'type'?: PaymentInstrument.TypeEnum | string;
     /**
     * The ID of the resource.
     */
@@ -40,7 +40,7 @@ export class PaymentInstrument {
     /**
     * Details what kind of **BANK_ACCOUNT** is being used.
     */
-    'accountType'?: PaymentInstrument.AccountTypeEnum;
+    'accountType'?: PaymentInstrument.AccountTypeEnum | string;
     /**
     * The ID of the resource.
     */
@@ -62,7 +62,7 @@ export class PaymentInstrument {
     /**
     * The type of `Payment Instrument`.
     */
-    'instrumentType'?: PaymentInstrument.InstrumentTypeEnum;
+    'instrumentType'?: PaymentInstrument.InstrumentTypeEnum | string;
     /**
     * The last 4 digits of the account number used to create the `Payment Instrument`.
     */
@@ -71,13 +71,13 @@ export class PaymentInstrument {
     * The name of the bank account or card owner.
     */
     'name'?: string | null;
-    'payloadType'?: PaymentInstrument.PayloadTypeEnum;
+    'payloadType'?: PaymentInstrument.PayloadTypeEnum | string;
     'links'?: PaymentInstrumentLinks;
     'address'?: Address | null;
     /**
     * Additional address information that’s required to verify the identity of the merchant.
     */
-    'addressVerification'?: PaymentInstrument.AddressVerificationEnum;
+    'addressVerification'?: PaymentInstrument.AddressVerificationEnum | string;
     /**
     * Bank Identification number for the `Payment Instrument`.
     */
@@ -85,7 +85,7 @@ export class PaymentInstrument {
     /**
     * The `brand` of the card saved in the `Payment Instrument`.
     */
-    'brand'?: PaymentInstrument.BrandEnum;
+    'brand'?: PaymentInstrument.BrandEnum | string;
     /**
     * A custom name you can include to identify the card being used (e.g. **Business Card**).
     */
@@ -93,7 +93,7 @@ export class PaymentInstrument {
     /**
     * The type of card saved in the `Payment Instrument`.
     */
-    'cardType'?: PaymentInstrument.CardTypeEnum;
+    'cardType'?: PaymentInstrument.CardTypeEnum | string;
     /**
     * Expiration month (e.g. 12 for December).
     */
@@ -121,7 +121,7 @@ export class PaymentInstrument {
     /**
     * Details the results of the Card Verification Code check.
     */
-    'securityCodeVerification'?: PaymentInstrument.SecurityCodeVerificationEnum;
+    'securityCodeVerification'?: PaymentInstrument.SecurityCodeVerificationEnum | string;
 
     static discriminator: string | undefined = undefined;
 

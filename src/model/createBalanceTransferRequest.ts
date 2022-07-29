@@ -28,7 +28,7 @@ export class CreateBalanceTransferRequest {
     /**
     * Choose the value that best applies to the account where funds will get credited.
     */
-    'destination': CreateBalanceTransferRequest.DestinationEnum;
+    'destination': CreateBalanceTransferRequest.DestinationEnum | string;
     'currency': Currency;
     /**
     * The total amount that will be debited in cents (e.g. 100 cents to debit $1.00).
@@ -37,7 +37,7 @@ export class CreateBalanceTransferRequest {
     /**
     * Choose the value that best applies to the account where funds will get debited.
     */
-    'source': CreateBalanceTransferRequest.SourceEnum;
+    'source': CreateBalanceTransferRequest.SourceEnum | string;
     /**
     * Pass **LITLE_V1**; `balance_transfers` are only avalible for platforms with **LITLE_V1** credentials.
     */

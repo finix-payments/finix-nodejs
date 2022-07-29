@@ -62,7 +62,7 @@ export class BalanceTransfer {
     /**
     * The `state` of the `balance_transfer`.
     */
-    'state'?: BalanceTransfer.StateEnum;
+    'state'?: BalanceTransfer.StateEnum | string;
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */

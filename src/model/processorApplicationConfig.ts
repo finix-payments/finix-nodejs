@@ -30,7 +30,7 @@ export class ProcessorApplicationConfig {
     /**
     * Identifies the `Processors` business application type for VisaNet transaction processing.
     */
-    'allowedBusinessApplicationIds'?: Array<ProcessorApplicationConfig.AllowedBusinessApplicationIdsEnum>;
+    'allowedBusinessApplicationIds'?: Array<ProcessorApplicationConfig.AllowedBusinessApplicationIdsEnum> | string;
     /**
     * An ID for the card acceptor (e.g Visa). 
     */
@@ -47,7 +47,7 @@ export class ProcessorApplicationConfig {
     /**
     * The Merchant Category Code of the `Merchan. 
     */
-    'defaultMcc'?: ProcessorApplicationConfig.DefaultMccEnum;
+    'defaultMcc'?: ProcessorApplicationConfig.DefaultMccEnum | string;
     /**
     * The default account of the sender.
     */
@@ -88,15 +88,15 @@ export class ProcessorApplicationConfig {
     /**
     * Identifies the level of security used in an electronic commerce transaction (only applies to card-present transactions).
     */
-    'motoEciindicator'?: ProcessorApplicationConfig.MotoEciindicatorEnum;
+    'motoEciindicator'?: ProcessorApplicationConfig.MotoEciindicatorEnum | string;
     /**
     * A 2-digit code that identifies the method used to enter the cardholder account number and card expiration date (only applies to card-present transactions).
     */
-    'panEntryMode'?: ProcessorApplicationConfig.PanEntryModeEnum;
+    'panEntryMode'?: ProcessorApplicationConfig.PanEntryModeEnum | string;
     /**
     * Contains a code identifying transaction conditions at the point of sale or point of service (only applies to card-present transactions).
     */
-    'posConditionCode'?: ProcessorApplicationConfig.PosConditionCodeEnum;
+    'posConditionCode'?: ProcessorApplicationConfig.PosConditionCodeEnum | string;
 
     static discriminator: string | undefined = undefined;
 

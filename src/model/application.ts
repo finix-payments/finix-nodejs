@@ -65,15 +65,15 @@ export class Application {
     * Details if settlement processing is enabled for the `Application`. 
     */
     'settlementEnabled'?: boolean;
-    'settlementFundingIdentifier'?: Application.SettlementFundingIdentifierEnum;
+    'settlementFundingIdentifier'?: Application.SettlementFundingIdentifierEnum | string;
     /**
     * Details when `Authroizations` submitted under the `Application` will be ready to settle.
     */
-    'readyToSettleUpon'?: Application.ReadyToSettleUponEnum;
+    'readyToSettleUpon'?: Application.ReadyToSettleUponEnum | string;
     /**
     * Details when the `fees` of `Authroizations` submitted under the `Application` will be ready to settle.
     */
-    'feeReadyToSettleUpon'?: Application.FeeReadyToSettleUponEnum;
+    'feeReadyToSettleUpon'?: Application.FeeReadyToSettleUponEnum | string;
     'links'?: ApplicationLinks;
 
     static discriminator: string | undefined = undefined;

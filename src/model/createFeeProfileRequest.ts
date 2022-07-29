@@ -181,7 +181,7 @@ export class CreateFeeProfileRequest {
     /**
     * <ul><li>Include <strong>AGGREGATE</strong> if you want to round after the settlement calculation.<li>By default, rounding happens before the sum of the settlement calculation (i.e. round each fee transfer)</ul>
     */
-    'roundingMode'?: CreateFeeProfileRequest.RoundingModeEnum;
+    'roundingMode'?: CreateFeeProfileRequest.RoundingModeEnum | string;
     /**
     * Applied to all U.S.-based credit card authorizations acquired in the U.S. regardless of where the issuer/cardholder is located. If your business is based in the U.S., the acquirer processing fee will apply to all Visa credit card authorizations.
     */

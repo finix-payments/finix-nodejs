@@ -42,7 +42,7 @@ export class CreateIdentityRequestEntity {
     /**
     * Avalible values include: <ul><li><strong>PUBLIC</strong> to indicate a publicly-traded company.<li><strong>PRIVATE</strong> for privately-held businesses.
     */
-    'ownershipType'?: CreateIdentityRequestEntity.OwnershipTypeEnum;
+    'ownershipType'?: CreateIdentityRequestEntity.OwnershipTypeEnum | string;
     /**
     * The legal first name of the merchant\'s control owner (max 20 characters).
     */
@@ -86,7 +86,7 @@ export class CreateIdentityRequestEntity {
     /**
     * Include the value that best applies to the merchant.
     */
-    'businessType'?: CreateIdentityRequestEntity.BusinessTypeEnum;
+    'businessType'?: CreateIdentityRequestEntity.BusinessTypeEnum | string;
     /**
     * Customer service phone number where the merchant can be reached (max 10 characters).
     */

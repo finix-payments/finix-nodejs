@@ -39,7 +39,7 @@ export class SubscriptionSchedule {
     /**
     * `Subscription Schedule` type. For subscriptions, the type is **FEE**.
     */
-    'lineItemType'?: SubscriptionSchedule.LineItemTypeEnum;
+    'lineItemType'?: SubscriptionSchedule.LineItemTypeEnum | string;
     /**
     * Human readable name.
     */
@@ -48,7 +48,7 @@ export class SubscriptionSchedule {
     /**
     * `Subscription Schedule` type.
     */
-    'subscriptionType'?: SubscriptionSchedule.SubscriptionTypeEnum;
+    'subscriptionType'?: SubscriptionSchedule.SubscriptionTypeEnum | string;
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */

@@ -42,7 +42,7 @@ export class CreatePaymentInstrumentRequest {
     /**
     * Type of `Payment Instrument`.
     */
-    'type'?: CreatePaymentInstrumentRequest.TypeEnum;
+    'type'?: CreatePaymentInstrumentRequest.TypeEnum | string;
     /**
     * The ID of the resource.
     */
@@ -55,7 +55,7 @@ export class CreatePaymentInstrumentRequest {
     /**
     * The type of bank account.
     */
-    'accountType'?: CreatePaymentInstrumentRequest.AccountTypeEnum;
+    'accountType'?: CreatePaymentInstrumentRequest.AccountTypeEnum | string;
     /**
     * 3 Letter country code (e.g. USA).
     */

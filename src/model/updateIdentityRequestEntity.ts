@@ -86,7 +86,7 @@ export class UpdateIdentityRequestEntity {
     /**
     * Include the value that best applies to the merchant.
     */
-    'businessType'?: UpdateIdentityRequestEntity.BusinessTypeEnum;
+    'businessType'?: UpdateIdentityRequestEntity.BusinessTypeEnum | string;
     /**
     * Customer service phone number where the merchant can be reached (max 10 characters).
     */

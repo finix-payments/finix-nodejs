@@ -99,7 +99,7 @@ export class IdentityEntity {
     /**
     * Values can be either: <ul><li><strong>PUBLIC</strong> to indicate a publicly-traded company.<li><strong>PRIVATE</strong> for privately-held businesses.
     */
-    'ownershipType'?: IdentityEntity.OwnershipTypeEnum;
+    'ownershipType'?: IdentityEntity.OwnershipTypeEnum | string;
     /**
     * <ul><li>Only required when onboarding a merchant with a <tt>MCC</tt> of <strong>9311</strong>.<li> The <tt>tax_authority</tt> is the tax gathering entity (e.g San Francisco Water Authority).
     */

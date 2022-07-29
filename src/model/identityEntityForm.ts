@@ -48,7 +48,7 @@ export class IdentityEntityForm {
     /**
     * Include the value that applies the best.
     */
-    'businessType'?: IdentityEntityForm.BusinessTypeEnum;
+    'businessType'?: IdentityEntityForm.BusinessTypeEnum | string;
     /**
     * Billing description displayed on the buyer\'s bank or card statement (Length must be between 1 and 20 characters).
     */
@@ -90,7 +90,7 @@ export class IdentityEntityForm {
     /**
     * Values can be either: <ul><li><strong>PUBLIC</strong> to indicate a publicly-traded company.<li><strong>PRIVATE</strong> for privately-held businesses.
     */
-    'ownershipType'?: IdentityEntityForm.OwnershipTypeEnum;
+    'ownershipType'?: IdentityEntityForm.OwnershipTypeEnum | string;
     'personalAddress'?: Address | null;
     /**
     * Principal\'s phone number (max 10 characters).

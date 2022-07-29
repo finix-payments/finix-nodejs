@@ -31,7 +31,7 @@ export class CreateFeeRequest {
     /**
     * Subtype of the fee. Set to **CUSTOM**.
     */
-    'feeSubtype': CreateFeeRequest.FeeSubtypeEnum;
+    'feeSubtype': CreateFeeRequest.FeeSubtypeEnum | string;
     'feeType': FeeType;
     /**
     * ID of the linked resource
@@ -40,7 +40,7 @@ export class CreateFeeRequest {
     /**
     * The type of entity the fee is linked to (**null** by default).
     */
-    'linkedType'?: CreateFeeRequest.LinkedTypeEnum;
+    'linkedType'?: CreateFeeRequest.LinkedTypeEnum | string;
     /**
     * The ID of the resource.
     */

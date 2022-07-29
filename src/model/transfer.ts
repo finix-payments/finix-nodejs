@@ -27,7 +27,7 @@ export class Transfer {
     /**
     * Type of `Transfer`.
     */
-    'type'?: Transfer.TypeEnum;
+    'type'?: Transfer.TypeEnum | string;
     /**
     * The ID of the `Transfer` resource.
     */
@@ -91,7 +91,7 @@ export class Transfer {
     /**
     * The stauts of the `Transfer`.
     */
-    'state'?: Transfer.StateEnum;
+    'state'?: Transfer.StateEnum | string;
     /**
     * The description of the merchant that appears on the buyer\'s bank or card statement.
     */
@@ -99,7 +99,7 @@ export class Transfer {
     /**
     * Additional information describing the `payment_type`.
     */
-    'subtype'?: Transfer.SubtypeEnum;
+    'subtype'?: Transfer.SubtypeEnum | string;
     /**
     * Trace ID of the `Transfer`. The processor sends back the `trace_id` so you can track the `transfer` end-to-end.
     */

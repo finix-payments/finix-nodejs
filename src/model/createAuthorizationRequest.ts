@@ -45,7 +45,7 @@ export class CreateAuthorizationRequest {
     /**
     * Name of the transaction processor.
     */
-    'processor'?: CreateAuthorizationRequest.ProcessorEnum;
+    'processor'?: CreateAuthorizationRequest.ProcessorEnum | string;
     /**
     * The ID of the resource.
     */

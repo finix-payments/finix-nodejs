@@ -19,7 +19,7 @@ export class PaymentInstrumentToken {
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
     'tags'?: { [key: string]: string; };
-    'type'?: PaymentInstrumentToken.TypeEnum;
+    'type'?: PaymentInstrumentToken.TypeEnum | string;
     /**
     * The ID of the resource.
     */
@@ -42,8 +42,8 @@ export class PaymentInstrumentToken {
     * The ID of the resource.
     */
     'identity'?: string | null;
-    'instrumentType'?: PaymentInstrumentToken.InstrumentTypeEnum;
-    'payloadType'?: PaymentInstrumentToken.PayloadTypeEnum;
+    'instrumentType'?: PaymentInstrumentToken.InstrumentTypeEnum | string;
+    'payloadType'?: PaymentInstrumentToken.PayloadTypeEnum | string;
     'links'?: PaymentInstrumentTokenLinks;
 
     static discriminator: string | undefined = undefined;

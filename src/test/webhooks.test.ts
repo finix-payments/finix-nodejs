@@ -33,14 +33,14 @@ describe('Webhooks API', () => {
 
         expect(updatedwebHook.url).toEqual(urlValue);   
         expect(updatedwebHook.enabled).toEqual(false);
-    });
+    }, 20000);
 
     test("Test: Fetch a webhook", async() => {
         const urlValue = "https://eohzjuj2prziycz.m.pipedream.net";
         const fetchedWebhook = await client.Webhooks.get(webhookId);
 
         expect(fetchedWebhook.url).toEqual(urlValue);   
-    });
+    }, 20000);
 
     test("Test: List all webhooks", async() => {
         const webhookList = await client.Webhooks.list();
@@ -61,5 +61,5 @@ describe('Webhooks API', () => {
             expect(nextWebhookList.page.limit).toEqual(expect.any(Number));
             expect(nextWebhookList.size).toEqual(expect.any(Number));
         }
-    });
+    }, 20000);
 })

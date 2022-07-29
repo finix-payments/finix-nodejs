@@ -25,7 +25,7 @@ export class Settlement {
     /**
     * Type of `Settlement`.
     */
-    'type'?: Settlement.TypeEnum;
+    'type'?: Settlement.TypeEnum | string;
     /**
     * The ID of the resource.
     */
@@ -74,7 +74,7 @@ export class Settlement {
     /**
     * The status of the `Settlement`. Available values include:<ul><li>**PENDING**<li>**STAGED**<li>**AWAITING_APPROVAL**<li>**APPROVED**.</ul> Merchants only receive payouts when `Settlements` are **APPROVED**. For more information, see [Payouts](/guides/payouts/payouts/).
     */
-    'status'?: Settlement.StatusEnum;
+    'status'?: Settlement.StatusEnum | string;
     /**
     * Total amount of the `Settlement` (in cents).
     */

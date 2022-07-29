@@ -15,9 +15,9 @@ import { Error402PaymentRequiredEmbeddedErrorsInnerLinks } from './error402Payme
 import { LogRef } from './logRef';
 
 export class Error402PaymentRequiredEmbeddedErrorsInner {
-    'code'?: Error402PaymentRequiredEmbeddedErrorsInner.CodeEnum;
+    'code'?: Error402PaymentRequiredEmbeddedErrorsInner.CodeEnum | string;
     'logref'?: LogRef;
-    'message'?: Error402PaymentRequiredEmbeddedErrorsInner.MessageEnum;
+    'message'?: Error402PaymentRequiredEmbeddedErrorsInner.MessageEnum | string;
     'links'?: Error402PaymentRequiredEmbeddedErrorsInnerLinks;
 
     static discriminator: string | undefined = undefined;

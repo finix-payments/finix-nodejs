@@ -103,7 +103,7 @@ export class Authorization {
     /**
     * The state of the `Authorization`.
     */
-    'state'?: Authorization.StateEnum;
+    'state'?: Authorization.StateEnum | string;
     /**
     * Trace ID of the `Authorization`. The processor sends back the `trace_id` so you can track the authorization end-to-end.
     */

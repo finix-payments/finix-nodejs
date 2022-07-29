@@ -23,7 +23,7 @@ export class IdentityEntityFormBusinessAddress {
     /**
     * 3-Letter Country code.
     */
-    'country': IdentityEntityFormBusinessAddress.CountryEnum;
+    'country': IdentityEntityFormBusinessAddress.CountryEnum | string;
     /**
     * First line of the address (max 35 characters).
     */

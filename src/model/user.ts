@@ -45,7 +45,7 @@ export class User {
     /**
     * Details the level of access the [`User`](#tag/Users) has available.
     */
-    'role'?: User.RoleEnum;
+    'role'?: User.RoleEnum | string;
     'links'?: UserLinks;
 
     static discriminator: string | undefined = undefined;

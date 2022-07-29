@@ -15,7 +15,7 @@ import { Error401UnauthorizedEmbeddedErrorsInnerLinks } from './error401Unauthor
 import { LogRef } from './logRef';
 
 export class Error401UnauthorizedEmbeddedErrorsInner {
-    'code'?: Error401UnauthorizedEmbeddedErrorsInner.CodeEnum;
+    'code'?: Error401UnauthorizedEmbeddedErrorsInner.CodeEnum | string;
     'logref'?: LogRef;
     'message'?: string;
     'links'?: Error401UnauthorizedEmbeddedErrorsInnerLinks;

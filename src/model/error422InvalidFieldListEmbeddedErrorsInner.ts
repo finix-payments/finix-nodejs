@@ -15,7 +15,7 @@ import { Error402PaymentRequiredEmbeddedErrorsInnerLinks } from './error402Payme
 import { LogRef } from './logRef';
 
 export class Error422InvalidFieldListEmbeddedErrorsInner {
-    'code'?: Error422InvalidFieldListEmbeddedErrorsInner.CodeEnum;
+    'code'?: Error422InvalidFieldListEmbeddedErrorsInner.CodeEnum | string;
     'field'?: string;
     'logref'?: LogRef;
     'message'?: string;

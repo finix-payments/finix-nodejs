@@ -42,7 +42,7 @@ export class CreateIdentityRequestAdditionalUnderwritingData {
     /**
     * Include the value that best applies to the merchant\'s refund policy.
     */
-    'refundPolicy'?: CreateIdentityRequestAdditionalUnderwritingData.RefundPolicyEnum;
+    'refundPolicy'?: CreateIdentityRequestAdditionalUnderwritingData.RefundPolicyEnum | string;
     /**
     * A timestamp of when this merchant consented to a credit check (e.g., 2021-04-28T16:42:55Z).
     */

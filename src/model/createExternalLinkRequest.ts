@@ -16,7 +16,7 @@ export class CreateExternalLinkRequest {
     /**
     * <ul><li>Set to <strong>UPLOAD</strong> to create a link that can be used to upload files to Finix.<li>Set to <strong>DOWNLOAD</strong> to create a link where the uploaded file can be downloaded from.<li>Set to <strong>VIEW</strong> to create a link that displays the file in browser.
     */
-    'type'?: CreateExternalLinkRequest.TypeEnum;
+    'type'?: CreateExternalLinkRequest.TypeEnum | string;
     /**
     * Set how long (in minutes) the external link should be active for. The link can be active for up to 7 days in the future.
     */

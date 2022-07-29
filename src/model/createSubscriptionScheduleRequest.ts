@@ -21,7 +21,7 @@ export class CreateSubscriptionScheduleRequest {
     /**
     * Subscription Schedule type. For subscriptions, the type is **FEE**.
     */
-    'lineItemType': CreateSubscriptionScheduleRequest.LineItemTypeEnum;
+    'lineItemType': CreateSubscriptionScheduleRequest.LineItemTypeEnum | string;
     /**
     * Human readable name.
     */
@@ -31,7 +31,7 @@ export class CreateSubscriptionScheduleRequest {
     /**
     * Specify the type of schedule: - **FIXED\\_TIME\\_INTERVAL**: Charges a Merchant on a fixed hourly interval. - **PERIODIC\\_MONTHLY**: Charges a Merchant once a month on a specific day. - **PERIODIC\\_YEARLY**: Charges a Merchant once a year on a specific day and month.
     */
-    'subscriptionType': CreateSubscriptionScheduleRequest.SubscriptionTypeEnum;
+    'subscriptionType': CreateSubscriptionScheduleRequest.SubscriptionTypeEnum | string;
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */

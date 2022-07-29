@@ -106,7 +106,7 @@ export class Merchant {
     /**
     * Details the state of the `Merchant\'s` onboarding.
     */
-    'onboardingState'?: Merchant.OnboardingStateEnum;
+    'onboardingState'?: Merchant.OnboardingStateEnum | string;
     'processorDetails'?: MerchantProcessorDetails;
     'links'?: MerchantLinks;
 

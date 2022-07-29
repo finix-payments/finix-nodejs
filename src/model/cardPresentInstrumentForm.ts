@@ -20,8 +20,8 @@ export class CardPresentInstrumentForm {
     /**
     * The type of `Payment Instrument`.
     */
-    'type'?: CardPresentInstrumentForm.TypeEnum;
-    'availableAccountType'?: CardPresentInstrumentForm.AvailableAccountTypeEnum;
+    'type'?: CardPresentInstrumentForm.TypeEnum | string;
+    'availableAccountType'?: CardPresentInstrumentForm.AvailableAccountTypeEnum | string;
     /**
     * Encrypted card data used to process the transaction.
     */

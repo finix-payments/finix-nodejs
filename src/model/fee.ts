@@ -46,11 +46,11 @@ export class Fee {
     /**
     * Subtype of the `fee`.
     */
-    'feeSubtype'?: Fee.FeeSubtypeEnum;
+    'feeSubtype'?: Fee.FeeSubtypeEnum | string;
     /**
     * The type of `fee`.
     */
-    'feeType'?: Fee.FeeTypeEnum;
+    'feeType'?: Fee.FeeTypeEnum | string;
     /**
     * The name of the `fee` object that was include in `label` when creating the fee.
     */
@@ -62,7 +62,7 @@ export class Fee {
     /**
     * The type of entity the `fee` is linked (**null** by default).
     */
-    'linkedType'?: Fee.LinkedTypeEnum;
+    'linkedType'?: Fee.LinkedTypeEnum | string;
     /**
     * The `Merchant` ID that the fee is being debited from.
     */

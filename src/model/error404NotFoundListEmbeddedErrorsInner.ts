@@ -15,7 +15,7 @@ import { Error402PaymentRequiredEmbeddedErrorsInnerLinks } from './error402Payme
 import { LogRef } from './logRef';
 
 export class Error404NotFoundListEmbeddedErrorsInner {
-    'code'?: Error404NotFoundListEmbeddedErrorsInner.CodeEnum;
+    'code'?: Error404NotFoundListEmbeddedErrorsInner.CodeEnum | string;
     'logref'?: LogRef;
     'message'?: string;
     'links'?: Error402PaymentRequiredEmbeddedErrorsInnerLinks;

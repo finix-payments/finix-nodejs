@@ -33,7 +33,7 @@ export class CreateDevice {
     /**
     * Include one of the following values to let Finix know the type of device that\'s being used.
     */
-    'model'?: CreateDevice.ModelEnum;
+    'model'?: CreateDevice.ModelEnum | string;
     /**
     * Name of the `Device`.
     */

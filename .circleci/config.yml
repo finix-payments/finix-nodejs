@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   sonarqube:
     docker:
-      - image: cimg/openjdk:11.0
+      - image: cimg/node:18.4.0
     resource_class: medium
 
     environment:
@@ -56,19 +56,41 @@ jobs:
 
   assemble:
     docker:
-      - image: cimg/openjdk:11.0
+      - image: cimg/node:18.4.0
     resource_class: medium
 
     steps:
       - checkout
       - run:
-          name: Assemble
-          command: ./gradlew assembleAll
-          working_directory: ~/project/project-composite
+          name: build
+          command: |
+          tsc --build tsconfig.json 
+          npm install 
       - run:
-          name: Show jar files
-          command: find . -name "*boot.jar"
-          working_directory: ~/project/project-composite
+          name: test
+          command: npm test
+      - run: 
+          name: show src files 
+          command: ls -Rlt src
+
+
+  deploy:
+    docker:
+      - image: cimg/node:18.4.0
+    resource_class: medium
+
+    steps:
+      - checkout
+      - run:
+          name: build
+          command: |
+            mkdir -p ~/.m2
+            cp .m2/settings.xml ~/.m2 
+            echo -e $GPG_KEY > PRIVATE_GPG_KEY.asc
+            gpg --batch --import PRIVATE_GPG_KEY.asc
+            mvn package
+            mvn -Drepo.id=${ID} -Drepo.username=${NEXUS_USER} -Drepo.password=${NEXUS_PASSWORD} -Dgpg.keyname="${GPG_ID}" -Dgpg.passphrase="${GPG_PASSP}" verify gpg:sign install:install deploy:deploy
+          working_directory: ~/project
 
 workflows:
   version: 2
@@ -83,3 +105,11 @@ workflows:
           context:
             - sonarqube
 
+  build-deploy:
+      jobs:
+        - deploy:
+            filters:
+              branches:
+                ignore: /.*/
+              tags:
+                only: /^v[0-9]+.*$/

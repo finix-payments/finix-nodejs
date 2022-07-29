@@ -33,7 +33,7 @@ export class SubscriptionAmount {
     /**
     * `Subscription Amount` type. The only type supported as of now is **FEE**.
     */
-    'amountType'?: SubscriptionAmount.AmountTypeEnum;
+    'amountType'?: SubscriptionAmount.AmountTypeEnum | string;
     /**
     * The ID of the `User` that created the `Subscription Amount`.
     */

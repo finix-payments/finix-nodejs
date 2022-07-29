@@ -70,7 +70,7 @@ export class IdentityAdditionalUnderwritingData {
     /**
     * Include the value that best applies to the merchant\'s refund policy.
     */
-    'refundPolicy'?: IdentityAdditionalUnderwritingData.RefundPolicyEnum;
+    'refundPolicy'?: IdentityAdditionalUnderwritingData.RefundPolicyEnum | string;
     'volumeDistributionByBusinessType'?: IdentityAdditionalUnderwritingDataVolumeDistributionByBusinessType | null;
 
     static discriminator: string | undefined = undefined;

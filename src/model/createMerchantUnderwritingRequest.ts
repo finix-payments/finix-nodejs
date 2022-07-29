@@ -20,7 +20,7 @@ export class CreateMerchantUnderwritingRequest {
     /**
     * Name of the gateway that processes the `Merchant\'s` transaction.
     */
-    'gateway'?: CreateMerchantUnderwritingRequest.GatewayEnum;
+    'gateway'?: CreateMerchantUnderwritingRequest.GatewayEnum | string;
     /**
     * Name of acquiring processor that settles the `Merchant\'s` transactions.
     */

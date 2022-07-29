@@ -41,7 +41,7 @@ export class Verification {
     /**
     * The status of the `Verification` request.
     */
-    'state'?: Verification.StateEnum;
+    'state'?: Verification.StateEnum | string;
     /**
     * Timestamp of when the object was created.
     */

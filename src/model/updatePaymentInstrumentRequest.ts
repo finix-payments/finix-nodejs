@@ -45,7 +45,7 @@ export class UpdatePaymentInstrumentRequest {
     /**
     * Type of `Payment Instrument`.
     */
-    'type'?: UpdatePaymentInstrumentRequest.TypeEnum;
+    'type'?: UpdatePaymentInstrumentRequest.TypeEnum | string;
     /**
     * The ID of the resource.
     */
@@ -58,7 +58,7 @@ export class UpdatePaymentInstrumentRequest {
     /**
     * The type of bank account.
     */
-    'accountType'?: UpdatePaymentInstrumentRequest.AccountTypeEnum;
+    'accountType'?: UpdatePaymentInstrumentRequest.AccountTypeEnum | string;
     /**
     * The routing number of the bank account.
     */
