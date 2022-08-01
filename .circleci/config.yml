@@ -65,6 +65,7 @@ jobs:
           name: build
           command: |
             npm install 
+            npm install -g typescript
             tsc --build tsconfig.json 
       - run:
           name: test
