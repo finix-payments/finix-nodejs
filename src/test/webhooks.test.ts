@@ -13,34 +13,28 @@ describe('Webhooks API', () => {
     });
 
     test("Test: Create a webhook", async() => {
-        const urlValue = "https://eohzjuj2prziycz.m.pipedream.net";
+        const urlValue = "https://example.com/";
         let webhook: Models.Webhook;
-    
+
         webhook = await client.Webhooks.create({
             url: urlValue
         });
         webhookId = <string>webhook.id;
-        expect(webhook.url).toBe(urlValue);
-        expect(webhook.application).toBe("APgPDQrLD52TYvqazjHJJchM");
-    }, 20000);
-
-    test("Test: Update webhook", async() => {
-        const urlValue = "https://eohzjuj2prziycz.m.pipedream.net";
         const updatedwebHook = await client.Webhooks.update(webhookId, {
             url: urlValue,
             enabled: false
         });
-
-        expect(updatedwebHook.url).toEqual(urlValue);   
-        expect(updatedwebHook.enabled).toEqual(false);
+        expect(webhook.url).toBe(urlValue);
+        expect(webhook.application).toBe("APgPDQrLD52TYvqazjHJJchM");
     }, 20000);
 
+
     test("Test: Fetch a webhook", async() => {
-        const urlValue = "https://eohzjuj2prziycz.m.pipedream.net";
+        const urlValue = "https://example.com/";
         const fetchedWebhook = await client.Webhooks.get(webhookId);
 
         expect(fetchedWebhook.url).toEqual(urlValue);   
-    }, 20000);
+    });
 
     test("Test: List all webhooks", async() => {
         const webhookList = await client.Webhooks.list();
@@ -62,4 +56,21 @@ describe('Webhooks API', () => {
             expect(nextWebhookList.size).toEqual(expect.any(Number));
         }
     }, 20000);
+
+    test("Test: Update webhook", async() => {
+        const urlValue = "https://example.com/";
+        const updatedwebHook = await client.Webhooks.update(webhookId, {
+            url: urlValue,
+            enabled: true
+        });
+
+        expect(updatedwebHook.url).toEqual(urlValue);   
+        expect(updatedwebHook.enabled).toEqual(true);
+
+        const disableWebhook = await client.Webhooks.update(webhookId, {
+            url: urlValue,
+            enabled: false
+        });
+
+    });
 })
