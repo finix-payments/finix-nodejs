@@ -18,19 +18,16 @@ describe('Merchants Profiles API', () => {
         const fetchedMerchantProfile = await client.MerchantProfiles.get(merchantProfileId);
 
         expect(fetchedMerchantProfile.id).toBe(merchantProfileId);
-        // expect(fetchedMerchant.processor).toBe("DUMMY_V1");
-        // expect(fetchedMerchant.application).toBe("APgPDQrLD52TYvqazjHJJchM");
     });
 
-    // test("Test: Update a merchant profile", async() => {
-    //     const updatedMerchant = await client2.Merchants.update(merchantID, {
-    //         levelTwoLevelThreeDataEnabled: true
-    //     });
+    test("Test: Update a merchant profile", async() => {
+        const updateMerchantProfileRequest: Models.UpdateMerchantProfileRequest = {
+            riskProfile: "RP7akGm3WVYf9Z7omCeeCpgB"
+        };
+        const updatedMerchantProfile = await client.MerchantProfiles.update(merchantProfileId, updateMerchantProfileRequest);
 
-    //     expect(updatedMerchant.id).toBe(merchantID);
-    //     expect(updatedMerchant.application).toBe("APgPDQrLD52TYvqazjHJJchM");
-    //     expect(updatedMerchant.levelTwoLevelThreeDataEnabled).toBe(true);
-    // });
+        expect(updatedMerchantProfile.riskProfile).toBe(updateMerchantProfileRequest.riskProfile);
+    });
 
 
     test("Test: List all merchant profiles", async() => {
