@@ -22,8 +22,6 @@ export class Client {
     readonly Webhooks: finix.WebhooksApi;
 
     protected _basePath = defaultBasePath;
-    protected _defaultHeaders : any = {};
-    protected _useQuerystring : boolean = false;
 
     protected _username;
     protected _password;
@@ -59,20 +57,8 @@ export class Client {
         this.Webhooks = new finix.WebhooksApi(this.username, this.password, this.basePath);
     }
 
-    set useQuerystring(value: boolean) {
-        this._useQuerystring = value;
-    }
-
     set basePath(basePath: string) {
         this._basePath = basePath;
-    }
-
-    set defaultHeaders(defaultHeaders: any) {
-        this._defaultHeaders = defaultHeaders;
-    }
-
-    get defaultHeaders() {
-        return this._defaultHeaders;
     }
 
     get basePath() {

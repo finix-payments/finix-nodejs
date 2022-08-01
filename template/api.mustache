@@ -13,8 +13,6 @@ export class Client {
     {{/apis}}
 
     protected _basePath = defaultBasePath;
-    protected _defaultHeaders : any = {};
-    protected _useQuerystring : boolean = false;
 
     {{#authMethods}}
     {{#isBasicBasic}}
@@ -52,20 +50,8 @@ export class Client {
         {{/apis}}
     }
 
-    set useQuerystring(value: boolean) {
-        this._useQuerystring = value;
-    }
-
     set basePath(basePath: string) {
         this._basePath = basePath;
-    }
-
-    set defaultHeaders(defaultHeaders: any) {
-        this._defaultHeaders = defaultHeaders;
-    }
-
-    get defaultHeaders() {
-        return this._defaultHeaders;
     }
 
     get basePath() {
