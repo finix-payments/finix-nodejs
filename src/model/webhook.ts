@@ -12,6 +12,7 @@
 
 import { RequestFile } from './models';
 import { ProcessorLinks } from './processorLinks';
+import { WebhookAuthentication } from './webhookAuthentication';
 
 export class Webhook {
     /**
@@ -30,6 +31,7 @@ export class Webhook {
     * The ID of the `Application` resource the `Webhook` was created under.
     */
     'application'?: string;
+    'authentication'?: WebhookAuthentication;
     /**
     * Details if the `Webhook` is enabled:<ul><li><strong>true</strong>: Events are being sent to the `url`.<li><strong>false</strong>: Events are not being sent.
     */
@@ -62,6 +64,11 @@ export class Webhook {
             "name": "application",
             "baseName": "application",
             "type": "string"
+        },
+        {
+            "name": "authentication",
+            "baseName": "authentication",
+            "type": "WebhookAuthentication"
         },
         {
             "name": "enabled",

@@ -21,6 +21,7 @@ import { Error404NotFoundList } from '../model/error404NotFoundList';
 import { Error406NotAcceptable } from '../model/error406NotAcceptable';
 import { MerchantProfile } from '../model/merchantProfile';
 import { MerchantProfilesList } from '../model/merchantProfilesList';
+import { UpdateMerchantProfileRequest } from '../model/updateMerchantProfileRequest';
 import { ListMerchantProfilesQueryParams } from '../model/listMerchantProfilesQueryParams';
 import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
 import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
@@ -342,10 +343,10 @@ export class MerchantProfilesApi {
      * Update a merchant profile
      * @summary Update a Merchant Profile
      * @param merchantProfileId ID of merchant profile
-     * @param body 
+     * @param updateMerchantProfileRequest 
      */
 
-    private async updateHelper(merchantProfileId: string, body?: object, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: MerchantProfile;  }> {
+    private async updateHelper(merchantProfileId: string, updateMerchantProfileRequest?: UpdateMerchantProfileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: MerchantProfile;  }> {
         const localVarPath = this.basePath + '/merchant_profiles/{merchant_profile_id}'
             .replace('{' + 'merchant_profile_id' + '}', encodeURIComponent(String(merchantProfileId)));
         let localVarQueryParameters: any = {};
@@ -377,12 +378,12 @@ export class MerchantProfilesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (body && body.hasOwnProperty('file')){
-        //if (body != undefined && body != null && body.hasOwnProperty('file')){
-            localVarRequestOptions.formData = body;
+        if (updateMerchantProfileRequest && updateMerchantProfileRequest.hasOwnProperty('file')){
+        //if (updateMerchantProfileRequest != undefined && updateMerchantProfileRequest != null && updateMerchantProfileRequest.hasOwnProperty('file')){
+            localVarRequestOptions.formData = updateMerchantProfileRequest;
         }
         else{
-            localVarRequestOptions.body = ObjectSerializer.serialize(body, "object");   
+            localVarRequestOptions.body = ObjectSerializer.serialize(updateMerchantProfileRequest, "UpdateMerchantProfileRequest");   
         }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
@@ -424,11 +425,11 @@ export class MerchantProfilesApi {
      * Update a merchant profile
      * @summary Update a Merchant Profile
      * @param merchantProfileId ID of merchant profile
-     * @param body 
+     * @param updateMerchantProfileRequest 
      */
-    public async update(merchantProfileId: string, body?: object, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+    public async update(merchantProfileId: string, updateMerchantProfileRequest?: UpdateMerchantProfileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<MerchantProfile> {
-        const responseObject = await this.updateHelper(merchantProfileId, body,  options);
+        const responseObject = await this.updateHelper(merchantProfileId, updateMerchantProfileRequest,  options);
         return responseObject.body;
     }
 
@@ -436,11 +437,11 @@ export class MerchantProfilesApi {
      * Update a merchant profile
      * @summary Update a Merchant Profile
      * @param merchantProfileId ID of merchant profile
-     * @param body 
+     * @param updateMerchantProfileRequest 
      */
-    public async updateHttp(merchantProfileId: string, body?: object, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+    public async updateHttp(merchantProfileId: string, updateMerchantProfileRequest?: UpdateMerchantProfileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: MerchantProfile; }> {
-        const responseObject = await this.updateHelper(merchantProfileId, body,  options);
+        const responseObject = await this.updateHelper(merchantProfileId, updateMerchantProfileRequest,  options);
         return responseObject;
     }
 

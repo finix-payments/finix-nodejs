@@ -61,6 +61,14 @@ export class UpdateMerchantRequest {
     * Set to **true** to enable the `Merchant` for Level 2 and Level 3 processing. Default value is **false**.
     */
     'levelTwoLevelThreeDataEnabled'?: boolean;
+    /**
+    * Set to **true** if you want to enable the `Merchant` to accept convenience fees and/or service fees.
+    */
+    'convenienceChargesEnabled'?: boolean;
+    /**
+    * Set to **true** if you want to enable a `Merchant` to accept rent charges.
+    */
+    'rentSurchargesEnabled'?: boolean;
 
     static discriminator: string | undefined = undefined;
 
@@ -123,6 +131,16 @@ export class UpdateMerchantRequest {
         {
             "name": "levelTwoLevelThreeDataEnabled",
             "baseName": "level_two_level_three_data_enabled",
+            "type": "boolean"
+        },
+        {
+            "name": "convenienceChargesEnabled",
+            "baseName": "convenience_charges_enabled",
+            "type": "boolean"
+        },
+        {
+            "name": "rentSurchargesEnabled",
+            "baseName": "rent_surcharges_enabled",
             "type": "boolean"
         }    ];
 

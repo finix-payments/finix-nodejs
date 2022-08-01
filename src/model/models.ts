@@ -21,6 +21,7 @@ export * from './applicationProfilesListLinks';
 export * from './applicationsList';
 export * from './applicationsListEmbedded';
 export * from './authorization';
+export * from './authorizationCaptured';
 export * from './authorizationExternalResponsesInner';
 export * from './authorizationLinks';
 export * from './authorizationLinksDevice';
@@ -76,6 +77,9 @@ export * from './createTransferRequest';
 export * from './createUserRequest';
 export * from './createVerificationRequest';
 export * from './createWebhookRequest';
+export * from './createWebhookRequestAuthentication';
+export * from './createWebhookRequestAuthenticationBasic';
+export * from './createWebhookRequestAuthenticationBearer';
 export * from './currency';
 export * from './device';
 export * from './deviceConfigDetails';
@@ -268,6 +272,7 @@ export * from './updateIdentityRequestAdditionalUnderwritingDataVolumeDistributi
 export * from './updateIdentityRequestEntity';
 export * from './updateIdentityRequestEntityBusinessAddress';
 export * from './updateIdentityRequestEntityDob';
+export * from './updateMerchantProfileRequest';
 export * from './updateMerchantRequest';
 export * from './updatePaymentInstrumentRequest';
 export * from './updateSettlementRequest';
@@ -289,6 +294,7 @@ export * from './verificationLinksMerchant';
 export * from './verificationsList';
 export * from './verificationsListEmbedded';
 export * from './webhook';
+export * from './webhookAuthentication';
 export * from './webhooksList';
 export * from './webhooksListEmbedded';
 
@@ -327,6 +333,7 @@ import { ApplicationProfilesListLinks } from './applicationProfilesListLinks';
 import { ApplicationsList } from './applicationsList';
 import { ApplicationsListEmbedded } from './applicationsListEmbedded';
 import { Authorization } from './authorization';
+import { AuthorizationCaptured } from './authorizationCaptured';
 import { AuthorizationExternalResponsesInner } from './authorizationExternalResponsesInner';
 import { AuthorizationLinks } from './authorizationLinks';
 import { AuthorizationLinksDevice } from './authorizationLinksDevice';
@@ -382,6 +389,9 @@ import { CreateTransferRequest } from './createTransferRequest';
 import { CreateUserRequest } from './createUserRequest';
 import { CreateVerificationRequest } from './createVerificationRequest';
 import { CreateWebhookRequest } from './createWebhookRequest';
+import { CreateWebhookRequestAuthentication } from './createWebhookRequestAuthentication';
+import { CreateWebhookRequestAuthenticationBasic } from './createWebhookRequestAuthenticationBasic';
+import { CreateWebhookRequestAuthenticationBearer } from './createWebhookRequestAuthenticationBearer';
 import { Currency } from './currency';
 import { Device } from './device';
 import { DeviceConfigDetails } from './deviceConfigDetails';
@@ -574,6 +584,7 @@ import { UpdateIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusi
 import { UpdateIdentityRequestEntity } from './updateIdentityRequestEntity';
 import { UpdateIdentityRequestEntityBusinessAddress } from './updateIdentityRequestEntityBusinessAddress';
 import { UpdateIdentityRequestEntityDob } from './updateIdentityRequestEntityDob';
+import { UpdateMerchantProfileRequest } from './updateMerchantProfileRequest';
 import { UpdateMerchantRequest } from './updateMerchantRequest';
 import { UpdatePaymentInstrumentRequest } from './updatePaymentInstrumentRequest';
 import { UpdateSettlementRequest } from './updateSettlementRequest';
@@ -595,6 +606,7 @@ import { VerificationLinksMerchant } from './verificationLinksMerchant';
 import { VerificationsList } from './verificationsList';
 import { VerificationsListEmbedded } from './verificationsListEmbedded';
 import { Webhook } from './webhook';
+import { WebhookAuthentication } from './webhookAuthentication';
 import { WebhooksList } from './webhooksList';
 import { WebhooksListEmbedded } from './webhooksListEmbedded';
 
@@ -615,6 +627,7 @@ let enumsMap: {[index: string]: any} = {
         "Application.ReadyToSettleUponEnum": Application.ReadyToSettleUponEnum,
         "Application.FeeReadyToSettleUponEnum": Application.FeeReadyToSettleUponEnum,
         "Authorization.StateEnum": Authorization.StateEnum,
+        "AuthorizationCaptured.StateEnum": AuthorizationCaptured.StateEnum,
         "BalanceTransfer.StateEnum": BalanceTransfer.StateEnum,
         "CardPresentInstrumentForm.TypeEnum": CardPresentInstrumentForm.TypeEnum,
         "CardPresentInstrumentForm.AvailableAccountTypeEnum": CardPresentInstrumentForm.AvailableAccountTypeEnum,
@@ -639,6 +652,7 @@ let enumsMap: {[index: string]: any} = {
         "CreateTransferRequest.GatewayEnum": CreateTransferRequest.GatewayEnum,
         "CreateTransferRequest.InputMethodEnum": CreateTransferRequest.InputMethodEnum,
         "CreateTransferRequest.OperationKeyEnum": CreateTransferRequest.OperationKeyEnum,
+        "CreateWebhookRequestAuthentication.TypeEnum": CreateWebhookRequestAuthentication.TypeEnum,
         "Currency": Currency,
         "Dispute.ReasonEnum": Dispute.ReasonEnum,
         "Dispute.StateEnum": Dispute.StateEnum,
@@ -665,9 +679,9 @@ let enumsMap: {[index: string]: any} = {
         "PaymentInstrument.AccountTypeEnum": PaymentInstrument.AccountTypeEnum,
         "PaymentInstrument.InstrumentTypeEnum": PaymentInstrument.InstrumentTypeEnum,
         "PaymentInstrument.PayloadTypeEnum": PaymentInstrument.PayloadTypeEnum,
-        "PaymentInstrument.AddressVerificationEnum": PaymentInstrument.AddressVerificationEnum,
         "PaymentInstrument.BrandEnum": PaymentInstrument.BrandEnum,
         "PaymentInstrument.CardTypeEnum": PaymentInstrument.CardTypeEnum,
+        "PaymentInstrument.AddressVerificationEnum": PaymentInstrument.AddressVerificationEnum,
         "PaymentInstrument.SecurityCodeVerificationEnum": PaymentInstrument.SecurityCodeVerificationEnum,
         "PaymentInstrumentToken.TypeEnum": PaymentInstrumentToken.TypeEnum,
         "PaymentInstrumentToken.InstrumentTypeEnum": PaymentInstrumentToken.InstrumentTypeEnum,
@@ -695,6 +709,7 @@ let enumsMap: {[index: string]: any} = {
         "UpdatePaymentInstrumentRequest.AccountTypeEnum": UpdatePaymentInstrumentRequest.AccountTypeEnum,
         "User.RoleEnum": User.RoleEnum,
         "Verification.StateEnum": Verification.StateEnum,
+        "WebhookAuthentication.TypeEnum": WebhookAuthentication.TypeEnum,
 }
 
 let typeMap: {[index: string]: any} = {
@@ -719,6 +734,7 @@ let typeMap: {[index: string]: any} = {
     "ApplicationsList": ApplicationsList,
     "ApplicationsListEmbedded": ApplicationsListEmbedded,
     "Authorization": Authorization,
+    "AuthorizationCaptured": AuthorizationCaptured,
     "AuthorizationExternalResponsesInner": AuthorizationExternalResponsesInner,
     "AuthorizationLinks": AuthorizationLinks,
     "AuthorizationLinksDevice": AuthorizationLinksDevice,
@@ -773,6 +789,9 @@ let typeMap: {[index: string]: any} = {
     "CreateUserRequest": CreateUserRequest,
     "CreateVerificationRequest": CreateVerificationRequest,
     "CreateWebhookRequest": CreateWebhookRequest,
+    "CreateWebhookRequestAuthentication": CreateWebhookRequestAuthentication,
+    "CreateWebhookRequestAuthenticationBasic": CreateWebhookRequestAuthenticationBasic,
+    "CreateWebhookRequestAuthenticationBearer": CreateWebhookRequestAuthenticationBearer,
     "Device": Device,
     "DeviceConfigDetails": DeviceConfigDetails,
     "DeviceLinks": DeviceLinks,
@@ -961,6 +980,7 @@ let typeMap: {[index: string]: any} = {
     "UpdateIdentityRequestEntity": UpdateIdentityRequestEntity,
     "UpdateIdentityRequestEntityBusinessAddress": UpdateIdentityRequestEntityBusinessAddress,
     "UpdateIdentityRequestEntityDob": UpdateIdentityRequestEntityDob,
+    "UpdateMerchantProfileRequest": UpdateMerchantProfileRequest,
     "UpdateMerchantRequest": UpdateMerchantRequest,
     "UpdatePaymentInstrumentRequest": UpdatePaymentInstrumentRequest,
     "UpdateSettlementRequest": UpdateSettlementRequest,
@@ -982,6 +1002,7 @@ let typeMap: {[index: string]: any} = {
     "VerificationsList": VerificationsList,
     "VerificationsListEmbedded": VerificationsListEmbedded,
     "Webhook": Webhook,
+    "WebhookAuthentication": WebhookAuthentication,
     "WebhooksList": WebhooksList,
     "WebhooksListEmbedded": WebhooksListEmbedded,
 }

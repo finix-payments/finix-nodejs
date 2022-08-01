@@ -11,6 +11,7 @@
  */
 
 import { RequestFile } from './models';
+import { CreateWebhookRequestAuthentication } from './createWebhookRequestAuthentication';
 
 export class CreateWebhookRequest {
     /**
@@ -21,6 +22,7 @@ export class CreateWebhookRequest {
     * Set to false to disable Webhooks. Default value when created is true.
     */
     'enabled'?: boolean;
+    'authentication'?: CreateWebhookRequestAuthentication;
 
     static discriminator: string | undefined = undefined;
 
@@ -34,6 +36,11 @@ export class CreateWebhookRequest {
             "name": "enabled",
             "baseName": "enabled",
             "type": "boolean"
+        },
+        {
+            "name": "authentication",
+            "baseName": "authentication",
+            "type": "CreateWebhookRequestAuthentication"
         }    ];
 
     static getAttributeTypeMap() {

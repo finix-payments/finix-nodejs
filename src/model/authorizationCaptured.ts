@@ -18,9 +18,9 @@ import { Currency } from './currency';
 import { SubTypeTransfer } from './subTypeTransfer';
 
 /**
-* A charge authorization
+* A captured authorization
 */
-export class Authorization {
+export class AuthorizationCaptured {
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
@@ -103,7 +103,7 @@ export class Authorization {
     /**
     * The state of the `Transfer`.
     */
-    'state'?: Authorization.StateEnum | string;
+    'state'?: AuthorizationCaptured.StateEnum | string;
     /**
     * Trace ID of the `Authorization`. The processor sends back the `trace_id` so you can track the authorization end-to-end.
     */
@@ -235,7 +235,7 @@ export class Authorization {
         {
             "name": "state",
             "baseName": "state",
-            "type": "Authorization.StateEnum"
+            "type": "AuthorizationCaptured.StateEnum"
         },
         {
             "name": "traceId",
@@ -264,11 +264,11 @@ export class Authorization {
         }    ];
 
     static getAttributeTypeMap() {
-        return Authorization.attributeTypeMap;
+        return AuthorizationCaptured.attributeTypeMap;
     }
 }
 
-export namespace Authorization {
+export namespace AuthorizationCaptured {
     export enum StateEnum {
         Canceled = <any> 'CANCELED',
         Pending = <any> 'PENDING',

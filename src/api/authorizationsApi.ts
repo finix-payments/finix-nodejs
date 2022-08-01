@@ -16,6 +16,7 @@ import * as http from 'http';
 import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
 import { Authorization } from '../model/authorization';
+import { AuthorizationCaptured } from '../model/authorizationCaptured';
 import { AuthorizationsList } from '../model/authorizationsList';
 import { CreateAuthorizationRequest } from '../model/createAuthorizationRequest';
 import { Error401Unauthorized } from '../model/error401Unauthorized';
@@ -108,6 +109,112 @@ export class AuthorizationsApi {
         this.interceptors.push(interceptor);
     }
 
+    /**
+     * Helper function. 
+     * If successfully captured, the `transfer` field of the `Authorization` will contain the ID of the `Transfer` resource that\'ll move funds.   By default, `Transfers` are in a **PENDING** state. The **PENDING** state means the system hasn\'t submitted the request to capture funds. Capture requests get submitted via a batch request.   Once the `Authorization` is updated with a `capture_amount` (i.e. *Captured*), the state of the `Transfer` will update to **SUCCEEDED**.  > Voided `Authorizations` can\'t be captured.
+     * @summary Capture an Authorization
+     * @param authorizationId ID of authorization to fetch
+     * @param updateAuthorizationRequest 
+     */
+
+    private async updateHelper(authorizationId: string, updateAuthorizationRequest?: UpdateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: AuthorizationCaptured;  }> {
+        const localVarPath = this.basePath + '/authorizations/{authorization_id}'
+            .replace('{' + 'authorization_id' + '}', encodeURIComponent(String(authorizationId)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
+        const produces = ['application/hal+json'];
+        // give precedence to 'application/json'
+        if (produces.indexOf('application/json') >= 0) {
+            localVarHeaderParams.Accept = 'application/json';
+        } else {
+            localVarHeaderParams.Accept = produces.join(',');
+        }
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'authorizationId' is not null or undefined
+        if (authorizationId === null || authorizationId === undefined) {
+            throw new Error('Required parameter authorizationId was null or undefined when calling captureAuthorization.');
+        }
+
+        (<any>Object).assign(localVarHeaderParams, options.headers);
+        localVarHeaderParams['Finix-Version'] = "2022-02-01";
+        localVarHeaderParams['Content-Type'] = "application/hal+json";
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'PUT',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+        if (updateAuthorizationRequest && updateAuthorizationRequest.hasOwnProperty('file')){
+        //if (updateAuthorizationRequest != undefined && updateAuthorizationRequest != null && updateAuthorizationRequest.hasOwnProperty('file')){
+            localVarRequestOptions.formData = updateAuthorizationRequest;
+        }
+        else{
+            localVarRequestOptions.body = ObjectSerializer.serialize(updateAuthorizationRequest, "UpdateAuthorizationRequest");   
+        }
+        let authenticationPromise = Promise.resolve();
+        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
+            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
+        }
+        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+
+        let interceptorPromise = authenticationPromise;
+        for (const interceptor of this.interceptors) {
+            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+        }
+
+        return interceptorPromise.then(() => {
+            if (Object.keys(localVarFormParams).length) {
+                if (localVarUseFormData) {
+                    (<any>localVarRequestOptions).formData = localVarFormParams;
+                } else {
+                    localVarRequestOptions.form = localVarFormParams;
+                }
+            }
+            return new Promise<{ response: http.IncomingMessage; body: AuthorizationCaptured;  }>((resolve, reject) => {
+                localVarRequest(localVarRequestOptions, (error, response, body) => {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            body = ObjectSerializer.deserialize(body, "AuthorizationCaptured");
+                            resolve({ response: response, body: body });
+                        } else {
+                            reject(new HttpError(response, body, response.statusCode));
+                        }
+                    }
+                });
+            });
+        });
+    }
+
+    /**
+     * If successfully captured, the `transfer` field of the `Authorization` will contain the ID of the `Transfer` resource that\'ll move funds.   By default, `Transfers` are in a **PENDING** state. The **PENDING** state means the system hasn\'t submitted the request to capture funds. Capture requests get submitted via a batch request.   Once the `Authorization` is updated with a `capture_amount` (i.e. *Captured*), the state of the `Transfer` will update to **SUCCEEDED**.  > Voided `Authorizations` can\'t be captured.
+     * @summary Capture an Authorization
+     * @param authorizationId ID of authorization to fetch
+     * @param updateAuthorizationRequest 
+     */
+    public async update(authorizationId: string, updateAuthorizationRequest?: UpdateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<AuthorizationCaptured> {
+        const responseObject = await this.updateHelper(authorizationId, updateAuthorizationRequest,  options);
+        return responseObject.body;
+    }
+
+    /**
+     * If successfully captured, the `transfer` field of the `Authorization` will contain the ID of the `Transfer` resource that\'ll move funds.   By default, `Transfers` are in a **PENDING** state. The **PENDING** state means the system hasn\'t submitted the request to capture funds. Capture requests get submitted via a batch request.   Once the `Authorization` is updated with a `capture_amount` (i.e. *Captured*), the state of the `Transfer` will update to **SUCCEEDED**.  > Voided `Authorizations` can\'t be captured.
+     * @summary Capture an Authorization
+     * @param authorizationId ID of authorization to fetch
+     * @param updateAuthorizationRequest 
+     */
+    public async updateHttp(authorizationId: string, updateAuthorizationRequest?: UpdateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+        Promise<{response: http.IncomingMessage, body: AuthorizationCaptured; }> {
+        const responseObject = await this.updateHelper(authorizationId, updateAuthorizationRequest,  options);
+        return responseObject;
+    }
     /**
      * Helper function. 
      * Create an `Authorization` to process a transaction.  `Authorizations` can have two possible `states`:  - **SUCCEEDED**  - **FAILED**  If the `Authorization` has **SUCCEEDED** , it must be captured before `expires_at` passes or the funds will be released.  Learn how to prevent duplicate authorizations by passing an [Idempotency ID](#section/Idempotency-Requests) in the payload.
@@ -513,112 +620,6 @@ export class AuthorizationsApi {
         dataList = this.embeddedHelper(responseObject, dataList);
         //dataList.hasMore = !reachedEnd;
         return Promise.resolve({response: responseObject.response, body: dataList});
-    }
-    /**
-     * Helper function. 
-     * If successfully captured, the `transfer` field of the `Authorization` will contain the ID of the `Transfer` resource that\'ll move funds.   By default, `Transfers` are in a **PENDING** state. The **PENDING** state means the system hasn\'t submitted the request to capture funds. Capture requests get submitted via a batch request.   Once the `Authorization` is updated with a `capture_amount` (i.e. *Captured*), the state of the `Transfer` will update to **SUCCEEDED**.  > Voided `Authorizations` can\'t be captured.
-     * @summary Update an Authorization
-     * @param authorizationId ID of authorization to fetch
-     * @param updateAuthorizationRequest 
-     */
-
-    private async updateHelper(authorizationId: string, updateAuthorizationRequest?: UpdateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Authorization;  }> {
-        const localVarPath = this.basePath + '/authorizations/{authorization_id}'
-            .replace('{' + 'authorization_id' + '}', encodeURIComponent(String(authorizationId)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        } else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'authorizationId' is not null or undefined
-        if (authorizationId === null || authorizationId === undefined) {
-            throw new Error('Required parameter authorizationId was null or undefined when calling updateAuthorization.');
-        }
-
-        (<any>Object).assign(localVarHeaderParams, options.headers);
-        localVarHeaderParams['Finix-Version'] = "2022-02-01";
-        localVarHeaderParams['Content-Type'] = "application/hal+json";
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'PUT',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        if (updateAuthorizationRequest && updateAuthorizationRequest.hasOwnProperty('file')){
-        //if (updateAuthorizationRequest != undefined && updateAuthorizationRequest != null && updateAuthorizationRequest.hasOwnProperty('file')){
-            localVarRequestOptions.formData = updateAuthorizationRequest;
-        }
-        else{
-            localVarRequestOptions.body = ObjectSerializer.serialize(updateAuthorizationRequest, "UpdateAuthorizationRequest");   
-        }
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    (<any>localVarRequestOptions).formData = localVarFormParams;
-                } else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
-            }
-            return new Promise<{ response: http.IncomingMessage; body: Authorization;  }>((resolve, reject) => {
-                localVarRequest(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
-                    } else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = ObjectSerializer.deserialize(body, "Authorization");
-                            resolve({ response: response, body: body });
-                        } else {
-                            reject(new HttpError(response, body, response.statusCode));
-                        }
-                    }
-                });
-            });
-        });
-    }
-
-    /**
-     * If successfully captured, the `transfer` field of the `Authorization` will contain the ID of the `Transfer` resource that\'ll move funds.   By default, `Transfers` are in a **PENDING** state. The **PENDING** state means the system hasn\'t submitted the request to capture funds. Capture requests get submitted via a batch request.   Once the `Authorization` is updated with a `capture_amount` (i.e. *Captured*), the state of the `Transfer` will update to **SUCCEEDED**.  > Voided `Authorizations` can\'t be captured.
-     * @summary Update an Authorization
-     * @param authorizationId ID of authorization to fetch
-     * @param updateAuthorizationRequest 
-     */
-    public async update(authorizationId: string, updateAuthorizationRequest?: UpdateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<Authorization> {
-        const responseObject = await this.updateHelper(authorizationId, updateAuthorizationRequest,  options);
-        return responseObject.body;
-    }
-
-    /**
-     * If successfully captured, the `transfer` field of the `Authorization` will contain the ID of the `Transfer` resource that\'ll move funds.   By default, `Transfers` are in a **PENDING** state. The **PENDING** state means the system hasn\'t submitted the request to capture funds. Capture requests get submitted via a batch request.   Once the `Authorization` is updated with a `capture_amount` (i.e. *Captured*), the state of the `Transfer` will update to **SUCCEEDED**.  > Voided `Authorizations` can\'t be captured.
-     * @summary Update an Authorization
-     * @param authorizationId ID of authorization to fetch
-     * @param updateAuthorizationRequest 
-     */
-    public async updateHttp(authorizationId: string, updateAuthorizationRequest?: UpdateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: Authorization; }> {
-        const responseObject = await this.updateHelper(authorizationId, updateAuthorizationRequest,  options);
-        return responseObject;
     }
 
     /**

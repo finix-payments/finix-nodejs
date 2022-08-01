@@ -161,9 +161,9 @@ export class CreatePaymentInstrumentRequest {
 
 export namespace CreatePaymentInstrumentRequest {
     export enum TypeEnum {
-        Token = <any> 'TOKEN',
         PaymentCard = <any> 'PAYMENT_CARD',
         ApplePay = <any> 'APPLE_PAY',
+        Token = <any> 'TOKEN',
         BankAccount = <any> 'BANK_ACCOUNT'
     }
     export enum AccountTypeEnum {

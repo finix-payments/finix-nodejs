@@ -88,6 +88,7 @@ export namespace CreateDevice {
         Isc250 = <any> 'ISC250',
         Isc480 = <any> 'ISC480',
         Ismp4 = <any> 'ISMP4',
-        Android = <any> 'ANDROID'
+        Android = <any> 'ANDROID',
+        Lane3000 = <any> 'LANE_3000'
     }
 }

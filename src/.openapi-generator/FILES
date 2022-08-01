@@ -38,6 +38,7 @@ model/applicationProfilesListLinks.ts
 model/applicationsList.ts
 model/applicationsListEmbedded.ts
 model/authorization.ts
+model/authorizationCaptured.ts
 model/authorizationExternalResponsesInner.ts
 model/authorizationLinks.ts
 model/authorizationLinksDevice.ts
@@ -93,6 +94,9 @@ model/createTransferRequest.ts
 model/createUserRequest.ts
 model/createVerificationRequest.ts
 model/createWebhookRequest.ts
+model/createWebhookRequestAuthentication.ts
+model/createWebhookRequestAuthenticationBasic.ts
+model/createWebhookRequestAuthenticationBearer.ts
 model/currency.ts
 model/device.ts
 model/deviceConfigDetails.ts
@@ -286,6 +290,7 @@ model/updateIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusines
 model/updateIdentityRequestEntity.ts
 model/updateIdentityRequestEntityBusinessAddress.ts
 model/updateIdentityRequestEntityDob.ts
+model/updateMerchantProfileRequest.ts
 model/updateMerchantRequest.ts
 model/updatePaymentInstrumentRequest.ts
 model/updateSettlementRequest.ts
@@ -307,5 +312,6 @@ model/verificationLinksMerchant.ts
 model/verificationsList.ts
 model/verificationsListEmbedded.ts
 model/webhook.ts
+model/webhookAuthentication.ts
 model/webhooksList.ts
 model/webhooksListEmbedded.ts

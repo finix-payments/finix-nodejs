@@ -156,8 +156,8 @@ export class UpdatePaymentInstrumentRequest {
 export namespace UpdatePaymentInstrumentRequest {
     export enum TypeEnum {
         PaymentCard = <any> 'PAYMENT_CARD',
-        BankAccount = <any> 'BANK_ACCOUNT',
-        Token = <any> 'TOKEN'
+        Token = <any> 'TOKEN',
+        BankAccount = <any> 'BANK_ACCOUNT'
     }
     export enum AccountTypeEnum {
         Checking = <any> 'CHECKING',

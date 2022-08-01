@@ -58,7 +58,7 @@ export class Device {
     */
     'merchant'?: string;
     /**
-    * Please select one of the following values which will let Finix know the type of device being used:<ul><li>BBPOS<li>MX915<li>MX925<li>IPP320<li>IPP350<li>ISC250<li>ISC480<li>ISMP4<li>LANE\\_3000<li>ANDROID
+    * Details the model of the card reader.
     */
     'model'?: string;
     /**

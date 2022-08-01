@@ -108,6 +108,14 @@ export class Merchant {
     */
     'onboardingState'?: Merchant.OnboardingStateEnum | string;
     'processorDetails'?: MerchantProcessorDetails;
+    /**
+    * Set to **true** if you want to enable the `Merchant` to accept convenience fees and/or service fees.
+    */
+    'convenienceChargesEnabled'?: boolean;
+    /**
+    * Set to **true** if you want to enable a `Merchant` to accept rent charges.
+    */
+    'rentSurchargesEnabled'?: boolean;
     'links'?: MerchantLinks;
 
     static discriminator: string | undefined = undefined;
@@ -232,6 +240,16 @@ export class Merchant {
             "name": "processorDetails",
             "baseName": "processor_details",
             "type": "MerchantProcessorDetails"
+        },
+        {
+            "name": "convenienceChargesEnabled",
+            "baseName": "convenience_charges_enabled",
+            "type": "boolean"
+        },
+        {
+            "name": "rentSurchargesEnabled",
+            "baseName": "rent_surcharges_enabled",
+            "type": "boolean"
         },
         {
             "name": "links",

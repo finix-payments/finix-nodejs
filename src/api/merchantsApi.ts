@@ -565,7 +565,7 @@ export class MerchantsApi {
     }
     /**
      * Helper function. 
-     * Update a `Merchant` to change the `Identity` information saved with the underlying processor, or enable Level 2/3 processing.
+     * Update a `Merchant` to:  - Change the `Identity` information saved with the underlying processor - Enable Level 2/3 processing - Enable [Buyer Chages](/guides/payments/buyer-charges/)
      * @summary Update a Merchant
      * @param merchantId ID of &#x60;Merchant&#x60;.
      * @param updateMerchantRequest 
@@ -647,7 +647,7 @@ export class MerchantsApi {
     }
 
     /**
-     * Update a `Merchant` to change the `Identity` information saved with the underlying processor, or enable Level 2/3 processing.
+     * Update a `Merchant` to:  - Change the `Identity` information saved with the underlying processor - Enable Level 2/3 processing - Enable [Buyer Chages](/guides/payments/buyer-charges/)
      * @summary Update a Merchant
      * @param merchantId ID of &#x60;Merchant&#x60;.
      * @param updateMerchantRequest 
@@ -659,7 +659,7 @@ export class MerchantsApi {
     }
 
     /**
-     * Update a `Merchant` to change the `Identity` information saved with the underlying processor, or enable Level 2/3 processing.
+     * Update a `Merchant` to:  - Change the `Identity` information saved with the underlying processor - Enable Level 2/3 processing - Enable [Buyer Chages](/guides/payments/buyer-charges/)
      * @summary Update a Merchant
      * @param merchantId ID of &#x60;Merchant&#x60;.
      * @param updateMerchantRequest 
