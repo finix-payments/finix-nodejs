@@ -250,10 +250,10 @@ describe('Transfers API', () => {
         expect(deserializedList.embedded.transfers[0]).toBeDefined();
     }, 20000);
 
-    test("Test: deserialize function test -- transfer", async() => {
+    test("Test: deserialize function and unexpected enum test -- transfer", async() => {
         const httpMessage = await client.Transfers.getHttp("TRnH7FkSB7zePeHExNZwSb9H");
         const transferRaw = httpMessage.response["body"];
-        
+        transferRaw["state"] = "RANDOM_STATE";
         const deserializedTransfer = Models.ObjectSerializer.deserialize(transferRaw, "Transfer");
         let readyToSettleAtDate = new Date("2022-07-07T04:00:00.000Z");
         let createdAtDate = new Date("2022-07-05T21:19:26.36Z");
@@ -262,7 +262,7 @@ describe('Transfers API', () => {
         expect(deserializedTransfer.id).toBe("TRnH7FkSB7zePeHExNZwSb9H");
         expect(deserializedTransfer.amount).toBe(7);
         expect(deserializedTransfer.tags["pagination"]).toBe("true!");
-        expect(deserializedTransfer.state).toBe("SUCCEEDED");
+        expect(deserializedTransfer.state).toBe("RANDOM_STATE");
         expect(deserializedTransfer.traceId).toBe("0e201222-d357-4038-9ed2-23a38482fd07");
         expect(deserializedTransfer.currency).toBe("USD");
         expect(deserializedTransfer.application).toBe("APgPDQrLD52TYvqazjHJJchM");
