@@ -64,7 +64,6 @@ jobs:
       - run:
           name: build
           command: |
-            rm -rf node_modules package-lock.json
             npm install 
             tsc --build tsconfig.json 
       - run:
@@ -100,12 +99,11 @@ workflows:
     jobs:
       - assemble
 
-  sonarqube:
-    jobs:
-      - sonarqube:
-          context:
-            - sonarqube
-
+  # sonarqube:
+  #   jobs:
+  #     - sonarqube:
+  #         context:
+  #           - sonarqube
   build-deploy:
       jobs:
         - deploy:
