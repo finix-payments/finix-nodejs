@@ -1,5 +1,5 @@
 require("mocha");
-const {Client, Environment, Models} = require ('../src/api');
+const {Client, Environment, Models} = require ('../api');
 var assert = require("chai").assert;
 
 
