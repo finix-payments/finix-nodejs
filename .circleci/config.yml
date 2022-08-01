@@ -70,7 +70,7 @@ jobs:
       - run:
           name: test - typescript
           command: npm test
-      -run: 
+      - run: 
           name: test - javascript
           command: |
             ./node_modules/.bin/mocha src/test/filesTestJS.js
