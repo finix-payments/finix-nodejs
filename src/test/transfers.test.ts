@@ -237,4 +237,57 @@ describe('Transfers API', () => {
         }
     }, 20000);
 
+    test("Test: deserialize function test -- transfer list", async() => {
+        const httpMessage = await client.Transfers.listHttp();
+        const transferListRaw = httpMessage.response["body"];
+        
+        const deserializedList = Models.ObjectSerializer.deserialize(transferListRaw, "TransfersList");
+        expect(deserializedList.page.limit).toBe(100);
+        expect(deserializedList.page.nextCursor).toEqual(expect.any(String));
+
+        expect(deserializedList.links.next.href).toEqual(expect.any(String));
+        expect(deserializedList.links.self.href).toBe("https://finix.sandbox-payments-api.com/transfers");
+        expect(deserializedList.embedded.transfers[0]).toBeDefined();
+    }, 20000);
+
+    test("Test: deserialize function test -- transfer", async() => {
+        const httpMessage = await client.Transfers.getHttp("TRnH7FkSB7zePeHExNZwSb9H");
+        const transferRaw = httpMessage.response["body"];
+        
+        const deserializedTransfer = Models.ObjectSerializer.deserialize(transferRaw, "Transfer");
+        let readyToSettleAtDate = new Date("2022-07-07T04:00:00.000Z");
+        let createdAtDate = new Date("2022-07-05T21:19:26.36Z");
+        let updatedAtDate = new Date("2022-07-05T21:20:06.88Z");
+
+        expect(deserializedTransfer.id).toBe("TRnH7FkSB7zePeHExNZwSb9H");
+        expect(deserializedTransfer.amount).toBe(7);
+        expect(deserializedTransfer.tags["pagination"]).toBe("true!");
+        expect(deserializedTransfer.state).toBe("SUCCEEDED");
+        expect(deserializedTransfer.traceId).toBe("0e201222-d357-4038-9ed2-23a38482fd07");
+        expect(deserializedTransfer.currency).toBe("USD");
+        expect(deserializedTransfer.application).toBe("APgPDQrLD52TYvqazjHJJchM");
+        expect(deserializedTransfer.source).toBe(null);
+        expect(deserializedTransfer.destination).toBe("PIe2YvpcjvoVJ6PzoRPBK137");
+        
+        expect(deserializedTransfer.readyToSettleAt.toTimeString()).toBe(readyToSettleAtDate.toTimeString());
+        expect(deserializedTransfer.externallyFunded).toBe("FALSE");
+        expect(deserializedTransfer.fee).toBe(0);
+        expect(deserializedTransfer.statementDescriptor).toBe("FNX*DUNDER MIFFLIN");
+        expect(deserializedTransfer.type).toBe("REVERSAL");
+        expect(deserializedTransfer.raw).toBe(null);
+        expect(deserializedTransfer.createdAt.toTimeString()).toBe(createdAtDate.toTimeString());
+        expect(deserializedTransfer.updatedAt.toTimeString()).toBe(updatedAtDate.toTimeString());
+        expect(deserializedTransfer.idempotencyId).toBe(null);
+        expect(deserializedTransfer.merchantIdentity).toBe("IDuqZpDw28f2KK6YuDk4jNLg");
+        expect(deserializedTransfer.subtype).toBe("API");
+        expect(deserializedTransfer.failureCode).toBe(null);
+        expect(deserializedTransfer.failureMessage).toBe(null);
+        expect(deserializedTransfer.links.application.href).toBe("https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM");
+        expect(deserializedTransfer.links.destination.href).toBe("https://finix.sandbox-payments-api.com/payment_instruments/PIe2YvpcjvoVJ6PzoRPBK137");
+        expect(deserializedTransfer.links.feeProfile.href).toBe("https://finix.sandbox-payments-api.com/fee_profiles/FPvCQUcnsueN3Bc3zR1qCBG8");
+        expect(deserializedTransfer.links.merchantIdentity.href).toBe("https://finix.sandbox-payments-api.com/identities/IDuqZpDw28f2KK6YuDk4jNLg");
+        expect(deserializedTransfer.links.paymentInstruments.href).toBe("https://finix.sandbox-payments-api.com/transfers/TRnH7FkSB7zePeHExNZwSb9H/payment_instruments");
+        expect(deserializedTransfer.links.self.href).toBe("https://finix.sandbox-payments-api.com/transfers/TRnH7FkSB7zePeHExNZwSb9H");
+        expect(deserializedTransfer.links.parent.href).toBe("https://finix.sandbox-payments-api.com/transfers/TRacB6Q6GcW6yvFUKawSnMEP");
+    }, 20000);
 })
