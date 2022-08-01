@@ -280,13 +280,13 @@ paths:
         \ requests get submitted via a batch request. \n\nOnce the `Authorization`\
         \ is updated with a `capture_amount` (i.e. *Captured*), the state of the `Transfer`\
         \ will update to **SUCCEEDED**.\n\n> Voided `Authorizations` can't be captured."
-      summary: Update an Authorization
-      operationId: updateAuthorization
+      summary: Capture an Authorization
+      operationId: captureAuthorization
       requestBody:
         $ref: '#/components/requestBodies/UpdateAuthorizationRequest'
       responses:
         '200':
-          $ref: '#/components/responses/Authorization'
+          $ref: '#/components/responses/AuthorizationUpdated'
         '401':
           $ref: '#/components/responses/ErrorUnauthorized'
         '403':
@@ -1047,8 +1047,9 @@ paths:
     put:
       tags:
       - Merchants
-      description: Update a `Merchant` to change the `Identity` information saved
-        with the underlying processor, or enable Level 2/3 processing.
+      description: "Update a `Merchant` to: \n- Change the `Identity` information\
+        \ saved with the underlying processor\n- Enable Level 2/3 processing\n- Enable\
+        \ [Buyer Chages](/guides/payments/buyer-charges/)"
       summary: Update a Merchant
       operationId: updateMerchant
       requestBody:
@@ -1100,7 +1101,7 @@ paths:
       summary: Update a Merchant Profile
       operationId: updateMerchantProfile
       requestBody:
-        $ref: '#/components/requestBodies/CreateMerchantProfileRequest'
+        $ref: '#/components/requestBodies/UpdateMerchantProfileRequest'
       responses:
         '200':
           $ref: '#/components/responses/MerchantProfile'
@@ -3106,11 +3107,15 @@ components:
         application/hal+json:
           schema:
             $ref: '#/components/schemas/CreateSettlementRequest'
-    CreateMerchantProfileRequest:
+    UpdateMerchantProfileRequest:
       content:
         application/hal+json:
           schema:
-            type: object
+            $ref: '#/components/schemas/UpdateMerchantProfileRequest'
+          examples:
+            Update the fee_profile for a merchant_profile:
+              value:
+                fee_profile: FP4xXhxyFRiRePKBQXmueVTh
     CreateMerchantUnderwritingRequest:
       content:
         application/hal+json:
@@ -3142,7 +3147,7 @@ components:
                 expiration_year: 2029
                 tags:
                   card_name: Business Card
-                number: '4895142232120006'
+                number: '5200828282828210'
                 expiration_month: 12
                 address:
                   city: San Francisco
@@ -3379,9 +3384,27 @@ components:
           schema:
             $ref: '#/components/schemas/CreateWebhookRequest'
           examples:
-            example-1:
+            Create a webhook with no authentication:
               value:
-                url: https://eohzjuj2prziycz.m.pipedream.net
+                url: https://example.com/event_handler
+                authentication:
+                  type: NONE
+            Create a webhook with Basic authentication:
+              value:
+                url: https://example.com/event_handler
+                authentication:
+                  type: BASIC
+                  basic:
+                    username: basic-auth-username
+                    password: basic-auth-password
+            Create a webhook with Bearer Token authentication:
+              value:
+                url: https://example.com/event_handler
+                enabled: true
+                authentication:
+                  type: BEARER
+                  bearer:
+                    token: U3VwZXIgc2VjcmV0IGVuY29kZWQgdG9rZW4=
     UpdateTransferRequest:
       content:
         application/hal+json:
@@ -3529,6 +3552,10 @@ components:
             Update Merchant to Enable Level 2/3 Processing:
               value:
                 level_two_level_three_data_enabled: true
+            Update Merchant to Enable Buyer Charges:
+              value:
+                convenience_charges_enabled: true
+                rent_surcharges_enabled: true
     UpdateIdentityRequest:
       content:
         application/hal+json:
@@ -3959,7 +3986,7 @@ components:
                   order_number: 21DFASJSAKAS
                 state: SUCCEEDED
                 currency: USD
-                transfer: null
+                transfer: TRsBcF8LjV1UaK5vXY6pFHmG
                 messages: []
                 raw: null
                 created_at: '2022-01-27T07:37:19.95Z'
@@ -5956,6 +5983,23 @@ components:
         application/hal+json:
           schema:
             $ref: '#/components/schemas/MerchantProfile'
+          examples:
+            example-1:
+              value:
+                id: MP7HiDjJ7EqugtsvpegheVsg
+                tags: {}
+                application: APgPDQrLD52TYvqazjHJJchM
+                fee_profile: null
+                risk_profile: RPfKXVDKtuBcT7h7izjK8wwy
+                created_at: '2022-07-29T22:58:36.24Z'
+                updated_at: '2022-07-29T22:59:19.64Z'
+                _links:
+                  self:
+                    href: https://finix.sandbox-payments-api.com/merchant_profiles/MP7HiDjJ7EqugtsvpegheVsg
+                  application:
+                    href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                  risk_profile:
+                    href: https://finix.sandbox-payments-api.com/risk_profiles/RPfKXVDKtuBcT7h7izjK8wwy
       headers:
         finix-apiuser-role:
           $ref: '#/components/headers/finix-apiuser-role'
@@ -5969,6 +6013,301 @@ components:
         application/hal+json:
           schema:
             $ref: '#/components/schemas/MerchantProfilesList'
+          examples:
+            example-1:
+              value:
+                _embedded:
+                  merchant_profiles:
+                  - id: MPvipzmJ9gFxnQToE7UmhJnG
+                    tags: {}
+                    application: APgPDQrLD52TYvqazjHJJchM
+                    fee_profile: null
+                    risk_profile: RPmKn5nJZ9PWAWC97UHkWsgP
+                    created_at: '2022-07-29T22:58:40.31Z'
+                    updated_at: '2022-07-29T22:59:18.65Z'
+                    _links:
+                      self:
+                        href: https://finix.sandbox-payments-api.com/merchant_profiles/MPvipzmJ9gFxnQToE7UmhJnG
+                      application:
+                        href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                      risk_profile:
+                        href: https://finix.sandbox-payments-api.com/risk_profiles/RPmKn5nJZ9PWAWC97UHkWsgP
+                  - id: MPiWtF8yhkNcRNTh3oZj6CoY
+                    tags: {}
+                    application: APgPDQrLD52TYvqazjHJJchM
+                    fee_profile: null
+                    risk_profile: RP2pAvSqH61vNjbmtFYHJeSc
+                    created_at: '2022-07-29T22:58:39.17Z'
+                    updated_at: '2022-07-29T22:59:18.33Z'
+                    _links:
+                      self:
+                        href: https://finix.sandbox-payments-api.com/merchant_profiles/MPiWtF8yhkNcRNTh3oZj6CoY
+                      application:
+                        href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                      risk_profile:
+                        href: https://finix.sandbox-payments-api.com/risk_profiles/RP2pAvSqH61vNjbmtFYHJeSc
+                  - id: MPe2bsw8iejQDP3t963sdudM
+                    tags: {}
+                    application: APgPDQrLD52TYvqazjHJJchM
+                    fee_profile: null
+                    risk_profile: RPcXZ276MpjBgHcEkgeKaQ9i
+                    created_at: '2022-07-29T22:58:37.42Z'
+                    updated_at: '2022-07-29T22:59:18.91Z'
+                    _links:
+                      self:
+                        href: https://finix.sandbox-payments-api.com/merchant_profiles/MPe2bsw8iejQDP3t963sdudM
+                      application:
+                        href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                      risk_profile:
+                        href: https://finix.sandbox-payments-api.com/risk_profiles/RPcXZ276MpjBgHcEkgeKaQ9i
+                  - id: MP7HiDjJ7EqugtsvpegheVsg
+                    tags: {}
+                    application: APgPDQrLD52TYvqazjHJJchM
+                    fee_profile: null
+                    risk_profile: RPfKXVDKtuBcT7h7izjK8wwy
+                    created_at: '2022-07-29T22:58:36.24Z'
+                    updated_at: '2022-07-29T22:59:19.64Z'
+                    _links:
+                      self:
+                        href: https://finix.sandbox-payments-api.com/merchant_profiles/MP7HiDjJ7EqugtsvpegheVsg
+                      application:
+                        href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                      risk_profile:
+                        href: https://finix.sandbox-payments-api.com/risk_profiles/RPfKXVDKtuBcT7h7izjK8wwy
+                  - id: MPv9EzJamc7uJg9B71tzp6W2
+                    tags: {}
+                    application: APgPDQrLD52TYvqazjHJJchM
+                    fee_profile: null
+                    risk_profile: RP5XMHAB2JwaqvkAXFZsAbsm
+                    created_at: '2022-07-29T22:44:48.87Z'
+                    updated_at: '2022-07-29T22:45:19.28Z'
+                    _links:
+                      self:
+                        href: https://finix.sandbox-payments-api.com/merchant_profiles/MPv9EzJamc7uJg9B71tzp6W2
+                      application:
+                        href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                      risk_profile:
+                        href: https://finix.sandbox-payments-api.com/risk_profiles/RP5XMHAB2JwaqvkAXFZsAbsm
+                  - id: MP6xZs88zNVEuH7vZ5oHfv7j
+                    tags: {}
+                    application: APgPDQrLD52TYvqazjHJJchM
+                    fee_profile: null
+                    risk_profile: RPqCNbgSQrXGxYRn5UNR8gv1
+                    created_at: '2022-07-29T22:44:48.10Z'
+                    updated_at: '2022-07-29T22:45:19.05Z'
+                    _links:
+                      self:
+                        href: https://finix.sandbox-payments-api.com/merchant_profiles/MP6xZs88zNVEuH7vZ5oHfv7j
+                      application:
+                        href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                      risk_profile:
+                        href: https://finix.sandbox-payments-api.com/risk_profiles/RPqCNbgSQrXGxYRn5UNR8gv1
+                  - id: MPhrR9A1AT7kSK2H88TqY4Nn
+                    tags: {}
+                    application: APgPDQrLD52TYvqazjHJJchM
+                    fee_profile: null
+                    risk_profile: RPoW3jmRrypvJADtCwQMf3Du
+                    created_at: '2022-07-29T22:44:47.24Z'
+                    updated_at: '2022-07-29T22:45:17.68Z'
+                    _links:
+                      self:
+                        href: https://finix.sandbox-payments-api.com/merchant_profiles/MPhrR9A1AT7kSK2H88TqY4Nn
+                      application:
+                        href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                      risk_profile:
+                        href: https://finix.sandbox-payments-api.com/risk_profiles/RPoW3jmRrypvJADtCwQMf3Du
+                  - id: MP36FxeXqHd7BxX6HyH9bh8a
+                    tags: {}
+                    application: APgPDQrLD52TYvqazjHJJchM
+                    fee_profile: null
+                    risk_profile: RPcpf1mpWZKVQMyYWTpBUTFY
+                    created_at: '2022-07-29T22:44:46.36Z'
+                    updated_at: '2022-07-29T22:45:18.82Z'
+                    _links:
+                      self:
+                        href: https://finix.sandbox-payments-api.com/merchant_profiles/MP36FxeXqHd7BxX6HyH9bh8a
+                      application:
+                        href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                      risk_profile:
+                        href: https://finix.sandbox-payments-api.com/risk_profiles/RPcpf1mpWZKVQMyYWTpBUTFY
+                  - id: MPaPdYp6a6V2yF3cbZvcnWZa
+                    tags: {}
+                    application: APgPDQrLD52TYvqazjHJJchM
+                    fee_profile: null
+                    risk_profile: RP9KxnzESMJyJ76DiQ5G8TpR
+                    created_at: '2022-07-29T22:42:27.24Z'
+                    updated_at: '2022-07-29T22:43:19.24Z'
+                    _links:
+                      self:
+                        href: https://finix.sandbox-payments-api.com/merchant_profiles/MPaPdYp6a6V2yF3cbZvcnWZa
+                      application:
+                        href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                      risk_profile:
+                        href: https://finix.sandbox-payments-api.com/risk_profiles/RP9KxnzESMJyJ76DiQ5G8TpR
+                  - id: MPHtkTtTLxNzCaiorbJZcGN
+                    tags: {}
+                    application: APgPDQrLD52TYvqazjHJJchM
+                    fee_profile: null
+                    risk_profile: RPqH8LxsmythhgVdavv6yXxV
+                    created_at: '2022-07-29T22:42:26.13Z'
+                    updated_at: '2022-07-29T22:43:18.98Z'
+                    _links:
+                      self:
+                        href: https://finix.sandbox-payments-api.com/merchant_profiles/MPHtkTtTLxNzCaiorbJZcGN
+                      application:
+                        href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                      risk_profile:
+                        href: https://finix.sandbox-payments-api.com/risk_profiles/RPqH8LxsmythhgVdavv6yXxV
+                  - id: MP2vN4JkYS6kbSyX2eMPE27S
+                    tags: {}
+                    application: APgPDQrLD52TYvqazjHJJchM
+                    fee_profile: null
+                    risk_profile: RPfX8FvRdwdLWuHUhJVGijmJ
+                    created_at: '2022-07-29T22:42:24.58Z'
+                    updated_at: '2022-07-29T22:43:18.72Z'
+                    _links:
+                      self:
+                        href: https://finix.sandbox-payments-api.com/merchant_profiles/MP2vN4JkYS6kbSyX2eMPE27S
+                      application:
+                        href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                      risk_profile:
+                        href: https://finix.sandbox-payments-api.com/risk_profiles/RPfX8FvRdwdLWuHUhJVGijmJ
+                  - id: MP6rQcyrqpFJxsEiXKEX5Kkz
+                    tags: {}
+                    application: APgPDQrLD52TYvqazjHJJchM
+                    fee_profile: null
+                    risk_profile: RPdsBBoNiB9WEeGEzxKvBnB1
+                    created_at: '2022-07-29T22:42:23.39Z'
+                    updated_at: '2022-07-29T22:43:19.52Z'
+                    _links:
+                      self:
+                        href: https://finix.sandbox-payments-api.com/merchant_profiles/MP6rQcyrqpFJxsEiXKEX5Kkz
+                      application:
+                        href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                      risk_profile:
+                        href: https://finix.sandbox-payments-api.com/risk_profiles/RPdsBBoNiB9WEeGEzxKvBnB1
+                  - id: MPnyPBQZb3U8Q9EjvErVVk56
+                    tags: {}
+                    application: APgPDQrLD52TYvqazjHJJchM
+                    fee_profile: null
+                    risk_profile: RPghvfkCuzzU8x3cyjo6EPHJ
+                    created_at: '2022-07-29T22:34:32.12Z'
+                    updated_at: '2022-07-29T22:35:19.89Z'
+                    _links:
+                      self:
+                        href: https://finix.sandbox-payments-api.com/merchant_profiles/MPnyPBQZb3U8Q9EjvErVVk56
+                      application:
+                        href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                      risk_profile:
+                        href: https://finix.sandbox-payments-api.com/risk_profiles/RPghvfkCuzzU8x3cyjo6EPHJ
+                  - id: MPvKak8BXj9H1ZuNiN63toUz
+                    tags: {}
+                    application: APgPDQrLD52TYvqazjHJJchM
+                    fee_profile: null
+                    risk_profile: RPhTKGhboVQmWWNQgCCPyDHZ
+                    created_at: '2022-07-29T22:34:30.96Z'
+                    updated_at: '2022-07-29T22:35:20.13Z'
+                    _links:
+                      self:
+                        href: https://finix.sandbox-payments-api.com/merchant_profiles/MPvKak8BXj9H1ZuNiN63toUz
+                      application:
+                        href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                      risk_profile:
+                        href: https://finix.sandbox-payments-api.com/risk_profiles/RPhTKGhboVQmWWNQgCCPyDHZ
+                  - id: MPuJUNW1258dEzWY8W8gA1RL
+                    tags: {}
+                    application: APgPDQrLD52TYvqazjHJJchM
+                    fee_profile: null
+                    risk_profile: RP8e26upRdaRh21zM5zz775R
+                    created_at: '2022-07-29T22:34:29.43Z'
+                    updated_at: '2022-07-29T22:35:19.64Z'
+                    _links:
+                      self:
+                        href: https://finix.sandbox-payments-api.com/merchant_profiles/MPuJUNW1258dEzWY8W8gA1RL
+                      application:
+                        href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                      risk_profile:
+                        href: https://finix.sandbox-payments-api.com/risk_profiles/RP8e26upRdaRh21zM5zz775R
+                  - id: MPhVGQPXigh5Ui1PdSXZjWBw
+                    tags: {}
+                    application: APgPDQrLD52TYvqazjHJJchM
+                    fee_profile: null
+                    risk_profile: RPqjy18Cj5pWbN1Cjbz3Ftm7
+                    created_at: '2022-07-29T22:34:28.17Z'
+                    updated_at: '2022-07-29T22:35:19.40Z'
+                    _links:
+                      self:
+                        href: https://finix.sandbox-payments-api.com/merchant_profiles/MPhVGQPXigh5Ui1PdSXZjWBw
+                      application:
+                        href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                      risk_profile:
+                        href: https://finix.sandbox-payments-api.com/risk_profiles/RPqjy18Cj5pWbN1Cjbz3Ftm7
+                  - id: MPaA8nWUbQRsAQTqbBP72Tgm
+                    tags: {}
+                    application: APgPDQrLD52TYvqazjHJJchM
+                    fee_profile: null
+                    risk_profile: RPphpumXAhSnjvoQYuFYktN2
+                    created_at: '2022-07-29T22:26:12.90Z'
+                    updated_at: '2022-07-29T22:27:18.32Z'
+                    _links:
+                      self:
+                        href: https://finix.sandbox-payments-api.com/merchant_profiles/MPaA8nWUbQRsAQTqbBP72Tgm
+                      application:
+                        href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                      risk_profile:
+                        href: https://finix.sandbox-payments-api.com/risk_profiles/RPphpumXAhSnjvoQYuFYktN2
+                  - id: MPwrrBTwLE3k88tSRvW6BiMM
+                    tags: {}
+                    application: APgPDQrLD52TYvqazjHJJchM
+                    fee_profile: null
+                    risk_profile: RP5ZM8H3rPUb6AkATeedp2iC
+                    created_at: '2022-07-29T22:26:11.64Z'
+                    updated_at: '2022-07-29T22:27:16.31Z'
+                    _links:
+                      self:
+                        href: https://finix.sandbox-payments-api.com/merchant_profiles/MPwrrBTwLE3k88tSRvW6BiMM
+                      application:
+                        href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                      risk_profile:
+                        href: https://finix.sandbox-payments-api.com/risk_profiles/RP5ZM8H3rPUb6AkATeedp2iC
+                  - id: MPryCxMzqpWAQypR8kGCPF9V
+                    tags: {}
+                    application: APgPDQrLD52TYvqazjHJJchM
+                    fee_profile: null
+                    risk_profile: RPuJL1XfBsUuDSY3uWZpag5i
+                    created_at: '2022-07-29T22:26:10.12Z'
+                    updated_at: '2022-07-29T22:27:18.08Z'
+                    _links:
+                      self:
+                        href: https://finix.sandbox-payments-api.com/merchant_profiles/MPryCxMzqpWAQypR8kGCPF9V
+                      application:
+                        href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                      risk_profile:
+                        href: https://finix.sandbox-payments-api.com/risk_profiles/RPuJL1XfBsUuDSY3uWZpag5i
+                  - id: MPqDr85kjDLqpVMyJZnnD3q
+                    tags: {}
+                    application: APgPDQrLD52TYvqazjHJJchM
+                    fee_profile: null
+                    risk_profile: RPoZmx6pFuTnibzcK88N8Ux7
+                    created_at: '2022-07-29T22:26:08.87Z'
+                    updated_at: '2022-07-29T22:27:17.83Z'
+                    _links:
+                      self:
+                        href: https://finix.sandbox-payments-api.com/merchant_profiles/MPqDr85kjDLqpVMyJZnnD3q
+                      application:
+                        href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                      risk_profile:
+                        href: https://finix.sandbox-payments-api.com/risk_profiles/RPoZmx6pFuTnibzcK88N8Ux7
+                _links:
+                  self:
+                    href: https://finix.sandbox-payments-api.com/merchant_profiles?offset=0&limit=20&sort=created_at,desc&sort=id,desc
+                  next:
+                    href: https://finix.sandbox-payments-api.com/merchant_profiles?offset=20&limit=20&sort=created_at,desc&sort=id,desc
+                  last:
+                    href: https://finix.sandbox-payments-api.com/merchant_profiles?offset=1340&limit=20&sort=created_at,desc&sort=id,desc
+                page:
+                  next_cursor: MPqDr85kjDLqpVMyJZnnD3q
+                  limit: 20
       headers:
         finix-apiuser-role:
           $ref: '#/components/headers/finix-apiuser-role'
@@ -6100,18 +6439,18 @@ components:
           examples:
             Payment Instrument (Card):
               value:
-                id: PIe2YvpcjvoVJ6PzoRPBK137
+                id: PIgHFzzdUGYi2iaiMhGVZffq
                 application: APgPDQrLD52TYvqazjHJJchM
-                fingerprint: FPRogKWsRQks2HGaau5eGR9AF
+                fingerprint: FPRiCenDk2SoRng7WjQTr7RJY
                 tags:
                   card_name: Business Card
                 expiration_month: 12
                 expiration_year: 2029
-                bin: '489514'
-                last_four: '0006'
-                brand: VISA
-                card_type: UNKNOWN
-                name: Amy White
+                bin: '520082'
+                last_four: '8210'
+                brand: MASTERCARD
+                card_type: DEBIT
+                name: John Smith
                 address:
                   line1: 900 Metro Center Blv
                   line2: null
@@ -6121,27 +6460,27 @@ components:
                   country: USA
                 address_verification: UNKNOWN
                 security_code_verification: UNKNOWN
-                created_at: '2022-01-27T07:37:00.53Z'
-                updated_at: '2022-01-27T07:37:00.53Z'
+                created_at: '2022-07-22T02:36:56.75Z'
+                updated_at: '2022-07-22T02:36:56.75Z'
                 instrument_type: PAYMENT_CARD
                 type: PAYMENT_CARD
                 currency: USD
                 identity: IDgWxBhfGYLLdkhxx2ddYf9K
                 _links:
                   self:
-                    href: https://finix.sandbox-payments-api.com/payment_instruments/PIe2YvpcjvoVJ6PzoRPBK137
+                    href: https://finix.sandbox-payments-api.com/payment_instruments/PIgHFzzdUGYi2iaiMhGVZffq
                   authorizations:
-                    href: https://finix.sandbox-payments-api.com/payment_instruments/PIe2YvpcjvoVJ6PzoRPBK137/authorizations
+                    href: https://finix.sandbox-payments-api.com/payment_instruments/PIgHFzzdUGYi2iaiMhGVZffq/authorizations
                   transfers:
-                    href: https://finix.sandbox-payments-api.com/payment_instruments/PIe2YvpcjvoVJ6PzoRPBK137/transfers
+                    href: https://finix.sandbox-payments-api.com/payment_instruments/PIgHFzzdUGYi2iaiMhGVZffq/transfers
                   verifications:
-                    href: https://finix.sandbox-payments-api.com/payment_instruments/PIe2YvpcjvoVJ6PzoRPBK137/verifications
+                    href: https://finix.sandbox-payments-api.com/payment_instruments/PIgHFzzdUGYi2iaiMhGVZffq/verifications
                   application:
                     href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
                   identity:
                     href: https://finix.sandbox-payments-api.com/identities/IDgWxBhfGYLLdkhxx2ddYf9K
                   updates:
-                    href: https://finix.sandbox-payments-api.com/payment_instruments/PIe2YvpcjvoVJ6PzoRPBK137/updates
+                    href: https://finix.sandbox-payments-api.com/payment_instruments/PIgHFzzdUGYi2iaiMhGVZffq/updates
             Payment Instrument (Bank Account):
               value:
                 id: PI8sdzepdapDehPWKFTcre1m
@@ -8672,7 +9011,7 @@ components:
                 settlement_enabled: true
                 gross_settlement_enabled: false
                 creating_transfer_from_report_enabled: true
-                card_expiration_date_required: false
+                card_expiration_date_required: true
                 card_cvv_required: false
                 tags:
                   key_2: value_2
@@ -8680,15 +9019,61 @@ components:
                 mid: FNXw5a7pBKHsCSgCAyQvU2soL
                 merchant_name: Dunder Mifflin
                 settlement_funding_identifier: UNSET
-                ready_to_settle_upon: RECONCILIATION
-                fee_ready_to_settle_upon: RECONCILIATION
+                ready_to_settle_upon: SUCCESSFUL_CAPTURE
+                fee_ready_to_settle_upon: SUCCESSFUL_CAPTURE
                 level_two_level_three_data_enabled: true
                 created_at: '2022-01-27T07:37:04.03Z'
-                updated_at: '2022-01-27T07:37:05.30Z'
+                updated_at: '2022-01-27T07:37:06.12Z'
                 onboarding_state: APPROVED
                 processor_details:
                   mid: FNXw5a7pBKHsCSgCAyQvU2soL
                   api_key: secretValue
+                convenience_charges_enabled: true
+                rent_surcharges_enabled: true
+                _links:
+                  self:
+                    href: https://finix.sandbox-payments-api.com/merchants/MUeDVrf2ahuKc9Eg5TeZugvs
+                  identity:
+                    href: https://finix.sandbox-payments-api.com/identities/IDuqZpDw28f2KK6YuDk4jNLg
+                  verifications:
+                    href: https://finix.sandbox-payments-api.com/merchants/MUeDVrf2ahuKc9Eg5TeZugvs/verifications
+                  merchant_profile:
+                    href: https://finix.sandbox-payments-api.com/merchant_profiles/MP7tbAZ1RpjFycrfBVo6z4Ky
+                  application:
+                    href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                  verification:
+                    href: https://finix.sandbox-payments-api.com/verifications/VI5DBvVQ3ye5PcnUCSSvj84d
+            Merchant Updated to Enable Buyer Charges:
+              value:
+                id: MUeDVrf2ahuKc9Eg5TeZugvs
+                application: APgPDQrLD52TYvqazjHJJchM
+                identity: IDuqZpDw28f2KK6YuDk4jNLg
+                verification: VI5DBvVQ3ye5PcnUCSSvj84d
+                merchant_profile: MP7tbAZ1RpjFycrfBVo6z4Ky
+                processor: DUMMY_V1
+                processing_enabled: true
+                settlement_enabled: true
+                gross_settlement_enabled: false
+                creating_transfer_from_report_enabled: true
+                card_expiration_date_required: true
+                card_cvv_required: false
+                tags:
+                  key_2: value_2
+                mcc: '0742'
+                mid: FNXw5a7pBKHsCSgCAyQvU2soL
+                merchant_name: Dunder Mifflin
+                settlement_funding_identifier: UNSET
+                ready_to_settle_upon: SUCCESSFUL_CAPTURE
+                fee_ready_to_settle_upon: SUCCESSFUL_CAPTURE
+                level_two_level_three_data_enabled: true
+                created_at: '2022-01-27T07:37:04.03Z'
+                updated_at: '2022-01-27T07:37:06.12Z'
+                onboarding_state: APPROVED
+                processor_details:
+                  mid: FNXw5a7pBKHsCSgCAyQvU2soL
+                  api_key: secretValue
+                convenience_charges_enabled: true
+                rent_surcharges_enabled: true
                 _links:
                   self:
                     href: https://finix.sandbox-payments-api.com/merchants/MUeDVrf2ahuKc9Eg5TeZugvs
@@ -8841,6 +9226,248 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/FileDownload'
+    AuthorizationUpdated:
+      description: Single captured Authorization object
+      content:
+        application/hal+json:
+          schema:
+            $ref: '#/components/schemas/AuthorizationCaptured'
+          examples:
+            Captured Authorization:
+              value:
+                id: AUcP43nwPk6VBjPQBDRBTH5n
+                application: APgPDQrLD52TYvqazjHJJchM
+                amount: 108
+                tags:
+                  test_key_100: test_auth
+                state: SUCCEEDED
+                currency: USD
+                transfer: TRhPwUByCNHQjhNiLdNgveuA
+                messages: []
+                raw: null
+                created_at: '2022-07-20T22:12:02.96Z'
+                updated_at: '2022-07-20T22:12:03.76Z'
+                trace_id: ab1bebd8-f6a4-4d86-9640-5eebf68c574f
+                source: PIe2YvpcjvoVJ6PzoRPBK137
+                merchant_identity: IDuqZpDw28f2KK6YuDk4jNLg
+                3ds_redirect_url: null
+                is_void: false
+                void_state: UNATTEMPTED
+                expires_at: '2022-07-27T22:12:02.96Z'
+                idempotency_id: null
+                additional_buyer_charges: null
+                failure_code: null
+                failure_message: null
+                _links:
+                  self:
+                    href: https://finix.sandbox-payments-api.com/authorizations/AUcP43nwPk6VBjPQBDRBTH5n
+                  application:
+                    href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                  transfer:
+                    href: https://finix.sandbox-payments-api.com/transfers/TRhPwUByCNHQjhNiLdNgveuA
+                  merchant_identity:
+                    href: https://finix.sandbox-payments-api.com/identities/IDuqZpDw28f2KK6YuDk4jNLg
+            Captured Authorization (with Level 2 Processing):
+              value:
+                id: AU4AHPn4k7YTQ8YjK3QajeL2
+                application: APgPDQrLD52TYvqazjHJJchM
+                amount: 1000
+                tags:
+                  order_number: 21DFASJSAKAS
+                state: SUCCEEDED
+                currency: USD
+                transfer: TRbew5P8bkL3yxz6a6FzfVia
+                messages: []
+                raw: null
+                created_at: '2022-01-27T07:37:20.68Z'
+                updated_at: '2022-01-27T07:37:20.86Z'
+                trace_id: ab81e66c-dd65-438b-a1dc-6d580b36233c
+                source: PIe2YvpcjvoVJ6PzoRPBK137
+                merchant_identity: IDuqZpDw28f2KK6YuDk4jNLg
+                3ds_redirect_url: null
+                is_void: false
+                void_state: UNATTEMPTED
+                expires_at: '2022-02-03T07:37:20.68Z'
+                idempotency_id: null
+                failure_code: null
+                failure_message: null
+                _links:
+                  self:
+                    href: https://finix.sandbox-payments-api.com/authorizations/AUq2Xz5VS46U4hzzhX9WJCxx
+                  application:
+                    href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                  merchant_identity:
+                    href: https://finix.sandbox-payments-api.com/identities/IDuqZpDw28f2KK6YuDk4jNLg
+            Captured Authorization (with Level 3 Processing):
+              value:
+                id: AUczPEgnHSSMJ79n9dvp6HHJ
+                application: APgPDQrLD52TYvqazjHJJchM
+                amount: 108
+                tags:
+                  order_number: test_auth
+                state: SUCCEEDED
+                currency: USD
+                transfer: TReDoizZYZyyyTrcPzMboz84
+                messages: []
+                raw: null
+                created_at: '2022-07-20T20:52:11.63Z'
+                updated_at: '2022-07-20T20:52:12.37Z'
+                trace_id: 46a36f58-b496-4b6b-9357-6bb3c340de87
+                source: PIe2YvpcjvoVJ6PzoRPBK137
+                merchant_identity: IDuqZpDw28f2KK6YuDk4jNLg
+                3ds_redirect_url: null
+                is_void: false
+                void_state: UNATTEMPTED
+                expires_at: '2022-07-27T20:52:11.63Z'
+                idempotency_id: null
+                additional_buyer_charges: null
+                failure_code: null
+                failure_message: null
+                _links:
+                  self:
+                    href: https://finix.sandbox-payments-api.com/authorizations/AUsQsCLRp9ENxrh563w1zZHi
+                  application:
+                    href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                  merchant_identity:
+                    href: https://finix.sandbox-payments-api.com/identities/IDuqZpDw28f2KK6YuDk4jNLg
+            Voided Authorization:
+              value:
+                id: AU2UkcVZU94rNqonfcLGZRSJ
+                application: APgPDQrLD52TYvqazjHJJchM
+                amount: 100
+                tags:
+                  order_number: 21DFASJSAKAS
+                state: SUCCEEDED
+                currency: USD
+                transfer: null
+                messages: []
+                raw: null
+                created_at: '2022-01-27T07:37:28.10Z'
+                updated_at: '2022-01-27T07:37:29.15Z'
+                trace_id: 710b6745-c424-4101-84e5-4a49cf317dc7
+                source: PIe2YvpcjvoVJ6PzoRPBK137
+                merchant_identity: IDpYDM7J9n57q849o9E9yNrG
+                3ds_redirect_url: null
+                is_void: true
+                void_state: PENDING
+                expires_at: '2022-02-03T07:37:28.10Z'
+                idempotency_id: null
+                failure_code: null
+                failure_message: null
+                _links:
+                  self:
+                    href: https://finix.sandbox-payments-api.com/authorizations/AU2UkcVZU94rNqonfcLGZRSJ
+                  application:
+                    href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                  merchant_identity:
+                    href: https://finix.sandbox-payments-api.com/identities/IDpYDM7J9n57q849o9E9yNrG
+            Captured Card Present Authorization (with an EMV Card):
+              value:
+                id: AUuCfRve8QG6G1wnPCReiLma
+                application: APeUbTUjvYb1CdPXvNcwW1wP
+                amount: 150
+                tags:
+                  test_key_100: test_auth
+                state: SUCCEEDED
+                currency: USD
+                transfer: TRjiUo5CXLmaJp4k9PL7iP8z
+                messages: []
+                raw: null
+                card_present_details:
+                  emv_data:
+                    application_identifier: A0000000031010
+                    application_label: Visa Credit
+                    application_preferred_name: ''
+                    application_transaction_counter: '0047'
+                    cryptogram: TC 4ACED247416CD824
+                    issuer_code_table_index: ''
+                    pin_verified: false
+                    tags: {}
+                  masked_account_number: '************7564'
+                  name: 'AARON/CHRISTOPHER W '
+                  brand: VISA
+                  entry_mode: CHIP_ENTRY
+                  payment_type: CREDIT
+                  approval_code: '000042'
+                capture_amount: 150
+                created_at: '2019-03-01T03:42:13.59Z'
+                updated_at: '2019-03-01T03:49:28.67Z'
+                trace_id: 957ce193-b4e4-4a39-88e2-d88a019982d2
+                source: PIjnHHLBZvRu6GPEZdFt7E2q
+                merchant_identity: IDsbTBawhnLBAVeinRb84vFR
+                device: DVf2H8sh4LZZC52GTUrwCPPf
+                3ds_redirect_url: null
+                is_void: false
+                void_state: UNATTEMPTED
+                expires_at: '2019-03-08T03:42:13.59Z'
+                idempotency_id: null
+                additional_buyer_charges: null
+                failure_code: null
+                failure_message: null
+                _links:
+                  self:
+                    href: https://finix.sandbox-payments-api.com/authorizations/AUuCfRve8QG6G1wnPCReiLma
+                  application:
+                    href: https://finix.sandbox-payments-api.com/applications/APeUbTUjvYb1CdPXvNcwW1wP
+                  transfer:
+                    href: https://finix.sandbox-payments-api.com/transfers/TRjiUo5CXLmaJp4k9PL7iP8z
+                  device:
+                    href: https://finix.sandbox-payments-api.com/devices/DVf2H8sh4LZZC52GTUrwCPPf
+                  merchant_identity:
+                    href: https://finix.sandbox-payments-api.com/identities/IDsbTBawhnLBAVeinRb84vFR
+            Captured Card Present Authorization (with a Non-EMV Card):
+              value:
+                id: AUiQyUYxQzhAF5ACAsxdUvYb
+                application: APeUbTUjvYb1CdPXvNcwW1wP
+                amount: 2500
+                tags:
+                  ticketNumber: '2348'
+                state: SUCCEEDED
+                currency: USD
+                transfer: TR6eEeW2Fr7hVgfTKgeeG3gy
+                messages: []
+                raw: null
+                card_present_details:
+                  emv_data: null
+                  masked_account_number: '************0006'
+                  name: TEST/WORLDPAY
+                  brand: VISA
+                  entry_mode: SWIPED
+                  payment_type: CREDIT
+                  approval_code: '050473'
+                capture_amount: 3000
+                created_at: '2019-05-01T17:18:54.41Z'
+                updated_at: '2019-05-01T17:19:42.46Z'
+                trace_id: FNXwyFm3UyQEyAL9cdabYBGWa
+                source: PImKxRXq5wQ2r5fK6qQtXady
+                merchant_identity: IDsbTBawhnLBAVeinRb84vFR
+                device: DVfKLD9GZtsjcJxLtc2yCcfd
+                3ds_redirect_url: null
+                is_void: false
+                void_state: UNATTEMPTED
+                expires_at: '2019-05-08T17:18:54.41Z'
+                idempotency_id: null
+                additional_buyer_charges: null
+                failure_code: null
+                failure_message: null
+                _links:
+                  self:
+                    href: https://finix.sandbox-payments-api.com/authorizations/AUiQyUYxQzhAF5ACAsxdUvYb
+                  application:
+                    href: https://finix.sandbox-payments-api.com/applications/APeUbTUjvYb1CdPXvNcwW1wP
+                  transfer:
+                    href: https://finix.sandbox-payments-api.com/transfers/TR6eEeW2Fr7hVgfTKgeeG3gy
+                  device:
+                    href: https://finix.sandbox-payments-api.com/devices/DVfKLD9GZtsjcJxLtc2yCcfd
+                  merchant_identity:
+                    href: https://finix.sandbox-payments-api.com/identities/IDsbTBawhnLBAVeinRb84vFR
+      headers:
+        finix-apiuser-role:
+          $ref: '#/components/headers/finix-apiuser-role'
+        date:
+          $ref: '#/components/headers/date'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
   schemas:
     Application:
       type: object
@@ -9769,7 +10396,156 @@ components:
           - FAILED
           - SUCCEEDED
           - UNKNOWN
-          description: The state of the `Authorization`.
+          description: The state of the `Transfer`.
+        trace_id:
+          type: string
+          description: Trace ID of the `Authorization`. The processor sends back the
+            `trace_id` so you can track the authorization end-to-end.
+        transfer:
+          type: string
+          example: TRxxxxxxxxxxxxxxxxxx
+          pattern: ^(TR)[a-zA-Z0-9]{16,32}$
+          description: The ID of the `transfer` resource that gets created when the
+            `Authorization` moves to **SUCCEEDED**.
+          nullable: true
+        void_state:
+          type: string
+          description: Details if the `Authorization` has been voided.
+        sub_type:
+          $ref: '#/components/schemas/SubTypeTransfer'
+        _links:
+          type: object
+          description: For your convenience, every response includes several URLs
+            which link to resources relevant to the request. You can use these `_links`
+            to make your follow-up requests and quickly access relevant IDs.
+          properties:
+            application:
+              type: object
+              description: Link to the `Application` the resource was created under.
+              properties:
+                href:
+                  type: string
+            device:
+              type: object
+              description: Link to the `Device` the request was made under.
+              properties:
+                href:
+                  type: string
+            merchant_identity:
+              type: object
+              description: Link to the `Identity` the `Merchant` was created under
+                and the `Transfer` was submitted with.
+              properties:
+                href:
+                  type: string
+            self:
+              type: object
+              description: Link to the resource that was used in the request.
+              properties:
+                href:
+                  type: string
+            transfer:
+              type: object
+              description: Link to the `Transfers` realted to the `Authorization`.
+              properties:
+                href:
+                  type: string
+    AuthorizationCaptured:
+      type: object
+      title: AuthorizationCaptured
+      description: A captured authorization
+      properties:
+        tags:
+          $ref: '#/components/schemas/Tags'
+        id:
+          type: string
+          example: AUxxxxxxxxxxxxxxxxxx
+          pattern: ^(AU)[a-zA-Z0-9]{16,32}$
+          description: The ID of the `Authorization` resource.
+        created_at:
+          $ref: '#/components/schemas/CreatedAt'
+        updated_at:
+          $ref: '#/components/schemas/UpdatedAt'
+        3ds_redirect_url:
+          type: string
+          description: The redirect URL used for 3DS transactions (if supported by
+            the processor).
+          nullable: true
+        amount:
+          type: integer
+          minimum: 0
+          description: The total amount that will be debited in cents (e.g. 100 cents
+            to debit $1.00).
+        application:
+          type: string
+          description: The ID of the `Application` resource the `Authorization` was
+            created under.
+        card_present_details:
+          $ref: '#/components/schemas/CardPresentDetails'
+        capture_amount:
+          type: integer
+          format: int64
+          description: The amount of the  `Authorization`  you would like to capture
+            in cents. Must be less than or equal to the `amount` of the `Authorization`.
+        currency:
+          $ref: '#/components/schemas/Currency'
+        device:
+          type: string
+          example: DVxxxxxxxxxxxxxxxxxx
+          pattern: ^(DV)[a-zA-Z0-9]{16,32}$
+          description: The ID of the activated device.
+          nullable: true
+        expires_at:
+          type: string
+          description: Authorization expiration time.
+          format: date-time
+        external_responses:
+          type: array
+          nullable: true
+          items:
+            type: object
+            properties:
+              body:
+                type: string
+              content_type:
+                type: string
+        idempotency_id:
+          type: string
+          description: A randomly generated value that'll be associated with the request.
+          nullable: true
+        failure_code:
+          $ref: '#/components/schemas/FailureCode'
+        failure_message:
+          $ref: '#/components/schemas/FailureMessage'
+        is_void:
+          type: boolean
+          description: Details if the `Authorization` is void.
+        merchant_identity:
+          $ref: '#/components/schemas/Id'
+        merchant:
+          $ref: '#/components/schemas/Id'
+        messages:
+          type: array
+          description: Message field that provides additional details. This field
+            is typically **null**.
+          items:
+            type: string
+        raw:
+          $ref: '#/components/schemas/Raw'
+        source:
+          type: string
+          example: PIxxxxxxxxxxxxxxxxxx
+          pattern: ^(PI)[a-zA-Z0-9]{16,32}$
+          description: ID of the `Payment Instrument` where funds get debited.
+        state:
+          type: string
+          enum:
+          - CANCELED
+          - PENDING
+          - FAILED
+          - SUCCEEDED
+          - UNKNOWN
+          description: The state of the `Transfer`.
         trace_id:
           type: string
           description: Trace ID of the `Authorization`. The processor sends back the
@@ -9866,6 +10642,7 @@ components:
           - ISC480
           - ISMP4
           - ANDROID
+          - LANE_3000
           description: Include one of the following values to let Finix know the type
             of device that's being used.
         name:
@@ -10136,8 +10913,7 @@ components:
           description: ID of the `Merchant` resource.
         model:
           type: string
-          description: Please select one of the following values which will let Finix
-            know the type of device being used:<ul><li>BBPOS<li>MX915<li>MX925<li>IPP320<li>IPP350<li>ISC250<li>ISC480<li>ISMP4<li>LANE\_3000<li>ANDROID
+          description: Details the model of the card reader.
         name:
           type: string
           description: Name of the `Device`.
@@ -12467,7 +13243,7 @@ components:
               href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
             verification:
               href: https://finix.sandbox-payments-api.com/verifications/VIdikDHXv7x8nWyJg8JZemGx
-      title: ''
+      title: Merchant
       properties:
         id:
           type: string
@@ -12555,6 +13331,14 @@ components:
               type: string
             api_key:
               type: string
+        convenience_charges_enabled:
+          type: boolean
+          description: Set to **true** if you want to enable the `Merchant` to accept
+            convenience fees and/or service fees.
+        rent_surcharges_enabled:
+          type: boolean
+          description: Set to **true** if you want to enable a `Merchant` to accept
+            rent charges.
         _links:
           type: object
           description: For your convenience, every response includes several URLs
@@ -12745,6 +13529,14 @@ components:
           type: boolean
           description: Set to **true** to enable the `Merchant` for Level 2 and Level
             3 processing. Default value is **false**.
+        convenience_charges_enabled:
+          type: boolean
+          description: Set to **true** if you want to enable the `Merchant` to accept
+            convenience fees and/or service fees.
+        rent_surcharges_enabled:
+          type: boolean
+          description: Set to **true** if you want to enable a `Merchant` to accept
+            rent charges.
     MerchantsList:
       type: object
       properties:
@@ -12764,15 +13556,16 @@ components:
           $ref: '#/components/schemas/ListLinks'
     PaymentInstrument:
       type: object
+      description: ''
       properties:
         tags:
           $ref: '#/components/schemas/Tags'
         type:
           type: string
           enum:
-          - VANTIV_OMNI_TOKEN
-          - TOKEN
           - PAYMENT_CARD
+          - TOKEN
+          - VANTIV_OMNI_TOKEN
           - BANK_ACCOUNT
           - PAYMENT_CARD_PRESENT
           - SWIPED_PAYMENT_CARD
@@ -12812,9 +13605,9 @@ components:
         instrument_type:
           type: string
           enum:
-          - VANTIV_OMNI_TOKEN
-          - TOKEN
           - PAYMENT_CARD
+          - TOKEN
+          - VANTIV_OMNI_TOKEN
           - BANK_ACCOUNT
           - PAYMENT_CARD_PRESENT
           - SWIPED_PAYMENT_CARD
@@ -12878,24 +13671,23 @@ components:
               properties:
                 href:
                   type: string
-        address:
-          $ref: '#/components/schemas/Address'
-        address_verification:
-          type: string
-          enum:
-          - POSTAL_CODE_AND_STREET_MATCH
-          - STREET_MATCH
-          - POSTAL_CODE_MATCH
-          - NO_ADDRESS
-          - NO_MATCH
-          - NOT_SUPPORTED
-          - UNKNOWN
-          description: "Additional address information that\u2019s required to verify\
-            \ the identity of the merchant."
+        expiration_month:
+          type: integer
+          maximum: 12
+          minimum: 1
+          description: Expiration month (e.g. 12 for December).
+        expiration_year:
+          type: integer
+          minimum: 1
+          description: 4-digit expiration year.
         bin:
           type: string
           pattern: ^\d{6}$
           description: Bank Identification number for the `Payment Instrument`.
+        last_four:
+          type: string
+          pattern: ^\d{4}$
+          description: Last four digits of the card or bank account number.
         brand:
           type: string
           enum:
@@ -12920,43 +13712,30 @@ components:
           - LANKAPAY
           - DINERS_CLUB
           description: The `brand` of the card saved in the `Payment Instrument`.
-        card_name:
-          type: string
-          description: A custom name you can include to identify the card being used
-            (e.g. **Business Card**).
-          nullable: true
         card_type:
           type: string
           enum:
           - UNKNOWN
-          - PREPAID
           - CREDIT
           - DEBIT
-          - FSA
-          description: The type of card saved in the `Payment Instrument`.
-        expiration_month:
-          type: integer
-          maximum: 12
-          minimum: 1
-          description: Expiration month (e.g. 12 for December).
-        expiration_year:
-          type: integer
-          minimum: 1
-          description: 4-digit expiration year.
-        fast_funds_indicator:
+          - HSA_FSA
+          - NON_RELOADABLE_PREPAID
+          - RELOADABLE_PREPAID
+          description: The type of payment card saved in the `Payment Instrument`.
+        address:
+          $ref: '#/components/schemas/Address'
+        address_verification:
           type: string
-          description: Details if Fast Funds is enabled for the card.
-        last_four:
-          type: string
-          pattern: ^\d{4}$
-          description: Last four digits of the card or bank account number.
-        online_gambing_block_indicator:
-          type: string
-          description: Detailes if the card is enabled to receive push-payments for
-            online gambling payouts.
-        push_funds_block_indicator:
-          type: string
-          description: Details if the card is enabled to receive push-to-card disbursements.
+          enum:
+          - POSTAL_CODE_AND_STREET_MATCH
+          - STREET_MATCH
+          - POSTAL_CODE_MATCH
+          - NO_ADDRESS
+          - NO_MATCH
+          - NOT_SUPPORTED
+          - UNKNOWN
+          description: "Additional address information that\u2019s required to verify\
+            \ the identity of the merchant."
         security_code_verification:
           type: string
           enum:
@@ -12964,6 +13743,21 @@ components:
           - UNKNOWN
           - UNMATCHED
           description: Details the results of the Card Verification Code check.
+        card_name:
+          type: string
+          description: A custom name you can include to identify the card being used
+            (e.g. **Business Card**).
+          nullable: true
+        fast_funds_indicator:
+          type: string
+          description: Details if Fast Funds is enabled for the card.
+        online_gambing_block_indicator:
+          type: string
+          description: Detailes if the card is enabled to receive push-payments for
+            online gambling payouts.
+        push_funds_block_indicator:
+          type: string
+          description: Details if the card is enabled to receive push-to-card disbursements.
     CreatePaymentInstrumentRequest:
       x-examples: {}
       title: ''
@@ -13008,9 +13802,9 @@ components:
         type:
           type: string
           enum:
-          - TOKEN
           - PAYMENT_CARD
           - APPLE_PAY
+          - TOKEN
           - BANK_ACCOUNT
           description: Type of `Payment Instrument`.
         identity:
@@ -13084,8 +13878,8 @@ components:
           type: string
           enum:
           - PAYMENT_CARD
-          - BANK_ACCOUNT
           - TOKEN
+          - BANK_ACCOUNT
           description: Type of `Payment Instrument`.
         identity:
           $ref: '#/components/schemas/Id'
@@ -15684,6 +16478,23 @@ components:
           type: string
           description: The ID of the `Application` resource the `Webhook` was created
             under.
+        authentication:
+          type: object
+          description: The authentication settings that are used to send webhook events.
+          properties:
+            type:
+              type: string
+              enum:
+              - NONE
+              - BASIC
+              - BEARER
+              description: 'The type of authentication the webhook will use:
+
+                - NONE: No authentication will be used.
+
+                - BASIC: Basic authentication.
+
+                - BEARER: Oauth2''s Bearer Token.'
         enabled:
           type: boolean
           description: 'Details if the `Webhook` is enabled:<ul><li><strong>true</strong>:
@@ -15801,6 +16612,42 @@ components:
           type: boolean
           description: Set to false to disable Webhooks. Default value when created
             is true.
+        authentication:
+          type: object
+          description: The authentication settings that are used to send webhook events.
+          properties:
+            type:
+              type: string
+              enum:
+              - NONE
+              - BASIC
+              - BEARER
+              description: 'The type of authentication the webhook will use:
+
+                - NONE: No authentication will be used.
+
+                - BASIC: Basic authentication.
+
+                - BEARER: Oauth2''s Bearer Token.'
+            basic:
+              type: object
+              description: The basic authentication configuration. Null if basic is
+                not being used.
+              properties:
+                username:
+                  type: string
+                  description: The username that will be used for basic authentication
+                password:
+                  type: string
+                  description: The password to be used for basic authentication.
+            bearer:
+              type: object
+              description: The bearer authentication configuration. Null if bearer
+                is not being used.
+              properties:
+                token:
+                  type: string
+                  description: The string that Finix will send as the bearer token.
     CreateSettlementRequest:
       title: SettlementCreate
       type: object
@@ -17994,6 +18841,20 @@ components:
       - SPLIT_PAYOUT
       - SPLIT_PAYOUT_ADJUSTMENT
       - SYSTEM
+    UpdateMerchantProfileRequest:
+      title: UpdateMerchantProfileRequest
+      x-stoplight:
+        id: 9cuj94a54fwqp
+      type: object
+      properties:
+        tags:
+          $ref: '#/components/schemas/Tags'
+        fee_profile:
+          type: string
+          description: Id of the fee_profile.
+        risk_profile:
+          type: string
+          description: Id of the risk_profile.
     ListAuthorizationsQueryParams:
       type: object
       properties:
