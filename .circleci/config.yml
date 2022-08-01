@@ -68,8 +68,13 @@ jobs:
             npm install -g typescript
             tsc --build tsconfig.json 
       - run:
-          name: test
+          name: test - typescript
           command: npm test
+      -run: 
+          name: test - javascript
+          command: |
+          ./node_modules/.bin/mocha src/test/filesTestJS.js
+          ./node_modules/.bin/mocha src/test/transfersTestJS.js
       - run: 
           name: show src files 
           command: ls -Rlt src
