@@ -55,8 +55,10 @@ const transfersListWithFilter = await client.Transfers.list({
     type: "Debits"  
 });
 
-// Accessing a transfer at position 1 in the list 
-const transfer : Models.Transfer = transfersList[1];
+// Accessing transfers in the list and print out value
+for (let currTransfer of transfersList){
+        console.log(currTransfer);
+}
 
 // Get the size of the current list 
 const transferListSize : number = transfersList.size;
