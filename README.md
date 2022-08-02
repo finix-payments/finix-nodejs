@@ -21,7 +21,7 @@ import {Client, Environment, Models} from '@finix-payments/finix';
 const userName = 'USsRhsHYZGBPnQw8CByJyEQW';
 const password = '8a14c2f9-d94b-4c72-8f5c-a62908e5b30e';
 
-const client = new Client(userName, password, Environment.Test);
+const client = new Client(userName, password, Environment.Sandbox);
 ```
 
 ### Example API
@@ -42,7 +42,7 @@ const transfer = await client.Transfers.create(saleRequest);
 ### Retrieving List 
 finixList serves as the return type for all functions that involve retriving a list. Here is an example of retrieving a list of transfers with and without query paramters, and a demonstration of the properties of finixList.
 ```typescript 
-// Retrieving list of all transfers 
+    // Retrieving list of all transfers 
 const transfersList : Models.finixList<Models.Transfer> = await client.Transfers.list();
 
 // Retrieving list of transfers with the following filters: 
@@ -65,16 +65,17 @@ const transferListSize : number = transfersList.size;
 
 // Get the page object that contains properties including offset/nextCursor, limit.
 // Note: refer to the specific api to see if the page object associated is of type pageCursor or pageOffset
-const page : Models.pageCursor = transfersList.page;
+const page : Models.PageCursor = transfersList.page;
 
 // Get the links 
-const links : Models.listLinks = transfersList.links;
+const links : Models.ListLinks = transfersList.links;
 
 // Check if there is more to list, value equals to False if end of list has been reached 
 const hasMore : Boolean = transfersList.hasMore;
 
 // Get the next list 
-const nextTransfersList : Models.finixList<Models.Transfer> = transfersList.listNext();
+const nextTransfersList : Models.finixList<Models.Transfer> = await transfersList.listNext();
+
 ```
 
 ### Uploading file 
