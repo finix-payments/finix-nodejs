@@ -10,7 +10,7 @@ describe('Merchants API', () => {
         const userName = 'USsRhsHYZGBPnQw8CByJyEQW';
         const password = '8a14c2f9-d94b-4c72-8f5c-a62908e5b30e';
 
-        client = new Client(userName, password, Environment.Test);
+        client = new Client(userName, password, Environment.Sandbox);
     });
 
     test("Test: Provision a merchant", async() => {
@@ -135,7 +135,7 @@ describe('Merchants API', () => {
     
     test("Test: Raw as string", async() => {
         const verificationId = "VIcrdHd2vBu5RDZJWNGTQihc";
-        const clientTemp = new Client("USpumes23XhzHwXqiy9bfX2B","c69d39e3-f9ff-4735-8c3e-abca86441906",Environment.Test);
+        const clientTemp = new Client("USpumes23XhzHwXqiy9bfX2B","c69d39e3-f9ff-4735-8c3e-abca86441906",Environment.Sandbox);
         const verification = await clientTemp.Verifications.get(verificationId);
 
         expect(verification.raw).toEqual("RawDummyMerchantUnderwriteResult");

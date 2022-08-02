@@ -34,16 +34,16 @@ jobs:
 
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/repo
+      - run: 
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
       - run:
-          name: build
-          command: |
-            mkdir -p ~/.m2
-            cp .m2/settings.xml ~/.m2 
-            echo -e $GPG_KEY > PRIVATE_GPG_KEY.asc
-            gpg --batch --import PRIVATE_GPG_KEY.asc
-            mvn package
-            mvn -Drepo.id=${ID} -Drepo.username=${NEXUS_USER} -Drepo.password=${NEXUS_PASSWORD} -Dgpg.keyname="${GPG_ID}" -Dgpg.passphrase="${GPG_PASSP}" verify gpg:sign install:install deploy:deploy
-          working_directory: ~/project
+          name: Publish package
+          command: npm publish --access public
+
+  
 
 workflows:
   version: 2
@@ -52,9 +52,11 @@ workflows:
     jobs:
       - assemble
 
-  build-deploy:
+  deploy:
       jobs:
         - deploy:
+            requires:
+              - assemble
             filters:
               branches:
                 ignore: /.*/

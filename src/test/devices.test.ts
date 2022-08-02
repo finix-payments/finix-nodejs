@@ -10,7 +10,7 @@ describe('Devices API', () => {
         const userName = 'USjHFGYvecE4LBitYG8KDE2g';
         const password = 'b698f403-d9b7-4157-82d8-162cea8c8cc3';
 
-        client = new Client(userName, password, Environment.Test);
+        client = new Client(userName, password, Environment.Sandbox);
     });
 
     test("Test: Create a device", async() => {

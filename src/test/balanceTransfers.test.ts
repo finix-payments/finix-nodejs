@@ -9,7 +9,7 @@ describe('Balance Transfer API', () => {
         const userName = 'USbkjk46XqUTQHN3i2jaVnc1';
         const password = 'ac915962-2757-49ea-aeee-10960a408b99';
 
-        client = new Client(userName, password, Environment.Test);
+        client = new Client(userName, password, Environment.Sandbox);
     });
 
     test("Test: Create a balance transfer", async() => {

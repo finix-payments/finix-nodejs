@@ -10,7 +10,7 @@ describe('Transfers API', () => {
         const userName = 'USsRhsHYZGBPnQw8CByJyEQW';
         const password = '8a14c2f9-d94b-4c72-8f5c-a62908e5b30e';
 
-        client = new Client(userName, password, Environment.Test);
+        client = new Client(userName, password, Environment.Sandbox);
     });
 
     test("Test: Debit a bank account (ie eCheck)", async() => {

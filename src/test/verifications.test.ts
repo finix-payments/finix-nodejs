@@ -10,7 +10,7 @@ describe('Verifications API', () => {
         const userName = 'USpumes23XhzHwXqiy9bfX2B';
         const password = 'c69d39e3-f9ff-4735-8c3e-abca86441906';
 
-        client = new Client(userName, password, Environment.Test);
+        client = new Client(userName, password, Environment.Sandbox);
     });
 
     test("Test: Create a verification with merchant information", async() => { 

@@ -10,7 +10,7 @@ describe('Fee Profiles API', () => {
         const userName = 'USimz3zSq5R2PqiEBXY6rSiJ';
         const password = '8bacba32-9550-48ff-b567-fe7648947041';
 
-        client = new Client(userName, password, Environment.Test);
+        client = new Client(userName, password, Environment.Sandbox);
     });
 
     test("Test: Create a fee profile", async() => { 
