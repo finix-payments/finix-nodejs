@@ -54,6 +54,12 @@ workflows:
 
   deploy:
       jobs:
+        - assemble:
+            filters:
+              branches:
+                ignore: /.*/
+              tags:
+                only: /^v[0-9]+.*$/ 
         - deploy:
             requires:
               - assemble
