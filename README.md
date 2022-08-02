@@ -5,8 +5,7 @@ This is the official Finix Node.js API Library
 ### Prerequisites
 - Node.js 16 or higher
 - Suggested: Your own API credentials.
-    - The tests use the API credentials from our public documentaiton, but you will need your own credentials.
-
+Our tests use the API credentials from Finix's public documentation, however you need your own credentials to submit requests.
 ### NPM
 ```
 npm install --save @finix-payments/finix
