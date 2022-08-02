@@ -19,8 +19,7 @@ describe('Dispute API', () => {
         const fileName : string = __dirname.concat("/test.png");
         const fileObject: fs.ReadStream = fs.createReadStream(fileName);
         const uploadedDisputeEvidence = await client.Disputes.createDisputeEvidence(disputeId, {
-            file: fileObject},
-            {headers:{["Finix-Version"]: "2022-02-01"}});
+            file: fileObject});
         evidenceID = <string>uploadedDisputeEvidence.id;
 
         expect(uploadedDisputeEvidence.dispute).toBe(disputeId);
@@ -30,8 +29,7 @@ describe('Dispute API', () => {
     test("Test: Fetch a dispute", async() => {
    
         const disputeId: string = "DIs7yQRkHDdMYhurzYz72SFk";
-        const fetchedDispute = await client.Disputes.get(disputeId,
-            {headers:{["Finix-Version"]: "2022-02-01"}});
+        const fetchedDispute = await client.Disputes.get(disputeId);
         
         expect(fetchedDispute.id).toBe(disputeId);
         expect(fetchedDispute.amount).toBe(888888);
@@ -39,8 +37,7 @@ describe('Dispute API', () => {
     });
 
     test("Test: List disputes", async() => {
-        const disputeList = await client.Disputes.list(undefined,
-        {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const disputeList = await client.Disputes.list();
 
         expect(disputeList.page.limit).toEqual(expect.any(Number));
         if (disputeList.page.hasOwnProperty('offset')){
@@ -61,8 +58,7 @@ describe('Dispute API', () => {
     });
     
     test("Test: Fetch dispute adjustment transfers", async() => {
-        const disputeAdjTransferList = await client.Disputes.listDisputesAdjustments(disputeId, undefined,
-        {headers:{["Content-Type"]: "application/vnd.json+api", ["Finix-Version"]: "2022-02-01"}});
+        const disputeAdjTransferList = await client.Disputes.listDisputesAdjustments(disputeId);
 
         expect(disputeAdjTransferList.page.limit).toEqual(expect.any(Number));
         if (disputeAdjTransferList.page.hasOwnProperty('offset')){
@@ -83,8 +79,7 @@ describe('Dispute API', () => {
     });
 
     test("Test: Fetch dispute evidence files", async() => {
-        const disputeEvidenceFile = await client.Disputes.getDisputeEvidence(disputeId, evidenceID,
-        {headers:{["Content-Type"]: "application/vnd.json+api"}});
+        const disputeEvidenceFile = await client.Disputes.getDisputeEvidence(disputeId, evidenceID);
 
         expect(disputeEvidenceFile.dispute).toBe(disputeId);
         expect(disputeEvidenceFile.tags?.["file-name"]).toBe("test.png");
@@ -92,8 +87,7 @@ describe('Dispute API', () => {
     });
 
     test("Test: List dispute evidence files", async() => {
-        const disputeEvidenceList = await client.Disputes.listDisputeEvidenceByDisputeId(disputeId, undefined,
-        {headers:{["Content-Type"]: "application/vnd.json+api"}});
+        const disputeEvidenceList = await client.Disputes.listDisputeEvidenceByDisputeId(disputeId);
 
         expect(disputeEvidenceList.page.limit).toEqual(expect.any(Number));
         if (disputeEvidenceList.page.hasOwnProperty('offset')){
