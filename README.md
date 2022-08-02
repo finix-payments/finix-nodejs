@@ -39,7 +39,7 @@ const transfer = await client.Transfers.create(saleRequest);
 ```
 
 ### Retrieving List 
-finixList serves as the return type for all functions that involve retriving a list. Here is an example of retrieving a list of transfers with and without query paramters, and a demonstration of the properties of finixList.
+finixList serves as the return type for all functions that involve retrieving a list. Here is an example of retrieving a list of transfers with and without query paramters, and a demonstration of the properties of finixList.
 ```typescript 
 // Retrieving list of all transfers 
 const transfersList : Models.finixList<Models.Transfer> = await client.Transfers.list();
