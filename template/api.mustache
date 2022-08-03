@@ -1,0 +1,87 @@
+// This is the entrypoint for the package
+import * as finix from './api/apis';
+export * as Models from './model/models';
+
+let defaultBasePath = 'https://finix.sandbox-payments-api.com';
+{{#apiInfo}}
+export class Client {
+
+    {{#apis}}
+    {{#operations}}
+    readonly {{#lambda.titlecase}}{{ classVarName }}{{/lambda.titlecase}}: finix.{{classname}};
+    {{/operations}}
+    {{/apis}}
+
+    protected _basePath = defaultBasePath;
+
+    {{#authMethods}}
+    {{#isBasicBasic}}
+    protected _username;
+    protected _password;
+    {{/isBasicBasic}}
+    {{/authMethods}}
+
+    constructor(basePath?: string);
+{{#authMethods}}
+{{#isBasicBasic}}
+    constructor(username: string, password: string, basePath?: string);
+{{/isBasicBasic}}
+{{/authMethods}}
+    constructor(basePathOrUsername: string, password?: string, basePath?: string) {
+        if (password) {
+{{#authMethods}}
+{{#isBasicBasic}}
+            this.username = basePathOrUsername;
+            this.password = password
+{{/isBasicBasic}}
+{{/authMethods}}
+            if (basePath) {
+                this.basePath = basePath;
+            }
+        } else {
+            if (basePathOrUsername) {
+                this.basePath = basePathOrUsername
+            }
+        }
+        {{#apis}}
+        {{#operations}}
+        this.{{#lambda.titlecase}}{{ classVarName }}{{/lambda.titlecase}} = new finix.{{classname}}(this.username, this.password, this.basePath);
+        {{/operations}}
+        {{/apis}}
+    }
+
+    set basePath(basePath: string) {
+        this._basePath = basePath;
+    }
+
+    get basePath() {
+        return this._basePath;
+    }
+
+{{#authMethods}}
+{{#isBasicBasic}}
+    set username(username: string) {
+        this._username = username;
+    }
+
+    set password(password: string) {
+        this._password = password;
+    }
+
+    get username() {
+        return this._username;
+    }
+
+    get password() {
+        return this._password;
+    }
+{{/isBasicBasic}}
+{{/authMethods}}
+
+}
+{{/apiInfo}}
+
+export enum Environment{
+    Test = 'https://finix.sandbox-payments-api.com',
+    Live = 'https://finix.live-payments-api.com'
+}
