@@ -90,7 +90,7 @@ describe('Error response', () => {
             expect(error.body._embedded.errors[0].code).toBe('DECLINED');
             expect(error.body._embedded.errors[0].authorization).toEqual(expect.any(String));
         }
-    });
+    }, 10000);
 
     test("Test: 402 - Refused/Declined payments -- payment declined", async() => {
         try{
