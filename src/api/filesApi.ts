@@ -1052,7 +1052,7 @@ export class FilesApi {
      * Extracts offset value from response body and determines if end of list has been reached
      */
     private getOffsetQueryParam(responseObject: any, queryParam: any){
-        queryParam.offset = responseObject.body.page.offset;
+        queryParam.offset = responseObject.body.page.offset + responseObject.body.page.limit;
         var endReached: Boolean = false;
         if (responseObject.body.page.offset + responseObject.body.page.limit > responseObject.body.page.count){
             endReached = true;

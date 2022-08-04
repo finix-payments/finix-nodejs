@@ -31,7 +31,7 @@ describe('Balance Transfer API', () => {
         expect(balanceTransferRequest.amount).toBe(createdBalanceTransfer.amount);
         expect(balanceTransferRequest.description).toBe(createdBalanceTransfer.description);
         expect(balanceTransferRequest.source).toBe(createdBalanceTransfer.source);
-    });
+    }, 10000);
 
      test("Test: Fetch a balance transfer", async() => { 
          const fetchedBalanceTransfer = await client.BalanceTransfers.get(balanceTransferID);

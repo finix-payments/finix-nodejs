@@ -32,7 +32,7 @@ describe('Transfers API', () => {
         expect(debitAccountTransfer.fee).toBe(debitRequest.fee);
         expect(debitAccountTransfer.application).toBe("APgPDQrLD52TYvqazjHJJchM");
         expect(debitAccountTransfer.source).toBe(debitRequest.source);
-    });
+    }, 10000);
 
     test("Test: Create sale", async() => {
         const saleRequest: Models.CreateTransferRequest = {
