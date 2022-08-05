@@ -1,20 +1,23 @@
 version: 2.1
 
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: cimg/node:18.4.0
+  resource_class: medium
+
 jobs:
   assemble:
-    docker:
-      - image: cimg/node:18.4.0
-    resource_class: medium
-
+    <<: *defaults
     steps:
       - checkout
-      - working_directory: ~/repo
       - run:
           name: build
           command: |
             npm install 
             npm install -g typescript
             tsc --build tsconfig.json 
+          
       - run:
           name: test - typescript
           command: npm test -- -w=2
@@ -32,10 +35,7 @@ jobs:
 
 
   deploy:
-    docker:
-      - image: cimg/node:18.4.0
-    resource_class: medium
-
+    <<: *defaults
     steps:
       - checkout
       - attach_workspace:
