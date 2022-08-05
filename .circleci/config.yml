@@ -60,13 +60,11 @@ workflows:
       jobs:
         - assemble:
             filters:
-              branches:
               tags:
                 only: /^v[0-9]+.*$/ 
         - deploy:
             requires:
               - assemble
             filters:
-              branches:
               tags:
                 only: /^v[0-9]+.*$/
