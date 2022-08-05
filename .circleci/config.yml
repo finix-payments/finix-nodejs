@@ -61,7 +61,6 @@ workflows:
         - assemble:
             filters:
               branches:
-                ignore: /.*/
               tags:
                 only: /^v[0-9]+.*$/ 
         - deploy:
@@ -69,6 +68,5 @@ workflows:
               - assemble
             filters:
               branches:
-                ignore: /.*/
               tags:
                 only: /^v[0-9]+.*$/
