@@ -25,6 +25,12 @@ jobs:
       - run: 
           name: show src files 
           command: ls -Rlt src
+      - save_cache:
+          paths:
+            - node_modules
+      - persist_to_workspace:
+          root: ~/repo
+          paths: .
 
 
   deploy:
