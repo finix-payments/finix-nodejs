@@ -8,10 +8,6 @@ jobs:
 
     steps:
       - checkout
-      - - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies
       - run:
           name: build
           command: |
@@ -29,11 +25,6 @@ jobs:
       - run: 
           name: show src files 
           command: ls -Rlt src
-      - save_cache:
-          paths:
-            - node_modules
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
       - persist_to_workspace:
           root: ~/repo
           paths: .
