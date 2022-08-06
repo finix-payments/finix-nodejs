@@ -20,8 +20,8 @@ describe('Error response', () => {
             let transferList = await invalidClient.Transfers.list();
         }catch(error){
             expect(error.statusCode).toBe(401);
-            expect(error.body._embedded.errors.length).toBeGreaterThan(0);
-            expect(error.body._embedded.errors[0].message).toBe('Unauthorized');
+            expect(error.body.length).toBeGreaterThan(0);
+            expect(error.body[0].message).toBe('Unauthorized');
         }
 
     });
@@ -35,8 +35,8 @@ describe('Error response', () => {
             let transferList = await invalidClient.Transfers.list();
         }catch(error){
             expect(error.statusCode).toBe(401);
-            expect(error.body._embedded.errors.length).toBeGreaterThan(0);
-            expect(error.body._embedded.errors[0].message).toBe('Unauthorized');
+            expect(error.body.length).toBeGreaterThan(0);
+            expect(error.body[0].message).toBe('Unauthorized');
         }
     });
 
@@ -47,8 +47,8 @@ describe('Error response', () => {
             });
         }catch(error){
             expect(error.statusCode).toBe(404);
-            expect(error.body._embedded.errors.length).toBeGreaterThan(0);
-            expect(error.body._embedded.errors[0].code).toBe('NOT_FOUND');
+            expect(error.body.length).toBeGreaterThan(0);
+            expect(error.body[0].code).toBe('NOT_FOUND');
         }
     });
 
@@ -86,9 +86,9 @@ describe('Error response', () => {
             console.log(authorization);
         }catch(error){
             expect(error.statusCode).toBe(402);
-            expect(error.body._embedded.errors.length).toBeGreaterThan(0);
-            expect(error.body._embedded.errors[0].code).toBe('DECLINED');
-            expect(error.body._embedded.errors[0].authorization).toEqual(expect.any(String));
+            expect(error.body.length).toBeGreaterThan(0);
+            expect(error.body[0].code).toBe('DECLINED');
+            expect(error.body[0].authorization).toEqual(expect.any(String));
         }
     }, 10000);
 
@@ -130,9 +130,9 @@ describe('Error response', () => {
 
         }catch(error){
             expect(error.statusCode).toBe(402);
-            expect(error.body._embedded.errors.length).toBeGreaterThan(0);
-            expect(error.body._embedded.errors[0].code).toBe('PAYMENT_DECLINED');
-            expect(error.body._embedded.errors[0].transfer).toEqual(expect.any(String));
+            expect(error.body.length).toBeGreaterThan(0);
+            expect(error.body[0].code).toBe('PAYMENT_DECLINED');
+            expect(error.body[0].transfer).toEqual(expect.any(String));
         }
     });
 
@@ -144,8 +144,8 @@ describe('Error response', () => {
             })
         }catch(error){
             expect(error.statusCode).toBe(422);
-            expect(error.body._embedded.errors.length).toBeGreaterThan(0);
-            expect(error.body._embedded.errors[0].code).toBe('INVALID_FIELD');
+            expect(error.body.length).toBeGreaterThan(0);
+            expect(error.body[0].code).toBe('INVALID_FIELD');
         }
     });
 })
