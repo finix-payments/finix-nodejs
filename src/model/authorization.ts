@@ -11,6 +11,7 @@
  */
 
 import { RequestFile } from './models';
+import { AdditionalBuyerCharges } from './additionalBuyerCharges';
 import { AuthorizationExternalResponsesInner } from './authorizationExternalResponsesInner';
 import { AuthorizationLinks } from './authorizationLinks';
 import { CardPresentDetails } from './cardPresentDetails';
@@ -68,6 +69,7 @@ export class Authorization {
     * A randomly generated value that\'ll be associated with the request.
     */
     'idempotencyId'?: string | null;
+    'additionalBuyerCharges'?: AdditionalBuyerCharges | null;
     /**
     * The code of the failure so the decline can be handled programmatically. For more info on how to handle the failure, see [Failure Codes](/docs/guides/developers/errors/#failure-codes).
     */
@@ -191,6 +193,11 @@ export class Authorization {
             "name": "idempotencyId",
             "baseName": "idempotency_id",
             "type": "string"
+        },
+        {
+            "name": "additionalBuyerCharges",
+            "baseName": "additional_buyer_charges",
+            "type": "AdditionalBuyerCharges"
         },
         {
             "name": "failureCode",

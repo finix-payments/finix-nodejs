@@ -13,25 +13,34 @@
 import { RequestFile } from './models';
 
 /**
-* 
+* The date the company was founded and registered with the US.
 */
-export class UpdatePaymentInstrumentRequest {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags'?: { [key: string]: string; };
+export class UpdateIdentityRequestEntityIncorporationDate {
+    'year'?: number;
+    'day'?: number;
+    'month'?: number;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
+            "name": "year",
+            "baseName": "year",
+            "type": "number"
+        },
+        {
+            "name": "day",
+            "baseName": "day",
+            "type": "number"
+        },
+        {
+            "name": "month",
+            "baseName": "month",
+            "type": "number"
         }    ];
 
     static getAttributeTypeMap() {
-        return UpdatePaymentInstrumentRequest.attributeTypeMap;
+        return UpdateIdentityRequestEntityIncorporationDate.attributeTypeMap;
     }
 }
 

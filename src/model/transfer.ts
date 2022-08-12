@@ -11,6 +11,7 @@
  */
 
 import { RequestFile } from './models';
+import { AdditionalBuyerCharges } from './additionalBuyerCharges';
 import { CardPresentDetails } from './cardPresentDetails';
 import { Currency } from './currency';
 import { FeeType } from './feeType';
@@ -116,6 +117,7 @@ export class Transfer {
     * A human-readable description of why the transaction was declined. This will also include a suggestion on how to complete the payment.
     */
     'failureMessage'?: string | null;
+    'additionalBuyerCharges'?: AdditionalBuyerCharges | null;
     'links'?: TransferLinks;
 
     static discriminator: string | undefined = undefined;
@@ -255,6 +257,11 @@ export class Transfer {
             "name": "failureMessage",
             "baseName": "failure_message",
             "type": "string"
+        },
+        {
+            "name": "additionalBuyerCharges",
+            "baseName": "additional_buyer_charges",
+            "type": "AdditionalBuyerCharges"
         },
         {
             "name": "links",

@@ -41,7 +41,7 @@ export class Device {
     'updatedAt'?: Date;
     'configurationDetails'?: DeviceConfigDetails | null;
     /**
-    * Details if the `Device` is connected and online.
+    * Details if the `Device` is connected and online. Only returned when include_connection parameter provided.
     */
     'connection'?: string;
     /**

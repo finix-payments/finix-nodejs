@@ -11,19 +11,19 @@
  */
 
 import { RequestFile } from './models';
-import { CreateIdentityRequestEntityIncorporationDate } from './createIdentityRequestEntityIncorporationDate';
-import { CreateIdentityRequestEntityPersonalAddress } from './createIdentityRequestEntityPersonalAddress';
 import { UpdateIdentityRequestEntityBusinessAddress } from './updateIdentityRequestEntityBusinessAddress';
 import { UpdateIdentityRequestEntityDob } from './updateIdentityRequestEntityDob';
+import { UpdateIdentityRequestEntityIncorporationDate } from './updateIdentityRequestEntityIncorporationDate';
+import { UpdateIdentityRequestEntityPersonalAddress } from './updateIdentityRequestEntityPersonalAddress';
 
 /**
-* Underwriting data that\'s required to verify the identity of the merchant.
+* Underwriting data that\'s required to verify the `Identity`.
 */
 export class UpdateIdentityRequestEntity {
     /**
-    * The legal last name of the merchant\'s control owner (max 20 characters).
+    * The `Identity` owner\'s legal last name.
     */
-    'lastName': string;
+    'lastName'?: string;
     /**
     * The maximum amount (in cents) that can be charged for a single transaction (max 12 characters).
     */
@@ -36,17 +36,17 @@ export class UpdateIdentityRequestEntity {
     * The description of the merchant that appears on the buyer\'s bank or card statement.
     */
     'defaultStatementDescriptor'?: string;
-    'personalAddress'?: CreateIdentityRequestEntityPersonalAddress;
-    'incorporationDate'?: CreateIdentityRequestEntityIncorporationDate;
+    'personalAddress'?: UpdateIdentityRequestEntityPersonalAddress;
+    'incorporationDate'?: UpdateIdentityRequestEntityIncorporationDate;
     'businessAddress'?: UpdateIdentityRequestEntityBusinessAddress | null;
     /**
     * Values can be either: <ul><li><strong>PUBLIC</strong> to indicate a publicly-traded company. <li><strong>PRIVATE</strong> for privately-held businesses.
     */
     'ownershipType'?: string;
     /**
-    * The legal first name of the merchant\'s control owner (max 20 characters).
+    * The legal first name of the control owner (max 20 characters).
     */
-    'firstName': string;
+    'firstName'?: string;
     /**
     * The corporate title of the control owner (e.g. Chief Executive Officer, CFO, etc. Max 60 characters).
     */
@@ -66,7 +66,7 @@ export class UpdateIdentityRequestEntity {
     /**
     * The email address of the principal control owner where they can be reached (max 100 characters).
     */
-    'email': string;
+    'email'?: string;
     /**
     * The Merchant Category Code ([MCC](http://www.dm.usda.gov/procurement/card/card_x/mcc.pdf)) that this merchant will be classified under.
     */
@@ -74,7 +74,7 @@ export class UpdateIdentityRequestEntity {
     /**
     * The principal control owner\'s phone number (max 10 characters).
     */
-    'phone': string;
+    'phone'?: string;
     /**
     * Abbreviated names of the business. If there are no abbreviated name, leave this field blank.
     */
@@ -93,11 +93,11 @@ export class UpdateIdentityRequestEntity {
     'businessPhone'?: string;
     'dob'?: UpdateIdentityRequestEntityDob;
     /**
-    * The URL of the merchant\'s public website.
+    * The URL of the `Identity` owner\'s public website.
     */
     'url'?: string;
     /**
-    * The annual credit card sales (in cents) expected to be processed by this merchant (max 19 characters).
+    * The annual credit card sales (in cents) expected to be processed (max 19 characters).
     */
     'annualCardVolume'?: number;
 
@@ -127,12 +127,12 @@ export class UpdateIdentityRequestEntity {
         {
             "name": "personalAddress",
             "baseName": "personal_address",
-            "type": "CreateIdentityRequestEntityPersonalAddress"
+            "type": "UpdateIdentityRequestEntityPersonalAddress"
         },
         {
             "name": "incorporationDate",
             "baseName": "incorporation_date",
-            "type": "CreateIdentityRequestEntityIncorporationDate"
+            "type": "UpdateIdentityRequestEntityIncorporationDate"
         },
         {
             "name": "businessAddress",

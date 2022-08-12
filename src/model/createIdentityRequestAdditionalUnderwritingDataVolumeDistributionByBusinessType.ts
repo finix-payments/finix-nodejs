@@ -13,7 +13,7 @@
 import { RequestFile } from './models';
 
 /**
-* Merchant\'s distribution of credit card volume by business type. Sum of `volume_distribution_by_business_type` must be 100.
+* IP address of the merchant when this merchant accepted the merchant agreement (e.g., 42.1.1.113).
 */
 export class CreateIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusinessType {
     /**

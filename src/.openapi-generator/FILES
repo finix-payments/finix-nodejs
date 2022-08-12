@@ -17,6 +17,7 @@ api/transfersApi.ts
 api/verificationsApi.ts
 api/webhooksApi.ts
 git_push.sh
+model/additionalBuyerCharges.ts
 model/additionalPurchaseData.ts
 model/additionalPurchaseDataItemDataInner.ts
 model/additionalPurchaseDataOrderDate.ts
@@ -72,9 +73,6 @@ model/createIdentityRequestAdditionalUnderwritingData.ts
 model/createIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution.ts
 model/createIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusinessType.ts
 model/createIdentityRequestEntity.ts
-model/createIdentityRequestEntityBusinessAddress.ts
-model/createIdentityRequestEntityDob.ts
-model/createIdentityRequestEntityIncorporationDate.ts
 model/createIdentityRequestEntityPersonalAddress.ts
 model/createInstrumentUpdateRequest.ts
 model/createMerchantUnderwritingRequest.ts
@@ -145,6 +143,7 @@ model/feesList.ts
 model/feesListEmbedded.ts
 model/filesList.ts
 model/filesListEmbedded.ts
+model/getDeviceQueryParams.ts
 model/identitiesList.ts
 model/identitiesListEmbedded.ts
 model/identity.ts
@@ -282,6 +281,7 @@ model/transfersList.ts
 model/transfersListEmbedded.ts
 model/updateApplicationProfileRequest.ts
 model/updateAuthorizationRequest.ts
+model/updateDeviceRequest.ts
 model/updateFeeRequest.ts
 model/updateIdentityRequest.ts
 model/updateIdentityRequestAdditionalUnderwritingData.ts
@@ -290,6 +290,8 @@ model/updateIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusines
 model/updateIdentityRequestEntity.ts
 model/updateIdentityRequestEntityBusinessAddress.ts
 model/updateIdentityRequestEntityDob.ts
+model/updateIdentityRequestEntityIncorporationDate.ts
+model/updateIdentityRequestEntityPersonalAddress.ts
 model/updateMerchantProfileRequest.ts
 model/updateMerchantRequest.ts
 model/updatePaymentInstrumentRequest.ts

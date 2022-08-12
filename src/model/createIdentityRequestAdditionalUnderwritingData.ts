@@ -14,9 +14,6 @@ import { RequestFile } from './models';
 import { CreateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution } from './createIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution';
 import { CreateIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusinessType } from './createIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusinessType';
 
-/**
-* Additional underwriting data that\'s required to verify the identity of the merchant.
-*/
 export class CreateIdentityRequestAdditionalUnderwritingData {
     /**
     * Sets whether this merchant has accepted the terms and conditions of the merchant agreement.
@@ -40,7 +37,7 @@ export class CreateIdentityRequestAdditionalUnderwritingData {
     */
     'creditCheckUserAgent'?: string;
     /**
-    * Include the value that best applies to the merchant\'s refund policy.
+    * The details of the browser that was used when this merchant consented to a credit check (e.g., Mozilla 5.0 (Macintosh; Intel Mac OS X 10 _14_6)).
     */
     'refundPolicy'?: CreateIdentityRequestAdditionalUnderwritingData.RefundPolicyEnum | string;
     /**
@@ -52,7 +49,7 @@ export class CreateIdentityRequestAdditionalUnderwritingData {
     */
     'creditCheckAllowed'?: boolean;
     /**
-    * Timestamp of when the merchant accepted Finix\'s Terms of Service (e.g., 2021-04-28T16:42:55Z).
+    * Sets if this merchant has consented and accepted to a credit check.
     */
     'merchantAgreementTimestamp'?: string;
     /**

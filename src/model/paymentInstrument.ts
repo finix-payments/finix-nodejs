@@ -21,14 +21,6 @@ import { PaymentInstrumentLinks } from './paymentInstrumentLinks';
 */
 export class PaymentInstrument {
     /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags'?: { [key: string]: string; };
-    /**
-    * Type of `Payment Instrument`.
-    */
-    'type'?: PaymentInstrument.TypeEnum | string;
-    /**
     * The ID of the resource.
     */
     'id'?: string | null;
@@ -74,8 +66,36 @@ export class PaymentInstrument {
     * The name of the bank account or card owner.
     */
     'name'?: string | null;
-    'payloadType'?: PaymentInstrument.PayloadTypeEnum | string;
+    /**
+    * Key value pair for annotating custom meta data (e.g. order numbers).
+    */
+    'tags'?: { [key: string]: string; };
+    /**
+    * Type of `Payment Instrument`.
+    */
+    'type'?: PaymentInstrument.TypeEnum | string;
     'links'?: PaymentInstrumentLinks;
+    'address'?: Address | null;
+    /**
+    * Additional address information that’s required to verify the identity of the merchant.
+    */
+    'addressVerification'?: PaymentInstrument.AddressVerificationEnum | string;
+    /**
+    * Bank Identification number for the `Payment Instrument`.
+    */
+    'bin'?: string;
+    /**
+    * The `brand` of the card saved in the `Payment Instrument`.
+    */
+    'brand'?: string;
+    /**
+    * A custom name you can include to identify the card being used (e.g. **Business Card**).
+    */
+    'cardName'?: string | null;
+    /**
+    * The type of payment card saved in the `Payment Instrument`.
+    */
+    'cardType'?: string;
     /**
     * Expiration month (e.g. 12 for December).
     */
@@ -85,60 +105,30 @@ export class PaymentInstrument {
     */
     'expirationYear'?: number;
     /**
-    * Bank Identification number for the `Payment Instrument`.
+    * Details if Fast Funds is enabled for the card.
     */
-    'bin'?: string;
+    'fastFundsIndicator'?: string;
     /**
     * Last four digits of the card or bank account number.
     */
     'lastFour'?: string;
     /**
-    * The `brand` of the card saved in the `Payment Instrument`.
-    */
-    'brand'?: PaymentInstrument.BrandEnum | string;
-    /**
-    * The type of payment card saved in the `Payment Instrument`.
-    */
-    'cardType'?: PaymentInstrument.CardTypeEnum | string;
-    'address'?: Address | null;
-    /**
-    * Additional address information that’s required to verify the identity of the merchant.
-    */
-    'addressVerification'?: PaymentInstrument.AddressVerificationEnum | string;
-    /**
-    * Details the results of the Card Verification Code check.
-    */
-    'securityCodeVerification'?: PaymentInstrument.SecurityCodeVerificationEnum | string;
-    /**
-    * A custom name you can include to identify the card being used (e.g. **Business Card**).
-    */
-    'cardName'?: string | null;
-    /**
-    * Details if Fast Funds is enabled for the card.
-    */
-    'fastFundsIndicator'?: string;
-    /**
     * Detailes if the card is enabled to receive push-payments for online gambling payouts.
     */
     'onlineGambingBlockIndicator'?: string;
+    'payloadType'?: PaymentInstrument.PayloadTypeEnum | string;
     /**
     * Details if the card is enabled to receive push-to-card disbursements.
     */
     'pushFundsBlockIndicator'?: string;
+    /**
+    * Details the results of the Card Verification Code check.
+    */
+    'securityCodeVerification'?: PaymentInstrument.SecurityCodeVerificationEnum | string;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "type",
-            "baseName": "type",
-            "type": "PaymentInstrument.TypeEnum"
-        },
         {
             "name": "id",
             "baseName": "id",
@@ -205,44 +195,19 @@ export class PaymentInstrument {
             "type": "string"
         },
         {
-            "name": "payloadType",
-            "baseName": "payload_type",
-            "type": "PaymentInstrument.PayloadTypeEnum"
+            "name": "tags",
+            "baseName": "tags",
+            "type": "{ [key: string]: string; }"
+        },
+        {
+            "name": "type",
+            "baseName": "type",
+            "type": "PaymentInstrument.TypeEnum"
         },
         {
             "name": "links",
             "baseName": "_links",
             "type": "PaymentInstrumentLinks"
-        },
-        {
-            "name": "expirationMonth",
-            "baseName": "expiration_month",
-            "type": "number"
-        },
-        {
-            "name": "expirationYear",
-            "baseName": "expiration_year",
-            "type": "number"
-        },
-        {
-            "name": "bin",
-            "baseName": "bin",
-            "type": "string"
-        },
-        {
-            "name": "lastFour",
-            "baseName": "last_four",
-            "type": "string"
-        },
-        {
-            "name": "brand",
-            "baseName": "brand",
-            "type": "PaymentInstrument.BrandEnum"
-        },
-        {
-            "name": "cardType",
-            "baseName": "card_type",
-            "type": "PaymentInstrument.CardTypeEnum"
         },
         {
             "name": "address",
@@ -255,9 +220,14 @@ export class PaymentInstrument {
             "type": "PaymentInstrument.AddressVerificationEnum"
         },
         {
-            "name": "securityCodeVerification",
-            "baseName": "security_code_verification",
-            "type": "PaymentInstrument.SecurityCodeVerificationEnum"
+            "name": "bin",
+            "baseName": "bin",
+            "type": "string"
+        },
+        {
+            "name": "brand",
+            "baseName": "brand",
+            "type": "string"
         },
         {
             "name": "cardName",
@@ -265,8 +235,28 @@ export class PaymentInstrument {
             "type": "string"
         },
         {
+            "name": "cardType",
+            "baseName": "card_type",
+            "type": "string"
+        },
+        {
+            "name": "expirationMonth",
+            "baseName": "expiration_month",
+            "type": "number"
+        },
+        {
+            "name": "expirationYear",
+            "baseName": "expiration_year",
+            "type": "number"
+        },
+        {
             "name": "fastFundsIndicator",
             "baseName": "fast_funds_indicator",
+            "type": "string"
+        },
+        {
+            "name": "lastFour",
+            "baseName": "last_four",
             "type": "string"
         },
         {
@@ -275,9 +265,19 @@ export class PaymentInstrument {
             "type": "string"
         },
         {
+            "name": "payloadType",
+            "baseName": "payload_type",
+            "type": "PaymentInstrument.PayloadTypeEnum"
+        },
+        {
             "name": "pushFundsBlockIndicator",
             "baseName": "push_funds_block_indicator",
             "type": "string"
+        },
+        {
+            "name": "securityCodeVerification",
+            "baseName": "security_code_verification",
+            "type": "PaymentInstrument.SecurityCodeVerificationEnum"
         }    ];
 
     static getAttributeTypeMap() {
@@ -286,15 +286,6 @@ export class PaymentInstrument {
 }
 
 export namespace PaymentInstrument {
-    export enum TypeEnum {
-        PaymentCard = <any> 'PAYMENT_CARD',
-        Token = <any> 'TOKEN',
-        VantivOmniToken = <any> 'VANTIV_OMNI_TOKEN',
-        BankAccount = <any> 'BANK_ACCOUNT',
-        PaymentCardPresent = <any> 'PAYMENT_CARD_PRESENT',
-        SwipedPaymentCard = <any> 'SWIPED_PAYMENT_CARD',
-        Virtual = <any> 'VIRTUAL'
-    }
     export enum AccountTypeEnum {
         Checking = <any> 'CHECKING',
         Savings = <any> 'SAVINGS',
@@ -302,47 +293,22 @@ export namespace PaymentInstrument {
         CorpSavings = <any> 'CORP_SAVINGS'
     }
     export enum InstrumentTypeEnum {
+        BankAccount = <any> 'BANK_ACCOUNT',
+        VantivOmniToken = <any> 'VANTIV_OMNI_TOKEN',
+        Virtual = <any> 'VIRTUAL',
+        SwipedPaymentCard = <any> 'SWIPED_PAYMENT_CARD',
         PaymentCard = <any> 'PAYMENT_CARD',
         Token = <any> 'TOKEN',
-        VantivOmniToken = <any> 'VANTIV_OMNI_TOKEN',
+        PaymentCardPresent = <any> 'PAYMENT_CARD_PRESENT'
+    }
+    export enum TypeEnum {
         BankAccount = <any> 'BANK_ACCOUNT',
-        PaymentCardPresent = <any> 'PAYMENT_CARD_PRESENT',
+        VantivOmniToken = <any> 'VANTIV_OMNI_TOKEN',
+        Virtual = <any> 'VIRTUAL',
         SwipedPaymentCard = <any> 'SWIPED_PAYMENT_CARD',
-        Virtual = <any> 'VIRTUAL'
-    }
-    export enum PayloadTypeEnum {
-        Source = <any> 'SOURCE',
-        Destination = <any> 'DESTINATION'
-    }
-    export enum BrandEnum {
-        Unknown = <any> 'UNKNOWN',
-        DinersClubInternational = <any> 'DINERS_CLUB_INTERNATIONAL',
-        Dankort = <any> 'DANKORT',
-        Mir = <any> 'MIR',
-        Troy = <any> 'TROY',
-        Uatp = <any> 'UATP',
-        ChinaTUnion = <any> 'CHINA_T_UNION',
-        ChinaUnionPay = <any> 'CHINA_UNION_PAY',
-        AmericanExpress = <any> 'AMERICAN_EXPRESS',
-        Verve = <any> 'VERVE',
-        Rupay = <any> 'RUPAY',
-        Discover = <any> 'DISCOVER',
-        Jcb = <any> 'JCB',
-        Mastercard = <any> 'MASTERCARD',
-        Interpayment = <any> 'INTERPAYMENT',
-        Instapayment = <any> 'INSTAPAYMENT',
-        Maestro = <any> 'MAESTRO',
-        Visa = <any> 'VISA',
-        Lankapay = <any> 'LANKAPAY',
-        DinersClub = <any> 'DINERS_CLUB'
-    }
-    export enum CardTypeEnum {
-        Unknown = <any> 'UNKNOWN',
-        Credit = <any> 'CREDIT',
-        Debit = <any> 'DEBIT',
-        HsaFsa = <any> 'HSA_FSA',
-        NonReloadablePrepaid = <any> 'NON_RELOADABLE_PREPAID',
-        ReloadablePrepaid = <any> 'RELOADABLE_PREPAID'
+        PaymentCard = <any> 'PAYMENT_CARD',
+        Token = <any> 'TOKEN',
+        PaymentCardPresent = <any> 'PAYMENT_CARD_PRESENT'
     }
     export enum AddressVerificationEnum {
         PostalCodeAndStreetMatch = <any> 'POSTAL_CODE_AND_STREET_MATCH',
@@ -352,6 +318,10 @@ export namespace PaymentInstrument {
         NoMatch = <any> 'NO_MATCH',
         NotSupported = <any> 'NOT_SUPPORTED',
         Unknown = <any> 'UNKNOWN'
+    }
+    export enum PayloadTypeEnum {
+        Source = <any> 'SOURCE',
+        Destination = <any> 'DESTINATION'
     }
     export enum SecurityCodeVerificationEnum {
         Matched = <any> 'MATCHED',

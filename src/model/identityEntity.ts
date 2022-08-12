@@ -17,77 +17,81 @@ import { IdentityEntityIncorporationDate } from './identityEntityIncorporationDa
 import { IdentityEntityPersonalAddress } from './identityEntityPersonalAddress';
 
 /**
-* The underwriting details required to verify the `Identity` of the `Merchant`.
+* The underwriting details required to verify the `Identity`.
 */
 export class IdentityEntity {
-    /**
-    * The corporate title of the control owner (e.g. Chief Executive Officer, CFO, etc. Max 60 characters).
-    */
-    'title'?: string | null;
-    /**
-    * The legal first name of the merchant\'s control owner (max 20 characters).
-    */
-    'firstName'?: string | null;
-    /**
-    * The legal last name of the merchant\'s control owner (max 20 characters).
-    */
-    'lastName'?: string | null;
-    /**
-    * The email address of the principal control owner where they can be reached (max 100 characters).
-    */
-    'email'?: string | null;
-    /**
-    * The merchant\'s legal business name (max 120 characters).<ul><li>If <strong>INDIVIDUAL_SOLE_PROPRIETORSHIP</strong>, pass the owner\'s legal first name, last name and middle initial.
-    */
-    'businessName'?: string | null;
-    /**
-    * Include the value that best applies to the merchant.
-    */
-    'businessType'?: string | null;
-    /**
-    * Alternate names of the business. If there are no other names, pass the same value used for `business_name` (max 60 characters).
-    */
-    'doingBusinessAs'?: string | null;
-    /**
-    * The principal control owner\'s phone number (max 10 characters).
-    */
-    'phone'?: string | null;
-    /**
-    * Customer service phone number where the merchant can be reached (max 10 characters).
-    */
-    'businessPhone'?: string | null;
-    'personalAddress'?: IdentityEntityPersonalAddress | null;
-    'businessAddress'?: IdentityEntityBusinessAddress | null;
-    /**
-    * The Merchant Category Code ([MCC](http://www.dm.usda.gov/procurement/card/card\\_x/mcc.pdf)) that this merchant will be classified under.
-    */
-    'mcc'?: string | null;
-    'dob'?: IdentityEntityDob | null;
-    /**
-    * The maximum amount (in cents) that can be charged for a single transaction (max 12 characters).
-    */
-    'maxTransactionAmount'?: number | null;
     /**
     * Assigned amexMid value. If a value is passed, it must be 10 or 11 digits.
     */
     'amexMid'?: number | null;
     /**
-    * Assigned discoverMid value.
-    */
-    'discoverMid'?: number | null;
-    /**
-    * The URL of the merchant\'s public website.
-    */
-    'url'?: string | null;
-    /**
     * The annual credit card sales (in cents) expected to be processed by this merchant (max 19 characters).
     */
     'annualCardVolume'?: number | null;
+    'businessAddress'?: IdentityEntityBusinessAddress | null;
+    /**
+    * The merchant\'s legal business name (max 120 characters).<ul><li>If <strong>INDIVIDUAL_SOLE_PROPRIETORSHIP</strong>, pass the owner\'s legal first name, last name and middle initial.
+    */
+    'businessName'?: string | null;
+    /**
+    * Customer service phone number where the merchant can be reached (max 10 characters).
+    */
+    'businessPhone'?: string | null;
+    /**
+    * Details if the `business_tax_id` was provided.
+    */
+    'businessTaxIdProvided'?: boolean;
+    /**
+    * Include the value that best applies to the merchant.
+    */
+    'businessType'?: string | null;
+    /**
+    * The description of the merchant that appears on the buyer\'s bank or card statement.
+    */
+    'defaultStatementDescriptor'?: string | null;
+    /**
+    * Assigned discoverMid value.
+    */
+    'discoverMid'?: number | null;
+    'dob'?: IdentityEntityDob | null;
+    /**
+    * Alternate names of the business. If there are no other names, pass the same value used for `business_name` (max 60 characters).
+    */
+    'doingBusinessAs'?: string | null;
+    /**
+    * The email address of the principal control owner where they can be reached (max 100 characters).
+    */
+    'email'?: string | null;
+    /**
+    * The legal first name of the merchant\'s control owner (max 20 characters).
+    */
+    'firstName'?: string | null;
     /**
     * Defaults to **false** if not passed.
     */
     'hasAcceptedCreditCardsPreviously'?: boolean;
     'incorporationDate'?: IdentityEntityIncorporationDate | null;
+    /**
+    * The legal last name of the merchant\'s control owner (max 20 characters).
+    */
+    'lastName'?: string | null;
+    /**
+    * The maximum amount (in cents) that can be charged for a single transaction (max 12 characters).
+    */
+    'maxTransactionAmount'?: number | null;
+    /**
+    * The Merchant Category Code ([MCC](http://www.dm.usda.gov/procurement/card/card\\_x/mcc.pdf)) that this merchant will be classified under.
+    */
+    'mcc'?: string | null;
+    /**
+    * Values can be either: <ul><li><strong>PUBLIC</strong> to indicate a publicly-traded company.<li><strong>PRIVATE</strong> for privately-held businesses.
+    */
+    'ownershipType'?: IdentityEntity.OwnershipTypeEnum | string;
+    'personalAddress'?: IdentityEntityPersonalAddress | null;
+    /**
+    * The principal control owner\'s phone number (max 10 characters).
+    */
+    'phone'?: string | null;
     /**
     * Percentage of the company owned by the principal control owner (min 0; max 100).
     */
@@ -97,10 +101,6 @@ export class IdentityEntity {
     */
     'shortBusinessName'?: string | null;
     /**
-    * Values can be either: <ul><li><strong>PUBLIC</strong> to indicate a publicly-traded company.<li><strong>PRIVATE</strong> for privately-held businesses.
-    */
-    'ownershipType'?: IdentityEntity.OwnershipTypeEnum | string;
-    /**
     * <ul><li>Only required when onboarding a merchant with a <tt>MCC</tt> of <strong>9311</strong>.<li> The <tt>tax_authority</tt> is the tax gathering entity (e.g San Francisco Water Authority).
     */
     'taxAuthority'?: string | null;
@@ -109,55 +109,35 @@ export class IdentityEntity {
     */
     'taxIdProvided'?: boolean;
     /**
-    * Details if the `business_tax_id` was provided.
+    * The corporate title of the control owner (e.g. Chief Executive Officer, CFO, etc. Max 60 characters).
     */
-    'businessTaxIdProvided'?: boolean;
+    'title'?: string | null;
     /**
-    * The description of the merchant that appears on the buyer\'s bank or card statement.
+    * The URL of the merchant\'s public website.
     */
-    'defaultStatementDescriptor'?: string | null;
+    'url'?: string | null;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "title",
-            "baseName": "title",
-            "type": "string"
+            "name": "amexMid",
+            "baseName": "amex_mid",
+            "type": "number"
         },
         {
-            "name": "firstName",
-            "baseName": "first_name",
-            "type": "string"
+            "name": "annualCardVolume",
+            "baseName": "annual_card_volume",
+            "type": "number"
         },
         {
-            "name": "lastName",
-            "baseName": "last_name",
-            "type": "string"
-        },
-        {
-            "name": "email",
-            "baseName": "email",
-            "type": "string"
+            "name": "businessAddress",
+            "baseName": "business_address",
+            "type": "IdentityEntityBusinessAddress"
         },
         {
             "name": "businessName",
             "baseName": "business_name",
-            "type": "string"
-        },
-        {
-            "name": "businessType",
-            "baseName": "business_type",
-            "type": "string"
-        },
-        {
-            "name": "doingBusinessAs",
-            "baseName": "doing_business_as",
-            "type": "string"
-        },
-        {
-            "name": "phone",
-            "baseName": "phone",
             "type": "string"
         },
         {
@@ -166,34 +146,19 @@ export class IdentityEntity {
             "type": "string"
         },
         {
-            "name": "personalAddress",
-            "baseName": "personal_address",
-            "type": "IdentityEntityPersonalAddress"
+            "name": "businessTaxIdProvided",
+            "baseName": "business_tax_id_provided",
+            "type": "boolean"
         },
         {
-            "name": "businessAddress",
-            "baseName": "business_address",
-            "type": "IdentityEntityBusinessAddress"
-        },
-        {
-            "name": "mcc",
-            "baseName": "mcc",
+            "name": "businessType",
+            "baseName": "business_type",
             "type": "string"
         },
         {
-            "name": "dob",
-            "baseName": "dob",
-            "type": "IdentityEntityDob"
-        },
-        {
-            "name": "maxTransactionAmount",
-            "baseName": "max_transaction_amount",
-            "type": "number"
-        },
-        {
-            "name": "amexMid",
-            "baseName": "amex_mid",
-            "type": "number"
+            "name": "defaultStatementDescriptor",
+            "baseName": "default_statement_descriptor",
+            "type": "string"
         },
         {
             "name": "discoverMid",
@@ -201,14 +166,24 @@ export class IdentityEntity {
             "type": "number"
         },
         {
-            "name": "url",
-            "baseName": "url",
+            "name": "dob",
+            "baseName": "dob",
+            "type": "IdentityEntityDob"
+        },
+        {
+            "name": "doingBusinessAs",
+            "baseName": "doing_business_as",
             "type": "string"
         },
         {
-            "name": "annualCardVolume",
-            "baseName": "annual_card_volume",
-            "type": "number"
+            "name": "email",
+            "baseName": "email",
+            "type": "string"
+        },
+        {
+            "name": "firstName",
+            "baseName": "first_name",
+            "type": "string"
         },
         {
             "name": "hasAcceptedCreditCardsPreviously",
@@ -221,6 +196,36 @@ export class IdentityEntity {
             "type": "IdentityEntityIncorporationDate"
         },
         {
+            "name": "lastName",
+            "baseName": "last_name",
+            "type": "string"
+        },
+        {
+            "name": "maxTransactionAmount",
+            "baseName": "max_transaction_amount",
+            "type": "number"
+        },
+        {
+            "name": "mcc",
+            "baseName": "mcc",
+            "type": "string"
+        },
+        {
+            "name": "ownershipType",
+            "baseName": "ownership_type",
+            "type": "IdentityEntity.OwnershipTypeEnum"
+        },
+        {
+            "name": "personalAddress",
+            "baseName": "personal_address",
+            "type": "IdentityEntityPersonalAddress"
+        },
+        {
+            "name": "phone",
+            "baseName": "phone",
+            "type": "string"
+        },
+        {
             "name": "principalPercentageOwnership",
             "baseName": "principal_percentage_ownership",
             "type": "number"
@@ -229,11 +234,6 @@ export class IdentityEntity {
             "name": "shortBusinessName",
             "baseName": "short_business_name",
             "type": "string"
-        },
-        {
-            "name": "ownershipType",
-            "baseName": "ownership_type",
-            "type": "IdentityEntity.OwnershipTypeEnum"
         },
         {
             "name": "taxAuthority",
@@ -246,13 +246,13 @@ export class IdentityEntity {
             "type": "boolean"
         },
         {
-            "name": "businessTaxIdProvided",
-            "baseName": "business_tax_id_provided",
-            "type": "boolean"
+            "name": "title",
+            "baseName": "title",
+            "type": "string"
         },
         {
-            "name": "defaultStatementDescriptor",
-            "baseName": "default_statement_descriptor",
+            "name": "url",
+            "baseName": "url",
             "type": "string"
         }    ];
 

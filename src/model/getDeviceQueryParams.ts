@@ -12,26 +12,23 @@
 
 import { RequestFile } from './models';
 
-/**
-* 
-*/
-export class UpdatePaymentInstrumentRequest {
+export class GetDeviceQueryParams {
     /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
+    * Specifies whether the connection information should be included.
     */
-    'tags'?: { [key: string]: string; };
+    'includeConnection'?: boolean;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
+            "name": "includeConnection",
+            "baseName": "include_connection",
+            "type": "boolean"
         }    ];
 
     static getAttributeTypeMap() {
-        return UpdatePaymentInstrumentRequest.attributeTypeMap;
+        return GetDeviceQueryParams.attributeTypeMap;
     }
 }
 

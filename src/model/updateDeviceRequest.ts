@@ -11,41 +11,56 @@
  */
 
 import { RequestFile } from './models';
-import { CreateIdentityRequestAdditionalUnderwritingData } from './createIdentityRequestAdditionalUnderwritingData';
-import { CreateIdentityRequestEntity } from './createIdentityRequestEntity';
 
-/**
-* 
-*/
-export class CreateIdentityRequest {
-    'entity'?: CreateIdentityRequestEntity;
-    'additionalUnderwritingData'?: CreateIdentityRequestAdditionalUnderwritingData | null;
+export class UpdateDeviceRequest {
+    /**
+    * The action you want to perform on the device.
+    */
+    'action'?: UpdateDeviceRequest.ActionEnum | string;
+    /**
+    * Used when `action` is **ACTIVATE**. The input the code thats show up on the device screen.
+    */
+    'activationCode'?: string;
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
     'tags'?: { [key: string]: string; };
+    /**
+    * Message to display on the idle screen.
+    */
+    'idleMessage'?: string;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "entity",
-            "baseName": "entity",
-            "type": "CreateIdentityRequestEntity"
+            "name": "action",
+            "baseName": "action",
+            "type": "UpdateDeviceRequest.ActionEnum"
         },
         {
-            "name": "additionalUnderwritingData",
-            "baseName": "additional_underwriting_data",
-            "type": "CreateIdentityRequestAdditionalUnderwritingData"
+            "name": "activationCode",
+            "baseName": "activation_code",
+            "type": "string"
         },
         {
             "name": "tags",
             "baseName": "tags",
             "type": "{ [key: string]: string; }"
+        },
+        {
+            "name": "idleMessage",
+            "baseName": "idle_message",
+            "type": "string"
         }    ];
 
     static getAttributeTypeMap() {
-        return CreateIdentityRequest.attributeTypeMap;
+        return UpdateDeviceRequest.attributeTypeMap;
     }
 }
 
+export namespace UpdateDeviceRequest {
+    export enum ActionEnum {
+        Deactivate = <any> 'DEACTIVATE'
+    }
+}

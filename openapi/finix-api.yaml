@@ -18,8 +18,6 @@ x-ignoredHeaderParameters:
 servers:
 - description: Sandbox server to be used for testing and development
   url: https://finix.sandbox-payments-api.com
-- description: Live server to be used for production charges
-  url: https://finix.live-payments-api.com
 tags:
 - name: Authorizations
   description:
@@ -413,6 +411,13 @@ paths:
         '406':
           $ref: '#/components/responses/Error406NotAcceptable'
       x-java-method-name: get
+      parameters:
+      - schema:
+          type: boolean
+        in: query
+        name: include_connection
+        description: Specifies whether the connection information should be included.
+      x-group-parameters: true
       x-python-method-name: get
     parameters:
     - description: ID of the `Device`.
@@ -752,7 +757,7 @@ paths:
       x-java-method-name: get
       x-python-method-name: get
     parameters:
-    - description: ID of the `identity` to fetch
+    - description: ID of the `Identity` to fetch.
       required: true
       in: path
       name: identity_id
@@ -932,7 +937,7 @@ paths:
       x-python-method-name: create
   /identities/{identity_id}/verifications:
     parameters:
-    - description: ID of identity to fetch
+    - description: ID of `Identity` to verify.
       required: true
       in: path
       name: identity_id
@@ -2921,6 +2926,16 @@ components:
                 currency: USD
                 amount: 150
                 operation_key: CARD_PRESENT_AUTHORIZATION
+            Create an Authorization with Buyer Charges:
+              value:
+                additional_buyer_charges:
+                  rent_surcharge_amount: 150
+                amount: 5200
+                currency: USD
+                merchant: MUeDVrf2ahuKc9Eg5TeZugvs
+                source: PIe2YvpcjvoVJ6PzoRPBK137
+                tags:
+                  test: sale
     UpdateAuthorizationRequest:
       content:
         application/hal+json:
@@ -3013,22 +3028,6 @@ components:
           schema:
             $ref: '#/components/schemas/CreateIdentityRequest'
           examples:
-            Create an Identity for a Buyer:
-              value:
-                tags:
-                  key: value
-                entity:
-                  phone: '7145677613'
-                  first_name: Collen
-                  last_name: Wade
-                  email: therock@gmail.com
-                  personal_address:
-                    city: San Mateo
-                    country: USA
-                    region: CA
-                    line2: Apartment 7
-                    line1: 741 Douglass St
-                    postal_code: '94114'
             Create an Identity for a Merchant:
               value:
                 additional_underwriting_data:
@@ -3101,6 +3100,22 @@ components:
                     month: 6
                   url: www.PetesCoffee.com
                   annual_card_volume: 12000000
+            Create an Identity for a Buyer:
+              value:
+                entity:
+                  phone: '7145677613'
+                  first_name: Collen
+                  last_name: Wade
+                  email: therock@gmail.com
+                  personal_address:
+                    city: San Mateo
+                    country: USA
+                    region: CA
+                    line2: Apartment 7
+                    line1: 741 Douglass St
+                    postal_code: '94114'
+                  tags:
+                    key: value
       description: ''
     CreateIdentitySettlementRequest:
       content:
@@ -3339,11 +3354,21 @@ components:
                 currency: USD
                 amount: 150
                 operation_key: CARD_PRESENT_DEBIT
+            Create a Transfer with Buyer Charges:
+              value:
+                additional_buyer_charges:
+                  convenience_amount: 300
+                amount: 10300
+                currency: USD
+                merchant: MUeDVrf2ahuKc9Eg5TeZugvs
+                source: PIe2YvpcjvoVJ6PzoRPBK137
+                tags:
+                  test: sale
     UpdateDeviceRequest:
       content:
         application/hal+json:
           schema:
-            type: object
+            $ref: '#/components/schemas/UpdateDeviceRequest'
           examples:
             Activate a Device:
               value:
@@ -3540,9 +3565,10 @@ components:
           schema:
             $ref: '#/components/schemas/UpdatePaymentInstrumentRequest'
           examples:
-            Update Name:
+            Update Tag:
               value:
-                name: Amy White
+                tags:
+                  custom_key: custome value
     UpdateMerchantRequest:
       content:
         application/hal+json:
@@ -3968,6 +3994,7 @@ components:
                 void_state: UNATTEMPTED
                 expires_at: '2022-02-03T07:37:19.16Z'
                 idempotency_id: null
+                additional_buyer_charges: null
                 failure_code: null
                 failure_message: null
                 _links:
@@ -3999,6 +4026,7 @@ components:
                 void_state: UNATTEMPTED
                 expires_at: '2022-02-03T07:37:19.95Z'
                 idempotency_id: null
+                additional_buyer_charges: null
                 failure_code: null
                 failure_message: null
                 _links:
@@ -4030,6 +4058,7 @@ components:
                 void_state: UNATTEMPTED
                 expires_at: '2022-02-03T07:37:20.68Z'
                 idempotency_id: null
+                additional_buyer_charges: null
                 failure_code: null
                 failure_message: null
                 _links:
@@ -4061,6 +4090,7 @@ components:
                 void_state: UNATTEMPTED
                 expires_at: '2022-02-03T07:37:21.55Z'
                 idempotency_id: null
+                additional_buyer_charges: null
                 failure_code: null
                 failure_message: null
                 _links:
@@ -4092,6 +4122,7 @@ components:
                 void_state: PENDING
                 expires_at: '2022-02-03T07:37:28.10Z'
                 idempotency_id: null
+                additional_buyer_charges: null
                 failure_code: null
                 failure_message: null
                 _links:
@@ -4140,6 +4171,7 @@ components:
                 void_state: UNATTEMPTED
                 expires_at: '2019-03-18T23:36:42.03Z'
                 idempotency_id: null
+                additional_buyer_charges: null
                 failure_code: null
                 failure_message: null
                 sub_type: API
@@ -4181,6 +4213,7 @@ components:
                 is_void: false
                 expires_at: '2019-03-08T03:37:10.10Z'
                 idempotency_id: null
+                additional_buyer_charges: null
                 failure_code: null
                 failure_message: null
                 _links:
@@ -4192,6 +4225,40 @@ components:
                     href: https://finix.sandbox-payments-api.com/devices/DVf2H8sh4LZZC52GTUrwCPPf
                   merchant_identity:
                     href: https://finix.sandbox-payments-api.com/identities/IDsbTBawhnLBAVeinRb84vFR
+            Authorization with Buyer Charges:
+              value:
+                id: AUnxmW39jBePKqYKwQamC3BR
+                application: APgPDQrLD52TYvqazjHJJchM
+                amount: 5200
+                tags:
+                  test: sale
+                state: SUCCEEDED
+                currency: USD
+                transfer: null
+                messages: []
+                raw: null
+                created_at: '2022-08-01T19:04:00.29Z'
+                updated_at: '2022-08-01T19:04:00.43Z'
+                trace_id: dcb4b954-89b3-4c5e-9b3a-1b8e70e30556
+                source: PIe2YvpcjvoVJ6PzoRPBK137
+                merchant_identity: IDuqZpDw28f2KK6YuDk4jNLg
+                3ds_redirect_url: null
+                is_void: false
+                void_state: UNATTEMPTED
+                expires_at: '2022-08-08T19:04:00.29Z'
+                idempotency_id: null
+                additional_buyer_charges:
+                  convenience_amount: 0
+                  rent_surcharge_amount: 200
+                failure_code: null
+                failure_message: null
+                _links:
+                  self:
+                    href: https://finix.sandbox-payments-api.com/authorizations/AUnxmW39jBePKqYKwQamC3BR
+                  application:
+                    href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                  merchant_identity:
+                    href: https://finix.sandbox-payments-api.com/identities/IDuqZpDw28f2KK6YuDk4jNLg
       headers:
         finix-apiuser-role:
           $ref: '#/components/headers/finix-apiuser-role'
@@ -7086,6 +7153,7 @@ components:
                 subtype: API
                 failure_code: null
                 failure_message: null
+                additional_buyer_charges: null
                 _links:
                   application:
                     href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
@@ -7131,6 +7199,7 @@ components:
                 subtype: API
                 failure_code: null
                 failure_message: null
+                additional_buyer_charges: null
                 _links:
                   application:
                     href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
@@ -7176,6 +7245,7 @@ components:
                 subtype: API
                 failure_code: null
                 failure_message: null
+                additional_buyer_charges: null
                 _links:
                   application:
                     href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
@@ -7221,6 +7291,7 @@ components:
                 subtype: API
                 failure_code: null
                 failure_message: null
+                additional_buyer_charges: null
                 _links:
                   application:
                     href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
@@ -7266,6 +7337,7 @@ components:
                 subtype: API
                 failure_code: null
                 failure_message: null
+                additional_buyer_charges: null
                 _links:
                   application:
                     href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
@@ -7311,6 +7383,7 @@ components:
                 subtype: API
                 failure_code: null
                 failure_message: null
+                additional_buyer_charges: null
                 _links:
                   application:
                     href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
@@ -7368,6 +7441,7 @@ components:
                 subtype: API
                 failure_code: null
                 failure_message: null
+                additional_buyer_charges: null
                 _links:
                   application:
                     href: https://finix.sandbox-payments-api.com/applications/APeUbTUjvYb1CdPXvNcwW1wP
@@ -7423,6 +7497,7 @@ components:
                 subtype: API
                 failure_code: null
                 failure_message: null
+                additional_buyer_charges: null
                 _links:
                   application:
                     href: https://finix.sandbox-payments-api.com/applications/APeUbTUjvYb1CdPXvNcwW1wP
@@ -7477,6 +7552,7 @@ components:
                 subtype: API
                 failure_code: null
                 failure_message: null
+                additional_buyer_charges: null
                 _links:
                   application:
                     href: https://finix.sandbox-payments-api.com/applications/APeUbTUjvYb1CdPXvNcwW1wP
@@ -7522,6 +7598,7 @@ components:
                 subtype: API
                 failure_code: null
                 failure_message: null
+                additional_buyer_charges: null
                 _links:
                   application:
                     href: https://finix.sandbox-payments-api.com/applications/APuZMfMerci2JuLUs7xWpf5G
@@ -7576,6 +7653,7 @@ components:
                 subtype: API
                 failure_code: null
                 failure_message: null
+                additional_buyer_charges: null
                 _links:
                   application:
                     href: https://finix.sandbox-payments-api.com/applications/APuZMfMerci2JuLUs7xWpf5G
@@ -7595,6 +7673,40 @@ components:
                     href: https://finix.sandbox-payments-api.com/transfers/TR3vLiG6wecEwY3TC3oQiudG/disputes
                   fee_profile:
                     href: https://finix.sandbox-payments-api.com/fee_profiles/FPrATYzpomaTRtdo2BssRoGx
+            Transfer (with Buyer Charges):
+              value:
+                id: AUpaSunWzKyq73A6DKyZ3g8f
+                application: APgPDQrLD52TYvqazjHJJchM
+                amount: 5200
+                tags:
+                  test: sale
+                state: SUCCEEDED
+                currency: USD
+                transfer: null
+                messages: []
+                raw: null
+                created_at: '2022-08-01T19:40:17.99Z'
+                updated_at: '2022-08-01T19:40:18.16Z'
+                trace_id: 767f5042-49ab-48f3-b6ce-5c7c1bbe4b39
+                source: PIe2YvpcjvoVJ6PzoRPBK137
+                merchant_identity: IDuqZpDw28f2KK6YuDk4jNLg
+                3ds_redirect_url: null
+                is_void: false
+                void_state: UNATTEMPTED
+                expires_at: '2022-08-08T19:40:17.99Z'
+                idempotency_id: null
+                additional_buyer_charges:
+                  convenience_amount: 100
+                  rent_surcharge_amount: 200
+                failure_code: null
+                failure_message: null
+                _links:
+                  self:
+                    href: https://finix.sandbox-payments-api.com/authorizations/AUpaSunWzKyq73A6DKyZ3g8f
+                  application:
+                    href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
+                  merchant_identity:
+                    href: https://finix.sandbox-payments-api.com/identities/IDuqZpDw28f2KK6YuDk4jNLg
       headers:
         finix-apiuser-role:
           $ref: '#/components/headers/finix-apiuser-role'
@@ -10274,6 +10386,8 @@ components:
           $ref: '#/components/schemas/OperationKey'
         device:
           $ref: '#/components/schemas/Id'
+        additional_buyer_charges:
+          $ref: '#/components/schemas/AdditionalBuyerCharges'
         3d_secure_authentication:
           type: object
           description: The 3D secure information for an authorization.
@@ -10364,6 +10478,8 @@ components:
           type: string
           description: A randomly generated value that'll be associated with the request.
           nullable: true
+        additional_buyer_charges:
+          $ref: '#/components/schemas/AdditionalBuyerCharges'
         failure_code:
           $ref: '#/components/schemas/FailureCode'
         failure_message:
@@ -10513,6 +10629,8 @@ components:
           type: string
           description: A randomly generated value that'll be associated with the request.
           nullable: true
+        additional_buyer_charges:
+          $ref: '#/components/schemas/AdditionalBuyerCharges'
         failure_code:
           $ref: '#/components/schemas/FailureCode'
         failure_message:
@@ -10886,7 +11004,8 @@ components:
                 transactions. This field must be set to **true** (defaults to **false**).
         connection:
           type: string
-          description: Details if the `Device` is connected and online.
+          description: Details if the `Device` is connected and online. Only returned
+            when include_connection parameter provided.
         enabled:
           type: boolean
           description: Details if the `Device` resource is enabled. Set to **false**
@@ -11902,7 +12021,6 @@ components:
           $ref: '#/components/schemas/ListLinks'
     Identity:
       description: ''
-      type: object
       x-examples:
         example-1:
           id: IDpYDM7J9n57q849o9E9yNrG
@@ -12004,251 +12122,20 @@ components:
             application:
               href: https://finix.sandbox-payments-api.com/applications/APgPDQrLD52TYvqazjHJJchM
       title: ''
+      type: object
       properties:
         id:
           type: string
           minLength: 1
           description: The ID of the `Identity` resource.
-        application:
-          type: string
-          minLength: 1
-          description: ID of the `Application` associated with the `Identity`.
-        entity:
-          type: object
-          description: The underwriting details required to verify the `Identity`
-            of the `Merchant`.
-          properties:
-            title:
-              type: string
-              minLength: 1
-              description: The corporate title of the control owner (e.g. Chief Executive
-                Officer, CFO, etc. Max 60 characters).
-              nullable: true
-            first_name:
-              type: string
-              minLength: 1
-              description: The legal first name of the merchant's control owner (max
-                20 characters).
-              nullable: true
-            last_name:
-              type: string
-              minLength: 1
-              description: The legal last name of the merchant's control owner (max
-                20 characters).
-              nullable: true
-            email:
-              type: string
-              minLength: 1
-              description: The email address of the principal control owner where
-                they can be reached (max 100 characters).
-              nullable: true
-            business_name:
-              type: string
-              minLength: 1
-              description: The merchant's legal business name (max 120 characters).<ul><li>If
-                <strong>INDIVIDUAL_SOLE_PROPRIETORSHIP</strong>, pass the owner's
-                legal first name, last name and middle initial.
-              nullable: true
-            business_type:
-              description: Include the value that best applies to the merchant.
-              type: string
-              nullable: true
-            doing_business_as:
-              type: string
-              minLength: 1
-              description: Alternate names of the business. If there are no other
-                names, pass the same value used for `business_name` (max 60 characters).
-              nullable: true
-            phone:
-              type: string
-              minLength: 1
-              description: The principal control owner's phone number (max 10 characters).
-              nullable: true
-            business_phone:
-              type: string
-              minLength: 1
-              description: Customer service phone number where the merchant can be
-                reached (max 10 characters).
-              nullable: true
-            personal_address:
-              type: object
-              description: The home address of the merchant's principal control owner.
-                This field is used for identity verification purposes.
-              nullable: true
-              properties:
-                line1:
-                  type: string
-                  minLength: 1
-                  description: First line of the address (max 35 characters).
-                  nullable: true
-                line2:
-                  type: string
-                  minLength: 1
-                  description: Second line of the address (max 35 characters).
-                  nullable: true
-                city:
-                  type: string
-                  minLength: 1
-                  description: City (max 20 characters).
-                  nullable: true
-                region:
-                  type: string
-                  minLength: 1
-                  description: 2-letter State code.
-                  nullable: true
-                postal_code:
-                  type: string
-                  minLength: 1
-                  description: Zip or Postal code (max 7 characters).
-                  nullable: true
-                country:
-                  type: string
-                  minLength: 1
-                  description: 3-Letter country code (e.g. USA).
-                  nullable: true
-            business_address:
-              type: object
-              description: The primary address for the legal entity.
-              nullable: true
-              properties:
-                line1:
-                  type: string
-                  minLength: 1
-                  description: First line of the address (max 35 characters).
-                  nullable: true
-                line2:
-                  type: string
-                  minLength: 1
-                  description: Second line of the address (max 35 characters).
-                  nullable: true
-                city:
-                  type: string
-                  minLength: 1
-                  description: City (max 20 characters).
-                  nullable: true
-                region:
-                  type: string
-                  minLength: 1
-                  description: 2-letter state code.
-                  nullable: true
-                postal_code:
-                  type: string
-                  minLength: 1
-                  description: Zip or Postal code (max 7 characters).
-                  nullable: true
-                country:
-                  type: string
-                  minLength: 1
-                  description: 3-Letter Country code (e.g. USA).
-                  nullable: true
-            mcc:
-              type: string
-              minLength: 1
-              description: The Merchant Category Code ([MCC](http://www.dm.usda.gov/procurement/card/card\_x/mcc.pdf))
-                that this merchant will be classified under.
-              nullable: true
-            dob:
-              type: object
-              description: The control owner's date of birth.
-              nullable: true
-              properties:
-                day:
-                  type: integer
-                month:
-                  type: integer
-                year:
-                  type: integer
-            max_transaction_amount:
-              type: integer
-              description: The maximum amount (in cents) that can be charged for a
-                single transaction (max 12 characters).
-              nullable: true
-            amex_mid:
-              type: integer
-              description: Assigned amexMid value. If a value is passed, it must be
-                10 or 11 digits.
-              nullable: true
-            discover_mid:
-              description: Assigned discoverMid value.
-              type: integer
-              nullable: true
-            url:
-              type: string
-              minLength: 1
-              description: The URL of the merchant's public website.
-              nullable: true
-            annual_card_volume:
-              type: integer
-              description: The annual credit card sales (in cents) expected to be
-                processed by this merchant (max 19 characters).
-              nullable: true
-            has_accepted_credit_cards_previously:
-              type: boolean
-              description: Defaults to **false** if not passed.
-            incorporation_date:
-              type: object
-              description: The date the company was founded and registered with the
-                US.
-              nullable: true
-              properties:
-                day:
-                  type: integer
-                month:
-                  type: integer
-                year:
-                  type: integer
-            principal_percentage_ownership:
-              type: integer
-              description: Percentage of the company owned by the principal control
-                owner (min 0; max 100).
-              nullable: true
-            short_business_name:
-              type: string
-              description: Abbreviated names of the business. If there are no abbreviated
-                name, leave this field blank.
-              nullable: true
-            ownership_type:
-              type: string
-              minLength: 1
-              description: 'Values can be either: <ul><li><strong>PUBLIC</strong>
-                to indicate a publicly-traded company.<li><strong>PRIVATE</strong>
-                for privately-held businesses.'
-              enum:
-              - PUBLIC
-              - PRIVATE
-              nullable: true
-            tax_authority:
-              type: string
-              description: <ul><li>Only required when onboarding a merchant with a
-                <tt>MCC</tt> of <strong>9311</strong>.<li> The <tt>tax_authority</tt>
-                is the tax gathering entity (e.g San Francisco Water Authority).
-              nullable: true
-            tax_id_provided:
-              type: boolean
-              description: Details if the `tax_id` was provided.
-            business_tax_id_provided:
-              type: boolean
-              description: Details if the `business_tax_id` was provided.
-            default_statement_descriptor:
-              type: string
-              minLength: 1
-              description: The description of the merchant that appears on the buyer's
-                bank or card statement.
-              nullable: true
-        tags:
-          $ref: '#/components/schemas/Tags'
         created_at:
-          type: string
-          minLength: 1
-          description: Timestamp of when the `Identity` was created
+          $ref: '#/components/schemas/CreatedAt'
         updated_at:
-          type: string
-          minLength: 1
-          description: Timestamp of when the `Identity` was last updated.
+          $ref: '#/components/schemas/UpdatedAt'
         additional_underwriting_data:
           type: object
           description: Additional underwriting data that's required to verify the
-            `Identity` of the `Merchant`.
+            `Identity`.
           nullable: true
           properties:
             annual_ach_volume:
@@ -12361,6 +12248,233 @@ components:
                   type: integer
                   description: The percentage the merchant's volume that's person
                     to person (between 0 and 100).
+        application:
+          type: string
+          minLength: 1
+          description: ID of the `Application` associated with the `Identity`.
+        entity:
+          type: object
+          description: The underwriting details required to verify the `Identity`.
+          properties:
+            amex_mid:
+              type: integer
+              description: Assigned amexMid value. If a value is passed, it must be
+                10 or 11 digits.
+              nullable: true
+            annual_card_volume:
+              type: integer
+              description: The annual credit card sales (in cents) expected to be
+                processed by this merchant (max 19 characters).
+              nullable: true
+            business_address:
+              type: object
+              description: The primary address for the legal entity.
+              nullable: true
+              properties:
+                line1:
+                  type: string
+                  minLength: 1
+                  description: First line of the address (max 35 characters).
+                  nullable: true
+                line2:
+                  type: string
+                  minLength: 1
+                  description: Second line of the address (max 35 characters).
+                  nullable: true
+                city:
+                  type: string
+                  minLength: 1
+                  description: City (max 20 characters).
+                  nullable: true
+                region:
+                  type: string
+                  minLength: 1
+                  description: 2-letter state code.
+                  nullable: true
+                postal_code:
+                  type: string
+                  minLength: 1
+                  description: Zip or Postal code (max 7 characters).
+                  nullable: true
+                country:
+                  type: string
+                  minLength: 1
+                  description: 3-Letter Country code (e.g. USA).
+                  nullable: true
+            business_name:
+              type: string
+              minLength: 1
+              description: The merchant's legal business name (max 120 characters).<ul><li>If
+                <strong>INDIVIDUAL_SOLE_PROPRIETORSHIP</strong>, pass the owner's
+                legal first name, last name and middle initial.
+              nullable: true
+            business_phone:
+              type: string
+              minLength: 1
+              description: Customer service phone number where the merchant can be
+                reached (max 10 characters).
+              nullable: true
+            business_tax_id_provided:
+              type: boolean
+              description: Details if the `business_tax_id` was provided.
+            business_type:
+              description: Include the value that best applies to the merchant.
+              type: string
+              nullable: true
+            default_statement_descriptor:
+              type: string
+              minLength: 1
+              description: The description of the merchant that appears on the buyer's
+                bank or card statement.
+              nullable: true
+            discover_mid:
+              description: Assigned discoverMid value.
+              type: integer
+              nullable: true
+            dob:
+              type: object
+              description: The control owner's date of birth.
+              nullable: true
+              properties:
+                day:
+                  type: integer
+                month:
+                  type: integer
+                year:
+                  type: integer
+            doing_business_as:
+              type: string
+              minLength: 1
+              description: Alternate names of the business. If there are no other
+                names, pass the same value used for `business_name` (max 60 characters).
+              nullable: true
+            email:
+              type: string
+              minLength: 1
+              description: The email address of the principal control owner where
+                they can be reached (max 100 characters).
+              nullable: true
+            first_name:
+              type: string
+              minLength: 1
+              description: The legal first name of the merchant's control owner (max
+                20 characters).
+              nullable: true
+            has_accepted_credit_cards_previously:
+              type: boolean
+              description: Defaults to **false** if not passed.
+            incorporation_date:
+              type: object
+              description: The date the company was founded and registered with the
+                US.
+              nullable: true
+              properties:
+                day:
+                  type: integer
+                month:
+                  type: integer
+                year:
+                  type: integer
+            last_name:
+              type: string
+              minLength: 1
+              description: The legal last name of the merchant's control owner (max
+                20 characters).
+              nullable: true
+            max_transaction_amount:
+              type: integer
+              description: The maximum amount (in cents) that can be charged for a
+                single transaction (max 12 characters).
+              nullable: true
+            mcc:
+              type: string
+              minLength: 1
+              description: The Merchant Category Code ([MCC](http://www.dm.usda.gov/procurement/card/card\_x/mcc.pdf))
+                that this merchant will be classified under.
+              nullable: true
+            ownership_type:
+              type: string
+              minLength: 1
+              description: 'Values can be either: <ul><li><strong>PUBLIC</strong>
+                to indicate a publicly-traded company.<li><strong>PRIVATE</strong>
+                for privately-held businesses.'
+              enum:
+              - PUBLIC
+              - PRIVATE
+              nullable: true
+            personal_address:
+              type: object
+              description: The home address of the merchant's principal control owner.
+                This field is used for identity verification purposes.
+              nullable: true
+              properties:
+                line1:
+                  type: string
+                  minLength: 1
+                  description: First line of the address (max 35 characters).
+                  nullable: true
+                line2:
+                  type: string
+                  minLength: 1
+                  description: Second line of the address (max 35 characters).
+                  nullable: true
+                city:
+                  type: string
+                  minLength: 1
+                  description: City (max 20 characters).
+                  nullable: true
+                region:
+                  type: string
+                  minLength: 1
+                  description: 2-letter State code.
+                  nullable: true
+                postal_code:
+                  type: string
+                  minLength: 1
+                  description: Zip or Postal code (max 7 characters).
+                  nullable: true
+                country:
+                  type: string
+                  minLength: 1
+                  description: 3-Letter country code (e.g. USA).
+                  nullable: true
+            phone:
+              type: string
+              minLength: 1
+              description: The principal control owner's phone number (max 10 characters).
+              nullable: true
+            principal_percentage_ownership:
+              type: integer
+              description: Percentage of the company owned by the principal control
+                owner (min 0; max 100).
+              nullable: true
+            short_business_name:
+              type: string
+              description: Abbreviated names of the business. If there are no abbreviated
+                name, leave this field blank.
+              nullable: true
+            tax_authority:
+              type: string
+              description: <ul><li>Only required when onboarding a merchant with a
+                <tt>MCC</tt> of <strong>9311</strong>.<li> The <tt>tax_authority</tt>
+                is the tax gathering entity (e.g San Francisco Water Authority).
+              nullable: true
+            tax_id_provided:
+              type: boolean
+              description: Details if the `tax_id` was provided.
+            title:
+              type: string
+              minLength: 1
+              description: The corporate title of the control owner (e.g. Chief Executive
+                Officer, CFO, etc. Max 60 characters).
+              nullable: true
+            url:
+              type: string
+              minLength: 1
+              description: The URL of the merchant's public website.
+              nullable: true
+        tags:
+          $ref: '#/components/schemas/Tags'
         _links:
           type: object
           description: For your convenience, every response includes several URLs
@@ -12439,7 +12553,6 @@ components:
                   minLength: 1
     CreateIdentityRequest:
       description: ''
-      type: object
       x-examples:
         example-1:
           additional_underwriting_data:
@@ -12511,11 +12624,50 @@ components:
               month: 6
             url: www.PetesCoffee.com
             annual_card_volume: 12000000
+      type: object
       properties:
+        entity:
+          type: object
+          description: The underwriting details required to verify `Identities`.
+          properties:
+            email:
+              type: string
+              description: The email address of the buyer where they can be reached
+                (max 100 characters).
+            first_name:
+              type: string
+              description: The legal first name of the buyer (max 20 characters).
+            last_name:
+              type: string
+              description: The legal last name of the buyer (max 20 characters).
+            personal_address:
+              type: object
+              description: The billing address of the buyer. This field is used for
+                identity verification purposes.
+              properties:
+                city:
+                  type: string
+                  description: City (max 20 characters).
+                country:
+                  type: string
+                  description: 3-Letter country code (e.g. USA).
+                line1:
+                  type: string
+                  description: First line of the address (max 35 characters).
+                line2:
+                  type: string
+                  description: Second line of the address (max 35 characters).
+                postal_code:
+                  type: string
+                  description: Zip or Postal code (max 7 characters).
+                region:
+                  type: string
+                  description: 2-letter State code.
+            phone:
+              type: string
+              description: Phone number where the buyer can be reached.
         additional_underwriting_data:
           type: object
-          description: Additional underwriting data that's required to verify the
-            identity of the merchant.
           nullable: true
           properties:
             merchant_agreement_accepted:
@@ -12524,13 +12676,13 @@ components:
                 of the merchant agreement.
             merchant_agreement_ip_address:
               type: string
-              minLength: 1
               description: IP address of the merchant when this merchant accepted
                 the merchant agreement (e.g., 42.1.1.113).
+              minLength: 1
             volume_distribution_by_business_type:
               type: object
-              description: Merchant's distribution of credit card volume by business
-                type. Sum of `volume_distribution_by_business_type` must be 100.
+              description: IP address of the merchant when this merchant accepted
+                the merchant agreement (e.g., 42.1.1.113).
               properties:
                 other_volume_percentage:
                   type: integer
@@ -12568,9 +12720,9 @@ components:
                 OS X 10 _14_6)).
             refund_policy:
               type: string
-              minLength: 1
-              description: Include the value that best applies to the merchant's refund
-                policy.
+              description: The details of the browser that was used when this merchant
+                consented to a credit check (e.g., Mozilla 5.0 (Macintosh; Intel Mac
+                OS X 10 _14_6)).
               enum:
               - NO_REFUNDS
               - MERCHANDISE_EXCHANGE_ONLY
@@ -12587,11 +12739,10 @@ components:
             merchant_agreement_timestamp:
               type: string
               minLength: 1
-              description: Timestamp of when the merchant accepted Finix's Terms of
-                Service (e.g., 2021-04-28T16:42:55Z).
+              description: Sets if this merchant has consented and accepted to a credit
+                check.
             business_description:
               type: string
-              minLength: 1
               description: Description of this merchant's business (max 200 characters).
             average_card_transfer_amount:
               type: integer
@@ -12599,15 +12750,15 @@ components:
                 merchant.
             credit_check_ip_address:
               type: string
-              minLength: 1
               description: The IP address of the merchant when they consented to a
                 credit check (e.g., 42.1.1.113 ).
+              minLength: 1
             merchant_agreement_user_agent:
               type: string
-              minLength: 1
               description: The details of the browser that was used when this merchant
                 accepted Finix's Terms of Service (e.g., Mozilla 5.0 (Macintosh; Intel
                 Mac OS X 10 _14_6)).
+              minLength: 1
             card_volume_distribution:
               type: object
               description: The distribution of the merchant's credit card volume The
@@ -12627,202 +12778,6 @@ components:
                     (between 0 and 100).
         tags:
           $ref: '#/components/schemas/Tags'
-        entity:
-          type: object
-          description: The underwriting details required to verify the `Identity`
-            of the `Merchant`.
-          required:
-          - last_name
-          - first_name
-          - email
-          - phone
-          properties:
-            last_name:
-              type: string
-              minLength: 1
-              description: The legal last name of the merchant's control owner (max
-                20 characters).
-            max_transaction_amount:
-              type: integer
-              description: The maximum amount (in cents) that can be charged for a
-                single transaction (max 12 characters).
-            has_accepted_credit_cards_previously:
-              type: boolean
-              description: Defaults to **false** if not passed.
-            default_statement_descriptor:
-              type: string
-              minLength: 1
-              description: The description of the merchant that appears on the buyer's
-                bank or card statement.
-            personal_address:
-              type: object
-              description: The home address of the merchant's principal control owner.
-                This field is used for identity verification purposes.
-              properties:
-                city:
-                  type: string
-                  minLength: 1
-                  description: City (max 20 characters).
-                country:
-                  type: string
-                  minLength: 1
-                  description: 3-Letter country code (e.g. USA).
-                region:
-                  type: string
-                  minLength: 1
-                  description: 2-letter State code.
-                line2:
-                  type: string
-                  minLength: 1
-                  description: Second line of the address (max 35 characters).
-                line1:
-                  type: string
-                  minLength: 1
-                  description: First line of the address (max 35 characters).
-                postal_code:
-                  type: string
-                  minLength: 1
-                  description: Zip or Postal code (max 7 characters).
-            incorporation_date:
-              type: object
-              description: The date the company was founded and registered with the
-                US.
-              properties:
-                year:
-                  type: integer
-                day:
-                  type: integer
-                month:
-                  type: integer
-            business_address:
-              type: object
-              description: The primary address for the legal entity.
-              nullable: true
-              properties:
-                city:
-                  type: string
-                  minLength: 1
-                  description: City (max 20 characters).
-                country:
-                  type: string
-                  minLength: 1
-                  description: 3-Letter Country code (e.g. USA).
-                region:
-                  type: string
-                  minLength: 1
-                  description: 2-letter state code.
-                line2:
-                  type: string
-                  minLength: 1
-                  description: Second line of the address (max 35 characters).
-                line1:
-                  type: string
-                  minLength: 1
-                  description: First line of the address (max 35 characters).
-                postal_code:
-                  type: string
-                  minLength: 1
-                  description: Zip or Postal code (max 7 characters).
-            ownership_type:
-              type: string
-              minLength: 1
-              description: 'Avalible values include: <ul><li><strong>PUBLIC</strong>
-                to indicate a publicly-traded company.<li><strong>PRIVATE</strong>
-                for privately-held businesses.'
-              enum:
-              - PUBLIC
-              - PRIVATE
-            first_name:
-              type: string
-              minLength: 1
-              description: The legal first name of the merchant's control owner (max
-                20 characters).
-            title:
-              type: string
-              minLength: 1
-              description: The corporate title of the control owner (e.g. Chief Executive
-                Officer, CFO, etc. Max 60 characters).
-            business_tax_id:
-              type: string
-              minLength: 1
-              description: Nine digit Tax Identification Number (TIN), Employer Identification
-                Number (EIN). If the `business_type` is **INDIVIDUAL\_SOLE\_PROPRIETORSHIP**
-                and they do not have an EIN, use the sole proprietor's Social Security
-                Number (SSN).
-            doing_business_as:
-              type: string
-              minLength: 1
-              description: Alternate names of the business. If there are no other
-                names, pass the same value used for `business_name` (max 60 characters).
-            principal_percentage_ownership:
-              type: integer
-              description: Percentage of the company owned by the principal control
-                owner (min 0; max 100).
-            email:
-              type: string
-              minLength: 1
-              description: The email address of the principal control owner where
-                they can be reached (max 100 characters).
-            mcc:
-              type: string
-              minLength: 1
-              description: The Merchant Category Code ([MCC](http://www.dm.usda.gov/procurement/card/card\_x/mcc.pdf))
-                that this merchant will be classified under.
-            phone:
-              type: string
-              minLength: 1
-              description: The principal control owner's phone number (max 10 characters).
-            business_name:
-              type: string
-              minLength: 1
-              description: The merchant's legal business name (max 120 characters).<ul><li>If
-                **INDIVIDUAL_SOLE_PROPRIETORSHIP**, pass the owner's legal first name,
-                last name and middle initial.
-              nullable: true
-            tax_id:
-              type: string
-              minLength: 1
-              description: Pass one of the following values (nine digits):<ul><li>Social
-                Security Number (SSN)<li>Tax Identification Number (TIN)<li>Individual
-                Taxpayer Identification Number (ITIN)</ul>
-            business_type:
-              type: string
-              minLength: 1
-              description: Include the value that best applies to the merchant.
-              enum:
-              - INDIVIDUAL_SOLE_PROPRIETORSHIP
-              - CORPORATION
-              - LIMITED_LIABILITY_COMPANY
-              - PARTNERSHIP
-              - ASSOCIATION_ESTATE_TRUST
-              - TAX_EXEMPT_ORGANIZATION
-              - INTERNATIONAL_ORGANIZATION
-              - GOVERNMENT_AGENCY
-            business_phone:
-              type: string
-              minLength: 1
-              description: Customer service phone number where the merchant can be
-                reached (max 10 characters).
-            dob:
-              type: object
-              description: The control owner's date of birth.
-              properties:
-                year:
-                  type: integer
-                day:
-                  type: integer
-                month:
-                  type: integer
-            url:
-              type: string
-              minLength: 1
-              description: The URL of the merchant's public website.
-            annual_card_volume:
-              type: integer
-              description: The annual credit card sales (in cents) expected to be
-                processed by this merchant (max 19 characters).
-      required:
-      - entity
     UpdateIdentityRequest:
       type: object
       x-examples:
@@ -12900,7 +12855,7 @@ components:
         additional_underwriting_data:
           type: object
           description: Additional underwriting data that's required to verify the
-            identity of the merchant.
+            `Identity` of merchants.
           properties:
             merchant_agreement_accepted:
               type: boolean
@@ -13013,19 +12968,12 @@ components:
           $ref: '#/components/schemas/Tags'
         entity:
           type: object
-          description: Underwriting data that's required to verify the identity of
-            the merchant.
-          required:
-          - last_name
-          - first_name
-          - email
-          - phone
+          description: Underwriting data that's required to verify the `Identity`.
           properties:
             last_name:
               type: string
               minLength: 1
-              description: The legal last name of the merchant's control owner (max
-                20 characters).
+              description: The `Identity` owner's legal last name.
             max_transaction_amount:
               type: integer
               description: The maximum amount (in cents) that can be charged for a
@@ -13040,8 +12988,8 @@ components:
                 bank or card statement.
             personal_address:
               type: object
-              description: The home address of the merchant's principal control owner.
-                This field is used for identity verification purposes.
+              description: The home address of the principal control owner. This field
+                is used for identity verification purposes.
               properties:
                 city:
                   type: string
@@ -13117,8 +13065,7 @@ components:
             first_name:
               type: string
               minLength: 1
-              description: The legal first name of the merchant's control owner (max
-                20 characters).
+              description: The legal first name of the control owner (max 20 characters).
             title:
               type: string
               minLength: 1
@@ -13194,11 +13141,11 @@ components:
             url:
               type: string
               minLength: 1
-              description: The URL of the merchant's public website.
+              description: The URL of the `Identity` owner's public website.
             annual_card_volume:
               type: integer
               description: The annual credit card sales (in cents) expected to be
-                processed by this merchant (max 19 characters).
+                processed (max 19 characters).
     Merchant:
       type: object
       x-examples:
@@ -13555,22 +13502,9 @@ components:
         _links:
           $ref: '#/components/schemas/ListLinks'
     PaymentInstrument:
-      type: object
       description: ''
+      type: object
       properties:
-        tags:
-          $ref: '#/components/schemas/Tags'
-        type:
-          type: string
-          enum:
-          - PAYMENT_CARD
-          - TOKEN
-          - VANTIV_OMNI_TOKEN
-          - BANK_ACCOUNT
-          - PAYMENT_CARD_PRESENT
-          - SWIPED_PAYMENT_CARD
-          - VIRTUAL
-          description: Type of `Payment Instrument`.
         id:
           $ref: '#/components/schemas/Id'
         created_at:
@@ -13605,13 +13539,13 @@ components:
         instrument_type:
           type: string
           enum:
+          - BANK_ACCOUNT
+          - VANTIV_OMNI_TOKEN
+          - VIRTUAL
+          - SWIPED_PAYMENT_CARD
           - PAYMENT_CARD
           - TOKEN
-          - VANTIV_OMNI_TOKEN
-          - BANK_ACCOUNT
           - PAYMENT_CARD_PRESENT
-          - SWIPED_PAYMENT_CARD
-          - VIRTUAL
           description: The type of `Payment Instrument`.
         masked_account_number:
           type: string
@@ -13623,38 +13557,34 @@ components:
           type: string
           description: The name of the bank account or card owner.
           nullable: true
-        payload_type:
+        tags:
+          $ref: '#/components/schemas/Tags'
+        type:
           type: string
           enum:
-          - SOURCE
-          - DESTINATION
+          - BANK_ACCOUNT
+          - VANTIV_OMNI_TOKEN
+          - VIRTUAL
+          - SWIPED_PAYMENT_CARD
+          - PAYMENT_CARD
+          - TOKEN
+          - PAYMENT_CARD_PRESENT
+          description: Type of `Payment Instrument`.
         _links:
           type: object
           description: For your convenience, every response includes several URLs
             which link to resources relevant to the request. You can use these `_links`
             to make your follow-up requests and quickly access relevant IDs.
           properties:
-            application:
+            self:
               type: object
-              description: Link to the `Application` the request was made under.
+              description: Link to the resource that was used in the request.
               properties:
                 href:
                   type: string
             authorizations:
               type: object
               description: Link to the `Authorizations` created under the resource.
-              properties:
-                href:
-                  type: string
-            identity:
-              type: object
-              description: Link to the `Identity` the request was made under.
-              properties:
-                href:
-                  type: string
-            self:
-              type: object
-              description: Link to the resource that was used in the request.
               properties:
                 href:
                   type: string
@@ -13671,61 +13601,24 @@ components:
               properties:
                 href:
                   type: string
-        expiration_month:
-          type: integer
-          maximum: 12
-          minimum: 1
-          description: Expiration month (e.g. 12 for December).
-        expiration_year:
-          type: integer
-          minimum: 1
-          description: 4-digit expiration year.
-        bin:
-          type: string
-          pattern: ^\d{6}$
-          description: Bank Identification number for the `Payment Instrument`.
-        last_four:
-          type: string
-          pattern: ^\d{4}$
-          description: Last four digits of the card or bank account number.
-        brand:
-          type: string
-          enum:
-          - UNKNOWN
-          - DINERS_CLUB_INTERNATIONAL
-          - DANKORT
-          - MIR
-          - TROY
-          - UATP
-          - CHINA_T_UNION
-          - CHINA_UNION_PAY
-          - AMERICAN_EXPRESS
-          - VERVE
-          - RUPAY
-          - DISCOVER
-          - JCB
-          - MASTERCARD
-          - INTERPAYMENT
-          - INSTAPAYMENT
-          - MAESTRO
-          - VISA
-          - LANKAPAY
-          - DINERS_CLUB
-          description: The `brand` of the card saved in the `Payment Instrument`.
-        card_type:
-          type: string
-          enum:
-          - UNKNOWN
-          - CREDIT
-          - DEBIT
-          - HSA_FSA
-          - NON_RELOADABLE_PREPAID
-          - RELOADABLE_PREPAID
-          description: The type of payment card saved in the `Payment Instrument`.
+            application:
+              type: object
+              description: Link to the `Application` the request was made under.
+              properties:
+                href:
+                  type: string
+            identity:
+              type: object
+              description: Link to the `Identity` the request was made under.
+              properties:
+                href:
+                  type: string
         address:
           $ref: '#/components/schemas/Address'
         address_verification:
           type: string
+          description: "Additional address information that\u2019s required to verify\
+            \ the identity of the merchant."
           enum:
           - POSTAL_CODE_AND_STREET_MATCH
           - STREET_MATCH
@@ -13734,30 +13627,58 @@ components:
           - NO_MATCH
           - NOT_SUPPORTED
           - UNKNOWN
-          description: "Additional address information that\u2019s required to verify\
-            \ the identity of the merchant."
-        security_code_verification:
+        bin:
           type: string
-          enum:
-          - MATCHED
-          - UNKNOWN
-          - UNMATCHED
-          description: Details the results of the Card Verification Code check.
+          description: Bank Identification number for the `Payment Instrument`.
+          pattern: ^\d{6}$
+        brand:
+          type: string
+          pattern: ^\d{6}$
+          description: The `brand` of the card saved in the `Payment Instrument`.
         card_name:
           type: string
           description: A custom name you can include to identify the card being used
             (e.g. **Business Card**).
           nullable: true
+        card_type:
+          type: string
+          description: The type of payment card saved in the `Payment Instrument`.
+          pattern: ^\d{6}$
+        expiration_month:
+          type: integer
+          description: Expiration month (e.g. 12 for December).
+          minimum: 1
+          maximum: 12
+        expiration_year:
+          type: integer
+          description: 4-digit expiration year.
+          minimum: 1
         fast_funds_indicator:
           type: string
           description: Details if Fast Funds is enabled for the card.
+        last_four:
+          type: string
+          pattern: ^\d{6}$
+          description: Last four digits of the card or bank account number.
         online_gambing_block_indicator:
           type: string
           description: Detailes if the card is enabled to receive push-payments for
             online gambling payouts.
+        payload_type:
+          type: string
+          enum:
+          - SOURCE
+          - DESTINATION
         push_funds_block_indicator:
           type: string
           description: Details if the card is enabled to receive push-to-card disbursements.
+        security_code_verification:
+          type: string
+          description: Details the results of the Card Verification Code check.
+          enum:
+          - MATCHED
+          - UNKNOWN
+          - UNMATCHED
     CreatePaymentInstrumentRequest:
       x-examples: {}
       title: ''
@@ -13802,17 +13723,15 @@ components:
         type:
           type: string
           enum:
-          - PAYMENT_CARD
           - APPLE_PAY
-          - TOKEN
           - BANK_ACCOUNT
+          - TOKEN
+          - PAYMENT_CARD
           description: Type of `Payment Instrument`.
         identity:
           $ref: '#/components/schemas/Id'
         third_party_token:
           type: string
-        merchant_identity:
-          $ref: '#/components/schemas/Id'
         account_type:
           type: string
           description: The type of bank account.
@@ -13835,75 +13754,11 @@ components:
     UpdatePaymentInstrumentRequest:
       x-examples: {}
       title: ''
-      type: object
       description: ''
+      type: object
       properties:
-        name:
-          type: string
-          description: The name of the bank account or card owner.
-        expiration_year:
-          type: integer
-          description: The 4-digit expiration year of the card.
         tags:
           $ref: '#/components/schemas/Tags'
-        number:
-          type: string
-          description: The card or bank account number (no dashes in between numbers).
-        expiration_month:
-          type: integer
-          description: The expiration month of the card (e.g. 12 for December).
-        address:
-          type: object
-          description: The address of the bank account or card owner.
-          properties:
-            city:
-              type: string
-              description: City (max 20 characters).
-            region:
-              type: string
-              description: 2-letter State code.
-            postal_code:
-              type: string
-              description: Zip or Postal code (max 7 characters).
-            line1:
-              type: string
-              description: First line of the address (max 35 characters).
-            country:
-              type: string
-              description: 3 Letter country code (e.g. USA).
-        security_code:
-          type: string
-          description: The 3-4 digit security code of the card (i.e. CVV code).
-        type:
-          type: string
-          enum:
-          - PAYMENT_CARD
-          - TOKEN
-          - BANK_ACCOUNT
-          description: Type of `Payment Instrument`.
-        identity:
-          $ref: '#/components/schemas/Id'
-        third_party_token:
-          type: string
-        account_number:
-          type: string
-          description: The bank account number (no dashes in between numbers).
-        account_type:
-          type: string
-          description: The type of bank account.
-          enum:
-          - CHECKING
-          - SAVINGS
-          - CORPORATE
-          - CORP_SAVINGS
-        bank_code:
-          type: string
-          description: The routing number of the bank account.
-        country:
-          type: string
-          description: 3 Letter country code (e.g. USA).
-        token:
-          type: string
     PaymentInstrumentToken:
       type: object
       title: Payment instrument
@@ -15884,6 +15739,8 @@ components:
           $ref: '#/components/schemas/FailureCode'
         failure_message:
           $ref: '#/components/schemas/FailureMessage'
+        additional_buyer_charges:
+          $ref: '#/components/schemas/AdditionalBuyerCharges'
         _links:
           type: object
           additionalProperties: true
@@ -16169,6 +16026,8 @@ components:
           $ref: '#/components/schemas/FraudSessionID'
         additional_purchase_data:
           $ref: '#/components/schemas/AdditionalPurchaseData'
+        additional_buyer_charges:
+          $ref: '#/components/schemas/AdditionalBuyerCharges'
     TransfersList:
       type: object
       description: ''
@@ -18841,6 +18700,25 @@ components:
       - SPLIT_PAYOUT
       - SPLIT_PAYOUT_ADJUSTMENT
       - SYSTEM
+    AdditionalBuyerCharges:
+      title: AdditionalBuyerCharges
+      x-stoplight:
+        id: 8t8auxc19wmuw
+      type: object
+      description: Object detailing any [Buyer Charges](/guides/payments/buyer-charges)
+        that got included in the `Authorization`.
+      nullable: true
+      properties:
+        convenience_amount:
+          type: number
+          description: Include the convenience fee the merchant is charging the buyer
+            for the transaction when creating a `Transfer` or an `Authorization`.
+          nullable: true
+        rent_surcharge_amount:
+          type: number
+          description: Include the rent surcharge the merchant is charging the buyer
+            for the transaction when creating a `Transfer` or an `Authorization`.
+          nullable: true
     UpdateMerchantProfileRequest:
       title: UpdateMerchantProfileRequest
       x-stoplight:
@@ -18855,6 +18733,26 @@ components:
         risk_profile:
           type: string
           description: Id of the risk_profile.
+    UpdateDeviceRequest:
+      title: UpdateDeviceRequest
+      x-stoplight:
+        id: w6o14ff8xpu3w
+      type: object
+      properties:
+        action:
+          type: string
+          enum:
+          - DEACTIVATE
+          description: The action you want to perform on the device.
+        activation_code:
+          type: string
+          description: Used when `action` is **ACTIVATE**. The input the code thats
+            show up on the device screen.
+        tags:
+          $ref: '#/components/schemas/Tags'
+        idle_message:
+          type: string
+          description: Message to display on the idle screen.
     ListAuthorizationsQueryParams:
       type: object
       properties:
@@ -18999,6 +18897,12 @@ components:
         source:
           description: Filter by the `Payment Instrument` saved in `source`
           type: string
+    GetDeviceQueryParams:
+      type: object
+      properties:
+        include_connection:
+          description: Specifies whether the connection information should be included.
+          type: boolean
     ListDisputesQueryParams:
       type: object
       properties:

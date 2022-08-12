@@ -11,6 +11,7 @@
  */
 
 import { RequestFile } from './models';
+import { AdditionalBuyerCharges } from './additionalBuyerCharges';
 import { AdditionalPurchaseData } from './additionalPurchaseData';
 import { CreateAuthorizationRequest3dSecureAuthentication } from './createAuthorizationRequest3dSecureAuthentication';
 import { Currency } from './currency';
@@ -61,6 +62,7 @@ export class CreateAuthorizationRequest {
     * The ID of the resource.
     */
     'device'?: string | null;
+    'additionalBuyerCharges'?: AdditionalBuyerCharges | null;
     '_3dSecureAuthentication'?: CreateAuthorizationRequest3dSecureAuthentication | null;
 
     static discriminator: string | undefined = undefined;
@@ -130,6 +132,11 @@ export class CreateAuthorizationRequest {
             "name": "device",
             "baseName": "device",
             "type": "string"
+        },
+        {
+            "name": "additionalBuyerCharges",
+            "baseName": "additional_buyer_charges",
+            "type": "AdditionalBuyerCharges"
         },
         {
             "name": "_3dSecureAuthentication",

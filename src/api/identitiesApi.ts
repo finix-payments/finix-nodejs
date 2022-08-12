@@ -318,7 +318,7 @@ export class IdentitiesApi {
      * Helper function. 
      * Verify an `Identity`.
      * @summary Verify an Identity
-     * @param identityId ID of identity to fetch
+     * @param identityId ID of &#x60;Identity&#x60; to verify.
      * @param createVerificationRequest 
      */
 
@@ -400,7 +400,7 @@ export class IdentitiesApi {
     /**
      * Verify an `Identity`.
      * @summary Verify an Identity
-     * @param identityId ID of identity to fetch
+     * @param identityId ID of &#x60;Identity&#x60; to verify.
      * @param createVerificationRequest 
      */
     public async createIdentityVerification(identityId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
@@ -412,7 +412,7 @@ export class IdentitiesApi {
     /**
      * Verify an `Identity`.
      * @summary Verify an Identity
-     * @param identityId ID of identity to fetch
+     * @param identityId ID of &#x60;Identity&#x60; to verify.
      * @param createVerificationRequest 
      */
     public async createIdentityVerificationHttp(identityId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
@@ -424,7 +424,7 @@ export class IdentitiesApi {
      * Helper function. 
      * Retrieve the details of a previously created `Identity`.
      * @summary Fetch an Identity
-     * @param identityId ID of the &#x60;identity&#x60; to fetch
+     * @param identityId ID of the &#x60;Identity&#x60; to fetch.
      */
 
     private async getHelper(identityId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Identity;  }> {
@@ -497,7 +497,7 @@ export class IdentitiesApi {
     /**
      * Retrieve the details of a previously created `Identity`.
      * @summary Fetch an Identity
-     * @param identityId ID of the &#x60;identity&#x60; to fetch
+     * @param identityId ID of the &#x60;Identity&#x60; to fetch.
      */
     public async get(identityId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Identity> {
@@ -508,7 +508,7 @@ export class IdentitiesApi {
     /**
      * Retrieve the details of a previously created `Identity`.
      * @summary Fetch an Identity
-     * @param identityId ID of the &#x60;identity&#x60; to fetch
+     * @param identityId ID of the &#x60;Identity&#x60; to fetch.
      */
     public async getHttp(identityId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Identity; }> {
@@ -833,7 +833,7 @@ export class IdentitiesApi {
      * Helper function. 
      * Update an existing `Identity`.  If you are updating the `Identity` of a `Merchant` that’s already been onboarded, you need to [verify the merchant again](#operation/createMerchantVerification).
      * @summary Update an Identity
-     * @param identityId ID of the &#x60;identity&#x60; to fetch
+     * @param identityId ID of the &#x60;Identity&#x60; to fetch.
      * @param updateIdentityRequest 
      */
 
@@ -915,7 +915,7 @@ export class IdentitiesApi {
     /**
      * Update an existing `Identity`.  If you are updating the `Identity` of a `Merchant` that’s already been onboarded, you need to [verify the merchant again](#operation/createMerchantVerification).
      * @summary Update an Identity
-     * @param identityId ID of the &#x60;identity&#x60; to fetch
+     * @param identityId ID of the &#x60;Identity&#x60; to fetch.
      * @param updateIdentityRequest 
      */
     public async update(identityId: string, updateIdentityRequest?: UpdateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
@@ -927,7 +927,7 @@ export class IdentitiesApi {
     /**
      * Update an existing `Identity`.  If you are updating the `Identity` of a `Merchant` that’s already been onboarded, you need to [verify the merchant again](#operation/createMerchantVerification).
      * @summary Update an Identity
-     * @param identityId ID of the &#x60;identity&#x60; to fetch
+     * @param identityId ID of the &#x60;Identity&#x60; to fetch.
      * @param updateIdentityRequest 
      */
     public async updateHttp(identityId: string, updateIdentityRequest?: UpdateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 

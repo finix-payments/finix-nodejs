@@ -15,7 +15,7 @@ import { IdentityAdditionalUnderwritingDataCardVolumeDistribution } from './iden
 import { IdentityAdditionalUnderwritingDataVolumeDistributionByBusinessType } from './identityAdditionalUnderwritingDataVolumeDistributionByBusinessType';
 
 /**
-* Additional underwriting data that\'s required to verify the `Identity` of the `Merchant`.
+* Additional underwriting data that\'s required to verify the `Identity`.
 */
 export class IdentityAdditionalUnderwritingData {
     /**

@@ -11,6 +11,7 @@
  */
 
 import { RequestFile } from './models';
+import { AdditionalBuyerCharges } from './additionalBuyerCharges';
 import { AdditionalPurchaseData } from './additionalPurchaseData';
 import { CardPresentInstrumentForm } from './cardPresentInstrumentForm';
 import { ConfigurationDetails } from './configurationDetails';
@@ -91,6 +92,7 @@ export class CreateTransferRequest {
     */
     'fraudSessionId'?: string;
     'additionalPurchaseData'?: AdditionalPurchaseData;
+    'additionalBuyerCharges'?: AdditionalBuyerCharges | null;
 
     static discriminator: string | undefined = undefined;
 
@@ -204,6 +206,11 @@ export class CreateTransferRequest {
             "name": "additionalPurchaseData",
             "baseName": "additional_purchase_data",
             "type": "AdditionalPurchaseData"
+        },
+        {
+            "name": "additionalBuyerCharges",
+            "baseName": "additional_buyer_charges",
+            "type": "AdditionalBuyerCharges"
         }    ];
 
     static getAttributeTypeMap() {

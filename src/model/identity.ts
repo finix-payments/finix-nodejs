@@ -24,6 +24,15 @@ export class Identity {
     */
     'id'?: string;
     /**
+    * Timestamp of when the object was created.
+    */
+    'createdAt'?: Date;
+    /**
+    * Timestamp of when the object was last updated.
+    */
+    'updatedAt'?: Date;
+    'additionalUnderwritingData'?: IdentityAdditionalUnderwritingData | null;
+    /**
     * ID of the `Application` associated with the `Identity`.
     */
     'application'?: string;
@@ -32,15 +41,6 @@ export class Identity {
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
     'tags'?: { [key: string]: string; };
-    /**
-    * Timestamp of when the `Identity` was created
-    */
-    'createdAt'?: string;
-    /**
-    * Timestamp of when the `Identity` was last updated.
-    */
-    'updatedAt'?: string;
-    'additionalUnderwritingData'?: IdentityAdditionalUnderwritingData | null;
     'links'?: IdentityLinks;
 
     static discriminator: string | undefined = undefined;
@@ -50,6 +50,21 @@ export class Identity {
             "name": "id",
             "baseName": "id",
             "type": "string"
+        },
+        {
+            "name": "createdAt",
+            "baseName": "created_at",
+            "type": "Date"
+        },
+        {
+            "name": "updatedAt",
+            "baseName": "updated_at",
+            "type": "Date"
+        },
+        {
+            "name": "additionalUnderwritingData",
+            "baseName": "additional_underwriting_data",
+            "type": "IdentityAdditionalUnderwritingData"
         },
         {
             "name": "application",
@@ -65,21 +80,6 @@ export class Identity {
             "name": "tags",
             "baseName": "tags",
             "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "createdAt",
-            "baseName": "created_at",
-            "type": "string"
-        },
-        {
-            "name": "updatedAt",
-            "baseName": "updated_at",
-            "type": "string"
-        },
-        {
-            "name": "additionalUnderwritingData",
-            "baseName": "additional_underwriting_data",
-            "type": "IdentityAdditionalUnderwritingData"
         },
         {
             "name": "links",

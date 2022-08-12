@@ -1,5 +1,6 @@
 import localVarRequest from 'request';
 
+export * from './additionalBuyerCharges';
 export * from './additionalPurchaseData';
 export * from './additionalPurchaseDataItemDataInner';
 export * from './additionalPurchaseDataOrderDate';
@@ -55,9 +56,6 @@ export * from './createIdentityRequestAdditionalUnderwritingData';
 export * from './createIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution';
 export * from './createIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusinessType';
 export * from './createIdentityRequestEntity';
-export * from './createIdentityRequestEntityBusinessAddress';
-export * from './createIdentityRequestEntityDob';
-export * from './createIdentityRequestEntityIncorporationDate';
 export * from './createIdentityRequestEntityPersonalAddress';
 export * from './createInstrumentUpdateRequest';
 export * from './createMerchantUnderwritingRequest';
@@ -128,6 +126,7 @@ export * from './feesList';
 export * from './feesListEmbedded';
 export * from './filesList';
 export * from './filesListEmbedded';
+export * from './getDeviceQueryParams';
 export * from './identitiesList';
 export * from './identitiesListEmbedded';
 export * from './identity';
@@ -264,6 +263,7 @@ export * from './transfersList';
 export * from './transfersListEmbedded';
 export * from './updateApplicationProfileRequest';
 export * from './updateAuthorizationRequest';
+export * from './updateDeviceRequest';
 export * from './updateFeeRequest';
 export * from './updateIdentityRequest';
 export * from './updateIdentityRequestAdditionalUnderwritingData';
@@ -272,6 +272,8 @@ export * from './updateIdentityRequestAdditionalUnderwritingDataVolumeDistributi
 export * from './updateIdentityRequestEntity';
 export * from './updateIdentityRequestEntityBusinessAddress';
 export * from './updateIdentityRequestEntityDob';
+export * from './updateIdentityRequestEntityIncorporationDate';
+export * from './updateIdentityRequestEntityPersonalAddress';
 export * from './updateMerchantProfileRequest';
 export * from './updateMerchantRequest';
 export * from './updatePaymentInstrumentRequest';
@@ -312,6 +314,7 @@ export interface RequestDetailedFile {
 export type RequestFile = string | Buffer | fs.ReadStream | RequestDetailedFile;
 
 
+import { AdditionalBuyerCharges } from './additionalBuyerCharges';
 import { AdditionalPurchaseData } from './additionalPurchaseData';
 import { AdditionalPurchaseDataItemDataInner } from './additionalPurchaseDataItemDataInner';
 import { AdditionalPurchaseDataOrderDate } from './additionalPurchaseDataOrderDate';
@@ -367,9 +370,6 @@ import { CreateIdentityRequestAdditionalUnderwritingData } from './createIdentit
 import { CreateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution } from './createIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution';
 import { CreateIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusinessType } from './createIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusinessType';
 import { CreateIdentityRequestEntity } from './createIdentityRequestEntity';
-import { CreateIdentityRequestEntityBusinessAddress } from './createIdentityRequestEntityBusinessAddress';
-import { CreateIdentityRequestEntityDob } from './createIdentityRequestEntityDob';
-import { CreateIdentityRequestEntityIncorporationDate } from './createIdentityRequestEntityIncorporationDate';
 import { CreateIdentityRequestEntityPersonalAddress } from './createIdentityRequestEntityPersonalAddress';
 import { CreateInstrumentUpdateRequest } from './createInstrumentUpdateRequest';
 import { CreateMerchantUnderwritingRequest } from './createMerchantUnderwritingRequest';
@@ -440,6 +440,7 @@ import { FeesList } from './feesList';
 import { FeesListEmbedded } from './feesListEmbedded';
 import { FilesList } from './filesList';
 import { FilesListEmbedded } from './filesListEmbedded';
+import { GetDeviceQueryParams } from './getDeviceQueryParams';
 import { IdentitiesList } from './identitiesList';
 import { IdentitiesListEmbedded } from './identitiesListEmbedded';
 import { Identity } from './identity';
@@ -576,6 +577,7 @@ import { TransfersList } from './transfersList';
 import { TransfersListEmbedded } from './transfersListEmbedded';
 import { UpdateApplicationProfileRequest } from './updateApplicationProfileRequest';
 import { UpdateAuthorizationRequest } from './updateAuthorizationRequest';
+import { UpdateDeviceRequest } from './updateDeviceRequest';
 import { UpdateFeeRequest } from './updateFeeRequest';
 import { UpdateIdentityRequest } from './updateIdentityRequest';
 import { UpdateIdentityRequestAdditionalUnderwritingData } from './updateIdentityRequestAdditionalUnderwritingData';
@@ -584,6 +586,8 @@ import { UpdateIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusi
 import { UpdateIdentityRequestEntity } from './updateIdentityRequestEntity';
 import { UpdateIdentityRequestEntityBusinessAddress } from './updateIdentityRequestEntityBusinessAddress';
 import { UpdateIdentityRequestEntityDob } from './updateIdentityRequestEntityDob';
+import { UpdateIdentityRequestEntityIncorporationDate } from './updateIdentityRequestEntityIncorporationDate';
+import { UpdateIdentityRequestEntityPersonalAddress } from './updateIdentityRequestEntityPersonalAddress';
 import { UpdateMerchantProfileRequest } from './updateMerchantProfileRequest';
 import { UpdateMerchantRequest } from './updateMerchantRequest';
 import { UpdatePaymentInstrumentRequest } from './updatePaymentInstrumentRequest';
@@ -642,8 +646,6 @@ let enumsMap: {[index: string]: any} = {
         "CreateFeeRequest.LinkedTypeEnum": CreateFeeRequest.LinkedTypeEnum,
         "CreateFileRequest.TypeEnum": CreateFileRequest.TypeEnum,
         "CreateIdentityRequestAdditionalUnderwritingData.RefundPolicyEnum": CreateIdentityRequestAdditionalUnderwritingData.RefundPolicyEnum,
-        "CreateIdentityRequestEntity.OwnershipTypeEnum": CreateIdentityRequestEntity.OwnershipTypeEnum,
-        "CreateIdentityRequestEntity.BusinessTypeEnum": CreateIdentityRequestEntity.BusinessTypeEnum,
         "CreateMerchantUnderwritingRequest.GatewayEnum": CreateMerchantUnderwritingRequest.GatewayEnum,
         "CreatePaymentInstrumentRequest.TypeEnum": CreatePaymentInstrumentRequest.TypeEnum,
         "CreatePaymentInstrumentRequest.AccountTypeEnum": CreatePaymentInstrumentRequest.AccountTypeEnum,
@@ -675,13 +677,11 @@ let enumsMap: {[index: string]: any} = {
         "IdentityEntityFormBusinessAddress.CountryEnum": IdentityEntityFormBusinessAddress.CountryEnum,
         "Merchant.OnboardingStateEnum": Merchant.OnboardingStateEnum,
         "OperationKey": OperationKey,
-        "PaymentInstrument.TypeEnum": PaymentInstrument.TypeEnum,
         "PaymentInstrument.AccountTypeEnum": PaymentInstrument.AccountTypeEnum,
         "PaymentInstrument.InstrumentTypeEnum": PaymentInstrument.InstrumentTypeEnum,
-        "PaymentInstrument.PayloadTypeEnum": PaymentInstrument.PayloadTypeEnum,
-        "PaymentInstrument.BrandEnum": PaymentInstrument.BrandEnum,
-        "PaymentInstrument.CardTypeEnum": PaymentInstrument.CardTypeEnum,
+        "PaymentInstrument.TypeEnum": PaymentInstrument.TypeEnum,
         "PaymentInstrument.AddressVerificationEnum": PaymentInstrument.AddressVerificationEnum,
+        "PaymentInstrument.PayloadTypeEnum": PaymentInstrument.PayloadTypeEnum,
         "PaymentInstrument.SecurityCodeVerificationEnum": PaymentInstrument.SecurityCodeVerificationEnum,
         "PaymentInstrumentToken.TypeEnum": PaymentInstrumentToken.TypeEnum,
         "PaymentInstrumentToken.InstrumentTypeEnum": PaymentInstrumentToken.InstrumentTypeEnum,
@@ -703,16 +703,16 @@ let enumsMap: {[index: string]: any} = {
         "Transfer.TypeEnum": Transfer.TypeEnum,
         "Transfer.StateEnum": Transfer.StateEnum,
         "Transfer.SubtypeEnum": Transfer.SubtypeEnum,
+        "UpdateDeviceRequest.ActionEnum": UpdateDeviceRequest.ActionEnum,
         "UpdateIdentityRequestAdditionalUnderwritingData.RefundPolicyEnum": UpdateIdentityRequestAdditionalUnderwritingData.RefundPolicyEnum,
         "UpdateIdentityRequestEntity.BusinessTypeEnum": UpdateIdentityRequestEntity.BusinessTypeEnum,
-        "UpdatePaymentInstrumentRequest.TypeEnum": UpdatePaymentInstrumentRequest.TypeEnum,
-        "UpdatePaymentInstrumentRequest.AccountTypeEnum": UpdatePaymentInstrumentRequest.AccountTypeEnum,
         "User.RoleEnum": User.RoleEnum,
         "Verification.StateEnum": Verification.StateEnum,
         "WebhookAuthentication.TypeEnum": WebhookAuthentication.TypeEnum,
 }
 
 let typeMap: {[index: string]: any} = {
+    "AdditionalBuyerCharges": AdditionalBuyerCharges,
     "AdditionalPurchaseData": AdditionalPurchaseData,
     "AdditionalPurchaseDataItemDataInner": AdditionalPurchaseDataItemDataInner,
     "AdditionalPurchaseDataOrderDate": AdditionalPurchaseDataOrderDate,
@@ -767,9 +767,6 @@ let typeMap: {[index: string]: any} = {
     "CreateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution": CreateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution,
     "CreateIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusinessType": CreateIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusinessType,
     "CreateIdentityRequestEntity": CreateIdentityRequestEntity,
-    "CreateIdentityRequestEntityBusinessAddress": CreateIdentityRequestEntityBusinessAddress,
-    "CreateIdentityRequestEntityDob": CreateIdentityRequestEntityDob,
-    "CreateIdentityRequestEntityIncorporationDate": CreateIdentityRequestEntityIncorporationDate,
     "CreateIdentityRequestEntityPersonalAddress": CreateIdentityRequestEntityPersonalAddress,
     "CreateInstrumentUpdateRequest": CreateInstrumentUpdateRequest,
     "CreateMerchantUnderwritingRequest": CreateMerchantUnderwritingRequest,
@@ -838,6 +835,7 @@ let typeMap: {[index: string]: any} = {
     "FeesListEmbedded": FeesListEmbedded,
     "FilesList": FilesList,
     "FilesListEmbedded": FilesListEmbedded,
+    "GetDeviceQueryParams": GetDeviceQueryParams,
     "IdentitiesList": IdentitiesList,
     "IdentitiesListEmbedded": IdentitiesListEmbedded,
     "Identity": Identity,
@@ -972,6 +970,7 @@ let typeMap: {[index: string]: any} = {
     "TransfersListEmbedded": TransfersListEmbedded,
     "UpdateApplicationProfileRequest": UpdateApplicationProfileRequest,
     "UpdateAuthorizationRequest": UpdateAuthorizationRequest,
+    "UpdateDeviceRequest": UpdateDeviceRequest,
     "UpdateFeeRequest": UpdateFeeRequest,
     "UpdateIdentityRequest": UpdateIdentityRequest,
     "UpdateIdentityRequestAdditionalUnderwritingData": UpdateIdentityRequestAdditionalUnderwritingData,
@@ -980,6 +979,8 @@ let typeMap: {[index: string]: any} = {
     "UpdateIdentityRequestEntity": UpdateIdentityRequestEntity,
     "UpdateIdentityRequestEntityBusinessAddress": UpdateIdentityRequestEntityBusinessAddress,
     "UpdateIdentityRequestEntityDob": UpdateIdentityRequestEntityDob,
+    "UpdateIdentityRequestEntityIncorporationDate": UpdateIdentityRequestEntityIncorporationDate,
+    "UpdateIdentityRequestEntityPersonalAddress": UpdateIdentityRequestEntityPersonalAddress,
     "UpdateMerchantProfileRequest": UpdateMerchantProfileRequest,
     "UpdateMerchantRequest": UpdateMerchantRequest,
     "UpdatePaymentInstrumentRequest": UpdatePaymentInstrumentRequest,

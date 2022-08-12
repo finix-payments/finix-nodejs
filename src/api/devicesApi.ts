@@ -22,6 +22,8 @@ import { Error403ForbiddenList } from '../model/error403ForbiddenList';
 import { Error404NotFoundList } from '../model/error404NotFoundList';
 import { Error406NotAcceptable } from '../model/error406NotAcceptable';
 import { ErrorGeneric } from '../model/errorGeneric';
+import { UpdateDeviceRequest } from '../model/updateDeviceRequest';
+import { GetDeviceQueryParams } from '../model/getDeviceQueryParams';
 import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
 import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
 
@@ -214,10 +216,11 @@ export class DevicesApi {
      * Helper function. 
      * Retrieve the details of an existing `Device`.  To check the connectivity of the device, include `?include_connection\\=true \\` at the end of the request endpoint.
      * @summary Get Device
-     * @param deviceId ID of the &#x60;Device&#x60;.
-     */
 
-    private async getHelper(deviceId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Device;  }> {
+    * @param deviceId ID of the &#x60;Device&#x60;.
+    * 
+    */
+    private async getHelper (deviceId: string, getDeviceQueryParams?:GetDeviceQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Device;  }> {
         const localVarPath = this.basePath + '/devices/{device_id}'
             .replace('{' + 'device_id' + '}', encodeURIComponent(String(deviceId)));
         let localVarQueryParameters: any = {};
@@ -235,7 +238,12 @@ export class DevicesApi {
         if (deviceId === null || deviceId === undefined) {
             throw new Error('Required parameter deviceId was null or undefined when calling getDevice.');
         }
+        if (getDeviceQueryParams != undefined){ 
+            if (getDeviceQueryParams.includeConnection !== undefined) {
+                localVarQueryParameters['include_connection'] = ObjectSerializer.serialize(getDeviceQueryParams.includeConnection, "boolean");
+            }
 
+        }
         (<any>Object).assign(localVarHeaderParams, options.headers);
         localVarHeaderParams['Finix-Version'] = "2022-02-01";
         let localVarUseFormData = false;
@@ -288,10 +296,11 @@ export class DevicesApi {
      * Retrieve the details of an existing `Device`.  To check the connectivity of the device, include `?include_connection\\=true \\` at the end of the request endpoint.
      * @summary Get Device
      * @param deviceId ID of the &#x60;Device&#x60;.
+     *  
      */
-    public async get(deviceId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+    public async get (deviceId: string, getDeviceQueryParams?:GetDeviceQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
         Promise<Device> {
-        const responseObject = await this.getHelper(deviceId,  options);
+        const responseObject = await this.getHelper(deviceId, getDeviceQueryParams, options);
         return responseObject.body;
     }
 
@@ -299,10 +308,11 @@ export class DevicesApi {
      * Retrieve the details of an existing `Device`.  To check the connectivity of the device, include `?include_connection\\=true \\` at the end of the request endpoint.
      * @summary Get Device
      * @param deviceId ID of the &#x60;Device&#x60;.
+     * 
      */
-    public async getHttp(deviceId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+    public async getHttp (deviceId: string, getDeviceQueryParams?:GetDeviceQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
         Promise<{response: http.IncomingMessage, body: Device; }> {
-        const responseObject = await this.getHelper(deviceId,  options);
+        const responseObject = await this.getHelper(deviceId, getDeviceQueryParams, options);
         return responseObject;
     }
     /**
@@ -310,10 +320,10 @@ export class DevicesApi {
      * Update a `Device` to activate or deactivate it.
      * @summary Update a Device
      * @param deviceId ID of the &#x60;Device&#x60;.
-     * @param body 
+     * @param updateDeviceRequest 
      */
 
-    private async updateHelper(deviceId: string, body?: object, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Device;  }> {
+    private async updateHelper(deviceId: string, updateDeviceRequest?: UpdateDeviceRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Device;  }> {
         const localVarPath = this.basePath + '/devices/{device_id}'
             .replace('{' + 'device_id' + '}', encodeURIComponent(String(deviceId)));
         let localVarQueryParameters: any = {};
@@ -345,12 +355,12 @@ export class DevicesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (body && body.hasOwnProperty('file')){
-        //if (body != undefined && body != null && body.hasOwnProperty('file')){
-            localVarRequestOptions.formData = body;
+        if (updateDeviceRequest && updateDeviceRequest.hasOwnProperty('file')){
+        //if (updateDeviceRequest != undefined && updateDeviceRequest != null && updateDeviceRequest.hasOwnProperty('file')){
+            localVarRequestOptions.formData = updateDeviceRequest;
         }
         else{
-            localVarRequestOptions.body = ObjectSerializer.serialize(body, "object");   
+            localVarRequestOptions.body = ObjectSerializer.serialize(updateDeviceRequest, "UpdateDeviceRequest");   
         }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
@@ -392,11 +402,11 @@ export class DevicesApi {
      * Update a `Device` to activate or deactivate it.
      * @summary Update a Device
      * @param deviceId ID of the &#x60;Device&#x60;.
-     * @param body 
+     * @param updateDeviceRequest 
      */
-    public async update(deviceId: string, body?: object, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+    public async update(deviceId: string, updateDeviceRequest?: UpdateDeviceRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Device> {
-        const responseObject = await this.updateHelper(deviceId, body,  options);
+        const responseObject = await this.updateHelper(deviceId, updateDeviceRequest,  options);
         return responseObject.body;
     }
 
@@ -404,11 +414,11 @@ export class DevicesApi {
      * Update a `Device` to activate or deactivate it.
      * @summary Update a Device
      * @param deviceId ID of the &#x60;Device&#x60;.
-     * @param body 
+     * @param updateDeviceRequest 
      */
-    public async updateHttp(deviceId: string, body?: object, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+    public async updateHttp(deviceId: string, updateDeviceRequest?: UpdateDeviceRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Device; }> {
-        const responseObject = await this.updateHelper(deviceId, body,  options);
+        const responseObject = await this.updateHelper(deviceId, updateDeviceRequest,  options);
         return responseObject;
     }
 
