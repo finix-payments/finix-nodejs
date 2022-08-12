@@ -10,7 +10,7 @@ describe('Settlements API', () => {
 
         client = new Client(userName, password, Environment.Sandbox);
     });
-
+    
     test("Test: Fetch a batch settlement", async() => {
         const settlementId = "STmCc8GbjjX33SdymwNhb9Et";
         const fetchedSettlement = await client.Settlements.get(settlementId);

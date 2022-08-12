@@ -40,4 +40,18 @@ describe('Devices API', () => {
          expect(fetchedDevice.configurationDetails?.allowDebit).toBe(true);
      });
 
+    //  test('Test: Update a device' ,async () => {
+
+    //     const deviceUpdateRequest : Models.UpdateDeviceRequest = {
+    //         action: "REBOOT"
+    //     };
+    //     try{
+    //         const updatedDevice= await client.Devices.update(deviceId, deviceUpdateRequest);
+    //     } catch(error) {
+    //         console.log(error.body);
+    //     }
+    //     // expect(updatedDevice.id).toBe(deviceId);
+    //     // expect(updatedDevice.enabled).toBe(true);
+    // });
+
 })

@@ -69,6 +69,25 @@ describe('Payment Instruments API', () => {
         expect(createdPaymentInstrument.bankCode).toBe(paymentRequest.bankCode);
     });
 
+    // test('Test: Create an Apple pay session', async() => {
+    //     const client2 = new Client("USwV2ayDfbTwjUmrftEBKhgk", "9bf27419-0ef6-40f5-bce7-3b0eafb1ac88", Environment.Sandbox);
+    //     const applePayRequest : Models.ApplePaySessionRequest = {
+    //         displayName: "Finix Test Merchant", 
+    //         domain: "www.finixtestmerchant.com",
+    //         merchantIdentity: "IDmULj61C8ke6Y7qQiKENJ7",
+    //         validationUrl: "https://apple-pay-gateway-cert.apple.com/paymentservices/paymentSession"
+    //     };
+    //     try{
+    //         const createdApplePaySession = await client2.PaymentInstruments.createApplePaySession(applePayRequest);
+    //     } catch(error){
+    //         console.log(error.body);
+    //     }
+    //     // expect(createdApplePaySession.application).toBe("APgPDQrLD52TYvqazjHJJchM");
+    //     // expect(createdApplePaySession.name).toBe(paymentRequest.name);
+    //     // expect(createdApplePaySession.identity).toBe(paymentRequest.identity);
+    //     // expect(createdApplePaySession.bankCode).toBe(paymentRequest.bankCode);
+    // });
+
     test('Test: Fetch a bank account' ,async () => {
         const fetchedPaymentInstrument= await client.PaymentInstruments.get(bankAccountId);
         expect(fetchedPaymentInstrument.id).toBe(bankAccountId);
@@ -76,31 +95,22 @@ describe('Payment Instruments API', () => {
         expect(fetchedPaymentInstrument.application).toBe("APgPDQrLD52TYvqazjHJJchM");
     });
 
+    test('Test: Update a payment instrument' ,async () => {
+        const paymentInstrumentUpdateRequest : Models.UpdatePaymentInstrumentRequest ={
+            tags: {
+                "Test" : "Update_test"
+            }
+        }
+        const updatedPaymentInstrument= await client.PaymentInstruments.update(bankAccountId, paymentInstrumentUpdateRequest);
+        expect(updatedPaymentInstrument.id).toBe(bankAccountId);
+        expect(updatedPaymentInstrument.tags["Test"]).toBe(paymentInstrumentUpdateRequest.tags["Test"]);
+    });
+
     test('Test: Fetch a payment card' ,async () => {
         const fetchedPaymentInstrument = await client.PaymentInstruments.get(paymentCardId);
         expect(fetchedPaymentInstrument.id).toBe(paymentCardId);
         expect(fetchedPaymentInstrument.expirationMonth).toBe(12);
         expect(fetchedPaymentInstrument.application).toBe("APgPDQrLD52TYvqazjHJJchM");
-    });
-
-    test('Test: Create instrument update',async () => {
-        const fileName : string = __dirname.concat("/test.csv");
-        const fileStream : fs.ReadStream = fs.createReadStream(fileName);
-        const updateRequest: Models.CreateInstrumentUpdateRequest = {
-            file: fileStream,
-            request: "{\"merchant\":\"MUucec6fHeaWo3VHYoSkUySM\"}"
-        }
-
-        const createdInstrumentUpdate = await client.InstrumentUpdates.create(updateRequest);
-        instrumentUpdateId = <string> createdInstrumentUpdate.id;
-
-        expect(createdInstrumentUpdate.merchant).toBe("MUucec6fHeaWo3VHYoSkUySM");
-    })
-
-    test('Test: Fetch a instrument update' ,async () => {
-        const fetchedInstrumentUpdate = await client.InstrumentUpdates.get(instrumentUpdateId);
-        expect(fetchedInstrumentUpdate.id).toBe(instrumentUpdateId);
-        expect(fetchedInstrumentUpdate.merchant).toBe("MUucec6fHeaWo3VHYoSkUySM");
     });
 
     test("Test: List all payment instruments", async() => {
@@ -123,5 +133,6 @@ describe('Payment Instruments API', () => {
             expect(nextPaymentInstrumentList.size).toEqual(expect.any(Number));
         }
     }, 10000);
+    
     
 })

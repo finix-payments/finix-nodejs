@@ -207,6 +207,28 @@ describe('Transfers API', () => {
             expect(nextTransferList.size).toEqual(expect.any(Number));
         }
     }, 20000);
+
+    test("Test: List transfer reversals", async() => {
+        const transferId = "TRvtThmhZtk56z6dtCt8hUDR";
+        const transferReversalsList = await client.Transfers.listTransfersReversals(transferId);
+        
+        expect(transferReversalsList.page.limit).toEqual(expect.any(Number));
+        if (transferReversalsList.page.hasOwnProperty('offset')){
+            expect(transferReversalsList.page.offset).toEqual(expect.any(Number));
+        }
+        else{
+            if (transferReversalsList.page.nextCursor != undefined) {
+                expect(transferReversalsList.page.nextCursor).toEqual(expect.any(String));
+            }
+        }        
+        expect(transferReversalsList.size).toEqual(expect.any(Number));
+
+        if(transferReversalsList.hasMore) {
+            const nextTransferList = await transferReversalsList.listNext();
+            expect(nextTransferList.page.limit).toEqual(expect.any(Number));
+            expect(nextTransferList.size).toEqual(expect.any(Number));
+        }
+    }, 20000);
      
     test("Test: List transfers with query parameters", async() => {
         const transferListWithLimit = await client.Transfers.list({

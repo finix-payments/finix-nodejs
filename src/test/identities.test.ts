@@ -53,6 +53,36 @@ describe('Identity API', () => {
         expect(createdIdentity.application).toBe("APgPDQrLD52TYvqazjHJJchM");
     });
 
+    test("Test: Create an associated identity", async() => {
+        const createIdentityRequest: Models.CreateIdentityRequest = {
+            entity: {
+                phone: "7145677613",
+                firstName: "Amy",
+                lastName: "Wade",
+                email: "therock@gmail.com"
+            }
+        }
+        const createdIdentity = await client.Identities.createAssociatedIdentity(identitiesId, createIdentityRequest);
+
+        expect(createdIdentity.entity?.firstName).toBe(createIdentityRequest.entity.firstName);
+        expect(createdIdentity.entity?.lastName).toBe(createIdentityRequest.entity.lastName);
+        expect(createdIdentity.application).toBe("APgPDQrLD52TYvqazjHJJchM");
+    });
+
+    test("Test: Verify an identity", async() => {
+        const createVerificationRequest: Models.CreateVerificationRequest = {
+            processor: "DUMMY_V1",
+            merchant: "MUgWbPVvtKbzjKNNGKqdQYV7",
+            instrument: "PI3tfx1Uw3SzHfqwPFGX9o1Y",
+            identity: "ID2CGJmjqyYaQAu6qyuvGeWK"
+        }
+        const identityVerification = await client.Identities.createIdentityVerification("IDgWxBhfGYLLdkhxx2ddYf9K", createVerificationRequest);
+
+        expect(identityVerification.merchant).toBe(createVerificationRequest.merchant);
+        expect(identityVerification.merchantIdentity).toBe(createVerificationRequest.identity);
+        expect(identityVerification.application).toBe("APgPDQrLD52TYvqazjHJJchM");
+    });
+
     test("Test: Fetch an identity", async() => {
         const fetchedIdentity = await client.Identities.get(identitiesId);
 
