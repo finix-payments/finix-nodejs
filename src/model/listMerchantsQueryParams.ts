@@ -14,33 +14,33 @@ import { RequestFile } from './models';
 
 export class ListMerchantsQueryParams {
     /**
-    * Filter by id
+    * Filter by `id`.
     */
     'id'?: string;
     /**
-    * Filter where created_at is after the given date.
+    * Filter where `created_at` is after the given date.
     */
     'createdAtGte'?: string;
     /**
-    * Filter where created_at is before the given date.
+    * Filter where `created_at` is before the given date.
     */
     'createdAtLte'?: string;
-    /**
-    * Specify key to be used for sorting the collection
-    */
-    'sort'?: string;
     /**
     * Return every resource created after the cursor value.
     */
     'afterCursor'?: string;
     /**
-    * The numbers of items to return
-    */
-    'limit'?: number;
-    /**
     * Return every resource created before the cursor value.
     */
     'beforeCursor'?: string;
+    /**
+    * The numbers of items to return.
+    */
+    'limit'?: number;
+    /**
+    * Specify key to be used for sorting the collection.
+    */
+    'sort'?: string;
 
     static discriminator: string | undefined = undefined;
 
@@ -61,13 +61,13 @@ export class ListMerchantsQueryParams {
             "type": "string"
         },
         {
-            "name": "sort",
-            "baseName": "sort",
+            "name": "afterCursor",
+            "baseName": "after_cursor",
             "type": "string"
         },
         {
-            "name": "afterCursor",
-            "baseName": "after_cursor",
+            "name": "beforeCursor",
+            "baseName": "before_cursor",
             "type": "string"
         },
         {
@@ -76,8 +76,8 @@ export class ListMerchantsQueryParams {
             "type": "number"
         },
         {
-            "name": "beforeCursor",
-            "baseName": "before_cursor",
+            "name": "sort",
+            "baseName": "sort",
             "type": "string"
         }    ];
 

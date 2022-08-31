@@ -21,10 +21,6 @@ import { IdentityEntityFormIncorporationDate } from './identityEntityFormIncorpo
 */
 export class IdentityEntityForm {
     /**
-    * Control person\'s corporate title or role (i.e. Chief Executive Officer, CFO, etc.; max 60 characters).
-    */
-    'title'?: string | null;
-    /**
     * Assigned amex_Mid value. If included must be 10 or 11 digits.
     */
     'amexMid'?: string | null;
@@ -32,44 +28,44 @@ export class IdentityEntityForm {
     * Approximate annual credit card sales expected to be processed in cents by this merchant (max 19 characters).
     */
     'annualCardVolume'?: number;
-    'businessAddress'?: IdentityEntityFormBusinessAddress | null;
+    'businessAddress': IdentityEntityFormBusinessAddress | null;
     /**
-    * Merchant\'s full legal business name (If INDIVIDUAL\\_SOLE\\_PROPRIETORSHIP, input first name, Full legal last name and middle initial; max 120 characters)
+    * Merchant\'s full legal business name (If **INDIVIDUAL\\_SOLE\\_PROPRIETORSHIP**, input first name, Full legal last name and middle initial; max 120 characters)
     */
-    'businessName'?: string | null;
+    'businessName': string | null;
     /**
     * Customer service phone number where the merchant can be reached (max 10 characters).
     */
-    'businessPhone'?: string;
+    'businessPhone': string;
     /**
     * Nine digit Tax Identification Number (TIN), Employer Identification Number (EIN). If the `business_type` is **INDIVIDUAL\\_SOLE\\_PROPRIETORSHIP** and they do not have an EIN, use the sole proprietor\'s Social Security Number (SSN).
     */
-    'businessTaxId'?: string;
+    'businessTaxId': string;
     /**
     * Include the value that applies the best.
     */
-    'businessType'?: IdentityEntityForm.BusinessTypeEnum | string;
+    'businessType': IdentityEntityForm.BusinessTypeEnum | string;
     /**
     * Billing description displayed on the buyer\'s bank or card statement (Length must be between 1 and 20 characters).
     */
     'defaultStatementDescriptor'?: string;
     /**
-    * Assigned discover_Mid value.
+    * Assigned Discover Mid value.
     */
     'discoverMid'?: string;
-    'dob'?: IdentityEntityFormDob;
+    'dob': IdentityEntityFormDob;
     /**
-    * Alternate name of the business. If no other name is used use the same value used in `business_name` (max 60 characters)
+    * Alternate name of the business. If no other name is used use the same value used in `business_name` (max 60 characters).
     */
-    'doingBusinessAs'?: string;
+    'doingBusinessAs': string;
     /**
     * Control person\'s email address where they can be reached (max 100 characters).
     */
-    'email'?: string;
+    'email': string;
     /**
     * Full legal first name of the merchant\'s principal representative (max 20 characters).
     */
-    'firstName'?: string;
+    'firstName': string;
     /**
     * Defaults to **false** if not passed.
     */
@@ -78,7 +74,7 @@ export class IdentityEntityForm {
     /**
     * Full legal last name of the merchant\'s principal representative (max 20 characters).
     */
-    'lastName'?: string;
+    'lastName': string;
     /**
     * Maximum amount that can be transacted for a single transaction in cents (max 12 characters).
     */
@@ -91,11 +87,11 @@ export class IdentityEntityForm {
     * Values can be either: <ul><li><strong>PUBLIC</strong> to indicate a publicly-traded company.<li><strong>PRIVATE</strong> for privately-held businesses.
     */
     'ownershipType'?: IdentityEntityForm.OwnershipTypeEnum | string;
-    'personalAddress'?: Address | null;
+    'personalAddress': Address | null;
     /**
     * Principal\'s phone number (max 10 characters).
     */
-    'phone'?: string;
+    'phone': string;
     /**
     * Percentage of company owned by the principal (min 0; max 100).
     */
@@ -111,7 +107,11 @@ export class IdentityEntityForm {
     /**
     * Used to verify `tax_id` was provided.
     */
-    'taxId'?: string;
+    'taxId': string;
+    /**
+    * Control person\'s corporate title or role (i.e. Chief Executive Officer, CFO, etc.; max 60 characters).
+    */
+    'title'?: string | null;
     /**
     * Merchant\'s publicly available website (max 100 characters).
     */
@@ -120,11 +120,6 @@ export class IdentityEntityForm {
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "title",
-            "baseName": "title",
-            "type": "string"
-        },
         {
             "name": "amexMid",
             "baseName": "amex_mid",
@@ -248,6 +243,11 @@ export class IdentityEntityForm {
         {
             "name": "taxId",
             "baseName": "tax_id",
+            "type": "string"
+        },
+        {
+            "name": "title",
+            "baseName": "title",
             "type": "string"
         },
         {

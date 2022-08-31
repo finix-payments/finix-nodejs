@@ -17,10 +17,6 @@ import { RequestFile } from './models';
 */
 export class CardPresentDetailsEmvData {
     /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags'?: { [key: string]: string; };
-    /**
     * ID of the EMV application processing the transaction.
     */
     'applicationIdentifier'?: string;
@@ -48,15 +44,14 @@ export class CardPresentDetailsEmvData {
     * Details if the cardholder\'s PIN number was verified.
     */
     'pinVerified'?: boolean;
+    /**
+    * Key value pair for annotating custom meta data (e.g. order numbers).
+    */
+    'tags'?: { [key: string]: string; };
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
         {
             "name": "applicationIdentifier",
             "baseName": "application_identifier",
@@ -91,6 +86,11 @@ export class CardPresentDetailsEmvData {
             "name": "pinVerified",
             "baseName": "pin_verified",
             "type": "boolean"
+        },
+        {
+            "name": "tags",
+            "baseName": "tags",
+            "type": "{ [key: string]: string; }"
         }    ];
 
     static getAttributeTypeMap() {

@@ -18,6 +18,7 @@ import { CreateSubscriptionScheduleRequestPeriodOffset } from './createSubscript
 * 
 */
 export class CreateSubscriptionScheduleRequest {
+    'fixedTimeIntervalOffset'?: CreateSubscriptionScheduleRequestFixedTimeIntervalOffset | null;
     /**
     * Subscription Schedule type. For subscriptions, the type is **FEE**.
     */
@@ -26,7 +27,6 @@ export class CreateSubscriptionScheduleRequest {
     * Human readable name.
     */
     'nickname': string;
-    'fixedTimeIntervalOffset'?: CreateSubscriptionScheduleRequestFixedTimeIntervalOffset | null;
     'periodOffset'?: CreateSubscriptionScheduleRequestPeriodOffset | null;
     /**
     * Specify the type of schedule: - **FIXED\\_TIME\\_INTERVAL**: Charges a Merchant on a fixed hourly interval. - **PERIODIC\\_MONTHLY**: Charges a Merchant once a month on a specific day. - **PERIODIC\\_YEARLY**: Charges a Merchant once a year on a specific day and month.
@@ -41,6 +41,11 @@ export class CreateSubscriptionScheduleRequest {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
+            "name": "fixedTimeIntervalOffset",
+            "baseName": "fixed_time_interval_offset",
+            "type": "CreateSubscriptionScheduleRequestFixedTimeIntervalOffset"
+        },
+        {
             "name": "lineItemType",
             "baseName": "line_item_type",
             "type": "CreateSubscriptionScheduleRequest.LineItemTypeEnum"
@@ -49,11 +54,6 @@ export class CreateSubscriptionScheduleRequest {
             "name": "nickname",
             "baseName": "nickname",
             "type": "string"
-        },
-        {
-            "name": "fixedTimeIntervalOffset",
-            "baseName": "fixed_time_interval_offset",
-            "type": "CreateSubscriptionScheduleRequestFixedTimeIntervalOffset"
         },
         {
             "name": "periodOffset",

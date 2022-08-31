@@ -40,7 +40,7 @@ export class BalanceTransfer {
     */
     'description'?: string;
     /**
-    * ID of the `Payment Instrument` where funds will be sent.
+    * The account where funds get credited. For balance transfers, this is an aliased ID and will have the value of `FOR_BENEFIT_OF_ACCOUNT` or `OPERATING_ACCOUNT`.
     */
     'destination'?: string;
     /**
@@ -56,7 +56,7 @@ export class BalanceTransfer {
     */
     'referenceId'?: string;
     /**
-    * ID of the `Payment Instrument` where funds get debited.
+    * The account where funds get debited. For balance transfers, this is an aliased ID and will have the value of `FOR_BENEFIT_OF_ACCOUNT` or `OPERATING_ACCOUNT`.
     */
     'source'?: string;
     /**

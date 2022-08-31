@@ -14,80 +14,79 @@ import { RequestFile } from './models';
 import { CreatePaymentInstrumentRequestAddress } from './createPaymentInstrumentRequestAddress';
 
 export class CreatePaymentInstrumentRequest {
+    'address'?: CreatePaymentInstrumentRequestAddress;
     /**
-    * The name of the bank account or card owner.
+    * The expiration month of the card (e.g. 12 for December).
     */
-    'name'?: string;
+    'expirationMonth'?: number;
     /**
     * The 4-digit expiration year of the card.
     */
     'expirationYear'?: number;
     /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
+    * The ID of the resource.
     */
-    'tags'?: { [key: string]: string; };
+    'identity'?: string | null;
+    /**
+    * The name of the bank account or card owner.
+    */
+    'name'?: string;
     /**
     * The card or bank account number (no dashes in between numbers).
     */
     'number'?: string;
     /**
-    * The expiration month of the card (e.g. 12 for December).
-    */
-    'expirationMonth'?: number;
-    'address'?: CreatePaymentInstrumentRequestAddress;
-    /**
     * The 3-4 digit security code of the card (i.e. CVV code).
     */
     'securityCode'?: string;
+    /**
+    * Key value pair for annotating custom meta data (e.g. order numbers).
+    */
+    'tags'?: { [key: string]: string; };
     /**
     * Type of `Payment Instrument`.
     */
     'type'?: CreatePaymentInstrumentRequest.TypeEnum | string;
     /**
-    * The ID of the resource.
+    * Stringified token provided by Google. Required to process Google Pay transactions.
     */
-    'identity'?: string | null;
     'thirdPartyToken'?: string;
+    /**
+    * The bank account number (no dashes in between numbers).
+    */
+    'accountNumber'?: string;
     /**
     * The type of bank account.
     */
     'accountType'?: CreatePaymentInstrumentRequest.AccountTypeEnum | string;
     /**
-    * 3 Letter country code (e.g. USA).
+    * Set to **true** if you want to request a bank account validation. Default value is **false**.
     */
-    'country'?: string;
+    'attemptBankAccountValidationCheck'?: boolean = false;
     /**
     * The routing number of the bank account.
     */
     'bankCode'?: string;
     /**
-    * The bank account number (no dashes in between numbers).
+    * 3 Letter country code (e.g. USA).
     */
-    'accountNumber'?: string;
+    'country'?: string;
+    /**
+    * ID of the `Token` that was returned from the tokenization client or hosted fields
+    */
     'token'?: string;
+    /**
+    * The `id` of the identity used when registering the business with Google Pay through our registration API.
+    */
+    'merchantIdentity'?: string;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "name",
-            "baseName": "name",
-            "type": "string"
-        },
-        {
-            "name": "expirationYear",
-            "baseName": "expiration_year",
-            "type": "number"
-        },
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "number",
-            "baseName": "number",
-            "type": "string"
+            "name": "address",
+            "baseName": "address",
+            "type": "CreatePaymentInstrumentRequestAddress"
         },
         {
             "name": "expirationMonth",
@@ -95,19 +94,9 @@ export class CreatePaymentInstrumentRequest {
             "type": "number"
         },
         {
-            "name": "address",
-            "baseName": "address",
-            "type": "CreatePaymentInstrumentRequestAddress"
-        },
-        {
-            "name": "securityCode",
-            "baseName": "security_code",
-            "type": "string"
-        },
-        {
-            "name": "type",
-            "baseName": "type",
-            "type": "CreatePaymentInstrumentRequest.TypeEnum"
+            "name": "expirationYear",
+            "baseName": "expiration_year",
+            "type": "number"
         },
         {
             "name": "identity",
@@ -115,23 +104,33 @@ export class CreatePaymentInstrumentRequest {
             "type": "string"
         },
         {
+            "name": "name",
+            "baseName": "name",
+            "type": "string"
+        },
+        {
+            "name": "number",
+            "baseName": "number",
+            "type": "string"
+        },
+        {
+            "name": "securityCode",
+            "baseName": "security_code",
+            "type": "string"
+        },
+        {
+            "name": "tags",
+            "baseName": "tags",
+            "type": "{ [key: string]: string; }"
+        },
+        {
+            "name": "type",
+            "baseName": "type",
+            "type": "CreatePaymentInstrumentRequest.TypeEnum"
+        },
+        {
             "name": "thirdPartyToken",
             "baseName": "third_party_token",
-            "type": "string"
-        },
-        {
-            "name": "accountType",
-            "baseName": "account_type",
-            "type": "CreatePaymentInstrumentRequest.AccountTypeEnum"
-        },
-        {
-            "name": "country",
-            "baseName": "country",
-            "type": "string"
-        },
-        {
-            "name": "bankCode",
-            "baseName": "bank_code",
             "type": "string"
         },
         {
@@ -140,8 +139,33 @@ export class CreatePaymentInstrumentRequest {
             "type": "string"
         },
         {
+            "name": "accountType",
+            "baseName": "account_type",
+            "type": "CreatePaymentInstrumentRequest.AccountTypeEnum"
+        },
+        {
+            "name": "attemptBankAccountValidationCheck",
+            "baseName": "attempt_bank_account_validation_check",
+            "type": "boolean"
+        },
+        {
+            "name": "bankCode",
+            "baseName": "bank_code",
+            "type": "string"
+        },
+        {
+            "name": "country",
+            "baseName": "country",
+            "type": "string"
+        },
+        {
             "name": "token",
             "baseName": "token",
+            "type": "string"
+        },
+        {
+            "name": "merchantIdentity",
+            "baseName": "merchant_identity",
             "type": "string"
         }    ];
 
@@ -153,8 +177,9 @@ export class CreatePaymentInstrumentRequest {
 export namespace CreatePaymentInstrumentRequest {
     export enum TypeEnum {
         ApplePay = <any> 'APPLE_PAY',
-        BankAccount = <any> 'BANK_ACCOUNT',
         Token = <any> 'TOKEN',
+        BankAccount = <any> 'BANK_ACCOUNT',
+        GooglePay = <any> 'GOOGLE_PAY',
         PaymentCard = <any> 'PAYMENT_CARD'
     }
     export enum AccountTypeEnum {

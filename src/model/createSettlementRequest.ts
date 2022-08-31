@@ -16,13 +16,13 @@ import { Currency } from './currency';
 export class CreateSettlementRequest {
     'currency'?: Currency;
     /**
-    * If the `Application` has more than one associated `processor`, it\'s required when creating `settlements` to include the `processor` (e.g. DUMMY_V1).
-    */
-    'processor': string;
-    /**
     * If the `Application` has more than one associated `processor`, this field is required.
     */
-    'merchantId': string;
+    'merchantId'?: string;
+    /**
+    * If the `Application` has more than one associated `processor`, it\'s required when creating `settlements` to include the `processor` (e.g. **DUMMY_V1**).
+    */
+    'processor'?: string;
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
@@ -37,13 +37,13 @@ export class CreateSettlementRequest {
             "type": "Currency"
         },
         {
-            "name": "processor",
-            "baseName": "processor",
+            "name": "merchantId",
+            "baseName": "merchant_id",
             "type": "string"
         },
         {
-            "name": "merchantId",
-            "baseName": "merchant_id",
+            "name": "processor",
+            "baseName": "processor",
             "type": "string"
         },
         {

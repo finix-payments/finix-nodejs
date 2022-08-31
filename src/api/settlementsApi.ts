@@ -26,7 +26,6 @@ import { RemoveSettlementTransfer } from '../model/removeSettlementTransfer';
 import { Settlement } from '../model/settlement';
 import { SettlementsList } from '../model/settlementsList';
 import { TransfersList } from '../model/transfersList';
-import { UpdateSettlementRequest } from '../model/updateSettlementRequest';
 import { ListSettlementFundingTransfersQueryParams } from '../model/listSettlementFundingTransfersQueryParams';
 import { ListSettlementTransfersQueryParams } from '../model/listSettlementTransfersQueryParams';
 import { ListSettlementsQueryParams } from '../model/listSettlementsQueryParams';
@@ -114,9 +113,9 @@ export class SettlementsApi {
 
     /**
      * Helper function. 
-     * Create a batch `Settlement`. A `Settlement` is a collection of **SUCCEEDED** Transfers that are ready to get paid out to a `Merchant`.
-     * @summary Create a Batch Settlement
-     * @param identityId ID of identity to fetch
+     * Close the currently accruing `settlement`.   Finix, by default, creates accruing `settlements` then closes them based on your payout configurations. Use this endpoint to manually close the currently accruing settlement.  The closed `Settlement` will not accrue any further transactions and gets immediately submitted for approval. - Any refunded `Transfers` get included in `Settlements` as a deduction. - **PENDING** `Transfers` don\'t get included in `Settlements`.  - The `total_amount` minus the `total_fee` equals the `net_amount`. The `net_amount` is the amount in cents that gets deposited into the merchant\'s bank account.  Related Guides: [Accruing Settlements](/guides/payouts/~accruing-settlements/#closing-an-accruing-settlement)
+     * @summary Close Current Active Settlement
+     * @param identityId ID of the &#x60;Identity&#x60; for the merchant you want to settle. 
      * @param createSettlementRequest 
      */
 
@@ -196,9 +195,9 @@ export class SettlementsApi {
     }
 
     /**
-     * Create a batch `Settlement`. A `Settlement` is a collection of **SUCCEEDED** Transfers that are ready to get paid out to a `Merchant`.
-     * @summary Create a Batch Settlement
-     * @param identityId ID of identity to fetch
+     * Close the currently accruing `settlement`.   Finix, by default, creates accruing `settlements` then closes them based on your payout configurations. Use this endpoint to manually close the currently accruing settlement.  The closed `Settlement` will not accrue any further transactions and gets immediately submitted for approval. - Any refunded `Transfers` get included in `Settlements` as a deduction. - **PENDING** `Transfers` don\'t get included in `Settlements`.  - The `total_amount` minus the `total_fee` equals the `net_amount`. The `net_amount` is the amount in cents that gets deposited into the merchant\'s bank account.  Related Guides: [Accruing Settlements](/guides/payouts/~accruing-settlements/#closing-an-accruing-settlement)
+     * @summary Close Current Active Settlement
+     * @param identityId ID of the &#x60;Identity&#x60; for the merchant you want to settle. 
      * @param createSettlementRequest 
      */
     public async create(identityId: string, createSettlementRequest?: CreateSettlementRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
@@ -208,9 +207,9 @@ export class SettlementsApi {
     }
 
     /**
-     * Create a batch `Settlement`. A `Settlement` is a collection of **SUCCEEDED** Transfers that are ready to get paid out to a `Merchant`.
-     * @summary Create a Batch Settlement
-     * @param identityId ID of identity to fetch
+     * Close the currently accruing `settlement`.   Finix, by default, creates accruing `settlements` then closes them based on your payout configurations. Use this endpoint to manually close the currently accruing settlement.  The closed `Settlement` will not accrue any further transactions and gets immediately submitted for approval. - Any refunded `Transfers` get included in `Settlements` as a deduction. - **PENDING** `Transfers` don\'t get included in `Settlements`.  - The `total_amount` minus the `total_fee` equals the `net_amount`. The `net_amount` is the amount in cents that gets deposited into the merchant\'s bank account.  Related Guides: [Accruing Settlements](/guides/payouts/~accruing-settlements/#closing-an-accruing-settlement)
+     * @summary Close Current Active Settlement
+     * @param identityId ID of the &#x60;Identity&#x60; for the merchant you want to settle. 
      * @param createSettlementRequest 
      */
     public async createHttp(identityId: string, createSettlementRequest?: CreateSettlementRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
@@ -221,7 +220,7 @@ export class SettlementsApi {
     /**
      * Helper function. 
      * Retreive the details of a `Settlement`.
-     * @summary Get a Settlement
+     * @summary Fetch a Settlement
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      */
 
@@ -294,7 +293,7 @@ export class SettlementsApi {
 
     /**
      * Retreive the details of a `Settlement`.
-     * @summary Get a Settlement
+     * @summary Fetch a Settlement
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      */
     public async get(settlementId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
@@ -305,7 +304,7 @@ export class SettlementsApi {
 
     /**
      * Retreive the details of a `Settlement`.
-     * @summary Get a Settlement
+     * @summary Fetch a Settlement
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      */
     public async getHttp(settlementId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
@@ -315,7 +314,7 @@ export class SettlementsApi {
     }
     /**
      * Helper function. 
-     * Retrieve the `Transfers` in a `Settlement` that have `type` **CREDIT**.
+     * List the funding `Transfers` that were created when a `Settlement` was approved that have `type` **CREDIT** or **DEBIT**.
      * @summary List Settlement Funding Transfers
 
     * @param settlementId ID of &#x60;Settlement&#x60; object.
@@ -400,7 +399,7 @@ export class SettlementsApi {
     }
 
     /**
-     * Retrieve the `Transfers` in a `Settlement` that have `type` **CREDIT**.
+     * List the funding `Transfers` that were created when a `Settlement` was approved that have `type` **CREDIT** or **DEBIT**.
      * @summary List Settlement Funding Transfers
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      *  
@@ -430,7 +429,7 @@ export class SettlementsApi {
     }
 
     /**
-     * Retrieve the `Transfers` in a `Settlement` that have `type` **CREDIT**.
+     * List the funding `Transfers` that were created when a `Settlement` was approved that have `type` **CREDIT** or **DEBIT**.
      * @summary List Settlement Funding Transfers
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      * 
@@ -461,7 +460,7 @@ export class SettlementsApi {
     }
     /**
      * Helper function. 
-     * Retrieve the `Transfers` in a `Settlement` that have `type` **DEBIT** or **REFUND**.
+     * Retrieve a list of every `Transfer` in a `Settlement` that has `type` **DEBIT** or **REFUND**.
      * @summary List Settlement Transfers
 
     * @param settlementId ID of &#x60;Settlement&#x60; object.
@@ -546,7 +545,7 @@ export class SettlementsApi {
     }
 
     /**
-     * Retrieve the `Transfers` in a `Settlement` that have `type` **DEBIT** or **REFUND**.
+     * Retrieve a list of every `Transfer` in a `Settlement` that has `type` **DEBIT** or **REFUND**.
      * @summary List Settlement Transfers
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      *  
@@ -576,7 +575,7 @@ export class SettlementsApi {
     }
 
     /**
-     * Retrieve the `Transfers` in a `Settlement` that have `type` **DEBIT** or **REFUND**.
+     * Retrieve a list of every `Transfer` in a `Settlement` that has `type` **DEBIT** or **REFUND**.
      * @summary List Settlement Transfers
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      * 
@@ -607,8 +606,8 @@ export class SettlementsApi {
     }
     /**
      * Helper function. 
-     * Retrieve a list of `Settlements`.
-     * @summary List Settlements
+     * Retrieve a list of `Settlements`. 
+     * @summary List All Settlements
 
     */
     private async listHelper (listSettlementsQueryParams?:ListSettlementsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SettlementsList;  }> {
@@ -700,8 +699,8 @@ export class SettlementsApi {
     }
 
     /**
-     * Retrieve a list of `Settlements`.
-     * @summary List Settlements
+     * Retrieve a list of `Settlements`. 
+     * @summary List All Settlements
      */
     public async list (listSettlementsQueryParams?:ListSettlementsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
         Promise<finixList<any>> {
@@ -728,8 +727,8 @@ export class SettlementsApi {
     }
 
     /**
-     * Retrieve a list of `Settlements`.
-     * @summary List Settlements
+     * Retrieve a list of `Settlements`. 
+     * @summary List All Settlements
      */
     public async listHttp (listSettlementsQueryParams?:ListSettlementsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
         Promise<{response: http.IncomingMessage, body: finixList<any>}> {
@@ -757,7 +756,7 @@ export class SettlementsApi {
     }
     /**
      * Helper function. 
-     * Remove a `Transfer` from a `Settlement`.  As long as the `Settlement` hasn\'t been funded, you can remove the `Transfer` or an array of `Transfers`, along with its corresponding `fee` from a batch `Settlement`.   > Per the JSON API for deleting a resource, our API doesn\'t have a response body when removing a `Transfer` from a `Settlement`.
+     * Remove a `Transfer` that makes up a `Settlement`.  As long as the `Settlement` hasn\'t been funded, you can remove the `Transfer` or an array of `Transfers`, along with its corresponding `fee` from the encompassing `Settlement`. - Funding `transfers` can\'t be deleted.   > Per the JSON API for deleting a resource, our API doesn\'t have a response body when removing a `Transfer` from a `Settlement`.
      * @summary Delete Settlement Transfers
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      * @param removeSettlementTransfer 
@@ -838,7 +837,7 @@ export class SettlementsApi {
     }
 
     /**
-     * Remove a `Transfer` from a `Settlement`.  As long as the `Settlement` hasn\'t been funded, you can remove the `Transfer` or an array of `Transfers`, along with its corresponding `fee` from a batch `Settlement`.   > Per the JSON API for deleting a resource, our API doesn\'t have a response body when removing a `Transfer` from a `Settlement`.
+     * Remove a `Transfer` that makes up a `Settlement`.  As long as the `Settlement` hasn\'t been funded, you can remove the `Transfer` or an array of `Transfers`, along with its corresponding `fee` from the encompassing `Settlement`. - Funding `transfers` can\'t be deleted.   > Per the JSON API for deleting a resource, our API doesn\'t have a response body when removing a `Transfer` from a `Settlement`.
      * @summary Delete Settlement Transfers
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      * @param removeSettlementTransfer 
@@ -850,7 +849,7 @@ export class SettlementsApi {
     }
 
     /**
-     * Remove a `Transfer` from a `Settlement`.  As long as the `Settlement` hasn\'t been funded, you can remove the `Transfer` or an array of `Transfers`, along with its corresponding `fee` from a batch `Settlement`.   > Per the JSON API for deleting a resource, our API doesn\'t have a response body when removing a `Transfer` from a `Settlement`.
+     * Remove a `Transfer` that makes up a `Settlement`.  As long as the `Settlement` hasn\'t been funded, you can remove the `Transfer` or an array of `Transfers`, along with its corresponding `fee` from the encompassing `Settlement`. - Funding `transfers` can\'t be deleted.   > Per the JSON API for deleting a resource, our API doesn\'t have a response body when removing a `Transfer` from a `Settlement`.
      * @summary Delete Settlement Transfers
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      * @param removeSettlementTransfer 
@@ -858,112 +857,6 @@ export class SettlementsApi {
     public async removeTransfersFromSettlementHttp(settlementId: string, removeSettlementTransfer?: RemoveSettlementTransfer, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body?: any; }> {
         const responseObject = await this.removeTransfersFromSettlementHelper(settlementId, removeSettlementTransfer,  options);
-        return responseObject;
-    }
-    /**
-     * Helper function. 
-     * Update a `Settlement`.
-     * @summary Update a Settlement
-     * @param settlementId ID of &#x60;Settlement&#x60; object.
-     * @param updateSettlementRequest 
-     */
-
-    private async updateHelper(settlementId: string, updateSettlementRequest?: UpdateSettlementRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Settlement;  }> {
-        const localVarPath = this.basePath + '/settlements/{settlement_id}'
-            .replace('{' + 'settlement_id' + '}', encodeURIComponent(String(settlementId)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        } else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'settlementId' is not null or undefined
-        if (settlementId === null || settlementId === undefined) {
-            throw new Error('Required parameter settlementId was null or undefined when calling updateSettlement.');
-        }
-
-        (<any>Object).assign(localVarHeaderParams, options.headers);
-        localVarHeaderParams['Finix-Version'] = "2022-02-01";
-        localVarHeaderParams['Content-Type'] = "application/hal+json";
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'PUT',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        if (updateSettlementRequest && updateSettlementRequest.hasOwnProperty('file')){
-        //if (updateSettlementRequest != undefined && updateSettlementRequest != null && updateSettlementRequest.hasOwnProperty('file')){
-            localVarRequestOptions.formData = updateSettlementRequest;
-        }
-        else{
-            localVarRequestOptions.body = ObjectSerializer.serialize(updateSettlementRequest, "UpdateSettlementRequest");   
-        }
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    (<any>localVarRequestOptions).formData = localVarFormParams;
-                } else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
-            }
-            return new Promise<{ response: http.IncomingMessage; body: Settlement;  }>((resolve, reject) => {
-                localVarRequest(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
-                    } else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = ObjectSerializer.deserialize(body, "Settlement");
-                            resolve({ response: response, body: body });
-                        } else {
-                            reject(new HttpError(response, body, response.statusCode));
-                        }
-                    }
-                });
-            });
-        });
-    }
-
-    /**
-     * Update a `Settlement`.
-     * @summary Update a Settlement
-     * @param settlementId ID of &#x60;Settlement&#x60; object.
-     * @param updateSettlementRequest 
-     */
-    public async update(settlementId: string, updateSettlementRequest?: UpdateSettlementRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<Settlement> {
-        const responseObject = await this.updateHelper(settlementId, updateSettlementRequest,  options);
-        return responseObject.body;
-    }
-
-    /**
-     * Update a `Settlement`.
-     * @summary Update a Settlement
-     * @param settlementId ID of &#x60;Settlement&#x60; object.
-     * @param updateSettlementRequest 
-     */
-    public async updateHttp(settlementId: string, updateSettlementRequest?: UpdateSettlementRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: Settlement; }> {
-        const responseObject = await this.updateHelper(settlementId, updateSettlementRequest,  options);
         return responseObject;
     }
 

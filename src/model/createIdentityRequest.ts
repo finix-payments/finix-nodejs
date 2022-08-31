@@ -18,8 +18,8 @@ import { CreateIdentityRequestEntity } from './createIdentityRequestEntity';
 * 
 */
 export class CreateIdentityRequest {
-    'entity'?: CreateIdentityRequestEntity;
     'additionalUnderwritingData'?: CreateIdentityRequestAdditionalUnderwritingData | null;
+    'entity'?: CreateIdentityRequestEntity;
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
@@ -29,14 +29,14 @@ export class CreateIdentityRequest {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "entity",
-            "baseName": "entity",
-            "type": "CreateIdentityRequestEntity"
-        },
-        {
             "name": "additionalUnderwritingData",
             "baseName": "additional_underwriting_data",
             "type": "CreateIdentityRequestAdditionalUnderwritingData"
+        },
+        {
+            "name": "entity",
+            "baseName": "entity",
+            "type": "CreateIdentityRequestEntity"
         },
         {
             "name": "tags",

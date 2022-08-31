@@ -15,10 +15,6 @@ import { DisputeEvidenceLinks } from './disputeEvidenceLinks';
 
 export class DisputeEvidence {
     /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags'?: { [key: string]: string; };
-    /**
     * The ID of the `Dispute` resource.
     */
     'id'?: string;
@@ -35,19 +31,18 @@ export class DisputeEvidence {
     */
     'dispute'?: string;
     /**
-    * Result of the evidence uploaded. - PENDING: The evidence file has not yet been submitted to the Processor. No user action is required. - SUCCEEDED: The evidence file has been successfully sent to the Processor. No further user action is required. - CANCELED: The evidence file upload was not completed due to user action. - FAILED: An issue occurred. User action is required. Any of the following issues could have occurred:   - There was an error in the system and the user should retry uploading their evidence file.   - There is an issue with the file and the user should retry uploading a different file.   - There is an issue and the user should contact Support.
+    * Result of the evidence uploaded. - **PENDING**: The evidence file has not yet been submitted to the Processor. No user action is required. - **SUCCEEDED**: The evidence file has been successfully sent to the Processor. No further user action is required. - **CANCELED**: The evidence file upload was not completed due to user action. - **FAILED**: An issue occurred. User action is required**. Any of the following issues could have occurred:   - There was an error in the system and the user should retry uploading their evidence file.   - There is an issue with the file and the user should retry uploading a different file.   - There is an issue and the user should contact Support.
     */
     'state'?: DisputeEvidence.StateEnum | string;
+    /**
+    * Key value pair for annotating custom meta data (e.g. order numbers).
+    */
+    'tags'?: { [key: string]: string; };
     'links'?: DisputeEvidenceLinks;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
         {
             "name": "id",
             "baseName": "id",
@@ -72,6 +67,11 @@ export class DisputeEvidence {
             "name": "state",
             "baseName": "state",
             "type": "DisputeEvidence.StateEnum"
+        },
+        {
+            "name": "tags",
+            "baseName": "tags",
+            "type": "{ [key: string]: string; }"
         },
         {
             "name": "links",

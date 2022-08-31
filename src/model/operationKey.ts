@@ -13,7 +13,7 @@
 import { RequestFile } from './models';
 
 /**
-* Details the operation that\'ll be performed in the transaction.
+* Details the operation that\'ll be performed in the transaction (Card present transactions only) .
 */
 export enum OperationKey {
     PushToCard = <any> 'PUSH_TO_CARD',

@@ -134,5 +134,8 @@ describe('Payment Instruments API', () => {
         }
     }, 10000);
     
-    
+    test('Test: Unknown enum' ,async () => {
+        const fetchedPaymentInstrument = await client.PaymentInstruments.get("PI4gTM3twQ5XyXfM4rTuFvpo");
+        expect(fetchedPaymentInstrument.type).toEqual("APPLE_PAY");
+    });
 })

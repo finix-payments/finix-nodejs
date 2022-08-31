@@ -14,63 +14,63 @@ import { RequestFile } from './models';
 
 export class ListBalanceTransfersQueryParams {
     /**
-    * The numbers of items to return
+    * The numbers of items to return.
     */
     'limit'?: number;
     /**
-    * The number of items to skip before starting to collect the result set
+    * The number of items to skip before starting to collect the result set.
     */
     'offset'?: number;
     /**
-    * The page number to list
+    * The page number to list.
     */
     'pageNumber'?: number;
     /**
-    * The size of the page
+    * The size of the page.
     */
     'pageSize'?: number;
     /**
-    * Filter where created_at is after the given date.
+    * Filter where `created_at` is after the given date.
     */
     'createdAtGte'?: string;
     /**
-    * Filter where created_at is before the given date.
+    * Filter where `created_at` is before the given date.
     */
     'createdAtLte'?: string;
     /**
-    * Filter where updated_at is after the given date
+    * Filter where `updated_at` is after the given date.
     */
     'updatedAtGte'?: string;
     /**
-    * Filter where updated_at is before the given date
+    * Filter where `updated_at` is before the given date.
     */
     'updatedAtLte'?: string;
     /**
-    * Filter by idempotency_id
+    * Filter by `idempotency_id`.
     */
     'idempotencyId'?: string;
     /**
-    * Filter by an amount equal to the given value
+    * Filter by an amount equal to the given value.
     */
     'amount'?: number;
     /**
-    * Filter by the `description` value 
+    * Filter by the `Description` value .
     */
     'description'?: string;
     /**
-    * Filter by the `Payment Instrument` saved in `destination`
+    * Filter by the `Payment Instrument` saved in `Destination`.
     */
     'destination'?: string;
     /**
-    * Filter by the value saved in `external_reference_id`
+    * Filter by the value saved in `external_reference_id`.
     */
     'externalReferenceId'?: string;
     /**
-    * Filter by the value saved in `reference_id`
+    * Filter by the value saved in `reference_id`.
     */
     'referenceId'?: string;
     /**
-    * Filter by the `Payment Instrument` saved in `source`
+    * Filter by the `Payment Instrument` saved in `source`.
     */
     'source'?: string;
 

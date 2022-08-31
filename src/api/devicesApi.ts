@@ -214,8 +214,8 @@ export class DevicesApi {
     }
     /**
      * Helper function. 
-     * Retrieve the details of an existing `Device`.  To check the connectivity of the device, include `?include_connection\\=true \\` at the end of the request endpoint.
-     * @summary Get Device
+     * Retrieve the details of an existing `Device`.  To check the connectivity of the device, include `?include_connection\\=true\\` at the end of the request endpoint.
+     * @summary Fetch a Device
 
     * @param deviceId ID of the &#x60;Device&#x60;.
     * 
@@ -293,8 +293,8 @@ export class DevicesApi {
     }
 
     /**
-     * Retrieve the details of an existing `Device`.  To check the connectivity of the device, include `?include_connection\\=true \\` at the end of the request endpoint.
-     * @summary Get Device
+     * Retrieve the details of an existing `Device`.  To check the connectivity of the device, include `?include_connection\\=true\\` at the end of the request endpoint.
+     * @summary Fetch a Device
      * @param deviceId ID of the &#x60;Device&#x60;.
      *  
      */
@@ -305,8 +305,8 @@ export class DevicesApi {
     }
 
     /**
-     * Retrieve the details of an existing `Device`.  To check the connectivity of the device, include `?include_connection\\=true \\` at the end of the request endpoint.
-     * @summary Get Device
+     * Retrieve the details of an existing `Device`.  To check the connectivity of the device, include `?include_connection\\=true\\` at the end of the request endpoint.
+     * @summary Fetch a Device
      * @param deviceId ID of the &#x60;Device&#x60;.
      * 
      */
@@ -317,8 +317,8 @@ export class DevicesApi {
     }
     /**
      * Helper function. 
-     * Update a `Device` to activate or deactivate it.
-     * @summary Update a Device
+     * Initiate an action on a `Device`. These actions include activation, rebooting, setting an idle message, or deactivate it.
+     * @summary Initiate Action on Device
      * @param deviceId ID of the &#x60;Device&#x60;.
      * @param updateDeviceRequest 
      */
@@ -399,8 +399,8 @@ export class DevicesApi {
     }
 
     /**
-     * Update a `Device` to activate or deactivate it.
-     * @summary Update a Device
+     * Initiate an action on a `Device`. These actions include activation, rebooting, setting an idle message, or deactivate it.
+     * @summary Initiate Action on Device
      * @param deviceId ID of the &#x60;Device&#x60;.
      * @param updateDeviceRequest 
      */
@@ -411,8 +411,8 @@ export class DevicesApi {
     }
 
     /**
-     * Update a `Device` to activate or deactivate it.
-     * @summary Update a Device
+     * Initiate an action on a `Device`. These actions include activation, rebooting, setting an idle message, or deactivate it.
+     * @summary Initiate Action on Device
      * @param deviceId ID of the &#x60;Device&#x60;.
      * @param updateDeviceRequest 
      */

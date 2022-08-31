@@ -14,7 +14,7 @@ import { RequestFile } from './models';
 
 export class ListDisputesAdjustmentsQueryParams {
     /**
-    * The numbers of items to return
+    * The numbers of items to return.
     */
     'limit'?: number;
     /**

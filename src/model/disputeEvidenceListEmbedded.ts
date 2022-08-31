@@ -13,7 +13,13 @@
 import { RequestFile } from './models';
 import { DisputeEvidence } from './disputeEvidence';
 
+/**
+* List of `evidence` created for a `Dispute`.
+*/
 export class DisputeEvidenceListEmbedded {
+    /**
+    * `Evidence` objects.
+    */
     'evidences'?: Set<DisputeEvidence>;
 
     static discriminator: string | undefined = undefined;

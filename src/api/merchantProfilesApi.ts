@@ -107,9 +107,9 @@ export class MerchantProfilesApi {
 
     /**
      * Helper function. 
-     * Get the merchant profile object
-     * @summary Show Merchant Profile
-     * @param merchantProfileId ID of merchant profile
+     * Retrieve the details of a previosuly created `merchant_profile`.
+     * @summary Fetch a Merchant Profile
+     * @param merchantProfileId ID of &#x60;merchant_profile&#x60;.
      */
 
     private async getHelper(merchantProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: MerchantProfile;  }> {
@@ -180,9 +180,9 @@ export class MerchantProfilesApi {
     }
 
     /**
-     * Get the merchant profile object
-     * @summary Show Merchant Profile
-     * @param merchantProfileId ID of merchant profile
+     * Retrieve the details of a previosuly created `merchant_profile`.
+     * @summary Fetch a Merchant Profile
+     * @param merchantProfileId ID of &#x60;merchant_profile&#x60;.
      */
     public async get(merchantProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<MerchantProfile> {
@@ -191,9 +191,9 @@ export class MerchantProfilesApi {
     }
 
     /**
-     * Get the merchant profile object
-     * @summary Show Merchant Profile
-     * @param merchantProfileId ID of merchant profile
+     * Retrieve the details of a previosuly created `merchant_profile`.
+     * @summary Fetch a Merchant Profile
+     * @param merchantProfileId ID of &#x60;merchant_profile&#x60;.
      */
     public async getHttp(merchantProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: MerchantProfile; }> {
@@ -202,7 +202,7 @@ export class MerchantProfilesApi {
     }
     /**
      * Helper function. 
-     * Get list of all the merchant_profiles objects
+     * Retireve a list of all `merchant_profiles`.
      * @summary List Merchant Profiles
 
     */
@@ -226,11 +226,11 @@ export class MerchantProfilesApi {
             if (listMerchantProfilesQueryParams.beforeCursor !== undefined) {
                 localVarQueryParameters['before_cursor'] = ObjectSerializer.serialize(listMerchantProfilesQueryParams.beforeCursor, "string");
             }
-            if (listMerchantProfilesQueryParams.afterCursor !== undefined) {
-                localVarQueryParameters['after_cursor'] = ObjectSerializer.serialize(listMerchantProfilesQueryParams.afterCursor, "string");
-            }
             if (listMerchantProfilesQueryParams.limit !== undefined) {
                 localVarQueryParameters['limit'] = ObjectSerializer.serialize(listMerchantProfilesQueryParams.limit, "number");
+            }
+            if (listMerchantProfilesQueryParams.afterCursor !== undefined) {
+                localVarQueryParameters['after_cursor'] = ObjectSerializer.serialize(listMerchantProfilesQueryParams.afterCursor, "string");
             }
 
         }
@@ -283,7 +283,7 @@ export class MerchantProfilesApi {
     }
 
     /**
-     * Get list of all the merchant_profiles objects
+     * Retireve a list of all `merchant_profiles`.
      * @summary List Merchant Profiles
      */
     public async list (listMerchantProfilesQueryParams?:ListMerchantProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
@@ -311,7 +311,7 @@ export class MerchantProfilesApi {
     }
 
     /**
-     * Get list of all the merchant_profiles objects
+     * Retireve a list of all `merchant_profiles`.
      * @summary List Merchant Profiles
      */
     public async listHttp (listMerchantProfilesQueryParams?:ListMerchantProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
@@ -340,9 +340,9 @@ export class MerchantProfilesApi {
     }
     /**
      * Helper function. 
-     * Update a merchant profile
+     * Update a `merchant_profile`.
      * @summary Update a Merchant Profile
-     * @param merchantProfileId ID of merchant profile
+     * @param merchantProfileId ID of &#x60;merchant_profile&#x60;.
      * @param updateMerchantProfileRequest 
      */
 
@@ -422,9 +422,9 @@ export class MerchantProfilesApi {
     }
 
     /**
-     * Update a merchant profile
+     * Update a `merchant_profile`.
      * @summary Update a Merchant Profile
-     * @param merchantProfileId ID of merchant profile
+     * @param merchantProfileId ID of &#x60;merchant_profile&#x60;.
      * @param updateMerchantProfileRequest 
      */
     public async update(merchantProfileId: string, updateMerchantProfileRequest?: UpdateMerchantProfileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
@@ -434,9 +434,9 @@ export class MerchantProfilesApi {
     }
 
     /**
-     * Update a merchant profile
+     * Update a `merchant_profile`.
      * @summary Update a Merchant Profile
-     * @param merchantProfileId ID of merchant profile
+     * @param merchantProfileId ID of &#x60;merchant_profile&#x60;.
      * @param updateMerchantProfileRequest 
      */
     public async updateHttp(merchantProfileId: string, updateMerchantProfileRequest?: UpdateMerchantProfileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 

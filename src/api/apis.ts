@@ -2,6 +2,8 @@ export * from './authorizationsApi';
 import { AuthorizationsApi } from './authorizationsApi';
 export * from './balanceTransfersApi';
 import { BalanceTransfersApi } from './balanceTransfersApi';
+export * from './complianceFormsApi';
+import { ComplianceFormsApi } from './complianceFormsApi';
 export * from './devicesApi';
 import { DevicesApi } from './devicesApi';
 export * from './disputesApi';
@@ -18,6 +20,8 @@ export * from './merchantProfilesApi';
 import { MerchantProfilesApi } from './merchantProfilesApi';
 export * from './merchantsApi';
 import { MerchantsApi } from './merchantsApi';
+export * from './onboardingFormsApi';
+import { OnboardingFormsApi } from './onboardingFormsApi';
 export * from './paymentInstrumentsApi';
 import { PaymentInstrumentsApi } from './paymentInstrumentsApi';
 export * from './settlementsApi';
@@ -48,4 +52,4 @@ export class HttpError extends Error {
 
 export { RequestFile } from '../model/models';
 
-export const APIS = [AuthorizationsApi, BalanceTransfersApi, DevicesApi, DisputesApi, FeeProfilesApi, FilesApi, IdentitiesApi, InstrumentUpdatesApi, MerchantProfilesApi, MerchantsApi, PaymentInstrumentsApi, SettlementsApi, TransfersApi, VerificationsApi, WebhooksApi];
+export const APIS = [AuthorizationsApi, BalanceTransfersApi, ComplianceFormsApi, DevicesApi, DisputesApi, FeeProfilesApi, FilesApi, IdentitiesApi, InstrumentUpdatesApi, MerchantProfilesApi, MerchantsApi, OnboardingFormsApi, PaymentInstrumentsApi, SettlementsApi, TransfersApi, VerificationsApi, WebhooksApi];

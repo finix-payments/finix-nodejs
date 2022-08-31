@@ -15,14 +15,11 @@ import { RequestFile } from './models';
 /**
 * The primary address for the legal entity.
 */
-export class CreateIdentityRequestEntityBusinessAddress {
+export class CreateAssociatedIdentityRequestEntityBusinessAddress {
     /**
     * City (max 20 characters).
     */
     'city'?: string;
-    /**
-    * 3-Letter Country code (e.g. USA).
-    */
     'country'?: string;
     /**
     * 2-letter state code.
@@ -76,7 +73,7 @@ export class CreateIdentityRequestEntityBusinessAddress {
         }    ];
 
     static getAttributeTypeMap() {
-        return CreateIdentityRequestEntityBusinessAddress.attributeTypeMap;
+        return CreateAssociatedIdentityRequestEntityBusinessAddress.attributeTypeMap;
     }
 }
 

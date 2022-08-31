@@ -12,32 +12,23 @@
 
 import { RequestFile } from './models';
 
-export class InputDetails {
-    'inputText'?: string;
-    'selection'?: number;
-    'signatureData'?: string;
+export class CreateOnboardingFormRequestMerchantProcessorsInner {
+    /**
+    * The name of the processor you plan to onboard users to.
+    */
+    'processor'?: string;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "inputText",
-            "baseName": "input_text",
-            "type": "string"
-        },
-        {
-            "name": "selection",
-            "baseName": "selection",
-            "type": "number"
-        },
-        {
-            "name": "signatureData",
-            "baseName": "signature_data",
+            "name": "processor",
+            "baseName": "processor",
             "type": "string"
         }    ];
 
     static getAttributeTypeMap() {
-        return InputDetails.attributeTypeMap;
+        return CreateOnboardingFormRequestMerchantProcessorsInner.attributeTypeMap;
     }
 }
 

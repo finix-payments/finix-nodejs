@@ -22,14 +22,6 @@ import { TransferLinks } from './transferLinks';
 */
 export class Transfer {
     /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags'?: { [key: string]: string; };
-    /**
-    * Type of `Transfer`.
-    */
-    'type'?: Transfer.TypeEnum | string;
-    /**
     * The ID of the `Transfer` resource.
     */
     'id'?: string;
@@ -41,6 +33,7 @@ export class Transfer {
     * Timestamp of when the object was last updated.
     */
     'updatedAt'?: Date;
+    'additionalBuyerCharges'?: AdditionalBuyerCharges | null;
     /**
     * The total amount that will be debited in cents (e.g. 100 cents to debit $1.00).
     */
@@ -60,6 +53,18 @@ export class Transfer {
     */
     'device'?: string | null;
     /**
+    * Details if the `Transfer` will be settled externally by card processors.
+    */
+    'externallyFunded'?: string;
+    /**
+    * The code of the failure so the decline can be handled programmatically. For more info on how to handle the failure, see [Failure Codes](/docs/guides/developers/errors/#failure-codes).
+    */
+    'failureCode'?: string | null;
+    /**
+    * A human-readable description of why the transaction was declined. This will also include a suggestion on how to complete the payment.
+    */
+    'failureMessage'?: string | null;
+    /**
     * The amount of the `Transfer` you\'d like to collect as your fee in cents. Defaults to zero (must be less than or equal to the `amount`).
     */
     'fee'?: number;
@@ -69,16 +74,15 @@ export class Transfer {
     */
     'idempotencyId'?: string | null;
     /**
-    * The ID of the identity.
-    */
-    'identity'?: string;
-    /**
     * The ID of the resource.
     */
     'merchantIdentity'?: string | null;
+    /**
+    * Message field that provides additional details. This field is typically **null**.
+    */
     'messages'?: Array<string>;
     /**
-    * Raw response from the processor
+    * Raw response from the processor.
     */
     'raw'?: object | null;
     /**
@@ -102,37 +106,22 @@ export class Transfer {
     */
     'subtype'?: Transfer.SubtypeEnum | string;
     /**
-    * Trace ID of the `Transfer`. The processor sends back the `trace_id` so you can track the `transfer` end-to-end.
+    * Key value pair for annotating custom meta data (e.g. order numbers).
+    */
+    'tags'?: { [key: string]: string; };
+    /**
+    * Trace ID of the `Transfer`. The processor sends back the `trace_id` so you can track the `Transfer` end-to-end.
     */
     'traceId'?: string | null;
     /**
-    * Details if the Transfer will be settled externally by card processors.
+    * Type of `Transfer`.
     */
-    'externallyFunded'?: string;
-    /**
-    * The code of the failure so the decline can be handled programmatically. For more info on how to handle the failure, see [Failure Codes](/docs/guides/developers/errors/#failure-codes).
-    */
-    'failureCode'?: string | null;
-    /**
-    * A human-readable description of why the transaction was declined. This will also include a suggestion on how to complete the payment.
-    */
-    'failureMessage'?: string | null;
-    'additionalBuyerCharges'?: AdditionalBuyerCharges | null;
+    'type'?: Transfer.TypeEnum | string;
     'links'?: TransferLinks;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "type",
-            "baseName": "type",
-            "type": "Transfer.TypeEnum"
-        },
         {
             "name": "id",
             "baseName": "id",
@@ -147,6 +136,11 @@ export class Transfer {
             "name": "updatedAt",
             "baseName": "updated_at",
             "type": "Date"
+        },
+        {
+            "name": "additionalBuyerCharges",
+            "baseName": "additional_buyer_charges",
+            "type": "AdditionalBuyerCharges"
         },
         {
             "name": "amount",
@@ -179,6 +173,21 @@ export class Transfer {
             "type": "string"
         },
         {
+            "name": "externallyFunded",
+            "baseName": "externally_funded",
+            "type": "string"
+        },
+        {
+            "name": "failureCode",
+            "baseName": "failure_code",
+            "type": "string"
+        },
+        {
+            "name": "failureMessage",
+            "baseName": "failure_message",
+            "type": "string"
+        },
+        {
             "name": "fee",
             "baseName": "fee",
             "type": "number"
@@ -191,11 +200,6 @@ export class Transfer {
         {
             "name": "idempotencyId",
             "baseName": "idempotency_id",
-            "type": "string"
-        },
-        {
-            "name": "identity",
-            "baseName": "identity",
             "type": "string"
         },
         {
@@ -239,29 +243,19 @@ export class Transfer {
             "type": "Transfer.SubtypeEnum"
         },
         {
+            "name": "tags",
+            "baseName": "tags",
+            "type": "{ [key: string]: string; }"
+        },
+        {
             "name": "traceId",
             "baseName": "trace_id",
             "type": "string"
         },
         {
-            "name": "externallyFunded",
-            "baseName": "externally_funded",
-            "type": "string"
-        },
-        {
-            "name": "failureCode",
-            "baseName": "failure_code",
-            "type": "string"
-        },
-        {
-            "name": "failureMessage",
-            "baseName": "failure_message",
-            "type": "string"
-        },
-        {
-            "name": "additionalBuyerCharges",
-            "baseName": "additional_buyer_charges",
-            "type": "AdditionalBuyerCharges"
+            "name": "type",
+            "baseName": "type",
+            "type": "Transfer.TypeEnum"
         },
         {
             "name": "links",
@@ -275,17 +269,6 @@ export class Transfer {
 }
 
 export namespace Transfer {
-    export enum TypeEnum {
-        Debit = <any> 'DEBIT',
-        Credit = <any> 'CREDIT',
-        Reversal = <any> 'REVERSAL',
-        Fee = <any> 'FEE',
-        Adjustment = <any> 'ADJUSTMENT',
-        Dispute = <any> 'DISPUTE',
-        Reserve = <any> 'RESERVE',
-        Settlement = <any> 'SETTLEMENT',
-        Unknown = <any> 'UNKNOWN'
-    }
     export enum StateEnum {
         Canceled = <any> 'CANCELED',
         Pending = <any> 'PENDING',
@@ -313,5 +296,16 @@ export namespace Transfer {
         SplitPayout = <any> 'SPLIT_PAYOUT',
         SplitPayoutAdjustment = <any> 'SPLIT_PAYOUT_ADJUSTMENT',
         System = <any> 'SYSTEM'
+    }
+    export enum TypeEnum {
+        Debit = <any> 'DEBIT',
+        Credit = <any> 'CREDIT',
+        Reversal = <any> 'REVERSAL',
+        Fee = <any> 'FEE',
+        Adjustment = <any> 'ADJUSTMENT',
+        Dispute = <any> 'DISPUTE',
+        Reserve = <any> 'RESERVE',
+        Settlement = <any> 'SETTLEMENT',
+        Unknown = <any> 'UNKNOWN'
     }
 }

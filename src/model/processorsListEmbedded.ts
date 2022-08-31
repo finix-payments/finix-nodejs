@@ -13,9 +13,12 @@
 import { RequestFile } from './models';
 import { Processor } from './processor';
 
+/**
+* List of `Processors` objects.
+*/
 export class ProcessorsListEmbedded {
     /**
-    * `Processors` object.
+    * `Processors` objects.
     */
     'processors'?: Set<Processor>;
 

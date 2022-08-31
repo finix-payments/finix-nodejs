@@ -14,30 +14,21 @@ import { RequestFile } from './models';
 
 export class CreateMerchantUnderwritingRequest {
     /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags'?: { [key: string]: string; };
-    /**
-    * Name of the gateway that processes the `Merchant\'s` transaction.
+    * Name of the gateway that processes the `Merchant\'s` card present transactions. Use `gateway` only to enable a merchantto accept card present transactions.
     */
     'gateway'?: CreateMerchantUnderwritingRequest.GatewayEnum | string;
     /**
-    * Name of acquiring processor that settles the `Merchant\'s` transactions.
+    * Set the acquiring processor. Avalible values include: <ul><li><strong>DUMMY_V1</strong></li><li><strong>LITLE_V1</strong></li><li><strong>MASTERCARD_V1</strong></li><li><strong>VISA_V1</strong></li><li><strong>NMI_V1</strong></li><li><strong>VANTIV_V1</strong></li></ul>Use <strong>DUMMY_V1</strong> or  <strong>null</strong> to use your sandbox. For more details on which processor to use, reach out to your Finix point of contact or email <a href=\"/guides/getting-started/support-at-finix/\">Finix Support</a>.
     */
-    'processor'?: string;
+    'processor': string | null;
     /**
-    * Additional information required by the processor being used.
+    * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'processorSpecificParameters'?: object;
+    'tags'?: { [key: string]: string; };
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
         {
             "name": "gateway",
             "baseName": "gateway",
@@ -49,9 +40,9 @@ export class CreateMerchantUnderwritingRequest {
             "type": "string"
         },
         {
-            "name": "processorSpecificParameters",
-            "baseName": "processor_specific_parameters",
-            "type": "object"
+            "name": "tags",
+            "baseName": "tags",
+            "type": "{ [key: string]: string; }"
         }    ];
 
     static getAttributeTypeMap() {
@@ -61,7 +52,8 @@ export class CreateMerchantUnderwritingRequest {
 
 export namespace CreateMerchantUnderwritingRequest {
     export enum GatewayEnum {
-        CloudV1 = <any> 'TRIPOS_CLOUD_V1',
-        MobileV1 = <any> 'TRIPOS_MOBILE_V1'
+        TriposCloudV1 = <any> 'TRIPOS_CLOUD_V1',
+        TriposMobileV1 = <any> 'TRIPOS_MOBILE_V1',
+        ExpressV1 = <any> 'EXPRESS_V1'
     }
 }

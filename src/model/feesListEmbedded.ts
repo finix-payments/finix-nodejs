@@ -13,9 +13,12 @@
 import { RequestFile } from './models';
 import { Fee } from './fee';
 
+/**
+* List of `fee` objects.
+*/
 export class FeesListEmbedded {
     /**
-    * `fee` object.
+    * `fee` objects.
     */
     'fees'?: Set<Fee>;
 

@@ -13,16 +13,12 @@
 import { RequestFile } from './models';
 import { Country } from './country';
 import { Currency } from './currency';
-import { ProcessorSystemConfigConfigurationTemplates } from './processorSystemConfigConfigurationTemplates';
+import { ProcessorSystemConfigConfig } from './processorSystemConfigConfig';
 
 /**
 * Details that configure how the `Processor` handles transactions with the processor.
 */
 export class ProcessorSystemConfig {
-    /**
-    * Field used by processor to communicate with Finix.
-    */
-    'cLASSKEYIDENTIFIER'?: ProcessorSystemConfig.CLASSKEYIDENTIFIEREnum | string;
     /**
     * The 3 letter ISO 4217 country code for the country transactions are originating from.
     */
@@ -43,7 +39,11 @@ export class ProcessorSystemConfig {
     * The ID of the resource.
     */
     'businessApplicationId'?: string | null;
-    'configurationTemplates'?: ProcessorSystemConfigConfigurationTemplates;
+    /**
+    * Field used by processor to communicate with Finix.
+    */
+    'classKeyIdentifier'?: ProcessorSystemConfig.ClassKeyIdentifierEnum | string;
+    'config'?: ProcessorSystemConfigConfig;
     /**
     * ISO 4217 3 letter currency code.
     */
@@ -145,11 +145,6 @@ export class ProcessorSystemConfig {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "cLASSKEYIDENTIFIER",
-            "baseName": "CLASS_KEY_IDENTIFIER",
-            "type": "ProcessorSystemConfig.CLASSKEYIDENTIFIEREnum"
-        },
-        {
             "name": "acquirerCountryCode",
             "baseName": "acquirer_country_code",
             "type": "ProcessorSystemConfig.AcquirerCountryCodeEnum"
@@ -175,9 +170,14 @@ export class ProcessorSystemConfig {
             "type": "string"
         },
         {
-            "name": "configurationTemplates",
-            "baseName": "configuration_templates",
-            "type": "ProcessorSystemConfigConfigurationTemplates"
+            "name": "classKeyIdentifier",
+            "baseName": "class_key_identifier",
+            "type": "ProcessorSystemConfig.ClassKeyIdentifierEnum"
+        },
+        {
+            "name": "config",
+            "baseName": "config",
+            "type": "ProcessorSystemConfigConfig"
         },
         {
             "name": "defaultCurrencies",
@@ -306,9 +306,6 @@ export class ProcessorSystemConfig {
 }
 
 export namespace ProcessorSystemConfig {
-    export enum CLASSKEYIDENTIFIEREnum {
-        IoFinixVisaDirectClientVisaSystemConfig = <any> 'io.finix.visa.direct.client.VisaSystemConfig'
-    }
     export enum AcquirerCountryCodeEnum {
         _004 = <any> '004',
         _008 = <any> '008',
@@ -559,6 +556,9 @@ export namespace ProcessorSystemConfig {
         _882 = <any> '882',
         _887 = <any> '887',
         _894 = <any> '894'
+    }
+    export enum ClassKeyIdentifierEnum {
+        IoFinixVisaDirectClientVisaSystemConfig = <any> 'io.finix.visa.direct.client.VisaSystemConfig'
     }
     export enum SourceOfFundsEnum {
         _01 = <any> '01',

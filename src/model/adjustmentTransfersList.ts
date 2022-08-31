@@ -16,13 +16,18 @@ import { DisputeEvidenceLinks } from './disputeEvidenceLinks';
 import { PageCursor } from './pageCursor';
 
 export class AdjustmentTransfersList {
+    'page'?: PageCursor;
     'embedded'?: AdjustmentTransfersListEmbedded;
     'links'?: DisputeEvidenceLinks;
-    'page'?: PageCursor;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "page",
+            "baseName": "page",
+            "type": "PageCursor"
+        },
         {
             "name": "embedded",
             "baseName": "_embedded",
@@ -32,11 +37,6 @@ export class AdjustmentTransfersList {
             "name": "links",
             "baseName": "_links",
             "type": "DisputeEvidenceLinks"
-        },
-        {
-            "name": "page",
-            "baseName": "page",
-            "type": "PageCursor"
         }    ];
 
     static getAttributeTypeMap() {

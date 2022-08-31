@@ -13,9 +13,12 @@
 import { RequestFile } from './models';
 import { Transfer } from './transfer';
 
+/**
+* List of `Transfer` objects.
+*/
 export class TransfersListEmbedded {
     /**
-    * `Transfer` object.
+    * `Transfer` objects.
     */
     'transfers'?: Set<Transfer>;
 

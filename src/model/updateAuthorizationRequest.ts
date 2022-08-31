@@ -14,21 +14,21 @@ import { RequestFile } from './models';
 import { AdditionalPurchaseData } from './additionalPurchaseData';
 
 export class UpdateAuthorizationRequest {
+    'additionalPurchaseData'?: AdditionalPurchaseData;
     /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
+    * The amount of the  `Authorization`  you would like to capture in cents. Must be less than or equal to the `amount` of the `Authorization`.
     */
-    'tags'?: { [key: string]: string; };
+    'captureAmount'?: number;
     /**
     * The amount of the `Authorization` you\'d like to collect as your fee in cents. Defaults to zero (must be less than or equal to the `amount`).
     */
     'fee'?: number;
     /**
-    * The amount of the  `Authorization`  you would like to capture in cents. Must be less than or equal to the `amount` of the `Authorization`.
+    * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'captureAmount'?: number;
-    'additionalPurchaseData'?: AdditionalPurchaseData;
+    'tags'?: { [key: string]: string; };
     /**
-    * Set to True to void the Authorization
+    * Set to **True** to void the `Authorization`.
     */
     'voidMe'?: boolean;
 
@@ -36,14 +36,9 @@ export class UpdateAuthorizationRequest {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "fee",
-            "baseName": "fee",
-            "type": "number"
+            "name": "additionalPurchaseData",
+            "baseName": "additional_purchase_data",
+            "type": "AdditionalPurchaseData"
         },
         {
             "name": "captureAmount",
@@ -51,9 +46,14 @@ export class UpdateAuthorizationRequest {
             "type": "number"
         },
         {
-            "name": "additionalPurchaseData",
-            "baseName": "additional_purchase_data",
-            "type": "AdditionalPurchaseData"
+            "name": "fee",
+            "baseName": "fee",
+            "type": "number"
+        },
+        {
+            "name": "tags",
+            "baseName": "tags",
+            "type": "{ [key: string]: string; }"
         },
         {
             "name": "voidMe",

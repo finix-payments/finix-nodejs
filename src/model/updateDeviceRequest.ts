@@ -14,11 +14,11 @@ import { RequestFile } from './models';
 
 export class UpdateDeviceRequest {
     /**
-    * The action you want to perform on the device.
+    * The action you want to perform on the device. Use **DEACTIVATE** to deactivate the device.
     */
     'action'?: UpdateDeviceRequest.ActionEnum | string;
     /**
-    * Used when `action` is **ACTIVATE**. The input the code thats show up on the device screen.
+    * Used when `action` is **ACTIVATE**. Provide the input code that shows up on the device screen.
     */
     'activationCode'?: string;
     /**

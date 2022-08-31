@@ -20,24 +20,24 @@ export class Address {
     /**
     * City (max 20 characters).
     */
-    'city': string | null;
-    'country': Country | null;
+    'city'?: string | null;
+    'country'?: Country | null;
     /**
     * First line of the address (max 35 characters).
     */
-    'line1': string | null;
+    'line1'?: string | null;
     /**
     * Second line of the address (max 35 characters).
     */
-    'line2': string | null;
+    'line2'?: string | null;
     /**
     * Zip or Postal code (max 7 characters).
     */
-    'postalCode': string | null;
+    'postalCode'?: string | null;
     /**
     * 2-letter State code.
     */
-    'region': string | null;
+    'region'?: string | null;
 
     static discriminator: string | undefined = undefined;
 

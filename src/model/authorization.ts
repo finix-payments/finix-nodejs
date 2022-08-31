@@ -12,20 +12,14 @@
 
 import { RequestFile } from './models';
 import { AdditionalBuyerCharges } from './additionalBuyerCharges';
-import { AuthorizationExternalResponsesInner } from './authorizationExternalResponsesInner';
 import { AuthorizationLinks } from './authorizationLinks';
 import { CardPresentDetails } from './cardPresentDetails';
 import { Currency } from './currency';
-import { SubTypeTransfer } from './subTypeTransfer';
 
 /**
 * A charge authorization
 */
 export class Authorization {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags'?: { [key: string]: string; };
     /**
     * The ID of the `Authorization` resource.
     */
@@ -42,6 +36,7 @@ export class Authorization {
     * The redirect URL used for 3DS transactions (if supported by the processor).
     */
     '_3dsRedirectUrl'?: string | null;
+    'additionalBuyerCharges'?: AdditionalBuyerCharges | null;
     /**
     * The total amount that will be debited in cents (e.g. 100 cents to debit $1.00).
     */
@@ -61,15 +56,9 @@ export class Authorization {
     */
     'device'?: string | null;
     /**
-    * Authorization expiration time.
+    * `Authorization` expiration time.
     */
     'expiresAt'?: Date;
-    'externalResponses'?: Array<AuthorizationExternalResponsesInner> | null;
-    /**
-    * A randomly generated value that\'ll be associated with the request.
-    */
-    'idempotencyId'?: string | null;
-    'additionalBuyerCharges'?: AdditionalBuyerCharges | null;
     /**
     * The code of the failure so the decline can be handled programmatically. For more info on how to handle the failure, see [Failure Codes](/docs/guides/developers/errors/#failure-codes).
     */
@@ -79,6 +68,10 @@ export class Authorization {
     */
     'failureMessage'?: string | null;
     /**
+    * A randomly generated value that\'ll be associated with the request.
+    */
+    'idempotencyId'?: string | null;
+    /**
     * Details if the `Authorization` is void.
     */
     'isVoid'?: boolean;
@@ -87,15 +80,11 @@ export class Authorization {
     */
     'merchantIdentity'?: string | null;
     /**
-    * The ID of the resource.
-    */
-    'merchant'?: string | null;
-    /**
     * Message field that provides additional details. This field is typically **null**.
     */
     'messages'?: Array<string>;
     /**
-    * Raw response from the processor
+    * Raw response from the processor.
     */
     'raw'?: object | null;
     /**
@@ -103,9 +92,13 @@ export class Authorization {
     */
     'source'?: string;
     /**
-    * The state of the `Transfer`.
+    * The state of the `Authorization`.
     */
     'state'?: Authorization.StateEnum | string;
+    /**
+    * Key value pair for annotating custom meta data (e.g. order numbers).
+    */
+    'tags'?: { [key: string]: string; };
     /**
     * Trace ID of the `Authorization`. The processor sends back the `trace_id` so you can track the authorization end-to-end.
     */
@@ -118,17 +111,11 @@ export class Authorization {
     * Details if the `Authorization` has been voided.
     */
     'voidState'?: string;
-    'subType'?: SubTypeTransfer;
     'links'?: AuthorizationLinks;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
         {
             "name": "id",
             "baseName": "id",
@@ -148,6 +135,11 @@ export class Authorization {
             "name": "_3dsRedirectUrl",
             "baseName": "3ds_redirect_url",
             "type": "string"
+        },
+        {
+            "name": "additionalBuyerCharges",
+            "baseName": "additional_buyer_charges",
+            "type": "AdditionalBuyerCharges"
         },
         {
             "name": "amount",
@@ -185,21 +177,6 @@ export class Authorization {
             "type": "Date"
         },
         {
-            "name": "externalResponses",
-            "baseName": "external_responses",
-            "type": "Array<AuthorizationExternalResponsesInner>"
-        },
-        {
-            "name": "idempotencyId",
-            "baseName": "idempotency_id",
-            "type": "string"
-        },
-        {
-            "name": "additionalBuyerCharges",
-            "baseName": "additional_buyer_charges",
-            "type": "AdditionalBuyerCharges"
-        },
-        {
             "name": "failureCode",
             "baseName": "failure_code",
             "type": "string"
@@ -210,6 +187,11 @@ export class Authorization {
             "type": "string"
         },
         {
+            "name": "idempotencyId",
+            "baseName": "idempotency_id",
+            "type": "string"
+        },
+        {
             "name": "isVoid",
             "baseName": "is_void",
             "type": "boolean"
@@ -217,11 +199,6 @@ export class Authorization {
         {
             "name": "merchantIdentity",
             "baseName": "merchant_identity",
-            "type": "string"
-        },
-        {
-            "name": "merchant",
-            "baseName": "merchant",
             "type": "string"
         },
         {
@@ -245,6 +222,11 @@ export class Authorization {
             "type": "Authorization.StateEnum"
         },
         {
+            "name": "tags",
+            "baseName": "tags",
+            "type": "{ [key: string]: string; }"
+        },
+        {
             "name": "traceId",
             "baseName": "trace_id",
             "type": "string"
@@ -258,11 +240,6 @@ export class Authorization {
             "name": "voidState",
             "baseName": "void_state",
             "type": "string"
-        },
-        {
-            "name": "subType",
-            "baseName": "sub_type",
-            "type": "SubTypeTransfer"
         },
         {
             "name": "links",

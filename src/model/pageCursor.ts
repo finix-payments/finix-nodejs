@@ -13,7 +13,7 @@
 import { RequestFile } from './models';
 
 /**
-* 
+* Details the page that\'s returned.
 */
 export class PageCursor {
     /**

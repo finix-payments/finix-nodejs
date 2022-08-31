@@ -13,7 +13,13 @@
 import { RequestFile } from './models';
 import { Transfer } from './transfer';
 
+/**
+* List of adjustment `Transfers` created for a `Dispute`.
+*/
 export class AdjustmentTransfersListEmbedded {
+    /**
+    * `Transfer` objects.
+    */
     'transfers'?: Array<Transfer>;
 
     static discriminator: string | undefined = undefined;

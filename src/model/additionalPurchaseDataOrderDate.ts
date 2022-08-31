@@ -16,15 +16,15 @@ export class AdditionalPurchaseDataOrderDate {
     /**
     * Day of purchase (between 1 and 31)
     */
-    'day': number;
+    'day'?: number;
     /**
     * Month of purchase (between 1 and 12)
     */
-    'month': number;
+    'month'?: number;
     /**
     * Year of purchase (4-digit)
     */
-    'year': number;
+    'year'?: number;
 
     static discriminator: string | undefined = undefined;
 

@@ -14,26 +14,21 @@ import { RequestFile } from './models';
 
 export class UpdateMerchantProfileRequest {
     /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags'?: { [key: string]: string; };
-    /**
-    * Id of the fee_profile.
+    * ID of the `fee_profile`.
     */
     'feeProfile'?: string;
     /**
-    * Id of the risk_profile.
+    * ID of the `risk_profile`.
     */
     'riskProfile'?: string;
+    /**
+    * Key value pair for annotating custom meta data (e.g. order numbers).
+    */
+    'tags'?: { [key: string]: string; };
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
         {
             "name": "feeProfile",
             "baseName": "fee_profile",
@@ -43,6 +38,11 @@ export class UpdateMerchantProfileRequest {
             "name": "riskProfile",
             "baseName": "risk_profile",
             "type": "string"
+        },
+        {
+            "name": "tags",
+            "baseName": "tags",
+            "type": "{ [key: string]: string; }"
         }    ];
 
     static getAttributeTypeMap() {

@@ -11,36 +11,22 @@
  */
 
 import { RequestFile } from './models';
+import { UpdateComplianceFormRequestPciSaqA } from './updateComplianceFormRequestPciSaqA';
 
-/**
-* The date the company was founded and registered with the US.
-*/
-export class CreateIdentityRequestEntityIncorporationDate {
-    'year'?: number;
-    'day'?: number;
-    'month'?: number;
+export class UpdateComplianceFormRequest {
+    'pciSaqA'?: UpdateComplianceFormRequestPciSaqA;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "year",
-            "baseName": "year",
-            "type": "number"
-        },
-        {
-            "name": "day",
-            "baseName": "day",
-            "type": "number"
-        },
-        {
-            "name": "month",
-            "baseName": "month",
-            "type": "number"
+            "name": "pciSaqA",
+            "baseName": "pci_saq_a",
+            "type": "UpdateComplianceFormRequestPciSaqA"
         }    ];
 
     static getAttributeTypeMap() {
-        return CreateIdentityRequestEntityIncorporationDate.attributeTypeMap;
+        return UpdateComplianceFormRequest.attributeTypeMap;
     }
 }
 

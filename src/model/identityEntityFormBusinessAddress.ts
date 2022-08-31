@@ -31,7 +31,7 @@ export class IdentityEntityFormBusinessAddress {
     /**
     * Second line of the address (max 35 characters).
     */
-    'line2': string | null;
+    'line2'?: string | null;
     /**
     * Zip or Postal code (max 7 characters).
     */

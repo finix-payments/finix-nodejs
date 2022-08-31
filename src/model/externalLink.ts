@@ -22,37 +22,37 @@ export class ExternalLink {
     */
     'createdAt'?: Date;
     /**
-    * The URL you can share with merchants to **UPLOAD** or **DOWNLOAD** files depending on the request sent.
+    * Details how long the `url` will be avalible for users to upload files to.
     */
-    'url'?: string;
+    'duration'?: string | null;
     /**
-    * Sets if the link is for uploading or downloading files from Finix.
+    * <ul><li>If <strong>TRUE</strong> the link has expired<br><li>If <strong>FALSE</strong>, the link is active and files can still be uploaded or downloaded from the link.
     */
-    'type'?: string;
+    'expired'?: boolean;
     /**
     * The timestamp that the external link expires at.
     */
     'expiresAt'?: string;
     /**
-    * The ID of the `user` that requested to create this link.
-    */
-    'userId'?: string;
-    /**
     * The `File` ID the `external_link` is related to.
     */
     'fileId'?: string;
-    /**
-    * Details how long the `url` will be avalible for users to upload files to.
-    */
-    'duration'?: string | null;
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
     'tags'?: { [key: string]: string; };
     /**
-    * <ul><li>If <strong>TRUE</strong> the link has expired<br><li>If <strong>FALSE</strong>, the link is active and files can still be uploaded or downloaded from the link.
+    * Sets if the link is for uploading or downloading files from Finix.
     */
-    'expired'?: boolean;
+    'type'?: string;
+    /**
+    * The URL you can share with merchants to **UPLOAD** or **DOWNLOAD** files depending on the request sent.
+    */
+    'url'?: string;
+    /**
+    * The ID of the `user` that requested to create this link.
+    */
+    'userId'?: string;
 
     static discriminator: string | undefined = undefined;
 
@@ -68,23 +68,18 @@ export class ExternalLink {
             "type": "Date"
         },
         {
-            "name": "url",
-            "baseName": "url",
+            "name": "duration",
+            "baseName": "duration",
             "type": "string"
         },
         {
-            "name": "type",
-            "baseName": "type",
-            "type": "string"
+            "name": "expired",
+            "baseName": "expired",
+            "type": "boolean"
         },
         {
             "name": "expiresAt",
             "baseName": "expires_at",
-            "type": "string"
-        },
-        {
-            "name": "userId",
-            "baseName": "user_id",
             "type": "string"
         },
         {
@@ -93,19 +88,24 @@ export class ExternalLink {
             "type": "string"
         },
         {
-            "name": "duration",
-            "baseName": "duration",
-            "type": "string"
-        },
-        {
             "name": "tags",
             "baseName": "tags",
             "type": "{ [key: string]: string; }"
         },
         {
-            "name": "expired",
-            "baseName": "expired",
-            "type": "boolean"
+            "name": "type",
+            "baseName": "type",
+            "type": "string"
+        },
+        {
+            "name": "url",
+            "baseName": "url",
+            "type": "string"
+        },
+        {
+            "name": "userId",
+            "baseName": "user_id",
+            "type": "string"
         }    ];
 
     static getAttributeTypeMap() {

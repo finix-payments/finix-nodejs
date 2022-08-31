@@ -13,8 +13,14 @@
 import { RequestFile } from './models';
 import { InstrumentUpdate } from './instrumentUpdate';
 
+/**
+* List of `updates` for a `Payment Instrument`.
+*/
 export class PaymentInstrumentUpdatesListEmbedded {
-    'updates': Set<InstrumentUpdate>;
+    /**
+    * `Update` objects.
+    */
+    'updates'?: Set<InstrumentUpdate>;
 
     static discriminator: string | undefined = undefined;
 

@@ -18,21 +18,16 @@ import { CreateWebhookRequestAuthenticationBearer } from './createWebhookRequest
 * The authentication settings that are used to send webhook events.
 */
 export class CreateWebhookRequestAuthentication {
-    /**
-    * The type of authentication the webhook will use: - NONE: No authentication will be used. - BASIC: Basic authentication. - BEARER: Oauth2\'s Bearer Token.
-    */
-    'type'?: CreateWebhookRequestAuthentication.TypeEnum | string;
     'basic'?: CreateWebhookRequestAuthenticationBasic;
     'bearer'?: CreateWebhookRequestAuthenticationBearer;
+    /**
+    * The type of authentication the webhook will use: - **NONE**: No authentication will be used. - **BASIC**: Basic authentication. - **BEARER**: Oauth2\'s Bearer Token.
+    */
+    'type'?: CreateWebhookRequestAuthentication.TypeEnum | string;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "type",
-            "baseName": "type",
-            "type": "CreateWebhookRequestAuthentication.TypeEnum"
-        },
         {
             "name": "basic",
             "baseName": "basic",
@@ -42,6 +37,11 @@ export class CreateWebhookRequestAuthentication {
             "name": "bearer",
             "baseName": "bearer",
             "type": "CreateWebhookRequestAuthenticationBearer"
+        },
+        {
+            "name": "type",
+            "baseName": "type",
+            "type": "CreateWebhookRequestAuthentication.TypeEnum"
         }    ];
 
     static getAttributeTypeMap() {

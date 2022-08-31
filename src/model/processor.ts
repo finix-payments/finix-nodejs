@@ -36,7 +36,6 @@ export class Processor {
     */
     'application'?: string;
     'applicationConfig'?: ProcessorApplicationConfig | null;
-    'config'?: object | null;
     /**
     * The ID of the resource.
     */
@@ -79,11 +78,6 @@ export class Processor {
             "name": "applicationConfig",
             "baseName": "application_config",
             "type": "ProcessorApplicationConfig"
-        },
-        {
-            "name": "config",
-            "baseName": "config",
-            "type": "object"
         },
         {
             "name": "defaultMerchantProfile",

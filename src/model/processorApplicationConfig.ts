@@ -39,7 +39,7 @@ export class ProcessorApplicationConfig {
     * The ID for the terminal at a card acceptor location.
     */
     'cardAcceptorTerminalId'?: string;
-    'configurationTemplates'?: ProcessorApplicationConfigConfigurationTemplates;
+    'configurationTemplates'?: ProcessorApplicationConfigConfigurationTemplates | null;
     /**
     * ISO 4217 3 letter currency code.
     */

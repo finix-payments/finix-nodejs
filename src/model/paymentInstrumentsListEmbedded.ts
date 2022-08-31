@@ -13,9 +13,12 @@
 import { RequestFile } from './models';
 import { PaymentInstrument } from './paymentInstrument';
 
+/**
+* List of `Payment Instrument` objects.
+*/
 export class PaymentInstrumentsListEmbedded {
     /**
-    * List of `Payment Instruments`.
+    * `Payment Instrument` objects.
     */
     'paymentInstruments'?: Set<PaymentInstrument>;
 

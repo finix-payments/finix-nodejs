@@ -17,6 +17,9 @@ import { Merchant } from './merchant';
 * List of `Merchant` objects.
 */
 export class MerchantsListEmbedded {
+    /**
+    * `Merchant` objects.
+    */
     'merchants'?: Set<Merchant>;
 
     static discriminator: string | undefined = undefined;

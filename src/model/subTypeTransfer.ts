@@ -30,6 +30,5 @@ export enum SubTypeTransfer {
     SettlementPartner = <any> 'SETTLEMENT_PARTNER',
     SettlementPlatform = <any> 'SETTLEMENT_PLATFORM',
     SplitPayout = <any> 'SPLIT_PAYOUT',
-    SplitPayoutAdjustment = <any> 'SPLIT_PAYOUT_ADJUSTMENT',
-    System = <any> 'SYSTEM'
+    SplitPayoutAdjustment = <any> 'SPLIT_PAYOUT_ADJUSTMENT'
 }

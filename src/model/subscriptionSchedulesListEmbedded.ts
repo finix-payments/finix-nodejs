@@ -13,7 +13,13 @@
 import { RequestFile } from './models';
 import { SubscriptionSchedule } from './subscriptionSchedule';
 
+/**
+* List of `subscription_schedule` objects.
+*/
 export class SubscriptionSchedulesListEmbedded {
+    /**
+    * `subscription_schedule` objects.
+    */
     'subscriptionSchedules'?: Set<SubscriptionSchedule>;
 
     static discriminator: string | undefined = undefined;

@@ -14,27 +14,27 @@ import { RequestFile } from './models';
 
 export class ListSettlementsQueryParams {
     /**
-    * Filter where created_at is after the given date.
+    * Filter where `created_at` is after the given date.
     */
     'createdAtGte'?: string;
     /**
-    * Filter where created_at is before the given date.
+    * Filter where `created_at` is before the given date.
     */
     'createdAtLte'?: string;
     /**
-    * Filter where updated_at is after the given date
+    * Filter where `updated_at` is after the given date.
     */
     'updatedAtGte'?: string;
     /**
-    * Filter where updated_at is before the given date
+    * Filter where `updated_at` is before the given date.
     */
     'updatedAtLte'?: string;
     /**
-    * Filter by id
+    * Filter by `id`.
     */
     'id'?: string;
     /**
-    * The numbers of items to return
+    * The numbers of items to return.
     */
     'limit'?: number;
     /**

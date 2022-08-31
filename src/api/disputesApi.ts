@@ -112,8 +112,8 @@ export class DisputesApi {
 
     /**
      * Helper function. 
-     * Upload dispute evidence for a `Dispute`.  There are four values available for `state` that details the status of the evidence upload:  * **PENDING**: The evidence file has not yet been submitted to the `Processor`. No user action is required. * **SUCCEEDED**: The evidence file has been successfully sent to the `Processor`. No further user action is required. * **CANCELED**: The evidence file upload was not completed due to user action. * **FAILED**: An issue occurred. User action is required. Any of the following issues could have occurred:     * There was an error in the system and the user should retry uploading their evidence file.     * There is an issue with the file and the user should retry uploading a different file.     * There is an issue and the user should contact Support. 
-     * @summary Create Dispute Evidence
+     * Upload dispute evidence for a `Dispute`.  - You can upload up to 8 files; the total size of the uploaded files combined cannot exceed 10 MB. - The allowed file formats include JPG, PNG, PDF, or TIFF. - Individual PNG and JPEG files can\'t exceed 50 KB; PDF and TIFF files can\'t exceed 1 MB.
+     * @summary Upload Dispute Evidence
      * @param disputeId ID of &#x60;Dispute&#x60; to mange evidence for.
      * @param createDisputeEvidenceRequest 
      */
@@ -194,8 +194,8 @@ export class DisputesApi {
     }
 
     /**
-     * Upload dispute evidence for a `Dispute`.  There are four values available for `state` that details the status of the evidence upload:  * **PENDING**: The evidence file has not yet been submitted to the `Processor`. No user action is required. * **SUCCEEDED**: The evidence file has been successfully sent to the `Processor`. No further user action is required. * **CANCELED**: The evidence file upload was not completed due to user action. * **FAILED**: An issue occurred. User action is required. Any of the following issues could have occurred:     * There was an error in the system and the user should retry uploading their evidence file.     * There is an issue with the file and the user should retry uploading a different file.     * There is an issue and the user should contact Support. 
-     * @summary Create Dispute Evidence
+     * Upload dispute evidence for a `Dispute`.  - You can upload up to 8 files; the total size of the uploaded files combined cannot exceed 10 MB. - The allowed file formats include JPG, PNG, PDF, or TIFF. - Individual PNG and JPEG files can\'t exceed 50 KB; PDF and TIFF files can\'t exceed 1 MB.
+     * @summary Upload Dispute Evidence
      * @param disputeId ID of &#x60;Dispute&#x60; to mange evidence for.
      * @param createDisputeEvidenceRequest 
      */
@@ -206,8 +206,8 @@ export class DisputesApi {
     }
 
     /**
-     * Upload dispute evidence for a `Dispute`.  There are four values available for `state` that details the status of the evidence upload:  * **PENDING**: The evidence file has not yet been submitted to the `Processor`. No user action is required. * **SUCCEEDED**: The evidence file has been successfully sent to the `Processor`. No further user action is required. * **CANCELED**: The evidence file upload was not completed due to user action. * **FAILED**: An issue occurred. User action is required. Any of the following issues could have occurred:     * There was an error in the system and the user should retry uploading their evidence file.     * There is an issue with the file and the user should retry uploading a different file.     * There is an issue and the user should contact Support. 
-     * @summary Create Dispute Evidence
+     * Upload dispute evidence for a `Dispute`.  - You can upload up to 8 files; the total size of the uploaded files combined cannot exceed 10 MB. - The allowed file formats include JPG, PNG, PDF, or TIFF. - Individual PNG and JPEG files can\'t exceed 50 KB; PDF and TIFF files can\'t exceed 1 MB.
+     * @summary Upload Dispute Evidence
      * @param disputeId ID of &#x60;Dispute&#x60; to mange evidence for.
      * @param createDisputeEvidenceRequest 
      */
@@ -219,7 +219,7 @@ export class DisputesApi {
     /**
      * Helper function. 
      * Retrieve the details of a previously created `Dispute`.
-     * @summary Get Dispute
+     * @summary Fetch a Dispute
      * @param disputeId ID of &#x60;Dispute&#x60; to fetch.
      */
 
@@ -292,7 +292,7 @@ export class DisputesApi {
 
     /**
      * Retrieve the details of a previously created `Dispute`.
-     * @summary Get Dispute
+     * @summary Fetch a Dispute
      * @param disputeId ID of &#x60;Dispute&#x60; to fetch.
      */
     public async get(disputeId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
@@ -303,7 +303,7 @@ export class DisputesApi {
 
     /**
      * Retrieve the details of a previously created `Dispute`.
-     * @summary Get Dispute
+     * @summary Fetch a Dispute
      * @param disputeId ID of &#x60;Dispute&#x60; to fetch.
      */
     public async getHttp(disputeId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 

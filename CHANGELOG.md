@@ -7,7 +7,7 @@
 * Initial release of the Nodejs / Typescript library.
 * Added support for the following APIs:
     * Transfers
-    * Authorizaitons
+    * Authorization
     * Identities
     * Merchants
     * Payment Instruments

@@ -22,7 +22,7 @@ export class ListFeeProfilesQueryParams {
     */
     'beforeCursor'?: string;
     /**
-    * The numbers of items to return
+    * The numbers of items to return.
     */
     'limit'?: number;
 

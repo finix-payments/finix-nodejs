@@ -13,20 +13,11 @@
 import { RequestFile } from './models';
 import { DeviceConfigDetails } from './deviceConfigDetails';
 import { DeviceLinks } from './deviceLinks';
-import { InputDetails } from './inputDetails';
 
 /**
 * `Device` resource.
 */
 export class Device {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags'?: { [key: string]: string; };
-    /**
-    * Additional information about device (e.g. self serving terminal).
-    */
-    'description'?: string | null;
     /**
     * The ID of the resource.
     */
@@ -41,18 +32,21 @@ export class Device {
     'updatedAt'?: Date;
     'configurationDetails'?: DeviceConfigDetails | null;
     /**
-    * Details if the `Device` is connected and online. Only returned when include_connection parameter provided.
+    * Details if the `Device` is connected and online. Only returned when `include_connection parameter` provided.
     */
     'connection'?: string;
+    /**
+    * Additional information about device (e.g. self serving terminal).
+    */
+    'description'?: string | null;
     /**
     * Details if the `Device` resource is enabled. Set to **false** to disable the `Device`.
     */
     'enabled'?: boolean;
     /**
-    * ID of `Device`.
+    * The message that diplays on the device after a period of inactivity.
     */
     'idleMessage'?: string | null;
-    'inputDetails'?: InputDetails;
     /**
     * ID of the `Merchant` resource.
     */
@@ -69,21 +63,15 @@ export class Device {
     * Serial number of the device.
     */
     'serialNumber'?: string | null;
+    /**
+    * Key value pair for annotating custom meta data (e.g. order numbers).
+    */
+    'tags'?: { [key: string]: string; };
     'links'?: DeviceLinks;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "description",
-            "baseName": "description",
-            "type": "string"
-        },
         {
             "name": "id",
             "baseName": "id",
@@ -110,6 +98,11 @@ export class Device {
             "type": "string"
         },
         {
+            "name": "description",
+            "baseName": "description",
+            "type": "string"
+        },
+        {
             "name": "enabled",
             "baseName": "enabled",
             "type": "boolean"
@@ -118,11 +111,6 @@ export class Device {
             "name": "idleMessage",
             "baseName": "idle_message",
             "type": "string"
-        },
-        {
-            "name": "inputDetails",
-            "baseName": "input_details",
-            "type": "InputDetails"
         },
         {
             "name": "merchant",
@@ -143,6 +131,11 @@ export class Device {
             "name": "serialNumber",
             "baseName": "serial_number",
             "type": "string"
+        },
+        {
+            "name": "tags",
+            "baseName": "tags",
+            "type": "{ [key: string]: string; }"
         },
         {
             "name": "links",

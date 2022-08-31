@@ -18,48 +18,38 @@ import { Currency } from './currency';
 */
 export class CreateBalanceTransferRequest {
     /**
-    * Additional information about the `balance_transfer` (e.g. **Transferring funds for Holidays**).
-    */
-    'description'?: string;
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags'?: { [key: string]: string; };
-    /**
-    * Choose the value that best applies to the account where funds will get credited.
-    */
-    'destination': CreateBalanceTransferRequest.DestinationEnum | string;
-    'currency': Currency;
-    /**
     * The total amount that will be debited in cents (e.g. 100 cents to debit $1.00).
     */
     'amount': number;
+    'currency': Currency;
     /**
-    * Choose the value that best applies to the account where funds will get debited.
+    * Additional information about the `balance_transfer` (e.g. **Transferring funds for Holidays**).
     */
-    'source': CreateBalanceTransferRequest.SourceEnum | string;
+    'description': string;
+    /**
+    * The account where funds get credited. For balance transfers, this is an aliased ID and will have the value of `FOR_BENEFIT_OF_ACCOUNT` or `OPERATING_ACCOUNT`.
+    */
+    'destination': CreateBalanceTransferRequest.DestinationEnum | string;
     /**
     * Pass **LITLE_V1**; `balance_transfers` are only avalible for platforms with **LITLE_V1** credentials.
     */
     'processorType': string;
+    /**
+    * The account where funds get debited. For balance transfers, this is an aliased ID and will have the value of `FOR_BENEFIT_OF_ACCOUNT` or `OPERATING_ACCOUNT`.
+    */
+    'source': CreateBalanceTransferRequest.SourceEnum | string;
+    /**
+    * Key value pair for annotating custom meta data (e.g. order numbers).
+    */
+    'tags'?: { [key: string]: string; };
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "description",
-            "baseName": "description",
-            "type": "string"
-        },
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "destination",
-            "baseName": "destination",
-            "type": "CreateBalanceTransferRequest.DestinationEnum"
+            "name": "amount",
+            "baseName": "amount",
+            "type": "number"
         },
         {
             "name": "currency",
@@ -67,9 +57,19 @@ export class CreateBalanceTransferRequest {
             "type": "Currency"
         },
         {
-            "name": "amount",
-            "baseName": "amount",
-            "type": "number"
+            "name": "description",
+            "baseName": "description",
+            "type": "string"
+        },
+        {
+            "name": "destination",
+            "baseName": "destination",
+            "type": "CreateBalanceTransferRequest.DestinationEnum"
+        },
+        {
+            "name": "processorType",
+            "baseName": "processor_type",
+            "type": "string"
         },
         {
             "name": "source",
@@ -77,9 +77,9 @@ export class CreateBalanceTransferRequest {
             "type": "CreateBalanceTransferRequest.SourceEnum"
         },
         {
-            "name": "processorType",
-            "baseName": "processor_type",
-            "type": "string"
+            "name": "tags",
+            "baseName": "tags",
+            "type": "{ [key: string]: string; }"
         }    ];
 
     static getAttributeTypeMap() {

@@ -52,9 +52,12 @@ jobs:
 workflows:
   version: 2
 
-  assemble:
+  verify_codegen:
     jobs:
-      - assemble
+      - assemble:
+        filters:
+            branches:
+              only: /^codegen-.*$/
 
   deploy:
       jobs:

@@ -14,9 +14,12 @@ import { RequestFile } from './models';
 import { ModelFile } from './modelFile';
 
 /**
-* The number of items to skip before starting to collect the result set.
+* List of `File` objects.
 */
 export class FilesListEmbedded {
+    /**
+    * `File` objects.
+    */
     'files'?: Array<ModelFile>;
 
     static discriminator: string | undefined = undefined;

@@ -15,6 +15,7 @@ import localVarRequest from 'request';
 import * as http from 'http';
 import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
+import { CreateAssociatedIdentityRequest } from '../model/createAssociatedIdentityRequest';
 import { CreateIdentityRequest } from '../model/createIdentityRequest';
 import { CreateVerificationRequest } from '../model/createVerificationRequest';
 import { Error401Unauthorized } from '../model/error401Unauthorized';
@@ -115,10 +116,10 @@ export class IdentitiesApi {
      * Create an associated `Identity` for [every owner with 25% or more ownership](/guides/onboarding/#step-3-add-associated-identities) over the merchant.
      * @summary Create an Associated Identity
      * @param identityId ID of &#x60;Identity&#x60; to associate object with.
-     * @param createIdentityRequest 
+     * @param createAssociatedIdentityRequest 
      */
 
-    private async createAssociatedIdentityHelper(identityId: string, createIdentityRequest?: CreateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Identity;  }> {
+    private async createAssociatedIdentityHelper(identityId: string, createAssociatedIdentityRequest?: CreateAssociatedIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Identity;  }> {
         const localVarPath = this.basePath + '/identities/{identity_id}/associated_identities'
             .replace('{' + 'identity_id' + '}', encodeURIComponent(String(identityId)));
         let localVarQueryParameters: any = {};
@@ -150,12 +151,12 @@ export class IdentitiesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-        if (createIdentityRequest && createIdentityRequest.hasOwnProperty('file')){
-        //if (createIdentityRequest != undefined && createIdentityRequest != null && createIdentityRequest.hasOwnProperty('file')){
-            localVarRequestOptions.formData = createIdentityRequest;
+        if (createAssociatedIdentityRequest && createAssociatedIdentityRequest.hasOwnProperty('file')){
+        //if (createAssociatedIdentityRequest != undefined && createAssociatedIdentityRequest != null && createAssociatedIdentityRequest.hasOwnProperty('file')){
+            localVarRequestOptions.formData = createAssociatedIdentityRequest;
         }
         else{
-            localVarRequestOptions.body = ObjectSerializer.serialize(createIdentityRequest, "CreateIdentityRequest");   
+            localVarRequestOptions.body = ObjectSerializer.serialize(createAssociatedIdentityRequest, "CreateAssociatedIdentityRequest");   
         }
         let authenticationPromise = Promise.resolve();
         if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
@@ -197,11 +198,11 @@ export class IdentitiesApi {
      * Create an associated `Identity` for [every owner with 25% or more ownership](/guides/onboarding/#step-3-add-associated-identities) over the merchant.
      * @summary Create an Associated Identity
      * @param identityId ID of &#x60;Identity&#x60; to associate object with.
-     * @param createIdentityRequest 
+     * @param createAssociatedIdentityRequest 
      */
-    public async createAssociatedIdentity(identityId: string, createIdentityRequest?: CreateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+    public async createAssociatedIdentity(identityId: string, createAssociatedIdentityRequest?: CreateAssociatedIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<Identity> {
-        const responseObject = await this.createAssociatedIdentityHelper(identityId, createIdentityRequest,  options);
+        const responseObject = await this.createAssociatedIdentityHelper(identityId, createAssociatedIdentityRequest,  options);
         return responseObject.body;
     }
 
@@ -209,16 +210,16 @@ export class IdentitiesApi {
      * Create an associated `Identity` for [every owner with 25% or more ownership](/guides/onboarding/#step-3-add-associated-identities) over the merchant.
      * @summary Create an Associated Identity
      * @param identityId ID of &#x60;Identity&#x60; to associate object with.
-     * @param createIdentityRequest 
+     * @param createAssociatedIdentityRequest 
      */
-    public async createAssociatedIdentityHttp(identityId: string, createIdentityRequest?: CreateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
+    public async createAssociatedIdentityHttp(identityId: string, createAssociatedIdentityRequest?: CreateAssociatedIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: Identity; }> {
-        const responseObject = await this.createAssociatedIdentityHelper(identityId, createIdentityRequest,  options);
+        const responseObject = await this.createAssociatedIdentityHelper(identityId, createAssociatedIdentityRequest,  options);
         return responseObject;
     }
     /**
      * Helper function. 
-     * Create an `Identity` for your merchant or buyer.  Creating `Identities` for merchants requires they provide [KYC details](/docs/guides/getting-started/).  Related Guides: [Getting Started](/docs/guides/getting-started/), [Onboarding](/docs/guides/onboarding/)
+     * Create an `Identity` for your merchant or buyer.  All fields for a buyer\'s `Identity` are optional.   Providing `business_type` indicates that the `Identity` is being created for a Merchant.  Creating `Identities` for merchants requires they provide [KYC details](/docs/guides/getting-started/). - When creating an `Identity` for a buyer , don\'t pass the `business_type` field. Including a value for `business_type` configures the created `Identity` to get processed as a merchant. - When creating an `Identity` for a buyer, all fields are optional . Related Guides: [Getting Started](/docs/guides/getting-started/), [Onboarding](/docs/guides/onboarding/)
      * @summary Create an Identity
      * @param createIdentityRequest 
      */
@@ -294,7 +295,7 @@ export class IdentitiesApi {
     }
 
     /**
-     * Create an `Identity` for your merchant or buyer.  Creating `Identities` for merchants requires they provide [KYC details](/docs/guides/getting-started/).  Related Guides: [Getting Started](/docs/guides/getting-started/), [Onboarding](/docs/guides/onboarding/)
+     * Create an `Identity` for your merchant or buyer.  All fields for a buyer\'s `Identity` are optional.   Providing `business_type` indicates that the `Identity` is being created for a Merchant.  Creating `Identities` for merchants requires they provide [KYC details](/docs/guides/getting-started/). - When creating an `Identity` for a buyer , don\'t pass the `business_type` field. Including a value for `business_type` configures the created `Identity` to get processed as a merchant. - When creating an `Identity` for a buyer, all fields are optional . Related Guides: [Getting Started](/docs/guides/getting-started/), [Onboarding](/docs/guides/onboarding/)
      * @summary Create an Identity
      * @param createIdentityRequest 
      */
@@ -305,7 +306,7 @@ export class IdentitiesApi {
     }
 
     /**
-     * Create an `Identity` for your merchant or buyer.  Creating `Identities` for merchants requires they provide [KYC details](/docs/guides/getting-started/).  Related Guides: [Getting Started](/docs/guides/getting-started/), [Onboarding](/docs/guides/onboarding/)
+     * Create an `Identity` for your merchant or buyer.  All fields for a buyer\'s `Identity` are optional.   Providing `business_type` indicates that the `Identity` is being created for a Merchant.  Creating `Identities` for merchants requires they provide [KYC details](/docs/guides/getting-started/). - When creating an `Identity` for a buyer , don\'t pass the `business_type` field. Including a value for `business_type` configures the created `Identity` to get processed as a merchant. - When creating an `Identity` for a buyer, all fields are optional . Related Guides: [Getting Started](/docs/guides/getting-started/), [Onboarding](/docs/guides/onboarding/)
      * @summary Create an Identity
      * @param createIdentityRequest 
      */

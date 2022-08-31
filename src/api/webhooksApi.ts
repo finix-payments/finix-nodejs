@@ -209,7 +209,7 @@ export class WebhooksApi {
     /**
      * Helper function. 
      * Retrieve the details of a `Webhook`.
-     * @summary Get a Webhook
+     * @summary Fetch a Webhook
      * @param webhookId ID of &#x60;Webhook&#x60; object.
      */
 
@@ -282,7 +282,7 @@ export class WebhooksApi {
 
     /**
      * Retrieve the details of a `Webhook`.
-     * @summary Get a Webhook
+     * @summary Fetch a Webhook
      * @param webhookId ID of &#x60;Webhook&#x60; object.
      */
     public async get(webhookId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
@@ -293,7 +293,7 @@ export class WebhooksApi {
 
     /**
      * Retrieve the details of a `Webhook`.
-     * @summary Get a Webhook
+     * @summary Fetch a Webhook
      * @param webhookId ID of &#x60;Webhook&#x60; object.
      */
     public async getHttp(webhookId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 

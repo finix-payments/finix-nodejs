@@ -18,7 +18,7 @@ export class CreateInstrumentUpdateRequest {
     */
     'file'?: RequestFile;
     /**
-    * A JSON string of your request. The JSON object needs to contain the following two fields: - `merchant`: ID of the `Merchant` object that you want to associate with the Account Updater batch for your own accounting purposes. You can only associate one `Merchant` to each - `idemopotency_id`: A randomly generated value that will be associated with this `instrument_update` resource.
+    * A JSON string of your request. The JSON object needs to contain the following two fields: - `merchant`: ID of the `Merchant` object that you want to associate with the Account Updater batch for your own accounting purposes. You can only associate one `Merchant` to each. - `idemopotency_id`: A randomly generated value that will be associated with this `instrument_update` resource.
     */
     'request'?: string;
 

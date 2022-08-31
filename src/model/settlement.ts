@@ -19,14 +19,6 @@ import { SettlementLinks } from './settlementLinks';
 */
 export class Settlement {
     /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags'?: { [key: string]: string; };
-    /**
-    * Type of `Settlement`.
-    */
-    'type'?: Settlement.TypeEnum | string;
-    /**
     * The ID of the resource.
     */
     'id'?: string | null;
@@ -72,9 +64,13 @@ export class Settlement {
     */
     'processor'?: string;
     /**
-    * The status of the `Settlement`. Available values include:<ul><li>**PENDING**<li>**STAGED**<li>**AWAITING_APPROVAL**<li>**APPROVED**.</ul> Merchants only receive payouts when `Settlements` are **APPROVED**. For more information, see [Payouts](/guides/payouts/payouts/).
+    * The status of the `Settlement`. Available values include:<ul><li>**PENDING**<li>**AWAITING_APPROVAL**<li>**APPROVED**.</ul> Merchants only receive payouts when `Settlements` are **APPROVED** and receive the resulting funding `Transfer` . For more information, see [Payouts](/guides/payouts/payouts/).
     */
     'status'?: Settlement.StatusEnum | string;
+    /**
+    * Key value pair for annotating custom meta data (e.g. order numbers).
+    */
+    'tags'?: { [key: string]: string; };
     /**
     * Total amount of the `Settlement` (in cents).
     */
@@ -84,24 +80,18 @@ export class Settlement {
     */
     'totalFee'?: number;
     /**
-    * Sum of the fees in the `Settlement`.
+    * Sum of the fees  (including Subcription Billing) in the `Settlement`.
     */
     'totalFees'?: number;
+    /**
+    * Type of `Settlement`.
+    */
+    'type'?: Settlement.TypeEnum | string;
     'links'?: SettlementLinks;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "type",
-            "baseName": "type",
-            "type": "Settlement.TypeEnum"
-        },
         {
             "name": "id",
             "baseName": "id",
@@ -168,6 +158,11 @@ export class Settlement {
             "type": "Settlement.StatusEnum"
         },
         {
+            "name": "tags",
+            "baseName": "tags",
+            "type": "{ [key: string]: string; }"
+        },
+        {
             "name": "totalAmount",
             "baseName": "total_amount",
             "type": "number"
@@ -183,6 +178,11 @@ export class Settlement {
             "type": "number"
         },
         {
+            "name": "type",
+            "baseName": "type",
+            "type": "Settlement.TypeEnum"
+        },
+        {
             "name": "links",
             "baseName": "_links",
             "type": "SettlementLinks"
@@ -194,6 +194,12 @@ export class Settlement {
 }
 
 export namespace Settlement {
+    export enum StatusEnum {
+        Approved = <any> 'APPROVED',
+        AwaitingApproval = <any> 'AWAITING_APPROVAL',
+        Cancelled = <any> 'CANCELLED',
+        Pending = <any> 'PENDING'
+    }
     export enum TypeEnum {
         MerchantRevenue = <any> 'MERCHANT_REVENUE',
         PlatformFee = <any> 'PLATFORM_FEE',
@@ -202,12 +208,5 @@ export namespace Settlement {
         Merchant = <any> 'MERCHANT',
         Application = <any> 'APPLICATION',
         Platform = <any> 'PLATFORM'
-    }
-    export enum StatusEnum {
-        Approved = <any> 'APPROVED',
-        AwaitingApproval = <any> 'AWAITING_APPROVAL',
-        Cancelled = <any> 'CANCELLED',
-        Pending = <any> 'PENDING',
-        Staged = <any> 'STAGED'
     }
 }

@@ -316,7 +316,7 @@ export class FilesApi {
     }
     /**
      * Helper function. 
-     * Download a file uploaded to a `File` resource. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix).
+     * Download a file that was uploaded to a `File` resource. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix).
      * @summary Download a file
      * @param fileId The ID of the &#x60;File&#x60; that was created to upload the file.
      */
@@ -389,7 +389,7 @@ export class FilesApi {
     }
 
     /**
-     * Download a file uploaded to a `File` resource. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix).
+     * Download a file that was uploaded to a `File` resource. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix).
      * @summary Download a file
      * @param fileId The ID of the &#x60;File&#x60; that was created to upload the file.
      */
@@ -400,7 +400,7 @@ export class FilesApi {
     }
 
     /**
-     * Download a file uploaded to a `File` resource. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix).
+     * Download a file that was uploaded to a `File` resource. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix).
      * @summary Download a file
      * @param fileId The ID of the &#x60;File&#x60; that was created to upload the file.
      */
@@ -609,7 +609,7 @@ export class FilesApi {
     }
     /**
      * Helper function. 
-     * List the previously `external_links` for a `File`. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#create-an-external-link).
+     * List the previously created `external_links` for a `File`. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#create-an-external-link).
      * @summary List All External Links
 
     * @param fileId Your &#x60;File&#x60; ID.
@@ -712,7 +712,7 @@ export class FilesApi {
     }
 
     /**
-     * List the previously `external_links` for a `File`. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#create-an-external-link).
+     * List the previously created `external_links` for a `File`. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#create-an-external-link).
      * @summary List All External Links
      * @param fileId Your &#x60;File&#x60; ID.
      *  
@@ -742,7 +742,7 @@ export class FilesApi {
     }
 
     /**
-     * List the previously `external_links` for a `File`. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#create-an-external-link).
+     * List the previously created `external_links` for a `File`. For more info, see [Uploading files to Finix](/guides/onboarding/uploading-files-to-finix/#create-an-external-link).
      * @summary List All External Links
      * @param fileId Your &#x60;File&#x60; ID.
      * 

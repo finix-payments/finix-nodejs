@@ -14,10 +14,6 @@ import { RequestFile } from './models';
 
 export class CreateFeeProfileRequest {
     /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags'?: { [key: string]: string; };
-    /**
     * Percentage-based fee incurred against the full amount of an eCheck (also called ACH payments). Calculated as one hundredth of one percent (1 basis point = .0001 or .01%).
     */
     'achBasisPoints'?: number;
@@ -68,19 +64,11 @@ export class CreateFeeProfileRequest {
     /**
     * The ID of the resource.
     */
-    'application'?: string;
+    'application': string;
     /**
     * Percentage-based fee incurred against the full amount of each card-based `Transfer`. Calculated as one hundredth of one percent (1 basis point = .0001 or .01%).
     */
     'basisPoints'?: number;
-    /**
-    * Percentage-based fee incurred against the full amount of each `Transfer` that\'s card-based and externally funded. Calculated as one hundredth of one percent (1 basis point = .0001 or .01%).
-    */
-    'externallyFundedBasisPoints'?: number | null;
-    /**
-    * Fee in cents incurred for each individual `Transfer` that\'s card-based and externally funded.
-    */
-    'externallyFundedFixedFee'?: number | null;
     /**
     * Set to **True** to incur interchange fees for card-based `Transfers`.
     */
@@ -138,9 +126,17 @@ export class CreateFeeProfileRequest {
     */
     'disputeInquiryFixedFee'?: number | null;
     /**
+    * Percentage-based fee incurred against the full amount of each `Transfer` that\'s card-based and externally funded. Calculated as one hundredth of one percent (1 basis point = .0001 or .01%).
+    */
+    'externallyFundedBasisPoints'?: number | null;
+    /**
+    * Fee in cents incurred for each individual `Transfer` that\'s card-based and externally funded.
+    */
+    'externallyFundedFixedFee'?: number | null;
+    /**
     * Fee in cents incurred for each individual card-based `Transfer`.
     */
-    'fixedFee': number;
+    'fixedFee'?: number;
     /**
     * Percentage-based fee incurred against the full amount of each JCB `Transfer`. Calculated as one hundredth of one percent (1 basis point = .0001 or .01%).
     */
@@ -177,11 +173,18 @@ export class CreateFeeProfileRequest {
     * Fee in cents incurred for each individual MasterCard `Transfer`.
     */
     'mastercardFixedFee'?: number | null;
+    /**
+    * The top of the qualified tier tree.
+    */
     'qualifiedTiers'?: object | null;
     /**
     * <ul><li>Include <strong>AGGREGATE</strong> if you want to round after the settlement calculation.<li>By default, rounding happens before the sum of the settlement calculation (i.e. round each fee transfer)</ul>
     */
     'roundingMode'?: CreateFeeProfileRequest.RoundingModeEnum | string;
+    /**
+    * Key value pair for annotating custom meta data (e.g. order numbers).
+    */
+    'tags'?: { [key: string]: string; };
     /**
     * Applied to all U.S.-based credit card authorizations acquired in the U.S. regardless of where the issuer/cardholder is located. If your business is based in the U.S., the acquirer processing fee will apply to all Visa credit card authorizations.
     */
@@ -222,11 +225,6 @@ export class CreateFeeProfileRequest {
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
         {
             "name": "achBasisPoints",
             "baseName": "ach_basis_points",
@@ -295,16 +293,6 @@ export class CreateFeeProfileRequest {
         {
             "name": "basisPoints",
             "baseName": "basis_points",
-            "type": "number"
-        },
-        {
-            "name": "externallyFundedBasisPoints",
-            "baseName": "externally_funded_basis_points",
-            "type": "number"
-        },
-        {
-            "name": "externallyFundedFixedFee",
-            "baseName": "externally_funded_fixed_fee",
             "type": "number"
         },
         {
@@ -378,6 +366,16 @@ export class CreateFeeProfileRequest {
             "type": "number"
         },
         {
+            "name": "externallyFundedBasisPoints",
+            "baseName": "externally_funded_basis_points",
+            "type": "number"
+        },
+        {
+            "name": "externallyFundedFixedFee",
+            "baseName": "externally_funded_fixed_fee",
+            "type": "number"
+        },
+        {
             "name": "fixedFee",
             "baseName": "fixed_fee",
             "type": "number"
@@ -436,6 +434,11 @@ export class CreateFeeProfileRequest {
             "name": "roundingMode",
             "baseName": "rounding_mode",
             "type": "CreateFeeProfileRequest.RoundingModeEnum"
+        },
+        {
+            "name": "tags",
+            "baseName": "tags",
+            "type": "{ [key: string]: string; }"
         },
         {
             "name": "visaAcquirerProcessingFixedFee",

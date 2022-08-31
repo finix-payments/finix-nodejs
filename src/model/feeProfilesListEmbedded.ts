@@ -13,7 +13,13 @@
 import { RequestFile } from './models';
 import { FeeProfile } from './feeProfile';
 
+/**
+* List of `fee_profile` objects.
+*/
 export class FeeProfilesListEmbedded {
+    /**
+    * `fee_profile` objects.
+    */
     'feeProfiles'?: Set<FeeProfile>;
 
     static discriminator: string | undefined = undefined;

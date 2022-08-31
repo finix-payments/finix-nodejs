@@ -15,7 +15,7 @@ import { RequestFile } from './models';
 /**
 * The date the company was founded and registered with the US.
 */
-export class UpdateIdentityRequestEntityIncorporationDate {
+export class CreateAssociatedIdentityRequestEntityIncorporationDate {
     'year'?: number;
     'day'?: number;
     'month'?: number;
@@ -40,7 +40,7 @@ export class UpdateIdentityRequestEntityIncorporationDate {
         }    ];
 
     static getAttributeTypeMap() {
-        return UpdateIdentityRequestEntityIncorporationDate.attributeTypeMap;
+        return CreateAssociatedIdentityRequestEntityIncorporationDate.attributeTypeMap;
     }
 }
 

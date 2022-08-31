@@ -21,13 +21,13 @@ export class UpdateIdentityRequestAdditionalUnderwritingDataCardVolumeDistributi
     */
     'cardPresentPercentage'?: number;
     /**
-    * The percentage of the merchant\'s business that\'s mail or telephone order (between 0 and 100).
-    */
-    'mailOrderTelephoneOrderPercentage'?: number;
-    /**
     * The percentage of the merchant\'s business that\'s e-commerce (between 0 and 100).
     */
     'ecommercePercentage'?: number;
+    /**
+    * The percentage of the merchant\'s business that\'s mail or telephone order (between 0 and 100).
+    */
+    'mailOrderTelephoneOrderPercentage'?: number;
 
     static discriminator: string | undefined = undefined;
 
@@ -38,13 +38,13 @@ export class UpdateIdentityRequestAdditionalUnderwritingDataCardVolumeDistributi
             "type": "number"
         },
         {
-            "name": "mailOrderTelephoneOrderPercentage",
-            "baseName": "mail_order_telephone_order_percentage",
+            "name": "ecommercePercentage",
+            "baseName": "ecommerce_percentage",
             "type": "number"
         },
         {
-            "name": "ecommercePercentage",
-            "baseName": "ecommerce_percentage",
+            "name": "mailOrderTelephoneOrderPercentage",
+            "baseName": "mail_order_telephone_order_percentage",
             "type": "number"
         }    ];
 

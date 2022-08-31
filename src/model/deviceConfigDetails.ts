@@ -21,6 +21,10 @@ export class DeviceConfigDetails {
     */
     'allowDebit'?: boolean;
     /**
+    * Sets whether or not the device will be used to capture transactions. This field must be set to **true** (defaults to **false**).
+    */
+    'bypassDeviceOnCapture'?: boolean | null;
+    /**
     * Sets whether the `Device` will check for duplicate transactions.
     */
     'checkForDuplicateTransactions'?: boolean;
@@ -40,10 +44,6 @@ export class DeviceConfigDetails {
     * The threshold to prompt a signature when `prompt_signature` is set to **AMOUNT** (defaults to 0).
     */
     'signatureThresholdAmount'?: number;
-    /**
-    * Sets whether or not the device will be used to capture transactions. This field must be set to **true** (defaults to **false**).
-    */
-    'bypassDeviceOnCapture'?: boolean;
 
     static discriminator: string | undefined = undefined;
 
@@ -51,6 +51,11 @@ export class DeviceConfigDetails {
         {
             "name": "allowDebit",
             "baseName": "allow_debit",
+            "type": "boolean"
+        },
+        {
+            "name": "bypassDeviceOnCapture",
+            "baseName": "bypass_device_on_capture",
             "type": "boolean"
         },
         {
@@ -77,11 +82,6 @@ export class DeviceConfigDetails {
             "name": "signatureThresholdAmount",
             "baseName": "signature_threshold_amount",
             "type": "number"
-        },
-        {
-            "name": "bypassDeviceOnCapture",
-            "baseName": "bypass_device_on_capture",
-            "type": "boolean"
         }    ];
 
     static getAttributeTypeMap() {

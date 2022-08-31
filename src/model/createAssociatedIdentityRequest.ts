@@ -11,36 +11,31 @@
  */
 
 import { RequestFile } from './models';
+import { CreateAssociatedIdentityRequestEntity } from './createAssociatedIdentityRequestEntity';
 
-/**
-* The control owner\'s date of birth. 
-*/
-export class UpdateIdentityRequestEntityDob {
-    'year'?: number;
-    'day'?: number;
-    'month'?: number;
+export class CreateAssociatedIdentityRequest {
+    'entity'?: CreateAssociatedIdentityRequestEntity;
+    /**
+    * Key value pair for annotating custom meta data (e.g. order numbers).
+    */
+    'tags'?: { [key: string]: string; };
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "year",
-            "baseName": "year",
-            "type": "number"
+            "name": "entity",
+            "baseName": "entity",
+            "type": "CreateAssociatedIdentityRequestEntity"
         },
         {
-            "name": "day",
-            "baseName": "day",
-            "type": "number"
-        },
-        {
-            "name": "month",
-            "baseName": "month",
-            "type": "number"
+            "name": "tags",
+            "baseName": "tags",
+            "type": "{ [key: string]: string; }"
         }    ];
 
     static getAttributeTypeMap() {
-        return UpdateIdentityRequestEntityDob.attributeTypeMap;
+        return CreateAssociatedIdentityRequest.attributeTypeMap;
     }
 }
 

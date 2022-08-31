@@ -19,7 +19,7 @@ export class {{classname}} {
     * {{{.}}}
     */
 {{/description}}
-    '{{name}}'{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}} | string{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}{{#defaultValue}} = {{{.}}}{{/defaultValue}};
+    '{{name}}'{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}} | string{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{#defaultValue}} = {{{.}}}{{/defaultValue}}{{/isEnum}};
 {{/vars}}
 
     {{#discriminator}}

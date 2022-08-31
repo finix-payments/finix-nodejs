@@ -73,13 +73,14 @@ describe('Identity API', () => {
         const createVerificationRequest: Models.CreateVerificationRequest = {
             processor: "DUMMY_V1",
             merchant: "MUgWbPVvtKbzjKNNGKqdQYV7",
-            instrument: "PI3tfx1Uw3SzHfqwPFGX9o1Y",
-            identity: "ID2CGJmjqyYaQAu6qyuvGeWK"
+            tags : {
+                "test_key_01" : "test_val"
+            }
         }
         const identityVerification = await client.Identities.createIdentityVerification("IDgWxBhfGYLLdkhxx2ddYf9K", createVerificationRequest);
 
         expect(identityVerification.merchant).toBe(createVerificationRequest.merchant);
-        expect(identityVerification.merchantIdentity).toBe(createVerificationRequest.identity);
+        expect(identityVerification.tags["test_key_01"]).toBe("test_val");
         expect(identityVerification.application).toBe("APgPDQrLD52TYvqazjHJJchM");
     });
 

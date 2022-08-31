@@ -13,7 +13,13 @@
 import { RequestFile } from './models';
 import { SubscriptionAmount } from './subscriptionAmount';
 
+/**
+* List of `subscription_amount` objects.
+*/
 export class SubscriptionAmountListEmbedded {
+    /**
+    * `subscription_amount` objects.
+    */
     'subscriptionAmounts'?: Set<SubscriptionAmount>;
 
     static discriminator: string | undefined = undefined;

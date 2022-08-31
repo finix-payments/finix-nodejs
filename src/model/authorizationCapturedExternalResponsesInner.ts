@@ -12,20 +12,26 @@
 
 import { RequestFile } from './models';
 
-export class ProcessorSystemConfigConfigurationTemplates {
-    'country'?: { [key: string]: object; };
+export class AuthorizationCapturedExternalResponsesInner {
+    'body'?: string;
+    'contentType'?: string;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "country",
-            "baseName": "country",
-            "type": "{ [key: string]: object; }"
+            "name": "body",
+            "baseName": "body",
+            "type": "string"
+        },
+        {
+            "name": "contentType",
+            "baseName": "content_type",
+            "type": "string"
         }    ];
 
     static getAttributeTypeMap() {
-        return ProcessorSystemConfigConfigurationTemplates.attributeTypeMap;
+        return AuthorizationCapturedExternalResponsesInner.attributeTypeMap;
     }
 }
 

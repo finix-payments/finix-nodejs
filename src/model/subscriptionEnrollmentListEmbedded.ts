@@ -13,9 +13,12 @@
 import { RequestFile } from './models';
 import { SubscriptionEnrollment } from './subscriptionEnrollment';
 
+/**
+* List of `Subscription Enrollment` resources.
+*/
 export class SubscriptionEnrollmentListEmbedded {
     /**
-    * `Subscription Enrollments` resource.
+    * `Subscription Enrollment` resources.
     */
     'subscriptionEnrollments'?: Set<SubscriptionEnrollment>;
 

@@ -26,11 +26,11 @@ export class CreateReversalRequest {
     * The ID of the `Device` used to process the transaction.
     */
     'device'?: string;
-    'currency'?: Currency;
     /**
     * The amount of the sale.
     */
     'amount'?: number;
+    'currency'?: Currency;
     /**
     * Describes the operation to be performed in the transaction. Use **CARD_PRESENT_UNREFERENCED_REFUND** for refunds where the card isn\'t avalible.
     */
@@ -55,14 +55,14 @@ export class CreateReversalRequest {
             "type": "string"
         },
         {
-            "name": "currency",
-            "baseName": "currency",
-            "type": "Currency"
-        },
-        {
             "name": "amount",
             "baseName": "amount",
             "type": "number"
+        },
+        {
+            "name": "currency",
+            "baseName": "currency",
+            "type": "Currency"
         },
         {
             "name": "operationKey",

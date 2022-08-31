@@ -14,10 +14,6 @@ import { RequestFile } from './models';
 import { FeeProfileLinks } from './feeProfileLinks';
 
 export class FeeProfile {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags'?: { [key: string]: string; };
     'id'?: string;
     /**
     * Timestamp of when the object was created.
@@ -84,14 +80,6 @@ export class FeeProfile {
     */
     'basisPoints'?: number;
     /**
-    * Percentage-based fee incurred against the full amount of each `Transfer` that\'s card-based and externally funded. Calculated as one hundredth of one percent (1 basis point = .0001 or .01%).
-    */
-    'externallyFundedBasisPoints'?: number | null;
-    /**
-    * Fee in cents incurred for each individual `Transfer` that\'s card-based and externally funded.
-    */
-    'externallyFundedFixedFee'?: number | null;
-    /**
     * Set to **True** to incur interchange fees for card-based `Transfers`.
     */
     'chargeInterchange'?: boolean;
@@ -148,6 +136,14 @@ export class FeeProfile {
     */
     'disputeInquiryFixedFee'?: number | null;
     /**
+    * Percentage-based fee incurred against the full amount of each `Transfer` that\'s card-based and externally funded. Calculated as one hundredth of one percent (1 basis point = .0001 or .01%).
+    */
+    'externallyFundedBasisPoints'?: number | null;
+    /**
+    * Fee in cents incurred for each individual `Transfer` that\'s card-based and externally funded.
+    */
+    'externallyFundedFixedFee'?: number | null;
+    /**
     * Fee in cents incurred for each individual card-based `Transfer`.
     */
     'fixedFee'?: number;
@@ -187,11 +183,18 @@ export class FeeProfile {
     * Fee in cents incurred for each individual MasterCard `Transfer`.
     */
     'mastercardFixedFee'?: number | null;
+    /**
+    * The top of the qualified tier tree.
+    */
     'qualifiedTiers'?: object | null;
     /**
     * <ul><li>Include <strong>AGGREGATE</strong> if you want to round after the settlement calculation.<li>By default, rounding happens before the sum of the settlement calculation (i.e. round each fee transfer)</ul>
     */
     'roundingMode'?: FeeProfile.RoundingModeEnum | string;
+    /**
+    * Key value pair for annotating custom meta data (e.g. order numbers).
+    */
+    'tags'?: { [key: string]: string; };
     /**
     * Applied to all U.S.-based credit card authorizations acquired in the U.S. regardless of where the issuer/cardholder is located. If your business is based in the U.S., the acquirer processing fee will apply to all Visa credit card authorizations
     */
@@ -233,11 +236,6 @@ export class FeeProfile {
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
         {
             "name": "id",
             "baseName": "id",
@@ -324,16 +322,6 @@ export class FeeProfile {
             "type": "number"
         },
         {
-            "name": "externallyFundedBasisPoints",
-            "baseName": "externally_funded_basis_points",
-            "type": "number"
-        },
-        {
-            "name": "externallyFundedFixedFee",
-            "baseName": "externally_funded_fixed_fee",
-            "type": "number"
-        },
-        {
             "name": "chargeInterchange",
             "baseName": "charge_interchange",
             "type": "boolean"
@@ -404,6 +392,16 @@ export class FeeProfile {
             "type": "number"
         },
         {
+            "name": "externallyFundedBasisPoints",
+            "baseName": "externally_funded_basis_points",
+            "type": "number"
+        },
+        {
+            "name": "externallyFundedFixedFee",
+            "baseName": "externally_funded_fixed_fee",
+            "type": "number"
+        },
+        {
             "name": "fixedFee",
             "baseName": "fixed_fee",
             "type": "number"
@@ -462,6 +460,11 @@ export class FeeProfile {
             "name": "roundingMode",
             "baseName": "rounding_mode",
             "type": "FeeProfile.RoundingModeEnum"
+        },
+        {
+            "name": "tags",
+            "baseName": "tags",
+            "type": "{ [key: string]: string; }"
         },
         {
             "name": "visaAcquirerProcessingFixedFee",

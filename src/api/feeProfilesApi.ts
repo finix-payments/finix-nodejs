@@ -108,7 +108,7 @@ export class FeeProfilesApi {
 
     /**
      * Helper function. 
-     * Create fee profiles
+     * Create a `fee_profile`.
      * @summary Create a Fee Profile
      * @param createFeeProfileRequest 
      */
@@ -184,7 +184,7 @@ export class FeeProfilesApi {
     }
 
     /**
-     * Create fee profiles
+     * Create a `fee_profile`.
      * @summary Create a Fee Profile
      * @param createFeeProfileRequest 
      */
@@ -195,7 +195,7 @@ export class FeeProfilesApi {
     }
 
     /**
-     * Create fee profiles
+     * Create a `fee_profile`.
      * @summary Create a Fee Profile
      * @param createFeeProfileRequest 
      */
@@ -206,9 +206,9 @@ export class FeeProfilesApi {
     }
     /**
      * Helper function. 
-     * Get fee profile
+     * Get a `fee_profile`.
      * @summary Fetch a Fee Profile
-     * @param feeProfileId The ID of the fee profile.
+     * @param feeProfileId The ID of the &#x60;fee_profile&#x60;.
      */
 
     private async getHelper(feeProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: FeeProfile;  }> {
@@ -279,9 +279,9 @@ export class FeeProfilesApi {
     }
 
     /**
-     * Get fee profile
+     * Get a `fee_profile`.
      * @summary Fetch a Fee Profile
-     * @param feeProfileId The ID of the fee profile.
+     * @param feeProfileId The ID of the &#x60;fee_profile&#x60;.
      */
     public async get(feeProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<FeeProfile> {
@@ -290,9 +290,9 @@ export class FeeProfilesApi {
     }
 
     /**
-     * Get fee profile
+     * Get a `fee_profile`.
      * @summary Fetch a Fee Profile
-     * @param feeProfileId The ID of the fee profile.
+     * @param feeProfileId The ID of the &#x60;fee_profile&#x60;.
      */
     public async getHttp(feeProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: FeeProfile; }> {
@@ -301,7 +301,7 @@ export class FeeProfilesApi {
     }
     /**
      * Helper function. 
-     * Get all fee profiles
+     * List all `Fee Profiles`.
      * @summary List Fee Profiles
 
     */
@@ -379,7 +379,7 @@ export class FeeProfilesApi {
     }
 
     /**
-     * Get all fee profiles
+     * List all `Fee Profiles`.
      * @summary List Fee Profiles
      */
     public async list (listFeeProfilesQueryParams?:ListFeeProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
@@ -407,7 +407,7 @@ export class FeeProfilesApi {
     }
 
     /**
-     * Get all fee profiles
+     * List all `Fee Profiles`.
      * @summary List Fee Profiles
      */
     public async listHttp (listFeeProfilesQueryParams?:ListFeeProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :

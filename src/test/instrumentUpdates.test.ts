@@ -26,7 +26,6 @@ describe('Instruments Updates API', () => {
 
         const createdInstrumentUpdate = await client.InstrumentUpdates.create(updateRequest);
         instrumentUpdateId = <string> createdInstrumentUpdate.id;
-
         expect(createdInstrumentUpdate.merchant).toBe("MUucec6fHeaWo3VHYoSkUySM");
     })
 

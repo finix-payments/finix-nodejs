@@ -207,7 +207,7 @@ export class BalanceTransfersApi {
     /**
      * Helper function. 
      * Retrieve the details of a `balance_transfer`.
-     * @summary Get a Balance Transfer
+     * @summary Fetch a Balance Transfer
      * @param balanceTransfersId ID of the &#x60;balance_transfer&#x60; resource.
      */
 
@@ -280,7 +280,7 @@ export class BalanceTransfersApi {
 
     /**
      * Retrieve the details of a `balance_transfer`.
-     * @summary Get a Balance Transfer
+     * @summary Fetch a Balance Transfer
      * @param balanceTransfersId ID of the &#x60;balance_transfer&#x60; resource.
      */
     public async get(balanceTransfersId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
@@ -291,7 +291,7 @@ export class BalanceTransfersApi {
 
     /**
      * Retrieve the details of a `balance_transfer`.
-     * @summary Get a Balance Transfer
+     * @summary Fetch a Balance Transfer
      * @param balanceTransfersId ID of the &#x60;balance_transfer&#x60; resource.
      */
     public async getHttp(balanceTransfersId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 

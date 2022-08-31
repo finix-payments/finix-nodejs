@@ -16,11 +16,11 @@ import { UpdateIdentityRequestEntity } from './updateIdentityRequestEntity';
 
 export class UpdateIdentityRequest {
     'additionalUnderwritingData'?: UpdateIdentityRequestAdditionalUnderwritingData;
+    'entity'?: UpdateIdentityRequestEntity;
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
     'tags'?: { [key: string]: string; };
-    'entity'?: UpdateIdentityRequestEntity;
 
     static discriminator: string | undefined = undefined;
 
@@ -31,14 +31,14 @@ export class UpdateIdentityRequest {
             "type": "UpdateIdentityRequestAdditionalUnderwritingData"
         },
         {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
             "name": "entity",
             "baseName": "entity",
             "type": "UpdateIdentityRequestEntity"
+        },
+        {
+            "name": "tags",
+            "baseName": "tags",
+            "type": "{ [key: string]: string; }"
         }    ];
 
     static getAttributeTypeMap() {

@@ -14,11 +14,11 @@ import { RequestFile } from './models';
 
 export class ApplePaySessionRequest {
     /**
-    * This will be the merchant name shown to users when making a purchase via Apple Pay.1
+    * This will be the merchant name shown to users when making a purchase via Apple Pay.
     */
     'displayName'?: string;
     /**
-    * The domain where the buyer is initiating the payment.
+    * The domain (or website) where the buyer is initiating the payment.
     */
     'domain'?: string;
     /**

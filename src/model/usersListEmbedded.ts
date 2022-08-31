@@ -13,9 +13,12 @@
 import { RequestFile } from './models';
 import { User } from './user';
 
+/**
+* List of `User` objects.
+*/
 export class UsersListEmbedded {
     /**
-    * `User` object.
+    * `User` objects.
     */
     'users'?: Set<User>;
 

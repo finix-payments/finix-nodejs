@@ -25,11 +25,11 @@ export class CreateSubscriptionAmountRequest {
     /**
     * Human readable name.
     */
-    'nickname': string;
+    'nickname'?: string;
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags': { [key: string]: string; };
+    'tags'?: { [key: string]: string; };
 
     static discriminator: string | undefined = undefined;
 

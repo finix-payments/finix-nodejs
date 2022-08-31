@@ -22,13 +22,13 @@ export class CreateFileRequest {
     */
     'linkedTo'?: string;
     /**
-    * The type of document. | Available values include: <br>Identity Verification<ul><li> **DRIVERS\\_LICENSE\\_FRONT**<li>**DRIVERS\\_LICENSE\\_BACK**<li>**IDENTIFICATION\\_CARD\\_FRONT**<li>**IDENTIFICATION\\_CARD\\_BACK**</ul>Bank account validation<ul><li>**BANK\\_STATEMENT**</ul>Business Verification<ul><li>**TAX\\_DOCUMENT**<li>**BUSINESS\\_REGISTRATION**<li>**BUSINESS\\_ADDRESS\\_VERIFICATION**</ul>Additional<ul><li>**OTHER**<li>**PCI\\_DOCUMENT**<li>**PASSPORT**<ul>
-    */
-    'type'?: CreateFileRequest.TypeEnum | string;
-    /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
     'tags'?: { [key: string]: string; };
+    /**
+    * The type of document. | Available values include: <br>Identity Verification<ul><li> **DRIVERS\\_LICENSE\\_FRONT**<li>**DRIVERS\\_LICENSE\\_BACK**<li>**IDENTIFICATION\\_CARD\\_FRONT**<li>**IDENTIFICATION\\_CARD\\_BACK**</ul>Bank account validation<ul><li>**BANK\\_STATEMENT**</ul>Business Verification<ul><li>**TAX\\_DOCUMENT**<li>**BUSINESS\\_REGISTRATION**<li>**BUSINESS\\_ADDRESS\\_VERIFICATION**</ul>Additional<ul><li>**OTHER**<li>**PCI\\_DOCUMENT**<li>**PASSPORT**<ul>
+    */
+    'type'?: CreateFileRequest.TypeEnum | string;
 
     static discriminator: string | undefined = undefined;
 
@@ -44,14 +44,14 @@ export class CreateFileRequest {
             "type": "string"
         },
         {
-            "name": "type",
-            "baseName": "type",
-            "type": "CreateFileRequest.TypeEnum"
-        },
-        {
             "name": "tags",
             "baseName": "tags",
             "type": "{ [key: string]: string; }"
+        },
+        {
+            "name": "type",
+            "baseName": "type",
+            "type": "CreateFileRequest.TypeEnum"
         }    ];
 
     static getAttributeTypeMap() {

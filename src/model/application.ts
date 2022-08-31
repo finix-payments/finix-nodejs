@@ -18,10 +18,6 @@ import { ApplicationLinks } from './applicationLinks';
 */
 export class Application {
     /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags'?: { [key: string]: string; };
-    /**
     * ID of the `Application` resource.
     */
     'id'?: string;
@@ -50,6 +46,10 @@ export class Application {
     */
     'enabled'?: boolean;
     /**
+    * Details when the `fees` of `Authroizations` submitted under the `Application` will be ready to settle.
+    */
+    'feeReadyToSettleUpon'?: Application.FeeReadyToSettleUponEnum | string;
+    /**
     * The name of the `Application`.
     */
     'name'?: string;
@@ -62,28 +62,23 @@ export class Application {
     */
     'processingEnabled'?: boolean;
     /**
+    * Details when `Authroizations` submitted under the `Application` will be ready to settle.
+    */
+    'readyToSettleUpon'?: Application.ReadyToSettleUponEnum | string;
+    /**
     * Details if settlement processing is enabled for the `Application`. 
     */
     'settlementEnabled'?: boolean;
     'settlementFundingIdentifier'?: Application.SettlementFundingIdentifierEnum | string;
     /**
-    * Details when `Authroizations` submitted under the `Application` will be ready to settle.
+    * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'readyToSettleUpon'?: Application.ReadyToSettleUponEnum | string;
-    /**
-    * Details when the `fees` of `Authroizations` submitted under the `Application` will be ready to settle.
-    */
-    'feeReadyToSettleUpon'?: Application.FeeReadyToSettleUponEnum | string;
+    'tags'?: { [key: string]: string; };
     'links'?: ApplicationLinks;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
         {
             "name": "id",
             "baseName": "id",
@@ -120,6 +115,11 @@ export class Application {
             "type": "boolean"
         },
         {
+            "name": "feeReadyToSettleUpon",
+            "baseName": "fee_ready_to_settle_upon",
+            "type": "Application.FeeReadyToSettleUponEnum"
+        },
+        {
             "name": "name",
             "baseName": "name",
             "type": "string"
@@ -135,6 +135,11 @@ export class Application {
             "type": "boolean"
         },
         {
+            "name": "readyToSettleUpon",
+            "baseName": "ready_to_settle_upon",
+            "type": "Application.ReadyToSettleUponEnum"
+        },
+        {
             "name": "settlementEnabled",
             "baseName": "settlement_enabled",
             "type": "boolean"
@@ -145,14 +150,9 @@ export class Application {
             "type": "Application.SettlementFundingIdentifierEnum"
         },
         {
-            "name": "readyToSettleUpon",
-            "baseName": "ready_to_settle_upon",
-            "type": "Application.ReadyToSettleUponEnum"
-        },
-        {
-            "name": "feeReadyToSettleUpon",
-            "baseName": "fee_ready_to_settle_upon",
-            "type": "Application.FeeReadyToSettleUponEnum"
+            "name": "tags",
+            "baseName": "tags",
+            "type": "{ [key: string]: string; }"
         },
         {
             "name": "links",
@@ -166,15 +166,15 @@ export class Application {
 }
 
 export namespace Application {
-    export enum SettlementFundingIdentifierEnum {
-        Unset = <any> 'UNSET'
+    export enum FeeReadyToSettleUponEnum {
+        Reconciliation = <any> 'RECONCILIATION',
+        SuccessfulCapture = <any> 'SUCCESSFUL_CAPTURE'
     }
     export enum ReadyToSettleUponEnum {
         Reconciliation = <any> 'RECONCILIATION',
         SuccessfulCapture = <any> 'SUCCESSFUL_CAPTURE'
     }
-    export enum FeeReadyToSettleUponEnum {
-        Reconciliation = <any> 'RECONCILIATION',
-        SuccessfulCapture = <any> 'SUCCESSFUL_CAPTURE'
+    export enum SettlementFundingIdentifierEnum {
+        Unset = <any> 'UNSET'
     }
 }

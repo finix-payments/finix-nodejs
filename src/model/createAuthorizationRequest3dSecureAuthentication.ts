@@ -13,13 +13,13 @@
 import { RequestFile } from './models';
 
 /**
-* The 3D secure information for an authorization.
+* The information required to create a 3D secure `Authorization`.
 */
 export class CreateAuthorizationRequest3dSecureAuthentication {
     /**
     * Provides evidence that the cardholder authentication occurred or that the merchant attempted authentication. This is unique for each authentication transaction.
     */
-    'cardholderAuthentication': string;
+    'cardholderAuthentication'?: string;
     /**
     * Only required for American Express cards. Format is nnn.nnn.nnn.nnn
     */
@@ -27,7 +27,7 @@ export class CreateAuthorizationRequest3dSecureAuthentication {
     /**
     * AUTHENTICATED: Approved by 3D Secure Vendor; ATTEMPTED: Issuer or cardholder does not support 3D Secure
     */
-    'electronicCommerceIndicator': string;
+    'electronicCommerceIndicator'?: string;
     /**
     * Only valid for Visa transactions
     */

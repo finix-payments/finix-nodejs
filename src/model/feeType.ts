@@ -12,6 +12,9 @@
 
 import { RequestFile } from './models';
 
+/**
+* The type of fee.
+*/
 export enum FeeType {
     ApplicationFee = <any> 'APPLICATION_FEE',
     AchBasisPoints = <any> 'ACH_BASIS_POINTS',

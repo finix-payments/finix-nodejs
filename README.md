@@ -113,7 +113,7 @@ try{
 ```
 ## Supported APIs
 - Transfers
-- Authorizaitons
+- Authorizations
 - Identities
 - Merchants
 - Payment Instruments

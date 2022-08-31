@@ -1,3 +1,5 @@
+rm -rf src/model
+
 openapi-generator generate \
 -g typescript-node \
 -t template \
@@ -6,3 +8,5 @@ openapi-generator generate \
 --global-property skipFormModel=false \
 --skip-validate-spec \
 --type-mappings=File=ModelFile
+
+rm -rf src/.openapi-generator

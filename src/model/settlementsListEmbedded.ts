@@ -13,6 +13,9 @@
 import { RequestFile } from './models';
 import { Settlement } from './settlement';
 
+/**
+* List of `Settlement` objects.
+*/
 export class SettlementsListEmbedded {
     /**
     * `Settlements` resource.

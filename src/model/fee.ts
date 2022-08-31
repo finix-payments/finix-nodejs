@@ -19,10 +19,6 @@ import { FeeLinks } from './feeLinks';
 */
 export class Fee {
     /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags'?: { [key: string]: string; };
-    /**
     * The ID of the `fee` resource.
     */
     'id'?: string;
@@ -60,23 +56,22 @@ export class Fee {
     */
     'linkedId'?: string;
     /**
-    * The type of entity the `fee` is linked (**null** by default).
+    * The type of entity the `fee` is linked to (**null** by default).
     */
     'linkedType'?: Fee.LinkedTypeEnum | string;
     /**
     * The `Merchant` ID that the fee is being debited from.
     */
     'merchant'?: string;
+    /**
+    * Key value pair for annotating custom meta data (e.g. order numbers).
+    */
+    'tags'?: { [key: string]: string; };
     'links'?: FeeLinks;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
         {
             "name": "id",
             "baseName": "id",
@@ -136,6 +131,11 @@ export class Fee {
             "name": "merchant",
             "baseName": "merchant",
             "type": "string"
+        },
+        {
+            "name": "tags",
+            "baseName": "tags",
+            "type": "{ [key: string]: string; }"
         },
         {
             "name": "links",

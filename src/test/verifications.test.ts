@@ -76,4 +76,12 @@ describe('Verifications API', () => {
             expect(nextVerificationList.size).toEqual(expect.any(Number));
         }
     }, 10000);
+
+    test("Test: Raw as string", async() => {
+        const verificationId = "VIcrdHd2vBu5RDZJWNGTQihc";
+        const clientTemp = new Client("USpumes23XhzHwXqiy9bfX2B","c69d39e3-f9ff-4735-8c3e-abca86441906",Environment.Sandbox);
+        const verification = await clientTemp.Verifications.get(verificationId);
+
+        expect(verification.raw).toEqual("RawDummyMerchantUnderwriteResult");
+    });
 })

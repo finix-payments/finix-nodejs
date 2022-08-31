@@ -15,10 +15,6 @@ import { ApplicationProfileLinks } from './applicationProfileLinks';
 
 export class ApplicationProfile {
     /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags'?: { [key: string]: string; };
-    /**
     * ID of the `application_profile` resource.
     */
     'id'?: string;
@@ -42,16 +38,15 @@ export class ApplicationProfile {
     * The ID of the `risk_profile` that was created during provisioning.
     */
     'riskProfile'?: string;
+    /**
+    * Key value pair for annotating custom meta data (e.g. order numbers).
+    */
+    'tags'?: { [key: string]: string; };
     'links'?: ApplicationProfileLinks;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
         {
             "name": "id",
             "baseName": "id",
@@ -81,6 +76,11 @@ export class ApplicationProfile {
             "name": "riskProfile",
             "baseName": "risk_profile",
             "type": "string"
+        },
+        {
+            "name": "tags",
+            "baseName": "tags",
+            "type": "{ [key: string]: string; }"
         },
         {
             "name": "links",

@@ -11,6 +11,7 @@
  */
 
 import { RequestFile } from './models';
+import { ListLinks } from './listLinks';
 import { PageOffset } from './pageOffset';
 import { PaymentInstrumentUpdatesListEmbedded } from './paymentInstrumentUpdatesListEmbedded';
 
@@ -18,9 +19,9 @@ import { PaymentInstrumentUpdatesListEmbedded } from './paymentInstrumentUpdates
 * 
 */
 export class PaymentInstrumentUpdatesList {
-    'page': PageOffset;
+    'page'?: PageOffset;
     'embedded'?: PaymentInstrumentUpdatesListEmbedded;
-    'links'?: { [key: string]: any; };
+    'links'?: ListLinks;
 
     static discriminator: string | undefined = undefined;
 
@@ -38,7 +39,7 @@ export class PaymentInstrumentUpdatesList {
         {
             "name": "links",
             "baseName": "_links",
-            "type": "{ [key: string]: any; }"
+            "type": "ListLinks"
         }    ];
 
     static getAttributeTypeMap() {

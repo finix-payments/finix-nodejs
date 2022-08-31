@@ -17,6 +17,9 @@ import { Verification } from './verification';
 * List of `Verifications`.
 */
 export class VerificationsListEmbedded {
+    /**
+    * `Verification` resources.
+    */
     'verifications'?: Set<Verification>;
 
     static discriminator: string | undefined = undefined;

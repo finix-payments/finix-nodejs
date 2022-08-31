@@ -27,7 +27,7 @@ export class ConfigurationDetails {
     */
     'allowPartialApprovals'?: boolean;
     /**
-    * Sets whether or not the device will be used to capture transactions. This field must be set to true (defaults to false).
+    * Sets whether the device will be used to capture `Authorizations`. The device is required to be connected if `bypass_device_on_capture` is set to false. (defaults to true).
     */
     'bypassDeviceOnCapture'?: boolean;
     'cashbackOptions'?: ConfigurationDetailsCashbackOptions;

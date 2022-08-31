@@ -16,20 +16,20 @@ import { RequestFile } from './models';
 * Additional details specific to the processor.
 */
 export class MerchantProcessorDetails {
-    'mid'?: string;
     'apiKey'?: string;
+    'mid'?: string;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "mid",
-            "baseName": "mid",
+            "name": "apiKey",
+            "baseName": "api_key",
             "type": "string"
         },
         {
-            "name": "apiKey",
-            "baseName": "api_key",
+            "name": "mid",
+            "baseName": "mid",
             "type": "string"
         }    ];
 

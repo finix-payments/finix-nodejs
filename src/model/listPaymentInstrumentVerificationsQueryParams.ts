@@ -12,19 +12,23 @@
 
 import { RequestFile } from './models';
 
-export class ListSubscriptionAmountQueryParams {
+export class ListPaymentInstrumentVerificationsQueryParams {
     /**
-    * The numbers of items to return
+    * The number of entries to return.
     */
     'limit'?: number;
     /**
-    * Return every resource created after the cursor value.
+    * The number of items to skip before starting to collect the result set.
     */
-    'afterCursor'?: string;
+    'offset'?: number;
     /**
-    * Return every resource created before the cursor value.
+    * The page number to list.
     */
-    'beforeCursor'?: string;
+    'pageNumber'?: number;
+    /**
+    * The size of the page.
+    */
+    'pageSize'?: number;
 
     static discriminator: string | undefined = undefined;
 
@@ -35,18 +39,23 @@ export class ListSubscriptionAmountQueryParams {
             "type": "number"
         },
         {
-            "name": "afterCursor",
-            "baseName": "after_cursor",
-            "type": "string"
+            "name": "offset",
+            "baseName": "offset",
+            "type": "number"
         },
         {
-            "name": "beforeCursor",
-            "baseName": "before_cursor",
-            "type": "string"
+            "name": "pageNumber",
+            "baseName": "pageNumber",
+            "type": "number"
+        },
+        {
+            "name": "pageSize",
+            "baseName": "pageSize",
+            "type": "number"
         }    ];
 
     static getAttributeTypeMap() {
-        return ListSubscriptionAmountQueryParams.attributeTypeMap;
+        return ListPaymentInstrumentVerificationsQueryParams.attributeTypeMap;
     }
 }
 

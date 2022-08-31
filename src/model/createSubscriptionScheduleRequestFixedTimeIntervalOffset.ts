@@ -19,11 +19,11 @@ export class CreateSubscriptionScheduleRequestFixedTimeIntervalOffset {
     /**
     * Hourly increments between recurring charges
     */
-    'hourlyInterval'?: number;
+    'hourlyInterval': number;
     /**
     * Number of recurring charges
     */
-    'intervalCount'?: number;
+    'intervalCount': number;
 
     static discriminator: string | undefined = undefined;
 

@@ -13,9 +13,12 @@
 import { RequestFile } from './models';
 import { Dispute } from './dispute';
 
+/**
+* List of `Dispute` objects.
+*/
 export class DisputesListEmbedded {
     /**
-    * `Dispute` object.
+    * `Dispute` objects.
     */
     'disputes'?: Set<Dispute>;
 

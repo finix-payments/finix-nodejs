@@ -13,9 +13,9 @@
 import { RequestFile } from './models';
 
 /**
-* The control owner\'s date of birth.
+* The control owner\'s date of birth. 
 */
-export class CreateIdentityRequestEntityDob {
+export class CreateAssociatedIdentityRequestEntityDob {
     'year'?: number;
     'day'?: number;
     'month'?: number;
@@ -40,7 +40,7 @@ export class CreateIdentityRequestEntityDob {
         }    ];
 
     static getAttributeTypeMap() {
-        return CreateIdentityRequestEntityDob.attributeTypeMap;
+        return CreateAssociatedIdentityRequestEntityDob.attributeTypeMap;
     }
 }
 

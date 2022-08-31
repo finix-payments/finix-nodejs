@@ -107,7 +107,7 @@ export class InstrumentUpdatesApi {
 
     /**
      * Helper function. 
-     * To update the card details of your customers, create an `instrument_updates` resource. Include the `Payment Instrument` IDs you want to update in a CSV. For more info, the following guide on using our [Account Updater](/docs/guides/payments/account-updater/).
+     * To update the card details of your customers, create an `instrument_updates` resource. Include the `Payment Instrument` IDs you want to update in a CSV.
      * @summary Create Instrument Updates
      * @param createInstrumentUpdateRequest 
      */
@@ -183,7 +183,7 @@ export class InstrumentUpdatesApi {
     }
 
     /**
-     * To update the card details of your customers, create an `instrument_updates` resource. Include the `Payment Instrument` IDs you want to update in a CSV. For more info, the following guide on using our [Account Updater](/docs/guides/payments/account-updater/).
+     * To update the card details of your customers, create an `instrument_updates` resource. Include the `Payment Instrument` IDs you want to update in a CSV.
      * @summary Create Instrument Updates
      * @param createInstrumentUpdateRequest 
      */
@@ -194,7 +194,7 @@ export class InstrumentUpdatesApi {
     }
 
     /**
-     * To update the card details of your customers, create an `instrument_updates` resource. Include the `Payment Instrument` IDs you want to update in a CSV. For more info, the following guide on using our [Account Updater](/docs/guides/payments/account-updater/).
+     * To update the card details of your customers, create an `instrument_updates` resource. Include the `Payment Instrument` IDs you want to update in a CSV.
      * @summary Create Instrument Updates
      * @param createInstrumentUpdateRequest 
      */
@@ -310,7 +310,7 @@ export class InstrumentUpdatesApi {
      * Helper function. 
      * Fetch a specific `instrument_update` from an `instrument_updates` resource. For more information, see the guide on using our [Account Updater](/guides/payments/account-updater).
      * @summary Fetch an Instrument Update
-     * @param instrumentUpdatesId The Id of the instrument update.
+     * @param instrumentUpdatesId The ID of the &#x60;instrument_update&#x60;.
      */
 
     private async getHelper(instrumentUpdatesId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: InstrumentUpdate;  }> {
@@ -383,7 +383,7 @@ export class InstrumentUpdatesApi {
     /**
      * Fetch a specific `instrument_update` from an `instrument_updates` resource. For more information, see the guide on using our [Account Updater](/guides/payments/account-updater).
      * @summary Fetch an Instrument Update
-     * @param instrumentUpdatesId The Id of the instrument update.
+     * @param instrumentUpdatesId The ID of the &#x60;instrument_update&#x60;.
      */
     public async get(instrumentUpdatesId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<InstrumentUpdate> {
@@ -394,7 +394,7 @@ export class InstrumentUpdatesApi {
     /**
      * Fetch a specific `instrument_update` from an `instrument_updates` resource. For more information, see the guide on using our [Account Updater](/guides/payments/account-updater).
      * @summary Fetch an Instrument Update
-     * @param instrumentUpdatesId The Id of the instrument update.
+     * @param instrumentUpdatesId The ID of the &#x60;instrument_update&#x60;.
      */
     public async getHttp(instrumentUpdatesId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
         Promise<{response: http.IncomingMessage, body: InstrumentUpdate; }> {

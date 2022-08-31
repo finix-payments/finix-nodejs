@@ -13,16 +13,19 @@
 import { RequestFile } from './models';
 
 /**
-* The primary address for the legal entity.
+* The home address of the principal control owner. This field is used for identity verification purposes.
 */
-export class UpdateIdentityRequestEntityBusinessAddress {
+export class CreateAssociatedIdentityRequestEntityPersonalAddress {
     /**
     * City (max 20 characters).
     */
     'city'?: string;
+    /**
+    * 3-Letter country code (e.g. USA).
+    */
     'country'?: string;
     /**
-    * 2-letter state code.
+    * 2-letter State code.
     */
     'region'?: string;
     /**
@@ -73,7 +76,7 @@ export class UpdateIdentityRequestEntityBusinessAddress {
         }    ];
 
     static getAttributeTypeMap() {
-        return UpdateIdentityRequestEntityBusinessAddress.attributeTypeMap;
+        return CreateAssociatedIdentityRequestEntityPersonalAddress.attributeTypeMap;
     }
 }
 

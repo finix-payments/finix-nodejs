@@ -13,9 +13,12 @@
 import { RequestFile } from './models';
 import { Application } from './application';
 
+/**
+* List of `Application` resources.
+*/
 export class ApplicationsListEmbedded {
     /**
-    * `Application` resource.
+    * `Application` resources.
     */
     'applications'?: Set<Application>;
 

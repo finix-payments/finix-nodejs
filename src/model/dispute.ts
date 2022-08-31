@@ -19,10 +19,6 @@ import { DisputeLinks } from './disputeLinks';
 */
 export class Dispute {
     /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags'?: { [key: string]: string; };
-    /**
     * The ID of the `Dispute` resource.
     */
     'id'?: string;
@@ -48,7 +44,7 @@ export class Dispute {
     'application'?: string;
     'currency'?: Currency;
     /**
-    * Details about the `Dispute` recieved by the `Processor`.
+    * Details about the `Dispute` recieved by the `Processor`. May be any type of data.
     */
     'disputeDetails'?: { [key: string]: any; };
     /**
@@ -56,7 +52,7 @@ export class Dispute {
     */
     'identity'?: string | null;
     /**
-    * Message field that provides additional details. This field is typically null.
+    * Message field that provides additional details. This field is typically **null**.
     */
     'message'?: string | null;
     /**
@@ -64,7 +60,7 @@ export class Dispute {
     */
     'occurredAt'?: Date | null;
     /**
-    * The system-defined reason for the `Dispute`. Available values include:<ul><li>**INQUIRY**<li>**QUALITY**<li>**CLERICAL**<li>**FRAUD**<li>**TECHNICAL**</ul>
+    * The system-defined reason for the `Dispute`. Available values include:<ul><li>**INQUIRY**<li>**QUALITY**<li>**FRAUD**
     */
     'reason'?: Dispute.ReasonEnum | string;
     /**
@@ -76,6 +72,10 @@ export class Dispute {
     */
     'state'?: Dispute.StateEnum | string;
     /**
+    * Key value pair for annotating custom meta data (e.g. order numbers).
+    */
+    'tags'?: { [key: string]: string; };
+    /**
     * ID of the `Transfer` resource.
     */
     'transfer'?: string;
@@ -84,11 +84,6 @@ export class Dispute {
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
         {
             "name": "id",
             "baseName": "id",
@@ -158,6 +153,11 @@ export class Dispute {
             "name": "state",
             "baseName": "state",
             "type": "Dispute.StateEnum"
+        },
+        {
+            "name": "tags",
+            "baseName": "tags",
+            "type": "{ [key: string]: string; }"
         },
         {
             "name": "transfer",

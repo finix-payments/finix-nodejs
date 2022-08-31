@@ -19,30 +19,6 @@ export class Verification {
     */
     'id'?: string;
     /**
-    * ID of the `Application` the `Merchant` was created under.
-    */
-    'application'?: string;
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags'?: { [key: string]: string; };
-    /**
-    * Provides additional details about the verification (e.g why it failed). This field is usually **null**.
-    */
-    'messages'?: Array<object>;
-    /**
-    * Raw response from the processor
-    */
-    'raw'?: object | null;
-    /**
-    * Name of the verification processor.
-    */
-    'processor'?: string;
-    /**
-    * The status of the `Verification` request.
-    */
-    'state'?: Verification.StateEnum | string;
-    /**
     * Timestamp of when the object was created.
     */
     'createdAt'?: Date;
@@ -51,25 +27,49 @@ export class Verification {
     */
     'updatedAt'?: Date;
     /**
-    * Trace ID of the `Verification`. The processor sends back the `trace_id` so you can track the verification end-to-end.
+    * ID of the `Application` the `Merchant` was created under.
     */
-    'traceId'?: string;
-    /**
-    * The `Payment Instrument` that\'ll be used to settle the `Merchant\'s` processed funds.
-    */
-    'paymentInstrument'?: string | null;
-    /**
-    * ID of the `Merchant` resource.
-    */
-    'merchant'?: string;
+    'application'?: string;
     /**
     * ID of the `Identity` that created the `Merchant`.
     */
     'identity'?: string | null;
     /**
+    * ID of the `Merchant` resource.
+    */
+    'merchant'?: string | null;
+    /**
     * ID of the `Identity` associated with the `Merchant`.
     */
     'merchantIdentity'?: string | null;
+    /**
+    * Provides additional details about the verification (e.g why it failed). This field is usually **null**.
+    */
+    'messages'?: Array<object>;
+    /**
+    * The `Payment Instrument` that\'ll be used to settle the `Merchant\'s` processed funds.
+    */
+    'paymentInstrument'?: string | null;
+    /**
+    * Name of the verification processor.
+    */
+    'processor'?: string;
+    /**
+    * Raw response from the processor.
+    */
+    'raw'?: object | null;
+    /**
+    * The status of the `Verification` request.
+    */
+    'state'?: Verification.StateEnum | string;
+    /**
+    * Key value pair for annotating custom meta data (e.g. order numbers).
+    */
+    'tags'?: { [key: string]: string; };
+    /**
+    * Trace ID of the `Verification`. The processor sends back the `trace_id` so you can track the verification end-to-end.
+    */
+    'traceId'?: string;
     'links'?: VerificationLinks;
 
     static discriminator: string | undefined = undefined;
@@ -79,36 +79,6 @@ export class Verification {
             "name": "id",
             "baseName": "id",
             "type": "string"
-        },
-        {
-            "name": "application",
-            "baseName": "application",
-            "type": "string"
-        },
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "messages",
-            "baseName": "messages",
-            "type": "Array<object>"
-        },
-        {
-            "name": "raw",
-            "baseName": "raw",
-            "type": "object"
-        },
-        {
-            "name": "processor",
-            "baseName": "processor",
-            "type": "string"
-        },
-        {
-            "name": "state",
-            "baseName": "state",
-            "type": "Verification.StateEnum"
         },
         {
             "name": "createdAt",
@@ -121,18 +91,8 @@ export class Verification {
             "type": "Date"
         },
         {
-            "name": "traceId",
-            "baseName": "trace_id",
-            "type": "string"
-        },
-        {
-            "name": "paymentInstrument",
-            "baseName": "payment_instrument",
-            "type": "string"
-        },
-        {
-            "name": "merchant",
-            "baseName": "merchant",
+            "name": "application",
+            "baseName": "application",
             "type": "string"
         },
         {
@@ -141,8 +101,48 @@ export class Verification {
             "type": "string"
         },
         {
+            "name": "merchant",
+            "baseName": "merchant",
+            "type": "string"
+        },
+        {
             "name": "merchantIdentity",
             "baseName": "merchant_identity",
+            "type": "string"
+        },
+        {
+            "name": "messages",
+            "baseName": "messages",
+            "type": "Array<object>"
+        },
+        {
+            "name": "paymentInstrument",
+            "baseName": "payment_instrument",
+            "type": "string"
+        },
+        {
+            "name": "processor",
+            "baseName": "processor",
+            "type": "string"
+        },
+        {
+            "name": "raw",
+            "baseName": "raw",
+            "type": "object"
+        },
+        {
+            "name": "state",
+            "baseName": "state",
+            "type": "Verification.StateEnum"
+        },
+        {
+            "name": "tags",
+            "baseName": "tags",
+            "type": "{ [key: string]: string; }"
+        },
+        {
+            "name": "traceId",
+            "baseName": "trace_id",
             "type": "string"
         },
         {

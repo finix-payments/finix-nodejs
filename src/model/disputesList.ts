@@ -16,13 +16,18 @@ import { ListLinks } from './listLinks';
 import { PageOffset } from './pageOffset';
 
 export class DisputesList {
+    'page'?: PageOffset;
     'embedded'?: DisputesListEmbedded;
     'links'?: ListLinks;
-    'page'?: PageOffset;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "page",
+            "baseName": "page",
+            "type": "PageOffset"
+        },
         {
             "name": "embedded",
             "baseName": "_embedded",
@@ -32,11 +37,6 @@ export class DisputesList {
             "name": "links",
             "baseName": "_links",
             "type": "ListLinks"
-        },
-        {
-            "name": "page",
-            "baseName": "page",
-            "type": "PageOffset"
         }    ];
 
     static getAttributeTypeMap() {

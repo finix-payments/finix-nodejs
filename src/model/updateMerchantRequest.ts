@@ -14,88 +14,68 @@ import { RequestFile } from './models';
 
 export class UpdateMerchantRequest {
     /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
+    * Set to **true** to require the card\'s CVV code.
     */
-    'tags'?: { [key: string]: string; };
-    /**
-    * Details if transaction processing is enabled for the `Merchant`.
-    */
-    'processingEnabled'?: boolean;
-    /**
-    * Details if settlement processing is enabled for the `Merchant`.
-    */
-    'settlementEnabled'?: boolean;
-    /**
-    * Set to **true** to enable gross settlements.
-    */
-    'grossSettlementEnabled'?: boolean;
-    /**
-    * Set to **true** to automatically create `Transfers` once settlement reports get generated.
-    */
-    'creatingTransferFromReportEnabled'?: boolean;
+    'cardCvvRequired'?: boolean;
     /**
     * Set to **true** to require the card\'s expiration date.
     */
     'cardExpirationDateRequired'?: boolean;
     /**
-    * Set to **true** to require the card\'s CVV code.
+    * Set to **true** if you want to enable the `Merchant` to accept convenience fees and/or service fees.
     */
-    'cardCvvRequired'?: boolean;
+    'convenienceChargesEnabled'?: boolean;
     /**
-    * The legal name saved in the `Merchant` resource.
+    * Set to **true** to automatically create `Transfers` once settlement reports get generated.
     */
-    'merchantName'?: string;
-    /**
-    * Include addtional information (like the MID) when submitting funding `Tranfers` to processors.
-    */
-    'settlementFundingIdentifier'?: string;
-    /**
-    * Details how `Authorizations` captured by the `Merchant` are settled.
-    */
-    'readyToSettleUpon'?: string;
+    'creatingTransferFromReportEnabled'?: boolean;
     /**
     * Details how the `Merchant` settles fees.
     */
     'feeReadyToSettleUpon'?: string;
     /**
+    * Set to **true** to enable gross settlements.
+    */
+    'grossSettlementEnabled'?: boolean;
+    /**
     * Set to **true** to enable the `Merchant` for Level 2 and Level 3 processing. Default value is **false**.
     */
     'levelTwoLevelThreeDataEnabled'?: boolean;
     /**
-    * Set to **true** if you want to enable the `Merchant` to accept convenience fees and/or service fees.
+    * The legal name saved in the `Merchant` resource.
     */
-    'convenienceChargesEnabled'?: boolean;
+    'merchantName'?: string;
+    /**
+    * Details if transaction processing is enabled for the `Merchant`.
+    */
+    'processingEnabled'?: boolean;
+    /**
+    * Details how `Authorizations` captured by the `Merchant` are settled.
+    */
+    'readyToSettleUpon'?: string;
     /**
     * Set to **true** if you want to enable a `Merchant` to accept rent charges.
     */
     'rentSurchargesEnabled'?: boolean;
+    /**
+    * Details if settlement processing is enabled for the `Merchant`.
+    */
+    'settlementEnabled'?: boolean;
+    /**
+    * Include addtional information (like the MID) when submitting funding `Tranfers` to processors.
+    */
+    'settlementFundingIdentifier'?: string;
+    /**
+    * Key value pair for annotating custom meta data (e.g. order numbers).
+    */
+    'tags'?: { [key: string]: string; };
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
-        {
-            "name": "processingEnabled",
-            "baseName": "processing_enabled",
-            "type": "boolean"
-        },
-        {
-            "name": "settlementEnabled",
-            "baseName": "settlement_enabled",
-            "type": "boolean"
-        },
-        {
-            "name": "grossSettlementEnabled",
-            "baseName": "gross_settlement_enabled",
-            "type": "boolean"
-        },
-        {
-            "name": "creatingTransferFromReportEnabled",
-            "baseName": "creating_transfer_from_report_enabled",
+            "name": "cardCvvRequired",
+            "baseName": "card_cvv_required",
             "type": "boolean"
         },
         {
@@ -104,8 +84,28 @@ export class UpdateMerchantRequest {
             "type": "boolean"
         },
         {
-            "name": "cardCvvRequired",
-            "baseName": "card_cvv_required",
+            "name": "convenienceChargesEnabled",
+            "baseName": "convenience_charges_enabled",
+            "type": "boolean"
+        },
+        {
+            "name": "creatingTransferFromReportEnabled",
+            "baseName": "creating_transfer_from_report_enabled",
+            "type": "boolean"
+        },
+        {
+            "name": "feeReadyToSettleUpon",
+            "baseName": "fee_ready_to_settle_upon",
+            "type": "string"
+        },
+        {
+            "name": "grossSettlementEnabled",
+            "baseName": "gross_settlement_enabled",
+            "type": "boolean"
+        },
+        {
+            "name": "levelTwoLevelThreeDataEnabled",
+            "baseName": "level_two_level_three_data_enabled",
             "type": "boolean"
         },
         {
@@ -114,9 +114,9 @@ export class UpdateMerchantRequest {
             "type": "string"
         },
         {
-            "name": "settlementFundingIdentifier",
-            "baseName": "settlement_funding_identifier",
-            "type": "string"
+            "name": "processingEnabled",
+            "baseName": "processing_enabled",
+            "type": "boolean"
         },
         {
             "name": "readyToSettleUpon",
@@ -124,24 +124,24 @@ export class UpdateMerchantRequest {
             "type": "string"
         },
         {
-            "name": "feeReadyToSettleUpon",
-            "baseName": "fee_ready_to_settle_upon",
-            "type": "string"
-        },
-        {
-            "name": "levelTwoLevelThreeDataEnabled",
-            "baseName": "level_two_level_three_data_enabled",
-            "type": "boolean"
-        },
-        {
-            "name": "convenienceChargesEnabled",
-            "baseName": "convenience_charges_enabled",
-            "type": "boolean"
-        },
-        {
             "name": "rentSurchargesEnabled",
             "baseName": "rent_surcharges_enabled",
             "type": "boolean"
+        },
+        {
+            "name": "settlementEnabled",
+            "baseName": "settlement_enabled",
+            "type": "boolean"
+        },
+        {
+            "name": "settlementFundingIdentifier",
+            "baseName": "settlement_funding_identifier",
+            "type": "string"
+        },
+        {
+            "name": "tags",
+            "baseName": "tags",
+            "type": "{ [key: string]: string; }"
         }    ];
 
     static getAttributeTypeMap() {

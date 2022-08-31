@@ -15,17 +15,15 @@ import { AdditionalBuyerCharges } from './additionalBuyerCharges';
 import { AdditionalPurchaseData } from './additionalPurchaseData';
 import { CardPresentInstrumentForm } from './cardPresentInstrumentForm';
 import { ConfigurationDetails } from './configurationDetails';
-import { CreateAuthorizationRequest3dSecureAuthentication } from './createAuthorizationRequest3dSecureAuthentication';
+import { CreateTransferRequest3dSecureAuthentication } from './createTransferRequest3dSecureAuthentication';
 import { Currency } from './currency';
 
 /**
 * Create a `transfer`.
 */
 export class CreateTransferRequest {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags'?: { [key: string]: string; };
+    'additionalBuyerCharges'?: AdditionalBuyerCharges | null;
+    'additionalPurchaseData'?: AdditionalPurchaseData;
     /**
     * Details if the `transfer` was created to adjust funds.
     */
@@ -33,9 +31,8 @@ export class CreateTransferRequest {
     /**
     * The total amount that will be debited in cents (e.g. 100 cents to debit $1.00).
     */
-    'amount'?: number;
-    'configOverride'?: { [key: string]: string; } | null;
-    'currency'?: Currency;
+    'amount': number;
+    'currency': Currency;
     /**
     * ID of the `Payment Instrument` where funds will be sent.
     */
@@ -50,26 +47,17 @@ export class CreateTransferRequest {
     */
     'fee'?: number;
     /**
-    * Name of the gateway that processed this `transfer`. (Finix Core only).
+    * The `fraud_session_session` ID you want to review for fraud. For more info, see [Fraud Detection](/docs/guides/payments/fraud-detection/).
     */
-    'gateway'?: CreateTransferRequest.GatewayEnum | string;
-    '_3dSecureAuthentication'?: CreateAuthorizationRequest3dSecureAuthentication | null;
+    'fraudSessionId'?: string;
     /**
     * A randomly generated value that\'ll be associated with the request.
     */
     'idempotencyId'?: string | null;
     /**
-    * Details how the card details were entered.
-    */
-    'inputMethod'?: CreateTransferRequest.InputMethodEnum | string;
-    /**
     * ID of the `Merchant` the `Transfer` was created under.
     */
     'merchant'?: string | null;
-    /**
-    * ID of the `Identity` the `Merchant` was created under and the `Transfer` was submitted with.
-    */
-    'merchantIdentity'?: string | null;
     /**
     * Details the operation that\'ll be performed in the transaction.
     */
@@ -88,19 +76,23 @@ export class CreateTransferRequest {
     */
     'statementDescriptor'?: string | null;
     /**
-    * The `fraud_session_session` ID you want to review for fraud. For more info, see [Fraud Detection](/docs/guides/payments/fraud-detection/).
+    * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'fraudSessionId'?: string;
-    'additionalPurchaseData'?: AdditionalPurchaseData;
-    'additionalBuyerCharges'?: AdditionalBuyerCharges | null;
+    'tags'?: { [key: string]: string; };
+    '_3dSecureAuthentication'?: CreateTransferRequest3dSecureAuthentication | null;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
+            "name": "additionalBuyerCharges",
+            "baseName": "additional_buyer_charges",
+            "type": "AdditionalBuyerCharges"
+        },
+        {
+            "name": "additionalPurchaseData",
+            "baseName": "additional_purchase_data",
+            "type": "AdditionalPurchaseData"
         },
         {
             "name": "adjustmentRequest",
@@ -111,11 +103,6 @@ export class CreateTransferRequest {
             "name": "amount",
             "baseName": "amount",
             "type": "number"
-        },
-        {
-            "name": "configOverride",
-            "baseName": "config_override",
-            "type": "{ [key: string]: string; }"
         },
         {
             "name": "currency",
@@ -143,14 +130,9 @@ export class CreateTransferRequest {
             "type": "number"
         },
         {
-            "name": "gateway",
-            "baseName": "gateway",
-            "type": "CreateTransferRequest.GatewayEnum"
-        },
-        {
-            "name": "_3dSecureAuthentication",
-            "baseName": "3d_secure_authentication",
-            "type": "CreateAuthorizationRequest3dSecureAuthentication"
+            "name": "fraudSessionId",
+            "baseName": "fraud_session_id",
+            "type": "string"
         },
         {
             "name": "idempotencyId",
@@ -158,18 +140,8 @@ export class CreateTransferRequest {
             "type": "string"
         },
         {
-            "name": "inputMethod",
-            "baseName": "input_method",
-            "type": "CreateTransferRequest.InputMethodEnum"
-        },
-        {
             "name": "merchant",
             "baseName": "merchant",
-            "type": "string"
-        },
-        {
-            "name": "merchantIdentity",
-            "baseName": "merchant_identity",
             "type": "string"
         },
         {
@@ -198,19 +170,14 @@ export class CreateTransferRequest {
             "type": "string"
         },
         {
-            "name": "fraudSessionId",
-            "baseName": "fraud_session_id",
-            "type": "string"
+            "name": "tags",
+            "baseName": "tags",
+            "type": "{ [key: string]: string; }"
         },
         {
-            "name": "additionalPurchaseData",
-            "baseName": "additional_purchase_data",
-            "type": "AdditionalPurchaseData"
-        },
-        {
-            "name": "additionalBuyerCharges",
-            "baseName": "additional_buyer_charges",
-            "type": "AdditionalBuyerCharges"
+            "name": "_3dSecureAuthentication",
+            "baseName": "3d_secure_authentication",
+            "type": "CreateTransferRequest3dSecureAuthentication"
         }    ];
 
     static getAttributeTypeMap() {
@@ -219,22 +186,6 @@ export class CreateTransferRequest {
 }
 
 export namespace CreateTransferRequest {
-    export enum GatewayEnum {
-        CloudV1 = <any> 'TRIPOS_CLOUD_V1',
-        MobileV1 = <any> 'TRIPOS_MOBILE_V1'
-    }
-    export enum InputMethodEnum {
-        Unknown = <any> 'UNKNOWN',
-        Swiped = <any> 'SWIPED',
-        ManualKeyEntry = <any> 'MANUAL_KEY_ENTRY',
-        ContactlessMsd = <any> 'CONTACTLESS_MSD',
-        ContactlessEmv = <any> 'CONTACTLESS_EMV',
-        SwipedFallback = <any> 'SWIPED_FALLBACK',
-        KeyedFallback = <any> 'KEYED_FALLBACK',
-        Contactless = <any> 'CONTACTLESS',
-        DigitalWallet = <any> 'DIGITAL_WALLET',
-        ChipEntry = <any> 'CHIP_ENTRY'
-    }
     export enum OperationKeyEnum {
         PushToCard = <any> 'PUSH_TO_CARD',
         PullFromCard = <any> 'PULL_FROM_CARD',

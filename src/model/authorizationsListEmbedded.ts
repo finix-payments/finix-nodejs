@@ -13,7 +13,13 @@
 import { RequestFile } from './models';
 import { Authorization } from './authorization';
 
+/**
+* List of `Authroization` objects.
+*/
 export class AuthorizationsListEmbedded {
+    /**
+    * `Authorization` objects.
+    */
     'authorizations'?: Set<Authorization>;
 
     static discriminator: string | undefined = undefined;

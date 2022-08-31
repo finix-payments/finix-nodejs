@@ -27,6 +27,10 @@ export class InstrumentUpdate {
     */
     'updatedAt'?: Date;
     /**
+    * A randomly generated value that will be associated with this `instrument_update` resource.
+    */
+    'idempotencyId'?: string;
+    /**
     * The `Merchant` ID associated with the `instrument_updates`.
     */
     'merchant'?: string;
@@ -34,19 +38,6 @@ export class InstrumentUpdate {
     * The status of the `instrument_updates` resource and update request.
     */
     'state'?: string;
-    /**
-    * The id of the application.
-    */
-    'application'?: string;
-    'messages'?: Array<string>;
-    /**
-    * Trace ID of the `Update`. The processor sends back the `trace_id` so you can track the update end-to-end.
-    */
-    'traceId'?: string;
-    /**
-    * The id of the payment instrument the update occured against.
-    */
-    'paymentInstrument'?: string;
     'links'?: InstrumentUpdateLinks;
 
     static discriminator: string | undefined = undefined;
@@ -68,6 +59,11 @@ export class InstrumentUpdate {
             "type": "Date"
         },
         {
+            "name": "idempotencyId",
+            "baseName": "idempotency_id",
+            "type": "string"
+        },
+        {
             "name": "merchant",
             "baseName": "merchant",
             "type": "string"
@@ -75,26 +71,6 @@ export class InstrumentUpdate {
         {
             "name": "state",
             "baseName": "state",
-            "type": "string"
-        },
-        {
-            "name": "application",
-            "baseName": "application",
-            "type": "string"
-        },
-        {
-            "name": "messages",
-            "baseName": "messages",
-            "type": "Array<string>"
-        },
-        {
-            "name": "traceId",
-            "baseName": "trace_id",
-            "type": "string"
-        },
-        {
-            "name": "paymentInstrument",
-            "baseName": "payment_instrument",
             "type": "string"
         },
         {

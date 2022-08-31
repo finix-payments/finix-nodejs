@@ -15,11 +15,7 @@ import { UserLinks } from './userLinks';
 
 export class User {
     /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags'?: { [key: string]: string; };
-    /**
-    * The ID of the `User` resource.
+    * The ID of the `User` object.
     */
     'id'?: string;
     /**
@@ -35,7 +31,7 @@ export class User {
     */
     'enabled'?: boolean;
     /**
-    * ID of the `Identity` that the `User` resource was created under.
+    * ID of the `Identity` that the `User` object was created under.
     */
     'identity'?: string | null;
     /**
@@ -46,16 +42,15 @@ export class User {
     * Details the level of access the [`User`](#tag/Users) has available.
     */
     'role'?: User.RoleEnum | string;
+    /**
+    * Key value pair for annotating custom meta data (e.g. order numbers).
+    */
+    'tags'?: { [key: string]: string; };
     'links'?: UserLinks;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
         {
             "name": "id",
             "baseName": "id",
@@ -90,6 +85,11 @@ export class User {
             "name": "role",
             "baseName": "role",
             "type": "User.RoleEnum"
+        },
+        {
+            "name": "tags",
+            "baseName": "tags",
+            "type": "{ [key: string]: string; }"
         },
         {
             "name": "links",

@@ -13,9 +13,12 @@
 import { RequestFile } from './models';
 import { ApplicationProfile } from './applicationProfile';
 
+/**
+* List of `application_profile` resources.
+*/
 export class ApplicationProfilesListEmbedded {
     /**
-    * `application_profile` resource.
+    * `application_profile` resources.
     */
     'applicationProfiles'?: Set<ApplicationProfile>;
 

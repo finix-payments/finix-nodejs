@@ -15,13 +15,13 @@ import { AdditionalPurchaseDataItemDataInner } from './additionalPurchaseDataIte
 import { AdditionalPurchaseDataOrderDate } from './additionalPurchaseDataOrderDate';
 
 /**
-* The additional information about the purchase. Used for Level 2 and Level 3 Processing.
+* Additional information about the purchase. Used for Level 2 and Level 3 Processing.
 */
 export class AdditionalPurchaseData {
     /**
     * The customer reference for the purchase (max 17 characters).
     */
-    'customerReferenceNumber': string;
+    'customerReferenceNumber'?: string;
     /**
     * The duty in cents on the total purchase amount for the order
     */
@@ -42,6 +42,9 @@ export class AdditionalPurchaseData {
     * The order\'s invoice number (max 15 characters)
     */
     'invoiceReferenceNumber'?: string;
+    /**
+    * Additional information about the transaction. Used for Level 2 and Level 3 Processing.
+    */
     'itemData'?: Array<AdditionalPurchaseDataItemDataInner>;
     'orderDate'?: AdditionalPurchaseDataOrderDate;
     /**

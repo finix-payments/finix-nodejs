@@ -21,10 +21,6 @@ import { IdentityEntityPersonalAddress } from './identityEntityPersonalAddress';
 */
 export class IdentityEntity {
     /**
-    * Assigned amexMid value. If a value is passed, it must be 10 or 11 digits.
-    */
-    'amexMid'?: number | null;
-    /**
     * The annual credit card sales (in cents) expected to be processed by this merchant (max 19 characters).
     */
     'annualCardVolume'?: number | null;
@@ -120,11 +116,6 @@ export class IdentityEntity {
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "amexMid",
-            "baseName": "amex_mid",
-            "type": "number"
-        },
         {
             "name": "annualCardVolume",
             "baseName": "annual_card_volume",

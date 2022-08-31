@@ -14,7 +14,7 @@ import { RequestFile } from './models';
 
 export class ListMerchantProfilesQueryParams {
     /**
-    * Filter by id
+    * Filter by `id`.
     */
     'id'?: string;
     /**
@@ -22,13 +22,13 @@ export class ListMerchantProfilesQueryParams {
     */
     'beforeCursor'?: string;
     /**
+    * The numbers of items to return.
+    */
+    'limit'?: number;
+    /**
     * Return every resource created after the cursor value.
     */
     'afterCursor'?: string;
-    /**
-    * The numbers of items to return
-    */
-    'limit'?: number;
 
     static discriminator: string | undefined = undefined;
 
@@ -44,14 +44,14 @@ export class ListMerchantProfilesQueryParams {
             "type": "string"
         },
         {
-            "name": "afterCursor",
-            "baseName": "after_cursor",
-            "type": "string"
-        },
-        {
             "name": "limit",
             "baseName": "limit",
             "type": "number"
+        },
+        {
+            "name": "afterCursor",
+            "baseName": "after_cursor",
+            "type": "string"
         }    ];
 
     static getAttributeTypeMap() {

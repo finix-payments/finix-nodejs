@@ -13,11 +13,10 @@
 import { RequestFile } from './models';
 import { MerchantProfileLinks } from './merchantProfileLinks';
 
+/**
+* 
+*/
 export class MerchantProfile {
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags'?: { [key: string]: string; };
     /**
     * The ID of the resource.
     */
@@ -38,21 +37,19 @@ export class MerchantProfile {
     * The ID of the resource.
     */
     'feeProfile'?: string | null;
-    'reserveProfile'?: string;
     /**
     * The ID of the resource.
     */
     'riskProfile'?: string | null;
+    /**
+    * Key value pair for annotating custom meta data (e.g. order numbers).
+    */
+    'tags'?: { [key: string]: string; };
     'links'?: MerchantProfileLinks;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
-        },
         {
             "name": "id",
             "baseName": "id",
@@ -79,14 +76,14 @@ export class MerchantProfile {
             "type": "string"
         },
         {
-            "name": "reserveProfile",
-            "baseName": "reserve_profile",
-            "type": "string"
-        },
-        {
             "name": "riskProfile",
             "baseName": "risk_profile",
             "type": "string"
+        },
+        {
+            "name": "tags",
+            "baseName": "tags",
+            "type": "{ [key: string]: string; }"
         },
         {
             "name": "links",

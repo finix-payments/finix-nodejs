@@ -17,6 +17,9 @@ import { BalanceTransferList } from './balanceTransferList';
 * List of `balance_transfer` objects.
 */
 export class BalanceTransferListEmbedded {
+    /**
+    * `balance_transfer` objects.
+    */
     'balanceTransfers'?: Array<BalanceTransferList>;
 
     static discriminator: string | undefined = undefined;

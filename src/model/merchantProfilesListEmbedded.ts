@@ -13,7 +13,13 @@
 import { RequestFile } from './models';
 import { MerchantProfile } from './merchantProfile';
 
+/**
+* List of `merchant_profile` objects.
+*/
 export class MerchantProfilesListEmbedded {
+    /**
+    * `merchant_profile` objects.
+    */
     'merchantProfiles'?: Array<MerchantProfile>;
 
     static discriminator: string | undefined = undefined;

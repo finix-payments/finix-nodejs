@@ -20,24 +20,24 @@ export class CardPresentDetails {
     /**
     * Unique ID used to identify the approval of the `Transfer`.
     */
-    'approvalCode'?: string;
+    'approvalCode'?: string | null;
     /**
     * The brand of the card saved in the `Payment Instrument`.
     */
-    'brand'?: string;
+    'brand'?: string | null;
     'emvData'?: CardPresentDetailsEmvData | null;
     /**
     * Details how the card was entered to process the transaction.
     */
-    'entryMode'?: string;
+    'entryMode'?: string | null;
     /**
     * Last four digits of the bank account number.
     */
-    'maskedAccountNumber'?: string;
+    'maskedAccountNumber'?: string | null;
     /**
     * The name of the bank account or card owner.
     */
-    'name'?: string;
+    'name'?: string | null;
     /**
     * The type of `Payment Instrument` used in the transaction (or the original payment).
     */
