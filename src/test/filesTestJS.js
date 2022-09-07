@@ -38,7 +38,7 @@ describe('Files API', function () {
     it("Test: Upload files directly", async function () {
         const fileName = __dirname.concat("/test.png");
         const fileStream = fs.createReadStream(fileName);
-        const uploadedFile = await client.Files.uploadFile(fileId, {
+        const uploadedFile = await client.Files.upload(fileId, {
             file: fileStream
         });
 
@@ -62,7 +62,7 @@ describe('Files API', function () {
 
     it("Test: Download a file", async function () {
         const tempFileId = "FILE_bJecqoRPasStEPVpvKHtgA";
-        const downloadedFile = await client.Files.downloadFile(tempFileId);
+        const downloadedFile = await client.Files.download(tempFileId);
         
         assert.exists(downloadedFile);
     });
