@@ -29,7 +29,7 @@ describe('Onboarding Forms API', () => {
             }
         };
 
-        const onboardingForm = await client.OnboardingForms.createOnboardingForm(onboardingFormRequest);
+        const onboardingForm = await client.OnboardingForms.create(onboardingFormRequest);
         onboardingFormId = onboardingForm.id; 
         expect(onboardingForm.onboardingData.maxTransactionAmount).toBe(onboardingFormRequest.onboardingData.maxTransactionAmount);
         expect(onboardingForm.merchantProcessors[0].processor).toBe(onboardingFormRequest.merchantProcessors[0].processor);
@@ -44,12 +44,12 @@ describe('Onboarding Forms API', () => {
             expirationInMinutes:30 
         };
 
-        const onboardingLink = await client.OnboardingForms.createOnboardingFormLink(onboardingFormId, onboardingLinkRequest); 
+        const onboardingLink = await client.OnboardingForms.createLink(onboardingFormId, onboardingLinkRequest); 
         expect(onboardingLink.linkUrl.includes(onboardingFormId)).toBe(true);
     });
 
     test('Test: Fetch an onboarding form',async () => {
-        const fetchedOnboardingForm = await client.OnboardingForms.getOnboardingForm(onboardingFormId);
+        const fetchedOnboardingForm = await client.OnboardingForms.get(onboardingFormId);
         expect(fetchedOnboardingForm.onboardingData.maxTransactionAmount).toBe(100000);
         expect(fetchedOnboardingForm.merchantProcessors[0].processor).toBe("LITLE_V1");
         
