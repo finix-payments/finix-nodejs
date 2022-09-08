@@ -1,3 +1,10 @@
+## 2.0.0 - 2022-09-08
+* Supported API Version: 2022-02-01
+* Added error handling
+* Added support for the following APIs: 
+    * Onboarding Forms
+    * Compliance Forms
+
 ## 1.0.1 - 2022-08-03
 * Supported API Version: 2022-02-01
 * Fixed bug with page offset 
