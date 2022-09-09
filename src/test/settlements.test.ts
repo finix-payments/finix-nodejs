@@ -10,7 +10,7 @@ describe('Settlements API', () => {
 
         client = new Client(userName, password, Environment.Sandbox);
     });
-
+    
     test("Test: Fetch a batch settlement", async() => {
         const settlementId = "STmCc8GbjjX33SdymwNhb9Et";
         const fetchedSettlement = await client.Settlements.get(settlementId);
@@ -93,7 +93,7 @@ describe('Settlements API', () => {
             });
         }
         catch(error){
-            expect(error.body._embedded.errors[0].message).toBe("Unable to process request. Entries [TRr61njQxaa7AJf6E1C3QwCc] not found in settlement STmCc8GbjjX33SdymwNhb9Et");
+            expect(error.body[0].message).toBe("Unable to process request. Entries [TRr61njQxaa7AJf6E1C3QwCc] not found in settlement STmCc8GbjjX33SdymwNhb9Et");
         }
     });
 })

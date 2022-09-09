@@ -33,11 +33,24 @@ describe('Devices API', () => {
     });
 
      test("Test: Fetch a device", async() => { 
-         const fetchedDevice = await client.Devices.get(deviceId);
- 
-         expect(fetchedDevice.model).toBe("MX915");
-         expect(fetchedDevice.merchant).toBe(merchantId);
-         expect(fetchedDevice.configurationDetails?.allowDebit).toBe(true);
+        const fetchedDevice = await client.Devices.get(deviceId);
+        expect(fetchedDevice.model).toBe("MX915");
+        expect(fetchedDevice.merchant).toBe(merchantId);
+        //  expect(fetchedDevice.deviceConfigDetails?.allowDebit).toBe(true);
      });
+
+    //  test('Test: Update a device' ,async () => {
+
+    //     const deviceUpdateRequest : Models.UpdateDeviceRequest = {
+    //         action: "REBOOT"
+    //     };
+    //     try{
+    //         const updatedDevice= await client.Devices.update(deviceId, deviceUpdateRequest);
+    //     } catch(error) {
+    //         console.log(error.body);
+    //     }
+    //     // expect(updatedDevice.id).toBe(deviceId);
+    //     // expect(updatedDevice.enabled).toBe(true);
+    // });
 
 })

@@ -87,9 +87,33 @@ const fileObject: fs.ReadStream = fs.createReadStream(fileName);
 const uploadedDisputeEvidence = await client.Disputes.createDisputeEvidence(disputeId, {
     file: fileObject});
 ```
+
+### Error handling
+Errors can be caught and handled with try-catch blocks. Below is an example of catching an error and accessing its information. 
+```typescript
+const userName = 'USsRhsHYZGBPnQw8CByJyEQW';
+const wrongPassword = '123';
+
+try{
+    const invalidClient = new Client(userName, wrongPassword, Environment.Sandbox);
+    let transferList = await invalidClient.Transfers.list();
+}catch(error){
+    // Print basic http information of the error
+    console.log(error.statusCode);
+    console.log(error.headers);
+
+    // Print message of each error 
+    for (let e of error.body){
+        console.log(e.message);
+    }
+
+    // Access raw http incoming message of the error 
+    const errorRawResponse = error.response;
+}
+```
 ## Supported APIs
 - Transfers
-- Authorizaitons
+- Authorizations
 - Identities
 - Merchants
 - Payment Instruments
@@ -103,3 +127,5 @@ const uploadedDisputeEvidence = await client.Disputes.createDisputeEvidence(disp
 - Verifications
 - Merchant Profiles
 - Fee Profiles
+- Onboarding Forms
+- Compliance Forms

@@ -6,8 +6,8 @@ describe('Identity API', () => {
     let identitiesId: string;
 
     beforeAll(() => {
-        const userName = 'USsRhsHYZGBPnQw8CByJyEQW';
-        const password = '8a14c2f9-d94b-4c72-8f5c-a62908e5b30e';
+        const userName = 'USfJofzcgqeS35jQGh6nUWxn';
+        const password = '2cc12030-c165-48fd-83fa-b7da310df3bd';
 
         client = new Client(userName, password, Environment.Sandbox);
     });
@@ -24,7 +24,6 @@ describe('Identity API', () => {
 
         expect(createdIdentity.entity?.firstName).toBe(createIdentityRequest.entity.firstName);
         expect(createdIdentity.entity?.lastName).toBe(createIdentityRequest.entity.lastName);
-        expect(createdIdentity.application).toBe("APgPDQrLD52TYvqazjHJJchM");
     });
 
     test("Test: Create an identity for a merchant", async() => {
@@ -48,9 +47,44 @@ describe('Identity API', () => {
         const createdIdentity = await client.Identities.create(createIdentityRequest);
 
         identitiesId = <string> createdIdentity.id;
+        console.log(identitiesId);
         expect(createdIdentity.entity?.firstName).toBe(createIdentityRequest.entity.firstName);
         expect(createdIdentity.entity?.lastName).toBe(createIdentityRequest.entity.lastName);
-        expect(createdIdentity.application).toBe("APgPDQrLD52TYvqazjHJJchM");
+    });
+
+    test("Test: Create an associated identity", async() => {
+        const createIdentityRequest: Models.CreateAssociatedIdentityRequest = {
+            entity : {
+                lastName : "abc",
+                firstName : "dwayne",
+                phone : "123123123",
+                email : "user@example.org",
+                personalAddress : {
+                    city : "San Mateo", 
+                    country : "USA",
+                    region : "CA", 
+                    line1 : "741 Douglas St", 
+                    postalCode : "94114"
+                }
+            }
+        }
+        const createdIdentity = await client.Identities.createAssociatedIdentity(identitiesId, createIdentityRequest);
+        expect(createdIdentity.entity?.firstName).toBe(createIdentityRequest.entity.firstName);
+        expect(createdIdentity.entity?.lastName).toBe(createIdentityRequest.entity.lastName);
+    });
+
+    test("Test: Verify an identity", async() => {
+        const createVerificationRequest: Models.CreateVerificationRequest = {
+            processor: "DUMMY_V1",
+            merchant: "MUgWbPVvtKbzjKNNGKqdQYV7",
+            tags : {
+                "test_key_01" : "test_val"
+            }
+        }
+        const identityVerification = await client.Identities.createIdentityVerification("IDgWxBhfGYLLdkhxx2ddYf9K", createVerificationRequest);
+
+        expect(identityVerification.merchant).toBe(createVerificationRequest.merchant);
+        expect(identityVerification.tags["test_key_01"]).toBe("test_val");
     });
 
     test("Test: Fetch an identity", async() => {
@@ -59,11 +93,11 @@ describe('Identity API', () => {
         expect(fetchedIdentity.entity?.firstName).toBe("dwayne");
         expect(fetchedIdentity.entity?.lastName).toBe("Sunkhronos");
         expect(fetchedIdentity.id).toBe(identitiesId);
-        expect(fetchedIdentity.application).toBe("APgPDQrLD52TYvqazjHJJchM");
     });
 
     test("Test: List all identities", async() => {
-        const identitiesList = await client.Identities.list();
+        const client2 = new Client("USj5xC8quveXhsesHyxB8hJd", "e660f5b1-94c2-46b5-bedf-6ba3466b7d33", Environment.Sandbox);
+        const identitiesList = await client2.Identities.list();
 
         expect(identitiesList.page.limit).toEqual(expect.any(Number));
         if (identitiesList.page.hasOwnProperty('offset')){
@@ -96,7 +130,6 @@ describe('Identity API', () => {
 
         expect(updatedIdentity.entity?.firstName).toBe(updateIdentityRequest.entity?.firstName);
         expect(updatedIdentity.entity?.lastName).toBe(updateIdentityRequest.entity?.lastName);
-        expect(updatedIdentity.application).toBe("APgPDQrLD52TYvqazjHJJchM");
     });
 
 

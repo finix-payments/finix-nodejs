@@ -20,8 +20,8 @@ describe('Error response', () => {
             let transferList = await invalidClient.Transfers.list();
         }catch(error){
             expect(error.statusCode).toBe(401);
-            expect(error.body._embedded.errors.length).toBeGreaterThan(0);
-            expect(error.body._embedded.errors[0].message).toBe('Unauthorized');
+            expect(error.body.length).toBeGreaterThan(0);
+            expect(error.body[0].message).toBe('Unauthorized');
         }
 
     });
@@ -35,8 +35,8 @@ describe('Error response', () => {
             let transferList = await invalidClient.Transfers.list();
         }catch(error){
             expect(error.statusCode).toBe(401);
-            expect(error.body._embedded.errors.length).toBeGreaterThan(0);
-            expect(error.body._embedded.errors[0].message).toBe('Unauthorized');
+            expect(error.body.length).toBeGreaterThan(0);
+            expect(error.body[0].message).toBe('Unauthorized');
         }
     });
 
@@ -47,8 +47,8 @@ describe('Error response', () => {
             });
         }catch(error){
             expect(error.statusCode).toBe(404);
-            expect(error.body._embedded.errors.length).toBeGreaterThan(0);
-            expect(error.body._embedded.errors[0].code).toBe('NOT_FOUND');
+            expect(error.body.length).toBeGreaterThan(0);
+            expect(error.body[0].code).toBe('NOT_FOUND');
         }
     });
 
@@ -86,9 +86,9 @@ describe('Error response', () => {
             console.log(authorization);
         }catch(error){
             expect(error.statusCode).toBe(402);
-            expect(error.body._embedded.errors.length).toBeGreaterThan(0);
-            expect(error.body._embedded.errors[0].code).toBe('DECLINED');
-            expect(error.body._embedded.errors[0].authorization).toEqual(expect.any(String));
+            expect(error.body.length).toBeGreaterThan(0);
+            expect(error.body[0].code).toBe('DECLINED');
+            expect(error.body[0].authorization).toEqual(expect.any(String));
         }
     }, 10000);
 
@@ -130,22 +130,40 @@ describe('Error response', () => {
 
         }catch(error){
             expect(error.statusCode).toBe(402);
-            expect(error.body._embedded.errors.length).toBeGreaterThan(0);
-            expect(error.body._embedded.errors[0].code).toBe('PAYMENT_DECLINED');
-            expect(error.body._embedded.errors[0].transfer).toEqual(expect.any(String));
+            expect(error.body.length).toBeGreaterThan(0);
+            expect(error.body[0].code).toBe('PAYMENT_DECLINED');
+            expect(error.body[0].transfer).toEqual(expect.any(String));
         }
     });
 
     test("Test: 422 - Refused/Declined payments -- invalid field", async() => {
         try{;
+            const paymentCardRequest : Models.CreatePaymentInstrumentRequest = {
+                name: "Amy White",
+                expirationYear: 1989, 
+                tags: {
+                    "card_name": "Business Card"
+                },
+                number: "4895142232120006",
+                expirationMonth: 12,
+                address: {
+                    city: "San Francisco",
+                    region: "CA",
+                    postalCode: "94404",
+                    line1: "900 Metro Center Blv",
+                    country: "USA"
+                },
+                securityCode: "022",
+                type: Models.CreatePaymentInstrumentRequest.TypeEnum.PaymentCard,
+                identity: "IDgWxBhfGYLLdkhxx2ddYf9K"
+            };
+            const createdPaymentInstrument = await client.PaymentInstruments.create(paymentCardRequest);
 
-            let transfer = await client.Transfers.create({
-                source: "PIe2YvpcjvoVJ6PzoRPBK137"
-            })
         }catch(error){
             expect(error.statusCode).toBe(422);
-            expect(error.body._embedded.errors.length).toBeGreaterThan(0);
-            expect(error.body._embedded.errors[0].code).toBe('INVALID_FIELD');
+            expect(error.body.length).toBeGreaterThan(0);
+            expect(error.body[0].code).toBe('INVALID_FIELD');
+            expect(error.body[0].field).toBe('expiration_year');
         }
     });
 })
