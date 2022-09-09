@@ -8,7 +8,7 @@
 * Renamed `uploadFile` endpoint in `FilesApi` to `upload`
 * Added endpoint `listByPaymentInstrumentId` in `VerificationsApi`
 * Updated filter query params 
-* Added/renamed designated models for associated identity: `CreateAssociatedIdentityRequest`, `AssociatedIdentity`, `AssociatedIdentityEntity`, `CreateAssociatedIdentityRequestEntity`, `CreateAssociatedIdentityRequestEntityBusinessAddress`, `CreateAssociatedIdentityRequestEntityDob`, `CreateAssociatedIdentityRequestEntityIncorporationDate`, ``CreateAssociatedIdentityRequestEntityPersonalAddress`
+* Added/renamed designated models for associated identity: `CreateAssociatedIdentityRequest`, `AssociatedIdentity`, `AssociatedIdentityEntity`, `CreateAssociatedIdentityRequestEntity`, `CreateAssociatedIdentityRequestEntityBusinessAddress`, `CreateAssociatedIdentityRequestEntityDob`, `CreateAssociatedIdentityRequestEntityIncorporationDate`, `CreateAssociatedIdentityRequestEntityPersonalAddress`
 * Added model `additionalBuyerCharges`, `GetDeviceQueryParams`, `UpdateIdentityRequestEntityPersonalAddress`,`CreateTransferRequest3dSecureAuthentication`, `UpdateDeviceRequest`
 * Update enums in `PaymentInstrumentsApi`
 
