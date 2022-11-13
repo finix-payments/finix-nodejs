@@ -17,9 +17,9 @@ describe('Compliance Forms API', () => {
         expect(complianceForm.linkedTo).toBe("MUfnskvHiiDgP7x3TVL2LkG3");
         expect(complianceForm.linkedType).toBe("MERCHANT");
         expect(complianceForm.type).toBe("PCI_SAQ_A");
-        expect(complianceForm.pciSaqA.isAccepted).toBe(false);
+        expect(complianceForm.pciSaqA?.isAccepted).toBe(false);
         expect(complianceForm.complianceFormTemplate).toBe("cft_wua8ua1yLAcHRK9mx2mF9K");
-        expect(complianceForm.files.unsignedFile).toBe("FILE_fFGMCY4sxGYTqpjnXh54kC");
+        expect(complianceForm.files?.unsignedFile).toBe("FILE_fFGMCY4sxGYTqpjnXh54kC");
     }, 20000);
 
     test('Test: Update a compliance form',async () => {
@@ -35,11 +35,11 @@ describe('Compliance Forms API', () => {
             }
         }
         const complianceForm = await client2.ComplianceForms.update(complianceFormId2, updateComplianceFormRequest);
-        expect(complianceForm.pciSaqA.name).toBe(updateComplianceFormRequest.pciSaqA.name);
-        expect(complianceForm.pciSaqA.signedAt).toBe(updateComplianceFormRequest.pciSaqA.signedAt);
-        expect(complianceForm.pciSaqA.userAgent).toBe(updateComplianceFormRequest.pciSaqA.userAgent);
-        expect(complianceForm.pciSaqA.title).toBe(updateComplianceFormRequest.pciSaqA.title);
-        expect(complianceForm.pciSaqA.ipAddress).toBe(updateComplianceFormRequest.pciSaqA.ipAddress);
+        expect(complianceForm.pciSaqA?.name).toBe(updateComplianceFormRequest.pciSaqA?.name);
+        expect(complianceForm.pciSaqA?.signedAt).toBe(updateComplianceFormRequest.pciSaqA?.signedAt);
+        expect(complianceForm.pciSaqA?.userAgent).toBe(updateComplianceFormRequest.pciSaqA?.userAgent);
+        expect(complianceForm.pciSaqA?.title).toBe(updateComplianceFormRequest.pciSaqA?.title);
+        expect(complianceForm.pciSaqA?.ipAddress).toBe(updateComplianceFormRequest.pciSaqA?.ipAddress);
         expect(complianceForm.id).toBe(complianceFormId2);
 
     

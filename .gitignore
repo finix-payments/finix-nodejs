@@ -42,12 +42,10 @@ bin/
 
 #  
 node_modules
-**/src/api/*.js
-**/src/model/*.js
-**/src/api/*.js.map
-**/src/model/*.js.map
-**/src/test/*test.js.map
-**/src/test/*test.js
+src/**/*.js
+src/**/*.d.ts
+src/**/*.js.map
+
 
 quickstart.ts
 quickstart.js
@@ -57,3 +55,5 @@ src/api.js
 src/api.js.map
 debugOpenApi.sh
 debug.txt
+
+lib

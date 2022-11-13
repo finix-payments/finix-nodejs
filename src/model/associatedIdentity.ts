@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { AssociatedIdentityEntity } from './associatedIdentityEntity';
 import { IdentityLinks } from './identityLinks';
@@ -30,7 +31,7 @@ export class AssociatedIdentity {
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
     'links'?: IdentityLinks;
 
     static discriminator: string | undefined = undefined;

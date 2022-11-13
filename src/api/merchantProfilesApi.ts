@@ -5,20 +5,28 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
+// @ts-ignore: Some endpoints interact with files
 import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
+// @ts-ignore: Some unused imports always provided
 import { Error401Unauthorized } from '../model/error401Unauthorized';
+// @ts-ignore: Some unused imports always provided
 import { Error403ForbiddenList } from '../model/error403ForbiddenList';
+// @ts-ignore: Some unused imports always provided
 import { Error404NotFoundList } from '../model/error404NotFoundList';
+// @ts-ignore: Some unused imports always provided
 import { Error406NotAcceptable } from '../model/error406NotAcceptable';
+// @ts-ignore: Some unused imports always provided
 import { MerchantProfile } from '../model/merchantProfile';
+// @ts-ignore: Some unused imports always provided
 import { MerchantProfilesList } from '../model/merchantProfilesList';
+// @ts-ignore: Some unused imports always provided
 import { UpdateMerchantProfileRequest } from '../model/updateMerchantProfileRequest';
 import { ListMerchantProfilesQueryParams } from '../model/listMerchantProfilesQueryParams';
 import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
-import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
+import { HttpBasicAuth } from '../model/models';
 
-import { HttpError, RequestFile } from './apis';
+import { HttpError } from './apis';
 
 let defaultBasePath = 'https://finix.sandbox-payments-api.com';
 
@@ -104,7 +112,7 @@ export class MerchantProfilesApi {
      * @param merchantProfileId ID of &#x60;merchant_profile&#x60;.
      */
 
-    private async getHelper(merchantProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: MerchantProfile;  }> {
+    private async getHelper(merchantProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: MerchantProfile;  rawBody: any; }> {
         const localVarPath = this.basePath + '/merchant_profiles/{merchant_profile_id}'
             .replace('{' + 'merchant_profile_id' + '}', encodeURIComponent(String(merchantProfileId)));
         let localVarQueryParameters: any = {};
@@ -154,14 +162,15 @@ export class MerchantProfilesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: MerchantProfile;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: MerchantProfile;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "MerchantProfile");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -188,7 +197,7 @@ export class MerchantProfilesApi {
      * @param merchantProfileId ID of &#x60;merchant_profile&#x60;.
      */
     public async getHttp(merchantProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: MerchantProfile; }> {
+        Promise<{response: http.IncomingMessage, body: MerchantProfile;  rawBody: any;}> {
         const responseObject = await this.getHelper(merchantProfileId,  options);
         return responseObject;
     }
@@ -198,7 +207,7 @@ export class MerchantProfilesApi {
      * @summary List Merchant Profiles
 
     */
-    private async listHelper (listMerchantProfilesQueryParams?:ListMerchantProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: MerchantProfilesList;  }> {
+    private async listHelper (listMerchantProfilesQueryParams?:ListMerchantProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: MerchantProfilesList;  rawBody: any; }> {
         const localVarPath = this.basePath + '/merchant_profiles';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -257,14 +266,15 @@ export class MerchantProfilesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: MerchantProfilesList;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: MerchantProfilesList;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "MerchantProfilesList");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -307,7 +317,7 @@ export class MerchantProfilesApi {
      * @summary List Merchant Profiles
      */
     public async listHttp (listMerchantProfilesQueryParams?:ListMerchantProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>, rawBody: any}> {
         const responseObject = await this.listHelper(listMerchantProfilesQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
         let reachedEnd: Boolean;
@@ -328,7 +338,7 @@ export class MerchantProfilesApi {
         let dataList = new finixList<any>(nextFetch, reachedEnd);
         dataList = this.embeddedHelper(responseObject, dataList);
         //dataList.hasMore = !reachedEnd;
-        return Promise.resolve({response: responseObject.response, body: dataList});
+        return Promise.resolve({response: responseObject.response, body: dataList, rawBody: responseObject.rawBody});
     }
     /**
      * Helper function. 
@@ -338,7 +348,7 @@ export class MerchantProfilesApi {
      * @param updateMerchantProfileRequest 
      */
 
-    private async updateHelper(merchantProfileId: string, updateMerchantProfileRequest?: UpdateMerchantProfileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: MerchantProfile;  }> {
+    private async updateHelper(merchantProfileId: string, updateMerchantProfileRequest?: UpdateMerchantProfileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: MerchantProfile;  rawBody: any; }> {
         const localVarPath = this.basePath + '/merchant_profiles/{merchant_profile_id}'
             .replace('{' + 'merchant_profile_id' + '}', encodeURIComponent(String(merchantProfileId)));
         let localVarQueryParameters: any = {};
@@ -396,14 +406,15 @@ export class MerchantProfilesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: MerchantProfile;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: MerchantProfile;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "MerchantProfile");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -432,14 +443,16 @@ export class MerchantProfilesApi {
      * @param updateMerchantProfileRequest 
      */
     public async updateHttp(merchantProfileId: string, updateMerchantProfileRequest?: UpdateMerchantProfileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: MerchantProfile; }> {
+        Promise<{response: http.IncomingMessage, body: MerchantProfile;  rawBody: any;}> {
         const responseObject = await this.updateHelper(merchantProfileId, updateMerchantProfileRequest,  options);
         return responseObject;
     }
 
+
     /**
      * Extracts page and links fields from response body and assigns as properties to finixList
      */ 
+    // @ts-ignore: Not all endpoints have list views
     private embeddedHelper(responseObject: any, dataList: finixList<any>){
         if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
             dataList.page = responseObject.body.page;
@@ -448,7 +461,7 @@ export class MerchantProfilesApi {
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
         let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
-        tempList.forEach(item => {dataList.add(item)});
+        tempList.forEach((item: any) => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
@@ -457,6 +470,7 @@ export class MerchantProfilesApi {
     /**
      * Extracts offset value from response body and determines if end of list has been reached
      */
+    // @ts-ignore: Not all endpoints have list views
     private getOffsetQueryParam(responseObject: any, queryParam: any){
         queryParam.offset = responseObject.body.page.offset + responseObject.body.page.limit;
         var endReached: Boolean = false;
@@ -469,6 +483,7 @@ export class MerchantProfilesApi {
     /**
     * Extracts nextCursor value from response body and determines if end of list has been reached
     */
+    // @ts-ignore: Not all endpoints have list views
     private getCursorQueryParam(responseObject: any, queryParam: any){
         queryParam.afterCursor = responseObject.body.page.nextCursor;
         var endReached: Boolean = false;

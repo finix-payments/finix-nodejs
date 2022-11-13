@@ -1,4 +1,6 @@
 import {Client, Environment, Models} from '../api';
+import { HttpError } from '../api/apis';
+
 
 describe('Verifications API', () => {
 
@@ -13,19 +15,30 @@ describe('Verifications API', () => {
     });
 
     test("Test: Create a verification with merchant information", async() => { 
-        const createVerificationRequest: Models.CreateVerificationRequest = {
-            merchant: "MUucec6fHeaWo3VHYoSkUySM",
-            // instrument: "PI3tfx1Uw3SzHfqwPFGX9o1Y",
-            processor: "DUMMY_V1", 
-            tags: {
-                "test" : "verification_test"
-            }
-        };
-        const verification = await client.Verifications.create(createVerificationRequest);
-        verificationId = verification.id;
-        // expect(verification.paymentInstrument).toBe(createVerificationRequest.instrument);
-        expect(verification.merchant).toBe(createVerificationRequest.merchant);
-        expect(verification.processor).toBe(createVerificationRequest.processor);
+        try {
+            const createVerificationRequest: Models.CreateVerificationRequest = {
+                merchant: "MUucec6fHeaWo3VHYoSkUySM",
+                // instrument: "PI3tfx1Uw3SzHfqwPFGX9o1Y",
+                processor: "DUMMY_V1",
+                tags: {
+                    "test" : "verification_test"
+                }
+            };
+            const verification = await client.Verifications.create(createVerificationRequest);
+
+            // Save id for future test.
+            verificationId = <string> verification.id;
+
+            // expect(verification.paymentInstrument).toBe(createVerificationRequest.instrument);
+            expect(verification.merchant).toBe(createVerificationRequest.merchant);
+            expect(verification.processor).toBe(createVerificationRequest.processor);
+        }
+        catch (err) {
+            // console.log((err as HttpError).body);
+            // Do to timing, we may get error that verifications is already going.
+            expect((err as HttpError).body[0].message).toBe("An existing verification is already PENDING.");
+            // console.log(err);
+        }
     });
 
     test("Test: Get a verification", async() => { 

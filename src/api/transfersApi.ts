@@ -5,26 +5,39 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
+// @ts-ignore: Some endpoints interact with files
 import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
+// @ts-ignore: Some unused imports always provided
 import { CreateReversalRequest } from '../model/createReversalRequest';
+// @ts-ignore: Some unused imports always provided
 import { CreateTransferRequest } from '../model/createTransferRequest';
+// @ts-ignore: Some unused imports always provided
 import { Error401Unauthorized } from '../model/error401Unauthorized';
+// @ts-ignore: Some unused imports always provided
 import { Error402PaymentRequired } from '../model/error402PaymentRequired';
+// @ts-ignore: Some unused imports always provided
 import { Error403ForbiddenList } from '../model/error403ForbiddenList';
+// @ts-ignore: Some unused imports always provided
 import { Error404NotFoundList } from '../model/error404NotFoundList';
+// @ts-ignore: Some unused imports always provided
 import { Error406NotAcceptable } from '../model/error406NotAcceptable';
+// @ts-ignore: Some unused imports always provided
 import { Error422InvalidFieldList } from '../model/error422InvalidFieldList';
+// @ts-ignore: Some unused imports always provided
 import { ErrorGeneric } from '../model/errorGeneric';
+// @ts-ignore: Some unused imports always provided
 import { Transfer } from '../model/transfer';
+// @ts-ignore: Some unused imports always provided
 import { TransfersList } from '../model/transfersList';
+// @ts-ignore: Some unused imports always provided
 import { UpdateTransferRequest } from '../model/updateTransferRequest';
 import { ListTransferReversalsQueryParams } from '../model/listTransferReversalsQueryParams';
 import { ListTransfersQueryParams } from '../model/listTransfersQueryParams';
 import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
-import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
+import { HttpBasicAuth } from '../model/models';
 
-import { HttpError, RequestFile } from './apis';
+import { HttpError } from './apis';
 
 let defaultBasePath = 'https://finix.sandbox-payments-api.com';
 
@@ -105,12 +118,12 @@ export class TransfersApi {
 
     /**
      * Helper function. 
-     * Create a `Transfer`.   > By default, Finix implements a 3 (business) day delay when debiting bank accounts (i.e. eChecks).
+     * Create a `Transfer`.
      * @summary Create a Transfer
      * @param createTransferRequest 
      */
 
-    private async createHelper(createTransferRequest?: CreateTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Transfer;  }> {
+    private async createHelper(createTransferRequest?: CreateTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Transfer;  rawBody: any; }> {
         const localVarPath = this.basePath + '/transfers';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -163,14 +176,15 @@ export class TransfersApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: Transfer;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: Transfer;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "Transfer");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -181,7 +195,7 @@ export class TransfersApi {
     }
 
     /**
-     * Create a `Transfer`.   > By default, Finix implements a 3 (business) day delay when debiting bank accounts (i.e. eChecks).
+     * Create a `Transfer`.
      * @summary Create a Transfer
      * @param createTransferRequest 
      */
@@ -192,24 +206,24 @@ export class TransfersApi {
     }
 
     /**
-     * Create a `Transfer`.   > By default, Finix implements a 3 (business) day delay when debiting bank accounts (i.e. eChecks).
+     * Create a `Transfer`.
      * @summary Create a Transfer
      * @param createTransferRequest 
      */
     public async createHttp(createTransferRequest?: CreateTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: Transfer; }> {
+        Promise<{response: http.IncomingMessage, body: Transfer;  rawBody: any;}> {
         const responseObject = await this.createHelper(createTransferRequest,  options);
         return responseObject;
     }
     /**
      * Helper function. 
-     * Reverse a transfer with a `type` of **DEBIT**. This reversal creates a new `Transfer` resource with a `type` of **REVERSAL**.   The refund can get delivered in most cases without the physical card. The card only needs to be swiped (to receive the refund) when:  - The payment type is **DEBIT**, and the transaction is no longer in the Settlement batch. - The payment type is **CREDIT**, and the transaction is no longer in the batch and is older than 45 days.
+     * Reverse a transfer with a `type` of **DEBIT**. This reversal creates a new `Transfer` resource with a `type` of **REVERSAL**.   Related Guides: [Refunding Payments](/guides/after-the-payment/refunding-and-cancelling-payments/)
      * @summary Refund or Reverse a Transfer
      * @param transferId ID of &#x60;Transfer&#x60; object.
      * @param createReversalRequest 
      */
 
-    private async createTransferReversalHelper(transferId: string, createReversalRequest?: CreateReversalRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Transfer;  }> {
+    private async createTransferReversalHelper(transferId: string, createReversalRequest?: CreateReversalRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Transfer;  rawBody: any; }> {
         const localVarPath = this.basePath + '/transfers/{transfer_id}/reversals'
             .replace('{' + 'transfer_id' + '}', encodeURIComponent(String(transferId)));
         let localVarQueryParameters: any = {};
@@ -267,14 +281,15 @@ export class TransfersApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: Transfer;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: Transfer;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "Transfer");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -285,7 +300,7 @@ export class TransfersApi {
     }
 
     /**
-     * Reverse a transfer with a `type` of **DEBIT**. This reversal creates a new `Transfer` resource with a `type` of **REVERSAL**.   The refund can get delivered in most cases without the physical card. The card only needs to be swiped (to receive the refund) when:  - The payment type is **DEBIT**, and the transaction is no longer in the Settlement batch. - The payment type is **CREDIT**, and the transaction is no longer in the batch and is older than 45 days.
+     * Reverse a transfer with a `type` of **DEBIT**. This reversal creates a new `Transfer` resource with a `type` of **REVERSAL**.   Related Guides: [Refunding Payments](/guides/after-the-payment/refunding-and-cancelling-payments/)
      * @summary Refund or Reverse a Transfer
      * @param transferId ID of &#x60;Transfer&#x60; object.
      * @param createReversalRequest 
@@ -297,13 +312,13 @@ export class TransfersApi {
     }
 
     /**
-     * Reverse a transfer with a `type` of **DEBIT**. This reversal creates a new `Transfer` resource with a `type` of **REVERSAL**.   The refund can get delivered in most cases without the physical card. The card only needs to be swiped (to receive the refund) when:  - The payment type is **DEBIT**, and the transaction is no longer in the Settlement batch. - The payment type is **CREDIT**, and the transaction is no longer in the batch and is older than 45 days.
+     * Reverse a transfer with a `type` of **DEBIT**. This reversal creates a new `Transfer` resource with a `type` of **REVERSAL**.   Related Guides: [Refunding Payments](/guides/after-the-payment/refunding-and-cancelling-payments/)
      * @summary Refund or Reverse a Transfer
      * @param transferId ID of &#x60;Transfer&#x60; object.
      * @param createReversalRequest 
      */
     public async createTransferReversalHttp(transferId: string, createReversalRequest?: CreateReversalRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: Transfer; }> {
+        Promise<{response: http.IncomingMessage, body: Transfer;  rawBody: any;}> {
         const responseObject = await this.createTransferReversalHelper(transferId, createReversalRequest,  options);
         return responseObject;
     }
@@ -314,7 +329,7 @@ export class TransfersApi {
      * @param transferId ID of &#x60;Transfer&#x60; resource.
      */
 
-    private async getHelper(transferId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Transfer;  }> {
+    private async getHelper(transferId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Transfer;  rawBody: any; }> {
         const localVarPath = this.basePath + '/transfers/{transfer_id}'
             .replace('{' + 'transfer_id' + '}', encodeURIComponent(String(transferId)));
         let localVarQueryParameters: any = {};
@@ -364,14 +379,15 @@ export class TransfersApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: Transfer;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: Transfer;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "Transfer");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -398,7 +414,7 @@ export class TransfersApi {
      * @param transferId ID of &#x60;Transfer&#x60; resource.
      */
     public async getHttp(transferId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: Transfer; }> {
+        Promise<{response: http.IncomingMessage, body: Transfer;  rawBody: any;}> {
         const responseObject = await this.getHelper(transferId,  options);
         return responseObject;
     }
@@ -410,7 +426,7 @@ export class TransfersApi {
     * @param transferId ID of &#x60;Transfer&#x60; object.
     * 
     */
-    private async listTransfersReversalsHelper (transferId: string, listTransferReversalsQueryParams?:ListTransferReversalsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: TransfersList;  }> {
+    private async listTransfersReversalsHelper (transferId: string, listTransferReversalsQueryParams?:ListTransferReversalsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: TransfersList;  rawBody: any; }> {
         const localVarPath = this.basePath + '/transfers/{transfer_id}/reversals'
             .replace('{' + 'transfer_id' + '}', encodeURIComponent(String(transferId)));
         let localVarQueryParameters: any = {};
@@ -471,14 +487,15 @@ export class TransfersApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: TransfersList;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: TransfersList;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "TransfersList");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -525,7 +542,7 @@ export class TransfersApi {
      * 
      */
     public async listTransfersReversalsHttp (transferId: string, listTransferReversalsQueryParams?:ListTransferReversalsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>, rawBody: any}> {
         const responseObject = await this.listTransfersReversalsHelper(transferId, listTransferReversalsQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
         let reachedEnd: Boolean;
@@ -546,7 +563,7 @@ export class TransfersApi {
         let dataList = new finixList<any>(nextFetch, reachedEnd);
         dataList = this.embeddedHelper(responseObject, dataList);
         //dataList.hasMore = !reachedEnd;
-        return Promise.resolve({response: responseObject.response, body: dataList});
+        return Promise.resolve({response: responseObject.response, body: dataList, rawBody: responseObject.rawBody});
     }
     /**
      * Helper function. 
@@ -554,7 +571,7 @@ export class TransfersApi {
      * @summary List Transfers
 
     */
-    private async listHelper (listTransfersQueryParams?:ListTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: TransfersList;  }> {
+    private async listHelper (listTransfersQueryParams?:ListTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: TransfersList;  rawBody: any; }> {
         const localVarPath = this.basePath + '/transfers';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -697,14 +714,15 @@ export class TransfersApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: TransfersList;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: TransfersList;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "TransfersList");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -747,7 +765,7 @@ export class TransfersApi {
      * @summary List Transfers
      */
     public async listHttp (listTransfersQueryParams?:ListTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>, rawBody: any}> {
         const responseObject = await this.listHelper(listTransfersQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
         let reachedEnd: Boolean;
@@ -768,7 +786,7 @@ export class TransfersApi {
         let dataList = new finixList<any>(nextFetch, reachedEnd);
         dataList = this.embeddedHelper(responseObject, dataList);
         //dataList.hasMore = !reachedEnd;
-        return Promise.resolve({response: responseObject.response, body: dataList});
+        return Promise.resolve({response: responseObject.response, body: dataList, rawBody: responseObject.rawBody});
     }
     /**
      * Helper function. 
@@ -778,7 +796,7 @@ export class TransfersApi {
      * @param updateTransferRequest 
      */
 
-    private async updateHelper(transferId: string, updateTransferRequest?: UpdateTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Transfer;  }> {
+    private async updateHelper(transferId: string, updateTransferRequest?: UpdateTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Transfer;  rawBody: any; }> {
         const localVarPath = this.basePath + '/transfers/{transfer_id}'
             .replace('{' + 'transfer_id' + '}', encodeURIComponent(String(transferId)));
         let localVarQueryParameters: any = {};
@@ -836,14 +854,15 @@ export class TransfersApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: Transfer;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: Transfer;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "Transfer");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -872,14 +891,16 @@ export class TransfersApi {
      * @param updateTransferRequest 
      */
     public async updateHttp(transferId: string, updateTransferRequest?: UpdateTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: Transfer; }> {
+        Promise<{response: http.IncomingMessage, body: Transfer;  rawBody: any;}> {
         const responseObject = await this.updateHelper(transferId, updateTransferRequest,  options);
         return responseObject;
     }
 
+
     /**
      * Extracts page and links fields from response body and assigns as properties to finixList
      */ 
+    // @ts-ignore: Not all endpoints have list views
     private embeddedHelper(responseObject: any, dataList: finixList<any>){
         if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
             dataList.page = responseObject.body.page;
@@ -888,7 +909,7 @@ export class TransfersApi {
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
         let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
-        tempList.forEach(item => {dataList.add(item)});
+        tempList.forEach((item: any) => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
@@ -897,6 +918,7 @@ export class TransfersApi {
     /**
      * Extracts offset value from response body and determines if end of list has been reached
      */
+    // @ts-ignore: Not all endpoints have list views
     private getOffsetQueryParam(responseObject: any, queryParam: any){
         queryParam.offset = responseObject.body.page.offset + responseObject.body.page.limit;
         var endReached: Boolean = false;
@@ -909,6 +931,7 @@ export class TransfersApi {
     /**
     * Extracts nextCursor value from response body and determines if end of list has been reached
     */
+    // @ts-ignore: Not all endpoints have list views
     private getCursorQueryParam(responseObject: any, queryParam: any){
         queryParam.afterCursor = responseObject.body.page.nextCursor;
         var endReached: Boolean = false;

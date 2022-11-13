@@ -2,15 +2,16 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { ApplicationProfilesListEmbedded } from './applicationProfilesListEmbedded';
-import { ApplicationProfilesListLinks } from './applicationProfilesListLinks';
+import { ListLinks } from './listLinks';
 import { PageCursor } from './pageCursor';
 
 export class ApplicationProfilesList {
     'page'?: PageCursor;
     'embedded'?: ApplicationProfilesListEmbedded;
-    'links'?: ApplicationProfilesListLinks;
+    'links'?: ListLinks;
 
     static discriminator: string | undefined = undefined;
 
@@ -28,7 +29,7 @@ export class ApplicationProfilesList {
         {
             "name": "links",
             "baseName": "_links",
-            "type": "ApplicationProfilesListLinks"
+            "type": "ListLinks"
         }    ];
 
     static getAttributeTypeMap() {

@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { BalanceTransferListEmbedded } from './balanceTransferListEmbedded';
 import { ListLinks } from './listLinks';

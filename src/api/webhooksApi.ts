@@ -5,23 +5,34 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
+// @ts-ignore: Some endpoints interact with files
 import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
+// @ts-ignore: Some unused imports always provided
 import { CreateWebhookRequest } from '../model/createWebhookRequest';
+// @ts-ignore: Some unused imports always provided
 import { Error401Unauthorized } from '../model/error401Unauthorized';
+// @ts-ignore: Some unused imports always provided
 import { Error403ForbiddenList } from '../model/error403ForbiddenList';
+// @ts-ignore: Some unused imports always provided
 import { Error404NotFoundList } from '../model/error404NotFoundList';
+// @ts-ignore: Some unused imports always provided
 import { Error406NotAcceptable } from '../model/error406NotAcceptable';
+// @ts-ignore: Some unused imports always provided
 import { Error422InvalidFieldList } from '../model/error422InvalidFieldList';
+// @ts-ignore: Some unused imports always provided
 import { ErrorGeneric } from '../model/errorGeneric';
+// @ts-ignore: Some unused imports always provided
 import { UpdateWebhookRequest } from '../model/updateWebhookRequest';
+// @ts-ignore: Some unused imports always provided
 import { Webhook } from '../model/webhook';
+// @ts-ignore: Some unused imports always provided
 import { WebhooksList } from '../model/webhooksList';
 import { ListWebhooksQueryParams } from '../model/listWebhooksQueryParams';
 import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
-import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
+import { HttpBasicAuth } from '../model/models';
 
-import { HttpError, RequestFile } from './apis';
+import { HttpError } from './apis';
 
 let defaultBasePath = 'https://finix.sandbox-payments-api.com';
 
@@ -107,7 +118,7 @@ export class WebhooksApi {
      * @param createWebhookRequest 
      */
 
-    private async createHelper(createWebhookRequest?: CreateWebhookRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Webhook;  }> {
+    private async createHelper(createWebhookRequest?: CreateWebhookRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Webhook;  rawBody: any; }> {
         const localVarPath = this.basePath + '/webhooks';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -160,14 +171,15 @@ export class WebhooksApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: Webhook;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: Webhook;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "Webhook");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -194,7 +206,7 @@ export class WebhooksApi {
      * @param createWebhookRequest 
      */
     public async createHttp(createWebhookRequest?: CreateWebhookRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: Webhook; }> {
+        Promise<{response: http.IncomingMessage, body: Webhook;  rawBody: any;}> {
         const responseObject = await this.createHelper(createWebhookRequest,  options);
         return responseObject;
     }
@@ -205,7 +217,7 @@ export class WebhooksApi {
      * @param webhookId ID of &#x60;Webhook&#x60; object.
      */
 
-    private async getHelper(webhookId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Webhook;  }> {
+    private async getHelper(webhookId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Webhook;  rawBody: any; }> {
         const localVarPath = this.basePath + '/webhooks/{webhook_id}'
             .replace('{' + 'webhook_id' + '}', encodeURIComponent(String(webhookId)));
         let localVarQueryParameters: any = {};
@@ -255,14 +267,15 @@ export class WebhooksApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: Webhook;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: Webhook;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "Webhook");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -289,7 +302,7 @@ export class WebhooksApi {
      * @param webhookId ID of &#x60;Webhook&#x60; object.
      */
     public async getHttp(webhookId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: Webhook; }> {
+        Promise<{response: http.IncomingMessage, body: Webhook;  rawBody: any;}> {
         const responseObject = await this.getHelper(webhookId,  options);
         return responseObject;
     }
@@ -299,7 +312,7 @@ export class WebhooksApi {
      * @summary List Webhooks
 
     */
-    private async listHelper (listWebhooksQueryParams?:ListWebhooksQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: WebhooksList;  }> {
+    private async listHelper (listWebhooksQueryParams?:ListWebhooksQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: WebhooksList;  rawBody: any; }> {
         const localVarPath = this.basePath + '/webhooks';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -355,14 +368,15 @@ export class WebhooksApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: WebhooksList;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: WebhooksList;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "WebhooksList");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -405,7 +419,7 @@ export class WebhooksApi {
      * @summary List Webhooks
      */
     public async listHttp (listWebhooksQueryParams?:ListWebhooksQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>, rawBody: any}> {
         const responseObject = await this.listHelper(listWebhooksQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
         let reachedEnd: Boolean;
@@ -426,17 +440,17 @@ export class WebhooksApi {
         let dataList = new finixList<any>(nextFetch, reachedEnd);
         dataList = this.embeddedHelper(responseObject, dataList);
         //dataList.hasMore = !reachedEnd;
-        return Promise.resolve({response: responseObject.response, body: dataList});
+        return Promise.resolve({response: responseObject.response, body: dataList, rawBody: responseObject.rawBody});
     }
     /**
      * Helper function. 
-     * Update an existing `Webhook`.
+     * Update an existing `Webhook`to: - Disable or enable an endpoint URL to recieve webhook events. - Add [authentication to a `Webhook`](/guides/developers/webhooks/#authenticating-webhooks). - Filter the [webhook events sent to an endpoint URL](/guides/developers/webhooks/#webhook-event-filtering).
      * @summary Update a Webhook
      * @param webhookId ID of &#x60;Webhook&#x60; object.
      * @param updateWebhookRequest 
      */
 
-    private async updateHelper(webhookId: string, updateWebhookRequest?: UpdateWebhookRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Webhook;  }> {
+    private async updateHelper(webhookId: string, updateWebhookRequest?: UpdateWebhookRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Webhook;  rawBody: any; }> {
         const localVarPath = this.basePath + '/webhooks/{webhook_id}'
             .replace('{' + 'webhook_id' + '}', encodeURIComponent(String(webhookId)));
         let localVarQueryParameters: any = {};
@@ -494,14 +508,15 @@ export class WebhooksApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: Webhook;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: Webhook;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "Webhook");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -512,7 +527,7 @@ export class WebhooksApi {
     }
 
     /**
-     * Update an existing `Webhook`.
+     * Update an existing `Webhook`to: - Disable or enable an endpoint URL to recieve webhook events. - Add [authentication to a `Webhook`](/guides/developers/webhooks/#authenticating-webhooks). - Filter the [webhook events sent to an endpoint URL](/guides/developers/webhooks/#webhook-event-filtering).
      * @summary Update a Webhook
      * @param webhookId ID of &#x60;Webhook&#x60; object.
      * @param updateWebhookRequest 
@@ -524,20 +539,22 @@ export class WebhooksApi {
     }
 
     /**
-     * Update an existing `Webhook`.
+     * Update an existing `Webhook`to: - Disable or enable an endpoint URL to recieve webhook events. - Add [authentication to a `Webhook`](/guides/developers/webhooks/#authenticating-webhooks). - Filter the [webhook events sent to an endpoint URL](/guides/developers/webhooks/#webhook-event-filtering).
      * @summary Update a Webhook
      * @param webhookId ID of &#x60;Webhook&#x60; object.
      * @param updateWebhookRequest 
      */
     public async updateHttp(webhookId: string, updateWebhookRequest?: UpdateWebhookRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: Webhook; }> {
+        Promise<{response: http.IncomingMessage, body: Webhook;  rawBody: any;}> {
         const responseObject = await this.updateHelper(webhookId, updateWebhookRequest,  options);
         return responseObject;
     }
 
+
     /**
      * Extracts page and links fields from response body and assigns as properties to finixList
      */ 
+    // @ts-ignore: Not all endpoints have list views
     private embeddedHelper(responseObject: any, dataList: finixList<any>){
         if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
             dataList.page = responseObject.body.page;
@@ -546,7 +563,7 @@ export class WebhooksApi {
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
         let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
-        tempList.forEach(item => {dataList.add(item)});
+        tempList.forEach((item: any) => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
@@ -555,6 +572,7 @@ export class WebhooksApi {
     /**
      * Extracts offset value from response body and determines if end of list has been reached
      */
+    // @ts-ignore: Not all endpoints have list views
     private getOffsetQueryParam(responseObject: any, queryParam: any){
         queryParam.offset = responseObject.body.page.offset + responseObject.body.page.limit;
         var endReached: Boolean = false;
@@ -567,6 +585,7 @@ export class WebhooksApi {
     /**
     * Extracts nextCursor value from response body and determines if end of list has been reached
     */
+    // @ts-ignore: Not all endpoints have list views
     private getCursorQueryParam(responseObject: any, queryParam: any){
         queryParam.afterCursor = responseObject.body.page.nextCursor;
         var endReached: Boolean = false;

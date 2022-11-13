@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { Address } from './address';
 import { Country } from './country';
@@ -13,9 +14,9 @@ import { PaymentInstrumentLinks } from './paymentInstrumentLinks';
 */
 export class PaymentInstrument {
     /**
-    * The ID of the resource.
+    * The ID of the `Payment Instrument`.
     */
-    'id'?: string | null;
+    'id'?: string;
     /**
     * Timestamp of when the object was created.
     */
@@ -30,7 +31,7 @@ export class PaymentInstrument {
     */
     'addressVerification'?: PaymentInstrument.AddressVerificationEnum | string;
     /**
-    * The ID of the resource.
+    * The ID of the `Application` resource the `Payment Instrument` was created under.
     */
     'application'?: string;
     /**
@@ -40,7 +41,7 @@ export class PaymentInstrument {
     /**
     * The `brand` of the card saved in the `Payment Instrument`.
     */
-    'brand'?: string;
+    'brand'?: PaymentInstrument.BrandEnum | string;
     /**
     * A custom name you can include to identify the card being used (e.g. **Business Card**).
     */
@@ -48,8 +49,12 @@ export class PaymentInstrument {
     /**
     * The type of payment card saved in the `Payment Instrument`.
     */
-    'cardType'?: string;
+    'cardType'?: PaymentInstrument.CardTypeEnum | string;
     'currency'?: Currency;
+    /**
+    * Details if the `Payment Instrument` resource is enabled. Default value is **true**; set to **false** to disable the `Payment Instrument`.
+    */
+    'enabled'?: boolean;
     /**
     * Expiration month (e.g. 12 for December).
     */
@@ -67,13 +72,17 @@ export class PaymentInstrument {
     */
     'fingerprint'?: string;
     /**
-    * The ID of the resource.
+    * The ID of the `Identity` used to create the `Payment Instrument` resource.
     */
-    'identity'?: string | null;
+    'identity'?: string;
     /**
     * The type of `Payment Instrument`.
     */
     'instrumentType'?: PaymentInstrument.InstrumentTypeEnum | string;
+    /**
+    * Details what country the card was issued in:<li><strong>USA</strong>: The card was issued inside the United States.<li><strong>NON_USA</strong>: The card was issued outside of the United States.<li><strong>UNKNOWN</strong>: Processor did not return an issuer country for this particular BIN.
+    */
+    'issuerCountry'?: PaymentInstrument.IssuerCountryEnum | string;
     /**
     * Last four digits of the card or bank account number.
     */
@@ -98,7 +107,7 @@ export class PaymentInstrument {
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
     /**
     * Type of `Payment Instrument`.
     */
@@ -163,7 +172,7 @@ export class PaymentInstrument {
         {
             "name": "brand",
             "baseName": "brand",
-            "type": "string"
+            "type": "PaymentInstrument.BrandEnum"
         },
         {
             "name": "cardName",
@@ -173,12 +182,17 @@ export class PaymentInstrument {
         {
             "name": "cardType",
             "baseName": "card_type",
-            "type": "string"
+            "type": "PaymentInstrument.CardTypeEnum"
         },
         {
             "name": "currency",
             "baseName": "currency",
             "type": "Currency"
+        },
+        {
+            "name": "enabled",
+            "baseName": "enabled",
+            "type": "boolean"
         },
         {
             "name": "expirationMonth",
@@ -209,6 +223,11 @@ export class PaymentInstrument {
             "name": "instrumentType",
             "baseName": "instrument_type",
             "type": "PaymentInstrument.InstrumentTypeEnum"
+        },
+        {
+            "name": "issuerCountry",
+            "baseName": "issuer_country",
+            "type": "PaymentInstrument.IssuerCountryEnum"
         },
         {
             "name": "lastFour",
@@ -290,53 +309,86 @@ export namespace PaymentInstrument {
     export enum AddressVerificationEnum {
         PostalCodeAndStreetMatch = <any> 'POSTAL_CODE_AND_STREET_MATCH',
         StreetMatch = <any> 'STREET_MATCH',
-        PostalCodeMatch = <any> 'POSTAL_CODE_MATCH',
         NoAddress = <any> 'NO_ADDRESS',
+        PostalCodeMatch = <any> 'POSTAL_CODE_MATCH',
         NoMatch = <any> 'NO_MATCH',
-        NotSupported = <any> 'NOT_SUPPORTED',
-        Unknown = <any> 'UNKNOWN'
+        Unknown = <any> 'UNKNOWN',
+        NotSupported = <any> 'NOT_SUPPORTED'
+    }
+    export enum BrandEnum {
+        Uatp = <any> 'UATP',
+        ChinaTUnion = <any> 'CHINA_T_UNION',
+        Lankapay = <any> 'LANKAPAY',
+        Mir = <any> 'MIR',
+        Mastercard = <any> 'MASTERCARD',
+        Dankort = <any> 'DANKORT',
+        Interpayment = <any> 'INTERPAYMENT',
+        Unknown = <any> 'UNKNOWN',
+        Verve = <any> 'VERVE',
+        Visa = <any> 'VISA',
+        Troy = <any> 'TROY',
+        Discover = <any> 'DISCOVER',
+        AmericanExpress = <any> 'AMERICAN_EXPRESS',
+        Instapayment = <any> 'INSTAPAYMENT',
+        DinersClubInternational = <any> 'DINERS_CLUB_INTERNATIONAL',
+        Maestro = <any> 'MAESTRO',
+        DinersClub = <any> 'DINERS_CLUB',
+        ChinaUnionPay = <any> 'CHINA_UNION_PAY',
+        Rupay = <any> 'RUPAY',
+        Jcb = <any> 'JCB'
+    }
+    export enum CardTypeEnum {
+        Credit = <any> 'CREDIT',
+        HsaFsa = <any> 'HSA_FSA',
+        NonReloadablePrepaid = <any> 'NON_RELOADABLE_PREPAID',
+        Debit = <any> 'DEBIT',
+        Unknown = <any> 'UNKNOWN',
+        ReloadablePrepaid = <any> 'RELOADABLE_PREPAID'
     }
     export enum InstrumentTypeEnum {
-        BankAccount = <any> 'BANK_ACCOUNT',
-        Token = <any> 'TOKEN',
+        VantivOmniToken = <any> 'VANTIV_OMNI_TOKEN',
+        PaymentCard = <any> 'PAYMENT_CARD',
         ApplePay = <any> 'APPLE_PAY',
+        GooglePay = <any> 'GOOGLE_PAY',
+        Token = <any> 'TOKEN',
         Virtual = <any> 'VIRTUAL',
         PaymentCardPresent = <any> 'PAYMENT_CARD_PRESENT',
-        GooglePay = <any> 'GOOGLE_PAY',
-        VantivOmniToken = <any> 'VANTIV_OMNI_TOKEN',
-        SwipedPaymentCard = <any> 'SWIPED_PAYMENT_CARD',
-        PaymentCard = <any> 'PAYMENT_CARD'
+        BankAccount = <any> 'BANK_ACCOUNT',
+        SwipedPaymentCard = <any> 'SWIPED_PAYMENT_CARD'
+    }
+    export enum IssuerCountryEnum {
+        Usa = <any> 'USA',
+        Unknown = <any> 'UNKNOWN',
+        NonUsa = <any> 'NON_USA'
     }
     export enum PayloadTypeEnum {
-        Source = <any> 'SOURCE',
-        Destination = <any> 'DESTINATION'
+        Destination = <any> 'DESTINATION',
+        Source = <any> 'SOURCE'
     }
     export enum SecurityCodeVerificationEnum {
+        Unmatched = <any> 'UNMATCHED',
         Matched = <any> 'MATCHED',
-        Unknown = <any> 'UNKNOWN',
-        Unmatched = <any> 'UNMATCHED'
+        Unknown = <any> 'UNKNOWN'
     }
     export enum TypeEnum {
-        BankAccount = <any> 'BANK_ACCOUNT',
-        Token = <any> 'TOKEN',
+        VantivOmniToken = <any> 'VANTIV_OMNI_TOKEN',
+        PaymentCard = <any> 'PAYMENT_CARD',
         ApplePay = <any> 'APPLE_PAY',
+        GooglePay = <any> 'GOOGLE_PAY',
+        Token = <any> 'TOKEN',
         Virtual = <any> 'VIRTUAL',
         PaymentCardPresent = <any> 'PAYMENT_CARD_PRESENT',
-        GooglePay = <any> 'GOOGLE_PAY',
-        VantivOmniToken = <any> 'VANTIV_OMNI_TOKEN',
-        SwipedPaymentCard = <any> 'SWIPED_PAYMENT_CARD',
-        PaymentCard = <any> 'PAYMENT_CARD'
+        BankAccount = <any> 'BANK_ACCOUNT',
+        SwipedPaymentCard = <any> 'SWIPED_PAYMENT_CARD'
     }
     export enum AccountTypeEnum {
         Checking = <any> 'CHECKING',
-        Savings = <any> 'SAVINGS',
-        Corporate = <any> 'CORPORATE',
-        CorpSavings = <any> 'CORP_SAVINGS'
+        Savings = <any> 'SAVINGS'
     }
     export enum BankAccountValidationCheckEnum {
-        NotAttempted = <any> 'NOT_ATTEMPTED',
+        Valid = <any> 'VALID',
         Inconclusive = <any> 'INCONCLUSIVE',
-        Invalid = <any> 'INVALID',
-        Valid = <any> 'VALID'
+        NotAttempted = <any> 'NOT_ATTEMPTED',
+        Invalid = <any> 'INVALID'
     }
 }

@@ -2,10 +2,17 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { FeeProfileLinks } from './feeProfileLinks';
 
+/**
+* 
+*/
 export class FeeProfile {
+    /**
+    * The ID of the `Fee Profile` resource.
+    */
     'id'?: string;
     /**
     * Timestamp of when the object was created.
@@ -20,11 +27,11 @@ export class FeeProfile {
     */
     'achBasisPoints'?: number;
     /**
-    * A fixed amount in cents that will be charged to the merchant for processing an echeck (also called ACH payments) credit return.
+    * A fixed amount in cents that will be charged to the seller for processing an echeck (also called ACH payments) credit return.
     */
     'achCreditReturnFixedFee'?: number | null;
     /**
-    * A fixed amount in cents that will be charged to the merchant for processing an echeck (also called ACH payment) debit return.
+    * A fixed amount in cents that will be charged to the seller for processing an echeck (also called ACH payment) debit return.
     */
     'achDebitReturnFixedFee'?: number | null;
     /**
@@ -44,10 +51,6 @@ export class FeeProfile {
     */
     'americanExpressChargeInterchange'?: boolean | null;
     /**
-    * Fee in cents incurred for each individual American Express `Transfer`.
-    */
-    'americanExpressFixedFee'?: number | null;
-    /**
     * Percentage-based fee incurred against the full amount of each American Express externally funded `Transfer`. Calculated as one hundredth of one percent (1 basis point = .0001 or .01%)
     */
     'americanExpressExternallyFundedBasisPoints'?: number | null;
@@ -55,6 +58,10 @@ export class FeeProfile {
     * Fee in cents incurred for each individual American Express externally funded `Transfer`.
     */
     'americanExpressExternallyFundedFixedFee'?: number | null;
+    /**
+    * Fee in cents incurred for each individual American Express `Transfer`.
+    */
+    'americanExpressFixedFee'?: number | null;
     /**
     * An additional fixed fee that can be charged per `Transfer`.
     */
@@ -64,13 +71,21 @@ export class FeeProfile {
     */
     'ancillaryFixedFeeSecondary'?: number | null;
     /**
-    * The ID of the resource.
+    * The ID of the `Application` associated with the  `Fee Profile`.
     */
     'application'?: string;
     /**
     * Percentage-based fee incurred against the full amount of each card-based `Transfer`. Calculated as one hundredth of one percent (1 basis point = .0001 or .01%)
     */
     'basisPoints'?: number;
+    /**
+    * Percentage-based fee charged against the full amount of every `Transfer` that includes non-US cards. Calculated as one hundredth of one percent (1 basis point = .0001 or .01%).
+    */
+    'cardCrossBorderBasisPoints'?: number | null;
+    /**
+    * Fee in cents charged against every `Transfer` that includes non-US cards.
+    */
+    'cardCrossBorderFixedFee'?: number | null;
     /**
     * Set to **True** to incur interchange fees for card-based `Transfers`.
     */
@@ -104,10 +119,6 @@ export class FeeProfile {
     */
     'discoverDataUsageFixedFee'?: number | null;
     /**
-    * Fee in cents incurred for each individual Discover `Transfer`.
-    */
-    'discoverFixedFee'?: number | null;
-    /**
     * Percentage-based fee incurred against the full amount of each Discover externally funded `Transfer`. Calculated as one hundredth of one percent (1 basis point = .0001 or .01%).
     */
     'discoverExternallyFundedBasisPoints'?: number | null;
@@ -115,6 +126,10 @@ export class FeeProfile {
     * Fee in cents incurred for each individual Discover externally funded `Transfer`.
     */
     'discoverExternallyFundedFixedFee'?: number | null;
+    /**
+    * Fee in cents incurred for each individual Discover `Transfer`.
+    */
+    'discoverFixedFee'?: number | null;
     /**
     * This fee applies to all Discover network `authorizations` and replaces the previously assessed Data Transmission.
     */
@@ -186,7 +201,7 @@ export class FeeProfile {
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
     /**
     * Applied to all U.S.-based credit card authorizations acquired in the U.S. regardless of where the issuer/cardholder is located. If your business is based in the U.S., the acquirer processing fee will apply to all Visa credit card authorizations
     */
@@ -279,11 +294,6 @@ export class FeeProfile {
             "type": "boolean"
         },
         {
-            "name": "americanExpressFixedFee",
-            "baseName": "american_express_fixed_fee",
-            "type": "number"
-        },
-        {
             "name": "americanExpressExternallyFundedBasisPoints",
             "baseName": "american_express_externally_funded_basis_points",
             "type": "number"
@@ -291,6 +301,11 @@ export class FeeProfile {
         {
             "name": "americanExpressExternallyFundedFixedFee",
             "baseName": "american_express_externally_funded_fixed_fee",
+            "type": "number"
+        },
+        {
+            "name": "americanExpressFixedFee",
+            "baseName": "american_express_fixed_fee",
             "type": "number"
         },
         {
@@ -311,6 +326,16 @@ export class FeeProfile {
         {
             "name": "basisPoints",
             "baseName": "basis_points",
+            "type": "number"
+        },
+        {
+            "name": "cardCrossBorderBasisPoints",
+            "baseName": "card_cross_border_basis_points",
+            "type": "number"
+        },
+        {
+            "name": "cardCrossBorderFixedFee",
+            "baseName": "card_cross_border_fixed_fee",
             "type": "number"
         },
         {
@@ -354,11 +379,6 @@ export class FeeProfile {
             "type": "number"
         },
         {
-            "name": "discoverFixedFee",
-            "baseName": "discover_fixed_fee",
-            "type": "number"
-        },
-        {
             "name": "discoverExternallyFundedBasisPoints",
             "baseName": "discover_externally_funded_basis_points",
             "type": "number"
@@ -366,6 +386,11 @@ export class FeeProfile {
         {
             "name": "discoverExternallyFundedFixedFee",
             "baseName": "discover_externally_funded_fixed_fee",
+            "type": "number"
+        },
+        {
+            "name": "discoverFixedFee",
+            "baseName": "discover_fixed_fee",
             "type": "number"
         },
         {

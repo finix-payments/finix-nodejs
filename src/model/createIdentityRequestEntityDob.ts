@@ -2,28 +2,25 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 
 /**
-* The date the company was founded and registered with the US.
+* The control owner\'s date of birth.
 */
-export class IdentityEntityIncorporationDate {
-    /**
-    * Day business was incorporated (between 1 and 31).
-    */
-    'day'?: number;
-    /**
-    * Month business was incorporated (between 1 and 12).
-    */
-    'month'?: number;
-    /**
-    * Year business was incorporated (4-digit).
-    */
+export class CreateIdentityRequestEntityDob {
     'year'?: number;
+    'day'?: number;
+    'month'?: number;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "year",
+            "baseName": "year",
+            "type": "number"
+        },
         {
             "name": "day",
             "baseName": "day",
@@ -33,15 +30,10 @@ export class IdentityEntityIncorporationDate {
             "name": "month",
             "baseName": "month",
             "type": "number"
-        },
-        {
-            "name": "year",
-            "baseName": "year",
-            "type": "number"
         }    ];
 
     static getAttributeTypeMap() {
-        return IdentityEntityIncorporationDate.attributeTypeMap;
+        return CreateIdentityRequestEntityDob.attributeTypeMap;
     }
 }
 

@@ -24,6 +24,8 @@ export * from './onboardingFormsApi';
 import { OnboardingFormsApi } from './onboardingFormsApi';
 export * from './paymentInstrumentsApi';
 import { PaymentInstrumentsApi } from './paymentInstrumentsApi';
+export * from './payoutProfilesApi';
+import { PayoutProfilesApi } from './payoutProfilesApi';
 export * from './settlementsApi';
 import { SettlementsApi } from './settlementsApi';
 export * from './transfersApi';
@@ -40,7 +42,7 @@ export class HttpError extends Error {
     public headers: any;
     public statusCode: number;
 
-    constructor (response: http.IncomingMessage, rawBody: any, statusCode?: number) {
+    constructor (response: http.IncomingMessage, rawBody: any, statusCode: number) {
         super('HTTP request failed');
         this.name = 'HttpError';
         this.response = response;
@@ -52,4 +54,4 @@ export class HttpError extends Error {
 
 export { RequestFile } from '../model/models';
 
-export const APIS = [AuthorizationsApi, BalanceTransfersApi, ComplianceFormsApi, DevicesApi, DisputesApi, FeeProfilesApi, FilesApi, IdentitiesApi, InstrumentUpdatesApi, MerchantProfilesApi, MerchantsApi, OnboardingFormsApi, PaymentInstrumentsApi, SettlementsApi, TransfersApi, VerificationsApi, WebhooksApi];
+export const APIS = [AuthorizationsApi, BalanceTransfersApi, ComplianceFormsApi, DevicesApi, DisputesApi, FeeProfilesApi, FilesApi, IdentitiesApi, InstrumentUpdatesApi, MerchantProfilesApi, MerchantsApi, OnboardingFormsApi, PaymentInstrumentsApi, PayoutProfilesApi, SettlementsApi, TransfersApi, VerificationsApi, WebhooksApi];

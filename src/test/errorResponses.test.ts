@@ -1,5 +1,5 @@
 import {Client, Environment, Models} from '../api';
-import * as fs from 'fs';
+import { HttpError } from '../api/apis';
 describe('Error response', () => {
 
     let client: Client;
@@ -17,11 +17,11 @@ describe('Error response', () => {
 
         try{
             const invalidClient = new Client(userName, wrongPassword, Environment.Sandbox);
-            let transferList = await invalidClient.Transfers.list();
+            await invalidClient.Transfers.list();
         }catch(error){
-            expect(error.statusCode).toBe(401);
-            expect(error.body.length).toBeGreaterThan(0);
-            expect(error.body[0].message).toBe('Unauthorized');
+            expect((error as HttpError).statusCode).toBe(401);
+            expect((error as HttpError).body.length).toBeGreaterThan(0);
+            expect((error as HttpError).body[0].message).toBe('Unauthorized');
         }
 
     });
@@ -32,23 +32,23 @@ describe('Error response', () => {
 
         try{
             const invalidClient = new Client(wrongUserName, password, Environment.Sandbox);
-            let transferList = await invalidClient.Transfers.list();
+            await invalidClient.Transfers.list();
         }catch(error){
-            expect(error.statusCode).toBe(401);
-            expect(error.body.length).toBeGreaterThan(0);
-            expect(error.body[0].message).toBe('Unauthorized');
+            expect((error as HttpError).statusCode).toBe(401);
+            expect((error as HttpError).body.length).toBeGreaterThan(0);
+            expect((error as HttpError).body[0].message).toBe('Unauthorized');
         }
     });
 
     test("Test: 404 - Not found", async() => {
         try{
-            let transferList = await client.Transfers.list({
+            await client.Transfers.list({
                 afterCursor: "123"
             });
         }catch(error){
-            expect(error.statusCode).toBe(404);
-            expect(error.body.length).toBeGreaterThan(0);
-            expect(error.body[0].code).toBe('NOT_FOUND');
+            expect((error as HttpError).statusCode).toBe(404);
+            expect((error as HttpError).body.length).toBeGreaterThan(0);
+            expect((error as HttpError).body[0].code).toBe('NOT_FOUND');
         }
     });
 
@@ -77,18 +77,18 @@ describe('Error response', () => {
             const createdPaymentInstrument = await client.PaymentInstruments.create(paymentCardRequest);
             const paymentCardId = <string>createdPaymentInstrument.id;
 
-            let authorization = await client.Authorizations.create({
+            await client.Authorizations.create({
                 source: paymentCardId,
                 merchant: "MUeDVrf2ahuKc9Eg5TeZugvs",
                 amount: 123,
                 currency: Models.Currency.Usd
             });
-            console.log(authorization);
+
         }catch(error){
-            expect(error.statusCode).toBe(402);
-            expect(error.body.length).toBeGreaterThan(0);
-            expect(error.body[0].code).toBe('DECLINED');
-            expect(error.body[0].authorization).toEqual(expect.any(String));
+            expect((error as HttpError).statusCode).toBe(402);
+            expect((error as HttpError).body.length).toBeGreaterThan(0);
+            expect((error as HttpError).body[0].code).toBe('DECLINED');
+            expect((error as HttpError).body[0].authorization).toEqual(expect.any(String));
         }
     }, 10000);
 
@@ -124,15 +124,15 @@ describe('Error response', () => {
                 currency: Models.Currency.Usd
             });
             
-            const authorizationId = authorization.id;
+            const authorizationId = authorization.id!;
 
-            let capturedAuthorization = await client.Authorizations.update(authorizationId, {captureAmount: 102});
+            await client.Authorizations.update(authorizationId, {captureAmount: 102});
 
         }catch(error){
-            expect(error.statusCode).toBe(402);
-            expect(error.body.length).toBeGreaterThan(0);
-            expect(error.body[0].code).toBe('PAYMENT_DECLINED');
-            expect(error.body[0].transfer).toEqual(expect.any(String));
+            expect((error as HttpError).statusCode).toBe(402);
+            expect((error as HttpError).body.length).toBeGreaterThan(0);
+            expect((error as HttpError).body[0].code).toBe('PAYMENT_DECLINED');
+            expect((error as HttpError).body[0].transfer).toEqual(expect.any(String));
         }
     });
 
@@ -157,13 +157,13 @@ describe('Error response', () => {
                 type: Models.CreatePaymentInstrumentRequest.TypeEnum.PaymentCard,
                 identity: "IDgWxBhfGYLLdkhxx2ddYf9K"
             };
-            const createdPaymentInstrument = await client.PaymentInstruments.create(paymentCardRequest);
+            await client.PaymentInstruments.create(paymentCardRequest);
 
         }catch(error){
-            expect(error.statusCode).toBe(422);
-            expect(error.body.length).toBeGreaterThan(0);
-            expect(error.body[0].code).toBe('INVALID_FIELD');
-            expect(error.body[0].field).toBe('expiration_year');
+            expect((error as HttpError).statusCode).toBe(422);
+            expect((error as HttpError).body.length).toBeGreaterThan(0);
+            expect((error as HttpError).body[0].code).toBe('INVALID_FIELD');
+            expect((error as HttpError).body[0].field).toBe('expiration_year');
         }
     });
 })

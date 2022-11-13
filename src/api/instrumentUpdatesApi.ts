@@ -5,20 +5,28 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
+// @ts-ignore: Some endpoints interact with files
 import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
+// @ts-ignore: Some unused imports always provided
 import { CreateInstrumentUpdateRequest } from '../model/createInstrumentUpdateRequest';
+// @ts-ignore: Some unused imports always provided
 import { Error401Unauthorized } from '../model/error401Unauthorized';
+// @ts-ignore: Some unused imports always provided
 import { Error403ForbiddenList } from '../model/error403ForbiddenList';
+// @ts-ignore: Some unused imports always provided
 import { Error404NotFoundList } from '../model/error404NotFoundList';
+// @ts-ignore: Some unused imports always provided
 import { Error406NotAcceptable } from '../model/error406NotAcceptable';
+// @ts-ignore: Some unused imports always provided
 import { ErrorGeneric } from '../model/errorGeneric';
+// @ts-ignore: Some unused imports always provided
 import { InstrumentUpdate } from '../model/instrumentUpdate';
 import { DownloadInstrumentUpdateQueryParams } from '../model/downloadInstrumentUpdateQueryParams';
 import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
-import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
+import { HttpBasicAuth } from '../model/models';
 
-import { HttpError, RequestFile } from './apis';
+import { HttpError } from './apis';
 
 let defaultBasePath = 'https://finix.sandbox-payments-api.com';
 
@@ -104,7 +112,7 @@ export class InstrumentUpdatesApi {
      * @param createInstrumentUpdateRequest 
      */
 
-    private async createHelper(createInstrumentUpdateRequest?: CreateInstrumentUpdateRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: InstrumentUpdate;  }> {
+    private async createHelper(createInstrumentUpdateRequest?: CreateInstrumentUpdateRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: InstrumentUpdate;  rawBody: any; }> {
         const localVarPath = this.basePath + '/instrument_updates';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -157,14 +165,15 @@ export class InstrumentUpdatesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: InstrumentUpdate;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: InstrumentUpdate;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "InstrumentUpdate");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -191,7 +200,7 @@ export class InstrumentUpdatesApi {
      * @param createInstrumentUpdateRequest 
      */
     public async createHttp(createInstrumentUpdateRequest?: CreateInstrumentUpdateRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: InstrumentUpdate; }> {
+        Promise<{response: http.IncomingMessage, body: InstrumentUpdate;  rawBody: any;}> {
         const responseObject = await this.createHelper(createInstrumentUpdateRequest,  options);
         return responseObject;
     }
@@ -203,7 +212,7 @@ export class InstrumentUpdatesApi {
     * @param instrumentUpdatesId The ID of the &#x60;instrument_updates&#x60; resource. This ID was returned when initially creating the &#x60;instrument_updates&#x60; object.
     * 
     */
-    private async downloadHelper (instrumentUpdatesId: string, downloadInstrumentUpdateQueryParams?:DownloadInstrumentUpdateQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Buffer;  }> {
+    private async downloadHelper (instrumentUpdatesId: string, downloadInstrumentUpdateQueryParams?:DownloadInstrumentUpdateQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Buffer;  rawBody: any; }> {
         const localVarPath = this.basePath + '/instrument_updates/{instrument_updates_id}/download'
             .replace('{' + 'instrument_updates_id' + '}', encodeURIComponent(String(instrumentUpdatesId)));
         let localVarQueryParameters: any = {};
@@ -258,14 +267,15 @@ export class InstrumentUpdatesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: Buffer;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: Buffer;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "Buffer");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -294,18 +304,18 @@ export class InstrumentUpdatesApi {
      * 
      */
     public async downloadHttp (instrumentUpdatesId: string, downloadInstrumentUpdateQueryParams?:DownloadInstrumentUpdateQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: Buffer; }> {
+        Promise<{response: http.IncomingMessage, body: Buffer;  rawBody: any;}> {
         const responseObject = await this.downloadHelper(instrumentUpdatesId, downloadInstrumentUpdateQueryParams, options);
         return responseObject;
     }
     /**
      * Helper function. 
-     * Fetch a specific `instrument_update` from an `instrument_updates` resource. For more information, see the guide on using our [Account Updater](/guides/payments/account-updater).
+     * Fetch a specific `instrument_update` from an `instrument_updates` resource.
      * @summary Fetch an Instrument Update
      * @param instrumentUpdatesId The ID of the &#x60;instrument_update&#x60;.
      */
 
-    private async getHelper(instrumentUpdatesId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: InstrumentUpdate;  }> {
+    private async getHelper(instrumentUpdatesId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: InstrumentUpdate;  rawBody: any; }> {
         const localVarPath = this.basePath + '/instrument_updates/{instrument_updates_id}'
             .replace('{' + 'instrument_updates_id' + '}', encodeURIComponent(String(instrumentUpdatesId)));
         let localVarQueryParameters: any = {};
@@ -355,14 +365,15 @@ export class InstrumentUpdatesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: InstrumentUpdate;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: InstrumentUpdate;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "InstrumentUpdate");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -373,7 +384,7 @@ export class InstrumentUpdatesApi {
     }
 
     /**
-     * Fetch a specific `instrument_update` from an `instrument_updates` resource. For more information, see the guide on using our [Account Updater](/guides/payments/account-updater).
+     * Fetch a specific `instrument_update` from an `instrument_updates` resource.
      * @summary Fetch an Instrument Update
      * @param instrumentUpdatesId The ID of the &#x60;instrument_update&#x60;.
      */
@@ -384,19 +395,21 @@ export class InstrumentUpdatesApi {
     }
 
     /**
-     * Fetch a specific `instrument_update` from an `instrument_updates` resource. For more information, see the guide on using our [Account Updater](/guides/payments/account-updater).
+     * Fetch a specific `instrument_update` from an `instrument_updates` resource.
      * @summary Fetch an Instrument Update
      * @param instrumentUpdatesId The ID of the &#x60;instrument_update&#x60;.
      */
     public async getHttp(instrumentUpdatesId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: InstrumentUpdate; }> {
+        Promise<{response: http.IncomingMessage, body: InstrumentUpdate;  rawBody: any;}> {
         const responseObject = await this.getHelper(instrumentUpdatesId,  options);
         return responseObject;
     }
 
+
     /**
      * Extracts page and links fields from response body and assigns as properties to finixList
      */ 
+    // @ts-ignore: Not all endpoints have list views
     private embeddedHelper(responseObject: any, dataList: finixList<any>){
         if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
             dataList.page = responseObject.body.page;
@@ -405,7 +418,7 @@ export class InstrumentUpdatesApi {
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
         let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
-        tempList.forEach(item => {dataList.add(item)});
+        tempList.forEach((item: any) => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
@@ -414,6 +427,7 @@ export class InstrumentUpdatesApi {
     /**
      * Extracts offset value from response body and determines if end of list has been reached
      */
+    // @ts-ignore: Not all endpoints have list views
     private getOffsetQueryParam(responseObject: any, queryParam: any){
         queryParam.offset = responseObject.body.page.offset + responseObject.body.page.limit;
         var endReached: Boolean = false;
@@ -426,6 +440,7 @@ export class InstrumentUpdatesApi {
     /**
     * Extracts nextCursor value from response body and determines if end of list has been reached
     */
+    // @ts-ignore: Not all endpoints have list views
     private getCursorQueryParam(responseObject: any, queryParam: any){
         queryParam.afterCursor = responseObject.body.page.nextCursor;
         var endReached: Boolean = false;

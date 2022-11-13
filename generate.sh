@@ -1,4 +1,5 @@
 rm -rf src/model
+rm -rf src/api
 
 openapi-generator generate \
 -g typescript-node \

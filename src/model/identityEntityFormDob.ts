@@ -2,16 +2,13 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 
 /**
 * Principal\'s date of birth.
 */
 export class IdentityEntityFormDob {
-    /**
-    * Year of birth (4-digit).
-    */
-    'year'?: number;
     /**
     * Day of birth (between 1 and 31).
     */
@@ -20,15 +17,14 @@ export class IdentityEntityFormDob {
     * Month of birth (between 1 and 12).
     */
     'month'?: number;
+    /**
+    * Year of birth (4-digit).
+    */
+    'year'?: number;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "year",
-            "baseName": "year",
-            "type": "number"
-        },
         {
             "name": "day",
             "baseName": "day",
@@ -37,6 +33,11 @@ export class IdentityEntityFormDob {
         {
             "name": "month",
             "baseName": "month",
+            "type": "number"
+        },
+        {
+            "name": "year",
+            "baseName": "year",
             "type": "number"
         }    ];
 

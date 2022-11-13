@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { AdditionalBuyerCharges } from './additionalBuyerCharges';
 import { AdditionalPurchaseData } from './additionalPurchaseData';
@@ -39,9 +40,13 @@ export class CreateTransferRequest {
     */
     'fee'?: number;
     /**
-    * The `fraud_session_session` ID you want to review for fraud. For more info, see [Fraud Detection](/docs/guides/payments/fraud-detection/).
+    * The `fraud_session_session` ID you want to review for fraud. For more info, see [Fraud Detection](/guides/payments/fraud-detection/).
     */
     'fraudSessionId'?: string;
+    /**
+    * Set to to **true** to process a payment using a `Payment Instrument` [created from a health savings account (HSA) or flexible spending account (FSA)](/docs/guides/making-a-payment/hsa-fsa/).
+    */
+    'hsaFsaPayment'?: boolean | null;
     /**
     * A randomly generated value that\'ll be associated with the request.
     */
@@ -64,13 +69,17 @@ export class CreateTransferRequest {
     */
     'source'?: string;
     /**
-    * The description of the transaction that appears on the buyer\'s bank or card statement.
+    * The 3-4 digit security code for the card (i.e. CVV code). Include the CVV code of the card to include [Card Verification Checks](/guides/payments/making-a-payment/card-verification-checks/) with the created `Transfer`.
+    */
+    'securityCode'?: string | null;
+    /**
+    * <li>The description of the transaction that appears on the buyer\'s bank or card statement.</li><li><kbd>statement_descriptors</kbd> for `Transfers` in <strong>live</strong> enviroments will have a <kbd>FI*</kbd> prefix.
     */
     'statementDescriptor'?: string | null;
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
     '_3dSecureAuthentication'?: CreateTransferRequest3dSecureAuthentication | null;
 
     static discriminator: string | undefined = undefined;
@@ -127,6 +136,11 @@ export class CreateTransferRequest {
             "type": "string"
         },
         {
+            "name": "hsaFsaPayment",
+            "baseName": "hsa_fsa_payment",
+            "type": "boolean"
+        },
+        {
             "name": "idempotencyId",
             "baseName": "idempotency_id",
             "type": "string"
@@ -154,6 +168,11 @@ export class CreateTransferRequest {
         {
             "name": "source",
             "baseName": "source",
+            "type": "string"
+        },
+        {
+            "name": "securityCode",
+            "baseName": "security_code",
             "type": "string"
         },
         {

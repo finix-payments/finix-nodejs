@@ -5,24 +5,36 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
+// @ts-ignore: Some endpoints interact with files
 import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
+// @ts-ignore: Some unused imports always provided
 import { CreateMerchantUnderwritingRequest } from '../model/createMerchantUnderwritingRequest';
+// @ts-ignore: Some unused imports always provided
 import { CreateVerificationRequest } from '../model/createVerificationRequest';
+// @ts-ignore: Some unused imports always provided
 import { Error401Unauthorized } from '../model/error401Unauthorized';
+// @ts-ignore: Some unused imports always provided
 import { Error403ForbiddenList } from '../model/error403ForbiddenList';
+// @ts-ignore: Some unused imports always provided
 import { Error404NotFoundList } from '../model/error404NotFoundList';
+// @ts-ignore: Some unused imports always provided
 import { Error406NotAcceptable } from '../model/error406NotAcceptable';
+// @ts-ignore: Some unused imports always provided
 import { ErrorGeneric } from '../model/errorGeneric';
+// @ts-ignore: Some unused imports always provided
 import { Merchant } from '../model/merchant';
+// @ts-ignore: Some unused imports always provided
 import { MerchantsList } from '../model/merchantsList';
+// @ts-ignore: Some unused imports always provided
 import { UpdateMerchantRequest } from '../model/updateMerchantRequest';
+// @ts-ignore: Some unused imports always provided
 import { Verification } from '../model/verification';
 import { ListMerchantsQueryParams } from '../model/listMerchantsQueryParams';
 import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
-import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
+import { HttpBasicAuth } from '../model/models';
 
-import { HttpError, RequestFile } from './apis';
+import { HttpError } from './apis';
 
 let defaultBasePath = 'https://finix.sandbox-payments-api.com';
 
@@ -103,13 +115,13 @@ export class MerchantsApi {
 
     /**
      * Helper function. 
-     * Create a `Merchant` to start the underwriting (also called provisioning) process for your merchant. `Merchants` must be created under an [`Identity`](#tag/Identities).  > A bank account must be associated with the previously created `Identity` before a `Merchant` can be succefully onboarded and verified.  `Merchant` resources can have three possible `onboarding_states`:  1. **PROVISIONING**: The request is pending (the state can change after two minutes).     * `processing_enabled`: **False**     * `settlement_enabled`: **False**  1. **APPROVED**: The `Merchant` has been approved and can begin processing payments.     * `processing_enabled`: **True**    * `settlement_enabled`: **True**  1. **REJECTED**: The `Merchant` was rejected by the processor because of invalid information or it failed a regulatory and/or compliance check (e.g. KYC, OFAC, or MATCH). Make any changes that are needed, and [try verifying the `Merchant` again](#operation/createMerchantVerification).     * `processing_enabled`: **False**     * `settlement_enabled`: **False**   > Provisioning a `Merchant` account is an asynchronous request. We recommend creating a [`Webhook`](#tag/Webhooks) to listen for the state change.
+     * Create a `Merchant` to start the underwriting (also called provisioning) process for your seller. `Merchants` must be created under an [`Identity`](/api/tag/Identities).  A bank account must be associated with the previously created `Identity` before a `Merchant` can be succefully onboarded and verified.
      * @summary Create a Merchant
      * @param identityId ID of &#x60;Identity&#x60; to fetch.
      * @param createMerchantUnderwritingRequest 
      */
 
-    private async createHelper(identityId: string, createMerchantUnderwritingRequest?: CreateMerchantUnderwritingRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Merchant;  }> {
+    private async createHelper(identityId: string, createMerchantUnderwritingRequest?: CreateMerchantUnderwritingRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Merchant;  rawBody: any; }> {
         const localVarPath = this.basePath + '/identities/{identity_id}/merchants'
             .replace('{' + 'identity_id' + '}', encodeURIComponent(String(identityId)));
         let localVarQueryParameters: any = {};
@@ -167,14 +179,15 @@ export class MerchantsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: Merchant;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: Merchant;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "Merchant");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -185,7 +198,7 @@ export class MerchantsApi {
     }
 
     /**
-     * Create a `Merchant` to start the underwriting (also called provisioning) process for your merchant. `Merchants` must be created under an [`Identity`](#tag/Identities).  > A bank account must be associated with the previously created `Identity` before a `Merchant` can be succefully onboarded and verified.  `Merchant` resources can have three possible `onboarding_states`:  1. **PROVISIONING**: The request is pending (the state can change after two minutes).     * `processing_enabled`: **False**     * `settlement_enabled`: **False**  1. **APPROVED**: The `Merchant` has been approved and can begin processing payments.     * `processing_enabled`: **True**    * `settlement_enabled`: **True**  1. **REJECTED**: The `Merchant` was rejected by the processor because of invalid information or it failed a regulatory and/or compliance check (e.g. KYC, OFAC, or MATCH). Make any changes that are needed, and [try verifying the `Merchant` again](#operation/createMerchantVerification).     * `processing_enabled`: **False**     * `settlement_enabled`: **False**   > Provisioning a `Merchant` account is an asynchronous request. We recommend creating a [`Webhook`](#tag/Webhooks) to listen for the state change.
+     * Create a `Merchant` to start the underwriting (also called provisioning) process for your seller. `Merchants` must be created under an [`Identity`](/api/tag/Identities).  A bank account must be associated with the previously created `Identity` before a `Merchant` can be succefully onboarded and verified.
      * @summary Create a Merchant
      * @param identityId ID of &#x60;Identity&#x60; to fetch.
      * @param createMerchantUnderwritingRequest 
@@ -197,25 +210,25 @@ export class MerchantsApi {
     }
 
     /**
-     * Create a `Merchant` to start the underwriting (also called provisioning) process for your merchant. `Merchants` must be created under an [`Identity`](#tag/Identities).  > A bank account must be associated with the previously created `Identity` before a `Merchant` can be succefully onboarded and verified.  `Merchant` resources can have three possible `onboarding_states`:  1. **PROVISIONING**: The request is pending (the state can change after two minutes).     * `processing_enabled`: **False**     * `settlement_enabled`: **False**  1. **APPROVED**: The `Merchant` has been approved and can begin processing payments.     * `processing_enabled`: **True**    * `settlement_enabled`: **True**  1. **REJECTED**: The `Merchant` was rejected by the processor because of invalid information or it failed a regulatory and/or compliance check (e.g. KYC, OFAC, or MATCH). Make any changes that are needed, and [try verifying the `Merchant` again](#operation/createMerchantVerification).     * `processing_enabled`: **False**     * `settlement_enabled`: **False**   > Provisioning a `Merchant` account is an asynchronous request. We recommend creating a [`Webhook`](#tag/Webhooks) to listen for the state change.
+     * Create a `Merchant` to start the underwriting (also called provisioning) process for your seller. `Merchants` must be created under an [`Identity`](/api/tag/Identities).  A bank account must be associated with the previously created `Identity` before a `Merchant` can be succefully onboarded and verified.
      * @summary Create a Merchant
      * @param identityId ID of &#x60;Identity&#x60; to fetch.
      * @param createMerchantUnderwritingRequest 
      */
     public async createHttp(identityId: string, createMerchantUnderwritingRequest?: CreateMerchantUnderwritingRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: Merchant; }> {
+        Promise<{response: http.IncomingMessage, body: Merchant;  rawBody: any;}> {
         const responseObject = await this.createHelper(identityId, createMerchantUnderwritingRequest,  options);
         return responseObject;
     }
     /**
      * Helper function. 
-     * If the `onboarding_state` for a `Merchant` returns **FAILED**, correct the `Identity` information saved for the `Merchant`. Once corrected, try verifying (also called provisioning) the `Merchant` again with another request.
+     * Verify a `Merchant` if the `onboarding_state` for a `Merchant` returns **FAILED**, or if the correct the seller needs to update the saved in their information `Identity`.  Related Guides: [Onboarding Process](/guides/onboarding/onboarding-process/#reverify-a-merchant)
      * @summary Verify a Merchant
      * @param merchantId ID of &#x60;Merchant&#x60; object.
      * @param createVerificationRequest 
      */
 
-    private async createMerchantVerificationHelper(merchantId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Verification;  }> {
+    private async createMerchantVerificationHelper(merchantId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Verification;  rawBody: any; }> {
         const localVarPath = this.basePath + '/merchants/{merchant_id}/verifications'
             .replace('{' + 'merchant_id' + '}', encodeURIComponent(String(merchantId)));
         let localVarQueryParameters: any = {};
@@ -273,14 +286,15 @@ export class MerchantsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: Verification;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: Verification;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "Verification");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -291,7 +305,7 @@ export class MerchantsApi {
     }
 
     /**
-     * If the `onboarding_state` for a `Merchant` returns **FAILED**, correct the `Identity` information saved for the `Merchant`. Once corrected, try verifying (also called provisioning) the `Merchant` again with another request.
+     * Verify a `Merchant` if the `onboarding_state` for a `Merchant` returns **FAILED**, or if the correct the seller needs to update the saved in their information `Identity`.  Related Guides: [Onboarding Process](/guides/onboarding/onboarding-process/#reverify-a-merchant)
      * @summary Verify a Merchant
      * @param merchantId ID of &#x60;Merchant&#x60; object.
      * @param createVerificationRequest 
@@ -303,13 +317,13 @@ export class MerchantsApi {
     }
 
     /**
-     * If the `onboarding_state` for a `Merchant` returns **FAILED**, correct the `Identity` information saved for the `Merchant`. Once corrected, try verifying (also called provisioning) the `Merchant` again with another request.
+     * Verify a `Merchant` if the `onboarding_state` for a `Merchant` returns **FAILED**, or if the correct the seller needs to update the saved in their information `Identity`.  Related Guides: [Onboarding Process](/guides/onboarding/onboarding-process/#reverify-a-merchant)
      * @summary Verify a Merchant
      * @param merchantId ID of &#x60;Merchant&#x60; object.
      * @param createVerificationRequest 
      */
     public async createMerchantVerificationHttp(merchantId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: Verification; }> {
+        Promise<{response: http.IncomingMessage, body: Verification;  rawBody: any;}> {
         const responseObject = await this.createMerchantVerificationHelper(merchantId, createVerificationRequest,  options);
         return responseObject;
     }
@@ -320,7 +334,7 @@ export class MerchantsApi {
      * @param merchantId ID of &#x60;Merchant&#x60;.
      */
 
-    private async getHelper(merchantId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Merchant;  }> {
+    private async getHelper(merchantId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Merchant;  rawBody: any; }> {
         const localVarPath = this.basePath + '/merchants/{merchant_id}'
             .replace('{' + 'merchant_id' + '}', encodeURIComponent(String(merchantId)));
         let localVarQueryParameters: any = {};
@@ -370,14 +384,15 @@ export class MerchantsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: Merchant;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: Merchant;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "Merchant");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -404,7 +419,7 @@ export class MerchantsApi {
      * @param merchantId ID of &#x60;Merchant&#x60;.
      */
     public async getHttp(merchantId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: Merchant; }> {
+        Promise<{response: http.IncomingMessage, body: Merchant;  rawBody: any;}> {
         const responseObject = await this.getHelper(merchantId,  options);
         return responseObject;
     }
@@ -414,7 +429,7 @@ export class MerchantsApi {
      * @summary List Merchants
 
     */
-    private async listHelper (listMerchantsQueryParams?:ListMerchantsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: MerchantsList;  }> {
+    private async listHelper (listMerchantsQueryParams?:ListMerchantsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: MerchantsList;  rawBody: any; }> {
         const localVarPath = this.basePath + '/merchants';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -482,14 +497,15 @@ export class MerchantsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: MerchantsList;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: MerchantsList;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "MerchantsList");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -532,7 +548,7 @@ export class MerchantsApi {
      * @summary List Merchants
      */
     public async listHttp (listMerchantsQueryParams?:ListMerchantsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>, rawBody: any}> {
         const responseObject = await this.listHelper(listMerchantsQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
         let reachedEnd: Boolean;
@@ -553,17 +569,17 @@ export class MerchantsApi {
         let dataList = new finixList<any>(nextFetch, reachedEnd);
         dataList = this.embeddedHelper(responseObject, dataList);
         //dataList.hasMore = !reachedEnd;
-        return Promise.resolve({response: responseObject.response, body: dataList});
+        return Promise.resolve({response: responseObject.response, body: dataList, rawBody: responseObject.rawBody});
     }
     /**
      * Helper function. 
-     * Update a `Merchant` to:  - Change the `Identity` information saved with the underlying processor - Enable Level 2/3 processing - Enable [Buyer Chages](/guides/payments/buyer-charges/)
+     * Update a `Merchant` to:  - Change the `Identity` information saved with the underlying processor - [Enable Level 2/3 processing](/guides/payments/making-a-payment/level-2-and-level-3-processing/) - Enable [buyer charges](/guides/payments/making-a-payment/buyer-charges/)
      * @summary Update a Merchant
      * @param merchantId ID of &#x60;Merchant&#x60;.
      * @param updateMerchantRequest 
      */
 
-    private async updateHelper(merchantId: string, updateMerchantRequest?: UpdateMerchantRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Merchant;  }> {
+    private async updateHelper(merchantId: string, updateMerchantRequest?: UpdateMerchantRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Merchant;  rawBody: any; }> {
         const localVarPath = this.basePath + '/merchants/{merchant_id}'
             .replace('{' + 'merchant_id' + '}', encodeURIComponent(String(merchantId)));
         let localVarQueryParameters: any = {};
@@ -621,14 +637,15 @@ export class MerchantsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: Merchant;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: Merchant;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "Merchant");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -639,7 +656,7 @@ export class MerchantsApi {
     }
 
     /**
-     * Update a `Merchant` to:  - Change the `Identity` information saved with the underlying processor - Enable Level 2/3 processing - Enable [Buyer Chages](/guides/payments/buyer-charges/)
+     * Update a `Merchant` to:  - Change the `Identity` information saved with the underlying processor - [Enable Level 2/3 processing](/guides/payments/making-a-payment/level-2-and-level-3-processing/) - Enable [buyer charges](/guides/payments/making-a-payment/buyer-charges/)
      * @summary Update a Merchant
      * @param merchantId ID of &#x60;Merchant&#x60;.
      * @param updateMerchantRequest 
@@ -651,20 +668,22 @@ export class MerchantsApi {
     }
 
     /**
-     * Update a `Merchant` to:  - Change the `Identity` information saved with the underlying processor - Enable Level 2/3 processing - Enable [Buyer Chages](/guides/payments/buyer-charges/)
+     * Update a `Merchant` to:  - Change the `Identity` information saved with the underlying processor - [Enable Level 2/3 processing](/guides/payments/making-a-payment/level-2-and-level-3-processing/) - Enable [buyer charges](/guides/payments/making-a-payment/buyer-charges/)
      * @summary Update a Merchant
      * @param merchantId ID of &#x60;Merchant&#x60;.
      * @param updateMerchantRequest 
      */
     public async updateHttp(merchantId: string, updateMerchantRequest?: UpdateMerchantRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: Merchant; }> {
+        Promise<{response: http.IncomingMessage, body: Merchant;  rawBody: any;}> {
         const responseObject = await this.updateHelper(merchantId, updateMerchantRequest,  options);
         return responseObject;
     }
 
+
     /**
      * Extracts page and links fields from response body and assigns as properties to finixList
      */ 
+    // @ts-ignore: Not all endpoints have list views
     private embeddedHelper(responseObject: any, dataList: finixList<any>){
         if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
             dataList.page = responseObject.body.page;
@@ -673,7 +692,7 @@ export class MerchantsApi {
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
         let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
-        tempList.forEach(item => {dataList.add(item)});
+        tempList.forEach((item: any) => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
@@ -682,6 +701,7 @@ export class MerchantsApi {
     /**
      * Extracts offset value from response body and determines if end of list has been reached
      */
+    // @ts-ignore: Not all endpoints have list views
     private getOffsetQueryParam(responseObject: any, queryParam: any){
         queryParam.offset = responseObject.body.page.offset + responseObject.body.page.limit;
         var endReached: Boolean = false;
@@ -694,6 +714,7 @@ export class MerchantsApi {
     /**
     * Extracts nextCursor value from response body and determines if end of list has been reached
     */
+    // @ts-ignore: Not all endpoints have list views
     private getCursorQueryParam(responseObject: any, queryParam: any){
         queryParam.afterCursor = responseObject.body.page.nextCursor;
         var endReached: Boolean = false;

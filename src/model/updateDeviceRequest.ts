@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 
 export class UpdateDeviceRequest {
@@ -16,7 +17,7 @@ export class UpdateDeviceRequest {
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
     /**
     * Message to display on the idle screen.
     */
@@ -53,6 +54,9 @@ export class UpdateDeviceRequest {
 
 export namespace UpdateDeviceRequest {
     export enum ActionEnum {
-        Deactivate = <any> 'DEACTIVATE'
+        Reboot = <any> 'REBOOT',
+        Deactivate = <any> 'DEACTIVATE',
+        Activate = <any> 'ACTIVATE',
+        CreateIdleMessage = <any> 'CREATE_IDLE_MESSAGE'
     }
 }

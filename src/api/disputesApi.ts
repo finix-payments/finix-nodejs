@@ -5,25 +5,36 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
+// @ts-ignore: Some endpoints interact with files
 import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
+// @ts-ignore: Some unused imports always provided
 import { AdjustmentTransfersList } from '../model/adjustmentTransfersList';
+// @ts-ignore: Some unused imports always provided
 import { CreateDisputeEvidenceRequest } from '../model/createDisputeEvidenceRequest';
+// @ts-ignore: Some unused imports always provided
 import { Dispute } from '../model/dispute';
+// @ts-ignore: Some unused imports always provided
 import { DisputeEvidence } from '../model/disputeEvidence';
+// @ts-ignore: Some unused imports always provided
 import { DisputeEvidenceList } from '../model/disputeEvidenceList';
+// @ts-ignore: Some unused imports always provided
 import { DisputesList } from '../model/disputesList';
+// @ts-ignore: Some unused imports always provided
 import { Error401Unauthorized } from '../model/error401Unauthorized';
+// @ts-ignore: Some unused imports always provided
 import { Error403ForbiddenList } from '../model/error403ForbiddenList';
+// @ts-ignore: Some unused imports always provided
 import { Error404NotFoundList } from '../model/error404NotFoundList';
+// @ts-ignore: Some unused imports always provided
 import { Error406NotAcceptable } from '../model/error406NotAcceptable';
 import { ListDisputeEvidenceQueryParams } from '../model/listDisputeEvidenceQueryParams';
 import { ListDisputesQueryParams } from '../model/listDisputesQueryParams';
 import { ListDisputesAdjustmentsQueryParams } from '../model/listDisputesAdjustmentsQueryParams';
 import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
-import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
+import { HttpBasicAuth } from '../model/models';
 
-import { HttpError, RequestFile } from './apis';
+import { HttpError } from './apis';
 
 let defaultBasePath = 'https://finix.sandbox-payments-api.com';
 
@@ -110,7 +121,7 @@ export class DisputesApi {
      * @param createDisputeEvidenceRequest 
      */
 
-    private async createDisputeEvidenceHelper(disputeId: string, createDisputeEvidenceRequest?: CreateDisputeEvidenceRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: DisputeEvidence;  }> {
+    private async createDisputeEvidenceHelper(disputeId: string, createDisputeEvidenceRequest?: CreateDisputeEvidenceRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: DisputeEvidence;  rawBody: any; }> {
         const localVarPath = this.basePath + '/disputes/{dispute_id}/evidence'
             .replace('{' + 'dispute_id' + '}', encodeURIComponent(String(disputeId)));
         let localVarQueryParameters: any = {};
@@ -168,14 +179,15 @@ export class DisputesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: DisputeEvidence;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: DisputeEvidence;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "DisputeEvidence");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -204,7 +216,7 @@ export class DisputesApi {
      * @param createDisputeEvidenceRequest 
      */
     public async createDisputeEvidenceHttp(disputeId: string, createDisputeEvidenceRequest?: CreateDisputeEvidenceRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: DisputeEvidence; }> {
+        Promise<{response: http.IncomingMessage, body: DisputeEvidence;  rawBody: any;}> {
         const responseObject = await this.createDisputeEvidenceHelper(disputeId, createDisputeEvidenceRequest,  options);
         return responseObject;
     }
@@ -215,7 +227,7 @@ export class DisputesApi {
      * @param disputeId ID of &#x60;Dispute&#x60; to fetch.
      */
 
-    private async getHelper(disputeId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Dispute;  }> {
+    private async getHelper(disputeId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Dispute;  rawBody: any; }> {
         const localVarPath = this.basePath + '/disputes/{dispute_id}'
             .replace('{' + 'dispute_id' + '}', encodeURIComponent(String(disputeId)));
         let localVarQueryParameters: any = {};
@@ -265,14 +277,15 @@ export class DisputesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: Dispute;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: Dispute;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "Dispute");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -299,7 +312,7 @@ export class DisputesApi {
      * @param disputeId ID of &#x60;Dispute&#x60; to fetch.
      */
     public async getHttp(disputeId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: Dispute; }> {
+        Promise<{response: http.IncomingMessage, body: Dispute;  rawBody: any;}> {
         const responseObject = await this.getHelper(disputeId,  options);
         return responseObject;
     }
@@ -311,7 +324,7 @@ export class DisputesApi {
      * @param evidenceId ID of &#x60;evidence&#x60; to fetch.
      */
 
-    private async getDisputeEvidenceHelper(disputeId: string, evidenceId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: DisputeEvidence;  }> {
+    private async getDisputeEvidenceHelper(disputeId: string, evidenceId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: DisputeEvidence;  rawBody: any; }> {
         const localVarPath = this.basePath + '/disputes/{dispute_id}/evidence/{evidence_id}'
             .replace('{' + 'dispute_id' + '}', encodeURIComponent(String(disputeId)))
             .replace('{' + 'evidence_id' + '}', encodeURIComponent(String(evidenceId)));
@@ -366,14 +379,15 @@ export class DisputesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: DisputeEvidence;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: DisputeEvidence;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "DisputeEvidence");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -402,7 +416,7 @@ export class DisputesApi {
      * @param evidenceId ID of &#x60;evidence&#x60; to fetch.
      */
     public async getDisputeEvidenceHttp(disputeId: string, evidenceId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: DisputeEvidence; }> {
+        Promise<{response: http.IncomingMessage, body: DisputeEvidence;  rawBody: any;}> {
         const responseObject = await this.getDisputeEvidenceHelper(disputeId, evidenceId,  options);
         return responseObject;
     }
@@ -414,7 +428,7 @@ export class DisputesApi {
     * @param disputeId ID of &#x60;Dispute&#x60; to mange evidence for.
     * 
     */
-    private async listDisputeEvidenceByDisputeIdHelper (disputeId: string, listDisputeEvidenceQueryParams?:ListDisputeEvidenceQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: DisputeEvidenceList;  }> {
+    private async listDisputeEvidenceByDisputeIdHelper (disputeId: string, listDisputeEvidenceQueryParams?:ListDisputeEvidenceQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: DisputeEvidenceList;  rawBody: any; }> {
         const localVarPath = this.basePath + '/disputes/{dispute_id}/evidence'
             .replace('{' + 'dispute_id' + '}', encodeURIComponent(String(disputeId)));
         let localVarQueryParameters: any = {};
@@ -475,14 +489,15 @@ export class DisputesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: DisputeEvidenceList;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: DisputeEvidenceList;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "DisputeEvidenceList");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -529,7 +544,7 @@ export class DisputesApi {
      * 
      */
     public async listDisputeEvidenceByDisputeIdHttp (disputeId: string, listDisputeEvidenceQueryParams?:ListDisputeEvidenceQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>, rawBody: any}> {
         const responseObject = await this.listDisputeEvidenceByDisputeIdHelper(disputeId, listDisputeEvidenceQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
         let reachedEnd: Boolean;
@@ -550,7 +565,7 @@ export class DisputesApi {
         let dataList = new finixList<any>(nextFetch, reachedEnd);
         dataList = this.embeddedHelper(responseObject, dataList);
         //dataList.hasMore = !reachedEnd;
-        return Promise.resolve({response: responseObject.response, body: dataList});
+        return Promise.resolve({response: responseObject.response, body: dataList, rawBody: responseObject.rawBody});
     }
     /**
      * Helper function. 
@@ -558,7 +573,7 @@ export class DisputesApi {
      * @summary List Disputes
 
     */
-    private async listHelper (listDisputesQueryParams?:ListDisputesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: DisputesList;  }> {
+    private async listHelper (listDisputesQueryParams?:ListDisputesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: DisputesList;  rawBody: any; }> {
         const localVarPath = this.basePath + '/disputes';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -626,14 +641,15 @@ export class DisputesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: DisputesList;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: DisputesList;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "DisputesList");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -676,7 +692,7 @@ export class DisputesApi {
      * @summary List Disputes
      */
     public async listHttp (listDisputesQueryParams?:ListDisputesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>, rawBody: any}> {
         const responseObject = await this.listHelper(listDisputesQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
         let reachedEnd: Boolean;
@@ -697,7 +713,7 @@ export class DisputesApi {
         let dataList = new finixList<any>(nextFetch, reachedEnd);
         dataList = this.embeddedHelper(responseObject, dataList);
         //dataList.hasMore = !reachedEnd;
-        return Promise.resolve({response: responseObject.response, body: dataList});
+        return Promise.resolve({response: responseObject.response, body: dataList, rawBody: responseObject.rawBody});
     }
     /**
      * Helper function. 
@@ -707,7 +723,7 @@ export class DisputesApi {
     * @param disputeId ID of the &#x60;Dispute&#x60; resource.
     * 
     */
-    private async listDisputesAdjustmentsHelper (disputeId: string, listDisputesAdjustmentsQueryParams?:ListDisputesAdjustmentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: AdjustmentTransfersList;  }> {
+    private async listDisputesAdjustmentsHelper (disputeId: string, listDisputesAdjustmentsQueryParams?:ListDisputesAdjustmentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: AdjustmentTransfersList;  rawBody: any; }> {
         const localVarPath = this.basePath + '/disputes/{dispute_id}/adjustment_transfers'
             .replace('{' + 'dispute_id' + '}', encodeURIComponent(String(disputeId)));
         let localVarQueryParameters: any = {};
@@ -768,14 +784,15 @@ export class DisputesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: AdjustmentTransfersList;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: AdjustmentTransfersList;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "AdjustmentTransfersList");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -822,7 +839,7 @@ export class DisputesApi {
      * 
      */
     public async listDisputesAdjustmentsHttp (disputeId: string, listDisputesAdjustmentsQueryParams?:ListDisputesAdjustmentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>, rawBody: any}> {
         const responseObject = await this.listDisputesAdjustmentsHelper(disputeId, listDisputesAdjustmentsQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
         let reachedEnd: Boolean;
@@ -843,12 +860,14 @@ export class DisputesApi {
         let dataList = new finixList<any>(nextFetch, reachedEnd);
         dataList = this.embeddedHelper(responseObject, dataList);
         //dataList.hasMore = !reachedEnd;
-        return Promise.resolve({response: responseObject.response, body: dataList});
+        return Promise.resolve({response: responseObject.response, body: dataList, rawBody: responseObject.rawBody});
     }
+
 
     /**
      * Extracts page and links fields from response body and assigns as properties to finixList
      */ 
+    // @ts-ignore: Not all endpoints have list views
     private embeddedHelper(responseObject: any, dataList: finixList<any>){
         if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
             dataList.page = responseObject.body.page;
@@ -857,7 +876,7 @@ export class DisputesApi {
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
         let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
-        tempList.forEach(item => {dataList.add(item)});
+        tempList.forEach((item: any) => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
@@ -866,6 +885,7 @@ export class DisputesApi {
     /**
      * Extracts offset value from response body and determines if end of list has been reached
      */
+    // @ts-ignore: Not all endpoints have list views
     private getOffsetQueryParam(responseObject: any, queryParam: any){
         queryParam.offset = responseObject.body.page.offset + responseObject.body.page.limit;
         var endReached: Boolean = false;
@@ -878,6 +898,7 @@ export class DisputesApi {
     /**
     * Extracts nextCursor value from response body and determines if end of list has been reached
     */
+    // @ts-ignore: Not all endpoints have list views
     private getCursorQueryParam(responseObject: any, queryParam: any){
         queryParam.afterCursor = responseObject.body.page.nextCursor;
         var endReached: Boolean = false;

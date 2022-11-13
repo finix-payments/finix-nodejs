@@ -2,24 +2,20 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 
 /**
 * The control owner\'s date of birth. 
 */
 export class CreateAssociatedIdentityRequestEntityDob {
-    'year'?: number;
     'day'?: number;
     'month'?: number;
+    'year'?: number;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "year",
-            "baseName": "year",
-            "type": "number"
-        },
         {
             "name": "day",
             "baseName": "day",
@@ -28,6 +24,11 @@ export class CreateAssociatedIdentityRequestEntityDob {
         {
             "name": "month",
             "baseName": "month",
+            "type": "number"
+        },
+        {
+            "name": "year",
+            "baseName": "year",
             "type": "number"
         }    ];
 

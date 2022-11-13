@@ -2,8 +2,10 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { AdditionalBuyerCharges } from './additionalBuyerCharges';
+import { AdditionalHealthcareData } from './additionalHealthcareData';
 import { AuthorizationLinks } from './authorizationLinks';
 import { CardPresentDetails } from './cardPresentDetails';
 import { Currency } from './currency';
@@ -28,7 +30,12 @@ export class Authorization {
     * The redirect URL used for 3DS transactions (if supported by the processor).
     */
     '_3dsRedirectUrl'?: string | null;
+    /**
+    * Details the results of the Address Verification checks.
+    */
+    'addressVerification'?: string | null;
     'additionalBuyerCharges'?: AdditionalBuyerCharges | null;
+    'additionalHealthcareData'?: AdditionalHealthcareData | null;
     /**
     * The total amount that will be debited in cents (e.g. 100 cents to debit $1.00).
     */
@@ -52,7 +59,7 @@ export class Authorization {
     */
     'expiresAt'?: Date;
     /**
-    * The code of the failure so the decline can be handled programmatically. For more info on how to handle the failure, see [Failure Codes](/docs/guides/developers/errors/#failure-codes).
+    * The code of the failure so the decline can be handled programmatically. For more info on how to handle the failure, see [Failure Codes](/guides/developers/errors/#failure-codes).
     */
     'failureCode'?: string | null;
     /**
@@ -60,25 +67,29 @@ export class Authorization {
     */
     'failureMessage'?: string | null;
     /**
-    * A randomly generated value that\'ll be associated with the request.
+    * Details the results of the Security Code Verification checks.
     */
-    'idempotencyId'?: string | null;
+    'securityCodeChecks'?: string | null;
     /**
     * Details if the `Authorization` is void.
     */
     'isVoid'?: boolean;
     /**
-    * The ID of the resource.
+    * The ID of the `Merchant` resource the `Authorization` was captured under.
     */
-    'merchantIdentity'?: string | null;
+    'merchantIdentity'?: string;
     /**
     * Message field that provides additional details. This field is typically **null**.
     */
-    'messages'?: Array<string>;
+    'messages'?: Array<string> | null;
     /**
     * Raw response from the processor.
     */
     'raw'?: object | null;
+    /**
+    * Details the results of the Security Code Verification che
+    */
+    'securityCodeVerification'?: string | null;
     /**
     * ID of the `Payment Instrument` where funds get debited.
     */
@@ -90,7 +101,7 @@ export class Authorization {
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
     /**
     * Trace ID of the `Authorization`. The processor sends back the `trace_id` so you can track the authorization end-to-end.
     */
@@ -129,9 +140,19 @@ export class Authorization {
             "type": "string"
         },
         {
+            "name": "addressVerification",
+            "baseName": "address_verification",
+            "type": "string"
+        },
+        {
             "name": "additionalBuyerCharges",
             "baseName": "additional_buyer_charges",
             "type": "AdditionalBuyerCharges"
+        },
+        {
+            "name": "additionalHealthcareData",
+            "baseName": "additional_healthcare_data",
+            "type": "AdditionalHealthcareData"
         },
         {
             "name": "amount",
@@ -179,8 +200,8 @@ export class Authorization {
             "type": "string"
         },
         {
-            "name": "idempotencyId",
-            "baseName": "idempotency_id",
+            "name": "securityCodeChecks",
+            "baseName": "security_code_checks",
             "type": "string"
         },
         {
@@ -202,6 +223,11 @@ export class Authorization {
             "name": "raw",
             "baseName": "raw",
             "type": "object"
+        },
+        {
+            "name": "securityCodeVerification",
+            "baseName": "security_code_verification",
+            "type": "string"
         },
         {
             "name": "source",

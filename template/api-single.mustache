@@ -2,9 +2,11 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
+// @ts-ignore: Some endpoints interact with files
 import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
 {{#imports}}
+// @ts-ignore: Some unused imports always provided
 import { {{classname}} } from '{{filename}}';
 {{/imports}}
 {{#operations}}
@@ -16,10 +18,10 @@ import { {{#lambda.titlecase}}{{nickname}}QueryParams{{/lambda.titlecase}} } fro
 {{/operations}}
 import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
 {{#hasAuthMethods}}
-import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
+import { HttpBasicAuth } from '../model/models';
 {{/hasAuthMethods}}
 
-import { HttpError, RequestFile } from './apis';
+import { HttpError } from './apis';
 
 let defaultBasePath = '{{{basePath}}}';
 
@@ -174,10 +176,10 @@ export class {{classname}} {
     */
     {{/vendorExtensions.x-group-parameters}}
     {{^vendorExtensions.x-group-parameters}}
-    private async {{#vendorExtensions.x-java-method-name}}{{{.}}}Helper{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Helper{{/vendorExtensions.x-java-method-name}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; {{#returnType}}body: {{{.}}}; {{/returnType}}{{^returnType}}body?: any; {{/returnType}} }> {
+    private async {{#vendorExtensions.x-java-method-name}}{{{.}}}Helper{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Helper{{/vendorExtensions.x-java-method-name}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; {{#returnType}}body: {{{.}}}; {{/returnType}}{{^returnType}}body?: any; {{/returnType}} rawBody: any; }> {
     {{/vendorExtensions.x-group-parameters}}    
     {{#vendorExtensions.x-group-parameters}}
-    private async {{#vendorExtensions.x-java-method-name}}{{{.}}}Helper{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Helper{{/vendorExtensions.x-java-method-name}} ({{#allParams}}{{#required}}{{paramName}}: {{{dataType}}}, {{/required}}{{/allParams}}{{nickname}}QueryParams?:{{#lambda.titlecase}}{{nickname}}QueryParams{{/lambda.titlecase}}, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; {{#returnType}}body: {{{.}}}; {{/returnType}}{{^returnType}}body?: any; {{/returnType}} }> {
+    private async {{#vendorExtensions.x-java-method-name}}{{{.}}}Helper{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Helper{{/vendorExtensions.x-java-method-name}} ({{#allParams}}{{#required}}{{paramName}}: {{{dataType}}}, {{/required}}{{/allParams}}{{nickname}}QueryParams?:{{#lambda.titlecase}}{{nickname}}QueryParams{{/lambda.titlecase}}, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; {{#returnType}}body: {{{.}}}; {{/returnType}}{{^returnType}}body?: any; {{/returnType}} rawBody: any; }> {
     {{/vendorExtensions.x-group-parameters}}  
         const localVarPath = this.basePath + '{{{path}}}'{{#pathParams}}
             .replace('{' + '{{baseName}}' + '}', encodeURIComponent(String({{paramName}}))){{/pathParams}};
@@ -307,16 +309,17 @@ export class {{classname}} {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; {{#returnType}}body: {{{.}}}; {{/returnType}}{{^returnType}}body?: any; {{/returnType}} }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; {{#returnType}}body: {{{.}}}; {{/returnType}}{{^returnType}}body?: any; {{/returnType}} rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             {{#returnType}}
                             body = ObjectSerializer.deserialize(body, "{{{.}}}");
                             {{/returnType}}
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -424,11 +427,11 @@ export class {{classname}} {
     {{#vendorExtensions.x-returns-list}}
     {{^vendorExtensions.x-group-parameters}}
     public async {{#vendorExtensions.x-java-method-name}}{{{.}}}Http{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Http{{/vendorExtensions.x-java-method-name}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>, rawBody: any}> {
     {{/vendorExtensions.x-group-parameters}}    
     {{#vendorExtensions.x-group-parameters}}
     public async {{#vendorExtensions.x-java-method-name}}{{{.}}}Http{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Http{{/vendorExtensions.x-java-method-name}} ({{#allParams}}{{#required}}{{paramName}}: {{{dataType}}}, {{/required}}{{/allParams}}{{nickname}}QueryParams?:{{#lambda.titlecase}}{{nickname}}QueryParams{{/lambda.titlecase}}, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>, rawBody: any}> {
     {{/vendorExtensions.x-group-parameters}} 
         {{^vendorExtensions.x-group-parameters}}
         const responseObject = await this.{{#vendorExtensions.x-java-method-name}}{{{.}}}Helper{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Helper{{/vendorExtensions.x-java-method-name}}({{#allParams}}{{paramName}}, {{/allParams}} options);
@@ -455,17 +458,17 @@ export class {{classname}} {
         let dataList = new finixList<any>(nextFetch, reachedEnd);
         dataList = this.embeddedHelper(responseObject, dataList);
         //dataList.hasMore = !reachedEnd;
-        return Promise.resolve({response: responseObject.response, body: dataList});
+        return Promise.resolve({response: responseObject.response, body: dataList, rawBody: responseObject.rawBody});
     }
     {{/vendorExtensions.x-returns-list}}
     {{^vendorExtensions.x-returns-list}}
     {{^vendorExtensions.x-group-parameters}}
     public async {{#vendorExtensions.x-java-method-name}}{{{.}}}Http{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Http{{/vendorExtensions.x-java-method-name}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, {{#returnType}}body: {{{.}}}; {{/returnType}}{{^returnType}}body?: any; {{/returnType}}}> {
+        Promise<{response: http.IncomingMessage, {{#returnType}}body: {{{.}}}; {{/returnType}}{{^returnType}}body?: any; {{/returnType}} rawBody: any;}> {
     {{/vendorExtensions.x-group-parameters}}    
     {{#vendorExtensions.x-group-parameters}}
     public async {{#vendorExtensions.x-java-method-name}}{{{.}}}Http{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Http{{/vendorExtensions.x-java-method-name}} ({{#allParams}}{{#required}}{{paramName}}: {{{dataType}}}, {{/required}}{{/allParams}}{{nickname}}QueryParams?:{{#lambda.titlecase}}{{nickname}}QueryParams{{/lambda.titlecase}}, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, {{#returnType}}body: {{{.}}}; {{/returnType}}{{^returnType}}body?: any; {{/returnType}}}> {
+        Promise<{response: http.IncomingMessage, {{#returnType}}body: {{{.}}}; {{/returnType}}{{^returnType}}body?: any; {{/returnType}} rawBody: any;}> {
     {{/vendorExtensions.x-group-parameters}} 
         {{^vendorExtensions.x-group-parameters}}
         const responseObject = await this.{{#vendorExtensions.x-java-method-name}}{{{.}}}Helper{{/vendorExtensions.x-java-method-name}}{{^vendorExtensions.x-java-method-name}}{{operationId}}Helper{{/vendorExtensions.x-java-method-name}}({{#allParams}}{{paramName}}, {{/allParams}} options);
@@ -478,9 +481,11 @@ export class {{classname}} {
     {{/vendorExtensions.x-returns-list}}
 {{/operation}}
 
+
     /**
      * Extracts page and links fields from response body and assigns as properties to finixList
      */ 
+    // @ts-ignore: Not all endpoints have list views
     private embeddedHelper(responseObject: any, dataList: finixList<any>){
         if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
             dataList.page = responseObject.body.page;
@@ -489,7 +494,7 @@ export class {{classname}} {
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
         let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
-        tempList.forEach(item => {dataList.add(item)});
+        tempList.forEach((item: any) => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
@@ -498,6 +503,7 @@ export class {{classname}} {
     /**
      * Extracts offset value from response body and determines if end of list has been reached
      */
+    // @ts-ignore: Not all endpoints have list views
     private getOffsetQueryParam(responseObject: any, queryParam: any){
         queryParam.offset = responseObject.body.page.offset + responseObject.body.page.limit;
         var endReached: Boolean = false;
@@ -510,6 +516,7 @@ export class {{classname}} {
     /**
     * Extracts nextCursor value from response body and determines if end of list has been reached
     */
+    // @ts-ignore: Not all endpoints have list views
     private getCursorQueryParam(responseObject: any, queryParam: any){
         queryParam.afterCursor = responseObject.body.page.nextCursor;
         var endReached: Boolean = false;

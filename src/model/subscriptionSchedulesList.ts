@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { SubscriptionSchedulesListEmbedded } from './subscriptionSchedulesListEmbedded';
 import { SubscriptionSchedulesListLinks } from './subscriptionSchedulesListLinks';

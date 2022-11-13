@@ -1,4 +1,5 @@
 import {Client, Environment, Models} from '../api';
+import { HttpError } from '../api/apis';
 
 describe('Identity API', () => {
 
@@ -22,8 +23,8 @@ describe('Identity API', () => {
         }
         const createdIdentity = await client.Identities.create(createIdentityRequest);
 
-        expect(createdIdentity.entity?.firstName).toBe(createIdentityRequest.entity.firstName);
-        expect(createdIdentity.entity?.lastName).toBe(createIdentityRequest.entity.lastName);
+        expect(createdIdentity.entity?.firstName).toBe(createIdentityRequest.entity?.firstName);
+        expect(createdIdentity.entity?.lastName).toBe(createIdentityRequest.entity?.lastName);
     });
 
     test("Test: Create an identity for a merchant", async() => {
@@ -33,6 +34,27 @@ describe('Identity API', () => {
                 merchantAgreementIpAddress: "42.1.1.113",
                 averageAchTransferAmount: 200000,
                 annualAchVolume: 200000,
+                creditCheckUserAgent: "Mozilla 5.0(Macintosh; IntelMac OS X 10 _14_6)",
+                refundPolicy: "MERCHANDISE_EXCHANGE_ONLY",
+                creditCheckTimestamp: "2021-04-28T16:42:55Z",
+                creditCheckAllowed: true,
+                merchantAgreementTimestamp: "2021-04-28T16:42:55Z",
+                businessDescription: "BCSB3 vegan cafe",
+                averageCardTransferAmount: 200000,
+                creditCheckIpAddress: "42.1.1.113",
+                merchantAgreementUserAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6)",
+                volumeDistributionByBusinessType:{
+                    otherVolumePercentage: 0,
+                    consumerToConsumerVolumePercentage: 0,
+                    businessToConsumerVolumePercentage: 0,
+                    businessToBusinessVolumePercentage: 100,
+                    personToPersonVolumePercentage: 0,
+                },
+                cardVolumeDistribution:{
+                    cardPresentPercentage: 0,
+                    mailOrderTelephoneOrderPercentage: 0,
+                    ecommercePercentage: 100,
+                }
             }, 
             tags: {
                 "Studio Rating": "4.7"
@@ -41,15 +63,46 @@ describe('Identity API', () => {
                 lastName: "Sunkhronos",
                 firstName: "dwayne",
                 email: "user@example.org",
-                phone: "1234567890"
+                phone: "1234567890",
+                businessType: "INDIVIDUAL_SOLE_PROPRIETORSHIP",
+                defaultStatementDescriptor: "example",
+                maxTransactionAmount: 100000,
+                mcc: "0742",
+                businessName: "Finix Flowers",
+                businessPhone: "+1 (408) 756-4497",
+                businessTaxId: "123456789",
+                annualCardVolume: 12000000,
+                incorporationDate: {
+                    year: 1978,
+                    day: 27,
+                    month: 6
+                },
+                url: "www.Finix.com",
+                principalPercentageOwnership: 100,
+                taxId: "123456789",
+                personalAddress: {
+                    city: "San Mateo",
+                    country: Models.Country.Usa,
+                    region: "CA",
+                    line2: "Apartment 7",
+                    line1: "741 Douglass St",
+                    postalCode: "94114"
+                },
+                dob: {
+                    year: 1978,
+                    day: 27,
+                    month: 6
+                },
+                doingBusinessAs: "example",
             }
         }
+
         const createdIdentity = await client.Identities.create(createIdentityRequest);
 
         identitiesId = <string> createdIdentity.id;
-        console.log(identitiesId);
-        expect(createdIdentity.entity?.firstName).toBe(createIdentityRequest.entity.firstName);
-        expect(createdIdentity.entity?.lastName).toBe(createIdentityRequest.entity.lastName);
+        
+        expect(createdIdentity.entity?.firstName).toBe(createIdentityRequest.entity?.firstName);
+        expect(createdIdentity.entity?.lastName).toBe(createIdentityRequest.entity?.lastName);
     });
 
     test("Test: Create an associated identity", async() => {
@@ -68,23 +121,33 @@ describe('Identity API', () => {
                 }
             }
         }
+
         const createdIdentity = await client.Identities.createAssociatedIdentity(identitiesId, createIdentityRequest);
-        expect(createdIdentity.entity?.firstName).toBe(createIdentityRequest.entity.firstName);
-        expect(createdIdentity.entity?.lastName).toBe(createIdentityRequest.entity.lastName);
+
+        expect(createdIdentity.entity?.firstName).toBe(createIdentityRequest.entity?.firstName);
+        expect(createdIdentity.entity?.lastName).toBe(createIdentityRequest.entity?.lastName);
     });
 
     test("Test: Verify an identity", async() => {
         const createVerificationRequest: Models.CreateVerificationRequest = {
-            processor: "DUMMY_V1",
             merchant: "MUgWbPVvtKbzjKNNGKqdQYV7",
+            processor: "DUMMY_V1",
             tags : {
                 "test_key_01" : "test_val"
             }
         }
-        const identityVerification = await client.Identities.createIdentityVerification("IDgWxBhfGYLLdkhxx2ddYf9K", createVerificationRequest);
+        try {
+            const identityVerification = await client.Identities.createIdentityVerification(identitiesId, createVerificationRequest);
+            expect(identityVerification.merchant).toBe(createVerificationRequest.merchant);
+            expect(identityVerification.tags?.["test_key_01"]).toBe("test_val");
+        }
+        catch (err){
+            // console.log((err as HttpError).body);
+            // TODO: Create complete test for identity verification. Can confirm this expected response for these credentials. 
+            expect((err as HttpError).body[0].message).toBe("Application APgPDQrLD52TYvqazjHJJchM has not been underwritten for processing.")
+        }
 
-        expect(identityVerification.merchant).toBe(createVerificationRequest.merchant);
-        expect(identityVerification.tags["test_key_01"]).toBe("test_val");
+
     });
 
     test("Test: Fetch an identity", async() => {

@@ -2,8 +2,8 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
-import { Currency } from './currency';
 import { DisputeLinks } from './disputeLinks';
 
 /**
@@ -34,15 +34,14 @@ export class Dispute {
     * The ID of the `Application` resource the `Dispute` was created under.
     */
     'application'?: string;
-    'currency'?: Currency;
     /**
     * Details about the `Dispute` recieved by the `Processor`. May be any type of data.
     */
     'disputeDetails'?: { [key: string]: any; };
     /**
-    * The ID of the resource.
+    * The ID of the `Identity` the `Dispute` was created under.
     */
-    'identity'?: string | null;
+    'identity'?: string;
     /**
     * Message field that provides additional details. This field is typically **null**.
     */
@@ -66,7 +65,7 @@ export class Dispute {
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
     /**
     * ID of the `Transfer` resource.
     */
@@ -105,11 +104,6 @@ export class Dispute {
             "name": "application",
             "baseName": "application",
             "type": "string"
-        },
-        {
-            "name": "currency",
-            "baseName": "currency",
-            "type": "Currency"
         },
         {
             "name": "disputeDetails",

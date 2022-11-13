@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { Error401UnauthorizedEmbeddedErrorsInnerLinks } from './error401UnauthorizedEmbeddedErrorsInnerLinks';
 import { LogRef } from './logRef';

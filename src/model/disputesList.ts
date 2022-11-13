@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { DisputesListEmbedded } from './disputesListEmbedded';
 import { ListLinks } from './listLinks';

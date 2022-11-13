@@ -1,8 +1,9 @@
 {
   "name": "@finix-payments/finix",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "The Finix API library for NodeJS",
-  "main": "src/api.ts",
+  "main": "lib/api.js",
+  "types": "lib/api.d.ts",
   "dependencies": {
     "ansi-escapes": "^4.3.2",
     "ansi-regex": "^5.0.1",
@@ -245,7 +246,9 @@
     "ts-jest": "^28.0.5"
   },
   "scripts": {
-    "test": "jest"
+    "prepublish": "npm run build",
+    "test": "jest",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -259,5 +262,6 @@
   "homepage": "https://github.com/finix-payments/finix-nodejs#readme", 
   "engines": {
     "node": ">=16"
-  }
+  },
+  "keywords": ["finix","finix-nodejs","payments"]
 }

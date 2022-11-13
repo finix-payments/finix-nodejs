@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 
 export class CreateFeeProfileRequest {
@@ -54,13 +55,21 @@ export class CreateFeeProfileRequest {
     */
     'ancillaryFixedFeeSecondary'?: number | null;
     /**
-    * The ID of the resource.
+    * The ID of the `Application` associated with the  `Fee Profile`.
     */
     'application': string;
     /**
     * Percentage-based fee incurred against the full amount of each card-based `Transfer`. Calculated as one hundredth of one percent (1 basis point = .0001 or .01%).
     */
     'basisPoints'?: number;
+    /**
+    * Percentage-based fee charged against the full amount of every `Transfer` that includes non-US cards. Calculated as one hundredth of one percent (1 basis point = .0001 or .01%).
+    */
+    'cardCrossBorderBasisPoints'?: number | null;
+    /**
+    * Fee in cents charged against every `Transfer` that includes non-US cards.
+    */
+    'cardCrossBorderFixedFee'?: number | null;
     /**
     * Set to **True** to incur interchange fees for card-based `Transfers`.
     */
@@ -176,7 +185,7 @@ export class CreateFeeProfileRequest {
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
     /**
     * Applied to all U.S.-based credit card authorizations acquired in the U.S. regardless of where the issuer/cardholder is located. If your business is based in the U.S., the acquirer processing fee will apply to all Visa credit card authorizations.
     */
@@ -285,6 +294,16 @@ export class CreateFeeProfileRequest {
         {
             "name": "basisPoints",
             "baseName": "basis_points",
+            "type": "number"
+        },
+        {
+            "name": "cardCrossBorderBasisPoints",
+            "baseName": "card_cross_border_basis_points",
+            "type": "number"
+        },
+        {
+            "name": "cardCrossBorderFixedFee",
+            "baseName": "card_cross_border_fixed_fee",
             "type": "number"
         },
         {

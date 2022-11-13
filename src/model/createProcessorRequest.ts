@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { CreateProcessorRequestConfig } from './createProcessorRequestConfig';
 
@@ -13,7 +14,7 @@ export class CreateProcessorRequest {
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
     /**
     * The type of processor. Use **DUMMY_V1** for sandbox.
     */

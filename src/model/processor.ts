@@ -2,8 +2,10 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { ProcessorApplicationConfig } from './processorApplicationConfig';
+import { ProcessorConfig } from './processorConfig';
 import { ProcessorLinks } from './processorLinks';
 import { ProcessorSystemConfig } from './processorSystemConfig';
 
@@ -28,10 +30,11 @@ export class Processor {
     */
     'application'?: string;
     'applicationConfig'?: ProcessorApplicationConfig | null;
+    'config'?: ProcessorConfig | null;
     /**
-    * The ID of the resource.
+    * The ID of the `Merchant Profile` resource used to create the `Processor`.
     */
-    'defaultMerchantProfile'?: string | null;
+    'defaultMerchantProfile'?: string;
     /**
     * Details if the `Processor` resource is enabled. Set to **false** to disable the `Processor`.
     */
@@ -70,6 +73,11 @@ export class Processor {
             "name": "applicationConfig",
             "baseName": "application_config",
             "type": "ProcessorApplicationConfig"
+        },
+        {
+            "name": "config",
+            "baseName": "config",
+            "type": "ProcessorConfig"
         },
         {
             "name": "defaultMerchantProfile",

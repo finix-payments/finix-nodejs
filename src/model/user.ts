@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { UserLinks } from './userLinks';
 
@@ -31,13 +32,13 @@ export class User {
     */
     'password'?: string | null;
     /**
-    * Details the level of access the [`User`](#tag/Users) has available.
+    * Details the level of access the [`User`](/api/tag/Users) has available.
     */
     'role'?: User.RoleEnum | string;
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
     'links'?: UserLinks;
 
     static discriminator: string | undefined = undefined;

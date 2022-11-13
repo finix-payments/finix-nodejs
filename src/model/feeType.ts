@@ -2,10 +2,11 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 
 /**
-* The type of fee.
+* Details the type of fee if the `Transfer` includes a `fee`.
 */
 export enum FeeType {
     ApplicationFee = <any> 'APPLICATION_FEE',

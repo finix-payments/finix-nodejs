@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 
 /**
@@ -9,25 +10,25 @@ import { RequestFile } from './models';
 */
 export class ComplianceFormFiles {
     /**
-    * ID of the `File` resource that has the `compliance_form`.
-    */
-    'unsignedFile'?: string;
-    /**
     * <ul><li>Autofills to <strong>null</strong>.</li> <li>When a <kbd>compliance_form</kbd> is attested, <kbd>signed_file</kbd> will contain a <kbd>File</kbd> corresponding to the signed version of the form.</li></ul>
     */
     'signedFile'?: string | null;
+    /**
+    * ID of the `File` resource that has the `compliance_form`.
+    */
+    'unsignedFile'?: string;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "unsignedFile",
-            "baseName": "unsigned_file",
+            "name": "signedFile",
+            "baseName": "signed_file",
             "type": "string"
         },
         {
-            "name": "signedFile",
-            "baseName": "signed_file",
+            "name": "unsignedFile",
+            "baseName": "unsigned_file",
             "type": "string"
         }    ];
 

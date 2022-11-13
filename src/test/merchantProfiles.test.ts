@@ -4,7 +4,6 @@ describe('Merchants Profiles API', () => {
 
     let client: Client;
     let merchantProfileId: string;
-    let identityId: string;
 
     beforeAll(() => {
         const userName = 'USimz3zSq5R2PqiEBXY6rSiJ';

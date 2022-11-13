@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { SubscriptionScheduleFixedTimeIntervalOffset } from './subscriptionScheduleFixedTimeIntervalOffset';
 import { SubscriptionScheduleLinks } from './subscriptionScheduleLinks';
@@ -44,7 +45,7 @@ export class SubscriptionSchedule {
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
     'links'?: SubscriptionScheduleLinks;
 
     static discriminator: string | undefined = undefined;

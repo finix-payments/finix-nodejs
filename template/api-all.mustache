@@ -16,7 +16,7 @@ export class HttpError extends Error {
     public headers: any;
     public statusCode: number;
 
-    constructor (response: http.IncomingMessage, rawBody: any, statusCode?: number) {
+    constructor (response: http.IncomingMessage, rawBody: any, statusCode: number) {
         super('HTTP request failed');
         this.name = 'HttpError';
         this.response = response;

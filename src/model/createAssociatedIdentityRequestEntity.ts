@@ -2,11 +2,12 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { CreateAssociatedIdentityRequestEntityBusinessAddress } from './createAssociatedIdentityRequestEntityBusinessAddress';
 import { CreateAssociatedIdentityRequestEntityDob } from './createAssociatedIdentityRequestEntityDob';
-import { CreateAssociatedIdentityRequestEntityIncorporationDate } from './createAssociatedIdentityRequestEntityIncorporationDate';
 import { CreateAssociatedIdentityRequestEntityPersonalAddress } from './createAssociatedIdentityRequestEntityPersonalAddress';
+import { IdentityEntityFormIncorporationDate } from './identityEntityFormIncorporationDate';
 
 /**
 * Underwriting data that\'s required to verify the `Identity`.
@@ -54,7 +55,7 @@ export class CreateAssociatedIdentityRequestEntity {
     * Defaults to **false** if not passed.
     */
     'hasAcceptedCreditCardsPreviously'?: boolean;
-    'incorporationDate'?: CreateAssociatedIdentityRequestEntityIncorporationDate;
+    'incorporationDate'?: IdentityEntityFormIncorporationDate | null;
     /**
     * The `Identity` owner\'s legal last name.
     */
@@ -70,7 +71,7 @@ export class CreateAssociatedIdentityRequestEntity {
     /**
     * Values can be either: <ul><li><strong>PUBLIC</strong> to indicate a publicly-traded company. <li><strong>PRIVATE</strong> for privately-held businesses.
     */
-    'ownershipType'?: string;
+    'ownershipType'?: string | null;
     'personalAddress'?: CreateAssociatedIdentityRequestEntityPersonalAddress;
     /**
     * The principal control owner\'s phone number (max 10 characters).
@@ -159,7 +160,7 @@ export class CreateAssociatedIdentityRequestEntity {
         {
             "name": "incorporationDate",
             "baseName": "incorporation_date",
-            "type": "CreateAssociatedIdentityRequestEntityIncorporationDate"
+            "type": "IdentityEntityFormIncorporationDate"
         },
         {
             "name": "lastName",

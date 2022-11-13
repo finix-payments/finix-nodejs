@@ -1,3 +1,7 @@
+## 3.0.0 -2022-11-12
+* Enforced strict typing resulting in regenerating all files.
+    * Can't guarantee backwards compatibility, so major bump in version. 
+
 ## 2.0.0 - 2022-09-08
 * Supported API Version: 2022-02-01
 * Improved error handling:

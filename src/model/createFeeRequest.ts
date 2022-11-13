@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { Currency } from './currency';
 
@@ -32,17 +33,17 @@ export class CreateFeeRequest {
     */
     'linkedType'?: CreateFeeRequest.LinkedTypeEnum | string;
     /**
-    * The ID of the resource.
+    * The ID of the `Merchant` resource used to create the `Fee`.
     */
-    'merchantId': string | null;
+    'merchantId': string;
     /**
-    * Delays in days, when the fee will be submitted for settlement.
+    * Delays in days, when the `Transfer` the `Fee` creates will be submitted for settlement.
     */
     'settlementDelayDays'?: number | null;
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
 
     static discriminator: string | undefined = undefined;
 

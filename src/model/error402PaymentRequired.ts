@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { Error402PaymentRequiredEmbedded } from './error402PaymentRequiredEmbedded';
 

@@ -1,10 +1,11 @@
 require("mocha");
-const {Client, Environment, Models} = require ('../api');
+const {Client, Environment, Models} = require ('../../lib/api');
 var assert = require("chai").assert;
 
 
 describe('Transfers API', function () {
 
+    this.timeout(5000);
     let client;
     let authorizationID;
 

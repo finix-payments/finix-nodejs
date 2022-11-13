@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { CreatePaymentInstrumentRequestAddress } from './createPaymentInstrumentRequestAddress';
 
@@ -16,9 +17,9 @@ export class CreatePaymentInstrumentRequest {
     */
     'expirationYear'?: number;
     /**
-    * The ID of the resource.
+    * The ID of the `Identity` used to create the `Payment Instrument` resource.
     */
-    'identity'?: string | null;
+    'identity'?: string;
     /**
     * The name of the bank account or card owner.
     */
@@ -34,7 +35,7 @@ export class CreatePaymentInstrumentRequest {
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
     /**
     * Type of `Payment Instrument`.
     */
@@ -168,16 +169,14 @@ export class CreatePaymentInstrumentRequest {
 
 export namespace CreatePaymentInstrumentRequest {
     export enum TypeEnum {
-        BankAccount = <any> 'BANK_ACCOUNT',
-        Token = <any> 'TOKEN',
+        PaymentCard = <any> 'PAYMENT_CARD',
         ApplePay = <any> 'APPLE_PAY',
         GooglePay = <any> 'GOOGLE_PAY',
-        PaymentCard = <any> 'PAYMENT_CARD'
+        Token = <any> 'TOKEN',
+        BankAccount = <any> 'BANK_ACCOUNT'
     }
     export enum AccountTypeEnum {
         Checking = <any> 'CHECKING',
-        Savings = <any> 'SAVINGS',
-        Corporate = <any> 'CORPORATE',
-        CorpSavings = <any> 'CORP_SAVINGS'
+        Savings = <any> 'SAVINGS'
     }
 }

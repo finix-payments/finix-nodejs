@@ -20,7 +20,8 @@ describe('Webhooks API', () => {
             url: urlValue
         });
         webhookId = <string>webhook.id;
-        const updatedwebHook = await client.Webhooks.update(webhookId, {
+        // clean up webhooks by disabling
+        await client.Webhooks.update(webhookId, {
             url: urlValue,
             enabled: false
         });
@@ -67,7 +68,7 @@ describe('Webhooks API', () => {
         expect(updatedwebHook.url).toEqual(urlValue);   
         expect(updatedwebHook.enabled).toEqual(true);
 
-        const disableWebhook = await client.Webhooks.update(webhookId, {
+        await client.Webhooks.update(webhookId, {
             url: urlValue,
             enabled: false
         });

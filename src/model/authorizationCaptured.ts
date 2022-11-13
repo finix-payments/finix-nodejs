@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { AdditionalBuyerCharges } from './additionalBuyerCharges';
 import { AuthorizationCapturedExternalResponsesInner } from './authorizationCapturedExternalResponsesInner';
@@ -54,7 +55,7 @@ export class AuthorizationCaptured {
     'expiresAt'?: Date;
     'externalResponses'?: Array<AuthorizationCapturedExternalResponsesInner> | null;
     /**
-    * The code of the failure so the decline can be handled programmatically. For more info on how to handle the failure, see [Failure Codes](/docs/guides/developers/errors/#failure-codes).
+    * The code of the failure so the decline can be handled programmatically. For more info on how to handle the failure, see [Failure Codes](/guides/developers/errors/#failure-codes).
     */
     'failureCode'?: string | null;
     /**
@@ -70,9 +71,9 @@ export class AuthorizationCaptured {
     */
     'isVoid'?: boolean;
     /**
-    * The ID of the resource.
+    * The ID of the `Merchant` resource the `Authorization` was captured under.
     */
-    'merchantIdentity'?: string | null;
+    'merchantIdentity'?: string;
     /**
     * Message field that provides additional details. This field is typically **null**.
     */
@@ -92,7 +93,7 @@ export class AuthorizationCaptured {
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
     /**
     * Trace ID of the `Authorization`. The processor sends back the `trace_id` so you can track the authorization end-to-end.
     */

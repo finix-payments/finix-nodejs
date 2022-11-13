@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 
 /**
@@ -9,32 +10,32 @@ import { RequestFile } from './models';
 */
 export class CreateOnboardingFormRequestOnboardingData {
     /**
-    * The `entity` information saved in the `Identity` of the user.
+    * Additional underwriting data about the user.
     */
-    'entity'?: object;
+    'additionalUnderwritingData'?: object;
     /**
     * The `entities` saved in the `associated_identities` of the user. For more information, see [Create an Associated Identity](/guides/onboarding/onboarding-form/#prefilling-fields).
     */
     'associatedEntities'?: Array<object>;
     /**
-    * Additional underwriting data about the user.
+    * The `entity` information saved in the `Identity` of the user.
     */
-    'additionalUnderwritingData'?: object;
-    /**
-    * The `Payment Instrument` that\'ll be used to payout the user. For more information, see [Payouts](/guides/payouts/).
-    */
-    'paymentInstruments'?: object;
+    'entity'?: object;
     /**
     * Maximum amount that can be transacted for a single transaction in cents (max 12 characters). Must be equal to or less than your `max_transaction_amount`.
     */
     'maxTransactionAmount'?: number;
+    /**
+    * The `Payment Instrument` that\'ll be used to payout the user. For more information, see [Payouts](/guides/payouts/).
+    */
+    'paymentInstruments'?: object;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "entity",
-            "baseName": "entity",
+            "name": "additionalUnderwritingData",
+            "baseName": "additional_underwriting_data",
             "type": "object"
         },
         {
@@ -43,19 +44,19 @@ export class CreateOnboardingFormRequestOnboardingData {
             "type": "Array<object>"
         },
         {
-            "name": "additionalUnderwritingData",
-            "baseName": "additional_underwriting_data",
-            "type": "object"
-        },
-        {
-            "name": "paymentInstruments",
-            "baseName": "payment_instruments",
+            "name": "entity",
+            "baseName": "entity",
             "type": "object"
         },
         {
             "name": "maxTransactionAmount",
             "baseName": "max_transaction_amount",
             "type": "number"
+        },
+        {
+            "name": "paymentInstruments",
+            "baseName": "payment_instruments",
+            "type": "object"
         }    ];
 
     static getAttributeTypeMap() {

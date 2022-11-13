@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 
 /**
@@ -17,21 +18,21 @@ export class CreateAssociatedIdentityRequestEntityPersonalAddress {
     */
     'country'?: string;
     /**
-    * 2-letter State code.
+    * First line of the address (max 35 characters).
     */
-    'region'?: string;
+    'line1'?: string;
     /**
     * Second line of the address (max 35 characters).
     */
     'line2'?: string;
     /**
-    * First line of the address (max 35 characters).
-    */
-    'line1'?: string;
-    /**
     * Zip or Postal code (max 7 characters).
     */
     'postalCode'?: string;
+    /**
+    * 2-letter State code.
+    */
+    'region'?: string;
 
     static discriminator: string | undefined = undefined;
 
@@ -47,8 +48,8 @@ export class CreateAssociatedIdentityRequestEntityPersonalAddress {
             "type": "string"
         },
         {
-            "name": "region",
-            "baseName": "region",
+            "name": "line1",
+            "baseName": "line1",
             "type": "string"
         },
         {
@@ -57,13 +58,13 @@ export class CreateAssociatedIdentityRequestEntityPersonalAddress {
             "type": "string"
         },
         {
-            "name": "line1",
-            "baseName": "line1",
+            "name": "postalCode",
+            "baseName": "postal_code",
             "type": "string"
         },
         {
-            "name": "postalCode",
-            "baseName": "postal_code",
+            "name": "region",
+            "baseName": "region",
             "type": "string"
         }    ];
 

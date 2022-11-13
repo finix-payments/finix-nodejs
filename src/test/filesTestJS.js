@@ -1,5 +1,5 @@
 require("mocha");
-const {Client, Environment, Models} = require ('../api');
+const {Client, Environment, Models} = require ('../../lib/api');
 var assert = require("chai").assert;
 const fs = require('fs');
 describe('Files API', function () {

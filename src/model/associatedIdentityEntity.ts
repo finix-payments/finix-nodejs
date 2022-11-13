@@ -2,24 +2,17 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { IdentityEntityBusinessAddress } from './identityEntityBusinessAddress';
 import { IdentityEntityDob } from './identityEntityDob';
-import { IdentityEntityIncorporationDate } from './identityEntityIncorporationDate';
+import { IdentityEntityFormIncorporationDate } from './identityEntityFormIncorporationDate';
 import { IdentityEntityPersonalAddress } from './identityEntityPersonalAddress';
 
 /**
 * The underwriting details required to verify the `Identity`.
 */
 export class AssociatedIdentityEntity {
-    /**
-    * Assigned amexMid value. If a value is passed, it must be 10 or 11 digits.
-    */
-    'amexMid'?: number | null;
-    /**
-    * The annual credit card sales (in cents) expected to be processed by this merchant (max 19 characters).
-    */
-    'annualCardVolume'?: number | null;
     'businessAddress'?: IdentityEntityBusinessAddress | null;
     /**
     * The merchant\'s legal business name (max 120 characters).<ul><li>If <strong>INDIVIDUAL_SOLE_PROPRIETORSHIP</strong>, pass the owner\'s legal first name, last name and middle initial.
@@ -62,7 +55,7 @@ export class AssociatedIdentityEntity {
     * Defaults to **false** if not passed.
     */
     'hasAcceptedCreditCardsPreviously'?: boolean;
-    'incorporationDate'?: IdentityEntityIncorporationDate | null;
+    'incorporationDate'?: IdentityEntityFormIncorporationDate | null;
     /**
     * The legal last name of the merchant\'s control owner (max 20 characters).
     */
@@ -108,20 +101,18 @@ export class AssociatedIdentityEntity {
     * The URL of the merchant\'s public website.
     */
     'url'?: string | null;
+    /**
+    * Assigned amexMid value. If a value is passed, it must be 10 or 11 digits.
+    */
+    'amexMid'?: number | null;
+    /**
+    * The annual credit card sales (in cents) expected to be processed by this merchant (max 19 characters).
+    */
+    'annualCardVolume'?: number | null;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "amexMid",
-            "baseName": "amex_mid",
-            "type": "number"
-        },
-        {
-            "name": "annualCardVolume",
-            "baseName": "annual_card_volume",
-            "type": "number"
-        },
         {
             "name": "businessAddress",
             "baseName": "business_address",
@@ -185,7 +176,7 @@ export class AssociatedIdentityEntity {
         {
             "name": "incorporationDate",
             "baseName": "incorporation_date",
-            "type": "IdentityEntityIncorporationDate"
+            "type": "IdentityEntityFormIncorporationDate"
         },
         {
             "name": "lastName",
@@ -246,6 +237,16 @@ export class AssociatedIdentityEntity {
             "name": "url",
             "baseName": "url",
             "type": "string"
+        },
+        {
+            "name": "amexMid",
+            "baseName": "amex_mid",
+            "type": "number"
+        },
+        {
+            "name": "annualCardVolume",
+            "baseName": "annual_card_volume",
+            "type": "number"
         }    ];
 
     static getAttributeTypeMap() {

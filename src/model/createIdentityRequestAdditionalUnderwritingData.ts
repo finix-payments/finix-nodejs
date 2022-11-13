@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { CreateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution } from './createIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution';
 import { CreateIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusinessType } from './createIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusinessType';
@@ -26,6 +27,7 @@ export class CreateIdentityRequestAdditionalUnderwritingData {
     * Description of this merchant\'s business (max 200 characters).
     */
     'businessDescription'?: string;
+    'cardVolumeDistribution'?: CreateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution;
     /**
     * Sets if this merchant has consented and accepted to a credit check.
     */
@@ -42,7 +44,6 @@ export class CreateIdentityRequestAdditionalUnderwritingData {
     * The details of the browser that was used when this merchant consented to a credit check (e.g., Mozilla 5.0 (Macintosh; Intel Mac OS X 10 _14_6)).
     */
     'creditCheckUserAgent'?: string;
-    'cardVolumeDistribution'?: CreateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution;
     /**
     * Sets whether this merchant has accepted the terms and conditions of the merchant agreement.
     */
@@ -89,6 +90,11 @@ export class CreateIdentityRequestAdditionalUnderwritingData {
             "type": "string"
         },
         {
+            "name": "cardVolumeDistribution",
+            "baseName": "card_volume_distribution",
+            "type": "CreateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution"
+        },
+        {
             "name": "creditCheckAllowed",
             "baseName": "credit_check_allowed",
             "type": "boolean"
@@ -107,11 +113,6 @@ export class CreateIdentityRequestAdditionalUnderwritingData {
             "name": "creditCheckUserAgent",
             "baseName": "credit_check_user_agent",
             "type": "string"
-        },
-        {
-            "name": "cardVolumeDistribution",
-            "baseName": "card_volume_distribution",
-            "type": "CreateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution"
         },
         {
             "name": "merchantAgreementAccepted",
