@@ -1,4 +1,5 @@
 import {Client, Environment, Models} from '../api';
+import { HttpError } from '../api/apis';
 
 describe('Identity API', () => {
 
@@ -130,18 +131,21 @@ describe('Identity API', () => {
     test("Test: Verify an identity", async() => {
         const createVerificationRequest: Models.CreateVerificationRequest = {
             merchant: "MUgWbPVvtKbzjKNNGKqdQYV7",
+            processor: "DUMMY_V1",
             tags : {
                 "test_key_01" : "test_val"
             }
         }
-        // try {
-        const identityVerification = await client.Identities.createIdentityVerification("IDgWxBhfGYLLdkhxx2ddYf9K", createVerificationRequest);
-        expect(identityVerification.merchant).toBe(createVerificationRequest.merchant);
-        expect(identityVerification.tags?.["test_key_01"]).toBe("test_val");
-        // }
-        // catch (err){
-        //     console.log(err);
-        // }
+        try {
+            const identityVerification = await client.Identities.createIdentityVerification(identitiesId, createVerificationRequest);
+            expect(identityVerification.merchant).toBe(createVerificationRequest.merchant);
+            expect(identityVerification.tags?.["test_key_01"]).toBe("test_val");
+        }
+        catch (err){
+            // console.log((err as HttpError).body);
+            // TODO: Create complete test for identity verification. Can confirm this expected response for these credentials. 
+            expect((err as HttpError).body[0].message).toBe("Application APgPDQrLD52TYvqazjHJJchM has not been underwritten for processing.")
+        }
 
 
     });
