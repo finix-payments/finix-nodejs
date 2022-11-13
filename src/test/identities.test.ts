@@ -99,7 +99,6 @@ describe('Identity API', () => {
         const createdIdentity = await client.Identities.create(createIdentityRequest);
 
         identitiesId = <string> createdIdentity.id;
-        console.log("set: "+identitiesId);
         
         expect(createdIdentity.entity?.firstName).toBe(createIdentityRequest.entity?.firstName);
         expect(createdIdentity.entity?.lastName).toBe(createIdentityRequest.entity?.lastName);
@@ -121,10 +120,9 @@ describe('Identity API', () => {
                 }
             }
         }
-        console.log("get: "+identitiesId);
+
         const createdIdentity = await client.Identities.createAssociatedIdentity(identitiesId, createIdentityRequest);
-        console.log(createdIdentity);
-        console.log(createIdentityRequest);
+
         expect(createdIdentity.entity?.firstName).toBe(createIdentityRequest.entity?.firstName);
         expect(createdIdentity.entity?.lastName).toBe(createIdentityRequest.entity?.lastName);
     });

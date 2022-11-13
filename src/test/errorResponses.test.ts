@@ -83,7 +83,7 @@ describe('Error response', () => {
                 amount: 123,
                 currency: Models.Currency.Usd
             });
-            console.log(authorization);
+
         }catch(error){
             expect((error as HttpError).statusCode).toBe(402);
             expect((error as HttpError).body.length).toBeGreaterThan(0);
