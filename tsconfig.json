@@ -12,8 +12,8 @@
       "moduleResolution": "node",
       "esModuleInterop": true,
       "module": "commonjs",
-      "rootDir": ".",
-      "outDir": "lib",
+      "rootDir": "./src",
+      "outDir": "./lib",
     },
     "include":[
       "src"
