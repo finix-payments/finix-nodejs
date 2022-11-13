@@ -1,4 +1,5 @@
 src/
-lib/
 project-composite/
 template/
+openapi/
+deployscripts/
