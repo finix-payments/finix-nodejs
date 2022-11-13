@@ -77,7 +77,7 @@ describe('Error response', () => {
             const createdPaymentInstrument = await client.PaymentInstruments.create(paymentCardRequest);
             const paymentCardId = <string>createdPaymentInstrument.id;
 
-            let authorization = await client.Authorizations.create({
+            await client.Authorizations.create({
                 source: paymentCardId,
                 merchant: "MUeDVrf2ahuKc9Eg5TeZugvs",
                 amount: 123,
