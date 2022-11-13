@@ -18,6 +18,7 @@ export class Client {
     readonly Merchants: finix.MerchantsApi;
     readonly OnboardingForms: finix.OnboardingFormsApi;
     readonly PaymentInstruments: finix.PaymentInstrumentsApi;
+    readonly PayoutProfiles: finix.PayoutProfilesApi;
     readonly Settlements: finix.SettlementsApi;
     readonly Transfers: finix.TransfersApi;
     readonly Verifications: finix.VerificationsApi;
@@ -25,22 +26,16 @@ export class Client {
 
     protected _basePath = defaultBasePath;
 
-    protected _username;
-    protected _password;
+    protected _username: string;
+    protected _password: string;
 
-    constructor(basePath?: string);
-    constructor(username: string, password: string, basePath?: string);
-    constructor(basePathOrUsername: string, password?: string, basePath?: string) {
-        if (password) {
-            this.username = basePathOrUsername;
-            this.password = password
-            if (basePath) {
-                this.basePath = basePath;
-            }
-        } else {
-            if (basePathOrUsername) {
-                this.basePath = basePathOrUsername
-            }
+    // constructor(basePath?: string);
+    // constructor(basePathOrUsername: string, password: string, basePath?: string);
+    constructor(username: string, password: string, basePath?: string) {
+        this._username = username;
+        this._password = password
+        if (basePath) {
+            this.basePath = basePath;
         }
         this.Authorizations = new finix.AuthorizationsApi(this.username, this.password, this.basePath);
         this.BalanceTransfers = new finix.BalanceTransfersApi(this.username, this.password, this.basePath);
@@ -55,6 +50,7 @@ export class Client {
         this.Merchants = new finix.MerchantsApi(this.username, this.password, this.basePath);
         this.OnboardingForms = new finix.OnboardingFormsApi(this.username, this.password, this.basePath);
         this.PaymentInstruments = new finix.PaymentInstrumentsApi(this.username, this.password, this.basePath);
+        this.PayoutProfiles = new finix.PayoutProfilesApi(this.username, this.password, this.basePath);
         this.Settlements = new finix.SettlementsApi(this.username, this.password, this.basePath);
         this.Transfers = new finix.TransfersApi(this.username, this.password, this.basePath);
         this.Verifications = new finix.VerificationsApi(this.username, this.password, this.basePath);

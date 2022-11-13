@@ -2,8 +2,10 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { AdditionalBuyerCharges } from './additionalBuyerCharges';
+import { AdditionalHealthcareData } from './additionalHealthcareData';
 import { CardPresentDetails } from './cardPresentDetails';
 import { Currency } from './currency';
 import { FeeType } from './feeType';
@@ -26,14 +28,23 @@ export class Transfer {
     */
     'updatedAt'?: Date;
     'additionalBuyerCharges'?: AdditionalBuyerCharges | null;
+    'additionalHealthcareData'?: AdditionalHealthcareData | null;
+    /**
+    * Details the results of the Address Verification checks.
+    */
+    'addressVerification'?: string | null;
     /**
     * The total amount that will be debited in cents (e.g. 100 cents to debit $1.00).
     */
     'amount'?: number;
     /**
-    * The ID of the resource.
+    * Details the `amount` that was requested to get debited from the `source` when the transaction was created.
     */
-    'application'?: string | null;
+    'amountRequested'?: number;
+    /**
+    * The ID of the `Application` the `Transfer` was created under.
+    */
+    'application'?: string;
     'cardPresentDetails'?: CardPresentDetails | null;
     'currency'?: Currency;
     /**
@@ -41,15 +52,15 @@ export class Transfer {
     */
     'destination'?: string | null;
     /**
-    * The ID of the resource.
+    * The ID of the `Device` resource the `Transfer` was created under.
     */
-    'device'?: string | null;
+    'device'?: string;
     /**
     * Details if the `Transfer` will be settled externally by card processors.
     */
     'externallyFunded'?: string;
     /**
-    * The code of the failure so the decline can be handled programmatically. For more info on how to handle the failure, see [Failure Codes](/docs/guides/developers/errors/#failure-codes).
+    * The code of the failure so the decline can be handled programmatically. For more info on how to handle the failure, see [Failure Codes](/guides/developers/errors/#failure-codes).
     */
     'failureCode'?: string | null;
     /**
@@ -62,17 +73,17 @@ export class Transfer {
     'fee'?: number;
     'feeType'?: FeeType;
     /**
-    * ID to [idempotently](#section/Idempotency-Requests) identifty the transfer.
+    * ID to [idempotently](/api/overview/#section/Idempotency-Requests) identifty the transfer.
     */
     'idempotencyId'?: string | null;
     /**
-    * The ID of the resource.
+    * The ID of the `Merchant` the `Authorization` was created under.
     */
-    'merchantIdentity'?: string | null;
+    'merchantIdentity'?: string;
     /**
     * Message field that provides additional details. This field is typically **null**.
     */
-    'messages'?: Array<string>;
+    'messages'?: Array<string> | null;
     /**
     * Raw response from the processor.
     */
@@ -82,7 +93,11 @@ export class Transfer {
     */
     'readyToSettleAt'?: Date | null;
     /**
-    * The ID of the resource.
+    * Details the results of the Security Code Verification checks.
+    */
+    'securityCodeVerification'?: string | null;
+    /**
+    * The ID of the `Payment Instrument` that will be debited and performing the `Transfer`.
     */
     'source'?: string | null;
     /**
@@ -90,7 +105,7 @@ export class Transfer {
     */
     'state'?: Transfer.StateEnum | string;
     /**
-    * The description of the merchant that appears on the buyer\'s bank or card statement.
+    * <li>The description of the seller that appears on the buyer\'s bank or card statement.</li><li><kbd>statement_descriptors</kbd> for `Transfers` in <strong>live</strong> enviroments will have a <kbd>FI*</kbd> prefix.
     */
     'statementDescriptor'?: string | null;
     /**
@@ -100,7 +115,7 @@ export class Transfer {
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
     /**
     * Trace ID of the `Transfer`. The processor sends back the `trace_id` so you can track the `Transfer` end-to-end.
     */
@@ -135,8 +150,23 @@ export class Transfer {
             "type": "AdditionalBuyerCharges"
         },
         {
+            "name": "additionalHealthcareData",
+            "baseName": "additional_healthcare_data",
+            "type": "AdditionalHealthcareData"
+        },
+        {
+            "name": "addressVerification",
+            "baseName": "address_verification",
+            "type": "string"
+        },
+        {
             "name": "amount",
             "baseName": "amount",
+            "type": "number"
+        },
+        {
+            "name": "amountRequested",
+            "baseName": "amount_requested",
             "type": "number"
         },
         {
@@ -213,6 +243,11 @@ export class Transfer {
             "name": "readyToSettleAt",
             "baseName": "ready_to_settle_at",
             "type": "Date"
+        },
+        {
+            "name": "securityCodeVerification",
+            "baseName": "security_code_verification",
+            "type": "string"
         },
         {
             "name": "source",

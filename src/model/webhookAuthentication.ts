@@ -2,10 +2,11 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 
 /**
-* The authentication settings that are used to send webhook events.
+* The [authentication settings](/guides/developers/webhooks/#authenticating-webhooks) that are used to send webhook events.
 */
 export class WebhookAuthentication {
     /**

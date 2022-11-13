@@ -4,7 +4,7 @@ describe('Files API', () => {
 
     let client: Client;
     let fileId: string;
-    let createFileRequest; Models.CreateFileRequest;
+    let createFileRequest: Models.CreateFileRequest;
     let externalLinkId: string;
 
     beforeAll(() => {

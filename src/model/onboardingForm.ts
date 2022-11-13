@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { CreateOnboardingFormRequestMerchantProcessorsInner } from './createOnboardingFormRequestMerchantProcessorsInner';
 import { OnboardingFormOnboardingData } from './onboardingFormOnboardingData';
@@ -12,16 +13,6 @@ export class OnboardingForm {
     * The ID of the `onboarding_form` resource.
     */
     'id'?: string;
-    'onboardingData'?: OnboardingFormOnboardingData;
-    /**
-    * An array of objects with the processors and gateways users will be onboarded to.
-    */
-    'merchantProcessors'?: Array<CreateOnboardingFormRequestMerchantProcessorsInner>;
-    'onboardingLink'?: OnboardingFormOnboardingLink;
-    /**
-    * Status of the `onboarding_from`.
-    */
-    'status'?: OnboardingForm.StatusEnum | string;
     /**
     * Timestamp of when the object was created.
     */
@@ -31,9 +22,19 @@ export class OnboardingForm {
     */
     'updatedAt'?: Date;
     /**
+    * An array of objects with the processors and gateways users will be onboarded to.
+    */
+    'merchantProcessors'?: Array<CreateOnboardingFormRequestMerchantProcessorsInner>;
+    'onboardingData'?: OnboardingFormOnboardingData;
+    'onboardingLink'?: OnboardingFormOnboardingLink;
+    /**
+    * Status of the `onboarding_from`.
+    */
+    'status'?: OnboardingForm.StatusEnum | string;
+    /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
 
     static discriminator: string | undefined = undefined;
 
@@ -44,14 +45,24 @@ export class OnboardingForm {
             "type": "string"
         },
         {
-            "name": "onboardingData",
-            "baseName": "onboarding_data",
-            "type": "OnboardingFormOnboardingData"
+            "name": "createdAt",
+            "baseName": "created_at",
+            "type": "Date"
+        },
+        {
+            "name": "updatedAt",
+            "baseName": "updated_at",
+            "type": "Date"
         },
         {
             "name": "merchantProcessors",
             "baseName": "merchant_processors",
             "type": "Array<CreateOnboardingFormRequestMerchantProcessorsInner>"
+        },
+        {
+            "name": "onboardingData",
+            "baseName": "onboarding_data",
+            "type": "OnboardingFormOnboardingData"
         },
         {
             "name": "onboardingLink",
@@ -62,16 +73,6 @@ export class OnboardingForm {
             "name": "status",
             "baseName": "status",
             "type": "OnboardingForm.StatusEnum"
-        },
-        {
-            "name": "createdAt",
-            "baseName": "created_at",
-            "type": "Date"
-        },
-        {
-            "name": "updatedAt",
-            "baseName": "updated_at",
-            "type": "Date"
         },
         {
             "name": "tags",

@@ -2,12 +2,13 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 
 /**
-* The date the company was founded and registered with the US.
+* The control owner\'s date of birth. 
 */
-export class CreateAssociatedIdentityRequestEntityIncorporationDate {
+export class UpdateIdentityRequestEntityDob {
     'year'?: number;
     'day'?: number;
     'month'?: number;
@@ -32,7 +33,7 @@ export class CreateAssociatedIdentityRequestEntityIncorporationDate {
         }    ];
 
     static getAttributeTypeMap() {
-        return CreateAssociatedIdentityRequestEntityIncorporationDate.attributeTypeMap;
+        return UpdateIdentityRequestEntityDob.attributeTypeMap;
     }
 }
 

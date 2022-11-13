@@ -5,27 +5,38 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
+// @ts-ignore: Some endpoints interact with files
 import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
+// @ts-ignore: Some unused imports always provided
 import { ApplePaySession } from '../model/applePaySession';
+// @ts-ignore: Some unused imports always provided
 import { ApplePaySessionRequest } from '../model/applePaySessionRequest';
+// @ts-ignore: Some unused imports always provided
 import { CreatePaymentInstrumentRequest } from '../model/createPaymentInstrumentRequest';
+// @ts-ignore: Some unused imports always provided
 import { Error401Unauthorized } from '../model/error401Unauthorized';
+// @ts-ignore: Some unused imports always provided
 import { Error403ForbiddenList } from '../model/error403ForbiddenList';
+// @ts-ignore: Some unused imports always provided
 import { Error404NotFoundList } from '../model/error404NotFoundList';
+// @ts-ignore: Some unused imports always provided
 import { Error406NotAcceptable } from '../model/error406NotAcceptable';
+// @ts-ignore: Some unused imports always provided
 import { Error422InvalidFieldList } from '../model/error422InvalidFieldList';
+// @ts-ignore: Some unused imports always provided
 import { ErrorGeneric } from '../model/errorGeneric';
+// @ts-ignore: Some unused imports always provided
 import { PaymentInstrument } from '../model/paymentInstrument';
-import { PaymentInstrumentUpdatesList } from '../model/paymentInstrumentUpdatesList';
+// @ts-ignore: Some unused imports always provided
 import { PaymentInstrumentsList } from '../model/paymentInstrumentsList';
+// @ts-ignore: Some unused imports always provided
 import { UpdatePaymentInstrumentRequest } from '../model/updatePaymentInstrumentRequest';
-import { ListPaymentInstrumentUpdatesQueryParams } from '../model/listPaymentInstrumentUpdatesQueryParams';
 import { ListPaymentInstrumentsQueryParams } from '../model/listPaymentInstrumentsQueryParams';
 import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
-import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
+import { HttpBasicAuth } from '../model/models';
 
-import { HttpError, RequestFile } from './apis';
+import { HttpError } from './apis';
 
 let defaultBasePath = 'https://finix.sandbox-payments-api.com';
 
@@ -106,12 +117,12 @@ export class PaymentInstrumentsApi {
 
     /**
      * Helper function. 
-     * Create an `apple_pay_session` to process Apple Pay transactions on the web.  To create an Apple Pay Session, pass the unique `validation_url` (provided by Apple) while creating an `apple_pay_sessions` resource. Finix returns a `merchantSession` object that you can use to create a payment. For more information, see [Apple Pay](/docs/guides/payments/alternative-payment-methods/apple-pay/).
+     * Create an `apple_pay_session` to process Apple Pay transactions on the web.  To create an Apple Pay Session, pass the unique `validation_url` (provided by Apple) while creating an `apple_pay_sessions` resource. Finix returns a `merchantSession` object that you can use to create a payment. For more information, see [Apple Pay](/guides/payments/alternative-payment-methods/apple-pay/).
      * @summary Create an Apple Pay Session
      * @param applePaySessionRequest 
      */
 
-    private async createApplePaySessionHelper(applePaySessionRequest?: ApplePaySessionRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ApplePaySession;  }> {
+    private async createApplePaySessionHelper(applePaySessionRequest?: ApplePaySessionRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ApplePaySession;  rawBody: any; }> {
         const localVarPath = this.basePath + '/apple_pay_sessions';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -164,14 +175,15 @@ export class PaymentInstrumentsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: ApplePaySession;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: ApplePaySession;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "ApplePaySession");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -182,7 +194,7 @@ export class PaymentInstrumentsApi {
     }
 
     /**
-     * Create an `apple_pay_session` to process Apple Pay transactions on the web.  To create an Apple Pay Session, pass the unique `validation_url` (provided by Apple) while creating an `apple_pay_sessions` resource. Finix returns a `merchantSession` object that you can use to create a payment. For more information, see [Apple Pay](/docs/guides/payments/alternative-payment-methods/apple-pay/).
+     * Create an `apple_pay_session` to process Apple Pay transactions on the web.  To create an Apple Pay Session, pass the unique `validation_url` (provided by Apple) while creating an `apple_pay_sessions` resource. Finix returns a `merchantSession` object that you can use to create a payment. For more information, see [Apple Pay](/guides/payments/alternative-payment-methods/apple-pay/).
      * @summary Create an Apple Pay Session
      * @param applePaySessionRequest 
      */
@@ -193,23 +205,23 @@ export class PaymentInstrumentsApi {
     }
 
     /**
-     * Create an `apple_pay_session` to process Apple Pay transactions on the web.  To create an Apple Pay Session, pass the unique `validation_url` (provided by Apple) while creating an `apple_pay_sessions` resource. Finix returns a `merchantSession` object that you can use to create a payment. For more information, see [Apple Pay](/docs/guides/payments/alternative-payment-methods/apple-pay/).
+     * Create an `apple_pay_session` to process Apple Pay transactions on the web.  To create an Apple Pay Session, pass the unique `validation_url` (provided by Apple) while creating an `apple_pay_sessions` resource. Finix returns a `merchantSession` object that you can use to create a payment. For more information, see [Apple Pay](/guides/payments/alternative-payment-methods/apple-pay/).
      * @summary Create an Apple Pay Session
      * @param applePaySessionRequest 
      */
     public async createApplePaySessionHttp(applePaySessionRequest?: ApplePaySessionRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: ApplePaySession; }> {
+        Promise<{response: http.IncomingMessage, body: ApplePaySession;  rawBody: any;}> {
         const responseObject = await this.createApplePaySessionHelper(applePaySessionRequest,  options);
         return responseObject;
     }
     /**
      * Helper function. 
-     * Create a `Payment Instrument` resource using a card or bank account.  To accept payment details, review our guide on how to [tokenize cards using hosted fields](/guides/payments/tokenization-with-hosted-fields).  - The creation of `Payment Instruments` directly via Finix\'s API should only be done for testing purposes. You must use the Hosted Tokenization fields or the javascript client to remain out of PCI scope.
+     * Create a `Payment Instrument` resource using a card or bank account.  - The creation of `Payment Instruments` directly via Finix\'s API should only be done for testing purposes. You must use [our hosted fields](/guides/payments/making-a-payment/using-hosted-fields/) or the javascript client to remain out of PCI scope.
      * @summary Create a Payment Instrument
      * @param createPaymentInstrumentRequest 
      */
 
-    private async createHelper(createPaymentInstrumentRequest?: CreatePaymentInstrumentRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: PaymentInstrument;  }> {
+    private async createHelper(createPaymentInstrumentRequest?: CreatePaymentInstrumentRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: PaymentInstrument;  rawBody: any; }> {
         const localVarPath = this.basePath + '/payment_instruments';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -262,14 +274,15 @@ export class PaymentInstrumentsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: PaymentInstrument;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: PaymentInstrument;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "PaymentInstrument");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -280,7 +293,7 @@ export class PaymentInstrumentsApi {
     }
 
     /**
-     * Create a `Payment Instrument` resource using a card or bank account.  To accept payment details, review our guide on how to [tokenize cards using hosted fields](/guides/payments/tokenization-with-hosted-fields).  - The creation of `Payment Instruments` directly via Finix\'s API should only be done for testing purposes. You must use the Hosted Tokenization fields or the javascript client to remain out of PCI scope.
+     * Create a `Payment Instrument` resource using a card or bank account.  - The creation of `Payment Instruments` directly via Finix\'s API should only be done for testing purposes. You must use [our hosted fields](/guides/payments/making-a-payment/using-hosted-fields/) or the javascript client to remain out of PCI scope.
      * @summary Create a Payment Instrument
      * @param createPaymentInstrumentRequest 
      */
@@ -291,12 +304,12 @@ export class PaymentInstrumentsApi {
     }
 
     /**
-     * Create a `Payment Instrument` resource using a card or bank account.  To accept payment details, review our guide on how to [tokenize cards using hosted fields](/guides/payments/tokenization-with-hosted-fields).  - The creation of `Payment Instruments` directly via Finix\'s API should only be done for testing purposes. You must use the Hosted Tokenization fields or the javascript client to remain out of PCI scope.
+     * Create a `Payment Instrument` resource using a card or bank account.  - The creation of `Payment Instruments` directly via Finix\'s API should only be done for testing purposes. You must use [our hosted fields](/guides/payments/making-a-payment/using-hosted-fields/) or the javascript client to remain out of PCI scope.
      * @summary Create a Payment Instrument
      * @param createPaymentInstrumentRequest 
      */
     public async createHttp(createPaymentInstrumentRequest?: CreatePaymentInstrumentRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: PaymentInstrument; }> {
+        Promise<{response: http.IncomingMessage, body: PaymentInstrument;  rawBody: any;}> {
         const responseObject = await this.createHelper(createPaymentInstrumentRequest,  options);
         return responseObject;
     }
@@ -307,7 +320,7 @@ export class PaymentInstrumentsApi {
      * @param paymentInstrumentId ID of object
      */
 
-    private async getHelper(paymentInstrumentId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: PaymentInstrument;  }> {
+    private async getHelper(paymentInstrumentId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: PaymentInstrument;  rawBody: any; }> {
         const localVarPath = this.basePath + '/payment_instruments/{payment_instrument_id}'
             .replace('{' + 'payment_instrument_id' + '}', encodeURIComponent(String(paymentInstrumentId)));
         let localVarQueryParameters: any = {};
@@ -357,14 +370,15 @@ export class PaymentInstrumentsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: PaymentInstrument;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: PaymentInstrument;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "PaymentInstrument");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -391,155 +405,9 @@ export class PaymentInstrumentsApi {
      * @param paymentInstrumentId ID of object
      */
     public async getHttp(paymentInstrumentId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: PaymentInstrument; }> {
+        Promise<{response: http.IncomingMessage, body: PaymentInstrument;  rawBody: any;}> {
         const responseObject = await this.getHelper(paymentInstrumentId,  options);
         return responseObject;
-    }
-    /**
-     * Helper function. 
-     * List the updates on a `Payment Instrument`.  When using the [account updater](/guides/payments/account-updater), `Payment Instrument` details that are updated are represented by an `Update`.
-     * @summary List Payment Instrument Updates
-
-    * @param paymentInstrumentId ID of &#x60;Payment Instrument&#x60; object.
-    * 
-    */
-    private async listUpdatesByPaymentInstrumentIdHelper (paymentInstrumentId: string, listPaymentInstrumentUpdatesQueryParams?:ListPaymentInstrumentUpdatesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: PaymentInstrumentUpdatesList;  }> {
-        const localVarPath = this.basePath + '/payment_instruments/{payment_instrument_id}/updates'
-            .replace('{' + 'payment_instrument_id' + '}', encodeURIComponent(String(paymentInstrumentId)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
-        const produces = ['application/hal+json'];
-        // give precedence to 'application/json'
-        if (produces.indexOf('application/json') >= 0) {
-            localVarHeaderParams.Accept = 'application/json';
-        } else {
-            localVarHeaderParams.Accept = produces.join(',');
-        }
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'paymentInstrumentId' is not null or undefined
-        if (paymentInstrumentId === null || paymentInstrumentId === undefined) {
-            throw new Error('Required parameter paymentInstrumentId was null or undefined when calling listPaymentInstrumentUpdates.');
-        }
-        if (listPaymentInstrumentUpdatesQueryParams != undefined){ 
-            if (listPaymentInstrumentUpdatesQueryParams.limit !== undefined) {
-                localVarQueryParameters['limit'] = ObjectSerializer.serialize(listPaymentInstrumentUpdatesQueryParams.limit, "number");
-            }
-            if (listPaymentInstrumentUpdatesQueryParams.offset !== undefined) {
-                localVarQueryParameters['offset'] = ObjectSerializer.serialize(listPaymentInstrumentUpdatesQueryParams.offset, "number");
-            }
-            if (listPaymentInstrumentUpdatesQueryParams.pageSize !== undefined) {
-                localVarQueryParameters['pageSize'] = ObjectSerializer.serialize(listPaymentInstrumentUpdatesQueryParams.pageSize, "number");
-            }
-
-        }
-        (<any>Object).assign(localVarHeaderParams, options.headers);
-        localVarHeaderParams['Finix-Version'] = "2022-02-01";
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-        let authenticationPromise = Promise.resolve();
-        if (this.authentications.BasicAuth.username && this.authentications.BasicAuth.password) {
-            authenticationPromise = authenticationPromise.then(() => this.authentications.BasicAuth.applyToRequest(localVarRequestOptions));
-        }
-        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
-
-        let interceptorPromise = authenticationPromise;
-        for (const interceptor of this.interceptors) {
-            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
-        }
-
-        return interceptorPromise.then(() => {
-            if (Object.keys(localVarFormParams).length) {
-                if (localVarUseFormData) {
-                    (<any>localVarRequestOptions).formData = localVarFormParams;
-                } else {
-                    localVarRequestOptions.form = localVarFormParams;
-                }
-            }
-            return new Promise<{ response: http.IncomingMessage; body: PaymentInstrumentUpdatesList;  }>((resolve, reject) => {
-                localVarRequest(localVarRequestOptions, (error, response, body) => {
-                    if (error) {
-                        reject(error);
-                    } else {
-                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            body = ObjectSerializer.deserialize(body, "PaymentInstrumentUpdatesList");
-                            resolve({ response: response, body: body });
-                        } else {
-                            reject(new HttpError(response, body, response.statusCode));
-                        }
-                    }
-                });
-            });
-        });
-    }
-
-    /**
-     * List the updates on a `Payment Instrument`.  When using the [account updater](/guides/payments/account-updater), `Payment Instrument` details that are updated are represented by an `Update`.
-     * @summary List Payment Instrument Updates
-     * @param paymentInstrumentId ID of &#x60;Payment Instrument&#x60; object.
-     *  
-     */
-    public async listUpdatesByPaymentInstrumentId (paymentInstrumentId: string, listPaymentInstrumentUpdatesQueryParams?:ListPaymentInstrumentUpdatesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<finixList<any>> {
-        const responseObject = await this.listUpdatesByPaymentInstrumentIdHelper(paymentInstrumentId, listPaymentInstrumentUpdatesQueryParams, options);
-        // Check if response body has nextCursor property or offset property and extract the corresponding fields
-        let reachedEnd: Boolean;
-        const hasNextCursor: any = responseObject.body?.page?.hasOwnProperty('nextCursor');
-        let queryParam: any = hasNextCursor ? { afterCursor: '', limit: 20 } : { offset: '', limit: 20 };
-
-        [queryParam, reachedEnd] = hasNextCursor
-        ? this.getCursorQueryParam(responseObject, queryParam) 
-        : this.getOffsetQueryParam(responseObject, queryParam);
-
-        const nextFetch = (limit?: number) => {
-            queryParam.limit = limit;
-            if (reachedEnd){
-                throw new RangeError("End of list reached");
-            }
-            return this.listUpdatesByPaymentInstrumentId(paymentInstrumentId, queryParam);
-        }
-        let dataList = new finixList<any>(nextFetch, !reachedEnd);
-        dataList = this.embeddedHelper(responseObject, dataList);
-        return dataList;
-    }
-
-    /**
-     * List the updates on a `Payment Instrument`.  When using the [account updater](/guides/payments/account-updater), `Payment Instrument` details that are updated are represented by an `Update`.
-     * @summary List Payment Instrument Updates
-     * @param paymentInstrumentId ID of &#x60;Payment Instrument&#x60; object.
-     * 
-     */
-    public async listUpdatesByPaymentInstrumentIdHttp (paymentInstrumentId: string, listPaymentInstrumentUpdatesQueryParams?:ListPaymentInstrumentUpdatesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
-        const responseObject = await this.listUpdatesByPaymentInstrumentIdHelper(paymentInstrumentId, listPaymentInstrumentUpdatesQueryParams, options);
-        // Check if response body has nextCursor property or offset property and extract the corresponding fields
-        let reachedEnd: Boolean;
-        const hasNextCursor: any = responseObject.body?.page?.hasOwnProperty('nextCursor');
-        let queryParam: any = hasNextCursor ? { afterCursor: '', limit: 20 } : { offset: '', limit: 20 };
-
-        [queryParam, reachedEnd] = hasNextCursor
-        ? this.getCursorQueryParam(responseObject, queryParam) 
-        : this.getOffsetQueryParam(responseObject, queryParam);
-
-        const nextFetch = (limit?: number) => {
-            queryParam.limit = limit;
-            if (reachedEnd){
-                throw new RangeError("End of list reached");
-            }
-            return this.listUpdatesByPaymentInstrumentId(paymentInstrumentId, queryParam);
-        }
-        let dataList = new finixList<any>(nextFetch, reachedEnd);
-        dataList = this.embeddedHelper(responseObject, dataList);
-        //dataList.hasMore = !reachedEnd;
-        return Promise.resolve({response: responseObject.response, body: dataList});
     }
     /**
      * Helper function. 
@@ -547,7 +415,7 @@ export class PaymentInstrumentsApi {
      * @summary List Payment Instruments
 
     */
-    private async listHelper (listPaymentInstrumentsQueryParams?:ListPaymentInstrumentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: PaymentInstrumentsList;  }> {
+    private async listHelper (listPaymentInstrumentsQueryParams?:ListPaymentInstrumentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: PaymentInstrumentsList;  rawBody: any; }> {
         const localVarPath = this.basePath + '/payment_instruments';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -639,14 +507,15 @@ export class PaymentInstrumentsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: PaymentInstrumentsList;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: PaymentInstrumentsList;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "PaymentInstrumentsList");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -689,7 +558,7 @@ export class PaymentInstrumentsApi {
      * @summary List Payment Instruments
      */
     public async listHttp (listPaymentInstrumentsQueryParams?:ListPaymentInstrumentsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>, rawBody: any}> {
         const responseObject = await this.listHelper(listPaymentInstrumentsQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
         let reachedEnd: Boolean;
@@ -710,17 +579,17 @@ export class PaymentInstrumentsApi {
         let dataList = new finixList<any>(nextFetch, reachedEnd);
         dataList = this.embeddedHelper(responseObject, dataList);
         //dataList.hasMore = !reachedEnd;
-        return Promise.resolve({response: responseObject.response, body: dataList});
+        return Promise.resolve({response: responseObject.response, body: dataList, rawBody: responseObject.rawBody});
     }
     /**
      * Helper function. 
-     * Update a `Payment Instrument`.
+     * Update a `Payment Instrument` to: - Disable the `Payment Instrument` resource so it can\'t be used in requests - Change the `tags` 
      * @summary Update a Payment Instrument
      * @param paymentInstrumentId ID of object
      * @param updatePaymentInstrumentRequest 
      */
 
-    private async updateHelper(paymentInstrumentId: string, updatePaymentInstrumentRequest?: UpdatePaymentInstrumentRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: PaymentInstrument;  }> {
+    private async updateHelper(paymentInstrumentId: string, updatePaymentInstrumentRequest?: UpdatePaymentInstrumentRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: PaymentInstrument;  rawBody: any; }> {
         const localVarPath = this.basePath + '/payment_instruments/{payment_instrument_id}'
             .replace('{' + 'payment_instrument_id' + '}', encodeURIComponent(String(paymentInstrumentId)));
         let localVarQueryParameters: any = {};
@@ -778,14 +647,15 @@ export class PaymentInstrumentsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: PaymentInstrument;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: PaymentInstrument;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "PaymentInstrument");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -796,7 +666,7 @@ export class PaymentInstrumentsApi {
     }
 
     /**
-     * Update a `Payment Instrument`.
+     * Update a `Payment Instrument` to: - Disable the `Payment Instrument` resource so it can\'t be used in requests - Change the `tags` 
      * @summary Update a Payment Instrument
      * @param paymentInstrumentId ID of object
      * @param updatePaymentInstrumentRequest 
@@ -808,20 +678,22 @@ export class PaymentInstrumentsApi {
     }
 
     /**
-     * Update a `Payment Instrument`.
+     * Update a `Payment Instrument` to: - Disable the `Payment Instrument` resource so it can\'t be used in requests - Change the `tags` 
      * @summary Update a Payment Instrument
      * @param paymentInstrumentId ID of object
      * @param updatePaymentInstrumentRequest 
      */
     public async updateHttp(paymentInstrumentId: string, updatePaymentInstrumentRequest?: UpdatePaymentInstrumentRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: PaymentInstrument; }> {
+        Promise<{response: http.IncomingMessage, body: PaymentInstrument;  rawBody: any;}> {
         const responseObject = await this.updateHelper(paymentInstrumentId, updatePaymentInstrumentRequest,  options);
         return responseObject;
     }
 
+
     /**
      * Extracts page and links fields from response body and assigns as properties to finixList
      */ 
+    // @ts-ignore: Not all endpoints have list views
     private embeddedHelper(responseObject: any, dataList: finixList<any>){
         if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
             dataList.page = responseObject.body.page;
@@ -830,7 +702,7 @@ export class PaymentInstrumentsApi {
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
         let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
-        tempList.forEach(item => {dataList.add(item)});
+        tempList.forEach((item: any) => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
@@ -839,6 +711,7 @@ export class PaymentInstrumentsApi {
     /**
      * Extracts offset value from response body and determines if end of list has been reached
      */
+    // @ts-ignore: Not all endpoints have list views
     private getOffsetQueryParam(responseObject: any, queryParam: any){
         queryParam.offset = responseObject.body.page.offset + responseObject.body.page.limit;
         var endReached: Boolean = false;
@@ -851,6 +724,7 @@ export class PaymentInstrumentsApi {
     /**
     * Extracts nextCursor value from response body and determines if end of list has been reached
     */
+    // @ts-ignore: Not all endpoints have list views
     private getCursorQueryParam(responseObject: any, queryParam: any){
         queryParam.afterCursor = responseObject.body.page.nextCursor;
         var endReached: Boolean = false;

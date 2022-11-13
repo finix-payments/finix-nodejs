@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { SubscriptionEnrollmentLinks } from './subscriptionEnrollmentLinks';
 
@@ -48,7 +49,7 @@ export class SubscriptionEnrollment {
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
     'links'?: SubscriptionEnrollmentLinks;
 
     static discriminator: string | undefined = undefined;

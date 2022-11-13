@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { IdentityLinksApplication } from './identityLinksApplication';
 import { IdentityLinksAssociatedIdentities } from './identityLinksAssociatedIdentities';

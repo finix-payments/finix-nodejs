@@ -2,16 +2,13 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 
 /**
-* Date company was founded.
+* The date the company was founded and registered.
 */
 export class IdentityEntityFormIncorporationDate {
-    /**
-    * Year business was incorporated (4-digit).
-    */
-    'year'?: number;
     /**
     * Day business was incorporated (between 1 and 31).
     */
@@ -20,15 +17,14 @@ export class IdentityEntityFormIncorporationDate {
     * Month business was incorporated (between 1 and 12).
     */
     'month'?: number;
+    /**
+    * Year business was incorporated (4-digit).
+    */
+    'year'?: number;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "year",
-            "baseName": "year",
-            "type": "number"
-        },
         {
             "name": "day",
             "baseName": "day",
@@ -37,6 +33,11 @@ export class IdentityEntityFormIncorporationDate {
         {
             "name": "month",
             "baseName": "month",
+            "type": "number"
+        },
+        {
+            "name": "year",
+            "baseName": "year",
             "type": "number"
         }    ];
 

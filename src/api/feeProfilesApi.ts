@@ -5,21 +5,30 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
+// @ts-ignore: Some endpoints interact with files
 import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
+// @ts-ignore: Some unused imports always provided
 import { CreateFeeProfileRequest } from '../model/createFeeProfileRequest';
+// @ts-ignore: Some unused imports always provided
 import { Error401Unauthorized } from '../model/error401Unauthorized';
+// @ts-ignore: Some unused imports always provided
 import { Error403ForbiddenList } from '../model/error403ForbiddenList';
+// @ts-ignore: Some unused imports always provided
 import { Error404NotFoundList } from '../model/error404NotFoundList';
+// @ts-ignore: Some unused imports always provided
 import { Error406NotAcceptable } from '../model/error406NotAcceptable';
+// @ts-ignore: Some unused imports always provided
 import { Error422InvalidFieldList } from '../model/error422InvalidFieldList';
+// @ts-ignore: Some unused imports always provided
 import { FeeProfile } from '../model/feeProfile';
+// @ts-ignore: Some unused imports always provided
 import { FeeProfilesList } from '../model/feeProfilesList';
 import { ListFeeProfilesQueryParams } from '../model/listFeeProfilesQueryParams';
 import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
-import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
+import { HttpBasicAuth } from '../model/models';
 
-import { HttpError, RequestFile } from './apis';
+import { HttpError } from './apis';
 
 let defaultBasePath = 'https://finix.sandbox-payments-api.com';
 
@@ -105,7 +114,7 @@ export class FeeProfilesApi {
      * @param createFeeProfileRequest 
      */
 
-    private async createHelper(createFeeProfileRequest?: CreateFeeProfileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: FeeProfile;  }> {
+    private async createHelper(createFeeProfileRequest?: CreateFeeProfileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: FeeProfile;  rawBody: any; }> {
         const localVarPath = this.basePath + '/fee_profiles';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -158,14 +167,15 @@ export class FeeProfilesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: FeeProfile;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: FeeProfile;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "FeeProfile");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -192,7 +202,7 @@ export class FeeProfilesApi {
      * @param createFeeProfileRequest 
      */
     public async createHttp(createFeeProfileRequest?: CreateFeeProfileRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: FeeProfile; }> {
+        Promise<{response: http.IncomingMessage, body: FeeProfile;  rawBody: any;}> {
         const responseObject = await this.createHelper(createFeeProfileRequest,  options);
         return responseObject;
     }
@@ -203,7 +213,7 @@ export class FeeProfilesApi {
      * @param feeProfileId The ID of the &#x60;fee_profile&#x60;.
      */
 
-    private async getHelper(feeProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: FeeProfile;  }> {
+    private async getHelper(feeProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: FeeProfile;  rawBody: any; }> {
         const localVarPath = this.basePath + '/fee_profiles/{fee_profile_id}'
             .replace('{' + 'fee_profile_id' + '}', encodeURIComponent(String(feeProfileId)));
         let localVarQueryParameters: any = {};
@@ -253,14 +263,15 @@ export class FeeProfilesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: FeeProfile;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: FeeProfile;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "FeeProfile");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -287,7 +298,7 @@ export class FeeProfilesApi {
      * @param feeProfileId The ID of the &#x60;fee_profile&#x60;.
      */
     public async getHttp(feeProfileId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: FeeProfile; }> {
+        Promise<{response: http.IncomingMessage, body: FeeProfile;  rawBody: any;}> {
         const responseObject = await this.getHelper(feeProfileId,  options);
         return responseObject;
     }
@@ -297,7 +308,7 @@ export class FeeProfilesApi {
      * @summary List Fee Profiles
 
     */
-    private async listHelper (listFeeProfilesQueryParams?:ListFeeProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: FeeProfilesList;  }> {
+    private async listHelper (listFeeProfilesQueryParams?:ListFeeProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: FeeProfilesList;  rawBody: any; }> {
         const localVarPath = this.basePath + '/fee_profiles';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -353,14 +364,15 @@ export class FeeProfilesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: FeeProfilesList;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: FeeProfilesList;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "FeeProfilesList");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -403,7 +415,7 @@ export class FeeProfilesApi {
      * @summary List Fee Profiles
      */
     public async listHttp (listFeeProfilesQueryParams?:ListFeeProfilesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>, rawBody: any}> {
         const responseObject = await this.listHelper(listFeeProfilesQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
         let reachedEnd: Boolean;
@@ -424,12 +436,14 @@ export class FeeProfilesApi {
         let dataList = new finixList<any>(nextFetch, reachedEnd);
         dataList = this.embeddedHelper(responseObject, dataList);
         //dataList.hasMore = !reachedEnd;
-        return Promise.resolve({response: responseObject.response, body: dataList});
+        return Promise.resolve({response: responseObject.response, body: dataList, rawBody: responseObject.rawBody});
     }
+
 
     /**
      * Extracts page and links fields from response body and assigns as properties to finixList
      */ 
+    // @ts-ignore: Not all endpoints have list views
     private embeddedHelper(responseObject: any, dataList: finixList<any>){
         if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
             dataList.page = responseObject.body.page;
@@ -438,7 +452,7 @@ export class FeeProfilesApi {
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
         let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
-        tempList.forEach(item => {dataList.add(item)});
+        tempList.forEach((item: any) => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
@@ -447,6 +461,7 @@ export class FeeProfilesApi {
     /**
      * Extracts offset value from response body and determines if end of list has been reached
      */
+    // @ts-ignore: Not all endpoints have list views
     private getOffsetQueryParam(responseObject: any, queryParam: any){
         queryParam.offset = responseObject.body.page.offset + responseObject.body.page.limit;
         var endReached: Boolean = false;
@@ -459,6 +474,7 @@ export class FeeProfilesApi {
     /**
     * Extracts nextCursor value from response body and determines if end of list has been reached
     */
+    // @ts-ignore: Not all endpoints have list views
     private getCursorQueryParam(responseObject: any, queryParam: any){
         queryParam.afterCursor = responseObject.body.page.nextCursor;
         var endReached: Boolean = false;

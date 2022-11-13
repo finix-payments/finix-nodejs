@@ -5,21 +5,31 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
+// @ts-ignore: Some endpoints interact with files
 import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
+// @ts-ignore: Some unused imports always provided
 import { CreateOnboardingFormLinkRequest } from '../model/createOnboardingFormLinkRequest';
+// @ts-ignore: Some unused imports always provided
 import { CreateOnboardingFormRequest } from '../model/createOnboardingFormRequest';
+// @ts-ignore: Some unused imports always provided
 import { Error401Unauthorized } from '../model/error401Unauthorized';
+// @ts-ignore: Some unused imports always provided
 import { Error403ForbiddenList } from '../model/error403ForbiddenList';
+// @ts-ignore: Some unused imports always provided
 import { Error404NotFoundList } from '../model/error404NotFoundList';
+// @ts-ignore: Some unused imports always provided
 import { Error406NotAcceptable } from '../model/error406NotAcceptable';
+// @ts-ignore: Some unused imports always provided
 import { Error422InvalidFieldList } from '../model/error422InvalidFieldList';
+// @ts-ignore: Some unused imports always provided
 import { OnboardingForm } from '../model/onboardingForm';
+// @ts-ignore: Some unused imports always provided
 import { OnboardingFormLink } from '../model/onboardingFormLink';
 import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
-import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
+import { HttpBasicAuth } from '../model/models';
 
-import { HttpError, RequestFile } from './apis';
+import { HttpError } from './apis';
 
 let defaultBasePath = 'https://finix.sandbox-payments-api.com';
 
@@ -100,12 +110,12 @@ export class OnboardingFormsApi {
 
     /**
      * Helper function. 
-     * Create an onboarding_form with the name of the processor you plan to onboard users to and the links they get redirected to when completing or moving away from the Finix Onboarding Form.  > Use your **ROLE_PARTNER** credentials to create an `onboarding_form`.
+     * Create an `onboarding_form` with the name of the processor you plan to onboard users to and the links they` get redirected to when completing or moving away from the Finix Onboarding Form.  Only **ROLE_PARTNER** credentials can be used to create an `onboarding_form`.
      * @summary Create an Onboarding Form
      * @param createOnboardingFormRequest 
      */
 
-    private async createHelper(createOnboardingFormRequest?: CreateOnboardingFormRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: OnboardingForm;  }> {
+    private async createHelper(createOnboardingFormRequest?: CreateOnboardingFormRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: OnboardingForm;  rawBody: any; }> {
         const localVarPath = this.basePath + '/onboarding_forms';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -158,14 +168,15 @@ export class OnboardingFormsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: OnboardingForm;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: OnboardingForm;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "OnboardingForm");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -176,7 +187,7 @@ export class OnboardingFormsApi {
     }
 
     /**
-     * Create an onboarding_form with the name of the processor you plan to onboard users to and the links they get redirected to when completing or moving away from the Finix Onboarding Form.  > Use your **ROLE_PARTNER** credentials to create an `onboarding_form`.
+     * Create an `onboarding_form` with the name of the processor you plan to onboard users to and the links they` get redirected to when completing or moving away from the Finix Onboarding Form.  Only **ROLE_PARTNER** credentials can be used to create an `onboarding_form`.
      * @summary Create an Onboarding Form
      * @param createOnboardingFormRequest 
      */
@@ -187,24 +198,24 @@ export class OnboardingFormsApi {
     }
 
     /**
-     * Create an onboarding_form with the name of the processor you plan to onboard users to and the links they get redirected to when completing or moving away from the Finix Onboarding Form.  > Use your **ROLE_PARTNER** credentials to create an `onboarding_form`.
+     * Create an `onboarding_form` with the name of the processor you plan to onboard users to and the links they` get redirected to when completing or moving away from the Finix Onboarding Form.  Only **ROLE_PARTNER** credentials can be used to create an `onboarding_form`.
      * @summary Create an Onboarding Form
      * @param createOnboardingFormRequest 
      */
     public async createHttp(createOnboardingFormRequest?: CreateOnboardingFormRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: OnboardingForm; }> {
+        Promise<{response: http.IncomingMessage, body: OnboardingForm;  rawBody: any;}> {
         const responseObject = await this.createHelper(createOnboardingFormRequest,  options);
         return responseObject;
     }
     /**
      * Helper function. 
-     * You can use the `onboarding_forms` API to create a link that can return users to where they left off completing their Finix Onboarding Form.
+     * Use the `onboarding_forms` API to create a link that can return users to where they left off completing their Finix Onboarding Form.
      * @summary Create an Onboarding Form Link
      * @param onboardingFormId The ID of the &#x60;onboarding_form&#x60; resource.
      * @param createOnboardingFormLinkRequest 
      */
 
-    private async createLinkHelper(onboardingFormId: string, createOnboardingFormLinkRequest?: CreateOnboardingFormLinkRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: OnboardingFormLink;  }> {
+    private async createLinkHelper(onboardingFormId: string, createOnboardingFormLinkRequest?: CreateOnboardingFormLinkRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: OnboardingFormLink;  rawBody: any; }> {
         const localVarPath = this.basePath + '/onboarding_forms/{onboarding_form_id}/links'
             .replace('{' + 'onboarding_form_id' + '}', encodeURIComponent(String(onboardingFormId)));
         let localVarQueryParameters: any = {};
@@ -262,14 +273,15 @@ export class OnboardingFormsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: OnboardingFormLink;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: OnboardingFormLink;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "OnboardingFormLink");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -280,7 +292,7 @@ export class OnboardingFormsApi {
     }
 
     /**
-     * You can use the `onboarding_forms` API to create a link that can return users to where they left off completing their Finix Onboarding Form.
+     * Use the `onboarding_forms` API to create a link that can return users to where they left off completing their Finix Onboarding Form.
      * @summary Create an Onboarding Form Link
      * @param onboardingFormId The ID of the &#x60;onboarding_form&#x60; resource.
      * @param createOnboardingFormLinkRequest 
@@ -292,13 +304,13 @@ export class OnboardingFormsApi {
     }
 
     /**
-     * You can use the `onboarding_forms` API to create a link that can return users to where they left off completing their Finix Onboarding Form.
+     * Use the `onboarding_forms` API to create a link that can return users to where they left off completing their Finix Onboarding Form.
      * @summary Create an Onboarding Form Link
      * @param onboardingFormId The ID of the &#x60;onboarding_form&#x60; resource.
      * @param createOnboardingFormLinkRequest 
      */
     public async createLinkHttp(onboardingFormId: string, createOnboardingFormLinkRequest?: CreateOnboardingFormLinkRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: OnboardingFormLink; }> {
+        Promise<{response: http.IncomingMessage, body: OnboardingFormLink;  rawBody: any;}> {
         const responseObject = await this.createLinkHelper(onboardingFormId, createOnboardingFormLinkRequest,  options);
         return responseObject;
     }
@@ -309,7 +321,7 @@ export class OnboardingFormsApi {
      * @param onboardingFormId The id of the &#x60;onboarding_form&#x60;.
      */
 
-    private async getHelper(onboardingFormId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: OnboardingForm;  }> {
+    private async getHelper(onboardingFormId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: OnboardingForm;  rawBody: any; }> {
         const localVarPath = this.basePath + '/onboarding_forms/{onboarding_form_id}'
             .replace('{' + 'onboarding_form_id' + '}', encodeURIComponent(String(onboardingFormId)));
         let localVarQueryParameters: any = {};
@@ -359,14 +371,15 @@ export class OnboardingFormsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: OnboardingForm;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: OnboardingForm;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "OnboardingForm");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -393,14 +406,16 @@ export class OnboardingFormsApi {
      * @param onboardingFormId The id of the &#x60;onboarding_form&#x60;.
      */
     public async getHttp(onboardingFormId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: OnboardingForm; }> {
+        Promise<{response: http.IncomingMessage, body: OnboardingForm;  rawBody: any;}> {
         const responseObject = await this.getHelper(onboardingFormId,  options);
         return responseObject;
     }
 
+
     /**
      * Extracts page and links fields from response body and assigns as properties to finixList
      */ 
+    // @ts-ignore: Not all endpoints have list views
     private embeddedHelper(responseObject: any, dataList: finixList<any>){
         if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
             dataList.page = responseObject.body.page;
@@ -409,7 +424,7 @@ export class OnboardingFormsApi {
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
         let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
-        tempList.forEach(item => {dataList.add(item)});
+        tempList.forEach((item: any) => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
@@ -418,6 +433,7 @@ export class OnboardingFormsApi {
     /**
      * Extracts offset value from response body and determines if end of list has been reached
      */
+    // @ts-ignore: Not all endpoints have list views
     private getOffsetQueryParam(responseObject: any, queryParam: any){
         queryParam.offset = responseObject.body.page.offset + responseObject.body.page.limit;
         var endReached: Boolean = false;
@@ -430,6 +446,7 @@ export class OnboardingFormsApi {
     /**
     * Extracts nextCursor value from response body and determines if end of list has been reached
     */
+    // @ts-ignore: Not all endpoints have list views
     private getCursorQueryParam(responseObject: any, queryParam: any){
         queryParam.afterCursor = responseObject.body.page.nextCursor;
         var endReached: Boolean = false;

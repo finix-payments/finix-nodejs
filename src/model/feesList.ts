@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { FeesListEmbedded } from './feesListEmbedded';
 import { ListLinks } from './listLinks';

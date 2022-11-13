@@ -1,6 +1,7 @@
 import localVarRequest from 'request';
 
 export * from './additionalBuyerCharges';
+export * from './additionalHealthcareData';
 export * from './additionalPurchaseData';
 export * from './additionalPurchaseDataItemDataInner';
 export * from './additionalPurchaseDataOrderDate';
@@ -18,7 +19,6 @@ export * from './applicationProfileLinks';
 export * from './applicationProfileLinksApplication';
 export * from './applicationProfilesList';
 export * from './applicationProfilesListEmbedded';
-export * from './applicationProfilesListLinks';
 export * from './applicationsList';
 export * from './applicationsListEmbedded';
 export * from './associatedIdentity';
@@ -42,16 +42,12 @@ export * from './complianceForm';
 export * from './complianceFormFiles';
 export * from './complianceFormPciSaqA';
 export * from './configurationDetails';
-export * from './configurationDetailsCashbackOptions';
-export * from './configurationDetailsCashbackOptionsManualEntry';
-export * from './configurationDetailsTipOptions';
 export * from './country';
 export * from './createApplicationRequest';
 export * from './createAssociatedIdentityRequest';
 export * from './createAssociatedIdentityRequestEntity';
 export * from './createAssociatedIdentityRequestEntityBusinessAddress';
 export * from './createAssociatedIdentityRequestEntityDob';
-export * from './createAssociatedIdentityRequestEntityIncorporationDate';
 export * from './createAssociatedIdentityRequestEntityPersonalAddress';
 export * from './createAuthorizationRequest';
 export * from './createAuthorizationRequest3dSecureAuthentication';
@@ -67,7 +63,8 @@ export * from './createIdentityRequestAdditionalUnderwritingData';
 export * from './createIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution';
 export * from './createIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusinessType';
 export * from './createIdentityRequestEntity';
-export * from './createIdentityRequestEntityPersonalAddress';
+export * from './createIdentityRequestEntityBusinessAddress';
+export * from './createIdentityRequestEntityDob';
 export * from './createInstrumentUpdateRequest';
 export * from './createMerchantUnderwritingRequest';
 export * from './createOnboardingFormLinkRequest';
@@ -157,7 +154,6 @@ export * from './identityEntityForm';
 export * from './identityEntityFormBusinessAddress';
 export * from './identityEntityFormDob';
 export * from './identityEntityFormIncorporationDate';
-export * from './identityEntityIncorporationDate';
 export * from './identityEntityPersonalAddress';
 export * from './identityLinks';
 export * from './identityLinksApplication';
@@ -189,9 +185,9 @@ export * from './listLinksNext';
 export * from './listMerchantProfilesQueryParams';
 export * from './listMerchantVerificationsQueryParams';
 export * from './listMerchantsQueryParams';
-export * from './listPaymentInstrumentUpdatesQueryParams';
 export * from './listPaymentInstrumentVerificationsQueryParams';
 export * from './listPaymentInstrumentsQueryParams';
+export * from './listPayoutprofilesQueryParams';
 export * from './listSettlementFundingTransfersQueryParams';
 export * from './listSettlementTransfersQueryParams';
 export * from './listSettlementsQueryParams';
@@ -227,6 +223,7 @@ export * from './paymentInstrument';
 export * from './paymentInstrumentLinks';
 export * from './paymentInstrumentLinksAuthorizations';
 export * from './paymentInstrumentLinksTransfers';
+export * from './paymentInstrumentLinksUpdates';
 export * from './paymentInstrumentToken';
 export * from './paymentInstrumentTokenLinks';
 export * from './paymentInstrumentTokenLinksVerifications';
@@ -234,9 +231,17 @@ export * from './paymentInstrumentUpdatesList';
 export * from './paymentInstrumentUpdatesListEmbedded';
 export * from './paymentInstrumentsList';
 export * from './paymentInstrumentsListEmbedded';
+export * from './payoutProfile';
+export * from './payoutProfileGross';
+export * from './payoutProfileGrossFees';
+export * from './payoutProfileGrossPayouts';
+export * from './payoutProfileNet';
+export * from './payoutProfilesList';
+export * from './payoutProfilesListEmbedded';
 export * from './processor';
 export * from './processorApplicationConfig';
 export * from './processorApplicationConfigConfigurationTemplates';
+export * from './processorConfig';
 export * from './processorLinks';
 export * from './processorSystemConfig';
 export * from './processorSystemConfigConfig';
@@ -293,10 +298,17 @@ export * from './updateIdentityRequestAdditionalUnderwritingData';
 export * from './updateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution';
 export * from './updateIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusinessType';
 export * from './updateIdentityRequestEntity';
+export * from './updateIdentityRequestEntityBusinessAddress';
+export * from './updateIdentityRequestEntityDob';
 export * from './updateIdentityRequestEntityPersonalAddress';
 export * from './updateMerchantProfileRequest';
 export * from './updateMerchantRequest';
 export * from './updatePaymentInstrumentRequest';
+export * from './updatePayoutProfile';
+export * from './updatePayoutProfileGross';
+export * from './updatePayoutProfileGrossFees';
+export * from './updatePayoutProfileGrossPayouts';
+export * from './updatePayoutProfileNet';
 export * from './updateSettlementRequest';
 export * from './updateSubscriptionEnrollmentRequest';
 export * from './updateSubscriptionScheduleRequest';
@@ -317,11 +329,12 @@ export * from './verificationsList';
 export * from './verificationsListEmbedded';
 export * from './webhook';
 export * from './webhookAuthentication';
+export * from './webhookEnabledEventsInner';
 export * from './webhooksList';
 export * from './webhooksListEmbedded';
 
 import * as fs from 'fs';
-import { Client } from '../api';
+// import { Client } from '../api';
 
 export interface RequestDetailedFile {
     value: Buffer;
@@ -335,6 +348,7 @@ export type RequestFile = string | Buffer | fs.ReadStream | RequestDetailedFile;
 
 
 import { AdditionalBuyerCharges } from './additionalBuyerCharges';
+import { AdditionalHealthcareData } from './additionalHealthcareData';
 import { AdditionalPurchaseData } from './additionalPurchaseData';
 import { AdditionalPurchaseDataItemDataInner } from './additionalPurchaseDataItemDataInner';
 import { AdditionalPurchaseDataOrderDate } from './additionalPurchaseDataOrderDate';
@@ -352,7 +366,6 @@ import { ApplicationProfileLinks } from './applicationProfileLinks';
 import { ApplicationProfileLinksApplication } from './applicationProfileLinksApplication';
 import { ApplicationProfilesList } from './applicationProfilesList';
 import { ApplicationProfilesListEmbedded } from './applicationProfilesListEmbedded';
-import { ApplicationProfilesListLinks } from './applicationProfilesListLinks';
 import { ApplicationsList } from './applicationsList';
 import { ApplicationsListEmbedded } from './applicationsListEmbedded';
 import { AssociatedIdentity } from './associatedIdentity';
@@ -376,16 +389,12 @@ import { ComplianceForm } from './complianceForm';
 import { ComplianceFormFiles } from './complianceFormFiles';
 import { ComplianceFormPciSaqA } from './complianceFormPciSaqA';
 import { ConfigurationDetails } from './configurationDetails';
-import { ConfigurationDetailsCashbackOptions } from './configurationDetailsCashbackOptions';
-import { ConfigurationDetailsCashbackOptionsManualEntry } from './configurationDetailsCashbackOptionsManualEntry';
-import { ConfigurationDetailsTipOptions } from './configurationDetailsTipOptions';
 import { Country } from './country';
 import { CreateApplicationRequest } from './createApplicationRequest';
 import { CreateAssociatedIdentityRequest } from './createAssociatedIdentityRequest';
 import { CreateAssociatedIdentityRequestEntity } from './createAssociatedIdentityRequestEntity';
 import { CreateAssociatedIdentityRequestEntityBusinessAddress } from './createAssociatedIdentityRequestEntityBusinessAddress';
 import { CreateAssociatedIdentityRequestEntityDob } from './createAssociatedIdentityRequestEntityDob';
-import { CreateAssociatedIdentityRequestEntityIncorporationDate } from './createAssociatedIdentityRequestEntityIncorporationDate';
 import { CreateAssociatedIdentityRequestEntityPersonalAddress } from './createAssociatedIdentityRequestEntityPersonalAddress';
 import { CreateAuthorizationRequest } from './createAuthorizationRequest';
 import { CreateAuthorizationRequest3dSecureAuthentication } from './createAuthorizationRequest3dSecureAuthentication';
@@ -401,7 +410,8 @@ import { CreateIdentityRequestAdditionalUnderwritingData } from './createIdentit
 import { CreateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution } from './createIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution';
 import { CreateIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusinessType } from './createIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusinessType';
 import { CreateIdentityRequestEntity } from './createIdentityRequestEntity';
-import { CreateIdentityRequestEntityPersonalAddress } from './createIdentityRequestEntityPersonalAddress';
+import { CreateIdentityRequestEntityBusinessAddress } from './createIdentityRequestEntityBusinessAddress';
+import { CreateIdentityRequestEntityDob } from './createIdentityRequestEntityDob';
 import { CreateInstrumentUpdateRequest } from './createInstrumentUpdateRequest';
 import { CreateMerchantUnderwritingRequest } from './createMerchantUnderwritingRequest';
 import { CreateOnboardingFormLinkRequest } from './createOnboardingFormLinkRequest';
@@ -491,7 +501,6 @@ import { IdentityEntityForm } from './identityEntityForm';
 import { IdentityEntityFormBusinessAddress } from './identityEntityFormBusinessAddress';
 import { IdentityEntityFormDob } from './identityEntityFormDob';
 import { IdentityEntityFormIncorporationDate } from './identityEntityFormIncorporationDate';
-import { IdentityEntityIncorporationDate } from './identityEntityIncorporationDate';
 import { IdentityEntityPersonalAddress } from './identityEntityPersonalAddress';
 import { IdentityLinks } from './identityLinks';
 import { IdentityLinksApplication } from './identityLinksApplication';
@@ -523,9 +532,9 @@ import { ListLinksNext } from './listLinksNext';
 import { ListMerchantProfilesQueryParams } from './listMerchantProfilesQueryParams';
 import { ListMerchantVerificationsQueryParams } from './listMerchantVerificationsQueryParams';
 import { ListMerchantsQueryParams } from './listMerchantsQueryParams';
-import { ListPaymentInstrumentUpdatesQueryParams } from './listPaymentInstrumentUpdatesQueryParams';
 import { ListPaymentInstrumentVerificationsQueryParams } from './listPaymentInstrumentVerificationsQueryParams';
 import { ListPaymentInstrumentsQueryParams } from './listPaymentInstrumentsQueryParams';
+import { ListPayoutprofilesQueryParams } from './listPayoutprofilesQueryParams';
 import { ListSettlementFundingTransfersQueryParams } from './listSettlementFundingTransfersQueryParams';
 import { ListSettlementTransfersQueryParams } from './listSettlementTransfersQueryParams';
 import { ListSettlementsQueryParams } from './listSettlementsQueryParams';
@@ -561,6 +570,7 @@ import { PaymentInstrument } from './paymentInstrument';
 import { PaymentInstrumentLinks } from './paymentInstrumentLinks';
 import { PaymentInstrumentLinksAuthorizations } from './paymentInstrumentLinksAuthorizations';
 import { PaymentInstrumentLinksTransfers } from './paymentInstrumentLinksTransfers';
+import { PaymentInstrumentLinksUpdates } from './paymentInstrumentLinksUpdates';
 import { PaymentInstrumentToken } from './paymentInstrumentToken';
 import { PaymentInstrumentTokenLinks } from './paymentInstrumentTokenLinks';
 import { PaymentInstrumentTokenLinksVerifications } from './paymentInstrumentTokenLinksVerifications';
@@ -568,9 +578,17 @@ import { PaymentInstrumentUpdatesList } from './paymentInstrumentUpdatesList';
 import { PaymentInstrumentUpdatesListEmbedded } from './paymentInstrumentUpdatesListEmbedded';
 import { PaymentInstrumentsList } from './paymentInstrumentsList';
 import { PaymentInstrumentsListEmbedded } from './paymentInstrumentsListEmbedded';
+import { PayoutProfile } from './payoutProfile';
+import { PayoutProfileGross } from './payoutProfileGross';
+import { PayoutProfileGrossFees } from './payoutProfileGrossFees';
+import { PayoutProfileGrossPayouts } from './payoutProfileGrossPayouts';
+import { PayoutProfileNet } from './payoutProfileNet';
+import { PayoutProfilesList } from './payoutProfilesList';
+import { PayoutProfilesListEmbedded } from './payoutProfilesListEmbedded';
 import { Processor } from './processor';
 import { ProcessorApplicationConfig } from './processorApplicationConfig';
 import { ProcessorApplicationConfigConfigurationTemplates } from './processorApplicationConfigConfigurationTemplates';
+import { ProcessorConfig } from './processorConfig';
 import { ProcessorLinks } from './processorLinks';
 import { ProcessorSystemConfig } from './processorSystemConfig';
 import { ProcessorSystemConfigConfig } from './processorSystemConfigConfig';
@@ -627,10 +645,17 @@ import { UpdateIdentityRequestAdditionalUnderwritingData } from './updateIdentit
 import { UpdateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution } from './updateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution';
 import { UpdateIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusinessType } from './updateIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusinessType';
 import { UpdateIdentityRequestEntity } from './updateIdentityRequestEntity';
+import { UpdateIdentityRequestEntityBusinessAddress } from './updateIdentityRequestEntityBusinessAddress';
+import { UpdateIdentityRequestEntityDob } from './updateIdentityRequestEntityDob';
 import { UpdateIdentityRequestEntityPersonalAddress } from './updateIdentityRequestEntityPersonalAddress';
 import { UpdateMerchantProfileRequest } from './updateMerchantProfileRequest';
 import { UpdateMerchantRequest } from './updateMerchantRequest';
 import { UpdatePaymentInstrumentRequest } from './updatePaymentInstrumentRequest';
+import { UpdatePayoutProfile } from './updatePayoutProfile';
+import { UpdatePayoutProfileGross } from './updatePayoutProfileGross';
+import { UpdatePayoutProfileGrossFees } from './updatePayoutProfileGrossFees';
+import { UpdatePayoutProfileGrossPayouts } from './updatePayoutProfileGrossPayouts';
+import { UpdatePayoutProfileNet } from './updatePayoutProfileNet';
 import { UpdateSettlementRequest } from './updateSettlementRequest';
 import { UpdateSubscriptionEnrollmentRequest } from './updateSubscriptionEnrollmentRequest';
 import { UpdateSubscriptionScheduleRequest } from './updateSubscriptionScheduleRequest';
@@ -651,6 +676,7 @@ import { VerificationsList } from './verificationsList';
 import { VerificationsListEmbedded } from './verificationsListEmbedded';
 import { Webhook } from './webhook';
 import { WebhookAuthentication } from './webhookAuthentication';
+import { WebhookEnabledEventsInner } from './webhookEnabledEventsInner';
 import { WebhooksList } from './webhooksList';
 import { WebhooksListEmbedded } from './webhooksListEmbedded';
 
@@ -676,8 +702,8 @@ let enumsMap: {[index: string]: any} = {
         "BalanceTransfer.StateEnum": BalanceTransfer.StateEnum,
         "CardPresentInstrumentForm.TypeEnum": CardPresentInstrumentForm.TypeEnum,
         "CardPresentInstrumentForm.AvailableAccountTypeEnum": CardPresentInstrumentForm.AvailableAccountTypeEnum,
-        "ComplianceForm.TypeEnum": ComplianceForm.TypeEnum,
         "ComplianceForm.StateEnum": ComplianceForm.StateEnum,
+        "ComplianceForm.TypeEnum": ComplianceForm.TypeEnum,
         "Country": Country,
         "CreateAssociatedIdentityRequestEntity.BusinessTypeEnum": CreateAssociatedIdentityRequestEntity.BusinessTypeEnum,
         "CreateBalanceTransferRequest.DestinationEnum": CreateBalanceTransferRequest.DestinationEnum,
@@ -690,6 +716,8 @@ let enumsMap: {[index: string]: any} = {
         "CreateFeeRequest.LinkedTypeEnum": CreateFeeRequest.LinkedTypeEnum,
         "CreateFileRequest.TypeEnum": CreateFileRequest.TypeEnum,
         "CreateIdentityRequestAdditionalUnderwritingData.RefundPolicyEnum": CreateIdentityRequestAdditionalUnderwritingData.RefundPolicyEnum,
+        "CreateIdentityRequestEntity.BusinessTypeEnum": CreateIdentityRequestEntity.BusinessTypeEnum,
+        "CreateIdentityRequestEntity.OwnershipTypeEnum": CreateIdentityRequestEntity.OwnershipTypeEnum,
         "CreateMerchantUnderwritingRequest.GatewayEnum": CreateMerchantUnderwritingRequest.GatewayEnum,
         "CreatePaymentInstrumentRequest.TypeEnum": CreatePaymentInstrumentRequest.TypeEnum,
         "CreatePaymentInstrumentRequest.AccountTypeEnum": CreatePaymentInstrumentRequest.AccountTypeEnum,
@@ -721,7 +749,10 @@ let enumsMap: {[index: string]: any} = {
         "OnboardingForm.StatusEnum": OnboardingForm.StatusEnum,
         "OperationKey": OperationKey,
         "PaymentInstrument.AddressVerificationEnum": PaymentInstrument.AddressVerificationEnum,
+        "PaymentInstrument.BrandEnum": PaymentInstrument.BrandEnum,
+        "PaymentInstrument.CardTypeEnum": PaymentInstrument.CardTypeEnum,
         "PaymentInstrument.InstrumentTypeEnum": PaymentInstrument.InstrumentTypeEnum,
+        "PaymentInstrument.IssuerCountryEnum": PaymentInstrument.IssuerCountryEnum,
         "PaymentInstrument.PayloadTypeEnum": PaymentInstrument.PayloadTypeEnum,
         "PaymentInstrument.SecurityCodeVerificationEnum": PaymentInstrument.SecurityCodeVerificationEnum,
         "PaymentInstrument.TypeEnum": PaymentInstrument.TypeEnum,
@@ -730,6 +761,13 @@ let enumsMap: {[index: string]: any} = {
         "PaymentInstrumentToken.TypeEnum": PaymentInstrumentToken.TypeEnum,
         "PaymentInstrumentToken.InstrumentTypeEnum": PaymentInstrumentToken.InstrumentTypeEnum,
         "PaymentInstrumentToken.PayloadTypeEnum": PaymentInstrumentToken.PayloadTypeEnum,
+        "PayoutProfile.TypeEnum": PayoutProfile.TypeEnum,
+        "PayoutProfileGrossFees.FrequencyEnum": PayoutProfileGrossFees.FrequencyEnum,
+        "PayoutProfileGrossFees.RailEnum": PayoutProfileGrossFees.RailEnum,
+        "PayoutProfileGrossPayouts.FrequencyEnum": PayoutProfileGrossPayouts.FrequencyEnum,
+        "PayoutProfileGrossPayouts.RailEnum": PayoutProfileGrossPayouts.RailEnum,
+        "PayoutProfileNet.FrequencyEnum": PayoutProfileNet.FrequencyEnum,
+        "PayoutProfileNet.RailEnum": PayoutProfileNet.RailEnum,
         "ProcessorApplicationConfig.AllowedBusinessApplicationIdsEnum": ProcessorApplicationConfig.AllowedBusinessApplicationIdsEnum,
         "ProcessorApplicationConfig.DefaultMccEnum": ProcessorApplicationConfig.DefaultMccEnum,
         "ProcessorApplicationConfig.MotoEciindicatorEnum": ProcessorApplicationConfig.MotoEciindicatorEnum,
@@ -749,6 +787,11 @@ let enumsMap: {[index: string]: any} = {
         "Transfer.TypeEnum": Transfer.TypeEnum,
         "UpdateDeviceRequest.ActionEnum": UpdateDeviceRequest.ActionEnum,
         "UpdateIdentityRequestAdditionalUnderwritingData.RefundPolicyEnum": UpdateIdentityRequestAdditionalUnderwritingData.RefundPolicyEnum,
+        "UpdateIdentityRequestEntity.BusinessTypeEnum": UpdateIdentityRequestEntity.BusinessTypeEnum,
+        "UpdatePayoutProfile.TypeEnum": UpdatePayoutProfile.TypeEnum,
+        "UpdatePayoutProfileGrossFees.FrequencyEnum": UpdatePayoutProfileGrossFees.FrequencyEnum,
+        "UpdatePayoutProfileGrossFees.RailEnum": UpdatePayoutProfileGrossFees.RailEnum,
+        "UpdatePayoutProfileGrossPayouts.FrequencyEnum": UpdatePayoutProfileGrossPayouts.FrequencyEnum,
         "User.RoleEnum": User.RoleEnum,
         "Verification.StateEnum": Verification.StateEnum,
         "WebhookAuthentication.TypeEnum": WebhookAuthentication.TypeEnum,
@@ -756,6 +799,7 @@ let enumsMap: {[index: string]: any} = {
 
 let typeMap: {[index: string]: any} = {
     "AdditionalBuyerCharges": AdditionalBuyerCharges,
+    "AdditionalHealthcareData": AdditionalHealthcareData,
     "AdditionalPurchaseData": AdditionalPurchaseData,
     "AdditionalPurchaseDataItemDataInner": AdditionalPurchaseDataItemDataInner,
     "AdditionalPurchaseDataOrderDate": AdditionalPurchaseDataOrderDate,
@@ -773,7 +817,6 @@ let typeMap: {[index: string]: any} = {
     "ApplicationProfileLinksApplication": ApplicationProfileLinksApplication,
     "ApplicationProfilesList": ApplicationProfilesList,
     "ApplicationProfilesListEmbedded": ApplicationProfilesListEmbedded,
-    "ApplicationProfilesListLinks": ApplicationProfilesListLinks,
     "ApplicationsList": ApplicationsList,
     "ApplicationsListEmbedded": ApplicationsListEmbedded,
     "AssociatedIdentity": AssociatedIdentity,
@@ -797,15 +840,11 @@ let typeMap: {[index: string]: any} = {
     "ComplianceFormFiles": ComplianceFormFiles,
     "ComplianceFormPciSaqA": ComplianceFormPciSaqA,
     "ConfigurationDetails": ConfigurationDetails,
-    "ConfigurationDetailsCashbackOptions": ConfigurationDetailsCashbackOptions,
-    "ConfigurationDetailsCashbackOptionsManualEntry": ConfigurationDetailsCashbackOptionsManualEntry,
-    "ConfigurationDetailsTipOptions": ConfigurationDetailsTipOptions,
     "CreateApplicationRequest": CreateApplicationRequest,
     "CreateAssociatedIdentityRequest": CreateAssociatedIdentityRequest,
     "CreateAssociatedIdentityRequestEntity": CreateAssociatedIdentityRequestEntity,
     "CreateAssociatedIdentityRequestEntityBusinessAddress": CreateAssociatedIdentityRequestEntityBusinessAddress,
     "CreateAssociatedIdentityRequestEntityDob": CreateAssociatedIdentityRequestEntityDob,
-    "CreateAssociatedIdentityRequestEntityIncorporationDate": CreateAssociatedIdentityRequestEntityIncorporationDate,
     "CreateAssociatedIdentityRequestEntityPersonalAddress": CreateAssociatedIdentityRequestEntityPersonalAddress,
     "CreateAuthorizationRequest": CreateAuthorizationRequest,
     "CreateAuthorizationRequest3dSecureAuthentication": CreateAuthorizationRequest3dSecureAuthentication,
@@ -821,7 +860,8 @@ let typeMap: {[index: string]: any} = {
     "CreateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution": CreateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution,
     "CreateIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusinessType": CreateIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusinessType,
     "CreateIdentityRequestEntity": CreateIdentityRequestEntity,
-    "CreateIdentityRequestEntityPersonalAddress": CreateIdentityRequestEntityPersonalAddress,
+    "CreateIdentityRequestEntityBusinessAddress": CreateIdentityRequestEntityBusinessAddress,
+    "CreateIdentityRequestEntityDob": CreateIdentityRequestEntityDob,
     "CreateInstrumentUpdateRequest": CreateInstrumentUpdateRequest,
     "CreateMerchantUnderwritingRequest": CreateMerchantUnderwritingRequest,
     "CreateOnboardingFormLinkRequest": CreateOnboardingFormLinkRequest,
@@ -909,7 +949,6 @@ let typeMap: {[index: string]: any} = {
     "IdentityEntityFormBusinessAddress": IdentityEntityFormBusinessAddress,
     "IdentityEntityFormDob": IdentityEntityFormDob,
     "IdentityEntityFormIncorporationDate": IdentityEntityFormIncorporationDate,
-    "IdentityEntityIncorporationDate": IdentityEntityIncorporationDate,
     "IdentityEntityPersonalAddress": IdentityEntityPersonalAddress,
     "IdentityLinks": IdentityLinks,
     "IdentityLinksApplication": IdentityLinksApplication,
@@ -941,9 +980,9 @@ let typeMap: {[index: string]: any} = {
     "ListMerchantProfilesQueryParams": ListMerchantProfilesQueryParams,
     "ListMerchantVerificationsQueryParams": ListMerchantVerificationsQueryParams,
     "ListMerchantsQueryParams": ListMerchantsQueryParams,
-    "ListPaymentInstrumentUpdatesQueryParams": ListPaymentInstrumentUpdatesQueryParams,
     "ListPaymentInstrumentVerificationsQueryParams": ListPaymentInstrumentVerificationsQueryParams,
     "ListPaymentInstrumentsQueryParams": ListPaymentInstrumentsQueryParams,
+    "ListPayoutprofilesQueryParams": ListPayoutprofilesQueryParams,
     "ListSettlementFundingTransfersQueryParams": ListSettlementFundingTransfersQueryParams,
     "ListSettlementTransfersQueryParams": ListSettlementTransfersQueryParams,
     "ListSettlementsQueryParams": ListSettlementsQueryParams,
@@ -978,6 +1017,7 @@ let typeMap: {[index: string]: any} = {
     "PaymentInstrumentLinks": PaymentInstrumentLinks,
     "PaymentInstrumentLinksAuthorizations": PaymentInstrumentLinksAuthorizations,
     "PaymentInstrumentLinksTransfers": PaymentInstrumentLinksTransfers,
+    "PaymentInstrumentLinksUpdates": PaymentInstrumentLinksUpdates,
     "PaymentInstrumentToken": PaymentInstrumentToken,
     "PaymentInstrumentTokenLinks": PaymentInstrumentTokenLinks,
     "PaymentInstrumentTokenLinksVerifications": PaymentInstrumentTokenLinksVerifications,
@@ -985,9 +1025,17 @@ let typeMap: {[index: string]: any} = {
     "PaymentInstrumentUpdatesListEmbedded": PaymentInstrumentUpdatesListEmbedded,
     "PaymentInstrumentsList": PaymentInstrumentsList,
     "PaymentInstrumentsListEmbedded": PaymentInstrumentsListEmbedded,
+    "PayoutProfile": PayoutProfile,
+    "PayoutProfileGross": PayoutProfileGross,
+    "PayoutProfileGrossFees": PayoutProfileGrossFees,
+    "PayoutProfileGrossPayouts": PayoutProfileGrossPayouts,
+    "PayoutProfileNet": PayoutProfileNet,
+    "PayoutProfilesList": PayoutProfilesList,
+    "PayoutProfilesListEmbedded": PayoutProfilesListEmbedded,
     "Processor": Processor,
     "ProcessorApplicationConfig": ProcessorApplicationConfig,
     "ProcessorApplicationConfigConfigurationTemplates": ProcessorApplicationConfigConfigurationTemplates,
+    "ProcessorConfig": ProcessorConfig,
     "ProcessorLinks": ProcessorLinks,
     "ProcessorSystemConfig": ProcessorSystemConfig,
     "ProcessorSystemConfigConfig": ProcessorSystemConfigConfig,
@@ -1043,10 +1091,17 @@ let typeMap: {[index: string]: any} = {
     "UpdateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution": UpdateIdentityRequestAdditionalUnderwritingDataCardVolumeDistribution,
     "UpdateIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusinessType": UpdateIdentityRequestAdditionalUnderwritingDataVolumeDistributionByBusinessType,
     "UpdateIdentityRequestEntity": UpdateIdentityRequestEntity,
+    "UpdateIdentityRequestEntityBusinessAddress": UpdateIdentityRequestEntityBusinessAddress,
+    "UpdateIdentityRequestEntityDob": UpdateIdentityRequestEntityDob,
     "UpdateIdentityRequestEntityPersonalAddress": UpdateIdentityRequestEntityPersonalAddress,
     "UpdateMerchantProfileRequest": UpdateMerchantProfileRequest,
     "UpdateMerchantRequest": UpdateMerchantRequest,
     "UpdatePaymentInstrumentRequest": UpdatePaymentInstrumentRequest,
+    "UpdatePayoutProfile": UpdatePayoutProfile,
+    "UpdatePayoutProfileGross": UpdatePayoutProfileGross,
+    "UpdatePayoutProfileGrossFees": UpdatePayoutProfileGrossFees,
+    "UpdatePayoutProfileGrossPayouts": UpdatePayoutProfileGrossPayouts,
+    "UpdatePayoutProfileNet": UpdatePayoutProfileNet,
     "UpdateSettlementRequest": UpdateSettlementRequest,
     "UpdateSubscriptionEnrollmentRequest": UpdateSubscriptionEnrollmentRequest,
     "UpdateSubscriptionScheduleRequest": UpdateSubscriptionScheduleRequest,
@@ -1067,6 +1122,7 @@ let typeMap: {[index: string]: any} = {
     "VerificationsListEmbedded": VerificationsListEmbedded,
     "Webhook": Webhook,
     "WebhookAuthentication": WebhookAuthentication,
+    "WebhookEnabledEventsInner": WebhookEnabledEventsInner,
     "WebhooksList": WebhooksList,
     "WebhooksListEmbedded": WebhooksListEmbedded,
 }
@@ -1258,7 +1314,7 @@ export type Interceptor = (requestOptions: localVarRequest.Options) => (Promise<
 
 export class finixList<T extends object> extends Set<T>{    
     private _page: any;
-    private _links: ListLinks;
+    private _links?: ListLinks;
     protected listNextBase: Function; 
     private _hasMore: Boolean;
     
@@ -1284,7 +1340,7 @@ export class finixList<T extends object> extends Set<T>{
     }
 
     get links(){
-        return this._links;
+        return this._links !== undefined ? this._links : new ListLinks();
     }
 
     get hasMore(){

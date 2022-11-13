@@ -2,10 +2,11 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 
 /**
-* Object detailing any [Buyer Charges](/guides/payments/buyer-charges) that got included in the `Authorization`.
+* Object detailing any [Buyer Charges](/guides/payments/making-a-payment/buyer-charges/) that got included in the `Authorization`.
 */
 export class AdditionalBuyerCharges {
     /**

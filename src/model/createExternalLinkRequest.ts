@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 
 export class CreateExternalLinkRequest {
@@ -12,7 +13,7 @@ export class CreateExternalLinkRequest {
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
     /**
     * <ul><li>Set to <strong>UPLOAD</strong> to create a link that can be used to upload files to Finix.<li>Set to <strong>DOWNLOAD</strong> to create a link where the uploaded file can be downloaded from.<li>Set to <strong>VIEW</strong> to create a link that displays the file in browser.
     */

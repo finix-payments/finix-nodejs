@@ -24,13 +24,18 @@ describe('Authorization API', () => {
             amount: 100
         };
 
+        // try {
         const createdAuthorization = await client.Authorizations.create(authorizationRequest);
-
         authorizationID = <string>createdAuthorization.id;
         expect(createdAuthorization.amount).toBe(authorizationRequest.amount);
         expect(createdAuthorization.source).toBe(authorizationRequest.source);
         expect(createdAuthorization.state).toBe("SUCCEEDED");
         expect(createdAuthorization.application).toBe("APgPDQrLD52TYvqazjHJJchM");
+        // }
+        // catch (err){
+        //     console.log(err)
+        // }
+
     });
 
     test('Test: Create an authorization with 3D Secure', async() => {

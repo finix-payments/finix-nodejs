@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { VerificationLinks } from './verificationLinks';
 
@@ -57,7 +58,7 @@ export class Verification {
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
     /**
     * Trace ID of the `Verification`. The processor sends back the `trace_id` so you can track the verification end-to-end.
     */

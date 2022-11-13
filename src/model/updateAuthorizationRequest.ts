@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { AdditionalPurchaseData } from './additionalPurchaseData';
 
@@ -18,7 +19,7 @@ export class UpdateAuthorizationRequest {
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
     /**
     * Set to **True** to void the `Authorization`.
     */

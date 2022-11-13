@@ -16,32 +16,18 @@ export class Client {
 
     {{#authMethods}}
     {{#isBasicBasic}}
-    protected _username;
-    protected _password;
+    protected _username: string;
+    protected _password: string;
     {{/isBasicBasic}}
     {{/authMethods}}
 
-    constructor(basePath?: string);
-{{#authMethods}}
-{{#isBasicBasic}}
-    constructor(username: string, password: string, basePath?: string);
-{{/isBasicBasic}}
-{{/authMethods}}
-    constructor(basePathOrUsername: string, password?: string, basePath?: string) {
-        if (password) {
-{{#authMethods}}
-{{#isBasicBasic}}
-            this.username = basePathOrUsername;
-            this.password = password
-{{/isBasicBasic}}
-{{/authMethods}}
-            if (basePath) {
-                this.basePath = basePath;
-            }
-        } else {
-            if (basePathOrUsername) {
-                this.basePath = basePathOrUsername
-            }
+    // constructor(basePath?: string);
+    // constructor(basePathOrUsername: string, password: string, basePath?: string);
+    constructor(username: string, password: string, basePath?: string) {
+        this._username = username;
+        this._password = password
+        if (basePath) {
+            this.basePath = basePath;
         }
         {{#apis}}
         {{#operations}}

@@ -5,26 +5,38 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
+// @ts-ignore: Some endpoints interact with files
 import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
+// @ts-ignore: Some unused imports always provided
 import { CreateSettlementRequest } from '../model/createSettlementRequest';
+// @ts-ignore: Some unused imports always provided
 import { Error401Unauthorized } from '../model/error401Unauthorized';
+// @ts-ignore: Some unused imports always provided
 import { Error403ForbiddenList } from '../model/error403ForbiddenList';
+// @ts-ignore: Some unused imports always provided
 import { Error404NotFoundList } from '../model/error404NotFoundList';
+// @ts-ignore: Some unused imports always provided
 import { Error406NotAcceptable } from '../model/error406NotAcceptable';
+// @ts-ignore: Some unused imports always provided
 import { Error422InvalidFieldList } from '../model/error422InvalidFieldList';
+// @ts-ignore: Some unused imports always provided
 import { ErrorGeneric } from '../model/errorGeneric';
+// @ts-ignore: Some unused imports always provided
 import { RemoveSettlementTransfer } from '../model/removeSettlementTransfer';
+// @ts-ignore: Some unused imports always provided
 import { Settlement } from '../model/settlement';
+// @ts-ignore: Some unused imports always provided
 import { SettlementsList } from '../model/settlementsList';
+// @ts-ignore: Some unused imports always provided
 import { TransfersList } from '../model/transfersList';
 import { ListSettlementFundingTransfersQueryParams } from '../model/listSettlementFundingTransfersQueryParams';
 import { ListSettlementTransfersQueryParams } from '../model/listSettlementTransfersQueryParams';
 import { ListSettlementsQueryParams } from '../model/listSettlementsQueryParams';
 import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
-import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
+import { HttpBasicAuth } from '../model/models';
 
-import { HttpError, RequestFile } from './apis';
+import { HttpError } from './apis';
 
 let defaultBasePath = 'https://finix.sandbox-payments-api.com';
 
@@ -105,13 +117,13 @@ export class SettlementsApi {
 
     /**
      * Helper function. 
-     * Close the currently accruing `settlement`.   Finix, by default, creates accruing `settlements` then closes them based on your payout configurations. Use this endpoint to manually close the currently accruing settlement.  The closed `Settlement` will not accrue any further transactions and gets immediately submitted for approval. - Any refunded `Transfers` get included in `Settlements` as a deduction. - **PENDING** `Transfers` don\'t get included in `Settlements`.  - The `total_amount` minus the `total_fee` equals the `net_amount`. The `net_amount` is the amount in cents that gets deposited into the merchant\'s bank account.  Related Guides: [Accruing Settlements](/guides/payouts/~accruing-settlements/#closing-an-accruing-settlement)
+     * Close the currently accruing `settlement`.   Finix, by default, creates accruing `settlements` then closes them based on your payout configurations. Use this endpoint to manually close the currently accruing settlement.  The closed `Settlement` will not accrue any further transactions and gets immediately submitted for approval. - Any refunded `Transfers` get included in `Settlements` as a deduction. - **PENDING** `Transfers` don\'t get included in `Settlements`.  - The `total_amount` minus the `total_fee` equals the `net_amount`. The `net_amount` is the amount in cents that gets deposited into the seller\'s bank account.  Related Guides: [Accruing Settlements](/guides/payouts/accruing-settlements/#closing-an-accruing-settlement)
      * @summary Close Current Active Settlement
      * @param identityId ID of the &#x60;Identity&#x60; for the merchant you want to settle. 
      * @param createSettlementRequest 
      */
 
-    private async createHelper(identityId: string, createSettlementRequest?: CreateSettlementRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Settlement;  }> {
+    private async createHelper(identityId: string, createSettlementRequest?: CreateSettlementRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Settlement;  rawBody: any; }> {
         const localVarPath = this.basePath + '/identities/{identity_id}/settlements'
             .replace('{' + 'identity_id' + '}', encodeURIComponent(String(identityId)));
         let localVarQueryParameters: any = {};
@@ -169,14 +181,15 @@ export class SettlementsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: Settlement;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: Settlement;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "Settlement");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -187,7 +200,7 @@ export class SettlementsApi {
     }
 
     /**
-     * Close the currently accruing `settlement`.   Finix, by default, creates accruing `settlements` then closes them based on your payout configurations. Use this endpoint to manually close the currently accruing settlement.  The closed `Settlement` will not accrue any further transactions and gets immediately submitted for approval. - Any refunded `Transfers` get included in `Settlements` as a deduction. - **PENDING** `Transfers` don\'t get included in `Settlements`.  - The `total_amount` minus the `total_fee` equals the `net_amount`. The `net_amount` is the amount in cents that gets deposited into the merchant\'s bank account.  Related Guides: [Accruing Settlements](/guides/payouts/~accruing-settlements/#closing-an-accruing-settlement)
+     * Close the currently accruing `settlement`.   Finix, by default, creates accruing `settlements` then closes them based on your payout configurations. Use this endpoint to manually close the currently accruing settlement.  The closed `Settlement` will not accrue any further transactions and gets immediately submitted for approval. - Any refunded `Transfers` get included in `Settlements` as a deduction. - **PENDING** `Transfers` don\'t get included in `Settlements`.  - The `total_amount` minus the `total_fee` equals the `net_amount`. The `net_amount` is the amount in cents that gets deposited into the seller\'s bank account.  Related Guides: [Accruing Settlements](/guides/payouts/accruing-settlements/#closing-an-accruing-settlement)
      * @summary Close Current Active Settlement
      * @param identityId ID of the &#x60;Identity&#x60; for the merchant you want to settle. 
      * @param createSettlementRequest 
@@ -199,13 +212,13 @@ export class SettlementsApi {
     }
 
     /**
-     * Close the currently accruing `settlement`.   Finix, by default, creates accruing `settlements` then closes them based on your payout configurations. Use this endpoint to manually close the currently accruing settlement.  The closed `Settlement` will not accrue any further transactions and gets immediately submitted for approval. - Any refunded `Transfers` get included in `Settlements` as a deduction. - **PENDING** `Transfers` don\'t get included in `Settlements`.  - The `total_amount` minus the `total_fee` equals the `net_amount`. The `net_amount` is the amount in cents that gets deposited into the merchant\'s bank account.  Related Guides: [Accruing Settlements](/guides/payouts/~accruing-settlements/#closing-an-accruing-settlement)
+     * Close the currently accruing `settlement`.   Finix, by default, creates accruing `settlements` then closes them based on your payout configurations. Use this endpoint to manually close the currently accruing settlement.  The closed `Settlement` will not accrue any further transactions and gets immediately submitted for approval. - Any refunded `Transfers` get included in `Settlements` as a deduction. - **PENDING** `Transfers` don\'t get included in `Settlements`.  - The `total_amount` minus the `total_fee` equals the `net_amount`. The `net_amount` is the amount in cents that gets deposited into the seller\'s bank account.  Related Guides: [Accruing Settlements](/guides/payouts/accruing-settlements/#closing-an-accruing-settlement)
      * @summary Close Current Active Settlement
      * @param identityId ID of the &#x60;Identity&#x60; for the merchant you want to settle. 
      * @param createSettlementRequest 
      */
     public async createHttp(identityId: string, createSettlementRequest?: CreateSettlementRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: Settlement; }> {
+        Promise<{response: http.IncomingMessage, body: Settlement;  rawBody: any;}> {
         const responseObject = await this.createHelper(identityId, createSettlementRequest,  options);
         return responseObject;
     }
@@ -216,7 +229,7 @@ export class SettlementsApi {
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      */
 
-    private async getHelper(settlementId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Settlement;  }> {
+    private async getHelper(settlementId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Settlement;  rawBody: any; }> {
         const localVarPath = this.basePath + '/settlements/{settlement_id}'
             .replace('{' + 'settlement_id' + '}', encodeURIComponent(String(settlementId)));
         let localVarQueryParameters: any = {};
@@ -266,14 +279,15 @@ export class SettlementsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: Settlement;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: Settlement;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "Settlement");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -300,7 +314,7 @@ export class SettlementsApi {
      * @param settlementId ID of &#x60;Settlement&#x60; object.
      */
     public async getHttp(settlementId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: Settlement; }> {
+        Promise<{response: http.IncomingMessage, body: Settlement;  rawBody: any;}> {
         const responseObject = await this.getHelper(settlementId,  options);
         return responseObject;
     }
@@ -312,7 +326,7 @@ export class SettlementsApi {
     * @param settlementId ID of &#x60;Settlement&#x60; object.
     * 
     */
-    private async listFundingTransfersHelper (settlementId: string, listSettlementFundingTransfersQueryParams?:ListSettlementFundingTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: TransfersList;  }> {
+    private async listFundingTransfersHelper (settlementId: string, listSettlementFundingTransfersQueryParams?:ListSettlementFundingTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: TransfersList;  rawBody: any; }> {
         const localVarPath = this.basePath + '/settlements/{settlement_id}/funding_transfers'
             .replace('{' + 'settlement_id' + '}', encodeURIComponent(String(settlementId)));
         let localVarQueryParameters: any = {};
@@ -373,14 +387,15 @@ export class SettlementsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: TransfersList;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: TransfersList;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "TransfersList");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -427,7 +442,7 @@ export class SettlementsApi {
      * 
      */
     public async listFundingTransfersHttp (settlementId: string, listSettlementFundingTransfersQueryParams?:ListSettlementFundingTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>, rawBody: any}> {
         const responseObject = await this.listFundingTransfersHelper(settlementId, listSettlementFundingTransfersQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
         let reachedEnd: Boolean;
@@ -448,7 +463,7 @@ export class SettlementsApi {
         let dataList = new finixList<any>(nextFetch, reachedEnd);
         dataList = this.embeddedHelper(responseObject, dataList);
         //dataList.hasMore = !reachedEnd;
-        return Promise.resolve({response: responseObject.response, body: dataList});
+        return Promise.resolve({response: responseObject.response, body: dataList, rawBody: responseObject.rawBody});
     }
     /**
      * Helper function. 
@@ -458,7 +473,7 @@ export class SettlementsApi {
     * @param settlementId ID of &#x60;Settlement&#x60; object.
     * 
     */
-    private async listTransfersBySettlementIdHelper (settlementId: string, listSettlementTransfersQueryParams?:ListSettlementTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: TransfersList;  }> {
+    private async listTransfersBySettlementIdHelper (settlementId: string, listSettlementTransfersQueryParams?:ListSettlementTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: TransfersList;  rawBody: any; }> {
         const localVarPath = this.basePath + '/settlements/{settlement_id}/transfers'
             .replace('{' + 'settlement_id' + '}', encodeURIComponent(String(settlementId)));
         let localVarQueryParameters: any = {};
@@ -519,14 +534,15 @@ export class SettlementsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: TransfersList;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: TransfersList;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "TransfersList");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -573,7 +589,7 @@ export class SettlementsApi {
      * 
      */
     public async listTransfersBySettlementIdHttp (settlementId: string, listSettlementTransfersQueryParams?:ListSettlementTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>, rawBody: any}> {
         const responseObject = await this.listTransfersBySettlementIdHelper(settlementId, listSettlementTransfersQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
         let reachedEnd: Boolean;
@@ -594,7 +610,7 @@ export class SettlementsApi {
         let dataList = new finixList<any>(nextFetch, reachedEnd);
         dataList = this.embeddedHelper(responseObject, dataList);
         //dataList.hasMore = !reachedEnd;
-        return Promise.resolve({response: responseObject.response, body: dataList});
+        return Promise.resolve({response: responseObject.response, body: dataList, rawBody: responseObject.rawBody});
     }
     /**
      * Helper function. 
@@ -602,7 +618,7 @@ export class SettlementsApi {
      * @summary List All Settlements
 
     */
-    private async listHelper (listSettlementsQueryParams?:ListSettlementsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SettlementsList;  }> {
+    private async listHelper (listSettlementsQueryParams?:ListSettlementsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: SettlementsList;  rawBody: any; }> {
         const localVarPath = this.basePath + '/settlements';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -673,14 +689,15 @@ export class SettlementsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: SettlementsList;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: SettlementsList;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "SettlementsList");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -723,7 +740,7 @@ export class SettlementsApi {
      * @summary List All Settlements
      */
     public async listHttp (listSettlementsQueryParams?:ListSettlementsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>, rawBody: any}> {
         const responseObject = await this.listHelper(listSettlementsQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
         let reachedEnd: Boolean;
@@ -744,7 +761,7 @@ export class SettlementsApi {
         let dataList = new finixList<any>(nextFetch, reachedEnd);
         dataList = this.embeddedHelper(responseObject, dataList);
         //dataList.hasMore = !reachedEnd;
-        return Promise.resolve({response: responseObject.response, body: dataList});
+        return Promise.resolve({response: responseObject.response, body: dataList, rawBody: responseObject.rawBody});
     }
     /**
      * Helper function. 
@@ -754,7 +771,7 @@ export class SettlementsApi {
      * @param removeSettlementTransfer 
      */
 
-    private async removeTransfersFromSettlementHelper(settlementId: string, removeSettlementTransfer?: RemoveSettlementTransfer, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body?: any;  }> {
+    private async removeTransfersFromSettlementHelper(settlementId: string, removeSettlementTransfer?: RemoveSettlementTransfer, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body?: any;  rawBody: any; }> {
         const localVarPath = this.basePath + '/settlements/{settlement_id}/transfers'
             .replace('{' + 'settlement_id' + '}', encodeURIComponent(String(settlementId)));
         let localVarQueryParameters: any = {};
@@ -812,13 +829,14 @@ export class SettlementsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body?: any;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body?: any;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                            resolve({ response: response, body: body });
+                            const rawBody: string = body;
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -847,14 +865,16 @@ export class SettlementsApi {
      * @param removeSettlementTransfer 
      */
     public async removeTransfersFromSettlementHttp(settlementId: string, removeSettlementTransfer?: RemoveSettlementTransfer, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body?: any; }> {
+        Promise<{response: http.IncomingMessage, body?: any;  rawBody: any;}> {
         const responseObject = await this.removeTransfersFromSettlementHelper(settlementId, removeSettlementTransfer,  options);
         return responseObject;
     }
 
+
     /**
      * Extracts page and links fields from response body and assigns as properties to finixList
      */ 
+    // @ts-ignore: Not all endpoints have list views
     private embeddedHelper(responseObject: any, dataList: finixList<any>){
         if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
             dataList.page = responseObject.body.page;
@@ -863,7 +883,7 @@ export class SettlementsApi {
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
         let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
-        tempList.forEach(item => {dataList.add(item)});
+        tempList.forEach((item: any) => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
@@ -872,6 +892,7 @@ export class SettlementsApi {
     /**
      * Extracts offset value from response body and determines if end of list has been reached
      */
+    // @ts-ignore: Not all endpoints have list views
     private getOffsetQueryParam(responseObject: any, queryParam: any){
         queryParam.offset = responseObject.body.page.offset + responseObject.body.page.limit;
         var endReached: Boolean = false;
@@ -884,6 +905,7 @@ export class SettlementsApi {
     /**
     * Extracts nextCursor value from response body and determines if end of list has been reached
     */
+    // @ts-ignore: Not all endpoints have list views
     private getCursorQueryParam(responseObject: any, queryParam: any){
         queryParam.afterCursor = responseObject.body.page.nextCursor;
         var endReached: Boolean = false;

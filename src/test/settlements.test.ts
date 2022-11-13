@@ -1,4 +1,4 @@
-import {Client, Environment, Models} from '../api';
+import {Client, Environment} from '../api';
 
 describe('Settlements API', () => {
 
@@ -88,11 +88,11 @@ describe('Settlements API', () => {
     test("Test: Remove transfers from batch settlement", async() => {
         const settlementId = "STmCc8GbjjX33SdymwNhb9Et";
         try {
-            const removedSettlement = await client.Settlements.removeTransfersFromSettlement("STmCc8GbjjX33SdymwNhb9Et", {
+            await client.Settlements.removeTransfersFromSettlement(settlementId, {
                 transfers: ["TRr61njQxaa7AJf6E1C3QwCc"]
             });
         }
-        catch(error){
+        catch(error: any){
             expect(error.body[0].message).toBe("Unable to process request. Entries [TRr61njQxaa7AJf6E1C3QwCc] not found in settlement STmCc8GbjjX33SdymwNhb9Et");
         }
     });

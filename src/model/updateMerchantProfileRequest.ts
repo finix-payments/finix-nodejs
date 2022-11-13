@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 
 export class UpdateMerchantProfileRequest {
@@ -10,13 +11,17 @@ export class UpdateMerchantProfileRequest {
     */
     'feeProfile'?: string;
     /**
+    * ID of the `payout_profile`.
+    */
+    'payoutProfile'?: string;
+    /**
     * ID of the `risk_profile`.
     */
     'riskProfile'?: string;
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
 
     static discriminator: string | undefined = undefined;
 
@@ -24,6 +29,11 @@ export class UpdateMerchantProfileRequest {
         {
             "name": "feeProfile",
             "baseName": "fee_profile",
+            "type": "string"
+        },
+        {
+            "name": "payoutProfile",
+            "baseName": "payout_profile",
             "type": "string"
         },
         {

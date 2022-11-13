@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { AuthorizationsListEmbedded } from './authorizationsListEmbedded';
 import { ListLinks } from './listLinks';

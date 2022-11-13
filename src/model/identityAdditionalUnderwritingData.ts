@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { IdentityAdditionalUnderwritingDataCardVolumeDistribution } from './identityAdditionalUnderwritingDataCardVolumeDistribution';
 import { IdentityAdditionalUnderwritingDataVolumeDistributionByBusinessType } from './identityAdditionalUnderwritingDataVolumeDistributionByBusinessType';
@@ -11,15 +12,15 @@ import { IdentityAdditionalUnderwritingDataVolumeDistributionByBusinessType } fr
 */
 export class IdentityAdditionalUnderwritingData {
     /**
-    * The approximate annual ACH sales expected to be processed (in cents) by this merchant (max 10 characters).
+    * The approximate annual ACH sales expected to be processed (in cents) by this seller (max 10 characters).
     */
     'annualAchVolume'?: number;
     /**
-    * The approximate average ACH sale amount (in cents) for this merchant.
+    * The approximate average ACH sale amount (in cents) for this seller.
     */
     'averageAchTransferAmount'?: number;
     /**
-    * The average credit card sale amount (in cents) for this merchant.
+    * The average credit card sale amount (in cents) for this seller.
     */
     'averageCardTransferAmount'?: number;
     /**
@@ -60,7 +61,7 @@ export class IdentityAdditionalUnderwritingData {
     */
     'merchantAgreementUserAgent'?: string;
     /**
-    * Include the value that best applies to the merchant\'s refund policy.
+    * Include the value that best applies to the seller\'s refund policy.
     */
     'refundPolicy'?: IdentityAdditionalUnderwritingData.RefundPolicyEnum | string;
     'volumeDistributionByBusinessType'?: IdentityAdditionalUnderwritingDataVolumeDistributionByBusinessType | null;

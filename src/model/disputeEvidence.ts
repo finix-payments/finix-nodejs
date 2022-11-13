@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { DisputeEvidenceLinks } from './disputeEvidenceLinks';
 
@@ -19,7 +20,7 @@ export class DisputeEvidence {
     */
     'updatedAt'?: Date;
     /**
-    * The ID of the resource.
+    * The ID of the `Dispute` associated with the evidence.
     */
     'dispute'?: string;
     /**
@@ -29,7 +30,7 @@ export class DisputeEvidence {
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
     'links'?: DisputeEvidenceLinks;
 
     static discriminator: string | undefined = undefined;

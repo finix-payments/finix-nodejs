@@ -1,13 +1,10 @@
 import {Client, Environment, Models} from '../api';
-import * as fs from 'fs';
-import { TIMEOUT } from 'dns';
 
 describe('Payment Instruments API', () => {
 
     let client: Client;
     let bankAccountId: string;
     let paymentCardId: string;
-    let instrumentUpdateId: string;
 
     beforeAll(() => {
         const userName = 'USsRhsHYZGBPnQw8CByJyEQW';
@@ -103,7 +100,7 @@ describe('Payment Instruments API', () => {
         }
         const updatedPaymentInstrument= await client.PaymentInstruments.update(bankAccountId, paymentInstrumentUpdateRequest);
         expect(updatedPaymentInstrument.id).toBe(bankAccountId);
-        expect(updatedPaymentInstrument.tags["Test"]).toBe(paymentInstrumentUpdateRequest.tags["Test"]);
+        expect(updatedPaymentInstrument.tags?.Test).toBe(paymentInstrumentUpdateRequest.tags?.Test);
     });
 
     test('Test: Fetch a payment card' ,async () => {

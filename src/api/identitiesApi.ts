@@ -5,26 +5,39 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
+// @ts-ignore: Some endpoints interact with files
 import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
+// @ts-ignore: Some unused imports always provided
 import { CreateAssociatedIdentityRequest } from '../model/createAssociatedIdentityRequest';
+// @ts-ignore: Some unused imports always provided
 import { CreateIdentityRequest } from '../model/createIdentityRequest';
+// @ts-ignore: Some unused imports always provided
 import { CreateVerificationRequest } from '../model/createVerificationRequest';
+// @ts-ignore: Some unused imports always provided
 import { Error401Unauthorized } from '../model/error401Unauthorized';
+// @ts-ignore: Some unused imports always provided
 import { Error403ForbiddenList } from '../model/error403ForbiddenList';
+// @ts-ignore: Some unused imports always provided
 import { Error404NotFoundList } from '../model/error404NotFoundList';
+// @ts-ignore: Some unused imports always provided
 import { Error406NotAcceptable } from '../model/error406NotAcceptable';
+// @ts-ignore: Some unused imports always provided
 import { ErrorGeneric } from '../model/errorGeneric';
+// @ts-ignore: Some unused imports always provided
 import { IdentitiesList } from '../model/identitiesList';
+// @ts-ignore: Some unused imports always provided
 import { Identity } from '../model/identity';
+// @ts-ignore: Some unused imports always provided
 import { UpdateIdentityRequest } from '../model/updateIdentityRequest';
+// @ts-ignore: Some unused imports always provided
 import { Verification } from '../model/verification';
 import { ListIdentitiesQueryParams } from '../model/listIdentitiesQueryParams';
 import { ListIdentityAssociatedIdentitiesQueryParams } from '../model/listIdentityAssociatedIdentitiesQueryParams';
 import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
-import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
+import { HttpBasicAuth } from '../model/models';
 
-import { HttpError, RequestFile } from './apis';
+import { HttpError } from './apis';
 
 let defaultBasePath = 'https://finix.sandbox-payments-api.com';
 
@@ -105,13 +118,13 @@ export class IdentitiesApi {
 
     /**
      * Helper function. 
-     * Create an associated `Identity` for [every owner with 25% or more ownership](/guides/onboarding/#step-3-add-associated-identities) over the merchant.
+     * Create an associated `Identity` for [every owner with 25% or more ownership](/guides/onboarding/onboarding-with-api#step-3-add-associated-identities) over the merchant.
      * @summary Create an Associated Identity
      * @param identityId ID of &#x60;Identity&#x60; to associate object with.
      * @param createAssociatedIdentityRequest 
      */
 
-    private async createAssociatedIdentityHelper(identityId: string, createAssociatedIdentityRequest?: CreateAssociatedIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Identity;  }> {
+    private async createAssociatedIdentityHelper(identityId: string, createAssociatedIdentityRequest?: CreateAssociatedIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Identity;  rawBody: any; }> {
         const localVarPath = this.basePath + '/identities/{identity_id}/associated_identities'
             .replace('{' + 'identity_id' + '}', encodeURIComponent(String(identityId)));
         let localVarQueryParameters: any = {};
@@ -169,14 +182,15 @@ export class IdentitiesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: Identity;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: Identity;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "Identity");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -187,7 +201,7 @@ export class IdentitiesApi {
     }
 
     /**
-     * Create an associated `Identity` for [every owner with 25% or more ownership](/guides/onboarding/#step-3-add-associated-identities) over the merchant.
+     * Create an associated `Identity` for [every owner with 25% or more ownership](/guides/onboarding/onboarding-with-api#step-3-add-associated-identities) over the merchant.
      * @summary Create an Associated Identity
      * @param identityId ID of &#x60;Identity&#x60; to associate object with.
      * @param createAssociatedIdentityRequest 
@@ -199,24 +213,24 @@ export class IdentitiesApi {
     }
 
     /**
-     * Create an associated `Identity` for [every owner with 25% or more ownership](/guides/onboarding/#step-3-add-associated-identities) over the merchant.
+     * Create an associated `Identity` for [every owner with 25% or more ownership](/guides/onboarding/onboarding-with-api#step-3-add-associated-identities) over the merchant.
      * @summary Create an Associated Identity
      * @param identityId ID of &#x60;Identity&#x60; to associate object with.
      * @param createAssociatedIdentityRequest 
      */
     public async createAssociatedIdentityHttp(identityId: string, createAssociatedIdentityRequest?: CreateAssociatedIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: Identity; }> {
+        Promise<{response: http.IncomingMessage, body: Identity;  rawBody: any;}> {
         const responseObject = await this.createAssociatedIdentityHelper(identityId, createAssociatedIdentityRequest,  options);
         return responseObject;
     }
     /**
      * Helper function. 
-     * Create an `Identity` for your merchant or buyer.  All fields for a buyer\'s `Identity` are optional.   Providing `business_type` indicates that the `Identity` is being created for a Merchant.  Creating `Identities` for merchants requires they provide [KYC details](/docs/guides/getting-started/). - When creating an `Identity` for a buyer , don\'t pass the `business_type` field. Including a value for `business_type` configures the created `Identity` to get processed as a merchant. - When creating an `Identity` for a buyer, all fields are optional . Related Guides: [Getting Started](/docs/guides/getting-started/), [Onboarding](/docs/guides/onboarding/)
+     * Create an `Identity` for your seller or buyer.  All fields for a buyer\'s `Identity` are optional.   Providing `business_type` indicates that the `Identity` is being created for a Merchant.  Related Guides: [Getting Started](/guides/getting-started/), [Onboarding](/guides/onboarding/)
      * @summary Create an Identity
      * @param createIdentityRequest 
      */
 
-    private async createHelper(createIdentityRequest?: CreateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Identity;  }> {
+    private async createHelper(createIdentityRequest?: CreateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Identity;  rawBody: any; }> {
         const localVarPath = this.basePath + '/identities';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -269,14 +283,15 @@ export class IdentitiesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: Identity;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: Identity;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "Identity");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -287,7 +302,7 @@ export class IdentitiesApi {
     }
 
     /**
-     * Create an `Identity` for your merchant or buyer.  All fields for a buyer\'s `Identity` are optional.   Providing `business_type` indicates that the `Identity` is being created for a Merchant.  Creating `Identities` for merchants requires they provide [KYC details](/docs/guides/getting-started/). - When creating an `Identity` for a buyer , don\'t pass the `business_type` field. Including a value for `business_type` configures the created `Identity` to get processed as a merchant. - When creating an `Identity` for a buyer, all fields are optional . Related Guides: [Getting Started](/docs/guides/getting-started/), [Onboarding](/docs/guides/onboarding/)
+     * Create an `Identity` for your seller or buyer.  All fields for a buyer\'s `Identity` are optional.   Providing `business_type` indicates that the `Identity` is being created for a Merchant.  Related Guides: [Getting Started](/guides/getting-started/), [Onboarding](/guides/onboarding/)
      * @summary Create an Identity
      * @param createIdentityRequest 
      */
@@ -298,12 +313,12 @@ export class IdentitiesApi {
     }
 
     /**
-     * Create an `Identity` for your merchant or buyer.  All fields for a buyer\'s `Identity` are optional.   Providing `business_type` indicates that the `Identity` is being created for a Merchant.  Creating `Identities` for merchants requires they provide [KYC details](/docs/guides/getting-started/). - When creating an `Identity` for a buyer , don\'t pass the `business_type` field. Including a value for `business_type` configures the created `Identity` to get processed as a merchant. - When creating an `Identity` for a buyer, all fields are optional . Related Guides: [Getting Started](/docs/guides/getting-started/), [Onboarding](/docs/guides/onboarding/)
+     * Create an `Identity` for your seller or buyer.  All fields for a buyer\'s `Identity` are optional.   Providing `business_type` indicates that the `Identity` is being created for a Merchant.  Related Guides: [Getting Started](/guides/getting-started/), [Onboarding](/guides/onboarding/)
      * @summary Create an Identity
      * @param createIdentityRequest 
      */
     public async createHttp(createIdentityRequest?: CreateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: Identity; }> {
+        Promise<{response: http.IncomingMessage, body: Identity;  rawBody: any;}> {
         const responseObject = await this.createHelper(createIdentityRequest,  options);
         return responseObject;
     }
@@ -315,7 +330,7 @@ export class IdentitiesApi {
      * @param createVerificationRequest 
      */
 
-    private async createIdentityVerificationHelper(identityId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Verification;  }> {
+    private async createIdentityVerificationHelper(identityId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Verification;  rawBody: any; }> {
         const localVarPath = this.basePath + '/identities/{identity_id}/verifications'
             .replace('{' + 'identity_id' + '}', encodeURIComponent(String(identityId)));
         let localVarQueryParameters: any = {};
@@ -373,14 +388,15 @@ export class IdentitiesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: Verification;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: Verification;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "Verification");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -409,7 +425,7 @@ export class IdentitiesApi {
      * @param createVerificationRequest 
      */
     public async createIdentityVerificationHttp(identityId: string, createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: Verification; }> {
+        Promise<{response: http.IncomingMessage, body: Verification;  rawBody: any;}> {
         const responseObject = await this.createIdentityVerificationHelper(identityId, createVerificationRequest,  options);
         return responseObject;
     }
@@ -420,7 +436,7 @@ export class IdentitiesApi {
      * @param identityId ID of the &#x60;Identity&#x60; to fetch.
      */
 
-    private async getHelper(identityId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Identity;  }> {
+    private async getHelper(identityId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Identity;  rawBody: any; }> {
         const localVarPath = this.basePath + '/identities/{identity_id}'
             .replace('{' + 'identity_id' + '}', encodeURIComponent(String(identityId)));
         let localVarQueryParameters: any = {};
@@ -470,14 +486,15 @@ export class IdentitiesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: Identity;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: Identity;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "Identity");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -504,7 +521,7 @@ export class IdentitiesApi {
      * @param identityId ID of the &#x60;Identity&#x60; to fetch.
      */
     public async getHttp(identityId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: Identity; }> {
+        Promise<{response: http.IncomingMessage, body: Identity;  rawBody: any;}> {
         const responseObject = await this.getHelper(identityId,  options);
         return responseObject;
     }
@@ -514,7 +531,7 @@ export class IdentitiesApi {
      * @summary List Identities
 
     */
-    private async listHelper (listIdentitiesQueryParams?:ListIdentitiesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: IdentitiesList;  }> {
+    private async listHelper (listIdentitiesQueryParams?:ListIdentitiesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: IdentitiesList;  rawBody: any; }> {
         const localVarPath = this.basePath + '/identities';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -603,14 +620,15 @@ export class IdentitiesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: IdentitiesList;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: IdentitiesList;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "IdentitiesList");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -653,7 +671,7 @@ export class IdentitiesApi {
      * @summary List Identities
      */
     public async listHttp (listIdentitiesQueryParams?:ListIdentitiesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>, rawBody: any}> {
         const responseObject = await this.listHelper(listIdentitiesQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
         let reachedEnd: Boolean;
@@ -674,7 +692,7 @@ export class IdentitiesApi {
         let dataList = new finixList<any>(nextFetch, reachedEnd);
         dataList = this.embeddedHelper(responseObject, dataList);
         //dataList.hasMore = !reachedEnd;
-        return Promise.resolve({response: responseObject.response, body: dataList});
+        return Promise.resolve({response: responseObject.response, body: dataList, rawBody: responseObject.rawBody});
     }
     /**
      * Helper function. 
@@ -684,7 +702,7 @@ export class IdentitiesApi {
     * @param identityId ID of &#x60;Identity&#x60; to associate object with.
     * 
     */
-    private async listAssociatedIdentitiesHelper (identityId: string, listIdentityAssociatedIdentitiesQueryParams?:ListIdentityAssociatedIdentitiesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: IdentitiesList;  }> {
+    private async listAssociatedIdentitiesHelper (identityId: string, listIdentityAssociatedIdentitiesQueryParams?:ListIdentityAssociatedIdentitiesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: IdentitiesList;  rawBody: any; }> {
         const localVarPath = this.basePath + '/identities/{identity_id}/associated_identities'
             .replace('{' + 'identity_id' + '}', encodeURIComponent(String(identityId)));
         let localVarQueryParameters: any = {};
@@ -745,14 +763,15 @@ export class IdentitiesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: IdentitiesList;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: IdentitiesList;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "IdentitiesList");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -799,7 +818,7 @@ export class IdentitiesApi {
      * 
      */
     public async listAssociatedIdentitiesHttp (identityId: string, listIdentityAssociatedIdentitiesQueryParams?:ListIdentityAssociatedIdentitiesQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>, rawBody: any}> {
         const responseObject = await this.listAssociatedIdentitiesHelper(identityId, listIdentityAssociatedIdentitiesQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
         let reachedEnd: Boolean;
@@ -820,17 +839,17 @@ export class IdentitiesApi {
         let dataList = new finixList<any>(nextFetch, reachedEnd);
         dataList = this.embeddedHelper(responseObject, dataList);
         //dataList.hasMore = !reachedEnd;
-        return Promise.resolve({response: responseObject.response, body: dataList});
+        return Promise.resolve({response: responseObject.response, body: dataList, rawBody: responseObject.rawBody});
     }
     /**
      * Helper function. 
-     * Update an existing `Identity`.  If you are updating the `Identity` of a `Merchant` that’s already been onboarded, you need to [verify the merchant again](#operation/createMerchantVerification).
+     * Update an existing `Identity`.  If you are updating the `Identity` of a `Merchant` that’s already been onboarded, you need to [verify the merchant again](/api/tag/Merchants/#tag/Merchants/operation/createMerchantVerification).
      * @summary Update an Identity
      * @param identityId ID of the &#x60;Identity&#x60; to fetch.
      * @param updateIdentityRequest 
      */
 
-    private async updateHelper(identityId: string, updateIdentityRequest?: UpdateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Identity;  }> {
+    private async updateHelper(identityId: string, updateIdentityRequest?: UpdateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Identity;  rawBody: any; }> {
         const localVarPath = this.basePath + '/identities/{identity_id}'
             .replace('{' + 'identity_id' + '}', encodeURIComponent(String(identityId)));
         let localVarQueryParameters: any = {};
@@ -888,14 +907,15 @@ export class IdentitiesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: Identity;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: Identity;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "Identity");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -906,7 +926,7 @@ export class IdentitiesApi {
     }
 
     /**
-     * Update an existing `Identity`.  If you are updating the `Identity` of a `Merchant` that’s already been onboarded, you need to [verify the merchant again](#operation/createMerchantVerification).
+     * Update an existing `Identity`.  If you are updating the `Identity` of a `Merchant` that’s already been onboarded, you need to [verify the merchant again](/api/tag/Merchants/#tag/Merchants/operation/createMerchantVerification).
      * @summary Update an Identity
      * @param identityId ID of the &#x60;Identity&#x60; to fetch.
      * @param updateIdentityRequest 
@@ -918,20 +938,22 @@ export class IdentitiesApi {
     }
 
     /**
-     * Update an existing `Identity`.  If you are updating the `Identity` of a `Merchant` that’s already been onboarded, you need to [verify the merchant again](#operation/createMerchantVerification).
+     * Update an existing `Identity`.  If you are updating the `Identity` of a `Merchant` that’s already been onboarded, you need to [verify the merchant again](/api/tag/Merchants/#tag/Merchants/operation/createMerchantVerification).
      * @summary Update an Identity
      * @param identityId ID of the &#x60;Identity&#x60; to fetch.
      * @param updateIdentityRequest 
      */
     public async updateHttp(identityId: string, updateIdentityRequest?: UpdateIdentityRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: Identity; }> {
+        Promise<{response: http.IncomingMessage, body: Identity;  rawBody: any;}> {
         const responseObject = await this.updateHelper(identityId, updateIdentityRequest,  options);
         return responseObject;
     }
 
+
     /**
      * Extracts page and links fields from response body and assigns as properties to finixList
      */ 
+    // @ts-ignore: Not all endpoints have list views
     private embeddedHelper(responseObject: any, dataList: finixList<any>){
         if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
             dataList.page = responseObject.body.page;
@@ -940,7 +962,7 @@ export class IdentitiesApi {
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
         let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
-        tempList.forEach(item => {dataList.add(item)});
+        tempList.forEach((item: any) => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
@@ -949,6 +971,7 @@ export class IdentitiesApi {
     /**
      * Extracts offset value from response body and determines if end of list has been reached
      */
+    // @ts-ignore: Not all endpoints have list views
     private getOffsetQueryParam(responseObject: any, queryParam: any){
         queryParam.offset = responseObject.body.page.offset + responseObject.body.page.limit;
         var endReached: Boolean = false;
@@ -961,6 +984,7 @@ export class IdentitiesApi {
     /**
     * Extracts nextCursor value from response body and determines if end of list has been reached
     */
+    // @ts-ignore: Not all endpoints have list views
     private getCursorQueryParam(responseObject: any, queryParam: any){
         queryParam.afterCursor = responseObject.body.page.nextCursor;
         var endReached: Boolean = false;

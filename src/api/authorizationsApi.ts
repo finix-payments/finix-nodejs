@@ -5,24 +5,36 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
+// @ts-ignore: Some endpoints interact with files
 import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
+// @ts-ignore: Some unused imports always provided
 import { Authorization } from '../model/authorization';
+// @ts-ignore: Some unused imports always provided
 import { AuthorizationCaptured } from '../model/authorizationCaptured';
+// @ts-ignore: Some unused imports always provided
 import { AuthorizationsList } from '../model/authorizationsList';
+// @ts-ignore: Some unused imports always provided
 import { CreateAuthorizationRequest } from '../model/createAuthorizationRequest';
+// @ts-ignore: Some unused imports always provided
 import { Error401Unauthorized } from '../model/error401Unauthorized';
+// @ts-ignore: Some unused imports always provided
 import { Error403ForbiddenList } from '../model/error403ForbiddenList';
+// @ts-ignore: Some unused imports always provided
 import { Error404NotFoundList } from '../model/error404NotFoundList';
+// @ts-ignore: Some unused imports always provided
 import { Error406NotAcceptable } from '../model/error406NotAcceptable';
+// @ts-ignore: Some unused imports always provided
 import { Error422InvalidFieldList } from '../model/error422InvalidFieldList';
+// @ts-ignore: Some unused imports always provided
 import { ErrorGeneric } from '../model/errorGeneric';
+// @ts-ignore: Some unused imports always provided
 import { UpdateAuthorizationRequest } from '../model/updateAuthorizationRequest';
 import { ListAuthorizationsQueryParams } from '../model/listAuthorizationsQueryParams';
 import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
-import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
+import { HttpBasicAuth } from '../model/models';
 
-import { HttpError, RequestFile } from './apis';
+import { HttpError } from './apis';
 
 let defaultBasePath = 'https://finix.sandbox-payments-api.com';
 
@@ -103,13 +115,13 @@ export class AuthorizationsApi {
 
     /**
      * Helper function. 
-     * If successfully captured, the `transfer` field of the `Authorization` will contain the ID of the `Transfer` resource that\'ll move funds.   By default, `Transfers` are in a **PENDING** state. The **PENDING** state means the request to capture funds hasn\'t been submitted yet. Capture requests get submitted via a batch request.   Once the `Authorization` is updated with a `capture_amount` (i.e. *Captured*), the state of the `Transfer` will update to **SUCCEEDED**.  > Voided `Authorizations` can\'t be captured.
+     * If successfully captured, the `transfer` field of the `Authorization` will contain the ID of the `Transfer` resource that\'ll move funds.  Related Guides: [Creating and Capturing an Authorization](/guides/payments/making-a-payment/creating-and-capturing-an-authorization/), [Level 2 and 3 Processing](/guides/payments/making-a-payment/level-2-and-level-3-processing/), [In-Person Cloud Payments](/guides/payments/in-person-payments/cloud/in-person-cloud-payments/), [Buyer Charges](/guides/payments/making-a-payment/buyer-charges/)
      * @summary Capture an Authorization
      * @param authorizationId ID of &#x60;Authorization&#x60; to fetch.
      * @param updateAuthorizationRequest 
      */
 
-    private async updateHelper(authorizationId: string, updateAuthorizationRequest?: UpdateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: AuthorizationCaptured;  }> {
+    private async updateHelper(authorizationId: string, updateAuthorizationRequest?: UpdateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: AuthorizationCaptured;  rawBody: any; }> {
         const localVarPath = this.basePath + '/authorizations/{authorization_id}'
             .replace('{' + 'authorization_id' + '}', encodeURIComponent(String(authorizationId)));
         let localVarQueryParameters: any = {};
@@ -167,14 +179,15 @@ export class AuthorizationsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: AuthorizationCaptured;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: AuthorizationCaptured;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "AuthorizationCaptured");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -185,7 +198,7 @@ export class AuthorizationsApi {
     }
 
     /**
-     * If successfully captured, the `transfer` field of the `Authorization` will contain the ID of the `Transfer` resource that\'ll move funds.   By default, `Transfers` are in a **PENDING** state. The **PENDING** state means the request to capture funds hasn\'t been submitted yet. Capture requests get submitted via a batch request.   Once the `Authorization` is updated with a `capture_amount` (i.e. *Captured*), the state of the `Transfer` will update to **SUCCEEDED**.  > Voided `Authorizations` can\'t be captured.
+     * If successfully captured, the `transfer` field of the `Authorization` will contain the ID of the `Transfer` resource that\'ll move funds.  Related Guides: [Creating and Capturing an Authorization](/guides/payments/making-a-payment/creating-and-capturing-an-authorization/), [Level 2 and 3 Processing](/guides/payments/making-a-payment/level-2-and-level-3-processing/), [In-Person Cloud Payments](/guides/payments/in-person-payments/cloud/in-person-cloud-payments/), [Buyer Charges](/guides/payments/making-a-payment/buyer-charges/)
      * @summary Capture an Authorization
      * @param authorizationId ID of &#x60;Authorization&#x60; to fetch.
      * @param updateAuthorizationRequest 
@@ -197,24 +210,24 @@ export class AuthorizationsApi {
     }
 
     /**
-     * If successfully captured, the `transfer` field of the `Authorization` will contain the ID of the `Transfer` resource that\'ll move funds.   By default, `Transfers` are in a **PENDING** state. The **PENDING** state means the request to capture funds hasn\'t been submitted yet. Capture requests get submitted via a batch request.   Once the `Authorization` is updated with a `capture_amount` (i.e. *Captured*), the state of the `Transfer` will update to **SUCCEEDED**.  > Voided `Authorizations` can\'t be captured.
+     * If successfully captured, the `transfer` field of the `Authorization` will contain the ID of the `Transfer` resource that\'ll move funds.  Related Guides: [Creating and Capturing an Authorization](/guides/payments/making-a-payment/creating-and-capturing-an-authorization/), [Level 2 and 3 Processing](/guides/payments/making-a-payment/level-2-and-level-3-processing/), [In-Person Cloud Payments](/guides/payments/in-person-payments/cloud/in-person-cloud-payments/), [Buyer Charges](/guides/payments/making-a-payment/buyer-charges/)
      * @summary Capture an Authorization
      * @param authorizationId ID of &#x60;Authorization&#x60; to fetch.
      * @param updateAuthorizationRequest 
      */
     public async updateHttp(authorizationId: string, updateAuthorizationRequest?: UpdateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: AuthorizationCaptured; }> {
+        Promise<{response: http.IncomingMessage, body: AuthorizationCaptured;  rawBody: any;}> {
         const responseObject = await this.updateHelper(authorizationId, updateAuthorizationRequest,  options);
         return responseObject;
     }
     /**
      * Helper function. 
-     * Create an `Authorization` to process a transaction.  `Authorizations` can have six possible `states`, two of which are expected:  - **SUCCEEDED**  - **FAILED**  If the `Authorization` has **SUCCEEDED** , it must be captured before `expires_at` passes or the funds will be released. If the `transfer` field of an `Authorization` is **null**, it hasn\'t been captured yet.  Learn how to prevent duplicate authorizations by passing an [Idempotency ID](#section/Idempotency-Requests) in the payload. - `Authorizations` on debit cards place a hold on funds in the cardholder\'s bank account and can lead to lower than expected balances or issues with insufficient funds.
+     * Create an `Authorization` to process a transaction.  Related Guides: [Creating and Capturing an Authorization](/guides/payments/making-a-payment/creating-and-capturing-an-authorization/), [Level 2 and 3 Processing](/guides/payments/making-a-payment/level-2-and-level-3-processing/), [In-Person Cloud Payments](/guides/payments/in-person-payments/cloud/in-person-cloud-payments/), [Buyer Charges](/guides/payments/making-a-payment/buyer-charges/)
      * @summary Create an Authorization
      * @param createAuthorizationRequest 
      */
 
-    private async createHelper(createAuthorizationRequest?: CreateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Authorization;  }> {
+    private async createHelper(createAuthorizationRequest?: CreateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Authorization;  rawBody: any; }> {
         const localVarPath = this.basePath + '/authorizations';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -267,14 +280,15 @@ export class AuthorizationsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: Authorization;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: Authorization;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "Authorization");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -285,7 +299,7 @@ export class AuthorizationsApi {
     }
 
     /**
-     * Create an `Authorization` to process a transaction.  `Authorizations` can have six possible `states`, two of which are expected:  - **SUCCEEDED**  - **FAILED**  If the `Authorization` has **SUCCEEDED** , it must be captured before `expires_at` passes or the funds will be released. If the `transfer` field of an `Authorization` is **null**, it hasn\'t been captured yet.  Learn how to prevent duplicate authorizations by passing an [Idempotency ID](#section/Idempotency-Requests) in the payload. - `Authorizations` on debit cards place a hold on funds in the cardholder\'s bank account and can lead to lower than expected balances or issues with insufficient funds.
+     * Create an `Authorization` to process a transaction.  Related Guides: [Creating and Capturing an Authorization](/guides/payments/making-a-payment/creating-and-capturing-an-authorization/), [Level 2 and 3 Processing](/guides/payments/making-a-payment/level-2-and-level-3-processing/), [In-Person Cloud Payments](/guides/payments/in-person-payments/cloud/in-person-cloud-payments/), [Buyer Charges](/guides/payments/making-a-payment/buyer-charges/)
      * @summary Create an Authorization
      * @param createAuthorizationRequest 
      */
@@ -296,12 +310,12 @@ export class AuthorizationsApi {
     }
 
     /**
-     * Create an `Authorization` to process a transaction.  `Authorizations` can have six possible `states`, two of which are expected:  - **SUCCEEDED**  - **FAILED**  If the `Authorization` has **SUCCEEDED** , it must be captured before `expires_at` passes or the funds will be released. If the `transfer` field of an `Authorization` is **null**, it hasn\'t been captured yet.  Learn how to prevent duplicate authorizations by passing an [Idempotency ID](#section/Idempotency-Requests) in the payload. - `Authorizations` on debit cards place a hold on funds in the cardholder\'s bank account and can lead to lower than expected balances or issues with insufficient funds.
+     * Create an `Authorization` to process a transaction.  Related Guides: [Creating and Capturing an Authorization](/guides/payments/making-a-payment/creating-and-capturing-an-authorization/), [Level 2 and 3 Processing](/guides/payments/making-a-payment/level-2-and-level-3-processing/), [In-Person Cloud Payments](/guides/payments/in-person-payments/cloud/in-person-cloud-payments/), [Buyer Charges](/guides/payments/making-a-payment/buyer-charges/)
      * @summary Create an Authorization
      * @param createAuthorizationRequest 
      */
     public async createHttp(createAuthorizationRequest?: CreateAuthorizationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: Authorization; }> {
+        Promise<{response: http.IncomingMessage, body: Authorization;  rawBody: any;}> {
         const responseObject = await this.createHelper(createAuthorizationRequest,  options);
         return responseObject;
     }
@@ -312,7 +326,7 @@ export class AuthorizationsApi {
      * @param authorizationId ID of &#x60;Authorization&#x60; to fetch.
      */
 
-    private async getHelper(authorizationId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Authorization;  }> {
+    private async getHelper(authorizationId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Authorization;  rawBody: any; }> {
         const localVarPath = this.basePath + '/authorizations/{authorization_id}'
             .replace('{' + 'authorization_id' + '}', encodeURIComponent(String(authorizationId)));
         let localVarQueryParameters: any = {};
@@ -362,14 +376,15 @@ export class AuthorizationsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: Authorization;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: Authorization;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "Authorization");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -396,7 +411,7 @@ export class AuthorizationsApi {
      * @param authorizationId ID of &#x60;Authorization&#x60; to fetch.
      */
     public async getHttp(authorizationId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: Authorization; }> {
+        Promise<{response: http.IncomingMessage, body: Authorization;  rawBody: any;}> {
         const responseObject = await this.getHelper(authorizationId,  options);
         return responseObject;
     }
@@ -406,7 +421,7 @@ export class AuthorizationsApi {
      * @summary List Authorizations
 
     */
-    private async listHelper (listAuthorizationsQueryParams?:ListAuthorizationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: AuthorizationsList;  }> {
+    private async listHelper (listAuthorizationsQueryParams?:ListAuthorizationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: AuthorizationsList;  rawBody: any; }> {
         const localVarPath = this.basePath + '/authorizations';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -540,14 +555,15 @@ export class AuthorizationsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: AuthorizationsList;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: AuthorizationsList;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "AuthorizationsList");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -590,7 +606,7 @@ export class AuthorizationsApi {
      * @summary List Authorizations
      */
     public async listHttp (listAuthorizationsQueryParams?:ListAuthorizationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>, rawBody: any}> {
         const responseObject = await this.listHelper(listAuthorizationsQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
         let reachedEnd: Boolean;
@@ -611,12 +627,14 @@ export class AuthorizationsApi {
         let dataList = new finixList<any>(nextFetch, reachedEnd);
         dataList = this.embeddedHelper(responseObject, dataList);
         //dataList.hasMore = !reachedEnd;
-        return Promise.resolve({response: responseObject.response, body: dataList});
+        return Promise.resolve({response: responseObject.response, body: dataList, rawBody: responseObject.rawBody});
     }
+
 
     /**
      * Extracts page and links fields from response body and assigns as properties to finixList
      */ 
+    // @ts-ignore: Not all endpoints have list views
     private embeddedHelper(responseObject: any, dataList: finixList<any>){
         if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
             dataList.page = responseObject.body.page;
@@ -625,7 +643,7 @@ export class AuthorizationsApi {
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
         let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
-        tempList.forEach(item => {dataList.add(item)});
+        tempList.forEach((item: any) => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
@@ -634,6 +652,7 @@ export class AuthorizationsApi {
     /**
      * Extracts offset value from response body and determines if end of list has been reached
      */
+    // @ts-ignore: Not all endpoints have list views
     private getOffsetQueryParam(responseObject: any, queryParam: any){
         queryParam.offset = responseObject.body.page.offset + responseObject.body.page.limit;
         var endReached: Boolean = false;
@@ -646,6 +665,7 @@ export class AuthorizationsApi {
     /**
     * Extracts nextCursor value from response body and determines if end of list has been reached
     */
+    // @ts-ignore: Not all endpoints have list views
     private getCursorQueryParam(responseObject: any, queryParam: any){
         queryParam.afterCursor = responseObject.body.page.nextCursor;
         var endReached: Boolean = false;

@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { ComplianceFormFiles } from './complianceFormFiles';
 import { ComplianceFormPciSaqA } from './complianceFormPciSaqA';
@@ -12,14 +13,6 @@ export class ComplianceForm {
     */
     'id'?: string;
     /**
-    * Type of `compliance_form`. There is one available value: **PCI_SAQ_A**.
-    */
-    'type'?: ComplianceForm.TypeEnum | string;
-    /**
-    * The state of the `compliance_form`.
-    */
-    'state'?: ComplianceForm.StateEnum | string;
-    /**
     * Timestamp of when the object was created.
     */
     'createdAt'?: Date;
@@ -28,9 +21,14 @@ export class ComplianceForm {
     */
     'updatedAt'?: Date;
     /**
+    * Template linked to this `compliance_form`.
+    */
+    'complianceFormTemplate'?: string;
+    /**
     * Timestamp of when the `compliance_form` must be completed by.
     */
     'dueAt'?: Date;
+    'files'?: ComplianceFormFiles;
     /**
     * The ID of the `merchant` linked to the `compliance_form`.
     */
@@ -40,7 +38,18 @@ export class ComplianceForm {
     */
     'linkedType'?: string;
     'pciSaqA'?: ComplianceFormPciSaqA;
-    'files'?: ComplianceFormFiles;
+    /**
+    * The state of the `compliance_form`.
+    */
+    'state'?: ComplianceForm.StateEnum | string;
+    /**
+    * Key value pair for annotating custom meta data (e.g. order numbers).
+    */
+    'tags'?: { [key: string]: string; } | null;
+    /**
+    * Type of `compliance_form`. There is one available value: **PCI_SAQ_A**.
+    */
+    'type'?: ComplianceForm.TypeEnum | string;
     /**
     * Timestamp of when the `compliance_form` becomes active and valid.
     */
@@ -50,13 +59,9 @@ export class ComplianceForm {
     */
     'validUntil'?: string;
     /**
-    * Template linked to this `compliance_form`.
+    * Details the version of the SAQ form. When `compliance_forms` are created, Finix automatically provides the most up-to-date SAQ form that\'s available.
     */
-    'complianceFormTemplate'?: string;
-    /**
-    * Key value pair for annotating custom meta data (e.g. order numbers).
-    */
-    'tags'?: { [key: string]: string; };
+    'version'?: string;
 
     static discriminator: string | undefined = undefined;
 
@@ -65,16 +70,6 @@ export class ComplianceForm {
             "name": "id",
             "baseName": "id",
             "type": "string"
-        },
-        {
-            "name": "type",
-            "baseName": "type",
-            "type": "ComplianceForm.TypeEnum"
-        },
-        {
-            "name": "state",
-            "baseName": "state",
-            "type": "ComplianceForm.StateEnum"
         },
         {
             "name": "createdAt",
@@ -87,9 +82,19 @@ export class ComplianceForm {
             "type": "Date"
         },
         {
+            "name": "complianceFormTemplate",
+            "baseName": "compliance_form_template",
+            "type": "string"
+        },
+        {
             "name": "dueAt",
             "baseName": "due_at",
             "type": "Date"
+        },
+        {
+            "name": "files",
+            "baseName": "files",
+            "type": "ComplianceFormFiles"
         },
         {
             "name": "linkedTo",
@@ -107,9 +112,19 @@ export class ComplianceForm {
             "type": "ComplianceFormPciSaqA"
         },
         {
-            "name": "files",
-            "baseName": "files",
-            "type": "ComplianceFormFiles"
+            "name": "state",
+            "baseName": "state",
+            "type": "ComplianceForm.StateEnum"
+        },
+        {
+            "name": "tags",
+            "baseName": "tags",
+            "type": "{ [key: string]: string; }"
+        },
+        {
+            "name": "type",
+            "baseName": "type",
+            "type": "ComplianceForm.TypeEnum"
         },
         {
             "name": "validFrom",
@@ -122,14 +137,9 @@ export class ComplianceForm {
             "type": "string"
         },
         {
-            "name": "complianceFormTemplate",
-            "baseName": "compliance_form_template",
+            "name": "version",
+            "baseName": "version",
             "type": "string"
-        },
-        {
-            "name": "tags",
-            "baseName": "tags",
-            "type": "{ [key: string]: string; }"
         }    ];
 
     static getAttributeTypeMap() {
@@ -138,13 +148,13 @@ export class ComplianceForm {
 }
 
 export namespace ComplianceForm {
-    export enum TypeEnum {
-        PciSaqA = <any> 'PCI_SAQ_A'
-    }
     export enum StateEnum {
         Pending = <any> 'PENDING',
         Completed = <any> 'COMPLETED',
         Invalid = <any> 'INVALID',
         Incomplete = <any> 'INCOMPLETE'
+    }
+    export enum TypeEnum {
+        PciSaqA = <any> 'PCI_SAQ_A'
     }
 }

@@ -9,7 +9,7 @@ export * from '{{{ classFilename }}}';
 {{/models}}
 
 import * as fs from 'fs';
-import { Client } from '../api';
+// import { Client } from '../api';
 
 export interface RequestDetailedFile {
     value: Buffer;
@@ -256,7 +256,7 @@ export type Interceptor = (requestOptions: localVarRequest.Options) => (Promise<
 
 export class finixList<T extends object> extends Set<T>{    
     private _page: any;
-    private _links: ListLinks;
+    private _links?: ListLinks;
     protected listNextBase: Function; 
     private _hasMore: Boolean;
     
@@ -282,7 +282,7 @@ export class finixList<T extends object> extends Set<T>{
     }
 
     get links(){
-        return this._links;
+        return this._links !== undefined ? this._links : new ListLinks();
     }
 
     get hasMore(){

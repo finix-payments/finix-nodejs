@@ -5,21 +5,30 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
+// @ts-ignore: Some endpoints interact with files
 import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
+// @ts-ignore: Some unused imports always provided
 import { BalanceTransfer } from '../model/balanceTransfer';
+// @ts-ignore: Some unused imports always provided
 import { BalanceTransferList } from '../model/balanceTransferList';
+// @ts-ignore: Some unused imports always provided
 import { CreateBalanceTransferRequest } from '../model/createBalanceTransferRequest';
+// @ts-ignore: Some unused imports always provided
 import { Error401Unauthorized } from '../model/error401Unauthorized';
+// @ts-ignore: Some unused imports always provided
 import { Error403ForbiddenList } from '../model/error403ForbiddenList';
+// @ts-ignore: Some unused imports always provided
 import { Error404NotFoundList } from '../model/error404NotFoundList';
+// @ts-ignore: Some unused imports always provided
 import { Error406NotAcceptable } from '../model/error406NotAcceptable';
+// @ts-ignore: Some unused imports always provided
 import { ErrorGeneric } from '../model/errorGeneric';
 import { ListBalanceTransfersQueryParams } from '../model/listBalanceTransfersQueryParams';
 import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
-import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
+import { HttpBasicAuth } from '../model/models';
 
-import { HttpError, RequestFile } from './apis';
+import { HttpError } from './apis';
 
 let defaultBasePath = 'https://finix.sandbox-payments-api.com';
 
@@ -105,7 +114,7 @@ export class BalanceTransfersApi {
      * @param createBalanceTransferRequest 
      */
 
-    private async createHelper(createBalanceTransferRequest?: CreateBalanceTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: BalanceTransfer;  }> {
+    private async createHelper(createBalanceTransferRequest?: CreateBalanceTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: BalanceTransfer;  rawBody: any; }> {
         const localVarPath = this.basePath + '/balance_transfers';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -158,14 +167,15 @@ export class BalanceTransfersApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: BalanceTransfer;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: BalanceTransfer;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "BalanceTransfer");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -192,7 +202,7 @@ export class BalanceTransfersApi {
      * @param createBalanceTransferRequest 
      */
     public async createHttp(createBalanceTransferRequest?: CreateBalanceTransferRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: BalanceTransfer; }> {
+        Promise<{response: http.IncomingMessage, body: BalanceTransfer;  rawBody: any;}> {
         const responseObject = await this.createHelper(createBalanceTransferRequest,  options);
         return responseObject;
     }
@@ -203,7 +213,7 @@ export class BalanceTransfersApi {
      * @param balanceTransfersId ID of the &#x60;balance_transfer&#x60; resource.
      */
 
-    private async getHelper(balanceTransfersId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: BalanceTransfer;  }> {
+    private async getHelper(balanceTransfersId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: BalanceTransfer;  rawBody: any; }> {
         const localVarPath = this.basePath + '/balance_transfers/{balance_transfers_id}'
             .replace('{' + 'balance_transfers_id' + '}', encodeURIComponent(String(balanceTransfersId)));
         let localVarQueryParameters: any = {};
@@ -253,14 +263,15 @@ export class BalanceTransfersApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: BalanceTransfer;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: BalanceTransfer;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "BalanceTransfer");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -287,7 +298,7 @@ export class BalanceTransfersApi {
      * @param balanceTransfersId ID of the &#x60;balance_transfer&#x60; resource.
      */
     public async getHttp(balanceTransfersId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: BalanceTransfer; }> {
+        Promise<{response: http.IncomingMessage, body: BalanceTransfer;  rawBody: any;}> {
         const responseObject = await this.getHelper(balanceTransfersId,  options);
         return responseObject;
     }
@@ -297,7 +308,7 @@ export class BalanceTransfersApi {
      * @summary List Balance Transfers
 
     */
-    private async listHelper (listBalanceTransfersQueryParams?:ListBalanceTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: BalanceTransferList;  }> {
+    private async listHelper (listBalanceTransfersQueryParams?:ListBalanceTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: BalanceTransferList;  rawBody: any; }> {
         const localVarPath = this.basePath + '/balance_transfers';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -389,14 +400,15 @@ export class BalanceTransfersApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: BalanceTransferList;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: BalanceTransferList;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "BalanceTransferList");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -439,7 +451,7 @@ export class BalanceTransfersApi {
      * @summary List Balance Transfers
      */
     public async listHttp (listBalanceTransfersQueryParams?:ListBalanceTransfersQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>, rawBody: any}> {
         const responseObject = await this.listHelper(listBalanceTransfersQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
         let reachedEnd: Boolean;
@@ -460,12 +472,14 @@ export class BalanceTransfersApi {
         let dataList = new finixList<any>(nextFetch, reachedEnd);
         dataList = this.embeddedHelper(responseObject, dataList);
         //dataList.hasMore = !reachedEnd;
-        return Promise.resolve({response: responseObject.response, body: dataList});
+        return Promise.resolve({response: responseObject.response, body: dataList, rawBody: responseObject.rawBody});
     }
+
 
     /**
      * Extracts page and links fields from response body and assigns as properties to finixList
      */ 
+    // @ts-ignore: Not all endpoints have list views
     private embeddedHelper(responseObject: any, dataList: finixList<any>){
         if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
             dataList.page = responseObject.body.page;
@@ -474,7 +488,7 @@ export class BalanceTransfersApi {
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
         let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
-        tempList.forEach(item => {dataList.add(item)});
+        tempList.forEach((item: any) => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
@@ -483,6 +497,7 @@ export class BalanceTransfersApi {
     /**
      * Extracts offset value from response body and determines if end of list has been reached
      */
+    // @ts-ignore: Not all endpoints have list views
     private getOffsetQueryParam(responseObject: any, queryParam: any){
         queryParam.offset = responseObject.body.page.offset + responseObject.body.page.limit;
         var endReached: Boolean = false;
@@ -495,6 +510,7 @@ export class BalanceTransfersApi {
     /**
     * Extracts nextCursor value from response body and determines if end of list has been reached
     */
+    // @ts-ignore: Not all endpoints have list views
     private getCursorQueryParam(responseObject: any, queryParam: any){
         queryParam.afterCursor = responseObject.body.page.nextCursor;
         var endReached: Boolean = false;

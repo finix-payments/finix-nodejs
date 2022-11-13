@@ -4,7 +4,7 @@ describe('Fee Profiles API', () => {
 
     let client: Client;
     let feeProfileId: string;
-    let identityId: string;
+    // let identityId: string;
 
     beforeAll(() => {
         const userName = 'USimz3zSq5R2PqiEBXY6rSiJ';
@@ -23,7 +23,7 @@ describe('Fee Profiles API', () => {
             achBasisPoints: 300
         }
         const feeProfile = await client.FeeProfiles.create(createFeeProfileRequest);
-        feeProfileId = feeProfile.id;
+        feeProfileId = feeProfile.id!;
         expect(feeProfile.basisPoints).toBe(createFeeProfileRequest.basisPoints);
         expect(feeProfile.application).toBe(createFeeProfileRequest.application);
         expect(feeProfile.fixedFee).toBe(createFeeProfileRequest.fixedFee);

@@ -1,12 +1,12 @@
 import {Client, Environment, Models} from '../api';
 import * as fs from 'fs';
-import { TIMEOUT } from 'dns';
+
 
 describe('Instruments Updates API', () => {
 
     let client: Client;
-    let bankAccountId: string;
-    let paymentCardId: string;
+    // let bankAccountId: string;
+    // let paymentCardId: string;
     let instrumentUpdateId: string;
 
     beforeAll(() => {

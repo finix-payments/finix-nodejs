@@ -2,8 +2,22 @@
     "compilerOptions": {
       "target": "es6",
       "sourceMap": true,
+      "declaration": true,
+      "strict": true,
+      "noImplicitReturns": true,
+      "noImplicitThis": true,
+      "noImplicitAny": true,
+      "noUnusedLocals": true,
+      "alwaysStrict": true,
       "moduleResolution": "node",
       "esModuleInterop": true,
-      "module": "commonjs"
-    }
+      "module": "commonjs",
+      "rootDir": ".",
+    },
+    "include":[
+      "src"
+    ],
+    "exclude": [
+      "node_modules"
+    ]
   }

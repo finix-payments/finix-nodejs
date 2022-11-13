@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { AdditionalPurchaseDataItemDataInner } from './additionalPurchaseDataItemDataInner';
 import { AdditionalPurchaseDataOrderDate } from './additionalPurchaseDataOrderDate';

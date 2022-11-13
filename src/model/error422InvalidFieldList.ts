@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { Error422InvalidFieldListEmbedded } from './error422InvalidFieldListEmbedded';
 

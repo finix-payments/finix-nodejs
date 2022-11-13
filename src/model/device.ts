@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { DeviceConfigDetails } from './deviceConfigDetails';
 import { DeviceLinks } from './deviceLinks';
@@ -11,9 +12,9 @@ import { DeviceLinks } from './deviceLinks';
 */
 export class Device {
     /**
-    * The ID of the resource.
+    * The ID of the activated `Device`.
     */
-    'id'?: string | null;
+    'id'?: string;
     /**
     * Timestamp of when the object was created.
     */
@@ -58,7 +59,7 @@ export class Device {
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
     'links'?: DeviceLinks;
 
     static discriminator: string | undefined = undefined;

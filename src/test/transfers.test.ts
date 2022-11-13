@@ -4,7 +4,6 @@ import {Client, Environment, Models} from '../api';
 describe('Transfers API', () => {
 
     let client: Client;
-    let authorizationID: string;
 
     beforeAll(() => {
         const userName = 'USsRhsHYZGBPnQw8CByJyEQW';
@@ -261,7 +260,7 @@ describe('Transfers API', () => {
 
     test("Test: deserialize function test -- transfer list", async() => {
         const httpMessage = await client.Transfers.listHttp();
-        const transferListRaw = httpMessage.response["body"];
+        const transferListRaw = httpMessage.rawBody;
         
         const deserializedList = Models.ObjectSerializer.deserialize(transferListRaw, "TransfersList");
         expect(deserializedList.page.limit).toBe(100);
@@ -274,7 +273,7 @@ describe('Transfers API', () => {
 
     test("Test: deserialize function and unexpected enum test -- transfer", async() => {
         const httpMessage = await client.Transfers.getHttp("TRnH7FkSB7zePeHExNZwSb9H");
-        const transferRaw = httpMessage.response["body"];
+        const transferRaw = httpMessage.rawBody;
         transferRaw["state"] = "RANDOM_STATE";
         const deserializedTransfer = Models.ObjectSerializer.deserialize(transferRaw, "Transfer");
         let readyToSettleAtDate = new Date("2022-07-07T04:00:00.000Z");

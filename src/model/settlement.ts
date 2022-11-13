@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { Currency } from './currency';
 import { SettlementLinks } from './settlementLinks';
@@ -11,9 +12,9 @@ import { SettlementLinks } from './settlementLinks';
 */
 export class Settlement {
     /**
-    * The ID of the resource.
+    * The ID of the `Settlement` resource.
     */
-    'id'?: string | null;
+    'id'?: string;
     /**
     * Timestamp of when the object was created.
     */
@@ -36,13 +37,13 @@ export class Settlement {
     */
     'fundsFlow'?: string | null;
     /**
-    * The ID of the resource.
+    * The ID of the `Identity` used to create the `Settlement` resource.
     */
-    'identity'?: string | null;
+    'identity'?: string;
     /**
-    * The ID of the resource.
+    * The ID of the `Merchant` used to create the `Settlement` resource.
     */
-    'merchantId'?: string | null;
+    'merchantId'?: string;
     /**
     * The amount in cents that will be deposited into the merchant\'s bank account.
     */
@@ -56,13 +57,13 @@ export class Settlement {
     */
     'processor'?: string;
     /**
-    * The status of the `Settlement`. Available values include:<ul><li>**PENDING**<li>**AWAITING_APPROVAL**<li>**APPROVED**.</ul> Merchants only receive payouts when `Settlements` are **APPROVED** and receive the resulting funding `Transfer` . For more information, see [Payouts](/guides/payouts/payouts/).
+    * The status of the `Settlement`. Available values include:<ul><li>**PENDING**<li>**AWAITING_APPROVAL**<li>**APPROVED**.</ul> Merchants only receive payouts when `Settlements` are **APPROVED** and receive the resulting funding `Transfer` . For more information, see [Payouts](/guides/payouts/).
     */
     'status'?: Settlement.StatusEnum | string;
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
     /**
     * Total amount of the `Settlement` (in cents).
     */
@@ -189,7 +190,6 @@ export namespace Settlement {
     export enum StatusEnum {
         Approved = <any> 'APPROVED',
         AwaitingApproval = <any> 'AWAITING_APPROVAL',
-        Cancelled = <any> 'CANCELLED',
         Pending = <any> 'PENDING'
     }
     export enum TypeEnum {

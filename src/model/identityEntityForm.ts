@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { Address } from './address';
 import { IdentityEntityFormBusinessAddress } from './identityEntityFormBusinessAddress';
@@ -17,7 +18,7 @@ export class IdentityEntityForm {
     */
     'amexMid'?: string | null;
     /**
-    * Approximate annual credit card sales expected to be processed in cents by this merchant (max 19 characters).
+    * Approximate annual credit card sales expected to be processed in cents by this seller (max 19 characters).
     */
     'annualCardVolume'?: number;
     'businessAddress': IdentityEntityFormBusinessAddress | null;
@@ -62,7 +63,7 @@ export class IdentityEntityForm {
     * Defaults to **false** if not passed.
     */
     'hasAcceptedCreditCardsPreviously'?: boolean;
-    'incorporationDate'?: IdentityEntityFormIncorporationDate;
+    'incorporationDate'?: IdentityEntityFormIncorporationDate | null;
     /**
     * Full legal last name of the merchant\'s principal representative (max 20 characters).
     */
@@ -72,7 +73,7 @@ export class IdentityEntityForm {
     */
     'maxTransactionAmount'?: number;
     /**
-    * The Merchant Category Code ([MCC](http://www.dm.usda.gov/procurement/card/card_x/mcc.pdf)) the merchant is classified under.
+    * The Merchant Category Code ([MCC](http://www.dm.usda.gov/procurement/card/card_x/mcc.pdf)) the seller is classified under.
     */
     'mcc'?: string;
     /**

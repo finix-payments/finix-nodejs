@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { IdentityLinksSelf } from './identityLinksSelf';
 import { SubscriptionAmountLinksSchedule } from './subscriptionAmountLinksSchedule';

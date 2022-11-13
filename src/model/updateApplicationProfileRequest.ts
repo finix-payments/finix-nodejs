@@ -2,21 +2,22 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 
 export class UpdateApplicationProfileRequest {
     /**
-    * The ID of the resource.
+    * The ID of the `Fee Profile` associated with the `Application`.
     */
-    'feeProfile'?: string | null;
+    'feeProfile'?: object;
     /**
-    * The ID of the resource.
+    * The ID of the `Fee Profile` associated with the `Application`.
     */
-    'riskProfile'?: string | null;
+    'riskProfile'?: object;
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
 
     static discriminator: string | undefined = undefined;
 
@@ -24,12 +25,12 @@ export class UpdateApplicationProfileRequest {
         {
             "name": "feeProfile",
             "baseName": "fee_profile",
-            "type": "string"
+            "type": "object"
         },
         {
             "name": "riskProfile",
             "baseName": "risk_profile",
-            "type": "string"
+            "type": "object"
         },
         {
             "name": "tags",

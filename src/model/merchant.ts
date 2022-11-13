@@ -2,13 +2,14 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { MerchantLinks } from './merchantLinks';
 import { MerchantProcessorDetails } from './merchantProcessorDetails';
 
 export class Merchant {
     /**
-    * The ID of the resource.
+    * The ID of the `Merchant` resource.
     */
     'id'?: string;
     /**
@@ -103,7 +104,7 @@ export class Merchant {
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
     /**
     * ID of the `Verification` that was submitted to verify the `Merchant`.
     */

@@ -5,21 +5,30 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
+// @ts-ignore: Some endpoints interact with files
 import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
+// @ts-ignore: Some unused imports always provided
 import { CreateDevice } from '../model/createDevice';
+// @ts-ignore: Some unused imports always provided
 import { Device } from '../model/device';
+// @ts-ignore: Some unused imports always provided
 import { Error401Unauthorized } from '../model/error401Unauthorized';
+// @ts-ignore: Some unused imports always provided
 import { Error403ForbiddenList } from '../model/error403ForbiddenList';
+// @ts-ignore: Some unused imports always provided
 import { Error404NotFoundList } from '../model/error404NotFoundList';
+// @ts-ignore: Some unused imports always provided
 import { Error406NotAcceptable } from '../model/error406NotAcceptable';
+// @ts-ignore: Some unused imports always provided
 import { ErrorGeneric } from '../model/errorGeneric';
+// @ts-ignore: Some unused imports always provided
 import { UpdateDeviceRequest } from '../model/updateDeviceRequest';
 import { GetDeviceQueryParams } from '../model/getDeviceQueryParams';
 import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
-import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
+import { HttpBasicAuth } from '../model/models';
 
-import { HttpError, RequestFile } from './apis';
+import { HttpError } from './apis';
 
 let defaultBasePath = 'https://finix.sandbox-payments-api.com';
 
@@ -106,7 +115,7 @@ export class DevicesApi {
      * @param createDevice 
      */
 
-    private async createHelper(merchantId: string, createDevice?: CreateDevice, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Device;  }> {
+    private async createHelper(merchantId: string, createDevice?: CreateDevice, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Device;  rawBody: any; }> {
         const localVarPath = this.basePath + '/merchants/{merchant_id}/devices'
             .replace('{' + 'merchant_id' + '}', encodeURIComponent(String(merchantId)));
         let localVarQueryParameters: any = {};
@@ -164,14 +173,15 @@ export class DevicesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: Device;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: Device;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "Device");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -200,7 +210,7 @@ export class DevicesApi {
      * @param createDevice 
      */
     public async createHttp(merchantId: string, createDevice?: CreateDevice, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: Device; }> {
+        Promise<{response: http.IncomingMessage, body: Device;  rawBody: any;}> {
         const responseObject = await this.createHelper(merchantId, createDevice,  options);
         return responseObject;
     }
@@ -212,7 +222,7 @@ export class DevicesApi {
     * @param deviceId ID of the &#x60;Device&#x60;.
     * 
     */
-    private async getHelper (deviceId: string, getDeviceQueryParams?:GetDeviceQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Device;  }> {
+    private async getHelper (deviceId: string, getDeviceQueryParams?:GetDeviceQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Device;  rawBody: any; }> {
         const localVarPath = this.basePath + '/devices/{device_id}'
             .replace('{' + 'device_id' + '}', encodeURIComponent(String(deviceId)));
         let localVarQueryParameters: any = {};
@@ -267,14 +277,15 @@ export class DevicesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: Device;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: Device;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "Device");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -303,7 +314,7 @@ export class DevicesApi {
      * 
      */
     public async getHttp (deviceId: string, getDeviceQueryParams?:GetDeviceQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: Device; }> {
+        Promise<{response: http.IncomingMessage, body: Device;  rawBody: any;}> {
         const responseObject = await this.getHelper(deviceId, getDeviceQueryParams, options);
         return responseObject;
     }
@@ -315,7 +326,7 @@ export class DevicesApi {
      * @param updateDeviceRequest 
      */
 
-    private async updateHelper(deviceId: string, updateDeviceRequest?: UpdateDeviceRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Device;  }> {
+    private async updateHelper(deviceId: string, updateDeviceRequest?: UpdateDeviceRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Device;  rawBody: any; }> {
         const localVarPath = this.basePath + '/devices/{device_id}'
             .replace('{' + 'device_id' + '}', encodeURIComponent(String(deviceId)));
         let localVarQueryParameters: any = {};
@@ -373,14 +384,15 @@ export class DevicesApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: Device;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: Device;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "Device");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -409,14 +421,16 @@ export class DevicesApi {
      * @param updateDeviceRequest 
      */
     public async updateHttp(deviceId: string, updateDeviceRequest?: UpdateDeviceRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: Device; }> {
+        Promise<{response: http.IncomingMessage, body: Device;  rawBody: any;}> {
         const responseObject = await this.updateHelper(deviceId, updateDeviceRequest,  options);
         return responseObject;
     }
 
+
     /**
      * Extracts page and links fields from response body and assigns as properties to finixList
      */ 
+    // @ts-ignore: Not all endpoints have list views
     private embeddedHelper(responseObject: any, dataList: finixList<any>){
         if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
             dataList.page = responseObject.body.page;
@@ -425,7 +439,7 @@ export class DevicesApi {
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
         let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
-        tempList.forEach(item => {dataList.add(item)});
+        tempList.forEach((item: any) => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
@@ -434,6 +448,7 @@ export class DevicesApi {
     /**
      * Extracts offset value from response body and determines if end of list has been reached
      */
+    // @ts-ignore: Not all endpoints have list views
     private getOffsetQueryParam(responseObject: any, queryParam: any){
         queryParam.offset = responseObject.body.page.offset + responseObject.body.page.limit;
         var endReached: Boolean = false;
@@ -446,6 +461,7 @@ export class DevicesApi {
     /**
     * Extracts nextCursor value from response body and determines if end of list has been reached
     */
+    // @ts-ignore: Not all endpoints have list views
     private getCursorQueryParam(responseObject: any, queryParam: any){
         queryParam.afterCursor = responseObject.body.page.nextCursor;
         var endReached: Boolean = false;

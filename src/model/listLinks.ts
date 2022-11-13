@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { ApplicationLinksSelf } from './applicationLinksSelf';
 import { ListLinksNext } from './listLinksNext';

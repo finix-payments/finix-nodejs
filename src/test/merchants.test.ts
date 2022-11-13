@@ -45,7 +45,7 @@ describe('Merchants API', () => {
             type: Models.CreatePaymentInstrumentRequest.TypeEnum.BankAccount,
             identity: identityId
         };
-        const createdPaymentInstrument = await client.PaymentInstruments.create(paymentRequest);
+        await client.PaymentInstruments.create(paymentRequest);
 
         const MerchantRequest: Models.CreateMerchantUnderwritingRequest = {
             processor: "DUMMY_V1",

@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { MerchantProfileLinks } from './merchantProfileLinks';
 
@@ -10,9 +11,9 @@ import { MerchantProfileLinks } from './merchantProfileLinks';
 */
 export class MerchantProfile {
     /**
-    * The ID of the resource.
+    * The ID of the `Merchant Profile` resource.
     */
-    'id'?: string | null;
+    'id'?: string;
     /**
     * Timestamp of when the object was created.
     */
@@ -22,21 +23,25 @@ export class MerchantProfile {
     */
     'updatedAt'?: Date;
     /**
-    * The ID of the resource.
+    * The ID of the `Application` associated with the  `Merchant Profile`.
     */
     'application'?: string;
     /**
-    * The ID of the resource.
+    * The ID of the `Fee Profile` associated with the `Merchant Profile` resource.
     */
     'feeProfile'?: string | null;
     /**
-    * The ID of the resource.
+    * The ID of the `Payout Profile` associated with the `Merchant Profile` resource.
+    */
+    'payoutProfile'?: string | null;
+    /**
+    * The ID of the `Risk Profile` associated with the `Merchant Profile` resource.
     */
     'riskProfile'?: string | null;
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
     'links'?: MerchantProfileLinks;
 
     static discriminator: string | undefined = undefined;
@@ -65,6 +70,11 @@ export class MerchantProfile {
         {
             "name": "feeProfile",
             "baseName": "fee_profile",
+            "type": "string"
+        },
+        {
+            "name": "payoutProfile",
+            "baseName": "payout_profile",
             "type": "string"
         },
         {

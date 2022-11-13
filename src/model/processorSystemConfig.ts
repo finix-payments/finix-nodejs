@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { Country } from './country';
 import { Currency } from './currency';
@@ -28,9 +29,9 @@ export class ProcessorSystemConfig {
     */
     'availableCountries'?: Array<Country>;
     /**
-    * The ID of the resource.
+    * The ID of the `Application` linked to the `Processor`.
     */
-    'businessApplicationId'?: string | null;
+    'businessApplicationId'?: string;
     /**
     * Field used by processor to communicate with Finix.
     */

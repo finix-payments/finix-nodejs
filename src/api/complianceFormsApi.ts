@@ -5,19 +5,27 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
+// @ts-ignore: Some endpoints interact with files
 import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
+// @ts-ignore: Some unused imports always provided
 import { ComplianceForm } from '../model/complianceForm';
+// @ts-ignore: Some unused imports always provided
 import { Error401Unauthorized } from '../model/error401Unauthorized';
+// @ts-ignore: Some unused imports always provided
 import { Error403ForbiddenList } from '../model/error403ForbiddenList';
+// @ts-ignore: Some unused imports always provided
 import { Error404NotFoundList } from '../model/error404NotFoundList';
+// @ts-ignore: Some unused imports always provided
 import { Error406NotAcceptable } from '../model/error406NotAcceptable';
+// @ts-ignore: Some unused imports always provided
 import { Error422InvalidFieldList } from '../model/error422InvalidFieldList';
+// @ts-ignore: Some unused imports always provided
 import { UpdateComplianceFormRequest } from '../model/updateComplianceFormRequest';
 import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
-import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
+import { HttpBasicAuth } from '../model/models';
 
-import { HttpError, RequestFile } from './apis';
+import { HttpError } from './apis';
 
 let defaultBasePath = 'https://finix.sandbox-payments-api.com';
 
@@ -103,7 +111,7 @@ export class ComplianceFormsApi {
      * @param complianceFormsId ID of the &#x60;compliance_form&#x60;.
      */
 
-    private async listHelper(complianceFormsId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ComplianceForm;  }> {
+    private async listHelper(complianceFormsId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ComplianceForm;  rawBody: any; }> {
         const localVarPath = this.basePath + '/compliance_forms/{compliance_forms_id}'
             .replace('{' + 'compliance_forms_id' + '}', encodeURIComponent(String(complianceFormsId)));
         let localVarQueryParameters: any = {};
@@ -153,14 +161,15 @@ export class ComplianceFormsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: ComplianceForm;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: ComplianceForm;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "ComplianceForm");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -187,19 +196,19 @@ export class ComplianceFormsApi {
      * @param complianceFormsId ID of the &#x60;compliance_form&#x60;.
      */
     public async listHttp(complianceFormsId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: ComplianceForm; }> {
+        Promise<{response: http.IncomingMessage, body: ComplianceForm;  rawBody: any;}> {
         const responseObject = await this.listHelper(complianceFormsId,  options);
         return responseObject;
     }
     /**
      * Helper function. 
-     * As part of onboarding your users, you\'ll need to build a UI experience that allows users to complete the PCI `compliance_form` and download the form as a PDF if requested.  To complete PCI compliance forms:  1. Get the `compliance_form` generated for the merchant using the `ID` from the webhook and present the form to your users when requested. 2. Show your users the [required text](/guides/security-and-compliance/pci-dss-compliance/managing-pci-compliance/#obtaining-compliance-consent) to obtain consent. 3. Submit a PUT API request with the necessary [attestation](/guides/security-and-compliance/pci-dss-compliance/managing-pci-compliance/#completing-the-questionnaire) information.  For more information, see [Managing Compliance Forms](/guides/security-and-compliance/pci-dss-compliance/managing-pci-compliance/#completing-compliance-forms).
+     * As part of onboarding your users, you\'ll need to build a UI experience that allows users to complete the PCI `compliance_form` and download the form as a PDF if requested.  For more information, see [Managing Compliance Forms](/guides/security-and-compliance/pci-dss-compliance/managing-pci-compliance/#completing-compliance-forms).
      * @summary Complete Compliance Forms
      * @param complianceFormsId ID of the &#x60;compliance_form&#x60;.
      * @param updateComplianceFormRequest 
      */
 
-    private async updateHelper(complianceFormsId: string, updateComplianceFormRequest?: UpdateComplianceFormRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ComplianceForm;  }> {
+    private async updateHelper(complianceFormsId: string, updateComplianceFormRequest?: UpdateComplianceFormRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ComplianceForm;  rawBody: any; }> {
         const localVarPath = this.basePath + '/compliance_forms/{compliance_forms_id}'
             .replace('{' + 'compliance_forms_id' + '}', encodeURIComponent(String(complianceFormsId)));
         let localVarQueryParameters: any = {};
@@ -257,14 +266,15 @@ export class ComplianceFormsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: ComplianceForm;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: ComplianceForm;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "ComplianceForm");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -275,7 +285,7 @@ export class ComplianceFormsApi {
     }
 
     /**
-     * As part of onboarding your users, you\'ll need to build a UI experience that allows users to complete the PCI `compliance_form` and download the form as a PDF if requested.  To complete PCI compliance forms:  1. Get the `compliance_form` generated for the merchant using the `ID` from the webhook and present the form to your users when requested. 2. Show your users the [required text](/guides/security-and-compliance/pci-dss-compliance/managing-pci-compliance/#obtaining-compliance-consent) to obtain consent. 3. Submit a PUT API request with the necessary [attestation](/guides/security-and-compliance/pci-dss-compliance/managing-pci-compliance/#completing-the-questionnaire) information.  For more information, see [Managing Compliance Forms](/guides/security-and-compliance/pci-dss-compliance/managing-pci-compliance/#completing-compliance-forms).
+     * As part of onboarding your users, you\'ll need to build a UI experience that allows users to complete the PCI `compliance_form` and download the form as a PDF if requested.  For more information, see [Managing Compliance Forms](/guides/security-and-compliance/pci-dss-compliance/managing-pci-compliance/#completing-compliance-forms).
      * @summary Complete Compliance Forms
      * @param complianceFormsId ID of the &#x60;compliance_form&#x60;.
      * @param updateComplianceFormRequest 
@@ -287,20 +297,22 @@ export class ComplianceFormsApi {
     }
 
     /**
-     * As part of onboarding your users, you\'ll need to build a UI experience that allows users to complete the PCI `compliance_form` and download the form as a PDF if requested.  To complete PCI compliance forms:  1. Get the `compliance_form` generated for the merchant using the `ID` from the webhook and present the form to your users when requested. 2. Show your users the [required text](/guides/security-and-compliance/pci-dss-compliance/managing-pci-compliance/#obtaining-compliance-consent) to obtain consent. 3. Submit a PUT API request with the necessary [attestation](/guides/security-and-compliance/pci-dss-compliance/managing-pci-compliance/#completing-the-questionnaire) information.  For more information, see [Managing Compliance Forms](/guides/security-and-compliance/pci-dss-compliance/managing-pci-compliance/#completing-compliance-forms).
+     * As part of onboarding your users, you\'ll need to build a UI experience that allows users to complete the PCI `compliance_form` and download the form as a PDF if requested.  For more information, see [Managing Compliance Forms](/guides/security-and-compliance/pci-dss-compliance/managing-pci-compliance/#completing-compliance-forms).
      * @summary Complete Compliance Forms
      * @param complianceFormsId ID of the &#x60;compliance_form&#x60;.
      * @param updateComplianceFormRequest 
      */
     public async updateHttp(complianceFormsId: string, updateComplianceFormRequest?: UpdateComplianceFormRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: ComplianceForm; }> {
+        Promise<{response: http.IncomingMessage, body: ComplianceForm;  rawBody: any;}> {
         const responseObject = await this.updateHelper(complianceFormsId, updateComplianceFormRequest,  options);
         return responseObject;
     }
 
+
     /**
      * Extracts page and links fields from response body and assigns as properties to finixList
      */ 
+    // @ts-ignore: Not all endpoints have list views
     private embeddedHelper(responseObject: any, dataList: finixList<any>){
         if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
             dataList.page = responseObject.body.page;
@@ -309,7 +321,7 @@ export class ComplianceFormsApi {
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
         let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
-        tempList.forEach(item => {dataList.add(item)});
+        tempList.forEach((item: any) => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
@@ -318,6 +330,7 @@ export class ComplianceFormsApi {
     /**
      * Extracts offset value from response body and determines if end of list has been reached
      */
+    // @ts-ignore: Not all endpoints have list views
     private getOffsetQueryParam(responseObject: any, queryParam: any){
         queryParam.offset = responseObject.body.page.offset + responseObject.body.page.limit;
         var endReached: Boolean = false;
@@ -330,6 +343,7 @@ export class ComplianceFormsApi {
     /**
     * Extracts nextCursor value from response body and determines if end of list has been reached
     */
+    // @ts-ignore: Not all endpoints have list views
     private getCursorQueryParam(responseObject: any, queryParam: any){
         queryParam.afterCursor = responseObject.body.page.nextCursor;
         var endReached: Boolean = false;

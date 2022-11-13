@@ -2,12 +2,13 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { CreateWebhookRequestAuthenticationBasic } from './createWebhookRequestAuthenticationBasic';
 import { CreateWebhookRequestAuthenticationBearer } from './createWebhookRequestAuthenticationBearer';
 
 /**
-* The authentication settings that are used to send webhook events.
+* The [authentication settings](/guides/developers/webhooks/#authenticating-webhooks) that are used to send webhook events.
 */
 export class CreateWebhookRequestAuthentication {
     'basic'?: CreateWebhookRequestAuthenticationBasic;

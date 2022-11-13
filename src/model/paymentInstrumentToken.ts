@@ -2,6 +2,7 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 import { Currency } from './currency';
 import { PaymentInstrumentTokenLinks } from './paymentInstrumentTokenLinks';
@@ -10,12 +11,16 @@ export class PaymentInstrumentToken {
     /**
     * Key value pair for annotating custom meta data (e.g. order numbers).
     */
-    'tags'?: { [key: string]: string; };
+    'tags'?: { [key: string]: string; } | null;
+    /**
+    * Details if the `Payment Instrument` resource is enabled. Set to `false` to disable the `Payment Instrument`.
+    */
+    'enabled'?: boolean;
     'type'?: PaymentInstrumentToken.TypeEnum | string;
     /**
-    * The ID of the resource.
+    * The ID of the `Payment Instrument`.
     */
-    'id'?: string | null;
+    'id'?: string;
     /**
     * Timestamp of when the object was created.
     */
@@ -25,15 +30,15 @@ export class PaymentInstrumentToken {
     */
     'updatedAt'?: Date;
     /**
-    * The ID of the resource.
+    * The ID of the `Application` resource the `Payment Instrument` was created under.
     */
     'application'?: string;
     'currency'?: Currency;
     'fingerprint'?: string;
     /**
-    * The ID of the resource.
+    * The ID of the `Identity` used to create the `Payment Instrument` resource.
     */
-    'identity'?: string | null;
+    'identity'?: string;
     'instrumentType'?: PaymentInstrumentToken.InstrumentTypeEnum | string;
     'payloadType'?: PaymentInstrumentToken.PayloadTypeEnum | string;
     'links'?: PaymentInstrumentTokenLinks;
@@ -45,6 +50,11 @@ export class PaymentInstrumentToken {
             "name": "tags",
             "baseName": "tags",
             "type": "{ [key: string]: string; }"
+        },
+        {
+            "name": "enabled",
+            "baseName": "enabled",
+            "type": "boolean"
         },
         {
             "name": "type",

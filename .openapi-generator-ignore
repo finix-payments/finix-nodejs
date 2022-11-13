@@ -1,0 +1,9 @@
+/src/api/usersApi.ts
+/src/api/applicationProfilesApi.ts
+/src/api/feesApi.ts
+/src/api/applicationsApi.ts
+/src/api/paymentInstrumentsP2CApi.ts
+/src/api/processorsApi.ts
+/src/api/subscriptionAmountsApi.ts
+/src/api/subscriptionEnrollmentsApi.ts
+/src/api/subscriptionSchedulesApi.ts

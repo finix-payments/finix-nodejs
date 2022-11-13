@@ -2,36 +2,37 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 
 /**
-* The billing address of the buyer. This field is used for identity verification purposes.
+* The primary address for the legal entity.
 */
-export class CreateIdentityRequestEntityPersonalAddress {
+export class CreateIdentityRequestEntityBusinessAddress {
     /**
     * City (max 20 characters).
     */
     'city'?: string;
     /**
-    * 3-Letter country code (e.g. USA).
+    * 3-Letter Country code (e.g. USA).
     */
     'country'?: string;
     /**
-    * First line of the address (max 35 characters).
+    * 2-letter state code.
     */
-    'line1'?: string;
+    'region'?: string;
     /**
     * Second line of the address (max 35 characters).
     */
     'line2'?: string;
     /**
+    * First line of the address (max 35 characters).
+    */
+    'line1'?: string;
+    /**
     * Zip or Postal code (max 7 characters).
     */
     'postalCode'?: string;
-    /**
-    * 2-letter State code.
-    */
-    'region'?: string;
 
     static discriminator: string | undefined = undefined;
 
@@ -47,8 +48,8 @@ export class CreateIdentityRequestEntityPersonalAddress {
             "type": "string"
         },
         {
-            "name": "line1",
-            "baseName": "line1",
+            "name": "region",
+            "baseName": "region",
             "type": "string"
         },
         {
@@ -57,18 +58,18 @@ export class CreateIdentityRequestEntityPersonalAddress {
             "type": "string"
         },
         {
-            "name": "postalCode",
-            "baseName": "postal_code",
+            "name": "line1",
+            "baseName": "line1",
             "type": "string"
         },
         {
-            "name": "region",
-            "baseName": "region",
+            "name": "postalCode",
+            "baseName": "postal_code",
             "type": "string"
         }    ];
 
     static getAttributeTypeMap() {
-        return CreateIdentityRequestEntityPersonalAddress.attributeTypeMap;
+        return CreateIdentityRequestEntityBusinessAddress.attributeTypeMap;
     }
 }
 

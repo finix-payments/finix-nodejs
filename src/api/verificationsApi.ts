@@ -5,24 +5,34 @@
 
 import localVarRequest from 'request';
 import * as http from 'http';
+// @ts-ignore: Some endpoints interact with files
 import * as fs from 'fs';
 /* tslint:disable:no-unused-locals */
+// @ts-ignore: Some unused imports always provided
 import { CreateVerificationRequest } from '../model/createVerificationRequest';
+// @ts-ignore: Some unused imports always provided
 import { Error401Unauthorized } from '../model/error401Unauthorized';
+// @ts-ignore: Some unused imports always provided
 import { Error403ForbiddenList } from '../model/error403ForbiddenList';
+// @ts-ignore: Some unused imports always provided
 import { Error404NotFoundList } from '../model/error404NotFoundList';
+// @ts-ignore: Some unused imports always provided
 import { Error406NotAcceptable } from '../model/error406NotAcceptable';
+// @ts-ignore: Some unused imports always provided
 import { Error422InvalidFieldList } from '../model/error422InvalidFieldList';
+// @ts-ignore: Some unused imports always provided
 import { ErrorGeneric } from '../model/errorGeneric';
+// @ts-ignore: Some unused imports always provided
 import { Verification } from '../model/verification';
+// @ts-ignore: Some unused imports always provided
 import { VerificationsList } from '../model/verificationsList';
 import { ListMerchantVerificationsQueryParams } from '../model/listMerchantVerificationsQueryParams';
 import { ListPaymentInstrumentVerificationsQueryParams } from '../model/listPaymentInstrumentVerificationsQueryParams';
 import { ListVerificationsQueryParams } from '../model/listVerificationsQueryParams';
 import { ObjectSerializer, Authentication, VoidAuth, Interceptor, finixList } from '../model/models';
-import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
+import { HttpBasicAuth } from '../model/models';
 
-import { HttpError, RequestFile } from './apis';
+import { HttpError } from './apis';
 
 let defaultBasePath = 'https://finix.sandbox-payments-api.com';
 
@@ -103,12 +113,12 @@ export class VerificationsApi {
 
     /**
      * Helper function. 
-     * Create a `Verification` to verify a merchant\'s `Identity`.  Verifications can also be created directly on the resources you want to verify: - `POST /merchants/{merchant_id}/verifications`  Verify `Payment Instruments` directly on the resource:  - `POST /payment_instruments/{payment_instrument_id}/verifications`
+     * Create a `Verification` to verify a seller\'s `Identity`.  Verifications can also be created directly on the resources you want to verify. For example: - `POST /merchants/{merchant_id}/verifications` - `POST /payment_instruments/{payment_instrument_id}/verifications`
      * @summary Create a Merchant Verification
      * @param createVerificationRequest 
      */
 
-    private async createHelper(createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Verification;  }> {
+    private async createHelper(createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Verification;  rawBody: any; }> {
         const localVarPath = this.basePath + '/verifications';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -161,14 +171,15 @@ export class VerificationsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: Verification;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: Verification;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "Verification");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -179,7 +190,7 @@ export class VerificationsApi {
     }
 
     /**
-     * Create a `Verification` to verify a merchant\'s `Identity`.  Verifications can also be created directly on the resources you want to verify: - `POST /merchants/{merchant_id}/verifications`  Verify `Payment Instruments` directly on the resource:  - `POST /payment_instruments/{payment_instrument_id}/verifications`
+     * Create a `Verification` to verify a seller\'s `Identity`.  Verifications can also be created directly on the resources you want to verify. For example: - `POST /merchants/{merchant_id}/verifications` - `POST /payment_instruments/{payment_instrument_id}/verifications`
      * @summary Create a Merchant Verification
      * @param createVerificationRequest 
      */
@@ -190,12 +201,12 @@ export class VerificationsApi {
     }
 
     /**
-     * Create a `Verification` to verify a merchant\'s `Identity`.  Verifications can also be created directly on the resources you want to verify: - `POST /merchants/{merchant_id}/verifications`  Verify `Payment Instruments` directly on the resource:  - `POST /payment_instruments/{payment_instrument_id}/verifications`
+     * Create a `Verification` to verify a seller\'s `Identity`.  Verifications can also be created directly on the resources you want to verify. For example: - `POST /merchants/{merchant_id}/verifications` - `POST /payment_instruments/{payment_instrument_id}/verifications`
      * @summary Create a Merchant Verification
      * @param createVerificationRequest 
      */
     public async createHttp(createVerificationRequest?: CreateVerificationRequest, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: Verification; }> {
+        Promise<{response: http.IncomingMessage, body: Verification;  rawBody: any;}> {
         const responseObject = await this.createHelper(createVerificationRequest,  options);
         return responseObject;
     }
@@ -206,7 +217,7 @@ export class VerificationsApi {
      * @param verificationId ID of &#x60;Verification&#x60; object.
      */
 
-    private async getHelper(verificationId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Verification;  }> {
+    private async getHelper(verificationId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Verification;  rawBody: any; }> {
         const localVarPath = this.basePath + '/verifications/{verification_id}'
             .replace('{' + 'verification_id' + '}', encodeURIComponent(String(verificationId)));
         let localVarQueryParameters: any = {};
@@ -256,14 +267,15 @@ export class VerificationsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: Verification;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: Verification;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "Verification");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -290,7 +302,7 @@ export class VerificationsApi {
      * @param verificationId ID of &#x60;Verification&#x60; object.
      */
     public async getHttp(verificationId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : 
-        Promise<{response: http.IncomingMessage, body: Verification; }> {
+        Promise<{response: http.IncomingMessage, body: Verification;  rawBody: any;}> {
         const responseObject = await this.getHelper(verificationId,  options);
         return responseObject;
     }
@@ -302,7 +314,7 @@ export class VerificationsApi {
     * @param merchantId ID of &#x60;Merchant&#x60; object.
     * 
     */
-    private async listByMerchantIdHelper (merchantId: string, listMerchantVerificationsQueryParams?:ListMerchantVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: VerificationsList;  }> {
+    private async listByMerchantIdHelper (merchantId: string, listMerchantVerificationsQueryParams?:ListMerchantVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: VerificationsList;  rawBody: any; }> {
         const localVarPath = this.basePath + '/merchants/{merchant_id}/verifications'
             .replace('{' + 'merchant_id' + '}', encodeURIComponent(String(merchantId)));
         let localVarQueryParameters: any = {};
@@ -363,14 +375,15 @@ export class VerificationsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: VerificationsList;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: VerificationsList;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "VerificationsList");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -417,7 +430,7 @@ export class VerificationsApi {
      * 
      */
     public async listByMerchantIdHttp (merchantId: string, listMerchantVerificationsQueryParams?:ListMerchantVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>, rawBody: any}> {
         const responseObject = await this.listByMerchantIdHelper(merchantId, listMerchantVerificationsQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
         let reachedEnd: Boolean;
@@ -438,7 +451,7 @@ export class VerificationsApi {
         let dataList = new finixList<any>(nextFetch, reachedEnd);
         dataList = this.embeddedHelper(responseObject, dataList);
         //dataList.hasMore = !reachedEnd;
-        return Promise.resolve({response: responseObject.response, body: dataList});
+        return Promise.resolve({response: responseObject.response, body: dataList, rawBody: responseObject.rawBody});
     }
     /**
      * Helper function. 
@@ -448,7 +461,7 @@ export class VerificationsApi {
     * @param paymentInstrumentId ID of &#x60;Payment Instrument &#x60;object.
     * 
     */
-    private async listByPaymentInstrumentIdHelper (paymentInstrumentId: string, listPaymentInstrumentVerificationsQueryParams?:ListPaymentInstrumentVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: VerificationsList;  }> {
+    private async listByPaymentInstrumentIdHelper (paymentInstrumentId: string, listPaymentInstrumentVerificationsQueryParams?:ListPaymentInstrumentVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: VerificationsList;  rawBody: any; }> {
         const localVarPath = this.basePath + '/payment_instruments/{payment_instrument_id}/verifications'
             .replace('{' + 'payment_instrument_id' + '}', encodeURIComponent(String(paymentInstrumentId)));
         let localVarQueryParameters: any = {};
@@ -512,14 +525,15 @@ export class VerificationsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: VerificationsList;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: VerificationsList;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "VerificationsList");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -566,7 +580,7 @@ export class VerificationsApi {
      * 
      */
     public async listByPaymentInstrumentIdHttp (paymentInstrumentId: string, listPaymentInstrumentVerificationsQueryParams?:ListPaymentInstrumentVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>, rawBody: any}> {
         const responseObject = await this.listByPaymentInstrumentIdHelper(paymentInstrumentId, listPaymentInstrumentVerificationsQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
         let reachedEnd: Boolean;
@@ -587,7 +601,7 @@ export class VerificationsApi {
         let dataList = new finixList<any>(nextFetch, reachedEnd);
         dataList = this.embeddedHelper(responseObject, dataList);
         //dataList.hasMore = !reachedEnd;
-        return Promise.resolve({response: responseObject.response, body: dataList});
+        return Promise.resolve({response: responseObject.response, body: dataList, rawBody: responseObject.rawBody});
     }
     /**
      * Helper function. 
@@ -595,7 +609,7 @@ export class VerificationsApi {
      * @summary List Verifications
 
     */
-    private async listHelper (listVerificationsQueryParams?:ListVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: VerificationsList;  }> {
+    private async listHelper (listVerificationsQueryParams?:ListVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: VerificationsList;  rawBody: any; }> {
         const localVarPath = this.basePath + '/verifications';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -651,14 +665,15 @@ export class VerificationsApi {
                     localVarRequestOptions.form = localVarFormParams;
                 }
             }
-            return new Promise<{ response: http.IncomingMessage; body: VerificationsList;  }>((resolve, reject) => {
+            return new Promise<{ response: http.IncomingMessage; body: VerificationsList;  rawBody: any; }>((resolve, reject) => {
                 localVarRequest(localVarRequestOptions, (error, response, body) => {
                     if (error) {
                         reject(error);
                     } else {
                         if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            const rawBody: string = body;
                             body = ObjectSerializer.deserialize(body, "VerificationsList");
-                            resolve({ response: response, body: body });
+                            resolve({ response: response, body: body, rawBody: rawBody });
                         } else {
                             reject(new HttpError(response, body, response.statusCode));
                         }
@@ -701,7 +716,7 @@ export class VerificationsApi {
      * @summary List Verifications
      */
     public async listHttp (listVerificationsQueryParams?:ListVerificationsQueryParams, options: {headers: {[name: string]: string}} = {headers: {}}) :
-        Promise<{response: http.IncomingMessage, body: finixList<any>}> {
+        Promise<{response: http.IncomingMessage, body: finixList<any>, rawBody: any}> {
         const responseObject = await this.listHelper(listVerificationsQueryParams, options);
         // Check if response body has nextCursor property or offset property and extract the corresponding fields
         let reachedEnd: Boolean;
@@ -722,12 +737,14 @@ export class VerificationsApi {
         let dataList = new finixList<any>(nextFetch, reachedEnd);
         dataList = this.embeddedHelper(responseObject, dataList);
         //dataList.hasMore = !reachedEnd;
-        return Promise.resolve({response: responseObject.response, body: dataList});
+        return Promise.resolve({response: responseObject.response, body: dataList, rawBody: responseObject.rawBody});
     }
+
 
     /**
      * Extracts page and links fields from response body and assigns as properties to finixList
      */ 
+    // @ts-ignore: Not all endpoints have list views
     private embeddedHelper(responseObject: any, dataList: finixList<any>){
         if(responseObject.body.embedded == null || responseObject.body.embedded == undefined){
             dataList.page = responseObject.body.page;
@@ -736,7 +753,7 @@ export class VerificationsApi {
         }
         const embeddedName = Object.getOwnPropertyNames(responseObject.body.embedded)[0];
         let tempList = <finixList<any>> responseObject.body.embedded[embeddedName];
-        tempList.forEach(item => {dataList.add(item)});
+        tempList.forEach((item: any) => {dataList.add(item)});
         dataList.page = responseObject.body.page;
         dataList.links = responseObject.body.links;
         return dataList;
@@ -745,6 +762,7 @@ export class VerificationsApi {
     /**
      * Extracts offset value from response body and determines if end of list has been reached
      */
+    // @ts-ignore: Not all endpoints have list views
     private getOffsetQueryParam(responseObject: any, queryParam: any){
         queryParam.offset = responseObject.body.page.offset + responseObject.body.page.limit;
         var endReached: Boolean = false;
@@ -757,6 +775,7 @@ export class VerificationsApi {
     /**
     * Extracts nextCursor value from response body and determines if end of list has been reached
     */
+    // @ts-ignore: Not all endpoints have list views
     private getCursorQueryParam(responseObject: any, queryParam: any){
         queryParam.afterCursor = responseObject.body.page.nextCursor;
         var endReached: Boolean = false;

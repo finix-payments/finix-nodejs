@@ -2,41 +2,42 @@
  * Finix API
  */
 
+// @ts-ignore
 import { RequestFile } from './models';
 
 export class CreateOnboardingFormLinkRequest {
     /**
-    * Your Terms of Service URL. The URL is provided to users for consent along with Finix\'s Terms of Service.
+    * How long (in minutes) the link is valid for.
     */
-    'termsOfServiceUrl'?: string;
-    /**
-    * The URL users get sent to after completing the onboarding flow.
-    */
-    'returnUrl'?: string;
-    /**
-    * The URL of the page where you display the fees related to processing payments (for more info, see [Displaying Processing Fees](/guides/onboarding/onboarding-form/#displaying-processing-fees)).
-    */
-    'feeDetailsUrl'?: string;
+    'expirationInMinutes'?: number;
     /**
     * The URL users get sent to if the bearer token expires.
     */
     'expiredSessionUrl'?: string;
     /**
-    * How long (in minutes) the link is valid for.
+    * The URL of the page where you display the fees related to processing payments (for more info, see [Displaying Processing Fees](/guides/onboarding/onboarding-form/#displaying-processing-fees)).
     */
-    'expirationInMinutes'?: number;
+    'feeDetailsUrl'?: string;
+    /**
+    * The URL users get sent to after completing the onboarding flow.
+    */
+    'returnUrl'?: string;
+    /**
+    * Your Terms of Service URL. The URL is provided to users for consent along with Finix\'s Terms of Service.
+    */
+    'termsOfServiceUrl'?: string;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "termsOfServiceUrl",
-            "baseName": "terms_of_service_url",
-            "type": "string"
+            "name": "expirationInMinutes",
+            "baseName": "expiration_in_minutes",
+            "type": "number"
         },
         {
-            "name": "returnUrl",
-            "baseName": "return_url",
+            "name": "expiredSessionUrl",
+            "baseName": "expired_session_url",
             "type": "string"
         },
         {
@@ -45,14 +46,14 @@ export class CreateOnboardingFormLinkRequest {
             "type": "string"
         },
         {
-            "name": "expiredSessionUrl",
-            "baseName": "expired_session_url",
+            "name": "returnUrl",
+            "baseName": "return_url",
             "type": "string"
         },
         {
-            "name": "expirationInMinutes",
-            "baseName": "expiration_in_minutes",
-            "type": "number"
+            "name": "termsOfServiceUrl",
+            "baseName": "terms_of_service_url",
+            "type": "string"
         }    ];
 
     static getAttributeTypeMap() {
