@@ -5,12 +5,13 @@
   "main": "lib/api.js",
   "types": "lib/api.d.ts",
   "dependencies": {
-    "request": "^2.88.2",
-    "@types/request": "^2.48.8"
+    "@types/request": "^2.48.8",
+    "request": "^2.88.2"
   },
   "devDependencies": {
     "@types/jest": "^28.1.4",
     "@types/node": "^18.0.3",
+    "chai": "^4.3.7",
     "jest": "^28.1.2",
     "mocha": "^10.0.0",
     "ts-jest": "^28.0.5"
