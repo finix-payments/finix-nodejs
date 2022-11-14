@@ -1,3 +1,6 @@
+## 3.0.1 - 2022-11-14
+* Cleaned up dependencies
+
 ## 3.0.0 -2022-11-12
 * Enforced strict typing resulting in regenerating all files.
     * Can't guarantee backwards compatibility, so major bump in version. 
