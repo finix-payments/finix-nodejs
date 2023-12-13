@@ -1,5 +1,6 @@
 # Finix Node.js API Library
-This is the official Finix Node.js API Library 
+
+At this time, the Finix Node.js SDK is not receiving regular updates or improvements. We plan on releasing a new version of our Node.js SDK in the near future. If you have any questions, please reach out to the [Finix Support Team](mailto:support@finixpayments.com).
 
 ## Installation
 
