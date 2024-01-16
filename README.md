@@ -2,11 +2,7 @@
 
 At this time, the Finix Node.js SDK is not receiving regular updates or improvements. We plan on releasing a new version of our Node.js SDK in the near future. If you have any questions, please reach out to the [Finix Support Team](mailto:support@finixpayments.com).
 
-## Installation
-
-Our team is hard at work revamping our SDKs to bring you exciting new features and optimizations.
-
-While we fine-tune and make changes, we've temporarily paused releasing updates since 09/20/222. If you have any questions, feel free to reach out to the [Finix Support Team](mailto:support@finixpayments.com).
+While we fine-tune and make changes, we've paused releasing updates since 09/20/2022. If you have any questions, feel free to reach out to the [Finix Support Team](mailto:support@finixpayments.com).
 
 ### Prerequisites
 - Node.js 16 or higher
