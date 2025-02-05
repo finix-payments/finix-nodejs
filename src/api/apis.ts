@@ -46,7 +46,7 @@ export class HttpError extends Error {
         super('HTTP request failed');
         this.name = 'HttpError';
         this.response = response;
-        this.body = rawBody._embedded.errors;
+        this.body = rawBody?._embedded?.errors;
         this.statusCode = statusCode;
         this.headers = response.rawHeaders;
     }
